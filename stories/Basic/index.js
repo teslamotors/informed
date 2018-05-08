@@ -7,8 +7,8 @@ import { Form, Text } from '../../src';
 
 const Basic = () => (
   <div>
-    <Form key="editor1">
-      {formApi => (
+    <Form>
+      {({ formApi }) => (
         <form onSubmit={formApi.submitForm} id="form">
           <label htmlFor="name">First name:</label>
           <Text field="name" id="name" />

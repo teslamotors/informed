@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { bindToField } from '../HOC/withFieldApi'
+import { bindToField } from '../HOC/withFieldStuff';
 
 class Field extends Component {
 

@@ -5,7 +5,6 @@ const Text = ( { fieldApi, fieldState, ...props  } ) => {
   const {
     value
   } = fieldState;
-  console.log("VAL", value);
   const {
     setValue
   } = fieldApi;

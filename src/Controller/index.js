@@ -3,15 +3,16 @@ const EventEmitter = require("events").EventEmitter;
 
 class Controller extends EventEmitter {
 
-  constructor(){
+  constructor({ hooks } = { hooks: {} }){
     super();
+    this.hooks = hooks;
     this.state = {
       values: {}
     };
-
     this.api = {
       setValue: this.setValue,
-      getValue: this.getValue
+      getValue: this.getValue,
+      submitForm: this.submitForm
     }
   }
 
@@ -22,6 +23,13 @@ class Controller extends EventEmitter {
 
   getValue = ( field, value ) => {
     return ObjectMap.get( this.state.values, field );
+  }
+
+  submitForm = (e) => {
+    e.preventDefault(e);
+    if( this.hooks.onSubmit ){
+      this.hooks.onSubmit( this.state.values );
+    }
   }
 
 }

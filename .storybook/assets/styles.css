@@ -1,0 +1,23 @@
+input {
+  margin-bottom: 1rem;
+  display: block;
+}
+
+textarea {
+  margin-bottom: 1rem;
+  display: block;
+}
+
+select {
+  margin-bottom: 1rem;
+  display: block;
+}
+
+label {
+  text-align: left;
+}
+
+button {
+  text-align: left;
+  display: block;
+}

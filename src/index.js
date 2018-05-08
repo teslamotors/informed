@@ -17,7 +17,7 @@ export {
   // withFormApi,
   // withFieldApi,
   // withRadioGroup,
-  // Text,
+  Text,
   // Radio,
   // TextArea,
   // Select,

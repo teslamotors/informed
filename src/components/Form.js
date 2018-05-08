@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { FormContext } from '../Context';
-import withFormApi from '../HOC/withFormApi';
 import Controller from '../Controller';
 
 class Form extends Component {
@@ -8,14 +7,11 @@ class Form extends Component {
   constructor(props) {
     super(props);
     this.controller = new Controller();
-    console.log(this.formContext);
-  }
-
-  get formContext(){
-    return {
+    this.formContext = {
       formApi: this.controller.api,
       formState: this.controller.state
     }
+    this.controller.on('change', () => this.forceUpdate() );
   }
 
   get content(){

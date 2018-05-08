@@ -1,0 +1,2 @@
+--webpack-config config/webpack/webpack.test.config.js
+tests/**/*.spec.js

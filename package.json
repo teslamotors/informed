@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server -d --config webpack.dev.config.js --port 4004 --hot",
     "build": "webpack -p --config ./webpack.dist.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha-webpack --opts tests/mocha-webpack.opts",
+    "test:watch": "npm run test -- --watch",
     "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "repository": {
@@ -38,11 +39,15 @@
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "chai": "^4.1.2",
     "css-loader": "^0.28.11",
     "html-loader": "^0.5.5",
     "markdown-loader": "^2.0.2",
+    "mocha": "^5.1.1",
+    "mocha-webpack": "1.0.1",
     "react-prism": "^4.3.2",
     "sass-loader": "^7.0.1",
+    "sinon": "^5.0.6",
     "storybook-readme": "^3.3.0",
     "style-loader": "^0.21.0",
     "webpack": "^3.5.2",

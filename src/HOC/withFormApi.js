@@ -3,7 +3,7 @@ import { FormContext } from '../Context';
 
 const withFormApi = ( Component ) => ( props ) => (
   <FormContext.Consumer>
-    {( formApi ) => <Component formApi={formApi} {...props} />}
+    {( { formApi, formState } ) => <Component formApi={formApi} formState={formState} {...props} />}
   </FormContext.Consumer>
 );
 

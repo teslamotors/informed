@@ -12,6 +12,11 @@ class Form extends Component {
       formState: this.controller.state
     }
     this.controller.on('change', () => this.forceUpdate() );
+    this.controller.on('change', (state) => {
+      if( props.onChange ){
+        props.onChange(state);
+      }
+    })
   }
 
   get content(){

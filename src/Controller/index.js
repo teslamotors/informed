@@ -18,7 +18,7 @@ class Controller extends EventEmitter {
 
   setValue = ( field, value ) => {
     ObjectMap.set( this.state.values, field, value );
-    this.emit('change');
+    this.emit('change', this.state);
   }
 
   getValue = ( field, value ) => {

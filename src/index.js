@@ -1,4 +1,5 @@
-import Form from './components/Form'
+import Form from './components/Form';
+import Scope from './components/Scope';
 // import Field from './components/Field'
 // import withFormApi from './components/withFormApi'
 // import withFieldApi from './components/withFieldApi'
@@ -13,6 +14,7 @@ import Text from './components/form-fields/Text'
 
 export {
   Form,
+  Scope,
   //Field,
   // withFormApi,
   // withFieldApi,

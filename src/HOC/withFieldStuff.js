@@ -1,5 +1,8 @@
 import React from 'react'
 import { FormContext } from '../Context';
+import withFormApi from './withFormApi';
+import withFormState from './withFormState';
+import withController from './withController';
 
 const buildFieldApi = ( formApi, field ) => ({
     getValue: () => formApi.getValue(field),
@@ -15,29 +18,47 @@ const buildFieldState = ( formApi, field ) => {
   }
 };
 
-const withFieldApi = ( field ) => ( Component ) => ( props ) => (
-  <FormContext.Consumer>
-    {( { formApi } ) => {
-      return <Component fieldApi={buildFieldApi( formApi, field )} {...props} />
-    }}
-  </FormContext.Consumer>
-);
+const withFieldApi = ( field ) => ( Component ) => withFormApi(( formApi, ...props ) => (
+  <Component
+    fieldApi={buildFieldApi( formApi, field )}
+    {...props} />
+));
 
-const withFieldState = ( field ) => ( Component ) => ( props ) => (
-  <FormContext.Consumer>
-    {( { formState } ) => {
-      return <Component fieldState={buildFieldState( formApi, field )} {...props} />
-    }}
-  </FormContext.Consumer>
-);
+const withFieldState = ( field ) => ( Component ) => withFormApi(( formApi, ...props ) => (
+  <Component
+    fieldState={buildFieldState( formApi, field )}
+    {...props} />
+));
 
-const bindToField = ( Component ) => ( props ) => (
-  <FormContext.Consumer>
-    {( { formApi, formState } ) => {
-      return <Component fieldApi={buildFieldApi( formApi, props.field )} fieldState={buildFieldState( formApi, props.field )} {...props} />
-    }}
-  </FormContext.Consumer>
-)
+const bindToField = ( Component ) => withController(withFormApi( class extends React.PureComponent {
+
+  constructor(props){
+    super(props);
+    this.state = buildFieldState( props.formApi, props.field );
+    this.fieldApi = buildFieldApi( props.formApi, props.field );
+    props.controller.on('field', ( field ) => {
+      if( field === props.formApi.getFullField(props.field) ){
+        this.setState(buildFieldState( props.formApi, props.field ));
+      }
+    })
+  }
+
+  render(){
+    const {
+      formApi,
+      formState,
+      controller,
+      ...rest
+    } = this.props;
+
+    return (
+      <Component
+        fieldApi={this.fieldApi}
+        fieldState={this.state}
+        {...rest} />
+    )
+  }
+}));
 
 export {
   withFieldApi,

@@ -12,6 +12,7 @@ class Controller extends EventEmitter {
     this.api = {
       setValue: this.setValue,
       getValue: this.getValue,
+      getFullField: this.getFullField,
       submitForm: this.submitForm
     }
   }
@@ -19,11 +20,14 @@ class Controller extends EventEmitter {
   setValue = ( field, value ) => {
     ObjectMap.set( this.state.values, field, value );
     this.emit('change', this.state);
+    this.emit('field', field);
   }
 
   getValue = ( field, value ) => {
     return ObjectMap.get( this.state.values, field );
   }
+
+  getFullField = ( field ) => field;
 
   submitForm = (e) => {
     e.preventDefault(e);

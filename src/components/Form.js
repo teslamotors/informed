@@ -9,7 +9,8 @@ class Form extends Component {
     this.controller = new Controller();
     this.formContext = {
       formApi: this.controller.api,
-      formState: this.controller.state
+      formState: this.controller.state,
+      controller: this.controller
     }
     this.controller.on('change', () => this.forceUpdate() );
     this.controller.on('change', (state) => {

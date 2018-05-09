@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { bindToField } from '../HOC/withFieldStuff';
 
-class Field extends Component {
+class Field extends PureComponent {
 
   render(){
+    //console.log("RENDERING");
     const {
       fieldApi,
       fieldState,

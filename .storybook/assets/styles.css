@@ -21,3 +21,11 @@ button {
   text-align: left;
   display: block;
 }
+
+hr {
+    border: none !important;
+    height: 1px !important;
+    /* Set the hr color */
+    color: #333; /* old IE */
+    background-color: #333; /* Modern Browsers */
+}

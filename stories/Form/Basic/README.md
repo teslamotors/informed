@@ -1,4 +1,4 @@
-## Basic Form
+# Basic Form
 
 <!-- STORY -->
 

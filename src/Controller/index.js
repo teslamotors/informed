@@ -25,13 +25,29 @@ class Controller extends EventEmitter {
   }
 
   setValue = ( field, value ) => {
+    // Set value
     ObjectMap.set( this.state.values, field, value );
+    // Get the field controller to trigger any lifecycle methods
+    const fieldController = this.fields.get( field );
+    if( fieldController.validate && fieldController.config.validateOnChange ){
+      const error = fieldController.validate( fieldController.api.getValue() );
+      ObjectMap.set( this.state.errors, field, error );
+    }
+    // Emit changes
     this.emit('change', this.state);
     this.emit('field', field);
   }
 
   setTouched = ( field, value = true ) => {
+    // Set touched
     ObjectMap.set( this.state.touched, field, value );
+    // Get the field controller to trigger any lifecycle methods
+    const fieldController = this.fields.get( field );
+    if( fieldController.validate && fieldController.config.validateOnBlur ){
+      const error = fieldController.validate( fieldController.api.getValue() );
+      ObjectMap.set( this.state.errors, field, error );
+    }
+    // Emit changes
     this.emit('change', this.state);
     this.emit('field', field);
   }
@@ -62,8 +78,8 @@ class Controller extends EventEmitter {
 
   submitForm = (e) => {
     e.preventDefault(e);
-    this.fields.forEach(( api ) => {
-      api.setTouched();
+    this.fields.forEach(( field ) => {
+      field.api.setTouched();
     });
     if( this.hooks.onSubmit ){
       this.hooks.onSubmit( this.state.values );

@@ -35,25 +35,37 @@ const bindToField = ( Component ) => withController(withFormApi( class extends R
   constructor(props){
     super(props);
     const {
+      // Comes from withFormApi
       formApi,
-      field,
+      // Comes from withController
       controller,
-      validate
+      // Comes from user props
+      field,
+      validate,
+      validateOnBlur,
+      validateOnChange
     } = props;
 
     this.state = buildFieldState( formApi, field );
     this.fieldApi = buildFieldApi( formApi, field );
+
     // Rebuild state only when this field changes
     controller.on('field', ( name ) => {
       if( name === formApi.getFullField(field) ){
         this.setState(buildFieldState( formApi, field ));
       }
     });
-    // Register our api with the controller so he can do fun stuff with it :)
+
+    // Register our field with the controller so he can do fun stuff with it :)
     controller.register( formApi.getFullField(field), {
       validate,
-      ...this.fieldApi
+      config: {
+        validateOnBlur,
+        validateOnChange
+      },
+      api: this.fieldApi
     });
+
   }
 
   render(){
@@ -62,6 +74,8 @@ const bindToField = ( Component ) => withController(withFormApi( class extends R
       formState,
       controller,
       validate,
+      validateOnBlur,
+      validateOnChange,
       ...rest
     } = this.props;
 

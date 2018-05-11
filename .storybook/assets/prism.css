@@ -31,14 +31,15 @@ pre[class*="language-"] {
 
 /* Code blocks */
 pre[class*="language-"] {
-	padding: 0 !important;
+	padding: 1rem !important;
 	margin: 0 0 !important;
 	overflow: visible !important;
 	border-radius: 0.3em !important;
 }
 
 code[class*="language-"] {
-	margin: 1rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
   overflow: visible !important;
 }
 

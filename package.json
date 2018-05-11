@@ -8,7 +8,8 @@
     "build": "webpack -p --config ./webpack.dist.config.js",
     "test": "mocha-webpack --opts tests/mocha-webpack.opts",
     "test:watch": "npm run test -- --watch",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook:docs": "build-storybook -c .storybook -o docs"
   },
   "repository": {
     "type": "git",

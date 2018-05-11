@@ -4,5 +4,5 @@
 
 ##### Install with npm
 ```
-  {'npm install --save informed'}
+npm install --save informed
 ```

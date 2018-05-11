@@ -11,7 +11,7 @@ class Code extends Component {
     } = this.props;
 
     return (
-      <pre>
+      <pre style={{flex: 1}}>
         <PrismCode className={language}>
           {children}
         </PrismCode>

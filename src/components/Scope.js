@@ -6,6 +6,10 @@ const buildScopedContext = ( scope, formApi, formState, controller ) => {
     formApi: {
       getValue: ( field ) => formApi.getValue(`${scope}.${field}`),
       setValue: ( field, value ) => formApi.setValue(`${scope}.${field}`, value),
+      getTouched: ( field ) => formApi.getTouched(`${scope}.${field}`),
+      setTouched: ( field, value ) => formApi.setTouched(`${scope}.${field}`, value),
+      getError: ( field ) => formApi.getError(`${scope}.${field}`),
+      setError: ( field, value ) => formApi.setError(`${scope}.${field}`, value),
       getFullField: ( field ) => `${scope}.${field}`
     },
     formState,

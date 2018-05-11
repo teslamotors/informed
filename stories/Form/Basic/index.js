@@ -1,9 +1,9 @@
 import React from 'react';
-import Code from '../utils/Code';
-import { withDocs }  from 'storybook-readme';
+import Code from '../../utils/Code';
+import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 
-import { Form, Text, Scope } from '../../src';
+import { Form, Text, Scope } from '../../../src';
 
 const Basic = () => (
   <div>

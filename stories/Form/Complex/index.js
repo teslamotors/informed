@@ -1,16 +1,16 @@
 import React from 'react';
-import Code from '../utils/Code';
-import { withDocs }  from 'storybook-readme';
+import Code from '../../utils/Code';
+import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 
-import { Form, Text, Scope } from '../../src';
+import { Form, Text, Scope } from '../../../src';
 
 const Complex = () => (
   <div>
     <Form onChange={(state)=>console.log(state)}>
       {({ formApi, formState }) => (
-        <div style={{ display: 'flex' }}>
-          <div style={{ flex: 1 }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          <div style={{ flex: 1, marginRight: '2rem' }}>
             <form onSubmit={formApi.submitForm} id="complex-form">
               <label htmlFor="complex-name">First name:</label>
               <Text field="name" id="complex-name" />
@@ -31,9 +31,14 @@ const Complex = () => (
               </button>
             </form>
           </div>
-          <div style={{ flex: 1 }}>
-            <Code language="language-json">
+          <div style={{ flex: 2, flexDirection: 'column', display: 'flex', minWidth: '300px' }}>
+            <label>Values:</label>
+            <Code language="language-js">
               {JSON.stringify(formState.values, null, 2)}
+            </Code>
+            <label>Touched:</label>
+            <Code language="language-js">
+              {JSON.stringify(formState.touched, null, 2)}
             </Code>
           </div>
         </div>

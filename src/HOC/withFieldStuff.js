@@ -1,14 +1,14 @@
-import React from 'react'
-import { FormContext } from '../Context';
+import React from 'react';
 import withFormApi from './withFormApi';
-import withFormState from './withFormState';
 import withController from './withController';
 
 const buildFieldApi = ( formApi, field ) => ({
     getValue: () => formApi.getValue(field),
-    setValue: (value) => {
-      formApi.setValue(field, value)
-    }
+    setValue: (value) => formApi.setValue(field, value),
+    getTouched: () => formApi.getTouched(field),
+    setTouched: (value) => formApi.setTouched(field, value),
+    getError: () => formApi.getError(field),
+    setError: (value) => formApi.setError(field, value),
   }
 );
 
@@ -34,13 +34,26 @@ const bindToField = ( Component ) => withController(withFormApi( class extends R
 
   constructor(props){
     super(props);
-    this.state = buildFieldState( props.formApi, props.field );
-    this.fieldApi = buildFieldApi( props.formApi, props.field );
-    props.controller.on('field', ( field ) => {
-      if( field === props.formApi.getFullField(props.field) ){
-        this.setState(buildFieldState( props.formApi, props.field ));
+    const {
+      formApi,
+      field,
+      controller,
+      validate
+    } = props;
+
+    this.state = buildFieldState( formApi, field );
+    this.fieldApi = buildFieldApi( formApi, field );
+    // Rebuild state only when this field changes
+    controller.on('field', ( name ) => {
+      if( name === formApi.getFullField(field) ){
+        this.setState(buildFieldState( formApi, field ));
       }
-    })
+    });
+    // Register our api with the controller so he can do fun stuff with it :)
+    controller.register( formApi.getFullField(field), {
+      validate,
+      ...this.fieldApi
+    });
   }
 
   render(){
@@ -48,6 +61,7 @@ const bindToField = ( Component ) => withController(withFormApi( class extends R
       formApi,
       formState,
       controller,
+      validate,
       ...rest
     } = this.props;
 

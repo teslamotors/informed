@@ -4,18 +4,20 @@ import { bindToField } from '../HOC/withFieldStuff';
 class Field extends PureComponent {
 
   render(){
-    //console.log("RENDERING");
+    console.log("RENDERING");
     const {
       fieldApi,
       fieldState,
       children,
       component,
       render,
+      ...rest
     } = this.props;
 
     const props = {
       fieldApi,
-      fieldState
+      fieldState, 
+      ...rest
     };
 
     if (component) {

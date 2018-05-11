@@ -2,8 +2,8 @@ import React from 'react';
 import { storiesOf, addDecorator } from '@storybook/react';
 import StoryWrapper from './utils/StoryWrapper';
 import Intro from './Intro';
-import Basic from './Basic';
-import Complex from './Complex';
+import Basic from './Form/Basic';
+import Complex from './Form/Complex';
 
 addDecorator(StoryWrapper);
 

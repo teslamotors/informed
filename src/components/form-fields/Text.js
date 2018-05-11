@@ -6,10 +6,12 @@ const Text = ( { fieldApi, fieldState, ...props  } ) => {
     value
   } = fieldState;
   const {
-    setValue
+    setValue,
+    setTouched
   } = fieldApi;
   const {
     onChange,
+    onBlur,
     ...rest
   } = props
   return (
@@ -20,6 +22,12 @@ const Text = ( { fieldApi, fieldState, ...props  } ) => {
           setValue(e.target.value)
           if (onChange) {
             onChange(e)
+          }
+        }}
+        onBlur={e => {
+          setTouched()
+          if (onBlur) {
+            onBlur(e)
           }
         }}
       />

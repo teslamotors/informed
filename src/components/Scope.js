@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { FormContext } from '../Context';
+import withFormApi from '../HOC/withFormApi';
+import withFormState from '../HOC/withFormState';
+import withController from '../HOC/withController';
 
 const buildScopedContext = ( scope, formApi, formState, controller ) => {
   return {
@@ -17,14 +20,27 @@ const buildScopedContext = ( scope, formApi, formState, controller ) => {
   };
 }
 
-const Scope  = ({scope, children}) => (
-  <FormContext.Consumer>
-    {( { formApi, formState, controller } ) => (
-      <FormContext.Provider value={buildScopedContext( scope, formApi, formState, controller )}>
+class Scope extends Component {
+
+  constructor(props){
+    super(props);
+    const {
+      scope,
+      formApi,
+      formState,
+      controller
+    } = props;
+    this.formContext = buildScopedContext( scope, formApi, formState, controller )
+  }
+
+  render() {
+    const {children} = this.props;
+    return (
+      <FormContext.Provider value={this.formContext}>
         {children}
       </FormContext.Provider>
-    )}
-  </FormContext.Consumer>
-);
+    );
+  }
+}
 
-export default Scope;
+export default withFormState( withController( withFormApi( Scope ) ) );

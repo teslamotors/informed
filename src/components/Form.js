@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { FormContext } from '../Context';
-import Controller from '../Controller';
+import FormController from '../Controller/FormController';
 
 class Form extends Component {
 
   constructor(props) {
     super(props);
-    this.controller = new Controller();
+    this.controller = new FormController();
     this.formContext = {
       formApi: this.controller.api,
       formState: this.controller.state,

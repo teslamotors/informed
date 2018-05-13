@@ -1,10 +1,19 @@
-# Validation Control
+# Unnecessary Rendering
+
+Sometimes your components will re-render when they don't need to. Below are some
+examples where this can occur.
+
+## InlineFunctions:
+
+Below is the same example that is found in Validation Control accept for one
+difference! The validation functions that are passed in were declared inline.
+This will unfortunately result in a re-render of every text field every time the
+parent field re-renders :(
 
 <!-- STORY -->
 
 ```jsx
-
-const validate = (value)=>'Field is not valid';
+import { Form, Text } from 'informed';
 
 <Form>
   {({ formApi }) => (
@@ -15,14 +24,14 @@ const validate = (value)=>'Field is not valid';
         field="color"
         id="validate-color"
         validateOnBlur
-        validate={validate} />
+        validate={(value)=>'Field is not valid'} />
       <label htmlFor="validate-food">Food:</label>
       <small>Validate on change</small>
       <Text
         field="food"
         id="validate-food"
         validateOnChange
-        validate={validate} />
+        validate={(value)=>'Field is not valid'} />
       <label htmlFor="validate-car">Car:</label>
       <small>Validate on blur and change</small>
       <Text
@@ -30,7 +39,7 @@ const validate = (value)=>'Field is not valid';
         id="validate-car"
         validateOnBlur
         validateOnChange
-        validate={validate} />
+        validate={(value)=>'Field is not valid'} />
       <button type="submit">
         Submit
       </button>

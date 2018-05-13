@@ -5,6 +5,7 @@ import Intro from './Intro';
 import Basic from './Form/Basic';
 import Complex from './Form/Complex';
 import ValidationControl from './Validation/ValidationControl';
+import UnnecessaryRendering from './Gotchas/UnnecessaryRendering';
 
 
 addDecorator(StoryWrapper);
@@ -18,3 +19,6 @@ storiesOf('Form', module)
 
 storiesOf('Validation', module)
   .add('Validation Control', ValidationControl );
+
+storiesOf('Gotchas', module)
+  .add('Unnecessary Rendering', UnnecessaryRendering );

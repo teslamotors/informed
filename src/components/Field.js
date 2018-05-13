@@ -3,22 +3,27 @@ import { bindToField } from '../HOC/withFieldStuff';
 
 class Field extends PureComponent {
 
+  constructor(props){
+    super(props);
+  }
+
   render(){
-    console.log("RENDERING");
     const {
       fieldApi,
       fieldState,
       children,
       component,
       render,
+      field,
       ...rest
     } = this.props;
-
     const props = {
       fieldApi,
-      fieldState, 
+      fieldState,
       ...rest
     };
+
+    console.log("RENDERING", field);
 
     if (component) {
       return React.createElement(component, props, children)

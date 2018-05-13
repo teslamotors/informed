@@ -1,7 +1,7 @@
 import ObjectMap from '../ObjectMap';
 const EventEmitter = require("events").EventEmitter;
 
-class Controller extends EventEmitter {
+class FormController extends EventEmitter {
 
   constructor({ hooks } = { hooks: {} }){
     super();
@@ -29,9 +29,9 @@ class Controller extends EventEmitter {
     ObjectMap.set( this.state.values, field, value );
     // Get the field controller to trigger any lifecycle methods
     const fieldController = this.fields.get( field );
-    if( fieldController.validate && fieldController.config.validateOnChange ){
-      const error = fieldController.validate( fieldController.api.getValue() );
-      ObjectMap.set( this.state.errors, field, error );
+    // Validate if on change validation prop was set
+    if( fieldController.config.validateOnChange ){
+      ObjectMap.set( this.state.errors, field, fieldController.validate());
     }
     // Emit changes
     this.emit('change', this.state);
@@ -43,9 +43,9 @@ class Controller extends EventEmitter {
     ObjectMap.set( this.state.touched, field, value );
     // Get the field controller to trigger any lifecycle methods
     const fieldController = this.fields.get( field );
-    if( fieldController.validate && fieldController.config.validateOnBlur ){
-      const error = fieldController.validate( fieldController.api.getValue() );
-      ObjectMap.set( this.state.errors, field, error );
+    // Validate if on blur validation prop was set
+    if( fieldController.config.validateOnBlur ){
+      ObjectMap.set( this.state.errors, field, fieldController.validate() );
     }
     // Emit changes
     this.emit('change', this.state);
@@ -78,9 +78,16 @@ class Controller extends EventEmitter {
 
   submitForm = (e) => {
     e.preventDefault(e);
-    this.fields.forEach(( field ) => {
-      field.api.setTouched();
+    this.fields.forEach(( fieldController ) => {
+      // Get the fields name
+      const field = fieldController.field;
+      // Set touched
+      ObjectMap.set( this.state.touched, field, true );
+      // Validate
+      ObjectMap.set( this.state.errors, field, fieldController.validate() );
     });
+    this.emit('change', this.state);
+    this.emit('update', this.state);
     if( this.hooks.onSubmit ){
       this.hooks.onSubmit( this.state.values );
     }
@@ -88,4 +95,4 @@ class Controller extends EventEmitter {
 
 }
 
-export default Controller;
+export default FormController;

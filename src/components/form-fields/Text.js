@@ -15,21 +15,21 @@ const Text = ( { fieldApi, fieldState, ...props  } ) => {
     ...rest
   } = props
   return (
-    <input
-        {...rest}
-        value={!value && value !== 0 ? '' : value}
-        onChange={e => {
-          setValue(e.target.value)
-          if (onChange) {
-            onChange(e)
-          }
-        }}
-        onBlur={e => {
-          setTouched()
-          if (onBlur) {
-            onBlur(e)
-          }
-        }}
+      <input
+          {...rest}
+          value={!value && value !== 0 ? '' : value}
+          onChange={e => {
+            setValue(e.target.value)
+            if (onChange) {
+              onChange(e)
+            }
+          }}
+          onBlur={e => {
+            setTouched()
+            if (onBlur) {
+              onBlur(e)
+            }
+          }}
       />
     )
 };

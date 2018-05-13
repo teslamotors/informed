@@ -1,13 +1,11 @@
 import React from 'react';
 import Code from '../../utils/Code';
 import withDocs from '../../utils/withDocs';
-import readme from './README.md';
+import readme from './InlineFunctions.md';
 
 import { Form, Text } from '../../../src';
 
-const validate = (value)=>'Field is not valid';
-
-const ValidationControl = () => (
+const InlineFunctions = () => (
   <div>
     <Form>
       {({ formApi, formState }) => (
@@ -20,14 +18,14 @@ const ValidationControl = () => (
                 field="color"
                 id="validate-color"
                 validateOnBlur
-                validate={validate} />
+                validate={(value)=>'Field is not valid'} />
               <label htmlFor="validate-food">Food:</label>
               <small>Validate on change</small>
               <Text
                 field="food"
                 id="validate-food"
                 validateOnChange
-                validate={validate} />
+                validate={(value)=>'Field is not valid'} />
               <label htmlFor="validate-car">Car:</label>
               <small>Validate on blur and change</small>
               <Text
@@ -35,7 +33,7 @@ const ValidationControl = () => (
                 id="validate-car"
                 validateOnBlur
                 validateOnChange
-                validate={validate} />
+                validate={(value)=>'Field is not valid'} />
               <button type="submit">
                 Submit
               </button>
@@ -57,4 +55,4 @@ const ValidationControl = () => (
   </div>
 );
 
-export default withDocs( readme, ValidationControl );
+export default withDocs( readme, InlineFunctions );

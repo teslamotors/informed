@@ -8,42 +8,81 @@ examples where this can occur.
 Below is the same example that is found in Validation Control accept for one
 difference! The validation functions that are passed in were declared inline.
 This will unfortunately result in a re-render of every text field every time the
-parent field re-renders :(
+parent re-renders :(
 
 <!-- STORY -->
 
 ```jsx
 import { Form, Text } from 'informed';
 
+const validate = (value)=>'Field is not valid';
+
 <Form>
   {({ formApi }) => (
-    <form onSubmit={formApi.submitForm} id="validate-form">
-      <label htmlFor="validate-color">Color:</label>
-      <small>Validate on blur</small>
-      <Text
-        field="color"
-        id="validate-color"
-        validateOnBlur
-        validate={(value)=>'Field is not valid'} />
-      <label htmlFor="validate-food">Food:</label>
-      <small>Validate on change</small>
-      <Text
-        field="food"
-        id="validate-food"
-        validateOnChange
-        validate={(value)=>'Field is not valid'} />
-      <label htmlFor="validate-car">Car:</label>
-      <small>Validate on blur and change</small>
-      <Text
-        field="car"
-        id="validate-car"
-        validateOnBlur
-        validateOnChange
-        validate={(value)=>'Field is not valid'} />
-      <button type="submit">
-        Submit
-      </button>
-    </form>
+    <div>
+      {/* ---------------- BAD!! ---------------- */}
+      <form onSubmit={formApi.submitForm} id="gotcha-form-1">
+        <label htmlFor="gotcha-color-1">Color:</label>
+        <small>Validate on blur</small>
+        <Text
+          field="color"
+          id="gotcha-color-1"
+          validateOnBlur
+          debug
+        validate={(value)=>'Field is not valid'} /> {/* BAD!! */}
+        <label htmlFor="gotcha-food-1">Food:</label>
+        <small>Validate on change</small>
+        <Text
+          field="food"
+          id="gotcha-food-1"
+          validateOnChange
+          debug
+          validate={(value)=>'Field is not valid'} /> {/* BAD!! */}
+        <label htmlFor="gotcha-car-1">Car:</label>
+        <small>Validate on blur and change</small>
+        <Text
+          field="car"
+          id="gotcha-car-1"
+          validateOnBlur
+          validateOnChange
+          debug
+          validate={(value)=>'Field is not valid'} /> {/* BAD!! */}
+        <button type="submit">
+          Submit
+        </button>
+      </form>
+    {/* ---------------- GOOD!! ---------------- */}
+      <form onSubmit={formApi.submitForm} id="gotcha-form-2">
+        <label htmlFor="gotcha-color-2">Color:</label>
+        <small>Validate on blur</small>
+        <Text
+          field="color"
+          id="gotcha-color-2"
+          validateOnBlur
+          debug
+        validate={validate} /> {/* GOOD!! */}
+        <label htmlFor="gotcha-food-2">Food:</label>
+        <small>Validate on change</small>
+        <Text
+          field="food"
+          id="gotcha-food-2"
+          validateOnChange
+          debug
+          validate={validate} /> {/* GOOD!! */}
+        <label htmlFor="gotcha-car-2">Car:</label>
+        <small>Validate on blur and change</small>
+        <Text
+          field="car"
+          id="gotcha-car-2"
+          validateOnBlur
+          validateOnChange
+          debug
+          validate={validate} /> {/* GOOD!! */}
+        <button type="submit">
+          Submit
+        </button>
+      </form>
+    </div>
   )}
 </Form>
 ```

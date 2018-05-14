@@ -1,0 +1,1 @@
+{"version":3,"file":"static/preview.f3c8e38d5b8a235cee47.bundle.js","sources":["webpack:///./src/Context/index.js"],"sourcesContent":["import React from 'react'\n\nconst FormContext = React.createContext();\nconst FieldContext = React.createContext();\n\nexport {\n  FormContext,\n  FieldContext\n}\n"],"mappings":"AAEA","sourceRoot":""}

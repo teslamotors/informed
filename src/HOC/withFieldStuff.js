@@ -21,13 +21,13 @@ const buildFieldState = ( formApi, field ) => {
   }
 };
 
-const withFieldApi = ( field ) => ( Component ) => withFormApi(( formApi, ...props ) => (
+const withFieldApi = ( field ) => ( Component ) => withFormApi(({formApi, ...props}) => (
   <Component
     fieldApi={buildFieldApi( formApi, field )}
     {...props} />
 ));
 
-const withFieldState = ( field ) => ( Component ) => withFormApi(( formApi, ...props ) => (
+const withFieldState = ( field ) => ( Component ) => withFormApi(({ formApi, ...props }) => (
   <Component
     fieldState={buildFieldState( formApi, field )}
     {...props} />

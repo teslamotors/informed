@@ -18,6 +18,7 @@ const InlineFunctions = () => (
                 field="color"
                 id="validate-color"
                 validateOnBlur
+                debug
                 validate={(value)=>'Field is not valid'} />
               <label htmlFor="validate-food">Food:</label>
               <small>Validate on change</small>
@@ -25,6 +26,7 @@ const InlineFunctions = () => (
                 field="food"
                 id="validate-food"
                 validateOnChange
+                debug
                 validate={(value)=>'Field is not valid'} />
               <label htmlFor="validate-car">Car:</label>
               <small>Validate on blur and change</small>
@@ -33,6 +35,7 @@ const InlineFunctions = () => (
                 id="validate-car"
                 validateOnBlur
                 validateOnChange
+                debug
                 validate={(value)=>'Field is not valid'} />
               <button type="submit">
                 Submit

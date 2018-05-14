@@ -12,11 +12,13 @@ const Text = ( { fieldApi, fieldState, ...props  } ) => {
   const {
     onChange,
     onBlur,
+    forwardedRef,
     ...rest
   } = props
   return (
       <input
           {...rest}
+          ref={forwardedRef}
           value={!value && value !== 0 ? '' : value}
           onChange={e => {
             setValue(e.target.value)

@@ -5,6 +5,16 @@ class Field extends PureComponent {
 
   constructor(props){
     super(props);
+    this.me = React.createRef();
+  }
+
+  componentDidUpdate(){
+    if( this.props.debug && this.me ){
+      this.me.current.style.backgroundColor = 'red';
+      setTimeout(()=>{
+        this.me.current.style.backgroundColor = 'white';
+      }, 500)
+    }
   }
 
   render(){
@@ -15,15 +25,16 @@ class Field extends PureComponent {
       component,
       render,
       field,
+      forwardedRef,
+      debug,
       ...rest
     } = this.props;
     const props = {
       fieldApi,
       fieldState,
+      forwardedRef: debug ? this.me : forwardedRef,
       ...rest
     };
-
-    console.log("RENDERING", field);
 
     if (component) {
       return React.createElement(component, props, children)

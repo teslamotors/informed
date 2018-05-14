@@ -1,2 +1,3 @@
 --webpack-config config/webpack/webpack.test.config.js
+--mode development
 tests/**/*.spec.js

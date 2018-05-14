@@ -10,6 +10,12 @@ difference! The validation functions that are passed in were declared inline.
 This will unfortunately result in a re-render of every text field every time the
 parent re-renders :(
 
+The form on the left results in excess re-rendering while the form on the rights
+fields only re-render when they need to. To visualize this, the fields turn red
+every time the input re-renders.
+
+**Hint:** click on the submit button a few times.
+
 <!-- STORY -->
 
 ```jsx

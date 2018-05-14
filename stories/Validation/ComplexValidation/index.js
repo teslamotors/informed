@@ -5,27 +5,29 @@ import readme from './README.md';
 
 import { Form, Text, Scope } from '../../../src';
 
-const Complex = () => (
+const validate = (value)=> !value || value.length < 5 ? 'Field must be longer than five characters' : null;
+
+const ComplexValidation = () => (
   <div>
-    <Form onChange={(state)=>console.log(state)}>
+    <Form>
       {({ formApi, formState }) => (
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>
             <form onSubmit={formApi.submitForm} id="complex-form">
               <label htmlFor="complex-name">First name:</label>
-              <Text field="name" id="complex-name" />
+              <Text field="name" id="complex-name" validate={validate} />
               <Scope scope="favorite">
                 <label htmlFor="complex-color">Favorite color:</label>
-                <Text field="color" id="complex-color" />
+                <Text field="color" id="complex-color" validate={validate} />
                 <label htmlFor="complex-food">Favorite food:</label>
-                <Text field="food" id="complex-food" />
+                <Text field="food" id="complex-food" validate={validate} />
               </Scope>
               <label htmlFor="complex-friend-0">Friend 1:</label>
-              <Text field="friends[0]" id="complex-friend-0"/>
+              <Text field="friends[0]" id="complex-friend-0" validate={validate} />
               <label htmlFor="complex-friend-1">Friend 2:</label>
-              <Text field="friends[1]" id="complex-friend-1"/>
+              <Text field="friends[1]" id="complex-friend-1" validate={validate} />
               <label htmlFor="complex-friend-2">Friend 3:</label>
-              <Text field="friends[2]" id="complex-friend-2"/>
+              <Text field="friends[2]" id="complex-friend-2" validate={validate} />
               <button type="submit">
                 Submit
               </button>
@@ -36,9 +38,9 @@ const Complex = () => (
             <Code language="language-js">
               {JSON.stringify(formState.values, null, 2)}
             </Code>
-            <label>Touched:</label>
+            <label>Errors:</label>
             <Code language="language-js">
-              {JSON.stringify(formState.touched, null, 2)}
+              {JSON.stringify(formState.errors, null, 2)}
             </Code>
           </div>
         </div>
@@ -47,4 +49,4 @@ const Complex = () => (
   </div>
 );
 
-export default withDocs( readme, Complex );
+export default withDocs( readme, ComplexValidation );

@@ -5,9 +5,9 @@ import readme from './README.md';
 
 import { Form, Text } from '../../../src';
 
-const validate = (value)=>'Field is not valid';
+const validate = (value)=> !value || value.length < 5 ? 'Field must be longer than five characters' : null;
 
-const ValidationControl = () => (
+const SimpleValidation = () => (
   <div>
     <Form>
       {({ formApi, formState }) => (
@@ -15,26 +15,19 @@ const ValidationControl = () => (
           <div style={{ flex: 1, marginRight: '2rem' }}>
             <form onSubmit={formApi.submitForm} id="validate-form">
               <label htmlFor="validate-color">Color:</label>
-              <small>Validate on blur</small>
               <Text
                 field="color"
                 id="validate-color"
-                validateOnBlur
                 validate={validate} />
               <label htmlFor="validate-food">Food:</label>
-              <small>Validate on change</small>
               <Text
                 field="food"
                 id="validate-food"
-                validateOnChange
                 validate={validate} />
               <label htmlFor="validate-car">Car:</label>
-              <small>Validate on blur and change</small>
               <Text
                 field="car"
                 id="validate-car"
-                validateOnBlur
-                validateOnChange
                 validate={validate} />
               <button type="submit">
                 Submit
@@ -57,4 +50,4 @@ const ValidationControl = () => (
   </div>
 );
 
-export default withDocs( readme, ValidationControl );
+export default withDocs( readme, SimpleValidation );

@@ -4,6 +4,8 @@ import StoryWrapper from './utils/StoryWrapper';
 import Intro from './Intro';
 import Basic from './Form/Basic';
 import Complex from './Form/Complex';
+import SimpleValidation from './Validation/SimpleValidation';
+import ComplexValidation from './Validation/ComplexValidation';
 import ValidationControl from './Validation/ValidationControl';
 import UnnecessaryRendering from './Gotchas/UnnecessaryRendering';
 
@@ -18,6 +20,8 @@ storiesOf('Form', module)
   .add('Complex', Complex );
 
 storiesOf('Validation', module)
+  .add('Simple Validation', SimpleValidation )
+  .add('Complex Validation', ComplexValidation )
   .add('Validation Control', ValidationControl );
 
 storiesOf('Gotchas', module)

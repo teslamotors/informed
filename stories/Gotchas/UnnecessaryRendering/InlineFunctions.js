@@ -13,6 +13,7 @@ const InlineFunctions = () => (
       {({ formApi, formState }) => (
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>
+            <h5>Bad Form</h5>
             <form onSubmit={formApi.submitForm} id="gotcha-form-1">
               <label htmlFor="gotcha-color-1">Color:</label>
               <small>Validate on blur</small>
@@ -45,6 +46,7 @@ const InlineFunctions = () => (
             </form>
           </div>
           <div style={{ flex: 1, marginRight: '2rem' }}>
+            <h5>Good Form</h5>
             <form onSubmit={formApi.submitForm} id="gotcha-form-2">
               <label htmlFor="gotcha-color-2">Color:</label>
               <small>Validate on blur</small>
@@ -76,7 +78,7 @@ const InlineFunctions = () => (
               </button>
             </form>
           </div>
-          <div style={{ flex: 2, flexDirection: 'column', display: 'flex', minWidth: '300px' }}>
+          <div style={{ flex: 2, minWidth: '300px' }}>
             <label>Values:</label>
             <Code language="language-js">
               {JSON.stringify(formState.values, null, 2)}

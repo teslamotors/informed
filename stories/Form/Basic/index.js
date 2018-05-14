@@ -19,7 +19,7 @@ const Basic = () => (
               </button>
             </form>
           </div>
-          <div style={{ flex: 2, flexDirection: 'column', display: 'flex', minWidth: '300px' }}>
+          <div style={{ flex: 2, minWidth: '300px' }}>
             <label>Values:</label>
             <Code language="language-js">
               {JSON.stringify(formState.values, null, 2)}

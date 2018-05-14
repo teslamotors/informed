@@ -59,19 +59,27 @@ class ObjectMap {
     for( let i = 0; i < pathArray.length - 1; i++ ){
       // If the next key is a number and the cursor is not an array yet we
       // need to initialize it
-      if (typeof nextKey === 'number' && !isArray(cursor[key])) {
+      if (typeof nextKey === 'number' && !isArray(cursor[key]) && value != null) {
         cursor[key] = [];
       }
       // If the next key is not a number and the cursor is not an object yet
       // we need to initialize it
-      if (typeof nextKey !== 'number' && !isObject(cursor[key])) {
+      if (typeof nextKey !== 'number' && !isObject(cursor[key]) && value != null) {
         cursor[key] = {};
       }
       cursor = cursor[ key ];
       key = pathArray[i+1];
       nextKey = pathArray[i+2];
     }
-    cursor[ key ] = value;
+    // Edge case for when set is called and there is no cursor yet
+    if( cursor ){
+      // We remove values if we made it this far and value is null ( or undefined )
+      if(value == null){
+        delete cursor[key];
+      } else {
+        cursor[ key ] = value;
+      }
+    }
   }
 
 }

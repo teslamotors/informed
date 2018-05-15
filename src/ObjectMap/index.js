@@ -16,6 +16,10 @@ const makePathArray = ( path ) => {
   return pathArray;
 }
 
+const makeDotArray = ( path ) => {
+  return path.replace(/\[(\d+)]/g, '.[$1]').split('.');
+}
+
 function isArray (a) {
   return Array.isArray(a)
 }
@@ -24,62 +28,79 @@ function isObject (a) {
   return !Array.isArray(a) && typeof a === 'object' && a !== null
 }
 
+const buildMap = ( map, cursor, path ) => {
+  if( isArray(cursor) ) {
+    map.set(path, cursor)
+    cursor.forEach((value, i)=>{
+      buildMap( map, value, `${path}[${i}]`)
+    })
+  }
+  else if( isObject(cursor) ){
+    if( path !== '' ){
+      map.set(path, cursor);
+    }
+    Object.keys(cursor).forEach((key)=>{
+      buildMap( map, cursor[key], path !== '' ? `${path}.${key}` : key )
+    })
+  } else {
+    map.set(path, cursor);
+  }
+};
+
 class ObjectMap {
 
-  static get ( obj, path ) {
-    const pathArray = makePathArray( path );
-
-    let cursor = obj;
-    let key = pathArray[0]
-
-    for( let i = 0; i < pathArray.length - 1; i++ ){
-      if( cursor == undefined ){
-        return undefined;
-      }
-      cursor = cursor[ key ];
-      key = pathArray[i+1];
-    }
-
-    return cursor == undefined ? undefined : cursor[ key ];
+  constructor( object = {} ){
+    this.object = object;
+    this.map = new Map();
+    buildMap( this.map, object, '' )
   }
 
-  static set ( obj, path, value ) {
+  get ( path ) {
+    return this.map.get(path);
+  }
 
-    // Sanity check for undefined
-    if( !isObject( obj ) ){
-      throw new Error('Cannot call set with undefined map!');
-    }
+  set( path, value ){
 
     const pathArray = makePathArray( path );
 
-    let cursor = obj;
-    let key = pathArray[0];
-    let nextKey = pathArray[1];
+    const set = ( cursor, key, nextKey, i, mapKey ) => {
 
-    for( let i = 0; i < pathArray.length - 1; i++ ){
+      // Base case: next key is undefined
+      if( nextKey == null ){
+        if( value == null ){
+          delete cursor[key];
+          this.map.delete( mapKey );
+          console.log("HERE!!", this.map.size);
+        } else {
+          cursor[ key ] = value;
+          this.map.set( mapKey, value );
+        }
+        return;
+      }
+
       // If the next key is a number and the cursor is not an array yet we
       // need to initialize it
       if (typeof nextKey === 'number' && !isArray(cursor[key]) && value != null) {
         cursor[key] = [];
+        this.map.set( mapKey, cursor[key] );
       }
       // If the next key is not a number and the cursor is not an object yet
       // we need to initialize it
       if (typeof nextKey !== 'number' && !isObject(cursor[key]) && value != null) {
         cursor[key] = {};
+        this.map.set( mapKey, cursor[key] );
       }
-      cursor = cursor[ key ];
-      key = pathArray[i+1];
-      nextKey = pathArray[i+2];
+
+      // Recur
+      set(
+        cursor[ key ],
+        pathArray[i+1],
+        pathArray[i+2],
+        i+1,
+        typeof nextKey === 'number' ? `${mapKey}[${nextKey}]` : `${mapKey}.${nextKey}`);
     }
-    // Edge case for when set is called and there is no cursor yet
-    if( cursor ){
-      // We remove values if we made it this far and value is null ( or undefined )
-      if(value == null){
-        delete cursor[key];
-      } else {
-        cursor[ key ] = value;
-      }
-    }
+
+    set( this.object, pathArray[0], pathArray[1], 0, pathArray[0] )
   }
 
 }

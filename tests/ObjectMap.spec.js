@@ -7,7 +7,7 @@ describe('ObjectMap', () => {
 
     it('should get value from very nested obejct', () => {
       const expected = 2;
-      const map = {
+      const object = {
         foo: {
           bar: {
             baz: [
@@ -32,24 +32,26 @@ describe('ObjectMap', () => {
           }
         }
       }
-      const actual = ObjectMap.get(map, 'foo.bar.baz[0].taz.bar[10][3].bar.0.5');
+      const objectMap = new ObjectMap( object );
+      const actual = objectMap.get('foo.bar.baz[0].taz.bar[10][3].bar.0.5');
       expect( actual ).to.equal(expected);
     });
 
-    it('should return undefined when get is called with undefined', () => {
+    it('should return undefined when get is called with field that does not exist', () => {
       const map = undefined;
       const expected  = undefined;
-      const actual = ObjectMap.get(map, 'foo.bar');
+      const objectMap = new ObjectMap();
+      const actual = objectMap.get( 'foo.bar');
       expect( actual ).to.equal(expected);
     });
 
   });
 
-  describe('parseInt', () => {
+  describe('set', () => {
 
     it('should set value in very nested obejct', () => {
       const expected = 3;
-      const map = {
+      const object = {
         foo: {
           bar: {
             baz: [
@@ -74,13 +76,10 @@ describe('ObjectMap', () => {
           }
         }
       }
-      ObjectMap.set(map, 'foo.bar.baz[0].taz.bar[10][3].bar.0.5', 3);
-      const actual = ObjectMap.get(map, 'foo.bar.baz[0].taz.bar[10][3].bar.0.5');
+      const objectMap = new ObjectMap( object );
+      objectMap.set('foo.bar.baz[0].taz.bar[10][3].bar.0.5', 3);
+      const actual = objectMap.get('foo.bar.baz[0].taz.bar[10][3].bar.0.5');
       expect( actual ).to.equal(expected);
-    });
-
-    it('should throw error if you attempt to call set with undefined', () => {
-      expect(()=>ObjectMap.set(undefined, 'foo.bar', 2)).to.throw('Cannot call set with undefined map!');
     });
 
   });

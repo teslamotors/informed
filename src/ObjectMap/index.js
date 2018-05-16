@@ -16,10 +16,6 @@ const makePathArray = ( path ) => {
   return pathArray;
 }
 
-const makeDotArray = ( path ) => {
-  return path.replace(/\[(\d+)]/g, '.[$1]').split('.');
-}
-
 function isArray (a) {
   return Array.isArray(a)
 }

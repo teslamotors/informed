@@ -19,7 +19,16 @@ module.exports = {
             presets: ['env', 'stage-0', 'react'],
           }
         }
-      }
+      },
+			{
+				test: /\.js$|\.jsx$/,
+				use: {
+					loader: 'istanbul-instrumenter-loader',
+					options: { esModules: true }
+				},
+				enforce: 'post',
+				exclude: /node_modules|\.spec\.js$/,
+			}
     ]
   }
 }

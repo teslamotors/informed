@@ -3,17 +3,18 @@ const EventEmitter = require("events").EventEmitter;
 
 class FormController extends EventEmitter {
 
-  constructor({ hooks } = { hooks: {} }){
+  constructor({ hooks, config } = { hooks: {}, config: {} }){
     super();
     this.hooks = hooks;
+    this.config = config;
     this.values = new ObjectMap();
     this.touched = new ObjectMap();
     this.errors = new ObjectMap();
-    this.state = {
-      values: this.values.object,
-      touched: this.touched.object,
-      errors: this.errors.object
-    };
+    // this.state = {
+    //   values: this.values.object,
+    //   touched: this.touched.object,
+    //   errors: this.errors.object
+    // };
     this.api = {
       setValue: this.setValue,
       getValue: this.getValue,
@@ -22,9 +23,26 @@ class FormController extends EventEmitter {
       setError: this.setError,
       getError: this.getError,
       getFullField: this.getFullField,
-      submitForm: this.submitForm
+      submitForm: this.submitForm,
+      getState: this.getFormState
     }
     this.fields = new Map();
+    // Call initial hooks
+    if( hooks.getApi ){
+      hooks.getApi(this.api);
+    }
+  }
+
+  get state(){
+    return {
+      values: this.values.object,
+      touched: this.touched.object,
+      errors: this.errors.object
+    }
+  }
+
+  getFormState = () => {
+    return this.state;
   }
 
   setValue = ( field, value ) => {
@@ -79,8 +97,14 @@ class FormController extends EventEmitter {
     this.fields.set( field, fieldController );
   }
 
+  valid = () => {
+    return this.errors.empty();
+  }
+
   submitForm = (e) => {
-    e.preventDefault(e);
+    if( !this.config.dontPreventDefault ){
+      e.preventDefault(e);
+    }
     this.fields.forEach(( fieldController ) => {
       // Get the fields name
       const field = fieldController.field;
@@ -89,10 +113,25 @@ class FormController extends EventEmitter {
       // Validate
       this.errors.set( field, fieldController.validate() );
     });
+    // Only call form level validation if field level validations are valid
+    // and the user gave us a validate function
+    if( this.valid() && this.hooks.validate ){
+      this.errors.rebuild(this.hooks.validate( this.state.values ));
+    }
     this.emit('change', this.state);
     this.emit('update', this.state);
-    if( this.hooks.onSubmit ){
-      this.hooks.onSubmit( this.state.values );
+    // Make sure we are valid
+    if( this.valid() ){
+      if( this.hooks.preSubmit ){
+        this.values.rebuild(this.hooks.preSubmit(this.state.values))
+      }
+      if( this.hooks.onSubmit ){
+        this.hooks.onSubmit( this.state.values );
+      }
+    } else {
+      if( this.hooks.onSubmitFailure ){
+        this.hooks.onSubmitFailure( this.state.errors );
+      }
     }
   }
 

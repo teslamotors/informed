@@ -57,6 +57,15 @@ class ObjectMap {
     this.map = buildMap( object );
   }
 
+  empty(){
+    return this.map.size === 0;
+  }
+
+  rebuild( object = {} ){
+    this.object = object;
+    this.map = buildMap( object );
+  }
+
   get( path ){
 
     const pathArray = makePathArray( path );

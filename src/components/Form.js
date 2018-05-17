@@ -6,18 +6,45 @@ class Form extends Component {
 
   constructor(props) {
     super(props);
-    this.controller = new FormController();
-    this.formContext = {
-      formApi: this.controller.api,
-      formState: this.controller.state,
-      controller: this.controller
-    }
+    const {
+      onSubmit,
+      preSubmit,
+      validate,
+      getApi,
+      dontPreventDefault,
+      onSubmitFailure
+    } = props
+    this.controller = new FormController({
+      hooks: {
+        onSubmit,
+        getApi,
+        validate,
+        preSubmit,
+        onSubmitFailure
+      },
+      config: {
+        dontPreventDefault
+      }
+    });
+    // this.formContext = {
+    //   formApi: this.controller.api,
+    //   formState: this.controller.state,
+    //   controller: this.controller
+    // }
     this.controller.on('change', () => this.forceUpdate() );
     this.controller.on('change', (state) => {
       if( props.onChange ){
         props.onChange(state);
       }
     })
+  }
+
+  get formContext(){
+    return {
+      formApi: this.controller.api,
+      formState: this.controller.state,
+      controller: this.controller
+    }
   }
 
   get content(){

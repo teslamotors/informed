@@ -9,7 +9,9 @@
     "test": "mocha-webpack --opts tests/mocha-webpack.opts",
     "test:watch": "npm run test -- --watch",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "storybook:docs": "build-storybook -c .storybook -o docs"
+    "storybook:docs": "build-storybook -c .storybook -o docs",
+    "test:coverage": "NODE_ENV=spec nyc mocha-webpack --exit --opts tests/mocha-webpack.opts",
+    "test:coverage-html": "NODE_ENV=spec nyc --reporter=html mocha-webpack --exit --opts tests/mocha-webpack.opts && http-server coverage -o -p 8007"
   },
   "repository": {
     "type": "git",
@@ -43,9 +45,11 @@
     "chai": "^4.1.2",
     "css-loader": "^0.28.11",
     "html-loader": "^0.5.5",
+    "istanbul-instrumenter-loader": "^3.0.1",
     "markdown-loader": "^2.0.2",
     "mocha": "^5.1.1",
     "mocha-webpack": "^2.0.0-beta.0",
+    "nyc": "^11.8.0",
     "react-prism": "^4.3.2",
     "sass-loader": "^7.0.1",
     "sinon": "^5.0.6",
@@ -58,5 +62,17 @@
   "dependencies": {
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
+  },
+  "nyc": {
+    "instrument": false,
+    "sourceMap": false,
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "config",
+      "tests",
+      "src/index.js"
+    ]
   }
 }

@@ -6,10 +6,13 @@ class FormController extends EventEmitter {
   constructor({ hooks } = { hooks: {} }){
     super();
     this.hooks = hooks;
+    this.values = new ObjectMap();
+    this.touched = new ObjectMap();
+    this.errors = new ObjectMap();
     this.state = {
-      values: {},
-      touched: {},
-      errors: {}
+      values: this.values.object,
+      touched: this.touched.object,
+      errors: this.errors.object
     };
     this.api = {
       setValue: this.setValue,
@@ -26,12 +29,12 @@ class FormController extends EventEmitter {
 
   setValue = ( field, value ) => {
     // Set value
-    ObjectMap.set( this.state.values, field, value );
+    this.values.set(field, value)
     // Get the field controller to trigger any lifecycle methods
     const fieldController = this.fields.get( field );
     // Validate if on change validation prop was set
     if( fieldController.config.validateOnChange ){
-      ObjectMap.set( this.state.errors, field, fieldController.validate());
+      this.errors.set( field, fieldController.validate());
     }
     // Emit changes
     this.emit('change', this.state);
@@ -40,12 +43,12 @@ class FormController extends EventEmitter {
 
   setTouched = ( field, value = true ) => {
     // Set touched
-    ObjectMap.set( this.state.touched, field, value );
+    this.touched.set( field, value );
     // Get the field controller to trigger any lifecycle methods
     const fieldController = this.fields.get( field );
     // Validate if on blur validation prop was set
     if( fieldController.config.validateOnBlur ){
-      ObjectMap.set( this.state.errors, field, fieldController.validate() );
+      this.errors.set( field, fieldController.validate() );
     }
     // Emit changes
     this.emit('change', this.state);
@@ -53,21 +56,21 @@ class FormController extends EventEmitter {
   }
 
   setError = ( field, error ) => {
-    ObjectMap.set( this.state.errors, field, error );
+    this.errors.set( field, error );
     this.emit('change', this.state);
     this.emit('field', field);
   }
 
   getValue = ( field ) => {
-    return ObjectMap.get( this.state.values, field );
+    return this.values.get( field );
   }
 
   getTouched = ( field ) => {
-    return ObjectMap.get( this.state.touched, field );
+    return this.touched.get( field );
   }
 
   getError = ( field ) => {
-    return ObjectMap.get( this.state.errors, field );
+    return this.errors.get( field );
   }
 
   getFullField = ( field ) => field;
@@ -82,9 +85,9 @@ class FormController extends EventEmitter {
       // Get the fields name
       const field = fieldController.field;
       // Set touched
-      ObjectMap.set( this.state.touched, field, true );
+      this.touched.set( field, true );
       // Validate
-      ObjectMap.set( this.state.errors, field, fieldController.validate() );
+      this.errors.set( field, fieldController.validate() );
     });
     this.emit('change', this.state);
     this.emit('update', this.state);

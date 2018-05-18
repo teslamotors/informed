@@ -139,6 +139,10 @@ class ObjectMap {
     set( this.object, this.map, pathArray[0], pathArray[1], 0 );
   }
 
+  delete( path ){
+    this.set(path, null);
+  }
+
 }
 
 export default ObjectMap;

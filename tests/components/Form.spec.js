@@ -6,7 +6,7 @@ import Enzyme, { mount } from 'enzyme'
 import { Form, Text } from '../../src'
 
 describe('Form', () => {
-  const sandbox = sinon.sandbox.create()
+  const sandbox = sinon.createSandbox();
 
   const checkFormApi = api => {
     expect(api).to.have.own.property('getError')
@@ -21,6 +21,10 @@ describe('Form', () => {
     expect(api).to.have.own.property('submitForm')
     expect(api).to.have.own.property('reset')
   }
+
+  afterEach(()=>{
+    sandbox.restore();
+  });
 
   const checkFormState = state => {
     const formState = {

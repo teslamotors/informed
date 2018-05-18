@@ -15,19 +15,19 @@ class Form extends Component {
       onSubmitFailure,
       initialValues
     } = props
-    this.controller = new FormController({
-      hooks: {
+    this.controller = new FormController(
+      {
         onSubmit,
         getApi,
         validate,
         preSubmit,
         onSubmitFailure
       },
-      config: {
+      {
         dontPreventDefault,
         initialValues
       }
-    });
+    );
     this.controller.on('change', () => this.forceUpdate() );
     this.controller.on('change', (state) => {
       if( props.onChange ){

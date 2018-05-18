@@ -156,6 +156,23 @@ describe('ObjectMap', () => {
 
     });
 
+    describe('delete', () => {
+
+      it('should delete value', () => {
+        const objectMap = new ObjectMap({foo:{bar:{baz:3}}});
+        objectMap.delete('foo.bar.baz');
+        expect(objectMap.object).to.deep.equal({});
+      });
+
+      it('should delete maps', () => {
+        const objectMap = new ObjectMap({foo:{bar:{baz:3}}});
+        objectMap.delete('foo.bar.baz');
+        expect(objectMap.map instanceof Map).to.equal(true);
+        expect(objectMap.map.get('foo') instanceof Map).to.equal(false);
+      });
+
+    });
+
     describe('map', () => {
 
       it('should set a nested value and initialize maps along the way', () => {

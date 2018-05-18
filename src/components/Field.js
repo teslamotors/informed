@@ -8,6 +8,14 @@ class Field extends PureComponent {
     this.me = React.createRef();
   }
 
+  componentDidMount(){
+    this.props.register();
+  }
+
+  componentWillUnmount(){
+    this.props.deregister();
+  }
+
   componentDidUpdate(){
     if( this.props.debug && this.me ){
       this.me.current.style.backgroundColor = 'red';
@@ -25,6 +33,8 @@ class Field extends PureComponent {
       component,
       render,
       field,
+      register,
+      deregister,
       forwardedRef,
       debug,
       ...rest

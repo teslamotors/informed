@@ -3,7 +3,7 @@ const EventEmitter = require("events").EventEmitter;
 
 class FormController extends EventEmitter {
 
-  constructor({ hooks, config } = { hooks: {}, config: {} }){
+  constructor(hooks = {}, config= {}){
     super();
     this.hooks = hooks;
     this.config = config;
@@ -107,6 +107,20 @@ class FormController extends EventEmitter {
 
   register = ( field, fieldController ) => {
     this.fields.set( field, fieldController );
+    if( fieldController.config.initialValue ){
+      this.values.set(field, fieldController.config.initialValue)
+    }
+  }
+
+  remove = ( field ) => {
+    this.fields.delete( field );
+    this.values.delete( field );
+    this.touched.delete( field );
+    this.errors.delete( field );
+  }
+
+  deregister = ( field ) => {
+    this.remove(field);
   }
 
   valid = () => {

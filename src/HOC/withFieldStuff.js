@@ -46,7 +46,8 @@ const bindToField = ( Component ) => withController(withFormApi( class extends R
       field,
       validate,
       validateOnBlur,
-      validateOnChange
+      validateOnChange,
+      initialValue
     } = props;
 
     this.state = buildFieldState( formApi, field );
@@ -65,17 +66,26 @@ const bindToField = ( Component ) => withController(withFormApi( class extends R
       this.setState(buildFieldState( formApi, field ));
     })
 
-    // Register our field with the controller so he can do fun stuff with it :)
-    controller.register( formApi.getFullField(field), new FieldController(
-      formApi.getFullField(field),
-      this.fieldApi,
-      {
-        validateOnBlur,
-        validateOnChange,
-        validate
-      }
-    ));
+    this.register = () => {
+      // Register our field with the controller so he can do fun stuff with it :)
+      controller.register( formApi.getFullField(field), new FieldController(
+        formApi.getFullField(field),
+        this.fieldApi,
+        {
+          validateOnBlur,
+          validateOnChange,
+          validate,
+          initialValue
+        }
+      ));
+    }
 
+    this.deregister = () => {
+      controller.deregister(formApi.getFullField(field));
+    }
+
+    this.register = this.register.bind(this);
+    this.deregister = this.deregister.bind(this);
   }
 
   render(){
@@ -91,6 +101,8 @@ const bindToField = ( Component ) => withController(withFormApi( class extends R
 
     return (
       <Component
+        register={this.register}
+        deregister={this.deregister}
         fieldApi={this.fieldApi}
         fieldState={this.state}
         {...rest} />

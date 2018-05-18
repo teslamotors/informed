@@ -15,6 +15,11 @@ describe('Form', () => {
     expect(api).to.have.own.property('setTouched')
     expect(api).to.have.own.property('getValue')
     expect(api).to.have.own.property('setValue')
+    expect(api).to.have.own.property('getState')
+    expect(api).to.have.own.property('setState')
+    expect(api).to.have.own.property('setValues')
+    expect(api).to.have.own.property('submitForm')
+    expect(api).to.have.own.property('reset')
   }
 
   const checkFormState = state => {
@@ -204,39 +209,49 @@ describe('Form', () => {
     checkFormApi(api)
   })
 
-  it.skip('should set default values when default values are passed', () => {
+  it('should set initial values when initial values are passed', () => {
     let api
     const setApi = param => {
       api = param
     }
     mount(
-      <Form getApi={setApi} defaultValues={{ greeting: 'hello' }}>
+      <Form getApi={setApi} initialValues={{ greeting: 'hello' }}>
         {() => <Text field="greeting" />}
       </Form>
     )
-    expect(api.getFormState().values).to.deep.equal({ greeting: 'hello' })
+    expect(api.getState().values).to.deep.equal({ greeting: 'hello' })
   })
 
-  it.skip('setFormState should set the formState', () => {
+  it('setState should set the formState', () => {
     let api
     const setApi = param => {
       api = param
     }
     mount(<Form getApi={setApi}>{() => <Text field="greeting" />}</Form>)
-    api.setFormState({ values: { greeting: 'hello' } })
-    expect(api.getFormState().values).to.deep.equal({ greeting: 'hello' })
+    api.setState({ values: { greeting: 'hello' } })
+    expect(api.getState().values).to.deep.equal({ greeting: 'hello' })
   })
 
-  it.skip('resetAll should reset the form to its initial state', () => {
+  it('setValues should set the forms values', () => {
     let api
     const setApi = param => {
       api = param
     }
     mount(<Form getApi={setApi}>{() => <Text field="greeting" />}</Form>)
-    api.setFormState({ values: { greeting: 'hello' } })
-    expect(api.getFormState()).to.deep.equal(getState({ values: { greeting: 'hello' } }))
-    api.resetAll()
-    expect(api.getFormState()).to.deep.equal(getState())
+    api.setValues({ greeting: 'hello' })
+    expect(api.getState().values).to.deep.equal({ greeting: 'hello' })
+  })
+
+  it('reset should reset the form to its initial state', () => {
+    let api
+    const setApi = param => {
+      api = param
+    }
+    mount(<Form getApi={setApi}>{() => <Text field="greeting" />}</Form>)
+    api.setState({ values: { greeting: 'hello' } })
+    expect(api.getState()).to.deep.equal(getState({ values: { greeting: 'hello' } }))
+    api.reset()
+    expect(api.getState()).to.deep.equal(getState())
   })
 
   it('setValue should set a value', () => {
@@ -265,10 +280,16 @@ describe('Form', () => {
     const spy = sandbox.spy();
     mount(<Form>{spy}</Form>);
     expect(spy.called).to.equal(true);
+    checkFormApi(spy.args[0][0].formApi);
+    checkFormState(spy.args[0][0].formState);
   })
 
-  it.skip('should give render function access to formApi and formState', done => {
-
+  it('should give render function access to formApi and formState', () => {
+    const spy = sandbox.spy();
+    mount(<Form render={spy}/>);
+    expect(spy.called).to.equal(true);
+    checkFormApi(spy.args[0][0].formApi);
+    checkFormState(spy.args[0][0].formState);
   })
 
   it('should give component passed in access to formApi as prop', () => {

@@ -7,14 +7,9 @@ class FormController extends EventEmitter {
     super();
     this.hooks = hooks;
     this.config = config;
-    this.values = new ObjectMap();
+    this.values = new ObjectMap(config.initialValues);
     this.touched = new ObjectMap();
     this.errors = new ObjectMap();
-    // this.state = {
-    //   values: this.values.object,
-    //   touched: this.touched.object,
-    //   errors: this.errors.object
-    // };
     this.api = {
       setValue: this.setValue,
       getValue: this.getValue,
@@ -24,7 +19,10 @@ class FormController extends EventEmitter {
       getError: this.getError,
       getFullField: this.getFullField,
       submitForm: this.submitForm,
-      getState: this.getFormState
+      getState: this.getFormState,
+      setState: this.setFormState,
+      setValues: this.setValues,
+      reset: this.reset
     }
     this.fields = new Map();
     // Call initial hooks
@@ -43,6 +41,20 @@ class FormController extends EventEmitter {
 
   getFormState = () => {
     return this.state;
+  }
+
+  setFormState = (state) => {
+    this.values.rebuild(state.values);
+    this.touched.rebuild(state.touched);
+    this.errors.rebuild(state.errors);
+    this.emit('change', this.state);
+    this.emit('update', this.state);
+  }
+
+  setValues = (values) => {
+    this.values.rebuild(values);
+    this.emit('change', this.state);
+    this.emit('update', this.state);
   }
 
   setValue = ( field, value ) => {
@@ -101,6 +113,14 @@ class FormController extends EventEmitter {
     return this.errors.empty();
   }
 
+  reset = () => {
+    this.values.rebuild(this.config.initialValues);
+    this.touched.rebuild();
+    this.errors.rebuild();
+    this.emit('change', this.state);
+    this.emit('update', this.state);
+  }
+
   submitForm = (e) => {
     if( !this.config.dontPreventDefault ){
       e.preventDefault(e);
@@ -123,7 +143,9 @@ class FormController extends EventEmitter {
     // Make sure we are valid
     if( this.valid() ){
       if( this.hooks.preSubmit ){
-        this.values.rebuild(this.hooks.preSubmit(this.state.values))
+        this.values.rebuild(this.hooks.preSubmit(this.state.values));
+        this.emit('change', this.state);
+        this.emit('update', this.state);
       }
       if( this.hooks.onSubmit ){
         this.hooks.onSubmit( this.state.values );

@@ -30,7 +30,8 @@ const buildMap = ( cursor ) => {
     const map = new Map();
     // Iterate over each field and set to result
     Object.keys(cursor).forEach((key)=>{
-      map.set( key, buildMap( cursor[key] ) );
+      const result = buildMap( cursor[key] );
+      if( result != null) map.set( key, result );
     })
     // Return our new map
     return map;
@@ -39,7 +40,8 @@ const buildMap = ( cursor ) => {
     const map = new Map();
     // Iterate over each element and set to result
     cursor.forEach((value, i)=>{
-      map.set( i, buildMap( value ) );
+      const result = buildMap( value )
+      if( result != null ) map.set( i, result );
     });
     // Return our new map
     return map;
@@ -53,8 +55,8 @@ const buildMap = ( cursor ) => {
 class ObjectMap {
 
   constructor( object = {} ){
-    this.object = object;
-    this.map = buildMap( object );
+    this.object = JSON.parse(JSON.stringify(object));
+    this.map = buildMap( this.object );
   }
 
   empty(){
@@ -62,8 +64,8 @@ class ObjectMap {
   }
 
   rebuild( object = {} ){
-    this.object = object;
-    this.map = buildMap( object );
+    this.object = JSON.parse(JSON.stringify(object));;
+    this.map = buildMap( this.object  );
   }
 
   get( path ){

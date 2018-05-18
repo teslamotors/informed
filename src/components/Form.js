@@ -12,7 +12,8 @@ class Form extends Component {
       validate,
       getApi,
       dontPreventDefault,
-      onSubmitFailure
+      onSubmitFailure,
+      initialValues
     } = props
     this.controller = new FormController({
       hooks: {
@@ -23,14 +24,10 @@ class Form extends Component {
         onSubmitFailure
       },
       config: {
-        dontPreventDefault
+        dontPreventDefault,
+        initialValues
       }
     });
-    // this.formContext = {
-    //   formApi: this.controller.api,
-    //   formState: this.controller.state,
-    //   controller: this.controller
-    // }
     this.controller.on('change', () => this.forceUpdate() );
     this.controller.on('change', (state) => {
       if( props.onChange ){

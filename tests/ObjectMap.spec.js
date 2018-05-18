@@ -131,7 +131,7 @@ describe('ObjectMap', () => {
       });
 
       it('should NOT remove array when they are NOT empty after setting null', () => {
-        const expected = {foo:[,[,,4]]};
+        const expected = {foo:[null,[null,,4]]};
         const objectMap = new ObjectMap({foo:[,[,3,4]]});
         objectMap.set('foo[1][1]',null);
         const actual = objectMap.object;
@@ -147,7 +147,7 @@ describe('ObjectMap', () => {
       });
 
       it('should NOT remove arrays and objects when they are NOT empty after setting null', () => {
-        const expected = {foo:[,{bar:[,,4]}]};
+        const expected = {foo:[null,{bar:[null,,4]}]};
         const objectMap = new ObjectMap({foo:[,{bar:[,3,4]}]});
         objectMap.set('foo[1].bar[1]',null);
         const actual = objectMap.object;

@@ -54,19 +54,27 @@ const bindToField = ( Component ) => withController(withFormApi( class extends R
     this.fieldApi = buildFieldApi( formApi, field );
 
     // Rebuild state when field changes
-    controller.on('field', ( name ) => {
+    const updateMe = ( name ) => {
       if( name === formApi.getFullField(field) ){
         this.setState(buildFieldState( formApi, field ));
       }
-    });
+    }
 
     // Rebuild state when controller emits update
     // this happens on events such as submission
-    controller.on('update', () => {
+    const update = () => {
       this.setState(buildFieldState( formApi, field ));
-    })
+    }
 
     this.register = () => {
+
+      // Rebuild state when field changes
+      controller.on('field', updateMe);
+
+      // Rebuild state when controller emits update
+      // this happens on events such as submission
+      controller.on('update', update)
+
       // Register our field with the controller so he can do fun stuff with it :)
       controller.register( formApi.getFullField(field), new FieldController(
         formApi.getFullField(field),
@@ -81,6 +89,8 @@ const bindToField = ( Component ) => withController(withFormApi( class extends R
     }
 
     this.deregister = () => {
+      controller.removeListener('field', updateMe);
+      controller.removeListener('update', update);
       controller.deregister(formApi.getFullField(field));
     }
 

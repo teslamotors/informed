@@ -117,6 +117,7 @@ class FormController extends EventEmitter {
     this.values.delete( field );
     this.touched.delete( field );
     this.errors.delete( field );
+    this.emit('change', this.state);
   }
 
   deregister = ( field ) => {

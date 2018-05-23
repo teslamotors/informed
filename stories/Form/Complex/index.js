@@ -7,7 +7,7 @@ import { Form, Text, Scope } from '../../../src';
 
 const Complex = () => (
   <div>
-    <Form onChange={(state)=>console.log(state)}>
+    <Form>
       {({ formApi, formState }) => (
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>

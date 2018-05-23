@@ -7,7 +7,7 @@ import { Form, Text, Scope } from '../../../src';
 
 const Basic = () => (
   <div>
-    <Form onChange={(state)=>console.log(state.values)}>
+    <Form>
       {({ formApi, formState }) => (
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>

@@ -8,7 +8,7 @@ import SimpleValidation from './Validation/SimpleValidation';
 import ComplexValidation from './Validation/ComplexValidation';
 import ValidationControl from './Validation/ValidationControl';
 import UnnecessaryRendering from './Gotchas/UnnecessaryRendering';
-
+import DynamicFields from './Dynamic/DynamicFields';
 
 addDecorator(StoryWrapper);
 
@@ -26,3 +26,6 @@ storiesOf('Validation', module)
 
 storiesOf('Gotchas', module)
   .add('Unnecessary Rendering', UnnecessaryRendering );
+
+storiesOf('Dynamic Forms', module)
+  .add('Dynamic Fields', DynamicFields );

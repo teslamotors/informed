@@ -7,6 +7,7 @@ import withController from '../HOC/withController';
 const buildScopedContext = ( scope, formApi, formState, controller ) => {
   return {
     formApi: {
+      ...formApi,
       getValue: ( field ) => formApi.getValue(`${scope}.${field}`),
       setValue: ( field, value ) => formApi.setValue(`${scope}.${field}`, value),
       getTouched: ( field ) => formApi.getTouched(`${scope}.${field}`),

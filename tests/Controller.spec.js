@@ -155,12 +155,19 @@ describe('Controller', () => {
           initialValues: { greeting: 'foobar' }
         });
         const expected = {
-          values: { greeting: 'foobar' },
+          values: {
+            greeting: 'foobar',
+            firstname: 'Joe'
+          },
           errors: {},
           touched: {}
         }
         controller.register( 'greeting', getFieldController('greeting', controller.api) )
-        controller.api.setValue('greeting', 'hello')
+        controller.register( 'firstname', getFieldController('firstname', controller.api, {
+          initialValue: 'Joe'
+        }))
+        controller.api.setValue('greeting', 'hello');
+        controller.api.setValue('firstname', 'hello')
         controller.api.reset();
         expect(controller.state).to.deep.equal(expected);
       });

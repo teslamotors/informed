@@ -132,6 +132,13 @@ class FormController extends EventEmitter {
     this.values.rebuild(this.config.initialValues);
     this.touched.rebuild();
     this.errors.rebuild();
+    // We need to iterate over all the fields and
+    // reset them
+    this.fields.forEach(( fieldController ) => {
+      if( fieldController.config.initialValue ){
+        this.values.set(fieldController.field, fieldController.config.initialValue);
+      }
+    });
     this.emit('change', this.state);
     this.emit('update', this.state);
   }

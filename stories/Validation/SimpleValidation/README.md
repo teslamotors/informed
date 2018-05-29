@@ -22,28 +22,24 @@ click the submit button again and see what happens:**
 
 const validate = (value)=> !value || value.length < 5 ? 'Field must be longer than five characters' : null;
 
-<Form>
-  {({ formApi }) => (
-    <form onSubmit={formApi.submitForm} id="validate-form">
-      <label htmlFor="validate-color">Color:</label>
-      <Text
-        field="color"
-        id="validate-color"
-        validate={validate} />
-      <label htmlFor="validate-food">Food:</label>
-      <Text
-        field="food"
-        id="validate-food"
-        validate={validate} />
-      <label htmlFor="validate-car">Car:</label>
-      <Text
-        field="car"
-        id="validate-car"
-        validate={validate} />
-      <button type="submit">
-        Submit
-      </button>
-    </form>
-  )}
+<Form id="validate-form">
+  <label htmlFor="validate-color">Color:</label>
+  <Text
+    field="color"
+    id="validate-color"
+    validate={validate} />
+  <label htmlFor="validate-food">Food:</label>
+  <Text
+    field="food"
+    id="validate-food"
+    validate={validate} />
+  <label htmlFor="validate-car">Car:</label>
+  <Text
+    field="car"
+    id="validate-car"
+    validate={validate} />
+  <button type="submit">
+    Submit
+  </button>
 </Form>
 ```

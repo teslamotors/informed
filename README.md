@@ -16,15 +16,11 @@ npm install --save informed
 ---
 
 ```jsx
-<Form>
-  {({ formApi }) => (
-    <form onSubmit={formApi.submitForm} id="intro-form">
-      <label htmlFor="intro-name">First name:</label>
-      <Text field="name" id="intro-name" />
-      <button type="submit">
-        Submit
-      </button>
-    </form>
-  )}
+<Form id="intro-form">
+  <label htmlFor="intro-name">First name:</label>
+  <Text field="name" id="intro-name" />
+  <button type="submit">
+    Submit
+  </button>
 </Form>
 ```

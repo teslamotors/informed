@@ -35,8 +35,18 @@ class FormController extends EventEmitter {
     return {
       values: this.values.object,
       touched: this.touched.object,
-      errors: this.errors.object
+      errors: this.errors.object,
+      pristine: this.pristine,
+      dirty: this.dirty,
     }
+  }
+
+  get pristine(){
+    return this.touched.empty() && this.values.empty()
+  }
+
+  get dirty(){
+    return !this.pristine;
   }
 
   getFormState = () => {

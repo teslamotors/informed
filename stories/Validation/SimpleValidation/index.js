@@ -12,30 +12,28 @@ class SimpleValidation extends Component {
 render(){
   return (
       <div>
-        <Form onSubmit={()=>this.modal.open()}>
+        <Form onSubmit={()=>this.modal.open()} id="validate-form">
           {({ formApi, formState }) => (
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
               <div style={{ flex: 1, marginRight: '2rem' }}>
-                <form onSubmit={formApi.submitForm} id="validate-form">
-                  <label htmlFor="validate-color">Color:</label>
-                  <Text
-                    field="color"
-                    id="validate-color"
-                    validate={validate} />
-                  <label htmlFor="validate-food">Food:</label>
-                  <Text
-                    field="food"
-                    id="validate-food"
-                    validate={validate} />
-                  <label htmlFor="validate-car">Car:</label>
-                  <Text
-                    field="car"
-                    id="validate-car"
-                    validate={validate} />
-                  <button type="submit">
-                    Submit
-                  </button>
-                </form>
+                <label htmlFor="validate-color">Color:</label>
+                <Text
+                  field="color"
+                  id="validate-color"
+                  validate={validate} />
+                <label htmlFor="validate-food">Food:</label>
+                <Text
+                  field="food"
+                  id="validate-food"
+                  validate={validate} />
+                <label htmlFor="validate-car">Car:</label>
+                <Text
+                  field="car"
+                  id="validate-car"
+                  validate={validate} />
+                <button type="submit">
+                  Submit
+                </button>
               </div>
               <div style={{ flex: 2, minWidth: '300px' }}>
                 <label>Values:</label>

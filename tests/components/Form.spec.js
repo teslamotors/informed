@@ -30,7 +30,9 @@ describe('Form', () => {
     const formState = {
       values: {},
       touched: {},
-      errors: {}
+      errors: {},
+      pristine: true,
+      dirty: false
     }
     expect(JSON.stringify(state)).to.deep.equal(JSON.stringify(formState))
   }
@@ -39,7 +41,9 @@ describe('Form', () => {
     const defaultState = {
       values: {},
       touched: {},
-      errors: {}
+      errors: {},
+      pristine: true,
+      dirty: false
     }
     return Object.assign({}, defaultState, state)
   }
@@ -61,12 +65,8 @@ describe('Form', () => {
     const spy = sandbox.spy()
     const wrapper = mount(
       <Form onSubmit={spy}>
-        {({formApi}) => (
-          <form onSubmit={formApi.submitForm}>
-            <Text field="greeting" />
-            <button type="submit">Submit</button>
-          </form>
-        )}
+        <Text field="greeting" />
+        <button type="submit">Submit</button>
       </Form>
     );
     const input = wrapper.find('input');
@@ -84,11 +84,7 @@ describe('Form', () => {
     const spy = sandbox.spy()
     const wrapper = mount(
       <Form onSubmit={() => {}}>
-        {({formApi}) => (
-          <form onSubmit={formApi.submitForm}>
-            <button type="submit">Submit</button>
-          </form>
-        )}
+        <button type="submit">Submit</button>
       </Form>
     );
     const button = wrapper.find('button');
@@ -105,11 +101,7 @@ describe('Form', () => {
     const spy = sandbox.spy()
     const wrapper = mount(
       <Form onSubmit={() => {}} dontPreventDefault>
-        {({formApi}) => (
-          <form onSubmit={formApi.submitForm}>
-            <button type="submit">Submit</button>
-          </form>
-        )}
+        <button type="submit">Submit</button>
       </Form>
     )
     const button = wrapper.find('button')
@@ -133,12 +125,8 @@ describe('Form', () => {
     })
     const wrapper = mount(
       <Form onSubmit={spy} getApi={setApi} validate={validate}>
-        {({formApi}) => (
-          <form onSubmit={formApi.submitForm}>
-            <Text field="greeting" />
-            <button type="submit">Submit</button>
-          </form>
-        )}
+        <Text field="greeting" />
+        <button type="submit">Submit</button>
       </Form>
     )
     api.setValue('greeting', 'hello!')
@@ -161,12 +149,8 @@ describe('Form', () => {
     })
     const wrapper = mount(
       <Form onSubmitFailure={spy} getApi={setApi} validate={validate}>
-        {({formApi}) => (
-          <form onSubmit={formApi.submitForm}>
-            <Text field="greeting" />
-            <button type="submit">Submit</button>
-          </form>
-        )}
+        <Text field="greeting" />
+        <button type="submit">Submit</button>
       </Form>
     )
     api.setValue('greeting', 'hello!')
@@ -183,12 +167,8 @@ describe('Form', () => {
     const spy = sandbox.spy()
     const wrapper = mount(
       <Form preSubmit={spy}>
-        {({formApi}) => (
-          <form onSubmit={formApi.submitForm}>
-            <Text field="greeting" />
-            <button type="submit">Submit</button>
-          </form>
-        )}
+        <Text field="greeting" />
+        <button type="submit">Submit</button>
       </Form>
     )
     const input = wrapper.find('input')
@@ -253,7 +233,7 @@ describe('Form', () => {
     }
     mount(<Form getApi={setApi}>{() => <Text field="greeting" />}</Form>)
     api.setState({ values: { greeting: 'hello' } })
-    expect(api.getState()).to.deep.equal(getState({ values: { greeting: 'hello' } }))
+    expect(api.getState()).to.deep.equal(getState({ values: { greeting: 'hello' }, pristine: false, dirty: true }))
     api.reset()
     expect(api.getState()).to.deep.equal(getState())
   })
@@ -265,7 +245,7 @@ describe('Form', () => {
     }
     mount(<Form getApi={setApi}>{() => <Text field="greeting" />}</Form>)
     api.setValue('greeting', 'hello')
-    expect(api.getState()).to.deep.equal(getState({ values: { greeting: 'hello' } }))
+    expect(api.getState()).to.deep.equal(getState({ values: { greeting: 'hello' }, pristine: false, dirty: true }))
   })
 
   it('setError should set an error', () => {

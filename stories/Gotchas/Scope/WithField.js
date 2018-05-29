@@ -3,39 +3,29 @@ import Code from '../../utils/Code';
 import withDocs from '../../utils/withDocs';
 import readme from './WithField.md';
 
-import { Form, Text, withFieldApi, Scope } from '../../../src';
+import { Form, Text, withFieldState, Scope } from '../../../src';
 
-const validate = (value)=>'Field is not valid';
-
-const FieldApiInfo = ({fieldApi}) => (
-  <code>{fieldApi.getValue()}</code>
+const FieldInfo = ({fieldState}) => (
+  <code>{fieldState.value}</code>
 );
 
-const WithFavoriteColorInfo = withFieldApi('favorite.color')(FieldApiInfo);
-const WithColorInfo = withFieldApi('color')(FieldApiInfo);
+const WithFavoriteColorInfo = withFieldState('favorite.color')(FieldInfo);
+const WithColorInfo = withFieldState('color')(FieldInfo);
 
 const WithField = () => (
   <div>
-    <Form>
+    <Form id="gotcha-form-2">
       {({ formApi, formState }) => (
         <div>
-          <form onSubmit={formApi.submitForm} id="gotcha-form-2">
-            <Scope scope="favorite">
-              <Text field="color" />
-              favorite.color: <WithFavoriteColorInfo />
-              color: <WithColorInfo />
-            </Scope>
-          </form>
-          <div style={{ flex: 2, minWidth: '300px' }}>
-            <label>Values:</label>
-            <Code language="language-js">
-              {JSON.stringify(formState.values, null, 2)}
-            </Code>
-            <label>Errors:</label>
-            <Code language="language-js">
-              {JSON.stringify(formState.errors, null, 2)}
-            </Code>
-          </div>
+          <Scope scope="favorite">
+            <Text field="color" />
+            <div>favorite.color: <WithFavoriteColorInfo /></div>
+            <div>color: <WithColorInfo /></div>
+          </Scope>
+          <label>Values:</label>
+          <Code language="language-js">
+            {JSON.stringify(formState.values, null, 2)}
+          </Code>
         </div>
       )}
     </Form>

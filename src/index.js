@@ -2,7 +2,7 @@ import Form from './components/Form';
 import Scope from './components/Scope';
 // import Field from './components/Field'
 // import withFormApi from './components/withFormApi'
-import { withFieldApi } from './HOC/withFieldStuff'
+import { withFieldApi, withFieldState } from './HOC/withFieldStuff'
 // import withRadioGroup from './components/withRadioGroup'
 
 import Text from './components/form-fields/Text'
@@ -18,6 +18,7 @@ export {
   //Field,
   // withFormApi,
   withFieldApi,
+  withFieldState,
   // withRadioGroup,
   Text,
   Radio,

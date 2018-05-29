@@ -13,7 +13,7 @@ class Form extends Component {
       getApi,
       dontPreventDefault,
       onSubmitFailure,
-      initialValues
+      initialValues,
     } = props
     this.controller = new FormController(
       {
@@ -66,9 +66,24 @@ class Form extends Component {
   }
 
   render(){
+    const {
+      children,
+      component,
+      render,
+      onSubmit,
+      preSubmit,
+      validate,
+      getApi,
+      dontPreventDefault,
+      onSubmitFailure,
+      initialValues,
+      ...rest
+    } = this.props
     return (
       <FormContext.Provider value={this.formContext}>
-        {this.content}
+        <form {...rest} onSubmit={this.formContext.formApi.submitForm}>
+          {this.content}
+        </form>
       </FormContext.Provider>
     )
   }

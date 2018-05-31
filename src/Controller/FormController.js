@@ -58,12 +58,14 @@ class FormController extends EventEmitter {
     this.touched.rebuild(state.touched);
     this.errors.rebuild(state.errors);
     this.emit('change', this.state);
+    this.emit('values', this.state.values);
     this.emit('update', this.state);
   }
 
   setValues = (values) => {
     this.values.rebuild(values);
     this.emit('change', this.state);
+    this.emit('values', this.state.values);
     this.emit('update', this.state);
   }
 
@@ -78,6 +80,7 @@ class FormController extends EventEmitter {
     }
     // Emit changes
     this.emit('change', this.state);
+    this.emit('values', this.state.values);
     this.emit('field', field);
   }
 

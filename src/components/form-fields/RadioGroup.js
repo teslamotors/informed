@@ -16,7 +16,6 @@ class RadioGroup extends Component {
     }
   }
 
-
   render () {
     return (
       <GroupContext.Provider value={this.groupContext}>

@@ -61,6 +61,15 @@ describe('Form', () => {
     expect(spy.args[0][0].values).to.deep.equal({ greeting: 'hello' });
   })
 
+  it('should call onValueChange function when value changes', () => {
+    const spy = sandbox.spy();
+    const wrapper = mount(<Form onValueChange={spy}>{() => <Text field="greeting" />}</Form>);
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'hello' } });
+    expect(spy.called).to.equal(true);
+    expect(spy.args[0][0]).to.deep.equal({ greeting: 'hello' });
+  })
+
   it('should call onSubmit function with values when the form is submitted', done => {
     const spy = sandbox.spy()
     const wrapper = mount(

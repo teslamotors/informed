@@ -10,6 +10,15 @@ import ValidationControl from './Validation/ValidationControl';
 import UnnecessaryRendering from './Gotchas/UnnecessaryRendering';
 import Scope from './Gotchas/Scope';
 import DynamicFields from './Dynamic/DynamicFields';
+import {
+  TextInput,
+  TextAreaInput,
+  RadioInput,
+  CheckboxInput,
+  SelectInput,
+  MultiSelectInput
+} from './Inputs';
+
 
 addDecorator(StoryWrapper);
 
@@ -19,6 +28,15 @@ storiesOf('Introduction', module)
 storiesOf('Form', module)
   .add('Basic', Basic )
   .add('Complex', Complex );
+
+storiesOf('Inputs', module)
+  .add('Text', TextInput )
+  .add('Text Area', TextAreaInput )
+  .add('Radio Input', RadioInput )
+  .add('Checkbox Input', CheckboxInput )
+  .add('Select Input', SelectInput )
+  .add('Multi Select Input Input', MultiSelectInput );
+
 
 storiesOf('Validation', module)
   .add('Simple Validation', SimpleValidation )

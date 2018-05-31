@@ -34,6 +34,11 @@ class Form extends Component {
         props.onChange(state);
       }
     })
+    this.controller.on('values', (values) => {
+      if( props.onValueChange ){
+        props.onValueChange(values);
+      }
+    })
   }
 
   get formContext(){
@@ -77,6 +82,7 @@ class Form extends Component {
       dontPreventDefault,
       onSubmitFailure,
       initialValues,
+      onValueChange,
       ...rest
     } = this.props
     return (

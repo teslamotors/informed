@@ -35,7 +35,7 @@ storiesOf('Inputs', module)
   .add('Radio Input', RadioInput )
   .add('Checkbox Input', CheckboxInput )
   .add('Select Input', SelectInput )
-  .add('Multi Select Input Input', MultiSelectInput );
+  .add('Multi Select Input', MultiSelectInput );
 
 
 storiesOf('Validation', module)

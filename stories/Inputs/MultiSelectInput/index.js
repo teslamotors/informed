@@ -1,21 +1,34 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
+import Code from '../../utils/Code';
 
 import { Form, Select, Option } from '../../../src';
 
 const MultiSelectInput = () => (
-  <Form id="text-form">
-    <label htmlFor="select-status">Relationship status:</label>
-    <Select field="status" id="select-status" multiple>
-      <Option value="" disabled>Select One...</Option>
-      <Option value="single">Single</Option>
-      <Option value="relationship">Relationship</Option>
-      <Option value="complicated">Complicated</Option>
-    </Select>
-    <button type="submit">
-      Submit
-    </button>
+  <Form id="select-colors-form">
+    {({ formState }) => (
+      <div>
+        <label htmlFor="select-colors">Colors:</label>
+        <Select
+          field="status" id="select-colors" multiple
+          style={{height: '100px', width: '200px'}}>
+          <Option value="red">Red</Option>
+          <Option value="green">Green</Option>
+          <Option value="blue">Blue</Option>
+          <Option value="yellow">Yellow</Option>
+          <Option value="orange">Orange</Option>
+          <Option value="purple">Purple</Option>
+        </Select>
+        <button type="submit">
+          Submit
+        </button>
+        <label>Values:</label>
+        <Code language="language-js">
+          {JSON.stringify(formState.values, null, 2)}
+        </Code>
+      </div>
+    )}
   </Form>
 );
 

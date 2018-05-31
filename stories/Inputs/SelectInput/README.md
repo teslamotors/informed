@@ -1,4 +1,4 @@
-# Text Input
+# Select Input
 
 <!-- STORY -->
 

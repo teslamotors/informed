@@ -129,12 +129,10 @@ describe('Form', () => {
     const setApi = param => {
       api = param
     }
-    const validate = values => ({
-      greeting: values.greeting === 'hello!' ? 'ooo thats no good' : null
-    })
+    const validate = greeting => greeting === 'hello!' ? 'ooo thats no good' : null;
     const wrapper = mount(
-      <Form onSubmit={spy} getApi={setApi} validate={validate}>
-        <Text field="greeting" />
+      <Form onSubmit={spy} getApi={setApi} >
+        <Text field="greeting" validate={validate}/>
         <button type="submit">Submit</button>
       </Form>
     )
@@ -153,12 +151,10 @@ describe('Form', () => {
     const setApi = param => {
       api = param
     }
-    const validate = values => ({
-      greeting: values.greeting === 'hello!' ? 'ooo thats no good' : null
-    })
+    const validate = greeting => greeting === 'hello!' ? 'ooo thats no good' : null;
     const wrapper = mount(
-      <Form onSubmitFailure={spy} getApi={setApi} validate={validate}>
-        <Text field="greeting" />
+      <Form onSubmitFailure={spy} getApi={setApi}>
+        <Text field="greeting" validate={validate}/>
         <button type="submit">Submit</button>
       </Form>
     )

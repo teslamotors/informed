@@ -9,7 +9,6 @@ class Form extends Component {
     const {
       onSubmit,
       preSubmit,
-      validate,
       getApi,
       dontPreventDefault,
       onSubmitFailure,
@@ -19,7 +18,6 @@ class Form extends Component {
       {
         onSubmit,
         getApi,
-        validate,
         preSubmit,
         onSubmitFailure
       },
@@ -77,7 +75,6 @@ class Form extends Component {
       render,
       onSubmit,
       preSubmit,
-      validate,
       getApi,
       dontPreventDefault,
       onSubmitFailure,

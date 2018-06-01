@@ -4,6 +4,7 @@ import StoryWrapper from './utils/StoryWrapper';
 import Intro from './Intro';
 import Basic from './Form/Basic';
 import Complex from './Form/Complex';
+import Props from './Form/Props';
 import SimpleValidation from './Validation/SimpleValidation';
 import ComplexValidation from './Validation/ComplexValidation';
 import ValidationControl from './Validation/ValidationControl';
@@ -27,7 +28,8 @@ storiesOf('Introduction', module)
 
 storiesOf('Form', module)
   .add('Basic', Basic )
-  .add('Complex', Complex );
+  .add('Complex', Complex )
+  .add('Props', Props );
 
 storiesOf('Inputs', module)
   .add('Text', TextInput )

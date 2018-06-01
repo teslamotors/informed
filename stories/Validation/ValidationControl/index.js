@@ -5,7 +5,9 @@ import readme from './README.md';
 
 import { Form, Text } from '../../../src';
 
-const validate = (value)=>'Field is not valid';
+const validate = value => {
+  return !value || value.length < 5 ? 'Field must be longer than five characters' : null;
+}
 
 const ValidationControl = () => (
   <div>

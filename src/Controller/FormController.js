@@ -76,7 +76,7 @@ class FormController extends EventEmitter {
     const fieldController = this.fields.get( field );
     // Validate if on change validation prop was set
     if( fieldController.config.validateOnChange ){
-      this.errors.set( field, fieldController.validate());
+      this.errors.set( field, fieldController.validate( this.state.values ));
     }
     // Emit changes
     this.emit('change', this.state);
@@ -91,7 +91,7 @@ class FormController extends EventEmitter {
     const fieldController = this.fields.get( field );
     // Validate if on blur validation prop was set
     if( fieldController.config.validateOnBlur ){
-      this.errors.set( field, fieldController.validate() );
+      this.errors.set( field, fieldController.validate( this.state.values ) );
     }
     // Emit changes
     this.emit('change', this.state);
@@ -166,13 +166,17 @@ class FormController extends EventEmitter {
       // Set touched
       this.touched.set( field, true );
       // Validate
-      this.errors.set( field, fieldController.validate() );
+      this.errors.set( field, fieldController.validate( this.state.values ) );
     });
-    // Only call form level validation if field level validations are valid
-    // and the user gave us a validate function
-    if( this.valid() && this.hooks.validate ){
-      this.errors.rebuild(this.hooks.validate( this.state.values ));
-    }
+
+
+    // // Only call form level validation if field level validations are valid
+    // // and the user gave us a validate function
+    // if( this.valid() && this.hooks.validate ){
+    //   this.errors.rebuild(this.hooks.validate( this.state.values ));
+    // }
+
+
     this.emit('change', this.state);
     this.emit('update', this.state);
     // Make sure we are valid

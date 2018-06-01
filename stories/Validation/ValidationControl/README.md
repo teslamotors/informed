@@ -9,7 +9,9 @@ or validateOnBlur or even both!
 
 ```jsx
 
-const validate = (value)=>'Field is not valid';
+const validate = value => {
+  return !value || value.length < 5 ? 'Field must be longer than five characters' : null;
+}
 
 <Form id="validate-control-form">
   <label htmlFor="validate-color">Color:</label>

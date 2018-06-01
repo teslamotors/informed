@@ -4,9 +4,9 @@ class FieldController {
     this.config = config;
     this.api = api;
   }
-  validate(){
+  validate( values ){
     if( this.config.validate ){
-      return this.config.validate( this.api.getValue() );
+      return this.config.validate( this.api.getValue(), values );
     }
   }
 }

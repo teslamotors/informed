@@ -46,6 +46,10 @@ render(){
                 <Code language="language-js">
                   {JSON.stringify(formState.errors, null, 2)}
                 </Code>
+                <label>Invalid:</label>
+                <Code language="language-js">
+                  {JSON.stringify(formState.invalid, null, 2)}
+                </Code>
               </div>
               <Modal getControl={(model)=>this.modal = model}>
                 <strong>Form Successfully Submitted!</strong>

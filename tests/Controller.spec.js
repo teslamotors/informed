@@ -96,7 +96,8 @@ describe('Controller', () => {
           errors: { greeting: 'error' },
           touched: { greeting: true },
           pristine: false,
-          dirty: true
+          dirty: true,
+          invalid: true
         }
         controller.api.setState(expected)
         expect(controller.state).to.deep.equal(expected);
@@ -164,7 +165,8 @@ describe('Controller', () => {
           errors: {},
           touched: {},
           pristine: false,
-          dirty: true
+          dirty: true, 
+          invalid: false
         }
         controller.register( 'greeting', getFieldController('greeting', controller.api) )
         controller.register( 'firstname', getFieldController('firstname', controller.api, {

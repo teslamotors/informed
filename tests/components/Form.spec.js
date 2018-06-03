@@ -32,7 +32,8 @@ describe('Form', () => {
       touched: {},
       errors: {},
       pristine: true,
-      dirty: false
+      dirty: false,
+      invalid: false
     }
     expect(JSON.stringify(state)).to.deep.equal(JSON.stringify(formState))
   }
@@ -43,7 +44,8 @@ describe('Form', () => {
       touched: {},
       errors: {},
       pristine: true,
-      dirty: false
+      dirty: false,
+      invalid: false
     }
     return Object.assign({}, defaultState, state)
   }
@@ -260,7 +262,29 @@ describe('Form', () => {
     }
     mount(<Form getApi={setApi}>{() => <Text field="greeting" />}</Form>)
     api.setError('greeting', 'error')
-    expect(api.getState()).to.deep.equal(getState({ errors: { greeting: 'error' } }))
+    expect(api.getState().errors).to.deep.equal({ greeting: 'error' })
+  })
+
+  it('when an error is present the form should be invalid', () => {
+    let api
+    const setApi = param => {
+      api = param
+    }
+    mount(<Form getApi={setApi}>{() => <Text field="greeting" />}</Form>)
+    api.setError('greeting', 'error')
+    expect(api.getState().invalid).to.equal(true);
+  })
+
+  it('when an error is present then goes away form should be valid', () => {
+    let api
+    const setApi = param => {
+      api = param
+    }
+    mount(<Form getApi={setApi}>{() => <Text field="greeting" />}</Form>)
+    api.setError('greeting', 'error')
+    expect(api.getState().invalid).to.equal(true);
+    api.setError('greeting', null)
+    expect(api.getState().invalid).to.equal(false);
   })
 
   // SET WARNINGG AND SUCCESS TESTS

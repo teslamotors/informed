@@ -38,6 +38,7 @@ class FormController extends EventEmitter {
       errors: this.errors.object,
       pristine: this.pristine,
       dirty: this.dirty,
+      invalid: this.invalid
     }
   }
 
@@ -47,6 +48,10 @@ class FormController extends EventEmitter {
 
   get dirty(){
     return !this.pristine;
+  }
+
+  get invalid(){
+    return !this.errors.empty();
   }
 
   getFormState = () => {

@@ -69,6 +69,7 @@ class Form extends Component {
   }
 
   render(){
+    // TODO find better way to get ...rest
     const {
       children,
       component,

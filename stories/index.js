@@ -5,6 +5,8 @@ import Intro from './Intro';
 import Basic from './Form/Basic';
 import Complex from './Form/Complex';
 import State from './Form/State';
+import Props from './Form/Props';
+import Api from './Form/Api';
 import SimpleValidation from './Validation/SimpleValidation';
 import ComplexValidation from './Validation/ComplexValidation';
 import ValidationControl from './Validation/ValidationControl';
@@ -17,7 +19,8 @@ import {
   RadioInput,
   CheckboxInput,
   SelectInput,
-  MultiSelectInput
+  MultiSelectInput,
+  Intro as InputIntro
 } from './Inputs';
 
 
@@ -29,9 +32,12 @@ storiesOf('Introduction', module)
 storiesOf('Form', module)
   .add('Basic', Basic )
   .add('Complex', Complex )
-  .add('State', State );
+  .add('State', State )
+  .add('Api', Api )
+  .add('Props', Props );
 
 storiesOf('Inputs', module)
+  .add('Intro', InputIntro)
   .add('Text', TextInput )
   .add('Text Area', TextAreaInput )
   .add('Radio Input', RadioInput )

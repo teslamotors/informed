@@ -16,6 +16,8 @@ const Intro = () => (
         <Text field="friends[0]" id="syntax-friends[0]" />
         <label htmlFor="syntax-siblings.1">Siblings.1:</label>
         <Text field="siblings.1" id="syntax-siblings.1" />
+        <label htmlFor="syntax-siblings['2']">Siblings['2']</label>
+        <Text field="siblings['2']" id="syntax-siblings['2']" />
         <label htmlFor="syntax-parents[0].name">Parents[0].name:</label>
         <Text field="parents[0].name" id="syntax-parents[0].name" />
         <button type="submit">

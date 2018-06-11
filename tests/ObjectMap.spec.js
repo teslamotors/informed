@@ -56,7 +56,7 @@ describe('ObjectMap', () => {
         }
       }
       const objectMap = new ObjectMap( object );
-      const actual = objectMap.get('foo.bar.baz[0].taz.bar[10][3].bar.0.5');
+      const actual = objectMap.get("foo['bar'].baz[0].taz.bar[10][3].bar['0'].5");
       expect( actual ).to.equal(expected);
     });
 
@@ -94,6 +94,14 @@ describe('ObjectMap', () => {
         const expected = {foo:[,[,3]]};
         const objectMap = new ObjectMap();
         objectMap.set('foo[1][1]',3);
+        const actual = objectMap.object;
+        expect( actual ).to.deep.equal(expected);
+      });
+
+      it('should set a nested value and initialize objects along the way with array object syntax', () => {
+        const expected = {foo:{bar:{baz:3}}};
+        const objectMap = new ObjectMap();
+        objectMap.set("foo['bar'].baz", 3);
         const actual = objectMap.object;
         expect( actual ).to.deep.equal(expected);
       });
@@ -178,6 +186,14 @@ describe('ObjectMap', () => {
       it('should set a nested value and initialize maps along the way', () => {
         const objectMap = new ObjectMap();
         objectMap.set('foo.bar.baz', 3);
+        expect(objectMap.map instanceof Map).to.equal(true);
+        expect(objectMap.map.get('foo') instanceof Map).to.equal(true);
+        expect(objectMap.map.get('foo').get('bar') instanceof Map).to.equal(true);
+      });
+
+      it('should set a nested value and initialize maps along the way with array object syntax', () => {
+        const objectMap = new ObjectMap();
+        objectMap.set("foo['bar'].baz", 3);
         expect(objectMap.map instanceof Map).to.equal(true);
         expect(objectMap.map.get('foo') instanceof Map).to.equal(true);
         expect(objectMap.map.get('foo').get('bar') instanceof Map).to.equal(true);

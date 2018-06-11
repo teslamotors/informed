@@ -25,6 +25,9 @@ Fields can be simple strings, strings that contain ".", and strings that contain
 |------------------------|----------------------------------|
 | `"username"`           | `values.username`                |
 | `"friends[0]"`         | `values.friends[0]`              |
-| `"friends['0']"`       | `values.friends.0`               |
+| `"siblings.1"`         | `values.siblings.1`              |
+| `"siblings['2']"`      | `values.siblings.2`              |
+| `"parents[0].name"`    | `values.parents[0].name`         |
+| `"parents[1]['name']"` | `values.parents[1].name`         |
 
 <!-- STORY -->

@@ -171,6 +171,7 @@ class FormController extends EventEmitter {
       // Set touched
       this.touched.set( field, true );
       // Validate
+      //debugger
       this.errors.set( field, fieldController.validate( this.state.values ) );
     });
 

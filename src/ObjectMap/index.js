@@ -95,32 +95,37 @@ class ObjectMap {
 
     const set = ( cursor, map, key, nextKey, i ) => {
 
-      // Base case: next key is undefined
+      // Base case 1: cursor is undefined
+      if( cursor == null ){
+        return;
+      }
+
+      // Base case 2: next key is undefined
       if( nextKey == null ){
-        // Only modify if there is a cursor
-        if( cursor ){
-          if( value == null ){
-            delete cursor[key];
-            map.delete(key);
-          } else {
-            cursor[key] = value;
-            map.set(key, value)
-          }
+        if( value == null ){
+          delete cursor[key];
+          map.delete(key);
+        } else {
+          cursor[key] = value;
+          map.set(key, value)
         }
         return;
       }
 
-      // If the next key is a number and the cursor is not an array yet we
-      // need to initialize it
-      if (typeof nextKey === 'number' && !isArray(cursor[key]) && value != null) {
-        cursor[key] = [];
-        map.set(key, new Map());
-      }
-      // If the next key is not a number and the cursor is not an object yet
-      // we need to initialize it
-      if (typeof nextKey !== 'number' && !isObject(cursor[key]) && value != null) {
-        cursor[key] = {};
-        map.set(key, new Map());
+      // We only initialize if the value is not null or undefined
+      if( value != null ){
+        // If the next key is a number and the cursor is not an array yet we
+        // need to initialize it.
+        if (typeof nextKey === 'number' && !isArray(cursor[key]) ) {
+          cursor[key] = [];
+          map.set(key, new Map());
+        }
+        // If the next key is not a number and the cursor is not an object yet
+        // we need to initialize it
+        if (typeof nextKey !== 'number' && !isObject(cursor[key]) ) {
+          cursor[key] = {};
+          map.set(key, new Map());
+        }
       }
 
       // If the next cursor is an array or object then we pass down a new map

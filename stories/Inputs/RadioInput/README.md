@@ -3,7 +3,7 @@
 <!-- STORY -->
 
 ```jsx
-import { Form, RadioGroup, Radio } from 'react-form';
+import { Form, RadioGroup, Radio } from 'informed';
 
 <Form id="radio-form">
   <RadioGroup field="gender">

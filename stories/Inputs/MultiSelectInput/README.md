@@ -3,7 +3,7 @@
 <!-- STORY -->
 
 ```jsx
-import { Form, Select, Option } from 'react-form';
+import { Form, Select, Option } from 'informed';
 
 <Form id="text-form">
   <label htmlFor="select-colors">Colors:</label>

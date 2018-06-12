@@ -3,7 +3,7 @@
 <!-- STORY -->
 
 ```jsx
-import { Form, TextArea } from 'react-form';
+import { Form, TextArea } from 'informed';
 
 <Form id="textarea-form">
   <label htmlFor="textarea-bio">Bio:</label>

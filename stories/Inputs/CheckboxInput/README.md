@@ -3,7 +3,7 @@
 <!-- STORY -->
 
 ```jsx
-import { Form, Checkbox } from 'react-form';
+import { Form, Checkbox } from 'informed';
 
 <Form id="checkbox-form">
   <label htmlFor="checkbox-authorize">Authorize</label>

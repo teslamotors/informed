@@ -26,7 +26,7 @@ All of our basic level validation passed but when the form attempted to submit
 the additional friend checks failed.
 
 ```jsx
-import { Form, Text, Scope } from 'react-form';
+import { Form, Text, Scope } from 'informed';
 
 const basicValidation = value => {
   return !value || value.length < 5 ? 'Field must be longer than five characters' : null;

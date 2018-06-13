@@ -2,7 +2,10 @@
   "name": "informed",
   "version": "1.0.1",
   "description": "A lightweight framework and utility for building powerful forms in React applications",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "start": "webpack-dev-server -d --config webpack.dev.config.js --port 4004 --hot",
     "build": "webpack -p --config ./config/webpack/webpack.dist.config.js",

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server -d --config webpack.dev.config.js --port 4004 --hot",
-    "build": "webpack -p --config ./webpack.dist.config.js",
+    "build": "webpack -p --config ./config/webpack/webpack.dist.config.js",
     "test": "mocha-webpack --opts tests/mocha-webpack.opts",
     "test:watch": "npm run test -- --watch",
     "pretest": "patch-package",
@@ -66,12 +66,20 @@
     "storybook-readme": "^3.3.0",
     "style-loader": "^0.21.0",
     "webpack": "^4.8.2",
+    "webpack-cli": "^3.0.4",
     "webpack-dev-server": "^3.1.4",
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "stage-0",
+      "react"
+    ]
   },
   "nyc": {
     "instrument": false,

@@ -1,9 +1,10 @@
 import Form from './components/Form';
 import Scope from './components/Scope';
-// import Field from './components/Field'
-// import withFormApi from './components/withFormApi'
+import Field from './components/Field';
+import withFormApi from './HOC/withFormApi';
+import withFormState from './HOC/withFormState';
 import { withFieldApi, withFieldState } from './HOC/withFieldStuff';
-// import withRadioGroup from './components/withRadioGroup'
+import withRadioGroup from './HOC/withRadioGroup'
 
 import Text from './components/form-fields/Text';
 import Radio from './components/form-fields/Radio';
@@ -16,11 +17,12 @@ import RadioGroup from './components/form-fields/RadioGroup';
 export {
   Form,
   Scope,
-  //Field,
-  // withFormApi,
+  Field,
+  withFormApi,
+  withFormState,
   withFieldApi,
   withFieldState,
-  // withRadioGroup,
+  withRadioGroup,
   Text,
   Radio,
   TextArea,

@@ -23,6 +23,18 @@ import {
   Intro as InputIntro
 } from './Inputs';
 
+import {
+  ArrayOfFields,
+  ArrayOfScopes
+} from './Arrays';
+
+import {
+  WithFormApi,
+  WithFormState,
+  WithFieldApi,
+  WithFieldState
+} from './HOC';
+
 
 addDecorator(StoryWrapper);
 
@@ -45,11 +57,20 @@ storiesOf('Inputs', module)
   .add('Select Input', SelectInput )
   .add('Multi Select Input', MultiSelectInput );
 
+storiesOf('Arrays', module)
+  .add('Array Of Fields', ArrayOfFields)
+  .add('Array Of Scopes', ArrayOfScopes);
 
 storiesOf('Validation', module)
   .add('Simple Validation', SimpleValidation )
   .add('Complex Validation', ComplexValidation )
   .add('Validation Control', ValidationControl );
+
+storiesOf('High Order Components', module)
+  .add('withFormApi', WithFormApi )
+  .add('withFormState', WithFormState )
+  .add('withFieldApi', WithFieldApi )
+  .add('withFieldState', WithFieldState );
 
 storiesOf('Gotchas', module)
   .add('Unnecessary Rendering', UnnecessaryRendering )

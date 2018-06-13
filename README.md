@@ -1,6 +1,8 @@
-# Informed ( Coming Soon! )
+# Informed 
 
 ## By the creators of react-form
+
+### Go to [live examples, code and docs](https://joepuzzo.github.io/informed)!
 
 ## Introduction
 

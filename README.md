@@ -5,6 +5,7 @@
 ### Go to [live examples, code and docs](https://joepuzzo.github.io/informed)!
 
 [![Informed-Chat](https://img.shields.io/badge/slack-informed--chat-blue.svg)](https://spectrum.chat/informed)
+[![Coverage Status](https://coveralls.io/repos/github/joepuzzo/informed/badge.svg?branch=master)](https://coveralls.io/github/joepuzzo/informed?branch=master)
 
 ## Introduction
 

@@ -1,6 +1,6 @@
 import Controller from '../src/Controller/FormController';
 import FieldController from '../src/Controller/FieldController';
-import { expect } from 'chai';
+import { expect, assert } from 'chai';
 import sinon from 'sinon'
 
 describe('Controller', () => {
@@ -165,7 +165,7 @@ describe('Controller', () => {
           errors: {},
           touched: {},
           pristine: false,
-          dirty: true, 
+          dirty: true,
           invalid: false
         }
         controller.register( 'greeting', getFieldController('greeting', controller.api) )
@@ -175,6 +175,31 @@ describe('Controller', () => {
         controller.api.setValue('greeting', 'hello');
         controller.api.setValue('firstname', 'hello')
         controller.api.reset();
+        expect(controller.state).to.deep.equal(expected);
+      });
+    });
+
+    describe('deregister', () => {
+      it('removes a field', () => {
+        const controller = new Controller();
+        const expected = {
+          values: {
+            greeting: 'foobar',
+            firstname: 'Joe'
+          },
+          errors: {},
+          touched: {},
+          pristine: false,
+          dirty: true,
+          invalid: false
+        }
+        controller.register( 'greeting', getFieldController('greeting', controller.api) )
+        controller.register( 'firstname', getFieldController('firstname', controller.api))
+        controller.api.setValue('greeting', 'foobar');
+        controller.api.setValue('firstname', 'Joe');
+        expect(controller.state).to.deep.equal(expected);
+        controller.deregister('firstname');
+        delete expected.values.firstname;
         expect(controller.state).to.deep.equal(expected);
       });
     });
@@ -284,6 +309,43 @@ describe('Controller', () => {
           done()
         });
         controller.api.setError('greeting', 'error')
+      });
+
+    });
+
+    describe('notify', () => {
+
+      it('should notify other fields about changes and call their validators', () => {
+        const controller = new Controller();
+        const spy1 = sandbox.spy();
+        const spy2 = sandbox.spy();
+        const spy3 = sandbox.spy();
+        controller.register( 'greeting', getFieldController('greeting', controller.api, {
+          validate: spy1,
+          validateOnChange: true,
+          notify: ['foo','bar']
+        }))
+        controller.register( 'foo', getFieldController('greeting', controller.api, { validate: spy2 }));
+        controller.register( 'bar', getFieldController('greeting', controller.api, { validate: spy3 }));
+        controller.api.setValue('greeting', 'hello')
+        expect(spy1.called).to.equal(true);
+        expect(spy2.called).to.equal(true);
+        expect(spy3.called).to.equal(true);
+      });
+
+      it('should throw error when field does not exist', () => {
+        const controller = new Controller();
+        const spy1 = sandbox.spy();
+        const spy2 = sandbox.spy();
+        const spy3 = sandbox.spy();
+        controller.register( 'greeting', getFieldController('greeting', controller.api, {
+          validate: spy1,
+          validateOnChange: true,
+          notify: ['foo','baz']
+        }))
+        controller.register( 'foo', getFieldController('greeting', controller.api, { validate: spy2 }));
+        controller.register( 'bar', getFieldController('greeting', controller.api, { validate: spy3 }));
+        assert.throws( () => controller.api.setValue('greeting', 'hello'), Error, "Cant notify field baz as it does not exist!");
       });
 
     });

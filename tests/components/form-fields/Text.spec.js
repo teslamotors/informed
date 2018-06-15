@@ -23,6 +23,31 @@ describe('Text', () => {
     const input = wrapper.find('input').at(0)
     input.simulate('change', { target: { value: 'Hello!' } })
     expect(savedApi.getState().values).to.deep.equal({ greeting: 'Hello!' })
-  })
+  });
+
+  it('should call onChange function when value changes', () => {
+  const spy = sandbox.spy();
+  const wrapper = mount(
+    <Form>
+      <Text field="hello" onChange={spy} />
+    </Form>
+  );
+  const input = wrapper.find('input');
+  input.simulate('change', { target: { value: 'world' } });
+  expect(spy.called).to.equal(true);
+  expect(spy.args[0][0].target.value).to.deep.equal('world');
+});
+
+it('should call onBlur function when value changes', () => {
+  const spy = sandbox.spy();
+  const wrapper = mount(
+    <Form>
+      <Text field="hello" onBlur={spy} />
+    </Form>
+  );
+  const input = wrapper.find('input');
+  input.simulate('blur');
+  expect(spy.called).to.equal(true);
+});
 
 })

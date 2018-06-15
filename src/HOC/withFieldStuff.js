@@ -47,7 +47,8 @@ const bindToField = ( Component ) => withController(withFormApi( class extends R
       validate,
       validateOnBlur,
       validateOnChange,
-      initialValue
+      initialValue,
+      notify
     } = props;
 
     this.state = buildFieldState( formApi, field );
@@ -83,7 +84,8 @@ const bindToField = ( Component ) => withController(withFormApi( class extends R
           validateOnBlur,
           validateOnChange,
           validate,
-          initialValue
+          initialValue,
+          notify
         }
       ));
     }

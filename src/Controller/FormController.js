@@ -22,7 +22,8 @@ class FormController extends EventEmitter {
       getState: this.getFormState,
       setState: this.setFormState,
       setValues: this.setValues,
-      reset: this.reset
+      reset: this.reset,
+      notify: this.notify
     }
     this.fields = new Map();
     // Call initial hooks
@@ -54,6 +55,10 @@ class FormController extends EventEmitter {
     return !this.errors.empty();
   }
 
+  valid = () => {
+    return this.errors.empty();
+  }
+
   getFormState = () => {
     return this.state;
   }
@@ -82,6 +87,8 @@ class FormController extends EventEmitter {
     // Validate if on change validation prop was set
     if( fieldController.config.validateOnChange ){
       this.errors.set( field, fieldController.validate( this.state.values ));
+      // We changed so notify all other fields
+      this.notify(fieldController.config.notify);
     }
     // Emit changes
     this.emit('change', this.state);
@@ -97,6 +104,8 @@ class FormController extends EventEmitter {
     // Validate if on blur validation prop was set
     if( fieldController.config.validateOnBlur ){
       this.errors.set( field, fieldController.validate( this.state.values ) );
+      // We changed so notify all other fields
+      this.notify(fieldController.config.notify);
     }
     // Emit changes
     this.emit('change', this.state);
@@ -107,6 +116,10 @@ class FormController extends EventEmitter {
     this.errors.set( field, error );
     this.emit('change', this.state);
     this.emit('field', field);
+
+    // We changed so notify all other fields
+    const fieldController = this.fields.get( field );
+    this.notify(fieldController.config.notify);
   }
 
   getValue = ( field ) => {
@@ -142,10 +155,6 @@ class FormController extends EventEmitter {
     this.remove(field);
   }
 
-  valid = () => {
-    return this.errors.empty();
-  }
-
   reset = () => {
     this.values.rebuild(this.config.initialValues);
     this.touched.rebuild();
@@ -159,6 +168,23 @@ class FormController extends EventEmitter {
     });
     this.emit('change', this.state);
     this.emit('update', this.state);
+  }
+
+  notify = ( fields ) => {
+    if(fields){
+      fields.forEach( field => {
+        // Get the field controller to trigger any lifecycle methods
+        const fieldController = this.fields.get( field );
+        if( !fieldController ){
+          throw new Error(`Cant notify field ${field} as it does not exist!`);
+        }
+        this.errors.set( field, fieldController.validate( this.state.values ));
+        this.emit('field', field);
+      })
+
+      // Emit changes
+      this.emit('change', this.state);
+    }
   }
 
   submitForm = (e) => {

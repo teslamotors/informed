@@ -10,6 +10,7 @@ import Api from './Form/Api';
 import SimpleValidation from './Validation/SimpleValidation';
 import ComplexValidation from './Validation/ComplexValidation';
 import ValidationControl from './Validation/ValidationControl';
+import Notifications from './Validation/Notifications';
 import UnnecessaryRendering from './Gotchas/UnnecessaryRendering';
 import Scope from './Gotchas/Scope';
 import DynamicFields from './Dynamic/DynamicFields';
@@ -64,7 +65,8 @@ storiesOf('Arrays', module)
 storiesOf('Validation', module)
   .add('Simple Validation', SimpleValidation )
   .add('Complex Validation', ComplexValidation )
-  .add('Validation Control', ValidationControl );
+  .add('Validation Control', ValidationControl )
+  .add('Notifications', Notifications );
 
 storiesOf('High Order Components', module)
   .add('withFormApi', WithFormApi )

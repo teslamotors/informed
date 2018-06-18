@@ -1,3 +1,13 @@
+## 1.1.1 ( June 18, 2018 )
+
+### Fixed
+- Bug where i did not do null check on event within on submit
+
+## 1.0.1 ( June 15, 2018 ) 
+
+### Added
+- Notify prop to inputs that allows you to notify other fields when your error state changes ( see docs )
+
 ## 1.0.0 (June 12, 2018)
 ### Added
 - Text

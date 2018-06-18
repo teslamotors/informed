@@ -188,7 +188,7 @@ class FormController extends EventEmitter {
   }
 
   submitForm = (e) => {
-    if( !this.config.dontPreventDefault ){
+    if( e && !this.config.dontPreventDefault ){
       e.preventDefault(e);
     }
     this.fields.forEach(( fieldController ) => {

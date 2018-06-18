@@ -4,7 +4,8 @@ import Field from './components/Field';
 import withFormApi from './HOC/withFormApi';
 import withFormState from './HOC/withFormState';
 import { withFieldApi, withFieldState } from './HOC/withFieldStuff';
-import withRadioGroup from './HOC/withRadioGroup'
+import withRadioGroup from './HOC/withRadioGroup';
+import asField from './HOC/asField';
 
 import Text from './components/form-fields/Text';
 import Radio from './components/form-fields/Radio';
@@ -23,6 +24,7 @@ export {
   withFieldApi,
   withFieldState,
   withRadioGroup,
+  asField,
   Text,
   Radio,
   TextArea,

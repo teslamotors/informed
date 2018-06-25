@@ -1,3 +1,8 @@
+## 1.1.2 ( June 25, 2018 )
+
+### Moved
+- React and React-Dom to dev dependencies
+
 ## 1.1.1 ( June 18, 2018 )
 
 ### Fixed
@@ -11,8 +16,12 @@
 ## 1.0.0 (June 12, 2018)
 ### Added
 - Text
+- TextArea
 - Radio Group
 - Radio
+- Select
+- Select as Multiselect !!!
+- Checkbox
 - withRadioGroup
 - withFieldApi
 - withFieldState
@@ -20,6 +29,8 @@
 - withFormState
 - asField
 - Form
+- Field
+
 
 ### Changed
 **
@@ -28,11 +39,12 @@ Note: this was the first release but i wanted to include changes from
 **
 
 - `formApi` was split into two parts `formApi` ( contains just functions ) `formState` ( contains just form state )
-- Form level validation will only occur if all field level validation passes. It used to always execute both.
+- Form level validation is gone. You do all validation via field validation.
 - `defaultValues` Form prop is now called `initialValues`
-- `onChange` Form prop only recieves the `formState`
-- `preventDefault` Form prop is now `dontPreventDefault`
-- `getApi` Form prop just returns the formApi, not the state and the api
+- `onChange` Form prop only recieves the `formState`. It used to retrieve the form Api as well.
+- `preventDefault` Form prop is now `dontPreventDefault` 
+- `getApi` Form prop just returns the formApi, not the state and the api.
+- `Form` component now renders the `form` element internally. So you dont have to "hook it up" anymore!!
 
 
 ### Removed
@@ -42,6 +54,10 @@ Note: this was the first release but i wanted to include things that were remove
 **
 
 - `NestedField` you can use `Scope` instead but all it does is scope internal fields to `scope="your-scope"`
-- validateOnSubmit was removed. Now the form always validates on submit by default and you can opt into sooner validation at field level
+- validateOnSubmit was removed. Now the form always validates on submit by default and you can opt into sooner validation at field level.
 - `defaultValues` form prop is now called `initialValues`
-- `pure` Form prop. Its not needed anymore due to the use of `React.PureComponent` internally
+- `pure` Form prop. Its not needed anymore due to the use of `React.PureComponent` internally.
+- add, remove, and swap values. The developer can achive this on there own without the use of internal functionality.
+- Array Syntax. In order to keep things simple we now only support the string syntax for field names.
+- Async Validation. Async validation led to many issues that overcomplicated `react-form`. We determined this is something that the developer could achive on there own for now but we may look into adding this in the future. 
+- Warning and Success have been removed for now to keep lib lean but we may add additional functions in the future.

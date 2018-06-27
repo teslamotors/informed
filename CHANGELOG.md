@@ -1,3 +1,8 @@
+## 1.2.1 ( June 27, 2018 )
+
+### Added
+- hook so you can add a button with type=reset and it will reset the form
+
 ## 1.2.0 ( June 27, 2018 )
 
 ### Added

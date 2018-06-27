@@ -334,6 +334,23 @@ describe('Form', () => {
     })
   })
 
+  it('errors should update when default value is set and validateOnMount is passed in', done => {
+    const validate = value => value === 'Foo' ? 'ooo thats no good' : null;
+    let api
+    const setApi = param => {
+      api = param
+    }
+    const wrapper = mount(
+      <Form getApi={setApi}>
+        <Text field="name" validateOnMount validate={validate} initialValue="Foo"/>
+      </Form>
+    )
+    setImmediate(() => {
+      expect(api.getState().errors).to.deep.equal({ name: 'ooo thats no good' })
+      done()
+    })
+  })
+
   // WARNINGG AND SUCCESS TESTS ^^
 
 })

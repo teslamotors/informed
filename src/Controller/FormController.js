@@ -137,9 +137,15 @@ class FormController extends EventEmitter {
   getFullField = ( field ) => field;
 
   register = ( field, fieldController ) => {
+    // Register the field controller
     this.fields.set( field, fieldController );
+    // Set initial value if present
     if( fieldController.config.initialValue ){
       this.values.set(field, fieldController.config.initialValue)
+    }
+    // Call validate if validate on mount was passed
+    if( fieldController.config.validateOnMount ){
+      this.errors.set( field, fieldController.validate( this.state.values ) );
     }
   }
 

@@ -91,6 +91,28 @@ describe('Form', () => {
     })
   })
 
+  it('should call reset function when reset button is clicked', done => {
+    let savedApi;
+    const wrapper = mount(
+      <Form
+        getApi={(api) => {
+          savedApi = api;
+        }}
+        initialValues={{ greeting: 'world' }}>
+        <Text field="greeting" />
+        <button type="reset">Reset</button>
+      </Form>
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'hello' } });
+    const button = wrapper.find('button');
+    button.simulate('reset');
+    setImmediate(() => {
+      expect(savedApi.getState().values).to.deep.equal({ greeting: 'world' });
+      done();
+    })
+  })
+
   it('should call preventDefault when the form is submitted', done => {
     const spy = sandbox.spy()
     const wrapper = mount(

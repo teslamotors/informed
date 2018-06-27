@@ -1,3 +1,8 @@
+## 1.2.0 ( June 27, 2018 )
+
+### Added
+- validateOnMount to input props
+
 ## 1.1.2 ( June 25, 2018 )
 
 ### Moved

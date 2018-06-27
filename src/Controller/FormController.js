@@ -80,10 +80,10 @@ class FormController extends EventEmitter {
   }
 
   setValue = ( field, value ) => {
-    // Set value
-    this.values.set(field, value)
     // Get the field controller to trigger any lifecycle methods
     const fieldController = this.fields.get( field );
+    // Set value and mask the value if mask prop was set
+    this.values.set(field, fieldController.config.mask ? fieldController.config.mask(value) : value );
     // Validate if on change validation prop was set
     if( fieldController.config.validateOnChange ){
       this.errors.set( field, fieldController.validate( this.state.values ));

@@ -1,3 +1,8 @@
+## 1.3.0 ( June 27, 2018 )
+
+### Added
+- mask so you can mask values at field level. example `value => value + '!!!'`
+
 ## 1.2.1 ( June 27, 2018 )
 
 ### Added

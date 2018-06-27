@@ -44,6 +44,7 @@ const bindToField = ( Component ) => withController(withFormApi( class extends R
       controller,
       // Comes from user props
       field,
+      mask,
       validate,
       validateOnBlur,
       validateOnChange,
@@ -87,7 +88,8 @@ const bindToField = ( Component ) => withController(withFormApi( class extends R
           validate,
           initialValue,
           validateOnMount,
-          notify
+          notify,
+          mask
         }
       ));
     }
@@ -104,6 +106,7 @@ const bindToField = ( Component ) => withController(withFormApi( class extends R
 
   render(){
     const {
+      mask,
       formApi,
       formState,
       controller,

@@ -26,28 +26,44 @@ describe('Text', () => {
   });
 
   it('should call onChange function when value changes', () => {
-  const spy = sandbox.spy();
-  const wrapper = mount(
-    <Form>
-      <Text field="hello" onChange={spy} />
-    </Form>
-  );
-  const input = wrapper.find('input');
-  input.simulate('change', { target: { value: 'world' } });
-  expect(spy.called).to.equal(true);
-  expect(spy.args[0][0].target.value).to.deep.equal('world');
-});
+    const spy = sandbox.spy();
+    const wrapper = mount(
+      <Form>
+        <Text field="hello" onChange={spy} />
+      </Form>
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'world' } });
+    expect(spy.called).to.equal(true);
+    expect(spy.args[0][0].target.value).to.deep.equal('world');
+  });
 
-it('should call onBlur function when value changes', () => {
-  const spy = sandbox.spy();
-  const wrapper = mount(
-    <Form>
-      <Text field="hello" onBlur={spy} />
-    </Form>
-  );
-  const input = wrapper.find('input');
-  input.simulate('blur');
-  expect(spy.called).to.equal(true);
-});
+  it('should call onBlur function when value changes', () => {
+    const spy = sandbox.spy();
+    const wrapper = mount(
+      <Form>
+        <Text field="hello" onBlur={spy} />
+      </Form>
+    );
+    const input = wrapper.find('input');
+    input.simulate('blur');
+    expect(spy.called).to.equal(true);
+  });
+
+  it('should run mask when user types in text input and mask is passed', () => {
+    let savedApi;
+    const mask = value => (`${value}!`);
+    const wrapper = mount(
+      <Form
+        getApi={(api) => {
+          savedApi = api;
+        }}>
+        <Text field="hello" mask={mask} />
+      </Form>
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'world' } });
+    expect(savedApi.getState().values).to.deep.equal({ hello: 'world!' });
+  });
 
 })

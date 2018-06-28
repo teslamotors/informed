@@ -1,3 +1,8 @@
+## 1.3.6 ( June 28, 2018 )
+
+### Added
+- globalObject: 'this' to the webpack dist config to support SSR
+
 ## 1.3.5 ( June 28, 2018 )
 
 ### Fixed

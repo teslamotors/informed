@@ -17,6 +17,7 @@ module.exports = {
   },
   output: {
     filename: 'index.js',
+    globalObject: 'this',
     library: 'informed',
     libraryTarget: 'umd',
     umdNamedDefine: true,

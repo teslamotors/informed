@@ -112,6 +112,7 @@ const bindToField = ( Component ) => withController(withFormApi( class extends R
       controller,
       validate,
       validateOnBlur,
+      validateOnMount,
       validateOnChange,
       ...rest
     } = this.props;

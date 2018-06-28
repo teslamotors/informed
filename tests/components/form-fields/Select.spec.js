@@ -7,7 +7,7 @@ import { Form, Select, Option } from '../../../src'
 
 describe('Text', () => {
 
-  const sandbox = sinon.sandbox.create()
+  const sandbox =  sinon.createSandbox()
 
   beforeEach(() => {
     sandbox.restore()

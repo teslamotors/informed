@@ -5,6 +5,7 @@ class FormController extends EventEmitter {
 
   constructor(hooks = {}, config= {}){
     super();
+    this.setMaxListeners(0);
     this.hooks = hooks;
     this.config = config;
     this.values = new ObjectMap(config.initialValues);

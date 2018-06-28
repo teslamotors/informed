@@ -1,3 +1,9 @@
+## 1.3.5 ( June 28, 2018 )
+
+### Fixed
+- Issue with event emitter limit ( need to look into alternative solution )
+- Removed depricated sandbox sinon usage that was causing errors during tests
+
 ## 1.3.3 ( June 28, 2018 )
 
 ### Updated 

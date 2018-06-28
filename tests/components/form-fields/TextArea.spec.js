@@ -7,7 +7,7 @@ import { Form, TextArea } from '../../../src'
 
 describe('TextArea', () => {
 
-  const sandbox = sinon.sandbox.create()
+  const sandbox =  sinon.createSandbox()
 
   beforeEach(() => {
     sandbox.restore()

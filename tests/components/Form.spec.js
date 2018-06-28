@@ -54,6 +54,28 @@ describe('Form', () => {
     sandbox.restore()
   })
 
+  it('should display large form', () => {
+    const wrapper = mount(
+      <Form>
+        <Text field="foo" />
+        <Text field="bar" />
+        <Text field="baz" />
+        <Text field="raz" />
+        <Text field="taz" />
+        <Text field="naz" />
+        <Text field="laz" />
+        <Text field="ahh" />
+        <Text field="baa" />
+        <Text field="zaa" />
+        <Text field="taa" />
+        <Text field="faa" />
+        <Text field="laa" />
+        <Text field="bru" />
+      </Form>
+    );
+    expect(wrapper.find(Text).length).to.equal(14);
+  });
+
   it('should call onChange function when value changes', () => {
     const spy = sandbox.spy();
     const wrapper = mount(<Form onChange={spy}>{() => <Text field="greeting" />}</Form>);

@@ -7,7 +7,7 @@ import { Form, Radio, RadioGroup } from '../../../src'
 
 describe('RadioButton', () => {
 
-  const sandbox = sinon.sandbox.create()
+  const sandbox =  sinon.createSandbox()
 
   beforeEach(() => {
     sandbox.restore()

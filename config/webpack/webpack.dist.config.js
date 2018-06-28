@@ -1,5 +1,6 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: path.join(__dirname, '../../src/index.js'),
@@ -19,5 +20,20 @@ module.exports = {
     library: 'informed',
     libraryTarget: 'umd',
     umdNamedDefine: true,
+  },
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          compress: {
+            warnings: false,
+            keep_fnames: true
+          },
+          mangle: {
+            keep_fnames: true
+          }
+        }
+      })
+    ]
   }
 };

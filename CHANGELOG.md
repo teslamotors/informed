@@ -1,4 +1,4 @@
-## 1.3.1 ( June 27, 2018 )
+## 1.3.2 ( June 27, 2018 )
 
 ### Fixed
 - Issue were initialValue was getting passed all the way down to html input

@@ -1,6 +1,12 @@
 ## 1.3.1 ( June 27, 2018 )
 
 ### Fixed
+- Issue were initialValue was getting passed all the way down to html input
+- Issue where form would not rerender when field was registered 
+
+## 1.3.1 ( June 27, 2018 )
+
+### Fixed
 - Issue were validateOnMount was getting passed all the way down to html input
 
 ## 1.3.0 ( June 27, 2018 )

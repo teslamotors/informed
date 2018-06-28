@@ -147,6 +147,8 @@ class FormController extends EventEmitter {
     if( fieldController.config.validateOnMount ){
       this.errors.set( field, fieldController.validate( this.state.values ) );
     }
+    this.emit('change', this.state);
+    this.emit('field', field);
   }
 
   remove = ( field ) => {
@@ -159,6 +161,8 @@ class FormController extends EventEmitter {
 
   deregister = ( field ) => {
     this.remove(field);
+    this.emit('change', this.state);
+    this.emit('field', field);
   }
 
   reset = () => {

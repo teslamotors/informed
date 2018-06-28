@@ -33,101 +33,102 @@ const withFieldState = ( field ) => ( Component ) => withFormApi(({ formApi, ...
     {...props} />
 ));
 
-const bindToField = ( Component ) => withController(withFormApi( class extends React.PureComponent {
+const bindToField = ( Component ) => withController(withFormApi(
+  class extends React.PureComponent {
+    constructor(props){
+      super(props);
+      const {
+        // Comes from withFormApi
+        formApi,
+        // Comes from withController
+        controller,
+        // Comes from user props
+        field,
+        mask,
+        validate,
+        validateOnBlur,
+        validateOnChange,
+        initialValue,
+        validateOnMount,
+        notify
+      } = props;
 
-  constructor(props){
-    super(props);
-    const {
-      // Comes from withFormApi
-      formApi,
-      // Comes from withController
-      controller,
-      // Comes from user props
-      field,
-      mask,
-      validate,
-      validateOnBlur,
-      validateOnChange,
-      initialValue,
-      validateOnMount,
-      notify
-    } = props;
-
-    this.state = buildFieldState( formApi, field );
-    this.fieldApi = buildFieldApi( formApi, field );
-
-    // Rebuild state when field changes
-    const updateMe = ( name ) => {
-      if( name === formApi.getFullField(field) ){
-        this.setState(buildFieldState( formApi, field ));
-      }
-    }
-
-    // Rebuild state when controller emits update
-    // this happens on events such as submission
-    const update = () => {
-      this.setState(buildFieldState( formApi, field ));
-    }
-
-    this.register = () => {
+      this.state = buildFieldState( formApi, field );
+      this.fieldApi = buildFieldApi( formApi, field );
 
       // Rebuild state when field changes
-      controller.on('field', updateMe);
+      const updateMe = ( name ) => {
+        if( name === formApi.getFullField(field) ){
+          this.setState(buildFieldState( formApi, field ));
+        }
+      }
 
       // Rebuild state when controller emits update
       // this happens on events such as submission
-      controller.on('update', update)
+      const update = () => {
+        this.setState(buildFieldState( formApi, field ));
+      }
 
-      // Register our field with the controller so he can do fun stuff with it :)
-      controller.register( formApi.getFullField(field), new FieldController(
-        formApi.getFullField(field),
-        this.fieldApi,
-        {
-          validateOnBlur,
-          validateOnChange,
-          validate,
-          initialValue,
-          validateOnMount,
-          notify,
-          mask
-        }
-      ));
+      this.register = () => {
+
+        // Rebuild state when field changes
+        controller.on('field', updateMe);
+
+        // Rebuild state when controller emits update
+        // this happens on events such as submission
+        controller.on('update', update)
+
+        // Register our field with the controller so he can do fun stuff with it :)
+        controller.register( formApi.getFullField(field), new FieldController(
+          formApi.getFullField(field),
+          this.fieldApi,
+          {
+            validateOnBlur,
+            validateOnChange,
+            validate,
+            initialValue,
+            validateOnMount,
+            notify,
+            mask
+          }
+        ));
+      }
+
+      this.deregister = () => {
+        controller.removeListener('field', updateMe);
+        controller.removeListener('update', update);
+        controller.deregister(formApi.getFullField(field));
+      }
+
+      this.register = this.register.bind(this);
+      this.deregister = this.deregister.bind(this);
     }
 
-    this.deregister = () => {
-      controller.removeListener('field', updateMe);
-      controller.removeListener('update', update);
-      controller.deregister(formApi.getFullField(field));
+    render(){
+      const {
+        mask,
+        formApi,
+        formState,
+        controller,
+        validate,
+        initialValue,
+        validateOnBlur,
+        validateOnMount,
+        validateOnChange,
+        ...rest
+      } = this.props;
+
+      return (
+        <Component
+          register={this.register}
+          deregister={this.deregister}
+          fieldApi={this.fieldApi}
+          fieldState={this.state}
+          {...rest} />
+      )
     }
-
-    this.register = this.register.bind(this);
-    this.deregister = this.deregister.bind(this);
   }
-
-  render(){
-    const {
-      mask,
-      formApi,
-      formState,
-      controller,
-      validate,
-      initialValue,
-      validateOnBlur,
-      validateOnMount,
-      validateOnChange,
-      ...rest
-    } = this.props;
-
-    return (
-      <Component
-        register={this.register}
-        deregister={this.deregister}
-        fieldApi={this.fieldApi}
-        fieldState={this.state}
-        {...rest} />
-    )
-  }
-}));
+));
 
 export {
   withFieldApi,

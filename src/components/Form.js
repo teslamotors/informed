@@ -81,6 +81,7 @@ class Form extends Component {
       onSubmitFailure,
       initialValues,
       onValueChange,
+      onChange,
       ...rest
     } = this.props
     return (

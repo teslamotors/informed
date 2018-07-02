@@ -107,6 +107,7 @@ const bindToField = ( Component ) => withController(withFormApi(
     render(){
       const {
         mask,
+        field,
         formApi,
         formState,
         controller,
@@ -117,7 +118,6 @@ const bindToField = ( Component ) => withController(withFormApi(
         validateOnChange,
         ...rest
       } = this.props;
-
       return (
         <Component
           register={this.register}

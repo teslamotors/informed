@@ -1,21 +1,4 @@
-/**
- * Takes in a path string and turns it into a path array
- *
- * @param path path into an object
- *        Example: "foo.bar.baz[0].taz.bar[10][3].bar.0.5"
- *
- * Given the following input the following output will be generated
- * Input : "foo.bar.baz[0].taz.bar[10][3].bar.0.5"
- * Output: [ 'foo', 'bar', 'baz', 0, 'taz', 'bar', 10, 3, 'bar', '0', '5' ]
- */
-const makePathArray = ( path ) => {
-  const pathArray = path
-    .replace(/\[(\d+)]/g, '.__int__$1')
-    .replace(/\['([^.]+)']/g, '.$1')
-    .split('.')
-    .map(e => e.indexOf('__int__') === 0 ? parseInt(e.substring(7),10) : e );
-  return pathArray;
-}
+import makePathArray from '../utils/makePathArray';
 
 function isArray (a) {
   return Array.isArray(a)
@@ -58,6 +41,7 @@ class ObjectMap {
   constructor( object = {} ){
     this.object = JSON.parse(JSON.stringify(object));
     this.map = buildMap( this.object );
+    this.paths = new Map();
   }
 
   empty(){
@@ -65,13 +49,20 @@ class ObjectMap {
   }
 
   rebuild( object = {} ){
-    this.object = JSON.parse(JSON.stringify(object));;
+    this.object = JSON.parse(JSON.stringify(object));
     this.map = buildMap( this.object  );
   }
 
   get( path ){
 
-    const pathArray = makePathArray( path );
+    // Get the path array from our registered paths
+    let pathArray = this.paths.get(path);
+
+    // Check to see if path exists and if not build and add it to our paths
+    if( !pathArray ){
+      pathArray = makePathArray( path );
+      this.paths.set(path, pathArray);
+    }
 
     const get = ( cursor, key, nextKey, i ) => {
       // Base case1: cursor is undefined so just return
@@ -91,7 +82,14 @@ class ObjectMap {
 
   set( path, value ){
 
-    const pathArray = makePathArray( path );
+    // Get the path array from our registered paths
+    let pathArray = this.paths.get(path);
+
+    // Check to see if path exists and if not build and add it to our paths
+    if( !pathArray ){
+      pathArray = makePathArray( path );
+      this.paths.set(path, pathArray);
+    }
 
     const set = ( cursor, map, key, nextKey, i ) => {
 
@@ -147,6 +145,7 @@ class ObjectMap {
 
   delete( path ){
     this.set(path, null);
+    this.paths.delete(path);
   }
 
 }

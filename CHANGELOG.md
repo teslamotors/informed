@@ -1,3 +1,8 @@
+## 1.3.8 ( July 2, 2018 )
+
+### Fixed 
+- issue where path array was being build every get and set
+
 ## 1.3.7 ( July 2, 2018 )
 
 ### Fixed 

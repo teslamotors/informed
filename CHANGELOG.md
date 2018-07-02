@@ -1,3 +1,8 @@
+## 1.3.7 ( July 2, 2018 )
+
+### Fixed 
+- issue where onChange was getting passed to internal form element
+
 ## 1.3.6 ( June 28, 2018 )
 
 ### Added

@@ -85,6 +85,21 @@ describe('Form', () => {
     expect(spy.args[0][0].values).to.deep.equal({ greeting: 'hello' });
   })
 
+  it('does not apply unnecessary props to the form element', () => {
+    const excludedProps = {
+      preSubmit: true,
+      getApi: () => {},
+      dontPreventDefault: true,
+      onSubmitFailure: true,
+      initialValues: true,
+      onValueChange: true,
+      onChange: () =>  {}
+    };
+    const wrapper = mount(<Form {...excludedProps}>{() => <Text field="greeting" />}</Form>);
+    const input = wrapper.find('form');
+    expect(input.props()).to.not.have.any.keys(...Object.keys(excludedProps));
+  })
+
   it('should call onValueChange function when value changes', () => {
     const spy = sandbox.spy();
     const wrapper = mount(<Form onValueChange={spy}>{() => <Text field="greeting" />}</Form>);

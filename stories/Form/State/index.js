@@ -5,7 +5,7 @@ import withDocs from '../../utils/withDocs';
 import { Form, Text } from '../../../src';
 
 const validate = value => {
-  return !value || value.length < 5 ? 'Field must be longer than five characters' : null;
+  return !value || value.length < 5 ? 'Field must be at least five characters' : null;
 }
 
 const FormState = () => (
@@ -13,7 +13,7 @@ const FormState = () => (
     {({ formState }) => (
       <div>
         <label htmlFor="form-state-name">First name:</label>
-        <Text field="name" id="form-state-name" validate={validate}/>
+        <Text field="name" id="form-state-name" validate={validate} />
         <button type="submit">
           Submit
         </button>

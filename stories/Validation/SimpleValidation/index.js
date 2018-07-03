@@ -7,7 +7,7 @@ import readme from './README.md';
 import { Form, Text } from '../../../src';
 
 const validate = value => {
-  return !value || value.length < 5 ? 'Field must be longer than five characters' : null;
+  return !value || value.length < 5 ? 'Field must be at least five characters' : null;
 }
 
 class SimpleValidation extends Component {

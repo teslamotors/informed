@@ -7,25 +7,25 @@ import Modal from '../../utils/Modal';
 import { Form, Text, Scope } from '../../../src';
 
 const basicValidation = value => {
-  return !value || value.length < 5 ? 'Field must be longer than five characters' : null;
+  return !value || value.length < 5 ? 'Field must be at least five characters' : null;
 }
 
 const duplicateValidation = ( value, values ) => {
-  return values.filter( v => v === value ).length > 1 ? 'This field must be unique.' : null;
+  return values.filter(v => v === value).length > 1 ? 'This field must be unique.' : null;
 }
 
 const friendValidation = ( value, values ) => {
-  return basicValidation(value) || duplicateValidation( value, values.friends )
+  return basicValidation(value) || duplicateValidation(value, values.friends)
 }
 
-class ComplexValidation extends React.Component{
+class ComplexValidation extends React.Component {
 
-  render(){
+  render() {
 
     return (
       <div>
         <Form
-          onSubmit={()=>this.modal.open()}
+          onSubmit={() => this.modal.open()}
           id="complex-validation-form">
           {({ formApi, formState }) => (
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -62,7 +62,7 @@ class ComplexValidation extends React.Component{
                   {JSON.stringify(formState.invalid, null, 2)}
                 </Code>
               </div>
-              <Modal getControl={(model)=>this.modal = model}>
+              <Modal getControl={(model) => this.modal = model}>
                 <strong>Form Successfully Submitted!</strong>
               </Modal>
             </div>

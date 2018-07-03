@@ -15,13 +15,13 @@ functions were triggered for each field. Because every validation failed, the
 form never actually called onSubmit. In other words, informed will only
 submit a valid form.
 
-**Get rid of the errors by typing more than 5 characters in each field and
+**Get rid of the errors by typing at least 5 characters in each field and
 click the submit button again and see what happens:**
 
 ```jsx
 
 const validate = value => {
-  return !value || value.length < 5 ? 'Field must be longer than five characters' : null;
+  return !value || value.length < 5 ? 'Field must be at least five characters' : null;
 }
 
 <Form id="validate-form">

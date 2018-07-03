@@ -7,7 +7,7 @@ import Modal from '../../utils/Modal';
 import { Form, Text, Scope } from '../../../src';
 
 const basicValidation = value => {
-  return !value || value.length < 5 ? 'Password must be longer than five characters' : null;
+  return !value || value.length < 5 ? 'Password must be at least five characters' : null;
 }
 
 const matchValidation = ( value, values ) => {

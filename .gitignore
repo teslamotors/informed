@@ -3,3 +3,4 @@ dist
 coverage
 .nyc_output
 .coveralls.yml
+.idea

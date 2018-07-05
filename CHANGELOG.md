@@ -1,3 +1,8 @@
+## 1.3.10 ( July 5, 2018 )
+
+### Fixed 
+- issue where you could not pass initialValue=false to checkbox
+
 ## 1.3.9 ( July 5, 2018 )
 
 ### Fixed 

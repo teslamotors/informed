@@ -25,6 +25,26 @@ describe('Text', () => {
     expect(savedApi.getState().values).to.deep.equal({ greeting: true })
   });
 
+  it('should set initial value to true', () => {
+    let savedApi
+    mount(
+      <Form getApi={api => { savedApi = api }}>
+        <Checkbox field="greeting" initialValue={true} />
+      </Form>
+    )
+    expect(savedApi.getState().values).to.deep.equal({ greeting: true })
+  });
+
+  it('should set initial value to false', () => {
+    let savedApi
+    mount(
+      <Form getApi={api => { savedApi = api }}>
+        <Checkbox field="greeting" initialValue={false} />
+      </Form>
+    )
+    expect(savedApi.getState().values).to.deep.equal({ greeting: false })
+  });
+
   it('should call onChange function when checked value changes', () => {
     const spy = sandbox.spy();
     const wrapper = mount(

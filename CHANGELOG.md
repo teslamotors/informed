@@ -1,3 +1,8 @@
+## 1.3.9 ( July 5, 2018 )
+
+### Fixed 
+- issue where mutable values were getting passed to onSubmit and getState
+
 ## 1.3.8 ( July 2, 2018 )
 
 ### Fixed 

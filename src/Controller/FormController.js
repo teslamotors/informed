@@ -61,7 +61,7 @@ class FormController extends EventEmitter {
   }
 
   getFormState = () => {
-    return this.state;
+    return JSON.parse(JSON.stringify(this.state));
   }
 
   setFormState = (state) => {
@@ -225,16 +225,16 @@ class FormController extends EventEmitter {
     // Make sure we are valid
     if( this.valid() ){
       if( this.hooks.preSubmit ){
-        this.values.rebuild(this.hooks.preSubmit(this.state.values));
+        this.values.rebuild(this.hooks.preSubmit(JSON.parse(JSON.stringify(this.state.values))));
         this.emit('change', this.state);
         this.emit('update', this.state);
       }
       if( this.hooks.onSubmit ){
-        this.hooks.onSubmit( this.state.values );
+        this.hooks.onSubmit( JSON.parse(JSON.stringify(this.state.values)) );
       }
     } else {
       if( this.hooks.onSubmitFailure ){
-        this.hooks.onSubmitFailure( this.state.errors );
+        this.hooks.onSubmitFailure( JSON.parse(JSON.stringify(this.state.errors)) );
       }
     }
   }

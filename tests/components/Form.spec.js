@@ -128,6 +128,33 @@ describe('Form', () => {
     })
   })
 
+  it('onSubmit function should get called with clone of values', done => {
+    const spy = sandbox.spy();
+    let savedApi;
+    const wrapper = mount(
+      <Form
+        onSubmit={spy}
+        getApi={(api) => {
+          savedApi = api;
+        }}>
+        <Text field="greeting" />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'hello' } });
+    const button = wrapper.find('button');
+    button.simulate('submit');
+    setImmediate(() => {
+      expect(spy.called).to.equal(true);
+      expect(spy.args[0][0]).to.deep.equal({ greeting: 'hello' });
+      spy.args[0][0].greeting = 'Bad';
+      expect(spy.args[0][0]).to.deep.equal({ greeting: 'Bad' });
+      expect(savedApi.getState().values).to.deep.equal({ greeting: 'hello' });
+      done();
+    })
+  })
+
   it('should call reset function when reset button is clicked', done => {
     let savedApi;
     const wrapper = mount(

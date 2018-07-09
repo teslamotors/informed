@@ -24,6 +24,29 @@ describe('Scope', () => {
     });
   });
 
+  it('should scope nested scope values to scope', () => {
+    let savedApi;
+    const wrapper = mount(
+      <Form getApi={api => {savedApi = api}}>
+        <Scope scope="favorites">
+          <Scope scope="crayon">
+            <Text field="color" />
+          </Scope>
+        </Scope>
+      </Form>
+    );
+
+    const input = wrapper.find('input').at(0)
+    input.simulate('change', { target: { value: 'green' } })
+    expect(savedApi.getState().values).to.deep.equal({
+      favorites: {
+        crayon: {
+          color: 'green'
+        }
+      }
+    });
+  })
+
   it('should scope touched to scope', () => {
     let savedApi
     const wrapper = mount(

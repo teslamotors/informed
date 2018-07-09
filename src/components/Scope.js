@@ -14,12 +14,24 @@ const buildScopedContext = ( scope, formApi, formState, controller ) => {
       setTouched: ( field, value ) => formApi.setTouched(`${scope}.${field}`, value),
       getError: ( field ) => formApi.getError(`${scope}.${field}`),
       setError: ( field, value ) => formApi.setError(`${scope}.${field}`, value),
-      getFullField: ( field ) => `${scope}.${field}`
+      getFullField: ( field ) => `${formApi.getFullField(scope)}.${field}`
     },
     formState,
     controller
   };
 }
+/*
+  Nested Scope case:
+  <Scope scope="Foo">
+    getFullField = ('Bar.Baz') => `${formApi.getFullField('Foo')}.'Bar.Baz'`
+    <Scope scope="Bar">
+      getFullField = ('Baz') => `${formApi.getFullField('Bar')}.'Baz'`
+      <Text field="Baz">
+        getFullField = getFullField('Baz');
+      </Text>
+    </Scope>
+  </Scope>
+*/
 
 class Scope extends Component {
 

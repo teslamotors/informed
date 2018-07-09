@@ -1,3 +1,8 @@
+## 1.3.11 ( July 9, 2018 )
+
+### Fixed 
+- issue where you could not nest scope
+
 ## 1.3.10 ( July 5, 2018 )
 
 ### Fixed 

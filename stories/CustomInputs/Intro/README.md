@@ -6,8 +6,6 @@ help you out with that! Informed also gives you access to an asField HOC
 can simply add on to them without writing all of the code again. You will see this
 in one of the following examples.
 
----
-
 ## Custom Text Input
 
 Lets say you like `informed`'s text input but you want to show an error and turn
@@ -29,9 +27,9 @@ const ErrorText = asField(({ fieldState, ...props }) => (
   </React.Fragment>
 ));
 
-<Form id="custom-form-1">
-  <label htmlFor="custom-1-name">First name:</label>
-  <ErrorText field="name" id="custom-1-name" validate={validate} validateOnChange />
+<Form id="custom-form">
+  <label htmlFor="custom-name">First name:</label>
+  <ErrorText field="name" id="custom-name" validate={validate} validateOnChange validateOnBlur />
   <button type="submit">
     Submit
   </button>
@@ -39,3 +37,15 @@ const ErrorText = asField(({ fieldState, ...props }) => (
 ```
 
 <!-- STORY -->
+
+## I need an explanation!
+
+Ok so what did we just do? We took advantage of two parts of `informed`.
+
+1. The `asField` HOC that turns a Component into an InformedField.
+2. The internal `BasicText` Component.
+
+`asField` is a HOC that will turn your Component into an `informed` Field Component by
+giving your component access to the fieldApi and fieldState, and wrapping it in some magic!
+If you wanted to you could hook up all the functions yourself, but for convenience we
+expose our internal input definitions for you!

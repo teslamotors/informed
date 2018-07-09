@@ -23,7 +23,7 @@ const Intro = () => (
       {({ formApi, formState }) => (
         <React.Fragment>
           <label htmlFor="custom-1-name">First name:</label>
-          <ErrorText field="name" id="custom-1-name" validate={validate} validateOnChange />
+          <ErrorText field="name" id="custom-1-name" validate={validate} validateOnChange validateOnBlur />
           <button type="submit">
             Submit
           </button>

@@ -15,6 +15,12 @@ import Option from './components/form-fields/Option';
 import Checkbox from './components/form-fields/Checkbox';
 import RadioGroup from './components/form-fields/RadioGroup';
 
+import { BasicText } from './components/form-fields/Text';
+import { BasicRadio } from './components/form-fields/Radio';
+import { BasicTextArea } from './components/form-fields/TextArea';
+import { BasicSelect }from './components/form-fields/Select';
+import { BasicCheckbox } from './components/form-fields/Checkbox';
+
 export {
   Form,
   Scope,
@@ -31,5 +37,10 @@ export {
   Select,
   Option,
   Checkbox,
-  RadioGroup
+  RadioGroup,
+  BasicText,
+  BasicRadio,
+  BasicTextArea,
+  BasicSelect,
+  BasicCheckbox,
 }

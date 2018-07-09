@@ -50,4 +50,8 @@ const Radio = ( { radioGroupApi, radioGroupState, ...props  } ) => {
   )
 };
 
+export {
+  Radio as BasicRadio
+};
+
 export default withRadioGroup(Radio);

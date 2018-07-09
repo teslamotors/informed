@@ -58,4 +58,8 @@ class Select extends React.Component {
 
 };
 
+export {
+  Select as BasicSelect
+};
+
 export default asField(Select);

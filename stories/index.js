@@ -14,6 +14,7 @@ import Notifications from './Validation/Notifications';
 import UnnecessaryRendering from './Gotchas/UnnecessaryRendering';
 import Scope from './Gotchas/Scope';
 import DynamicFields from './Dynamic/DynamicFields';
+import CustomInputs from './CustomInputs';
 import {
   TextInput,
   TextAreaInput,
@@ -57,6 +58,9 @@ storiesOf('Inputs', module)
   .add('Checkbox Input', CheckboxInput )
   .add('Select Input', SelectInput )
   .add('Multi Select Input', MultiSelectInput );
+
+storiesOf('CustomInputs', module)
+  .add('Creating Custom Inputs', CustomInputs);
 
 storiesOf('Arrays', module)
   .add('Array Of Fields', ArrayOfFields)

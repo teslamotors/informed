@@ -1,3 +1,9 @@
+## 1.4.0 ( July 5, 2018 )
+
+### Added
+- Basic input fields so users can more easily create custom inputs
+- Docs for creating custom inputs
+
 ## 1.3.10 ( July 5, 2018 )
 
 ### Fixed 

@@ -14,6 +14,7 @@ describe('Controller', () => {
   const checkApi = api => {
     expect(api).to.have.own.property('getError')
     expect(api).to.have.own.property('setError')
+    expect(api).to.have.own.property('getAsyncError')
     expect(api).to.have.own.property('getTouched')
     expect(api).to.have.own.property('setTouched')
     expect(api).to.have.own.property('getValue')
@@ -34,6 +35,7 @@ describe('Controller', () => {
         getTouched: () => formApi.getTouched(field),
         setTouched: (value) => formApi.setTouched(field, value),
         getError: () => formApi.getError(field),
+        getAsyncError: () => formApi.getAsyncError(field),
         setError: (value) => formApi.setError(field, value)
       },
       config
@@ -95,6 +97,7 @@ describe('Controller', () => {
           values: { greeting: 'hello' },
           errors: { greeting: 'error' },
           touched: { greeting: true },
+          asyncErrors: {},
           pristine: false,
           dirty: true,
           invalid: true
@@ -163,6 +166,7 @@ describe('Controller', () => {
             firstname: 'Joe'
           },
           errors: {},
+          asyncErrors: {},
           touched: {},
           pristine: false,
           dirty: true,
@@ -189,6 +193,7 @@ describe('Controller', () => {
           },
           errors: {},
           touched: {},
+          asyncErrors: {},
           pristine: false,
           dirty: true,
           invalid: false
@@ -277,6 +282,17 @@ describe('Controller', () => {
         controller.register( 'greeting', getFieldController('greeting', controller.api, {
           validate: spy,
           validateOnBlur: true
+        }))
+        controller.api.setTouched('greeting')
+        expect(spy.called).to.equal(true);
+      });
+
+      it('should call fields async validation if present and asyncValidateOnBlur is set', () => {
+        const controller = new Controller();
+        const spy = sandbox.spy();
+        controller.register( 'greeting', getFieldController('greeting', controller.api, {
+          asyncValidate: spy,
+          asyncValidateOnBlur: true
         }))
         controller.api.setTouched('greeting')
         expect(spy.called).to.equal(true);

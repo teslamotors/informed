@@ -7,6 +7,7 @@ import Complex from './Form/Complex';
 import State from './Form/State';
 import Props from './Form/Props';
 import Api from './Form/Api';
+import AsyncValidation from './Validation/AsyncValidation';
 import SimpleValidation from './Validation/SimpleValidation';
 import ComplexValidation from './Validation/ComplexValidation';
 import ValidationControl from './Validation/ValidationControl';
@@ -70,7 +71,8 @@ storiesOf('Validation', module)
   .add('Simple Validation', SimpleValidation )
   .add('Complex Validation', ComplexValidation )
   .add('Validation Control', ValidationControl )
-  .add('Notifications', Notifications );
+  .add('Notifications', Notifications )
+  .add('Async Validation', AsyncValidation );
 
 storiesOf('High Order Components', module)
   .add('withFormApi', WithFormApi )

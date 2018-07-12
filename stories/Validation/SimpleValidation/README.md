@@ -19,6 +19,7 @@ submit a valid form.
 click the submit button again and see what happens:**
 
 ```jsx
+import { Form, Text } from 'informed';
 
 const validate = value => {
   return !value || value.length < 5 ? 'Field must be at least five characters' : null;

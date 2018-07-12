@@ -13,7 +13,8 @@ invalid is derived from the errors attribute and therefore cannot be set directl
 | values     | `{name:'Joe'}`   | `{}`          | NO      | Key value pair where key is the form field and value is the value entered or selected.|
 | touched    | `{name:true}`    | `{}`          | NO      | Key value pair where key is the form field and value is true or undefined ( touched or untouched ). Submitting form will cause all fields to be touched.|
 | errors     |`{name:'Invalid'}`| `{}`          | NO      | Key value pair where key is the form field and value is the error associated with that field. If a validate function is provided to an input, then when it is called this object will be modified.|
-| invalid  | `true`             | `false`       | YES     | Boolean that is true when form is invalid. A form is invalid when any of its inputs fails its validation function ( if there are errors )|
+| asyncErrors |`{name:'Invalid'}`| `{}`          | NO      | Key value pair where key is the form field and value is the async error associated with that field. If an asyncValidate function is provided to an input, then when it is called this object will be modified. |
+| invalid  | `true`             | `false`       | YES     | Boolean that is true when form is invalid. A form is invalid when any of its inputs fails its validation function ( if there are errors ). This includes asyncErrors! |
 | pristine  | `true`             | `true`       | YES     | Boolean that is true when form is pristine. A form is pristine when it has not been touched && no values have been entered in any field|
 | dirty     | `true`             | `false`      | YES     | Boolean that is true when pristine is false
 
@@ -50,16 +51,23 @@ const validate = value => {
       <code>
         {JSON.stringify(formState.touched)}
       </code>
+      <label>Errors:</label>
       <code>
         {JSON.stringify(formState.errors)}
+      </code>
+      <label>Async Errors:</label>
+      <code>
+        {JSON.stringify(formState.asyncErrors)}
       </code>
       <label>Invalid:</label>
       <code>
         {JSON.stringify(formState.invalid)}
       </code>
+      <label>Pristine:</label>
       <code>
         {JSON.stringify(formState.pristine)}
       </code>
+      <label>Dirty:</label>
       <code>
         {JSON.stringify(formState.dirty)}
       </code>

@@ -14,6 +14,8 @@ Below are all the input props that `informed`'s inputs accept.
 | validateOnBlur | bool          |   NO     | Tells field to perform validation onBlur. By default it only validates onSubmit.
 | validateOnChange | bool        |   NO     | Tells field to perform validation onChange. By default it only validates onSubmit.
 | validateOnMount | bool         |   NO     | Tells field to perform validation onMount.
+| asyncValidate   | func         |   NO     | Function that gets called when form performs async validation. Function accepts the value as a parameter and must return either an error string or null ( you would typically return a promise from this function that resolves an error string or null ). By default it only gets called onSubmit. See Validation section for additional details.
+| asyncValidateOnBlur | bool        |   NO     | Tells field to perform async validation onBlur. By default it only validates onSubmit.
 | mask            | func         |   NO     | Function that will mask values when entered. Example `value => value + '!!!'` or `value => value.trim()`
 | `<input>` props | html-5       |   NO     | All inputs can accept any props that a native html input, select, textarea, etc. can accept. For example, if you want to disable a text input, you would simply pass `disabled`.
 

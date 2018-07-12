@@ -14,6 +14,7 @@ const buildScopedContext = ( scope, formApi, formState, controller ) => {
       setTouched: ( field, value ) => formApi.setTouched(`${scope}.${field}`, value),
       getError: ( field ) => formApi.getError(`${scope}.${field}`),
       setError: ( field, value ) => formApi.setError(`${scope}.${field}`, value),
+      getAsyncError: ( field ) => formApi.getAsyncError(`${scope}.${field}`),
       getFullField: ( field ) => `${formApi.getFullField(scope)}.${field}`
     },
     formState,

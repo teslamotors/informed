@@ -29,6 +29,10 @@ const FormState = () => (
         <code>
           {JSON.stringify(formState.errors)}
         </code>
+        <label>Async Errors:</label>
+        <code>
+          {JSON.stringify(formState.asyncErrors)}
+        </code>
         <label>Invalid:</label>
         <code>
           {JSON.stringify(formState.invalid)}

@@ -9,6 +9,11 @@ class FieldController {
       return this.config.validate( this.api.getValue(), values );
     }
   }
+  asyncValidate( values ){
+    if( this.config.asyncValidate ){
+      return this.config.asyncValidate( this.api.getValue(), values );
+    }
+  }
 }
 
 export default FieldController

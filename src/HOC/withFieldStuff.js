@@ -9,7 +9,8 @@ const buildFieldApi = ( formApi, field ) => ({
     getTouched: () => formApi.getTouched(field),
     setTouched: (value) => formApi.setTouched(field, value),
     getError: () => formApi.getError(field),
-    setError: (value) => formApi.setError(field, value)
+    setError: (value) => formApi.setError(field, value),
+    getAsyncError: () => formApi.getAsyncError(field)
   }
 );
 
@@ -17,7 +18,8 @@ const buildFieldState = ( formApi, field ) => {
   return {
     value: formApi.getValue(field),
     touched: formApi.getTouched(field),
-    error: formApi.getError(field)
+    error: formApi.getError(field),
+    asyncError: formApi.getAsyncError(field)
   }
 };
 
@@ -46,6 +48,8 @@ const bindToField = ( Component ) => withController(withFormApi(
         field,
         mask,
         validate,
+        asyncValidate,
+        asyncValidateOnBlur,
         validateOnBlur,
         validateOnChange,
         initialValue,
@@ -86,6 +90,8 @@ const bindToField = ( Component ) => withController(withFormApi(
             validateOnBlur,
             validateOnChange,
             validate,
+            asyncValidate,
+            asyncValidateOnBlur,
             initialValue,
             validateOnMount,
             notify,
@@ -112,6 +118,8 @@ const bindToField = ( Component ) => withController(withFormApi(
         formState,
         controller,
         validate,
+        asyncValidate,
+        asyncValidateOnBlur,
         initialValue,
         validateOnBlur,
         validateOnMount,

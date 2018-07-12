@@ -11,6 +11,7 @@ class FormController extends EventEmitter {
     this.values = new ObjectMap(config.initialValues);
     this.touched = new ObjectMap();
     this.errors = new ObjectMap();
+    this.asyncErrors = new ObjectMap();
     this.api = {
       setValue: this.setValue,
       getValue: this.getValue,
@@ -18,6 +19,7 @@ class FormController extends EventEmitter {
       getTouched: this.getTouched,
       setError: this.setError,
       getError: this.getError,
+      getAsyncError: this.getAsyncError,
       getFullField: this.getFullField,
       submitForm: this.submitForm,
       getState: this.getFormState,
@@ -27,6 +29,8 @@ class FormController extends EventEmitter {
       notify: this.notify
     }
     this.fields = new Map();
+    this.validationPromiseIDs = new Map();
+    //this.submitting = false;
     // Call initial hooks
     if( hooks.getApi ){
       hooks.getApi(this.api);
@@ -38,9 +42,11 @@ class FormController extends EventEmitter {
       values: this.values.object,
       touched: this.touched.object,
       errors: this.errors.object,
+      asyncErrors: this.asyncErrors.object,
       pristine: this.pristine,
       dirty: this.dirty,
-      invalid: this.invalid
+      invalid: this.invalid,
+      //submitting: this.submitting
     }
   }
 
@@ -53,11 +59,11 @@ class FormController extends EventEmitter {
   }
 
   get invalid(){
-    return !this.errors.empty();
+    return !this.errors.empty() || !this.asyncErrors.empty();
   }
 
   valid = () => {
-    return this.errors.empty();
+    return this.errors.empty() && this.asyncErrors.empty();
   }
 
   getFormState = () => {
@@ -68,6 +74,7 @@ class FormController extends EventEmitter {
     this.values.rebuild(state.values);
     this.touched.rebuild(state.touched);
     this.errors.rebuild(state.errors);
+    this.asyncErrors.rebuild();
     this.emit('change', this.state);
     this.emit('values', this.state.values);
     this.emit('update', this.state);
@@ -78,6 +85,33 @@ class FormController extends EventEmitter {
     this.emit('change', this.state);
     this.emit('values', this.state.values);
     this.emit('update', this.state);
+  }
+
+  validateAsync = async ( fieldController, field ) => {
+    // Set up promise UID for this field on the form
+    const uid = Math.random();
+    this.validationPromiseIDs.set(field, uid)
+    // Call the validator
+    try {
+      // Grab the promise by executing the validation function
+      const promise = fieldController.asyncValidate( this.state.values );
+      // Wait on the promise
+      const error = await promise;
+      // If the promise ID doesn't match we we originally sent, it means a
+      // new promise has replaced it. Bail out!
+      if (this.validationPromiseIDs.get(field) !== uid) {
+        return;
+      }
+      // Set the error when the promise resolves
+      this.asyncErrors.set( field, error );
+    } catch (e) {
+      // TODO do something here!!!
+    }
+    // We changed so notify all other fields
+    this.notify(fieldController.config.notify);
+    // Emit changes
+    this.emit('change', this.state);
+    this.emit('field', field);
   }
 
   setValue = ( field, value ) => {
@@ -108,6 +142,10 @@ class FormController extends EventEmitter {
       // We changed so notify all other fields
       this.notify(fieldController.config.notify);
     }
+    // Validate if on async touch validation prop was set
+    if( fieldController.config.asyncValidateOnBlur ){
+      this.validateAsync( fieldController, field );
+    }
     // Emit changes
     this.emit('change', this.state);
     this.emit('field', field);
@@ -135,6 +173,10 @@ class FormController extends EventEmitter {
     return this.errors.get( field );
   }
 
+  getAsyncError = ( field ) => {
+    return this.asyncErrors.get( field );
+  }
+
   getFullField = ( field ) => field;
 
   register = ( field, fieldController ) => {
@@ -157,6 +199,7 @@ class FormController extends EventEmitter {
     this.values.delete( field );
     this.touched.delete( field );
     this.errors.delete( field );
+    this.asyncErrors.delete( field );
     this.emit('change', this.state);
   }
 
@@ -170,6 +213,7 @@ class FormController extends EventEmitter {
     this.values.rebuild(this.config.initialValues);
     this.touched.rebuild();
     this.errors.rebuild();
+    this.asyncErrors.rebuild();
     // We need to iterate over all the fields and
     // reset them
     this.fields.forEach(( fieldController ) => {
@@ -198,10 +242,14 @@ class FormController extends EventEmitter {
     }
   }
 
-  submitForm = (e) => {
+  submitForm = async (e) => {
+
     if( e && !this.config.dontPreventDefault ){
       e.preventDefault(e);
     }
+
+    const asyncValidators = [];
+
     this.fields.forEach(( fieldController ) => {
       // Get the fields name
       const field = fieldController.field;
@@ -210,15 +258,17 @@ class FormController extends EventEmitter {
       // Validate
       //debugger
       this.errors.set( field, fieldController.validate( this.state.values ) );
+      // Build up list of async validatiors
+      if( fieldController.asyncValidate ){
+        // Only validate if sync is valid
+        if( !this.errors.get(field) ) {
+          asyncValidators.push( () => this.validateAsync( fieldController, field ) );
+        }
+      }
     });
 
-
-    // // Only call form level validation if field level validations are valid
-    // // and the user gave us a validate function
-    // if( this.valid() && this.hooks.validate ){
-    //   this.errors.rebuild(this.hooks.validate( this.state.values ));
-    // }
-
+    // Execute all async validators
+    await Promise.all( asyncValidators.map( func => func() ) );
 
     this.emit('change', this.state);
     this.emit('update', this.state);
@@ -234,7 +284,9 @@ class FormController extends EventEmitter {
       }
     } else {
       if( this.hooks.onSubmitFailure ){
-        this.hooks.onSubmitFailure( JSON.parse(JSON.stringify(this.state.errors)) );
+        this.hooks.onSubmitFailure(
+          JSON.parse(JSON.stringify(this.state.errors)),
+          JSON.parse(JSON.stringify(this.state.asyncErrors)) );
       }
     }
   }

@@ -10,8 +10,8 @@ import './assets/styles.css';
 setOptions({
   name: 'Informed',
   url: 'https://joepuzzo.github.io/informed',
-  showDownPanel: false,
-  downPanelInRight: false,
+  showAddonPanel: false,
+  addonPanelInRight: false,
 });
 
 

@@ -1,3 +1,9 @@
+## 1.5.0 ( July 12, 2018 )
+
+### Added
+- asyncValidation prop to inputs
+- asyncValidateOnBlur prop to inputs
+
 ## 1.4.0 ( July 5, 2018 )
 
 ### Added

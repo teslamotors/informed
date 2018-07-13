@@ -1,6 +1,6 @@
 {
   "name": "informed",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "A lightweight framework and utility for building powerful forms in React applications",
   "main": "dist/index.js",
   "files": [

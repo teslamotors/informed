@@ -1,3 +1,13 @@
+## 1.5.2 ( July 13, 2018 )
+
+### Fixed
+- Issue where prop changes to fields would not get recognized
+
+## 1.5.1 ( July 13, 2018 )
+
+### Fixed
+- issue where i forgott to add @babel/runtime as dependency
+
 ## 1.5.0 ( July 12, 2018 )
 
 ### Added

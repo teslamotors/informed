@@ -484,6 +484,33 @@ describe('Form', () => {
     })
   })
 
+  it('errors should update when input is changed after changing validation function prop', done => {
+    const validate1 = value => value === 'Foo' ? 'ooo thats no good' : null;
+    const validate2 = value => value === 'Foo' ? 'new validation!' : null;
+    let api
+    const setApi = param => {
+      api = param
+    }
+    const wrapper = mount(
+      <Form getApi={setApi}>
+        {({ formState })=>(
+          <Text field="name" validateOnChange validate={ formState.values.name === 'Foo' ? validate2 : validate1 }/>
+        )}
+      </Form>
+    )
+    expect(api.getState().errors).to.deep.equal({})
+    const input = wrapper.find('input')
+    input.simulate('change', { target: { value: 'Foo' } });
+    setImmediate(() => {
+      expect(api.getState().errors).to.deep.equal({ name: 'ooo thats no good' })
+      input.simulate('change', { target: { value: 'Foo' } });
+      setImmediate(() => {
+        expect(api.getState().errors).to.deep.equal({ name: 'new validation!' })
+        done()
+      })
+    })
+  })
+
   // WARNINGG AND SUCCESS TESTS ^^
 
 })

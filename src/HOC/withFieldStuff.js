@@ -82,8 +82,7 @@ const bindToField = ( Component ) => withController(withFormApi(
         // this happens on events such as submission
         controller.on('update', update)
 
-        // Register our field with the controller so he can do fun stuff with it :)
-        controller.register( formApi.getFullField(field), new FieldController(
+        this.fieldController = new FieldController(
           formApi.getFullField(field),
           this.fieldApi,
           {
@@ -97,7 +96,10 @@ const bindToField = ( Component ) => withController(withFormApi(
             notify,
             mask
           }
-        ));
+        );
+
+        // Register our field with the controller so he can do fun stuff with it :)
+        controller.register( formApi.getFullField(field), this.fieldController);
       }
 
       this.deregister = () => {
@@ -108,6 +110,31 @@ const bindToField = ( Component ) => withController(withFormApi(
 
       this.register = this.register.bind(this);
       this.deregister = this.deregister.bind(this);
+    }
+
+    componentDidUpdate(prevProps) {
+      const {
+        validateOnBlur,
+        validateOnChange,
+        validate,
+        asyncValidate,
+        asyncValidateOnBlur,
+        initialValue,
+        validateOnMount,
+        notify,
+        mask
+      } = this.props;
+      this.fieldController.updateConfig({
+        validateOnBlur,
+        validateOnChange,
+        validate,
+        asyncValidate,
+        asyncValidateOnBlur,
+        initialValue,
+        validateOnMount,
+        notify,
+        mask
+      });
     }
 
     render(){

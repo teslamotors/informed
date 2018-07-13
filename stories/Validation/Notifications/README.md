@@ -10,18 +10,18 @@ allows you to pass notify to an input with an array of fields to notify.
 <!-- STORY -->
 
 ```jsx
-import { Form, Text, Scope } from 'informed';
+import { Form, Text } from 'informed';
 
 const basicValidation = value => {
-  return !value || value.length < 5 ? 'Field must be longer than five characters' : null;
+  return !value || value.length < 5 ? 'Password must be at least five characters' : null;
 }
 
-const duplicateValidation = ( value, values ) => {
-  return values.filter( v => v === value ).length > 1 ? 'This field must be unique.' : null;
+const matchValidation = ( value, values ) => {
+  return values.password !== values.confirmPassword ? 'Passwords must match' : null;
 }
 
-const friendValidation = ( value, values ) => {
-  return basicValidation(value) || duplicateValidation( value, values.friends )
+const passwordValidation = ( value, values ) => {
+  return basicValidation(value) || matchValidation( value, values )
 }
 
 <Form id="notify-validation-form">

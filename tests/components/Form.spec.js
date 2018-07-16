@@ -446,6 +446,23 @@ describe('Form', () => {
     checkFormApi(inputs.props().formApi)
   })
 
+  it('onValueChange gets called when value changes', done => {
+    const onValueChange = sandbox.spy();
+    const wrapper = mount(
+      <Form>
+        <Text field="name" onValueChange={onValueChange}/>
+      </Form>
+    )
+    const input = wrapper.find('input')
+    input.simulate('change', { target: { value: 'Foo' } })
+
+    setImmediate(() => {
+      expect(onValueChange.called).to.equal(true);
+      expect(onValueChange.args[0][0]).to.equal('Foo');
+      done()
+    })
+  })
+
   it('errors should update when input is changed', done => {
     const validate = value => value === 'Foo' ? 'ooo thats no good' : null;
     let api

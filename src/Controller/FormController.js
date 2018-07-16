@@ -129,6 +129,10 @@ class FormController extends EventEmitter {
     this.emit('change', this.state);
     this.emit('values', this.state.values);
     this.emit('field', field);
+    // Call onValueChange function of field with the new value
+    if ( fieldController.config.onValueChange ) {
+      fieldController.config.onValueChange( this.values.get( field ) );
+    }
   }
 
   setTouched = ( field, value = true ) => {

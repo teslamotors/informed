@@ -1,3 +1,8 @@
+## 1.6.0 ( July 16, 2018 )
+
+### Added
+- onValueChange prop to inputs so you can tie into when values change!!
+
 ## 1.5.2 ( July 13, 2018 )
 
 ### Fixed

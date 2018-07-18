@@ -26,7 +26,8 @@ class FormController extends EventEmitter {
       setState: this.setFormState,
       setValues: this.setValues,
       reset: this.reset,
-      notify: this.notify
+      notify: this.notify,
+      fieldExists: this.fieldExists
     }
     this.fields = new Map();
     this.validationPromiseIDs = new Map();
@@ -227,6 +228,10 @@ class FormController extends EventEmitter {
     });
     this.emit('change', this.state);
     this.emit('update', this.state);
+  }
+
+  fieldExists = (field) => {
+    return !!this.fields.get(field);
   }
 
   notify = ( fields ) => {

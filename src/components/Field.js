@@ -40,6 +40,7 @@ class Field extends PureComponent {
       ...rest
     } = this.props;
     const props = {
+      field,
       fieldApi,
       fieldState,
       forwardedRef: debug ? this.me : forwardedRef,

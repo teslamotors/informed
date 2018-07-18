@@ -366,6 +366,26 @@ describe('Form', () => {
     expect(api.getState().values).to.deep.equal({ greeting: 'hello' })
   })
 
+  it('fieldExists should return true when field exists', () => {
+    let api
+    const setApi = param => {
+      api = param
+    }
+    mount(<Form getApi={setApi}>{() => <Text field="greeting" />}</Form>)
+    const result = api.fieldExists('greeting');
+    expect(result).to.be.true;
+  })
+
+  it('fieldExists should return false when field does not exists', () => {
+    let api
+    const setApi = param => {
+      api = param
+    }
+    mount(<Form getApi={setApi}>{() => <Text field="greeting" />}</Form>)
+    const result = api.fieldExists('notgreeting');
+    expect(result).to.be.false;
+  })
+
   it('reset should reset the form to its initial state', () => {
     let api
     const setApi = param => {

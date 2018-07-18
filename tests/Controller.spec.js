@@ -249,6 +249,28 @@ describe('Controller', () => {
 
     });
 
+    describe('fieldExists', () => {
+
+      it('should return true when field exists', () => {
+        const controller = new Controller();
+        const expected =  { greeting: 'hello' }
+        controller.register( 'greeting', getFieldController('greeting', controller.api) )
+        const result = controller.api.fieldExists('greeting');
+        expect(result).to.be.true;
+      });
+
+      it('should return false when field does not exist', () => {
+        const controller = new Controller();
+        const expected =  { greeting: 'hello' }
+        controller.register( 'greeting', getFieldController('greeting', controller.api) )
+        const result = controller.api.fieldExists('notgreeting');
+        expect(result).to.be.false;
+      });
+
+    });
+
+
+
     describe('setTouched', () => {
 
       it('should set the form touched', () => {

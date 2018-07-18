@@ -17,6 +17,7 @@ This api allows you to grab and manipulate values using getters and setters. Bel
 | getState    | `getState()`                                | Function that returns the formState. Note this will only return the state as it existed when the function was called.
 | setValues   | `setValues({ greeting: 'hello'})`           | Function that will set the form values.
 | reset   | `reset()`                                       | Function that will reset the form to its initial state.
+| fieldExists   | `fieldExists('greeting')`                 | Function that will return true when the field exists on the form.
 
 
 **"Ok so informed gives us access to this formApi.. but how do i get my hands

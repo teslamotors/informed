@@ -1,3 +1,8 @@
+## 1.7.0 ( July 18, 2018 )
+
+### Added
+- fieldExists method to the formApi
+
 ## 1.6.0 ( July 16, 2018 )
 
 ### Added

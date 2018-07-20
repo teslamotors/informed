@@ -1,3 +1,13 @@
+## 1.7.2 ( July 20, 2018 )
+
+### Fixed
+- Issue where element wont get removed from array when deregistering field... this is used when dynamically removing value
+
+## 1.7.1 ( July 20, 2018 )
+
+### Added
+- Field prop is now exposed to field elements and default inputs pass field as name to html inputs
+
 ## 1.7.0 ( July 18, 2018 )
 
 ### Added

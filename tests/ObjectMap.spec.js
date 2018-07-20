@@ -179,6 +179,20 @@ describe('ObjectMap', () => {
         expect(objectMap.map.get('foo') instanceof Map).to.equal(false);
       });
 
+      it('should delete value from array', () => {
+        const objectMap = new ObjectMap({foo:{bar:{baz:[1,2,3]}}});
+        objectMap.delete('foo.bar.baz[1]');
+        expect(objectMap.object).to.deep.equal({foo:{bar:{baz:[1,3]}}});
+      });
+
+      it('should remove array and objects when all values are deleted', () => {
+        const objectMap = new ObjectMap({foo:{bar:{baz:[1,2,3]}}});
+        objectMap.delete('foo.bar.baz[0]');
+        objectMap.delete('foo.bar.baz[1]');
+        objectMap.delete('foo.bar.baz[2]');
+        expect(objectMap.object).to.deep.equal({});
+      });
+
     });
 
     describe('map', () => {

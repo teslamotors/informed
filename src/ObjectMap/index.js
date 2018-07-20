@@ -80,7 +80,7 @@ class ObjectMap {
     return get( this.object, pathArray[0], pathArray[1], 0 )
   }
 
-  set( path, value ){
+  set( path, value, del ){
 
     // Get the path array from our registered paths
     let pathArray = this.paths.get(path);
@@ -101,7 +101,11 @@ class ObjectMap {
       // Base case 2: next key is undefined
       if( nextKey == null ){
         if( value == null ){
-          delete cursor[key];
+          if( isArray(cursor) && del ){
+            cursor.splice(key,1);
+          } else {
+            delete cursor[key];
+          }
           map.delete(key);
         } else {
           cursor[key] = value;
@@ -144,7 +148,7 @@ class ObjectMap {
   }
 
   delete( path ){
-    this.set(path, null);
+    this.set(path, null, true);
     this.paths.delete(path);
   }
 

@@ -12,12 +12,14 @@ const TextArea = ( { fieldApi, fieldState, ...props  } ) => {
   const {
     onChange,
     onBlur,
+    field,
     forwardedRef,
     ...rest
   } = props
   return (
     <textarea
         {...rest}
+        name={field}
         ref={forwardedRef}
         value={!value ? '' : value}
         onChange={e => {

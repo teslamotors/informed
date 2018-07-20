@@ -32,6 +32,7 @@ class Select extends React.Component {
     const {
       onChange,
       onBlur,
+      field,
       forwardedRef,
       children,
       multiple,
@@ -41,6 +42,7 @@ class Select extends React.Component {
       <select
         {...rest}
         multiple={multiple}
+        name={field}
         ref="select"
         value={value || ( multiple ? [] : '' )}
         onChange={this.handleChange}

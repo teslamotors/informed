@@ -15,12 +15,14 @@ const Radio = ( { radioGroupApi, radioGroupState, ...props  } ) => {
     value,
     onChange,
     onBlur,
+    field,
     forwardedRef,
     ...rest
   } = props
   return (
     <input
       {...rest}
+      name={field}
       ref={forwardedRef}
       value={value}
       checked={groupValue === value}

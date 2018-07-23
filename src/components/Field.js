@@ -32,7 +32,6 @@ class Field extends PureComponent {
       children,
       component,
       render,
-      field,
       register,
       deregister,
       forwardedRef,
@@ -40,7 +39,6 @@ class Field extends PureComponent {
       ...rest
     } = this.props;
     const props = {
-      field,
       fieldApi,
       fieldState,
       forwardedRef: debug ? this.me : forwardedRef,

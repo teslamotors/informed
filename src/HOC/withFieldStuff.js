@@ -144,7 +144,6 @@ const bindToField = ( Component ) => withController(withFormApi(
     render(){
       const {
         mask,
-        field,
         formApi,
         formState,
         controller,

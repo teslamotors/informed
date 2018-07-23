@@ -50,6 +50,15 @@ describe('Text', () => {
     expect(spy.called).to.equal(true);
   });
 
+  it('should expose the field name', () => {
+    const wrapper = mount(
+      <Form getApi={() => {}}>
+        <Text field="greeting" />
+      </Form>
+    )
+    expect(wrapper.find('input').prop('name')).to.equal('greeting');
+  });
+
   it('should run mask when user types in text input and mask is passed', () => {
     let savedApi;
     const mask = value => (`${value}!`);

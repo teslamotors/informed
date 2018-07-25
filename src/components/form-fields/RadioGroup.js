@@ -25,4 +25,8 @@ class RadioGroup extends Component {
   }
 }
 
+export {
+  RadioGroup as BasicRadioGroup
+};
+
 export default asField(RadioGroup);

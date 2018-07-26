@@ -1,7 +1,12 @@
+## 1.7.4 ( July 26, 2018 )
+
+### Fixed
+- Issue where Basic radio group was not getting exported
+
 ## 1.7.3 ( July 23, 2018 )
 
 ### Fixed
-issue where bind to field did not pass down the field prop. 
+- issue where bind to field did not pass down the field prop. 
 
 ## 1.7.2 ( July 20, 2018 )
 

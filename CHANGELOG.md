@@ -1,3 +1,8 @@
+## 1.7.5 ( July 31, 2018 )
+
+### Added
+- Source maps
+
 ## 1.7.4 ( July 26, 2018 )
 
 ### Fixed

@@ -13,6 +13,7 @@ const TextArea = ( { fieldApi, fieldState, ...props  } ) => {
     onChange,
     onBlur,
     field,
+    initialValue,
     forwardedRef,
     ...rest
   } = props

@@ -33,6 +33,7 @@ class Select extends React.Component {
       onChange,
       onBlur,
       field,
+      initialValue,
       forwardedRef,
       children,
       multiple,

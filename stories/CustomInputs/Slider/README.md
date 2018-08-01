@@ -18,6 +18,7 @@ const Slider = asField(({ fieldState, fieldApi, ...props }) => {
   const {
     onChange,
     onBlur,
+    initialValue,
     forwardedRef,
     ...rest
   } = props
@@ -29,7 +30,7 @@ const Slider = asField(({ fieldState, fieldApi, ...props }) => {
       max={100}
       step={5}
       ref={forwardedRef}
-      value={value}
+      value={value || initialValue || "0"}
       onChange={e => {
         setValue(e.target.value)
         if (onChange) {

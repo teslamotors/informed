@@ -15,6 +15,7 @@ const Slider = asField(({ fieldState, fieldApi, ...props }) => {
   const {
     onChange,
     onBlur,
+    initialValue,
     forwardedRef,
     ...rest
   } = props
@@ -26,7 +27,7 @@ const Slider = asField(({ fieldState, fieldApi, ...props }) => {
       max={100}
       step={5}
       ref={forwardedRef}
-      value={value}
+      value={value || initialValue || "0"}
       onChange={e => {
         setValue(e.target.value)
         if (onChange) {
@@ -50,7 +51,7 @@ const SliderExample = () => (
       {({ formState }) => (
         <React.Fragment>
           <label htmlFor="custom-3-range">Range:</label>
-          <Slider field="range" initialValue={50} id="custom-3-range"/>
+          <Slider field="range" initialValue={"50"} id="custom-3-range"/>
           <button type="submit">
             Submit
           </button>

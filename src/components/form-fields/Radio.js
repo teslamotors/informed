@@ -16,6 +16,7 @@ const Radio = ( { radioGroupApi, radioGroupState, ...props  } ) => {
     onChange,
     onBlur,
     field,
+    initialValue,
     forwardedRef,
     ...rest
   } = props

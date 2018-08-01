@@ -1,3 +1,8 @@
+## 1.8.0 ( August 1, 2018 )
+
+### Updated
+- initialValue to get exposed as prop to custom fields
+
 ## 1.7.5 ( July 31, 2018 )
 
 ### Added

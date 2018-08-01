@@ -151,7 +151,6 @@ const bindToField = ( Component ) => withController(withFormApi(
         onValueChange,
         asyncValidate,
         asyncValidateOnBlur,
-        initialValue,
         validateOnBlur,
         validateOnMount,
         validateOnChange,

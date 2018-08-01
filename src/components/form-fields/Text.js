@@ -13,6 +13,7 @@ const Text = ( { fieldApi, fieldState, ...props  } ) => {
     onChange,
     onBlur,
     field,
+    initialValue,
     forwardedRef,
     ...rest
   } = props

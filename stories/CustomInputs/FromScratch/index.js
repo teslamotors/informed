@@ -19,6 +19,7 @@ const ErrorText = asField(({ fieldState, fieldApi, ...props }) => {
   const {
     onChange,
     onBlur,
+    initialValue,
     forwardedRef,
     ...rest
   } = props

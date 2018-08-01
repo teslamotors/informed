@@ -1,3 +1,8 @@
+## 1.8.1 ( August 1, 2018 )
+
+### Rebuilt
+- Attempting to simply rebuild lib due to possible build issue
+
 ## 1.8.0 ( August 1, 2018 )
 
 ### Updated

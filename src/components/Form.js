@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { FormContext } from '../Context';
 import FormController from '../Controller/FormController';
 
 class Form extends Component {
-
   constructor(props) {
     super(props);
     const {
@@ -12,8 +11,8 @@ class Form extends Component {
       getApi,
       dontPreventDefault,
       onSubmitFailure,
-      initialValues,
-    } = props
+      initialValues
+    } = props;
     this.controller = new FormController(
       {
         onSubmit,
@@ -26,49 +25,45 @@ class Form extends Component {
         initialValues
       }
     );
-    this.controller.on('change', () => this.forceUpdate() );
-    this.controller.on('change', (state) => {
-      if( props.onChange ){
+    this.controller.on('change', () => this.forceUpdate());
+    this.controller.on('change', state => {
+      if (props.onChange) {
         props.onChange(state);
       }
-    })
-    this.controller.on('values', (values) => {
-      if( props.onValueChange ){
+    });
+    this.controller.on('values', values => {
+      if (props.onValueChange) {
         props.onValueChange(values);
       }
-    })
+    });
   }
 
-  get formContext(){
+  get formContext() {
     return {
       formApi: this.controller.api,
       formState: this.controller.state,
       controller: this.controller
-    }
+    };
   }
 
-  get content(){
-    const {
-      children,
-      component,
-      render,
-    } = this.props
+  get content() {
+    const { children, component, render } = this.props;
 
     const props = this.formContext;
 
     if (component) {
-      return React.createElement(component, props, children)
+      return React.createElement(component, props, children);
     }
     if (render) {
-      return render(props)
+      return render(props);
     }
     if (typeof children === 'function') {
-      return children(props)
+      return children(props);
     }
-    return children
+    return children;
   }
 
-  render(){
+  render() {
     // TODO find better way to get ...rest
     const {
       children,
@@ -83,17 +78,18 @@ class Form extends Component {
       onValueChange,
       onChange,
       ...rest
-    } = this.props
+    } = this.props;
     return (
       <FormContext.Provider value={this.formContext}>
         <form
           {...rest}
           onReset={this.formContext.formApi.reset}
-          onSubmit={this.formContext.formApi.submitForm}>
+          onSubmit={this.formContext.formApi.submitForm}
+        >
           {this.content}
         </form>
       </FormContext.Provider>
-    )
+    );
   }
 }
 

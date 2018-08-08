@@ -4,23 +4,24 @@ import withFormApi from '../HOC/withFormApi';
 import withFormState from '../HOC/withFormState';
 import withController from '../HOC/withController';
 
-const buildScopedContext = ( scope, formApi, formState, controller ) => {
+const buildScopedContext = (scope, formApi, formState, controller) => {
   return {
     formApi: {
       ...formApi,
-      getValue: ( field ) => formApi.getValue(`${scope}.${field}`),
-      setValue: ( field, value ) => formApi.setValue(`${scope}.${field}`, value),
-      getTouched: ( field ) => formApi.getTouched(`${scope}.${field}`),
-      setTouched: ( field, value ) => formApi.setTouched(`${scope}.${field}`, value),
-      getError: ( field ) => formApi.getError(`${scope}.${field}`),
-      setError: ( field, value ) => formApi.setError(`${scope}.${field}`, value),
-      getAsyncError: ( field ) => formApi.getAsyncError(`${scope}.${field}`),
-      getFullField: ( field ) => `${formApi.getFullField(scope)}.${field}`
+      getValue: field => formApi.getValue(`${scope}.${field}`),
+      setValue: (field, value) => formApi.setValue(`${scope}.${field}`, value),
+      getTouched: field => formApi.getTouched(`${scope}.${field}`),
+      setTouched: (field, value) =>
+        formApi.setTouched(`${scope}.${field}`, value),
+      getError: field => formApi.getError(`${scope}.${field}`),
+      setError: (field, value) => formApi.setError(`${scope}.${field}`, value),
+      getAsyncError: field => formApi.getAsyncError(`${scope}.${field}`),
+      getFullField: field => `${formApi.getFullField(scope)}.${field}`
     },
     formState,
     controller
   };
-}
+};
 /*
   Nested Scope case:
   <Scope scope="Foo">
@@ -35,20 +36,19 @@ const buildScopedContext = ( scope, formApi, formState, controller ) => {
 */
 
 class Scope extends Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
-    const {
+    const { scope, formApi, formState, controller } = props;
+    this.formContext = buildScopedContext(
       scope,
       formApi,
       formState,
       controller
-    } = props;
-    this.formContext = buildScopedContext( scope, formApi, formState, controller )
+    );
   }
 
   render() {
-    const {children} = this.props;
+    const { children } = this.props;
     return (
       <FormContext.Provider value={this.formContext}>
         {children}
@@ -57,4 +57,4 @@ class Scope extends Component {
   }
 }
 
-export default withFormState( withController( withFormApi( Scope ) ) );
+export default withFormState(withController(withFormApi(Scope)));

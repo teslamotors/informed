@@ -1,14 +1,9 @@
-import React from 'react'
+import React from 'react';
 import asField from '../../HOC/asField';
 
-const Checkbox = ( { fieldApi, fieldState, ...props  } ) => {
-  const {
-    value
-  } = fieldState;
-  const {
-    setValue,
-    setTouched
-  } = fieldApi;
+const Checkbox = ({ fieldApi, fieldState, ...props }) => {
+  const { value } = fieldState;
+  const { setValue, setTouched } = fieldApi;
   const {
     onChange,
     onBlur,
@@ -16,7 +11,7 @@ const Checkbox = ( { fieldApi, fieldState, ...props  } ) => {
     initialValue,
     forwardedRef,
     ...rest
-  } = props
+  } = props;
   return (
     <input
       {...rest}
@@ -24,24 +19,22 @@ const Checkbox = ( { fieldApi, fieldState, ...props  } ) => {
       ref={forwardedRef}
       checked={!!value}
       onChange={e => {
-        setValue(e.target.checked)
+        setValue(e.target.checked);
         if (onChange) {
-          onChange(e)
+          onChange(e);
         }
       }}
       onBlur={e => {
-        setTouched()
+        setTouched();
         if (onBlur) {
-          onBlur(e)
+          onBlur(e);
         }
       }}
       type="checkbox"
     />
-  )
+  );
 };
 
-export {
-  Checkbox as BasicCheckbox
-};
+export { Checkbox as BasicCheckbox };
 
 export default asField(Checkbox);

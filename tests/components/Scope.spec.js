@@ -1,22 +1,24 @@
-import React from 'react'
-import { expect } from 'chai'
-import { mount } from 'enzyme'
-import { Form, Text, Scope, withFieldApi } from '../../src'
-
+import React from 'react';
+import { expect } from 'chai';
+import { mount } from 'enzyme';
+import { Form, Text, Scope, withFieldApi } from '../../src';
 
 describe('Scope', () => {
-
   it('should scope value to scope', () => {
-    let savedApi
+    let savedApi;
     const wrapper = mount(
-      <Form getApi={api => { savedApi = api }}>
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}
+      >
         <Scope scope="favorite">
           <Text field="color" />
         </Scope>
       </Form>
-    )
-    const input = wrapper.find('input').at(0)
-    input.simulate('change', { target: { value: 'green' } })
+    );
+    const input = wrapper.find('input').at(0);
+    input.simulate('change', { target: { value: 'green' } });
     expect(savedApi.getState().values).to.deep.equal({
       favorite: {
         color: 'green'
@@ -27,7 +29,11 @@ describe('Scope', () => {
   it('should scope nested scope values to scope', () => {
     let savedApi;
     const wrapper = mount(
-      <Form getApi={api => {savedApi = api}}>
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}
+      >
         <Scope scope="favorites">
           <Scope scope="crayon">
             <Text field="color" />
@@ -36,8 +42,8 @@ describe('Scope', () => {
       </Form>
     );
 
-    const input = wrapper.find('input').at(0)
-    input.simulate('change', { target: { value: 'green' } })
+    const input = wrapper.find('input').at(0);
+    input.simulate('change', { target: { value: 'green' } });
     expect(savedApi.getState().values).to.deep.equal({
       favorites: {
         crayon: {
@@ -45,18 +51,22 @@ describe('Scope', () => {
         }
       }
     });
-  })
+  });
 
   it('should scope touched to scope', () => {
-    let savedApi
+    let savedApi;
     const wrapper = mount(
-      <Form getApi={api => { savedApi = api }}>
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}
+      >
         <Scope scope="favorite">
           <Text field="color" />
         </Scope>
       </Form>
-    )
-    const input = wrapper.find('input').at(0)
+    );
+    const input = wrapper.find('input').at(0);
     input.simulate('blur');
     expect(savedApi.getState().touched).to.deep.equal({
       favorite: {
@@ -66,35 +76,44 @@ describe('Scope', () => {
   });
 
   it('should scope error to scope', () => {
-    let savedApi
+    let savedApi;
     const wrapper = mount(
-      <Form getApi={api => { savedApi = api }}>
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}
+      >
         <Scope scope="favorite">
           <Text
             field="color"
             validateOnBlur
-            validate={()=>'Danger Will Robinson!!!'}/>
+            validate={() => 'Danger Will Robinson!!!'}
+          />
         </Scope>
       </Form>
-    )
-    const input = wrapper.find('input').at(0)
+    );
+    const input = wrapper.find('input').at(0);
     input.simulate('blur');
     expect(savedApi.getState().errors).to.deep.equal({
       favorite: {
         color: 'Danger Will Robinson!!!'
       }
     });
-  })
+  });
 
   it('should scope getters', () => {
     let savedFormApi;
     let savedFieldApi;
-    const GetFieldApi = withFieldApi('color')(({fieldApi})=>{
+    const GetFieldApi = withFieldApi('color')(({ fieldApi }) => {
       savedFieldApi = fieldApi;
-      return (<div></div>)
-    })
+      return <div />;
+    });
     const wrapper = mount(
-      <Form getApi={api => { savedFormApi = api }}>
+      <Form
+        getApi={api => {
+          savedFormApi = api;
+        }}
+      >
         <Scope scope="favorite">
           <Text field="color" />
           <GetFieldApi />
@@ -109,7 +128,5 @@ describe('Scope', () => {
     expect(savedFieldApi.getValue()).to.equal('green');
     expect(savedFieldApi.getTouched()).to.equal(true);
     expect(savedFieldApi.getError()).to.equal('Ahhh!!');
-  })
-
-
-})
+  });
+});

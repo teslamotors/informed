@@ -16,8 +16,12 @@
     "version": "npm run build",
     "postversion": "git push",
     "postPublish": "git push --tags",
+    "precommit": "pretty-quick --staged",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:docs": "build-storybook -c .storybook -o docs",
+    "prettier": "prettier --write src/**/*.js",
+    "prettier-test": "prettier --write tests/**/*.js",
+    "pretty-quick": "pretty-quick",
     "coveralls": "NODE_ENV=spec nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "test:coverage": "NODE_ENV=spec nyc mocha-webpack --exit --opts tests/mocha-webpack.opts",
     "test:coverage-html": "NODE_ENV=spec nyc --reporter=html mocha-webpack --exit --opts tests/mocha-webpack.opts && http-server coverage -o -p 8007"
@@ -76,6 +80,7 @@
     "mocha-webpack": "^2.0.0-beta.0",
     "nyc": "^11.8.0",
     "patch-package": "^5.1.1",
+    "prettier": "1.14.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-prism": "^4.3.2",
@@ -90,7 +95,9 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.53"
+    "@babel/runtime": "^7.0.0-beta.53",
+    "husky": "^0.14.3",
+    "pretty-quick": "^1.6.0"
   },
   "nyc": {
     "instrument": false,

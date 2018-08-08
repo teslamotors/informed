@@ -2,30 +2,29 @@ import React, { PureComponent } from 'react';
 import { bindToField } from '../HOC/withFieldStuff';
 
 class Field extends PureComponent {
-
-  constructor(props){
+  constructor(props) {
     super(props);
     this.me = React.createRef();
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.register();
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.props.deregister();
   }
 
-  componentDidUpdate(){
-    if( this.props.debug && this.me ){
+  componentDidUpdate() {
+    if (this.props.debug && this.me) {
       this.me.current.style.backgroundColor = 'red';
-      setTimeout(()=>{
+      setTimeout(() => {
         this.me.current.style.backgroundColor = 'white';
-      }, 500)
+      }, 500);
     }
   }
 
-  render(){
+  render() {
     const {
       fieldApi,
       fieldState,
@@ -46,17 +45,16 @@ class Field extends PureComponent {
     };
 
     if (component) {
-      return React.createElement(component, props, children)
+      return React.createElement(component, props, children);
     }
     if (render) {
-      return render(props)
+      return render(props);
     }
     if (typeof children === 'function') {
-      return children(props)
+      return children(props);
     }
-    return children
+    return children;
   }
-
 }
 
-export default bindToField( Field );
+export default bindToField(Field);

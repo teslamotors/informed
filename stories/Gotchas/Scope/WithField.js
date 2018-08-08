@@ -5,9 +5,7 @@ import readme from './WithField.md';
 
 import { Form, Text, withFieldState, Scope } from '../../../src';
 
-const FieldInfo = ({fieldState}) => (
-  <code>{fieldState.value}</code>
-);
+const FieldInfo = ({ fieldState }) => <code>{fieldState.value}</code>;
 
 const WithFavoriteColorInfo = withFieldState('favorite.color')(FieldInfo);
 const WithColorInfo = withFieldState('color')(FieldInfo);
@@ -19,8 +17,12 @@ const WithField = () => (
         <div>
           <Scope scope="favorite">
             <Text field="color" />
-            <div>favorite.color: <WithFavoriteColorInfo /></div>
-            <div>color: <WithColorInfo /></div>
+            <div>
+              favorite.color: <WithFavoriteColorInfo />
+            </div>
+            <div>
+              color: <WithColorInfo />
+            </div>
           </Scope>
           <label>Values:</label>
           <Code language="language-js">
@@ -32,4 +34,4 @@ const WithField = () => (
   </div>
 );
 
-export default withDocs( readme, WithField );
+export default withDocs(readme, WithField);

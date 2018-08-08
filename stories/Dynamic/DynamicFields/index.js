@@ -20,17 +20,13 @@ const DynamicFields = () => (
               <label htmlFor="dynamic-married-no">No</label>
               <Radio value="no" id="dynamic-married-no" />
             </RadioGroup>
-            {
-              formState.values.married === 'yes' ?
+            {formState.values.married === 'yes' ? (
               <React.Fragment>
                 <label htmlFor="dynamic-spouse">Spouse name:</label>
                 <Text field="spouse" id="dynamic-spouse" />
               </React.Fragment>
-              : null
-            }
-            <button type="submit">
-              Submit
-            </button>
+            ) : null}
+            <button type="submit">Submit</button>
           </div>
           <div style={{ flex: 2, minWidth: '300px' }}>
             <label>Values:</label>
@@ -48,4 +44,4 @@ const DynamicFields = () => (
   </div>
 );
 
-export default withDocs( readme, DynamicFields );
+export default withDocs(readme, DynamicFields);

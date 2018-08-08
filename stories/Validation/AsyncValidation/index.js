@@ -6,9 +6,11 @@ import readme from './README.md';
 
 import { Form, Text, Scope } from '../../../src';
 
-const validate = username => !username || username.trim() === '' ? 'Username is a required field' : null
+const validate = username =>
+  !username || username.trim() === '' ? 'Username is a required field' : null;
 
-const asyncValidate = username => new Promise((resolve, reject) => {
+const asyncValidate = username =>
+  new Promise((resolve, reject) => {
     setTimeout(() => {
       // Simulate username check
       if (['joe', 'tanner', 'billy', 'bob'].includes(username)) {
@@ -20,15 +22,14 @@ const asyncValidate = username => new Promise((resolve, reject) => {
       }
       // Sumulate username success check
       resolve(null);
-    }, 2000)
-  }
-)
+    }, 2000);
+  });
 
 class AsyncValidation extends Component {
-render(){
-  return (
+  render() {
+    return (
       <div>
-        <Form onSubmit={()=>this.modal.open()} id="validate-async-form">
+        <Form onSubmit={() => this.modal.open()} id="validate-async-form">
           {({ formApi, formState }) => (
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
               <div style={{ flex: 1, marginRight: '2rem' }}>
@@ -36,10 +37,10 @@ render(){
                 <Text
                   field="username"
                   id="validate-async-username"
-                  validate={validate} asyncValidate={asyncValidate}/>
-                <button type="submit">
-                  Submit
-                </button>
+                  validate={validate}
+                  asyncValidate={asyncValidate}
+                />
+                <button type="submit">Submit</button>
               </div>
               <div style={{ flex: 2, minWidth: '300px' }}>
                 <label>Values:</label>
@@ -59,7 +60,7 @@ render(){
                   {JSON.stringify(formState.invalid, null, 2)}
                 </Code>
               </div>
-              <Modal getControl={(model)=>this.modal = model}>
+              <Modal getControl={model => (this.modal = model)}>
                 <strong>Form Successfully Submitted!</strong>
               </Modal>
             </div>
@@ -70,4 +71,4 @@ render(){
   }
 }
 
-export default withDocs( readme, () => <AsyncValidation /> );
+export default withDocs(readme, () => <AsyncValidation />);

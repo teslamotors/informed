@@ -11,9 +11,7 @@ const CheckboxInput = () => (
       <div>
         <label htmlFor="checkbox-authorize">Authorize</label>
         <Checkbox field="authorize" id="checkbox-authorize" />
-        <button type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
         <Code language="language-js">
           {JSON.stringify(formState.values, null, 2)}
         </Code>
@@ -22,4 +20,4 @@ const CheckboxInput = () => (
   </Form>
 );
 
-export default withDocs( readme, CheckboxInput );
+export default withDocs(readme, CheckboxInput);

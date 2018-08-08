@@ -11,9 +11,7 @@ const TextInput = () => (
       <div>
         <label htmlFor="text-name">First name:</label>
         <Text field="name" id="text-name" />
-        <button type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
         <Code language="language-js">
           {JSON.stringify(formState.values, null, 2)}
         </Code>
@@ -22,4 +20,4 @@ const TextInput = () => (
   </Form>
 );
 
-export default withDocs( readme, TextInput );
+export default withDocs(readme, TextInput);

@@ -23,9 +23,7 @@ const ArrayOfScopes = () => (
           <label htmlFor="friend-2-lastname">Lastname</label>
           <Text field="lastname" id="friend-2-lastname" />
         </Scope>
-        <button type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
         <Code language="language-js">
           {JSON.stringify(formState.values, null, 2)}
         </Code>
@@ -34,4 +32,4 @@ const ArrayOfScopes = () => (
   </Form>
 );
 
-export default withDocs( readme, ArrayOfScopes );
+export default withDocs(readme, ArrayOfScopes);

@@ -5,11 +5,9 @@ import readme from './README.md';
 import { Form, Text, withFieldState } from '../../../src';
 
 const SomeComponent = props => (
- <pre>
-   <code>
-     {JSON.stringify(props.fieldState, null, 2)}
-   </code>
- </pre>
+  <pre>
+    <code>{JSON.stringify(props.fieldState, null, 2)}</code>
+  </pre>
 );
 
 const ComponentWithFieldState = withFieldState('name')(SomeComponent);
@@ -18,12 +16,10 @@ const WithFieldState = () => (
   <Form id="withFieldState-form">
     <label htmlFor="withFieldState-name">Name:</label>
     <Text field="name" id="withFieldState-name" />
-    <button type="submit">
-      Submit
-    </button>
+    <button type="submit">Submit</button>
     <h5>Component with fieldState:</h5>
     <ComponentWithFieldState />
   </Form>
 );
 
-export default withDocs( readme, WithFieldState );
+export default withDocs(readme, WithFieldState);

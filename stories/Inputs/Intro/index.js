@@ -20,9 +20,7 @@ const Intro = () => (
         <Text field="siblings['2']" id="syntax-siblings['2']" />
         <label htmlFor="syntax-parents[0].name">Parents[0].name:</label>
         <Text field="parents[0].name" id="syntax-parents[0].name" />
-        <button type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
         <label>Values:</label>
         <Code language="language-js">
           {JSON.stringify(formState.values, null, 2)}
@@ -32,4 +30,4 @@ const Intro = () => (
   </Form>
 );
 
-export default withDocs( readme, Intro );
+export default withDocs(readme, Intro);

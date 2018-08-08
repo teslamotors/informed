@@ -19,7 +19,7 @@ import { BasicText } from './components/form-fields/Text';
 import { BasicRadio } from './components/form-fields/Radio';
 import { BasicRadioGroup } from './components/form-fields/RadioGroup';
 import { BasicTextArea } from './components/form-fields/TextArea';
-import { BasicSelect }from './components/form-fields/Select';
+import { BasicSelect } from './components/form-fields/Select';
 import { BasicCheckbox } from './components/form-fields/Checkbox';
 
 export {
@@ -44,5 +44,5 @@ export {
   BasicRadioGroup,
   BasicTextArea,
   BasicSelect,
-  BasicCheckbox,
-}
+  BasicCheckbox
+};

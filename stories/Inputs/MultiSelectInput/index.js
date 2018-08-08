@@ -11,8 +11,10 @@ const MultiSelectInput = () => (
       <div>
         <label htmlFor="select-colors">Colors:</label>
         <Select
-          field="status" id="select-colors" multiple
-          style={{height: '100px', width: '200px'}}>
+          field="status"
+          id="select-colors"
+          multiple
+          style={{ height: '100px', width: '200px' }}>
           <Option value="red">Red</Option>
           <Option value="green">Green</Option>
           <Option value="blue">Blue</Option>
@@ -20,9 +22,7 @@ const MultiSelectInput = () => (
           <Option value="orange">Orange</Option>
           <Option value="purple">Purple</Option>
         </Select>
-        <button type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
         <label>Values:</label>
         <Code language="language-js">
           {JSON.stringify(formState.values, null, 2)}
@@ -32,4 +32,4 @@ const MultiSelectInput = () => (
   </Form>
 );
 
-export default withDocs( readme, MultiSelectInput );
+export default withDocs(readme, MultiSelectInput);

@@ -6,11 +6,9 @@ import Code from '../../utils/Code';
 import { Form, Text, withFormApi } from '../../../src';
 
 const SomeComponent = props => (
- <pre>
-   <code>
-     {JSON.stringify(props.formApi.getState(), null, 2)}
-   </code>
- </pre>
+  <pre>
+    <code>{JSON.stringify(props.formApi.getState(), null, 2)}</code>
+  </pre>
 );
 
 const ComponentWithFormApi = withFormApi(SomeComponent);
@@ -21,9 +19,7 @@ const WithFormApi = () => (
       <div>
         <label htmlFor="withFormApi-name">Name:</label>
         <Text field="name" id="withFormApi-name" />
-        <button type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
         <h5>Component with formApi:</h5>
         <ComponentWithFormApi />
       </div>
@@ -31,4 +27,4 @@ const WithFormApi = () => (
   </Form>
 );
 
-export default withDocs( readme, WithFormApi );
+export default withDocs(readme, WithFormApi);

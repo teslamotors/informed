@@ -26,10 +26,7 @@ import {
   Intro as InputIntro
 } from './Inputs';
 
-import {
-  ArrayOfFields,
-  ArrayOfScopes
-} from './Arrays';
+import { ArrayOfFields, ArrayOfScopes } from './Arrays';
 
 import {
   WithFormApi,
@@ -38,51 +35,47 @@ import {
   WithFieldState
 } from './HOC';
 
-
 addDecorator(StoryWrapper);
 
-storiesOf('Introduction', module)
-  .add('Getting Started', Intro );
+storiesOf('Introduction', module).add('Getting Started', Intro);
 
 storiesOf('Form', module)
-  .add('Basic', Basic )
-  .add('Complex', Complex )
-  .add('State', State )
-  .add('Api', Api )
-  .add('Props', Props );
+  .add('Basic', Basic)
+  .add('Complex', Complex)
+  .add('State', State)
+  .add('Api', Api)
+  .add('Props', Props);
 
 storiesOf('Inputs', module)
   .add('Intro', InputIntro)
-  .add('Text', TextInput )
-  .add('Text Area', TextAreaInput )
-  .add('Radio Input', RadioInput )
-  .add('Checkbox Input', CheckboxInput )
-  .add('Select Input', SelectInput )
-  .add('Multi Select Input', MultiSelectInput );
+  .add('Text', TextInput)
+  .add('Text Area', TextAreaInput)
+  .add('Radio Input', RadioInput)
+  .add('Checkbox Input', CheckboxInput)
+  .add('Select Input', SelectInput)
+  .add('Multi Select Input', MultiSelectInput);
 
-storiesOf('CustomInputs', module)
-  .add('Creating Custom Inputs', CustomInputs);
+storiesOf('CustomInputs', module).add('Creating Custom Inputs', CustomInputs);
 
 storiesOf('Arrays', module)
   .add('Array Of Fields', ArrayOfFields)
   .add('Array Of Scopes', ArrayOfScopes);
 
 storiesOf('Validation', module)
-  .add('Simple Validation', SimpleValidation )
-  .add('Complex Validation', ComplexValidation )
-  .add('Validation Control', ValidationControl )
-  .add('Notifications', Notifications )
-  .add('Async Validation', AsyncValidation );
+  .add('Simple Validation', SimpleValidation)
+  .add('Complex Validation', ComplexValidation)
+  .add('Validation Control', ValidationControl)
+  .add('Notifications', Notifications)
+  .add('Async Validation', AsyncValidation);
 
 storiesOf('High Order Components', module)
-  .add('withFormApi', WithFormApi )
-  .add('withFormState', WithFormState )
-  .add('withFieldApi', WithFieldApi )
-  .add('withFieldState', WithFieldState );
+  .add('withFormApi', WithFormApi)
+  .add('withFormState', WithFormState)
+  .add('withFieldApi', WithFieldApi)
+  .add('withFieldState', WithFieldState);
 
 storiesOf('Gotchas', module)
-  .add('Unnecessary Rendering', UnnecessaryRendering )
-  .add('Scope', Scope );
+  .add('Unnecessary Rendering', UnnecessaryRendering)
+  .add('Scope', Scope);
 
-storiesOf('Dynamic Forms', module)
-  .add('Dynamic Fields', DynamicFields );
+storiesOf('Dynamic Forms', module).add('Dynamic Fields', DynamicFields);

@@ -11,14 +11,14 @@ const SelectInput = () => (
       <div>
         <label htmlFor="select-status">Relationship status:</label>
         <Select field="status" id="select-status">
-          <Option value="" disabled>Select One...</Option>
+          <Option value="" disabled>
+            Select One...
+          </Option>
           <Option value="single">Single</Option>
           <Option value="relationship">Relationship</Option>
           <Option value="complicated">Complicated</Option>
         </Select>
-        <button type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
         <Code language="language-js">
           {JSON.stringify(formState.values, null, 2)}
         </Code>
@@ -27,4 +27,4 @@ const SelectInput = () => (
   </Form>
 );
 
-export default withDocs( readme, SelectInput );
+export default withDocs(readme, SelectInput);

@@ -1,48 +1,55 @@
-import React from 'react'
-import { expect } from 'chai'
-import sinon from 'sinon'
-import { mount } from 'enzyme'
-import { Form, Checkbox } from '../../../src'
-
+import React from 'react';
+import { expect } from 'chai';
+import sinon from 'sinon';
+import { mount } from 'enzyme';
+import { Form, Checkbox } from '../../../src';
 
 describe('Text', () => {
-
-  const sandbox =  sinon.createSandbox()
+  const sandbox = sinon.createSandbox();
 
   beforeEach(() => {
-    sandbox.restore()
-  })
+    sandbox.restore();
+  });
 
   it('should update value when user types', () => {
-    let savedApi
+    let savedApi;
     const wrapper = mount(
-      <Form getApi={api => { savedApi = api }}>
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
         <Checkbox field="greeting" />
       </Form>
-    )
-    const input = wrapper.find('input').at(0)
+    );
+    const input = wrapper.find('input').at(0);
     input.simulate('change', { target: { checked: true } });
-    expect(savedApi.getState().values).to.deep.equal({ greeting: true })
+    expect(savedApi.getState().values).to.deep.equal({ greeting: true });
   });
 
   it('should set initial value to true', () => {
-    let savedApi
+    let savedApi;
     mount(
-      <Form getApi={api => { savedApi = api }}>
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
         <Checkbox field="greeting" initialValue={true} />
       </Form>
-    )
-    expect(savedApi.getState().values).to.deep.equal({ greeting: true })
+    );
+    expect(savedApi.getState().values).to.deep.equal({ greeting: true });
   });
 
   it('should set initial value to false', () => {
-    let savedApi
+    let savedApi;
     mount(
-      <Form getApi={api => { savedApi = api }}>
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
         <Checkbox field="greeting" initialValue={false} />
       </Form>
-    )
-    expect(savedApi.getState().values).to.deep.equal({ greeting: false })
+    );
+    expect(savedApi.getState().values).to.deep.equal({ greeting: false });
   });
 
   it('should call onChange function when checked value changes', () => {
@@ -69,5 +76,4 @@ describe('Text', () => {
     input.simulate('blur');
     expect(spy.called).to.equal(true);
   });
-
-})
+});

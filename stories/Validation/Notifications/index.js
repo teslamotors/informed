@@ -7,26 +7,26 @@ import Modal from '../../utils/Modal';
 import { Form, Text, Scope } from '../../../src';
 
 const basicValidation = value => {
-  return !value || value.length < 5 ? 'Password must be at least five characters' : null;
-}
+  return !value || value.length < 5
+    ? 'Password must be at least five characters'
+    : null;
+};
 
-const matchValidation = ( value, values ) => {
-  return values.password !== values.confirmPassword ? 'Passwords must match' : null;
-}
+const matchValidation = (value, values) => {
+  return values.password !== values.confirmPassword
+    ? 'Passwords must match'
+    : null;
+};
 
-const passwordValidation = ( value, values ) => {
-  return basicValidation(value) || matchValidation( value, values )
-}
+const passwordValidation = (value, values) => {
+  return basicValidation(value) || matchValidation(value, values);
+};
 
-class Notifications extends React.Component{
-
-  render(){
-
+class Notifications extends React.Component {
+  render() {
     return (
       <div>
-        <Form
-          onSubmit={()=>this.modal.open()}
-          id="notify-validation-form">
+        <Form onSubmit={() => this.modal.open()} id="notify-validation-form">
           {({ formApi, formState }) => (
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
               <div style={{ flex: 1, marginRight: '2rem' }}>
@@ -36,17 +36,19 @@ class Notifications extends React.Component{
                   id="notify-password"
                   validate={passwordValidation}
                   validateOnChange
-                  notify={['confirmPassword']}/>
-                <label htmlFor="notify-confirm-password">Confirm password:</label>
+                  notify={['confirmPassword']}
+                />
+                <label htmlFor="notify-confirm-password">
+                  Confirm password:
+                </label>
                 <Text
                   field="confirmPassword"
                   id="notify-confirm-password"
                   validate={passwordValidation}
                   validateOnChange
-                  notify={['password']}/>
-                <button type="submit">
-                  Submit
-                </button>
+                  notify={['password']}
+                />
+                <button type="submit">Submit</button>
               </div>
               <div style={{ flex: 2, minWidth: '300px' }}>
                 <label>Values:</label>
@@ -62,7 +64,7 @@ class Notifications extends React.Component{
                   {JSON.stringify(formState.invalid, null, 2)}
                 </Code>
               </div>
-              <Modal getControl={(model)=>this.modal = model}>
+              <Modal getControl={model => (this.modal = model)}>
                 <strong>Form Successfully Submitted!</strong>
               </Modal>
             </div>
@@ -73,4 +75,4 @@ class Notifications extends React.Component{
   }
 }
 
-export default withDocs( readme, () => <Notifications /> );
+export default withDocs(readme, () => <Notifications />);

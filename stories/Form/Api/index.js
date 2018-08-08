@@ -9,28 +9,20 @@ const FormApi = () => (
     {({ formApi }) => (
       <div>
         <label htmlFor="form-state-name">First name:</label>
-        <Text field="name" id="form-api-name"/>
-        <button
-          type="button"
-          onClick={()=>formApi.setValue('name', 'Joe')}>
+        <Text field="name" id="form-api-name" />
+        <button type="button" onClick={() => formApi.setValue('name', 'Joe')}>
           Set Name to "Joe"
         </button>
-        <button
-          type="button"
-          onClick={()=>formApi.setValue('name', 'Kevin')}>
+        <button type="button" onClick={() => formApi.setValue('name', 'Kevin')}>
           Set Name to "Kevin"
         </button>
-        <button
-          type="button"
-          onClick={()=>formApi.reset()}>
+        <button type="button" onClick={() => formApi.reset()}>
           Reset
         </button>
-        <button type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
       </div>
     )}
   </Form>
 );
 
-export default withDocs( readme, FormApi );
+export default withDocs(readme, FormApi);

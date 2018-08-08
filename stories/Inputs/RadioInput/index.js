@@ -15,9 +15,7 @@ const RadioInput = () => (
           <label htmlFor="radio-female">Female</label>
           <Radio value="female" id="radio-female" />
         </RadioGroup>
-        <button type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
         <Code language="language-js">
           {JSON.stringify(formState.values, null, 2)}
         </Code>
@@ -26,4 +24,4 @@ const RadioInput = () => (
   </Form>
 );
 
-export default withDocs( readme, RadioInput );
+export default withDocs(readme, RadioInput);

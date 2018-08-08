@@ -11,9 +11,7 @@ const TextAreaInput = () => (
       <div>
         <label htmlFor="textarea-bio">Bio:</label>
         <TextArea field="bio" id="textarea-bio" />
-        <button type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
         <Code language="language-js">
           {JSON.stringify(formState.values, null, 2)}
         </Code>
@@ -22,4 +20,4 @@ const TextAreaInput = () => (
   </Form>
 );
 
-export default withDocs( readme, TextAreaInput );
+export default withDocs(readme, TextAreaInput);

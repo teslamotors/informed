@@ -10,20 +10,14 @@ const FormState = () => (
       <div>
         <label htmlFor="state-name">First name:</label>
         <Text field="name" id="state-name" />
-        <button type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
         <label>Values:</label>
-        <code>
-          {JSON.stringify(formState.values, null, 2)}
-        </code>
+        <code>{JSON.stringify(formState.values, null, 2)}</code>
         <label>Touched:</label>
-        <code>
-          {JSON.stringify(formState.touched, null, 2)}
-        </code>
+        <code>{JSON.stringify(formState.touched, null, 2)}</code>
       </div>
     )}
   </Form>
 );
 
-export default withDocs( readme, FormState );
+export default withDocs(readme, FormState);

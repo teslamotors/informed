@@ -5,7 +5,7 @@ import readme from './InlineFunctions.md';
 
 import { Form, Text } from '../../../src';
 
-const validate = (value)=>'Field is not valid';
+const validate = value => 'Field is not valid';
 
 const InlineFunctions = () => (
   <div>
@@ -21,7 +21,8 @@ const InlineFunctions = () => (
               id="gotcha-color-1"
               validateOnBlur
               debug
-              validate={(value)=>'Field is not valid'} />
+              validate={value => 'Field is not valid'}
+            />
             <label htmlFor="gotcha-food-1">Food:</label>
             <small>Validate on change</small>
             <Text
@@ -29,7 +30,8 @@ const InlineFunctions = () => (
               id="gotcha-food-1"
               validateOnChange
               debug
-              validate={(value)=>'Field is not valid'} />
+              validate={value => 'Field is not valid'}
+            />
             <label htmlFor="gotcha-car-1">Car:</label>
             <small>Validate on blur and change</small>
             <Text
@@ -38,10 +40,9 @@ const InlineFunctions = () => (
               validateOnBlur
               validateOnChange
               debug
-              validate={(value)=>'Field is not valid'} />
-            <button type="submit">
-              Submit
-            </button>
+              validate={value => 'Field is not valid'}
+            />
+            <button type="submit">Submit</button>
           </div>
           <div style={{ flex: 1, marginRight: '2rem' }}>
             <h5>Good Form</h5>
@@ -52,7 +53,8 @@ const InlineFunctions = () => (
               id="gotcha-color-2"
               validateOnBlur
               debug
-              validate={validate} />
+              validate={validate}
+            />
             <label htmlFor="gotcha-food-2">Food:</label>
             <small>Validate on change</small>
             <Text
@@ -60,7 +62,8 @@ const InlineFunctions = () => (
               id="gotcha-food-2"
               validateOnChange
               debug
-              validate={validate} />
+              validate={validate}
+            />
             <label htmlFor="gotcha-car-2">Car:</label>
             <small>Validate on blur and change</small>
             <Text
@@ -69,10 +72,9 @@ const InlineFunctions = () => (
               validateOnBlur
               validateOnChange
               debug
-              validate={validate} />
-            <button type="submit">
-              Submit
-            </button>
+              validate={validate}
+            />
+            <button type="submit">Submit</button>
           </div>
           <div style={{ flex: 2, minWidth: '300px' }}>
             <label>Values:</label>
@@ -90,4 +92,4 @@ const InlineFunctions = () => (
   </div>
 );
 
-export default withDocs( readme, InlineFunctions );
+export default withDocs(readme, InlineFunctions);

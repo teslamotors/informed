@@ -15,9 +15,7 @@ const TextInput = () => (
         <Text field="friends[1]" id="array-friend-2" />
         <label htmlFor="array-friend-3">Friend3</label>
         <Text field="friends[2]" id="array-friend-3" />
-        <button type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
         <Code language="language-js">
           {JSON.stringify(formState.values, null, 2)}
         </Code>
@@ -26,4 +24,4 @@ const TextInput = () => (
   </Form>
 );
 
-export default withDocs( readme, TextInput );
+export default withDocs(readme, TextInput);

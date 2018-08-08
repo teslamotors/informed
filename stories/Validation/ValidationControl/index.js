@@ -6,8 +6,10 @@ import readme from './README.md';
 import { Form, Text } from '../../../src';
 
 const validate = value => {
-  return !value || value.length < 5 ? 'Field must be at least five characters' : null;
-}
+  return !value || value.length < 5
+    ? 'Field must be at least five characters'
+    : null;
+};
 
 const ValidationControl = () => (
   <div>
@@ -21,14 +23,16 @@ const ValidationControl = () => (
               field="color"
               id="validate-color"
               validateOnBlur
-              validate={validate} />
+              validate={validate}
+            />
             <label htmlFor="validate-food">Food:</label>
             <small>Validate on change</small>
             <Text
               field="food"
               id="validate-food"
               validateOnChange
-              validate={validate} />
+              validate={validate}
+            />
             <label htmlFor="validate-car">Car:</label>
             <small>Validate on blur and change</small>
             <Text
@@ -36,10 +40,9 @@ const ValidationControl = () => (
               id="validate-car"
               validateOnBlur
               validateOnChange
-              validate={validate} />
-            <button type="submit">
-              Submit
-            </button>
+              validate={validate}
+            />
+            <button type="submit">Submit</button>
           </div>
           <div style={{ flex: 2, minWidth: '300px' }}>
             <label>Values:</label>
@@ -61,4 +64,4 @@ const ValidationControl = () => (
   </div>
 );
 
-export default withDocs( readme, ValidationControl );
+export default withDocs(readme, ValidationControl);

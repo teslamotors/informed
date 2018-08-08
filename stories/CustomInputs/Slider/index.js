@@ -5,20 +5,9 @@ import readme from './README.md';
 import { Form, asField } from '../../../src';
 
 const Slider = asField(({ fieldState, fieldApi, ...props }) => {
-  const {
-    value
-  } = fieldState;
-  const {
-    setValue,
-    setTouched
-  } = fieldApi;
-  const {
-    onChange,
-    onBlur,
-    initialValue,
-    forwardedRef,
-    ...rest
-  } = props
+  const { value } = fieldState;
+  const { setValue, setTouched } = fieldApi;
+  const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props;
   return (
     <input
       {...rest}
@@ -27,23 +16,22 @@ const Slider = asField(({ fieldState, fieldApi, ...props }) => {
       max={100}
       step={5}
       ref={forwardedRef}
-      value={value || initialValue || "0"}
+      value={value || initialValue || '0'}
       onChange={e => {
-        setValue(e.target.value)
+        setValue(e.target.value);
         if (onChange) {
-          onChange(e)
+          onChange(e);
         }
       }}
       onBlur={e => {
-        setTouched()
+        setTouched();
         if (onBlur) {
-          onBlur(e)
+          onBlur(e);
         }
       }}
     />
   );
 });
-
 
 const SliderExample = () => (
   <div>
@@ -51,10 +39,8 @@ const SliderExample = () => (
       {({ formState }) => (
         <React.Fragment>
           <label htmlFor="custom-3-range">Range:</label>
-          <Slider field="range" initialValue={"50"} id="custom-3-range"/>
-          <button type="submit">
-            Submit
-          </button>
+          <Slider field="range" initialValue={'50'} id="custom-3-range" />
+          <button type="submit">Submit</button>
           <label>Values:</label>
           <Code language="language-js">
             {JSON.stringify(formState.values, null, 2)}
@@ -65,4 +51,4 @@ const SliderExample = () => (
   </div>
 );
 
-export default withDocs( readme, SliderExample );
+export default withDocs(readme, SliderExample);

@@ -8,20 +8,9 @@ Because of this design, you can add your very own custom inputs! Below is an exa
 import { Form, asField } from 'informed';
 
 const Slider = asField(({ fieldState, fieldApi, ...props }) => {
-  const {
-    value
-  } = fieldState;
-  const {
-    setValue,
-    setTouched
-  } = fieldApi;
-  const {
-    onChange,
-    onBlur,
-    initialValue,
-    forwardedRef,
-    ...rest
-  } = props
+  const { value } = fieldState;
+  const { setValue, setTouched } = fieldApi;
+  const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props;
   return (
     <input
       {...rest}
@@ -30,17 +19,17 @@ const Slider = asField(({ fieldState, fieldApi, ...props }) => {
       max={100}
       step={5}
       ref={forwardedRef}
-      value={value || initialValue || "0"}
+      value={value || initialValue || '0'}
       onChange={e => {
-        setValue(e.target.value)
+        setValue(e.target.value);
         if (onChange) {
-          onChange(e)
+          onChange(e);
         }
       }}
       onBlur={e => {
-        setTouched()
+        setTouched();
         if (onBlur) {
-          onBlur(e)
+          onBlur(e);
         }
       }}
     />
@@ -50,8 +39,6 @@ const Slider = asField(({ fieldState, fieldApi, ...props }) => {
 <Form id="custom-form">
   <label htmlFor="custom-range">Range:</label>
   <Slider field="range" id="custom-range" initialValue={50} />
-  <button type="submit">
-    Submit
-  </button>
-</Form>
+  <button type="submit">Submit</button>
+</Form>;
 ```

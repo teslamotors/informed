@@ -15,13 +15,11 @@ import { Form, Text, Scope } from 'informed';
     <Text field="food" id="complex-food" />
   </Scope>
   <label htmlFor="complex-friend-0">Friend 1:</label>
-  <Text field="friends[0]" id="complex-friend-0"/>
+  <Text field="friends[0]" id="complex-friend-0" />
   <label htmlFor="complex-friend-1">Friend 2:</label>
-  <Text field="friends[1]" id="complex-friend-1"/>
+  <Text field="friends[1]" id="complex-friend-1" />
   <label htmlFor="complex-friend-2">Friend 3:</label>
-  <Text field="friends[2]" id="complex-friend-2"/>
-  <button type="submit">
-    Submit
-  </button>
-</Form>
+  <Text field="friends[2]" id="complex-friend-2" />
+  <button type="submit">Submit</button>
+</Form>;
 ```

@@ -21,7 +21,7 @@ every time the input re-renders.
 ```jsx
 import { Form, Text } from 'informed';
 
-const validate = (value)=>'Field is not valid';
+const validate = value => 'Field is not valid';
 
 <Form id="gotcha-form-1">
   {/* ---------------- BAD!! ---------------- */}
@@ -32,7 +32,8 @@ const validate = (value)=>'Field is not valid';
     id="gotcha-color-1"
     validateOnBlur
     debug
-  validate={(value)=>'Field is not valid'} /> {/* BAD!! */}
+    validate={value => 'Field is not valid'}
+  /> {/* BAD!! */}
   <label htmlFor="gotcha-food-1">Food:</label>
   <small>Validate on change</small>
   <Text
@@ -40,7 +41,9 @@ const validate = (value)=>'Field is not valid';
     id="gotcha-food-1"
     validateOnChange
     debug
-    validate={(value)=>'Field is not valid'} /> {/* BAD!! */}
+    validate={value => 'Field is not valid'}
+  />{' '}
+  {/* BAD!! */}
   <label htmlFor="gotcha-car-1">Car:</label>
   <small>Validate on blur and change</small>
   <Text
@@ -49,11 +52,10 @@ const validate = (value)=>'Field is not valid';
     validateOnBlur
     validateOnChange
     debug
-    validate={(value)=>'Field is not valid'} /> {/* BAD!! */}
-  <button type="submit">
-    Submit
-  </button>
-{/* ---------------- GOOD!! ---------------- */}
+    validate={value => 'Field is not valid'}
+  /> {/* BAD!! */}
+  <button type="submit">Submit</button>
+  {/* ---------------- GOOD!! ---------------- */}
   <label htmlFor="gotcha-color-2">Color:</label>
   <small>Validate on blur</small>
   <Text
@@ -61,7 +63,9 @@ const validate = (value)=>'Field is not valid';
     id="gotcha-color-2"
     validateOnBlur
     debug
-  validate={validate} /> {/* GOOD!! */}
+    validate={validate}
+  />{' '}
+  {/* GOOD!! */}
   <label htmlFor="gotcha-food-2">Food:</label>
   <small>Validate on change</small>
   <Text
@@ -69,7 +73,8 @@ const validate = (value)=>'Field is not valid';
     id="gotcha-food-2"
     validateOnChange
     debug
-    validate={validate} /> {/* GOOD!! */}
+    validate={validate}
+  /> {/* GOOD!! */}
   <label htmlFor="gotcha-car-2">Car:</label>
   <small>Validate on blur and change</small>
   <Text
@@ -78,9 +83,9 @@ const validate = (value)=>'Field is not valid';
     validateOnBlur
     validateOnChange
     debug
-    validate={validate} /> {/* GOOD!! */}
-  <button type="submit">
-    Submit
-  </button>
-</Form>
+    validate={validate}
+  />{' '}
+  {/* GOOD!! */}
+  <button type="submit">Submit</button>
+</Form>;
 ```

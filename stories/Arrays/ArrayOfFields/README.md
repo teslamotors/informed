@@ -14,8 +14,6 @@ import { Form, Text } from 'informed';
   <Text field="friends[1]" id="array-friend-2" />
   <label htmlFor="array-friend-3">Friend3</label>
   <Text field="friends[2]" id="array-friend-3" />
-  <button type="submit">
-    Submit
-  </button>
-</Form>
+  <button type="submit">Submit</button>
+</Form>;
 ```

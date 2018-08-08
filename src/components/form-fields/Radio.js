@@ -1,15 +1,13 @@
-import React from 'react'
+import React from 'react';
 import withRadioGroup from '../../HOC/withRadioGroup';
 
-const Radio = ( { radioGroupApi, radioGroupState, ...props  } ) => {
-  const {
-    value: groupValue
-  } = radioGroupState;
+const Radio = ({ radioGroupApi, radioGroupState, ...props }) => {
+  const { value: groupValue } = radioGroupState;
   const {
     setValue,
     setTouched,
     onChange: groupOnChange,
-    onBlur: groupOnBlur,
+    onBlur: groupOnBlur
   } = radioGroupApi;
   const {
     value,
@@ -19,7 +17,7 @@ const Radio = ( { radioGroupApi, radioGroupState, ...props  } ) => {
     initialValue,
     forwardedRef,
     ...rest
-  } = props
+  } = props;
   return (
     <input
       {...rest}
@@ -29,32 +27,30 @@ const Radio = ( { radioGroupApi, radioGroupState, ...props  } ) => {
       checked={groupValue === value}
       onChange={e => {
         if (!e.target.checked) {
-          return
+          return;
         }
-        setValue(value)
+        setValue(value);
         if (onChange) {
-          onChange(e)
+          onChange(e);
         }
         if (groupOnChange) {
-          groupOnChange(e)
+          groupOnChange(e);
         }
       }}
       onBlur={e => {
-        setTouched()
+        setTouched();
         if (onBlur) {
-          onBlur(e)
+          onBlur(e);
         }
         if (groupOnBlur) {
-          groupOnBlur(e)
+          groupOnBlur(e);
         }
       }}
       type="radio"
     />
-  )
+  );
 };
 
-export {
-  Radio as BasicRadio
-};
+export { Radio as BasicRadio };
 
 export default withRadioGroup(Radio);

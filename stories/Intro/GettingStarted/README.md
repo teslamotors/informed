@@ -12,6 +12,7 @@ Check out our [GitHub](https://github.com/joepuzzo/informed)!
 ## Getting Started
 
 ##### Install with npm
+
 ```
 npm install --save informed
 ```
@@ -32,10 +33,8 @@ import { Form, Text } from 'informed';
 <Form id="intro-form">
   <label htmlFor="intro-name">First name:</label>
   <Text field="name" id="intro-name" />
-  <button type="submit">
-    Submit
-  </button>
-</Form>
+  <button type="submit">Submit</button>
+</Form>;
 ```
 
 ---

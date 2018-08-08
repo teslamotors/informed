@@ -8,8 +8,10 @@ import { Form, Select, Option } from 'informed';
 <Form id="text-form">
   <label htmlFor="select-colors">Colors:</label>
   <Select
-    field="status" id="select-colors" multiple
-    style={{height: '100px', width: '200px'}}>
+    field="status"
+    id="select-colors"
+    multiple
+    style={{ height: '100px', width: '200px' }}>
     <Option value="red">Red</Option>
     <Option value="green">Green</Option>
     <Option value="blue">Blue</Option>
@@ -17,8 +19,6 @@ import { Form, Select, Option } from 'informed';
     <Option value="orange">Orange</Option>
     <Option value="purple">Purple</Option>
   </Select>
-  <button type="submit">
-    Submit
-  </button>
-</Form>
+  <button type="submit">Submit</button>
+</Form>;
 ```

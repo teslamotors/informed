@@ -12,8 +12,6 @@ import { Form, RadioGroup, Radio } from 'informed';
     <label htmlFor="radio-female">Female</label>
     <Radio value="female" id="radio-female" />
   </RadioGroup>
-  <button type="submit">
-    Submit
-  </button>
-</Form>
+  <button type="submit">Submit</button>
+</Form>;
 ```

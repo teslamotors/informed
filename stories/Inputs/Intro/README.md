@@ -6,19 +6,19 @@ Informed comes with some basic default inputs. All inputs are built utilizing th
 
 Below are all the input props that `informed`'s inputs accept.
 
-| Name           | Type          | Required | Description                     |
-|----------------|---------------|----------|---------------------------------|
-| field          | string        |   YES    | Every input must have a field. This is how the form manages the state of this input. See the field syntax section below for additional details on what you can pass in for field.
-| initialValue   | string OR num |   NO     | An initial value for that field.
-| validate       | func          |   NO     | Function that gets called when form performs validation. Function accepts the value as a parameter and must return either an error string or null. By default it only gets called onSubmit. See Validation section for additional details.
-| validateOnBlur | bool          |   NO     | Tells field to perform validation onBlur. By default it only validates onSubmit.
-| validateOnChange | bool        |   NO     | Tells field to perform validation onChange. By default it only validates onSubmit.
-| validateOnMount | bool         |   NO     | Tells field to perform validation onMount.
-| asyncValidate   | func         |   NO     | Function that gets called when form performs async validation. Function accepts the value as a parameter and must return either an error string or null ( you would typically return a promise from this function that resolves an error string or null ). By default it only gets called onSubmit. See Validation section for additional details.
-| asyncValidateOnBlur | bool        |   NO     | Tells field to perform async validation onBlur. By default it only validates onSubmit.
-| mask            | func         |   NO     | Function that will mask values when entered. Example `value => value + '!!!'` or `value => value.trim()`
-| onValueChange   | func         |   NO     | Function that will get called when this fields value changes. Function takes the new value as a parameter.
-| `<input>` props | html-5       |   NO     | All inputs can accept any props that a native html input, select, textarea, etc. can accept. For example, if you want to disable a text input, you would simply pass `disabled`.
+| Name                | Type          | Required | Description                                                                                                                                                                                                                                                                                                                                        |
+| ------------------- | ------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| field               | string        | YES      | Every input must have a field. This is how the form manages the state of this input. See the field syntax section below for additional details on what you can pass in for field.                                                                                                                                                                  |
+| initialValue        | string OR num | NO       | An initial value for that field.                                                                                                                                                                                                                                                                                                                   |
+| validate            | func          | NO       | Function that gets called when form performs validation. Function accepts the value as a parameter and must return either an error string or null. By default it only gets called onSubmit. See Validation section for additional details.                                                                                                         |
+| validateOnBlur      | bool          | NO       | Tells field to perform validation onBlur. By default it only validates onSubmit.                                                                                                                                                                                                                                                                   |
+| validateOnChange    | bool          | NO       | Tells field to perform validation onChange. By default it only validates onSubmit.                                                                                                                                                                                                                                                                 |
+| validateOnMount     | bool          | NO       | Tells field to perform validation onMount.                                                                                                                                                                                                                                                                                                         |
+| asyncValidate       | func          | NO       | Function that gets called when form performs async validation. Function accepts the value as a parameter and must return either an error string or null ( you would typically return a promise from this function that resolves an error string or null ). By default it only gets called onSubmit. See Validation section for additional details. |
+| asyncValidateOnBlur | bool          | NO       | Tells field to perform async validation onBlur. By default it only validates onSubmit.                                                                                                                                                                                                                                                             |
+| mask                | func          | NO       | Function that will mask values when entered. Example `value => value + '!!!'` or `value => value.trim()`                                                                                                                                                                                                                                           |
+| onValueChange       | func          | NO       | Function that will get called when this fields value changes. Function takes the new value as a parameter.                                                                                                                                                                                                                                         |
+| `<input>` props     | html-5        | NO       | All inputs can accept any props that a native html input, select, textarea, etc. can accept. For example, if you want to disable a text input, you would simply pass `disabled`.                                                                                                                                                                   |
 
 ## Field Syntax
 
@@ -26,14 +26,14 @@ Every input in `informed` needs an associated field name. In its simplest form, 
 
 Fields can be simple strings, strings that contain ".", and strings that contain "[ ]", much like how you access and write to objects and arrays in javascript. Below are some examples of field names and what they resolve to in the forms values object.
 
-| Field                  | Resolution                       |
-|------------------------|----------------------------------|
-| `"username"`           | `values.username`                |
-| `"friends[0]"`         | `values.friends[0]`              |
-| `"siblings.1"`         | `values.siblings.1`              |
-| `"siblings['2']"`      | `values.siblings.2`              |
-| `"parents[0].name"`    | `values.parents[0].name`         |
-| `"parents[1]['name']"` | `values.parents[1].name`         |
+| Field                  | Resolution               |
+| ---------------------- | ------------------------ |
+| `"username"`           | `values.username`        |
+| `"friends[0]"`         | `values.friends[0]`      |
+| `"siblings.1"`         | `values.siblings.1`      |
+| `"siblings['2']"`      | `values.siblings.2`      |
+| `"parents[0].name"`    | `values.parents[0].name` |
+| `"parents[1]['name']"` | `values.parents[1].name` |
 
 <!-- STORY -->
 
@@ -51,8 +51,6 @@ import { Form, Text } from 'informed';
   <Text field="siblings['2']" id="syntax-siblings['2']" />
   <label htmlFor="syntax-parents[0].name">Parents[0].name:</label>
   <Text field="parents[0].name" id="syntax-parents[0].name" />
-  <button type="submit">
-    Submit
-  </button>
-</Form>
+  <button type="submit">Submit</button>
+</Form>;
 ```

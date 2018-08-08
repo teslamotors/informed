@@ -13,9 +13,7 @@ const Basic = () => (
           <div style={{ flex: 1, marginRight: '2rem' }}>
             <label htmlFor="basic-name">First name:</label>
             <Text field="name" id="basic-name" />
-            <button type="submit">
-              Submit
-            </button>
+            <button type="submit">Submit</button>
           </div>
           <div style={{ flex: 2, minWidth: '300px' }}>
             <label>Values:</label>
@@ -33,4 +31,4 @@ const Basic = () => (
   </div>
 );
 
-export default withDocs( readme, Basic );
+export default withDocs(readme, Basic);

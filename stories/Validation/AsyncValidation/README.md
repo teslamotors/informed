@@ -74,9 +74,8 @@ Hey this is cool but i want to validate on blur!
     id="async-username"
     validate={validate}
     asyncValidate={asyncValidate}
-    asyncValidateOnBlur />
-  <button type="submit">
-    Submit
-  </button>
+    asyncValidateOnBlur
+  />
+  <button type="submit">Submit</button>
 </Form>
 ```

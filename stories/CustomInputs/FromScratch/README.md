@@ -8,24 +8,15 @@
 import { Form, BasicText, asField } from 'informed';
 
 const validate = value => {
-  return !value || value.length < 5 ? 'Field must be at least five characters' : null;
+  return !value || value.length < 5
+    ? 'Field must be at least five characters'
+    : null;
 };
 
 const ErrorText = asField(({ fieldState, fieldApi, ...props }) => {
-  const {
-    value
-  } = fieldState;
-  const {
-    setValue,
-    setTouched
-  } = fieldApi;
-  const {
-    onChange,
-    onBlur,
-    initialValue,
-    forwardedRef,
-    ...rest
-  } = props
+  const { value } = fieldState;
+  const { setValue, setTouched } = fieldApi;
+  const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props;
   return (
     <React.Fragment>
       <input
@@ -33,29 +24,35 @@ const ErrorText = asField(({ fieldState, fieldApi, ...props }) => {
         ref={forwardedRef}
         value={!value && value !== 0 ? '' : value}
         onChange={e => {
-          setValue(e.target.value)
+          setValue(e.target.value);
           if (onChange) {
-            onChange(e)
+            onChange(e);
           }
         }}
         onBlur={e => {
-          setTouched()
+          setTouched();
           if (onBlur) {
-            onBlur(e)
+            onBlur(e);
           }
         }}
-        style={ fieldState.error ? { border: 'solid 1px red' } : null }
+        style={fieldState.error ? { border: 'solid 1px red' } : null}
       />
-      { fieldState.error ? <small style={{color: 'red'}}>{fieldState.error}</small> : null }
+      {fieldState.error ? (
+        <small style={{ color: 'red' }}>{fieldState.error}</small>
+      ) : null}
     </React.Fragment>
   );
 });
 
 <Form id="custom-form">
   <label htmlFor="custom-name">First name:</label>
-  <ErrorText field="name" id="custom-name" validate={validate} validateOnChange validateOnBlur />
-  <button type="submit">
-    Submit
-  </button>
-</Form>
+  <ErrorText
+    field="name"
+    id="custom-name"
+    validate={validate}
+    validateOnChange
+    validateOnBlur
+  />
+  <button type="submit">Submit</button>
+</Form>;
 ```

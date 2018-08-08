@@ -15,25 +15,35 @@ it red when there is an error. You could achieve this with the following code.
 import { Form, BasicText, asField } from 'informed';
 
 const validate = value => {
-  return !value || value.length < 5 ? 'Field must be at least five characters' : null;
+  return !value || value.length < 5
+    ? 'Field must be at least five characters'
+    : null;
 };
 
 const ErrorText = asField(({ fieldState, ...props }) => (
   <React.Fragment>
     <BasicText
-      fieldState={fieldState} {...props}
-      style={ fieldState.error ? { border: 'solid 1px red' } : null }/>
-    { fieldState.error ? <small style={{color: 'red'}}>{fieldState.error}</small> : null }
+      fieldState={fieldState}
+      {...props}
+      style={fieldState.error ? { border: 'solid 1px red' } : null}
+    />
+    {fieldState.error ? (
+      <small style={{ color: 'red' }}>{fieldState.error}</small>
+    ) : null}
   </React.Fragment>
 ));
 
 <Form id="custom-form">
   <label htmlFor="custom-name">First name:</label>
-  <ErrorText field="name" id="custom-name" validate={validate} validateOnChange validateOnBlur />
-  <button type="submit">
-    Submit
-  </button>
-</Form>
+  <ErrorText
+    field="name"
+    id="custom-name"
+    validate={validate}
+    validateOnChange
+    validateOnBlur
+  />
+  <button type="submit">Submit</button>
+</Form>;
 ```
 
 <!-- STORY -->

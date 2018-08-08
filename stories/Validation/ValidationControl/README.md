@@ -4,11 +4,9 @@ By default fields will only validate when the submit button is clicked. To get
 more granular validation ( onBlur && onChange ), simply pass in validateOnChange
 or validateOnBlur or even both!
 
-
 <!-- STORY -->
 
 ```jsx
-
 const validate = value => {
   return !value || value.length < 5 ? 'Field must be longer than five characters' : null;
 }

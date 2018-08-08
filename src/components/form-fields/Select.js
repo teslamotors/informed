@@ -1,34 +1,30 @@
-import React from 'react'
+import React from 'react';
 import asField from '../../HOC/asField';
 
 class Select extends React.Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(e){
+  handleChange(e) {
     let selected = [...this.refs.select]
       .filter(option => option.selected)
       .map(option => option.value);
 
-      this.props.fieldApi.setValue( this.props.multiple ? selected : ( selected[0] || '' ) );
+    this.props.fieldApi.setValue(
+      this.props.multiple ? selected : selected[0] || ''
+    );
 
-      if (this.props.onChange) {
-        this.props.onChange(e)
-      }
+    if (this.props.onChange) {
+      this.props.onChange(e);
+    }
   }
 
-  render(){
-    const { fieldApi, fieldState, ...props  } = this.props
-    const {
-      value
-    } = fieldState;
-    const {
-      setValue,
-      setTouched
-    } = fieldApi;
+  render() {
+    const { fieldApi, fieldState, ...props } = this.props;
+    const { value } = fieldState;
+    const { setValue, setTouched } = fieldApi;
     const {
       onChange,
       onBlur,
@@ -38,31 +34,27 @@ class Select extends React.Component {
       children,
       multiple,
       ...rest
-    } = props
+    } = props;
     return (
       <select
         {...rest}
         multiple={multiple}
         name={field}
         ref="select"
-        value={value || ( multiple ? [] : '' )}
+        value={value || (multiple ? [] : '')}
         onChange={this.handleChange}
         onBlur={e => {
-          setTouched()
+          setTouched();
           if (onBlur) {
-            onBlur(e)
+            onBlur(e);
           }
-        }}
-      >
+        }}>
         {children}
       </select>
-    )
+    );
   }
+}
 
-};
-
-export {
-  Select as BasicSelect
-};
+export { Select as BasicSelect };
 
 export default asField(Select);

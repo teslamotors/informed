@@ -144,8 +144,7 @@ describe('Form', () => {
         onSubmit={spy}
         getApi={api => {
           savedApi = api;
-        }}
-      >
+        }}>
         <Text field="greeting" />
         <button type="submit">Submit</button>
       </Form>
@@ -171,8 +170,7 @@ describe('Form', () => {
         getApi={api => {
           savedApi = api;
         }}
-        initialValues={{ greeting: 'world' }}
-      >
+        initialValues={{ greeting: 'world' }}>
         <Text field="greeting" />
         <button type="reset">Reset</button>
       </Form>

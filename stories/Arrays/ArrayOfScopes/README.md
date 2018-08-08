@@ -23,8 +23,6 @@ import { Form, Text, Scope } from 'informed';
     <label htmlFor="friend-2-lastname">Lastname</label>
     <Text field="lastname" id="friend-2-lastname" />
   </Scope>
-  <button type="submit">
-    Submit
-  </button>
-</Form>
+  <button type="submit">Submit</button>
+</Form>;
 ```

@@ -22,9 +22,7 @@ Why? Lets take a look at the code below:
 ```jsx
 import { Form, Text, Scope, withFieldState } from 'informed';
 
-const FieldInfo = ({fieldState}) => (
-  <code>{fieldState.value}</code>
-);
+const FieldInfo = ({ fieldState }) => <code>{fieldState.value}</code>;
 
 const WithFavoriteColorInfo = withFieldState('favorite.color')(FieldInfo);
 const WithColorInfo = withFieldState('color')(FieldInfo);
@@ -32,11 +30,16 @@ const WithColorInfo = withFieldState('color')(FieldInfo);
 <Form id="gotcha-form-2">
   <Scope scope="favorite">
     <Text field="color" />
-    <div>favorite.color: <WithFavoriteColorInfo /></div>
-    <div>color: <WithColorInfo /></div>
+    <div>
+      favorite.color: <WithFavoriteColorInfo />
+    </div>
+    <div>
+      color: <WithColorInfo />
+    </div>
   </Scope>
-</Form>
+</Form>;
 ```
+
 <br/>
 Remember that the result of high order components is affected just like `Text`
 fields. In other words when you write `<Text field="color" />` within a

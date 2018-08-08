@@ -84,8 +84,7 @@ class Form extends Component {
         <form
           {...rest}
           onReset={this.formContext.formApi.reset}
-          onSubmit={this.formContext.formApi.submitForm}
-        >
+          onSubmit={this.formContext.formApi.submitForm}>
           {this.content}
         </form>
       </FormContext.Provider>

@@ -10,8 +10,7 @@ describe('Scope', () => {
       <Form
         getApi={api => {
           savedApi = api;
-        }}
-      >
+        }}>
         <Scope scope="favorite">
           <Text field="color" />
         </Scope>
@@ -32,8 +31,7 @@ describe('Scope', () => {
       <Form
         getApi={api => {
           savedApi = api;
-        }}
-      >
+        }}>
         <Scope scope="favorites">
           <Scope scope="crayon">
             <Text field="color" />
@@ -59,8 +57,7 @@ describe('Scope', () => {
       <Form
         getApi={api => {
           savedApi = api;
-        }}
-      >
+        }}>
         <Scope scope="favorite">
           <Text field="color" />
         </Scope>
@@ -81,8 +78,7 @@ describe('Scope', () => {
       <Form
         getApi={api => {
           savedApi = api;
-        }}
-      >
+        }}>
         <Scope scope="favorite">
           <Text
             field="color"
@@ -112,8 +108,7 @@ describe('Scope', () => {
       <Form
         getApi={api => {
           savedFormApi = api;
-        }}
-      >
+        }}>
         <Scope scope="favorite">
           <Text field="color" />
           <GetFieldApi />

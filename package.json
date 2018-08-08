@@ -15,7 +15,7 @@
     "preversion": "npm run test:coverage",
     "version": "npm run build",
     "postversion": "git push",
-    "postPublish": "git push --tags",
+    "postpublish": "git push --tags",
     "precommit": "pretty-quick --staged",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:docs": "build-storybook -c .storybook -o docs",

@@ -12,9 +12,7 @@ module.exports = (storybookBaseConfig, configType) => {
     [
       '@babel/plugin-transform-runtime',
       {
-        helpers: true,
-        corejs: 2,
-        regenerator: true
+        corejs: 2
       }
     ]
   ];

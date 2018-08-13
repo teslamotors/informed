@@ -20,7 +20,7 @@ module.exports = {
               [
                 '@babel/plugin-transform-runtime',
                 {
-                  corejs: true
+                  corejs: 2
                 }
               ],
               ['@babel/plugin-proposal-class-properties', { loose: false }]

@@ -1,0 +1,20 @@
+--- a/node_modules/enzyme-adapter-react-16/build/ReactSixteenAdapter.js
++++ b/node_modules/enzyme-adapter-react-16/build/ReactSixteenAdapter.js
+@@ -69,6 +69,7 @@
+ var Mode = 11;
+ var ContextConsumerType = 12;
+ var ContextProviderType = 13;
++var forwardRef = 14;
+ 
+ function nodeAndSiblingsArray(nodeWithSibling) {
+   var array = [];
+@@ -161,7 +162,9 @@
+     case Mode: // 11
+     case ContextProviderType: // 13
+     case ContextConsumerType:
++    case ContextConsumerType:
+       // 12
++    case forwardRef: // 14
+       return childrenToTree(node.child);
+     default:
+       throw new Error('Enzyme Internal Error: unknown node with tag ' + String(node.tag));

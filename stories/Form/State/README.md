@@ -17,6 +17,7 @@ invalid is derived from the errors attribute and therefore cannot be set directl
 | invalid     | `true`             | `false`       | YES     | Boolean that is true when form is invalid. A form is invalid when any of its inputs fails its validation function ( if there are errors ). This includes asyncErrors!                                          |
 | pristine    | `true`             | `true`        | YES     | Boolean that is true when form is pristine. A form is pristine when it has not been touched && no values have been entered in any field                                                                        |
 | dirty       | `true`             | `false`       | YES     | Boolean that is true when pristine is false                                                                                                                                                                    |
+| submits     | `1`                | `0`           | YES     | Number of times the form was submitted. ( Successful or Unsuccessful )                                                                                                                                         |
 
 **"Ok so informed takes care of state so I dont have to.. but how do i get my hands
 on this state??**

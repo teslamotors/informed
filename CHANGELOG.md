@@ -1,3 +1,9 @@
+## 1.10.0 ( August 13, 2018 )
+
+### Added
+
+- submits to the form state
+
 ## 1.9.0 ( August 8, 2018 )
 
 ### Rebuilt

@@ -10,6 +10,7 @@ class FormController extends EventEmitter {
     this.values = new ObjectMap(config.initialValues);
     this.touched = new ObjectMap();
     this.errors = new ObjectMap();
+    this.submits = 0;
     this.asyncErrors = new ObjectMap();
     this.api = {
       setValue: this.setValue,
@@ -45,8 +46,8 @@ class FormController extends EventEmitter {
       asyncErrors: this.asyncErrors.object,
       pristine: this.pristine,
       dirty: this.dirty,
-      invalid: this.invalid
-      //submitting: this.submitting
+      invalid: this.invalid,
+      submits: this.submits
     };
   }
 
@@ -221,6 +222,7 @@ class FormController extends EventEmitter {
     this.touched.rebuild();
     this.errors.rebuild();
     this.asyncErrors.rebuild();
+    this.submits = 0;
     // We need to iterate over all the fields and
     // reset them
     this.fields.forEach(fieldController => {
@@ -257,6 +259,9 @@ class FormController extends EventEmitter {
   };
 
   submitForm = async e => {
+    // incriment!!
+    this.submits = this.submits + 1;
+
     if (e && !this.config.dontPreventDefault) {
       e.preventDefault(e);
     }

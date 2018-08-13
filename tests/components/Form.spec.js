@@ -34,7 +34,8 @@ describe('Form', () => {
       asyncErrors: {},
       pristine: true,
       dirty: false,
-      invalid: false
+      invalid: false,
+      submits: 0
     };
     expect(JSON.stringify(state)).to.deep.equal(JSON.stringify(formState));
   };
@@ -47,7 +48,8 @@ describe('Form', () => {
       asyncErrors: {},
       pristine: true,
       dirty: false,
-      invalid: false
+      invalid: false,
+      submits: 0
     };
     return Object.assign({}, defaultState, state);
   };
@@ -332,7 +334,45 @@ describe('Form', () => {
     });
   });
 
-  // SUBMITS TESTS
+  it('should incriment submits when form is submitted', done => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const wrapper = mount(
+      <Form getApi={setApi}>
+        <Text field="greeting" />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+    const button = wrapper.find('button');
+    button.simulate('submit');
+    setImmediate(() => {
+      expect(api.getState().submits).to.equal(1);
+      done();
+    });
+  });
+
+  it('should incriment submits when form is submitted more than once', done => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const wrapper = mount(
+      <Form getApi={setApi}>
+        <Text field="greeting" />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+    const button = wrapper.find('button');
+    button.simulate('submit');
+    button.simulate('submit');
+    button.simulate('submit');
+    setImmediate(() => {
+      expect(api.getState().submits).to.equal(3);
+      done();
+    });
+  });
 
   it('getApi should give the passed function the formApi', () => {
     let api;

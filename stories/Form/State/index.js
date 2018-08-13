@@ -31,6 +31,8 @@ const FormState = () => (
         <code>{JSON.stringify(formState.pristine)}</code>
         <label>Dirty:</label>
         <code>{JSON.stringify(formState.dirty)}</code>
+        <label>Submits:</label>
+        <code>{formState.submits}</code>
       </div>
     )}
   </Form>

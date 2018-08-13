@@ -95,7 +95,8 @@ describe('Controller', () => {
           asyncErrors: {},
           pristine: false,
           dirty: true,
-          invalid: true
+          invalid: true,
+          submits: 0
         };
         controller.api.setState(expected);
         expect(controller.state).to.deep.equal(expected);
@@ -165,7 +166,8 @@ describe('Controller', () => {
           touched: {},
           pristine: false,
           dirty: true,
-          invalid: false
+          invalid: false,
+          submits: 0
         };
         controller.register(
           'greeting',
@@ -197,7 +199,8 @@ describe('Controller', () => {
           asyncErrors: {},
           pristine: false,
           dirty: true,
-          invalid: false
+          invalid: false,
+          submits: 0
         };
         controller.register(
           'greeting',

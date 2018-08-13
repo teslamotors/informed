@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require('path');
 
 module.exports = (storybookBaseConfig, configType) => {
   // configType has a value of 'DEVELOPMENT' or 'PRODUCTION'
@@ -6,55 +6,51 @@ module.exports = (storybookBaseConfig, configType) => {
   // 'PRODUCTION' is used when building the static version of storybook.
 
   storybookBaseConfig.module.rules[0].use[0].options.plugins = [
-    "babel-plugin-emotion",
-    "babel-plugin-macros",
-    ["@babel/plugin-proposal-class-properties", { "loose": false }],
+    'babel-plugin-emotion',
+    'babel-plugin-macros',
+    ['@babel/plugin-proposal-class-properties', { loose: false }],
     [
-      "@babel/plugin-transform-runtime",
+      '@babel/plugin-transform-runtime',
       {
-        "helpers": true,
-        "polyfill": true,
-        "regenerator": true
+        corejs: 2
       }
     ]
   ];
 
   storybookBaseConfig.module.rules[0].use[0].options.presets = [
-    "@babel/preset-env",
-    "@babel/preset-react"
+    '@babel/preset-env',
+    '@babel/preset-react'
   ];
 
   storybookBaseConfig.module.rules[1] = {
     test: /\.md$/,
     use: [
       {
-        loader: 'html-loader',
+        loader: 'html-loader'
       },
       {
         loader: 'markdown-loader',
-        options: {
-        }
-      },
+        options: {}
+      }
     ],
-    include: path.resolve(__dirname, "../"),
+    include: path.resolve(__dirname, '../'),
     exclude: /node_modules/
   };
 
   storybookBaseConfig.module.rules.push({
     test: /\.css$/,
-    loaders: ["style-loader", "css-loader"],
-    include: path.resolve(__dirname, "../"),
+    loaders: ['style-loader', 'css-loader'],
+    include: path.resolve(__dirname, '../'),
     exclude: /node_modules/
   });
 
-  storybookBaseConfig.module.rules.push(  {
+  storybookBaseConfig.module.rules.push({
     test: /\.scss$/,
-    loaders: ["style-loader", "css-loader", "sass-loader"],
-    include: path.resolve(__dirname, "../"),
+    loaders: ['style-loader', 'css-loader', 'sass-loader'],
+    include: path.resolve(__dirname, '../'),
     exclude: /node_modules/
   });
-
 
   // Return the altered config
   return storybookBaseConfig;
-}
+};

@@ -1,3 +1,15 @@
+## 1.10.2 ( August 13, 2018 )
+
+### Fixed
+
+- Issue with @babel/runtime
+
+## 1.10.1 ( August 13, 2018 )
+
+### Removed
+
+- mistakenly added dev deps that were deps... oops
+
 ## 1.10.0 ( August 13, 2018 )
 
 ### Added

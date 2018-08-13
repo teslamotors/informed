@@ -74,6 +74,7 @@
     "eslint": "^5.3.0",
     "eslint-plugin-react": "^7.10.0",
     "html-loader": "^0.5.5",
+    "husky": "^0.14.3",
     "istanbul-instrumenter-loader": "^3.0.1",
     "jsdom": "^11.10.0",
     "markdown-loader": "^3.0.0",
@@ -83,6 +84,7 @@
     "nyc": "^11.8.0",
     "patch-package": "^5.1.1",
     "prettier": "1.14.0",
+    "pretty-quick": "^1.6.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-prism": "^4.3.2",
@@ -97,9 +99,7 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.53",
-    "husky": "^0.14.3",
-    "pretty-quick": "^1.6.0"
+    "@babel/runtime": "^7.0.0-beta.53"
   },
   "nyc": {
     "instrument": false,

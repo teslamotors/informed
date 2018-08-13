@@ -1,3 +1,9 @@
+## 1.10.4 ( August 13, 2018 )
+
+### Fixed
+
+- Issue with @babel/runtime was the dep when it should have ben @babel/runtime-corejs2
+
 ## 1.10.3 ( August 13, 2018 )
 
 ### Fixed

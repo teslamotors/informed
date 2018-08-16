@@ -99,6 +99,9 @@
   "dependencies": {
     "@babel/runtime-corejs2": "^7.0.0-rc.1"
   },
+  "peerDependencies": {
+    "react": "^16.0.0"
+  },
   "nyc": {
     "instrument": false,
     "sourceMap": false,

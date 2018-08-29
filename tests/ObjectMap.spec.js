@@ -29,7 +29,7 @@ describe('ObjectMap', () => {
   });
 
   describe('get', () => {
-    it('should get value from very nested obejct', () => {
+    it('should get value from very nested object', () => {
       const expected = 2;
       const object = {
         foo: {

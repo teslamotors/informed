@@ -31,5 +31,4 @@ describe('makePathArray', () => {
     const expectedOutput = [ 'foo', 'bar', 'baz', 'taz'];
     expect(makePathArray(input)).to.deep.equal(expectedOutput);
   });
-
 });

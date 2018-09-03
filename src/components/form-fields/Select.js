@@ -40,7 +40,7 @@ class Select extends React.Component {
         {...rest}
         multiple={multiple}
         name={field}
-        ref="select"
+        ref={forwardedRef}
         value={value || (multiple ? [] : '')}
         onChange={this.handleChange}
         onBlur={e => {

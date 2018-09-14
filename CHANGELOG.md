@@ -1,3 +1,9 @@
+## 1.10.5 ( September 14, 2018 )
+
+### Added
+
+- License
+
 ## 1.10.4 ( August 13, 2018 )
 
 ### Fixed

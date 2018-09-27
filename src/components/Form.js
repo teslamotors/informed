@@ -63,6 +63,20 @@ class Form extends Component {
     return children;
   }
 
+  componentDidUpdate() {
+    const {
+      onSubmit,
+      preSubmit,
+      onSubmitFailure,
+      dontPreventDefault
+    } = this.props;
+
+    this.controller.hooks.onSubmit = onSubmit;
+    this.controller.hooks.preSubmit = preSubmit;
+    this.controller.hooks.onSubmitFailure = onSubmitFailure;
+    this.controller.config.dontPreventDefault = dontPreventDefault;
+  }
+
   render() {
     // TODO find better way to get ...rest
     const {

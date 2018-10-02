@@ -1,6 +1,7 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   entry: path.join(__dirname, '../../src/index.js'),
@@ -30,6 +31,9 @@ module.exports = {
       }
     ]
   },
+  // plugins: [
+  //   new BundleAnalyzerPlugin()
+  // ],
   output: {
     filename: 'index.js',
     globalObject: 'this',

@@ -29,8 +29,9 @@ describe('Text', () => {
       </Form>
     );
     const input = wrapper.find('select').at(0);
-    input.simulate('change', { target: { value: 'single' } });
-    // TODO how do i test this :(
-    //expect(savedApi.getState().values).to.deep.equal({ status: 'single' })
+    const option = wrapper.find('option').at(1).instance();
+    option.selected = true;
+    input.simulate('change');
+    expect(savedApi.getState().values).to.deep.equal({ status: 'single' });
   });
 });

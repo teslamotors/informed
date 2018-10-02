@@ -1,3 +1,13 @@
+## 1.10.6 ( October 2, 2018 )
+
+### Fixed
+
+- Skipped test for select!!!
+
+### Updated 
+
+- Select to use new ref interface
+
 ## 1.10.5 ( September 14, 2018 )
 
 ### Added

@@ -1,3 +1,9 @@
+## 1.10.7 ( October 11, 2018 )
+
+### Updated
+
+- Name of withFormSate
+
 ## 1.10.6 ( October 2, 2018 )
 
 ### Fixed

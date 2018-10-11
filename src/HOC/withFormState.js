@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormContext } from '../Context';
 
-const withFormApi = Component =>
+const withFormState = Component =>
   React.forwardRef((props, ref) => (
     <FormContext.Consumer>
       {({ formState }) => (
@@ -10,4 +10,4 @@ const withFormApi = Component =>
     </FormContext.Consumer>
   ));
 
-export default withFormApi;
+export default withFormState;

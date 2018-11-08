@@ -1,3 +1,9 @@
+## 1.10.8 ( November 8, 2018 )
+
+### Added
+
+- type file for typescript
+
 ## 1.10.7 ( October 11, 2018 )
 
 ### Updated

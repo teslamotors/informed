@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "types": "index.d.ts",
   "files": [
-    "dist/"
+    "dist/",
+    "index.d.ts"
   ],
   "scripts": {
     "start": "webpack-dev-server -d --config webpack.dev.config.js --port 4004 --hot",

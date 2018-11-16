@@ -1,3 +1,9 @@
+## 1.10.9 ( November 16, 2018 )
+
+### Updated 
+
+- files in package json to include typeigs
+
 ## 1.10.8 ( November 8, 2018 )
 
 ### Added

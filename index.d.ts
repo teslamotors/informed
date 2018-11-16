@@ -124,6 +124,7 @@ declare module 'informed' {
         mask?: (value: V) => V;
         onValueChange?: (value: V) => void;
         value?: V;
+        forwardedRef?: React.RefObject<HTMLInputElement>;
     }
 
     export interface FieldProps<V, VS> extends BaseFieldProps<V, VS> {

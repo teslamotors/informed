@@ -64,6 +64,7 @@ declare module 'informed' {
             errors: { [key in keyof V]: FormError },
             asyncErrors: { [key in keyof V]: FormError }
         ) => void;
+        className?: string;
     }
     export interface ChildrenFormProps<V> extends BasicFormProps<V> {
         children: React.ReactNode | ChildFunction<FormContext<V>>;

@@ -5,10 +5,11 @@ class Select extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.selectRef = React.createRef();
   }
 
   handleChange(e) {
-    let selected = [...this.select.current]
+    let selected = [...(this.props.forwardedRef || this.selectRef).current]
       .filter(option => option.selected)
       .map(option => option.value);
 
@@ -40,7 +41,7 @@ class Select extends React.Component {
         {...rest}
         multiple={multiple}
         name={field}
-        ref={forwardedRef}
+        ref={forwardedRef || this.selectRef}
         value={value || (multiple ? [] : '')}
         onChange={this.handleChange}
         onBlur={e => {

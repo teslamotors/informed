@@ -1,3 +1,9 @@
+## 1.10.12 ( December 4, 2018 )
+
+### Updated 
+
+- typescript definition file
+
 ## 1.10.11 & 1.10.10 I ran version patch twice lol ( December 4, 2018 )
 
 ### Updated

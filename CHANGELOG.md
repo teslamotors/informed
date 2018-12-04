@@ -1,3 +1,9 @@
+## 1.10.10 ( December 4, 2018 )
+
+### Updated
+
+- Select forward ref 
+
 ## 1.10.9 ( November 16, 2018 )
 
 ### Updated 

@@ -1,4 +1,4 @@
-## 1.10.10 ( December 4, 2018 )
+## 1.10.11 & 1.10.10 I ran version patch twice lol ( December 4, 2018 )
 
 ### Updated
 

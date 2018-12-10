@@ -1,4 +1,4 @@
-import ObjectMap from '../ObjectMap';
+import ObjectMap from '../ObjectMap/LodashMap';
 const EventEmitter = require('events').EventEmitter;
 
 class FormController extends EventEmitter {
@@ -7,11 +7,11 @@ class FormController extends EventEmitter {
     this.setMaxListeners(0);
     this.hooks = hooks;
     this.config = config;
-    this.values = new ObjectMap(config.initialValues);
-    this.touched = new ObjectMap();
-    this.errors = new ObjectMap();
+    this.values = new ObjectMap(config.initialValues, {name: 'values'});
+    this.touched = new ObjectMap({}, {name: 'touched'});
+    this.errors = new ObjectMap({}, {name: 'errors'});
     this.submits = 0;
-    this.asyncErrors = new ObjectMap();
+    this.asyncErrors = new ObjectMap({}, {name: 'asyncErrors'});
     this.api = {
       setValue: this.setValue,
       getValue: this.getValue,

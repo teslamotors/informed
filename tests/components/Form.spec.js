@@ -227,7 +227,7 @@ describe('Form', () => {
     const setApi = param => {
       api = param;
     };
-    const validate = greeting =>
+    const validate = greeting => 
       greeting === 'hello!' ? 'ooo thats no good' : null;
     const wrapper = mount(
       <Form onSubmit={spy} getApi={setApi}>

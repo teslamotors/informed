@@ -14,6 +14,9 @@ class FieldController {
       return this.config.asyncValidate(this.api.getValue(), values);
     }
   }
+  shouldValidateAsync() {
+      return !!this.config.asyncValidate;
+  }
   updateConfig(config) {
     this.config = config;
   }

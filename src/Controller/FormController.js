@@ -276,8 +276,8 @@ class FormController extends EventEmitter {
       // Validate
       //debugger
       this.errors.set(field, fieldController.validate(this.state.values));
-      // Build up list of async validatiors
-      if (fieldController.asyncValidate) {
+      // Build up list of async validators
+      if (fieldController.shouldValidateAsync()) {
         // Only validate if sync is valid
         if (!this.errors.get(field)) {
           asyncValidators.push(() =>

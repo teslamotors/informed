@@ -173,7 +173,7 @@ describe('Form', () => {
     const button = wrapper.find('button');
     button.simulate('reset');
     setImmediate(() => {
-      expect(savedApi.getState().values).to.deep.equal({});
+      expect(savedApi.getState().values).to.deep.equal({greeting: ''});
       done();
     });
   });

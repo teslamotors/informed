@@ -19,7 +19,6 @@ const Text = ({ fieldApi, fieldState, ...props }) => {
       ref={forwardedRef}
       value={!value && value !== 0 ? '' : value}
       onChange={e => {
-        console.log('SETTING VALUE', e.target.value);
         setValue(e.target.value);
         if (onChange) {
           onChange(e);

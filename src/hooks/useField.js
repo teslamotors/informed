@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect, useContext } from 'react';
 import { FormRegisterContext } from '../Context';
+import Debug from 'debug';
+const debug = Debug('informed:useField'+ '\t');
 
 function useField(field, fieldProps = {}) {
   const { validate, initialValue } = fieldProps;
@@ -15,10 +17,17 @@ function useField(field, fieldProps = {}) {
     setVal(val);
   };
 
+  const reset = () => {
+    setVal(initialValue != null ? initialValue : '');
+    setError(undefined);
+    setTouched(undefined);
+  };
+
   const fieldApi = {
     setValue,
     setTouched,
-    setError
+    setError,
+    reset
   };
 
   const fieldState = {
@@ -27,15 +36,15 @@ function useField(field, fieldProps = {}) {
     touched
   };
 
-  console.log('Render', field, fieldState);
+  debug('Render', field, fieldState);
 
   useLayoutEffect(
     () => {
-      console.log('Register', field);
+      debug('Register', field);
       register(field, fieldState, { ...fieldProps, fieldApi, fieldState });
 
       return () => {
-        console.log('Deregister', field);
+        debug('Deregister', field);
         deregister(field);
       };
     },
@@ -45,7 +54,7 @@ function useField(field, fieldProps = {}) {
 
   useLayoutEffect(
     () => {
-      console.log('Update', field, fieldState);
+      debug('Update', field, fieldState);
       update(field, fieldState);
     },
     // This is VERYYYY!! Important!

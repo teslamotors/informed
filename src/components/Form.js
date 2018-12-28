@@ -1,7 +1,8 @@
 import React from 'react';
 import { FormContext, FormRegisterContext } from '../Context';
 import FormController from '../FormController';
-
+import Debug from 'debug';
+const debug = Debug('informed:Form' + '\t\t');
 class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -11,7 +12,7 @@ class Form extends React.Component {
     this.controller.on('change', () => this.props.onChange && this.props.onChange( this.state ));
     this.controller.on('submit', () => this.props.onSubmit && this.props.onSubmit( this.state.values ) );
     if (this.props.getApi) {
-      this.props.getApi(this.controller.api);
+      this.props.getApi(this.controller.getFormApi());
     }
   }
 
@@ -19,8 +20,8 @@ class Form extends React.Component {
     const { children, component, render } = this.props;
 
     const props = {
-      formState: this.controller.getState(),
-      formApi: this.controller.api
+      formState: this.controller.getFormState(),
+      formApi: this.controller.getFormApi()
     };
 
     if (component) {
@@ -36,13 +37,13 @@ class Form extends React.Component {
   }
 
   render() {
-    console.log('Render FORM');
+    debug('Render FORM');
     /* ----------- Destructure props ----------- */
     const { children, getApi, onChange, onSubmit, ...rest } = this.props;
 
     const formContext = {
-      formState: this.controller.getState(),
-      formApi: this.controller.api
+      formState: this.controller.getFormState(),
+      formApi: this.controller.getFormApi()
     };
 
     /* --- Create Provider and render Content --- */

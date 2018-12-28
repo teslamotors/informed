@@ -23,7 +23,6 @@ describe('Text', () => {
     );
     const input = wrapper.find('input').at(0);
     input.simulate('change', { target: { value: 'Hello!' } });
-    console.log(savedApi.getState());
     expect(savedApi.getState().values).to.deep.equal({ greeting: 'Hello!' });
   });
 

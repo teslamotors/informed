@@ -5,6 +5,8 @@ import ldget from 'lodash/get';
 import ldvalues from 'lodash/values';
 import ldpullAt from 'lodash/pullAt';
 import ldpull from 'lodash/pull';
+import Debug from 'debug';
+const debug = Debug('informed:ObjMap' + '\t');
 
 class ObjectMap {
   static empty(object) {
@@ -24,7 +26,7 @@ class ObjectMap {
   }
 
   static delete(object, path) {
-    console.log('DELETE', path);
+    debug('DELETE', path);
     ldunset(object, path);
     let pathArray = ldtoPath(path);
     pathArray = pathArray.slice(0, pathArray.length - 1);
@@ -35,10 +37,10 @@ class ObjectMap {
     // Get the path to the array
     let pathArray = ldtoPath(path);
     pathArray = pathArray.slice(0, pathArray.length - 1).join();
-    console.log('PathArray', pathArray);
+    debug('PathArray', pathArray);
     // Get the array
     const arr = ldget(object, pathArray);
-    console.log('Array', arr);
+    debug('Array', arr);
     // Pull out of array
     ldpullAt(arr, index);
   }

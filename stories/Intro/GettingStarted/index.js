@@ -6,7 +6,7 @@ import { Form, Text } from '../../../src';
 
 const GettingStarted = () => (
   <div>
-    <Form onChange={state => console.log(state)} id="intro-form">
+    <Form id="intro-form">
       {({ formApi, formState }) => (
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>

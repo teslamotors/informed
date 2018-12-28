@@ -45,7 +45,7 @@ class Select extends React.Component {
         value={value || (multiple ? [] : '')}
         onChange={this.handleChange}
         onBlur={e => {
-          setTouched();
+          setTouched(true);
           if (onBlur) {
             onBlur(e);
           }

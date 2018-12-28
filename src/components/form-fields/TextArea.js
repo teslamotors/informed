@@ -25,7 +25,7 @@ const TextArea = ({ fieldApi, fieldState, ...props }) => {
         }
       }}
       onBlur={e => {
-        setTouched();
+        setTouched(true);
         if (onBlur) {
           onBlur(e);
         }

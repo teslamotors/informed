@@ -1,16 +1,21 @@
 import React from 'react';
-import Field from '../components/Field';
+import useField from '../hooks/useField';
 
-function getDisplayName(WrappedComponent) {
-  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
-}
-
-const asField = Component => {
-  const displayName = getDisplayName(Component);
-  Component.displayName = 'Wrapper';
-  const AsField = props => <Field component={Component} {...props} />;
-  AsField.displayName = displayName;
-  return AsField;
+const asField = Component => props => {
+  const { field, validate, initialValue, ...rest } = props;
+  const fieldProps = {
+    validate,
+    initialValue
+  };
+  const { fieldState, fieldApi } = useField(field, fieldProps);
+  return (
+    <Component
+      fieldApi={fieldApi}
+      fieldState={fieldState}
+      field={field}
+      {...rest}
+    />
+  );
 };
 
 export default asField;

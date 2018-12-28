@@ -16,7 +16,11 @@ class ObjectMap {
   }
 
   static set(object, path, value) {
-    ldset(object, path, value);
+    if( value !== undefined ){
+      ldset(object, path, value);
+    } else {
+      ObjectMap.delete(object, path);
+    }
   }
 
   static delete(object, path) {

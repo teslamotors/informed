@@ -1,55 +1,27 @@
-import React, { Component } from 'react';
-import { FormContext } from '../Context';
-import FormController from '../Controller/FormController';
+import React from 'react';
+import { FormContext, FormRegisterContext } from '../Context';
+import FormController from '../FormController';
 
-class Form extends Component {
+class Form extends React.Component {
   constructor(props) {
     super(props);
-    const {
-      onSubmit,
-      preSubmit,
-      getApi,
-      dontPreventDefault,
-      onSubmitFailure,
-      initialValues
-    } = props;
-    this.controller = new FormController(
-      {
-        onSubmit,
-        getApi,
-        preSubmit,
-        onSubmitFailure
-      },
-      {
-        dontPreventDefault,
-        initialValues
-      }
-    );
+    this.controller = new FormController();
+    this.state = this.controller.state;
     this.controller.on('change', () => this.forceUpdate());
-    this.controller.on('change', state => {
-      if (props.onChange) {
-        props.onChange(state);
-      }
-    });
-    this.controller.on('values', values => {
-      if (props.onValueChange) {
-        props.onValueChange(values);
-      }
-    });
-  }
-
-  get formContext() {
-    return {
-      formApi: this.controller.api,
-      formState: this.controller.state,
-      controller: this.controller
-    };
+    this.controller.on('change', () => this.props.onChange && this.props.onChange( this.state ));
+    this.controller.on('submit', () => this.props.onSubmit && this.props.onSubmit( this.state.values ) );
+    if (this.props.getApi) {
+      this.props.getApi(this.controller.api);
+    }
   }
 
   get content() {
     const { children, component, render } = this.props;
 
-    const props = this.formContext;
+    const props = {
+      formState: this.controller.getState(),
+      formApi: this.controller.api
+    };
 
     if (component) {
       return React.createElement(component, props, children);
@@ -64,30 +36,28 @@ class Form extends Component {
   }
 
   render() {
-    // TODO find better way to get ...rest
-    const {
-      children,
-      component,
-      render,
-      onSubmit,
-      preSubmit,
-      getApi,
-      dontPreventDefault,
-      onSubmitFailure,
-      initialValues,
-      onValueChange,
-      onChange,
-      ...rest
-    } = this.props;
+    console.log('Render FORM');
+    /* ----------- Destructure props ----------- */
+    const { children, getApi, onChange, onSubmit, ...rest } = this.props;
+
+    const formContext = {
+      formState: this.controller.getState(),
+      formApi: this.controller.api
+    };
+
+    /* --- Create Provider and render Content --- */
     return (
-      <FormContext.Provider value={this.formContext}>
-        <form
-          {...rest}
-          onReset={this.formContext.formApi.reset}
-          onSubmit={this.formContext.formApi.submitForm}>
-          {this.content}
-        </form>
-      </FormContext.Provider>
+      <FormRegisterContext.Provider value={this.controller.updater}>
+        <FormContext.Provider value={formContext}>
+          <form
+            {...rest}
+            onReset={this.controller.reset}
+            onSubmit={this.controller.submitForm}
+          >
+            {this.content}
+          </form>
+        </FormContext.Provider>
+      </FormRegisterContext.Provider>
     );
   }
 }

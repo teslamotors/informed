@@ -1,7 +1,7 @@
 import ObjectMap from '../src/ObjectMap';
 import { expect } from 'chai';
 
-describe.only('ObjectMap', () => {
+describe('ObjectMap', () => {
 
   describe('get', () => {
     it('should get value from very nested object', () => {

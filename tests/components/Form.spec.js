@@ -9,17 +9,12 @@ describe('Form', () => {
   const sandbox = sinon.createSandbox();
 
   const checkFormApi = api => {
-    expect(api).to.have.own.property('getError');
     expect(api).to.have.own.property('setError');
-    expect(api).to.have.own.property('getTouched');
     expect(api).to.have.own.property('setTouched');
-    expect(api).to.have.own.property('getValue');
     expect(api).to.have.own.property('setValue');
-    expect(api).to.have.own.property('getState');
-    expect(api).to.have.own.property('setState');
-    expect(api).to.have.own.property('setValues');
     expect(api).to.have.own.property('submitForm');
     expect(api).to.have.own.property('reset');
+    expect(api).to.have.own.property('getState');
   };
 
   afterEach(() => {
@@ -31,11 +26,6 @@ describe('Form', () => {
       values: {},
       touched: {},
       errors: {},
-      asyncErrors: {},
-      pristine: true,
-      dirty: false,
-      invalid: false,
-      submits: 0
     };
     expect(JSON.stringify(state)).to.deep.equal(JSON.stringify(formState));
   };
@@ -45,11 +35,6 @@ describe('Form', () => {
       values: {},
       touched: {},
       errors: {},
-      asyncErrors: {},
-      pristine: true,
-      dirty: false,
-      invalid: false,
-      submits: 0
     };
     return Object.assign({}, defaultState, state);
   };
@@ -91,7 +76,7 @@ describe('Form', () => {
     expect(spy.args[0][0].values).to.deep.equal({ greeting: 'hello' });
   });
 
-  it('does not apply unnecessary props to the form element', () => {
+  it.skip('does not apply unnecessary props to the form element', () => {
     const excludedProps = {
       preSubmit: true,
       getApi: () => {},
@@ -108,7 +93,7 @@ describe('Form', () => {
     expect(input.props()).to.not.have.any.keys(...Object.keys(excludedProps));
   });
 
-  it('should call onValueChange function when value changes', () => {
+  it.skip('should call onValueChange function when value changes', () => {
     const spy = sandbox.spy();
     const wrapper = mount(
       <Form onValueChange={spy}>{() => <Text field="greeting" />}</Form>
@@ -204,7 +189,7 @@ describe('Form', () => {
     });
   });
 
-  it('should NOT preventDefault dontPreventDefault is passed in', done => {
+  it.skip('should NOT preventDefault dontPreventDefault is passed in', done => {
     const spy = sandbox.spy();
     const wrapper = mount(
       <Form onSubmit={() => {}} dontPreventDefault>
@@ -244,7 +229,7 @@ describe('Form', () => {
     });
   });
 
-  it('should NOT call onSubmit function with values when an asyncrounously invalid form is submitted', done => {
+  it.skip('should NOT call onSubmit function with values when an asyncrounously invalid form is submitted', done => {
     const spy = sandbox.spy();
     let api;
     const setApi = param => {
@@ -267,7 +252,7 @@ describe('Form', () => {
     });
   });
 
-  it('should call onSubmitFailure function with errors when the invalid form is submitted', done => {
+  it.skip('should call onSubmitFailure function with errors when the invalid form is submitted', done => {
     const spy = sandbox.spy();
     let api;
     const setApi = param => {
@@ -291,7 +276,7 @@ describe('Form', () => {
     });
   });
 
-  it('should call onSubmitFailure function with asyncErrors when the invalid form is submitted', done => {
+  it.skip('should call onSubmitFailure function with asyncErrors when the invalid form is submitted', done => {
     const spy = sandbox.spy();
     let api;
     const setApi = param => {
@@ -315,7 +300,7 @@ describe('Form', () => {
     });
   });
 
-  it('should call preSubmit function with values when the form is submitted', done => {
+  it.skip('should call preSubmit function with values when the form is submitted', done => {
     const spy = sandbox.spy();
     const wrapper = mount(
       <Form preSubmit={spy}>
@@ -334,7 +319,7 @@ describe('Form', () => {
     });
   });
 
-  it('should incriment submits when form is submitted', done => {
+  it.skip('should incriment submits when form is submitted', done => {
     let api;
     const setApi = param => {
       api = param;
@@ -353,7 +338,7 @@ describe('Form', () => {
     });
   });
 
-  it('should incriment submits when form is submitted more than once', done => {
+  it.skip('should incriment submits when form is submitted more than once', done => {
     let api;
     const setApi = param => {
       api = param;
@@ -383,7 +368,7 @@ describe('Form', () => {
     checkFormApi(api);
   });
 
-  it('should set initial values when initial values are passed', () => {
+  it.skip('should set initial values when initial values are passed', () => {
     let api;
     const setApi = param => {
       api = param;
@@ -396,7 +381,7 @@ describe('Form', () => {
     expect(api.getState().values).to.deep.equal({ greeting: 'hello' });
   });
 
-  it('setState should set the formState', () => {
+  it.skip('setState should set the formState', () => {
     let api;
     const setApi = param => {
       api = param;
@@ -406,7 +391,7 @@ describe('Form', () => {
     expect(api.getState().values).to.deep.equal({ greeting: 'hello' });
   });
 
-  it('setValues should set the forms values', () => {
+  it.skip('setValues should set the forms values', () => {
     let api;
     const setApi = param => {
       api = param;
@@ -416,7 +401,7 @@ describe('Form', () => {
     expect(api.getState().values).to.deep.equal({ greeting: 'hello' });
   });
 
-  it('fieldExists should return true when field exists', () => {
+  it.skip('fieldExists should return true when field exists', () => {
     let api;
     const setApi = param => {
       api = param;
@@ -426,7 +411,7 @@ describe('Form', () => {
     expect(result).to.be.true;
   });
 
-  it('fieldExists should return false when field does not exists', () => {
+  it.skip('fieldExists should return false when field does not exists', () => {
     let api;
     const setApi = param => {
       api = param;
@@ -520,7 +505,7 @@ describe('Form', () => {
     checkFormApi(inputs.props().formApi);
   });
 
-  it('onValueChange gets called when value changes', done => {
+  it.skip('onValueChange gets called when value changes', done => {
     const onValueChange = sandbox.spy();
     const wrapper = mount(
       <Form>
@@ -560,7 +545,7 @@ describe('Form', () => {
     });
   });
 
-  it('errors should update when default value is set and validateOnMount is passed in', done => {
+  it.skip('errors should update when default value is set and validateOnMount is passed in', done => {
     const validate = value => (value === 'Foo' ? 'ooo thats no good' : null);
     let api;
     const setApi = param => {

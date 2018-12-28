@@ -1,4 +1,4 @@
-import ObjectMap from '../ObjectMap/LodashMap';
+import ObjectMap from '../ObjectMap';
 const EventEmitter = require('events').EventEmitter;
 
 class FormController extends EventEmitter {

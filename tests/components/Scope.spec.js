@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { mount } from 'enzyme';
 import { Form, Text, Scope, withFieldApi } from '../../src';
 
-describe('Scope', () => {
+describe.skip('Scope', () => {
   it('should scope value to scope', () => {
     let savedApi;
     const wrapper = mount(

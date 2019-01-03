@@ -1,5 +1,7 @@
 import React from 'react';
 import asField from '../../HOC/asField';
+import Debug from 'debug';
+const debug = Debug('informed:Text' + '\t');
 
 const Text = ({ fieldApi, fieldState, ...props }) => {
   const { value } = fieldState;
@@ -12,6 +14,9 @@ const Text = ({ fieldApi, fieldState, ...props }) => {
     forwardedRef,
     ...rest
   } = props;
+
+  debug('Render', field);
+
   return (
     <input
       {...rest}

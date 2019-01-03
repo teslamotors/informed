@@ -151,7 +151,16 @@ class FormController extends EventEmitter {
     e.preventDefault(e);
 
     // Itterate through and call validate on every field
-    
+    this.fields.forEach(( field, key )=>{
+      if(field.validate){
+        console.log('HERE');
+        const value = ObjectMap.get( this.state.values, key );
+        ObjectMap.set(this.state.errors, key, field.validate(value));
+      }
+    });
+
+    // Emit a change 
+    this.emit('change');
 
     // Check validity and perform submission if valid
     if( this.valid() ){

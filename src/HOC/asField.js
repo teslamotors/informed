@@ -7,8 +7,10 @@ const asField = Component => props => {
     validate,
     initialValue
   };
-  const { fieldState, fieldApi } = useField(field, fieldProps);
-  return (
+
+  const { fieldState, fieldApi, purify } = useField(field, fieldProps);
+   
+  return purify(
     <Component
       fieldApi={fieldApi}
       fieldState={fieldState}

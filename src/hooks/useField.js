@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect, useContext } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useContext, useMemo } from 'react';
 import { FormRegisterContext } from '../Context';
 import Debug from 'debug';
 const debug = Debug('informed:useField'+ '\t');
@@ -7,7 +7,7 @@ function useField(field, fieldProps = {}) {
   const { validate, initialValue } = fieldProps;
   const [value, setVal] = useState(initialValue != null ? initialValue : '');
   const [error, setError] = useState();
-  const [touched, setTouched] = useState();
+  const [touched, setTouch] = useState();
   const { register, deregister, update } = useContext(FormRegisterContext);
 
   const setValue = val => {
@@ -17,10 +17,17 @@ function useField(field, fieldProps = {}) {
     setVal(val);
   };
 
+  const setTouched = val => {
+    if (validate) {
+      setError(validate(val));
+    }
+    setTouch(val);
+  };
+
   const reset = () => {
     setVal(initialValue != null ? initialValue : '');
     setError(undefined);
-    setTouched(undefined);
+    setTouch(undefined);
   };
 
   const fieldApi = {
@@ -41,7 +48,7 @@ function useField(field, fieldProps = {}) {
   useLayoutEffect(
     () => {
       debug('Register', field);
-      register(field, fieldState, { ...fieldProps, fieldApi, fieldState });
+      register(field, fieldState, { field, ...fieldProps, fieldApi, fieldState });
 
       return () => {
         debug('Deregister', field);
@@ -61,7 +68,13 @@ function useField(field, fieldProps = {}) {
     [value, error, touched]
   );
 
-  return { fieldState, fieldApi };
+  // This is an awesome optimization!!
+  const shouldUpdate = [ ...Object.values(fieldState), ...Object.values(fieldProps) ];
+
+  const purify = (children, userprops = []) => useMemo(() => children, [ ...shouldUpdate, ...userprops]);
+
+  return { fieldState, fieldApi, purify };
+
 }
 
 export default useField;

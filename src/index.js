@@ -1,4 +1,5 @@
 import Form from './components/Form';
+import Scope from './components/Scope';
 import withFormApi from './HOC/withFormApi';
 import withFormState from './HOC/withFormState';
 import withFieldState from './HOC/withFieldState';
@@ -41,5 +42,6 @@ export {
   BasicRadioGroup,
   BasicTextArea,
   BasicSelect,
-  BasicCheckbox
+  BasicCheckbox,
+  Scope
 };

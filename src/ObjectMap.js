@@ -21,7 +21,8 @@ class ObjectMap {
     if( value !== undefined ){
       ldset(object, path, value);
     } else {
-      ObjectMap.delete(object, path);
+      // Only delete the field if it needs to be deleted
+      if( ObjectMap.get(object, path) !== undefined ) ObjectMap.delete(object, path);
     }
   }
 

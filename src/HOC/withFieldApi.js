@@ -1,18 +1,9 @@
 import React from 'react';
-import withFormApi from './withFormApi';
+import useFieldApi from '../hooks/useFieldApi';
 
-const buildFieldApi = (formApi, field) => ({
-  getValue: () => formApi.getValue(field),
-  setValue: value => formApi.setValue(field, value),
-  getTouched: () => formApi.getTouched(field),
-  setTouched: value => formApi.setTouched(field, value),
-  getError: () => formApi.getError(field),
-  setError: value => formApi.setError(field, value),
-});
-
-const withFieldApi = field => Component =>
-  withFormApi(({ formApi, ...props }) => (
-    <Component fieldApi={buildFieldApi(formApi, field)} {...props} />
-  ));
+const withFieldApi = field => Component => (props) => {
+  const fieldApi = useFieldApi( field );
+  return <Component fieldApi={fieldApi} {...props} />;
+};
 
 export default withFieldApi;

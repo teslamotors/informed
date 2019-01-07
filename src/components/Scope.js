@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { FormRegisterContext, FormContext } from '../Context';
 import useFormApi from '../hooks/useFormApi';
 import useFormState from '../hooks/useFormState';
@@ -32,8 +32,9 @@ const Scope = ({scope, children}) => {
   const formApi = useFormApi();
   const formState = useFormState();
 
-  const scopedFormApi = buildScopedFormApi( scope, formApi );
-  const scopedRegister = buildScopedRegister( scope, formRegister );
+  // VERY important to memoize the builders!
+  const scopedFormApi = useMemo(() => buildScopedFormApi(scope, formApi), [scope]);
+  const scopedRegister = useMemo(() => buildScopedRegister(scope, formRegister), [scope]);
 
   const formContext = {
     formState, 

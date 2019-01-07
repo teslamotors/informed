@@ -15,15 +15,13 @@ const ComponentWithFormApi = withFormApi(SomeComponent);
 
 const WithFormApi = () => (
   <Form id="withFormApi-form">
-    {({ formState }) => (
-      <div>
-        <label htmlFor="withFormApi-name">Name:</label>
-        <Text field="name" id="withFormApi-name" />
-        <button type="submit">Submit</button>
-        <h5>Component with formApi:</h5>
-        <ComponentWithFormApi />
-      </div>
-    )}
+    <div>
+      <label htmlFor="withFormApi-name">Name:</label>
+      <Text field="name" id="withFormApi-name" />
+      <button type="submit">Submit</button>
+      <h5>Component with formApi:</h5>
+      <ComponentWithFormApi />
+    </div>
   </Form>
 );
 

@@ -3,7 +3,10 @@ import React from 'react';
 const FormRegisterContext = React.createContext({
   register: () => {},
   deregister: () => {},
-  update: () => {}
+  setValue: () => {},
+  setTouched: () => {}, 
+  setError: () => {},
+  //update: () => {}
 });
 const FormContext = React.createContext();
 const GroupContext = React.createContext();

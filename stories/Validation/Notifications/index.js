@@ -4,37 +4,40 @@ import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 import Modal from '../../utils/Modal';
 
-import { Form, Text, Scope } from '../../../src';
+import { Form, Text } from '../../../src';
 
 const basicValidation = value => {
   return !value || value.length < 5
     ? 'Password must be at least five characters'
-    : null;
+    : undefined;
 };
 
-const matchValidation = (value, values) => {
-  return values.password !== values.confirmPassword
+const matchValidation = (password1, password2) => {
+  return password1 !== password2
     ? 'Passwords must match'
-    : null;
+    : undefined;
 };
 
-const passwordValidation = (value, values) => {
-  return basicValidation(value) || matchValidation(value, values);
+const passwordValidation = (password1, password2) => {
+  return basicValidation(password1) || matchValidation(password1, password2);
 };
+
+const validatePassword = (value, values) => passwordValidation( value, values.confirmPassword); 
+const validateConfim = (value, values) => passwordValidation( value, values.password); 
 
 class Notifications extends React.Component {
   render() {
     return (
       <div>
         <Form onSubmit={() => this.modal.open()} id="notify-validation-form">
-          {({ formApi, formState }) => (
+          {({ formState }) => (
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
               <div style={{ flex: 1, marginRight: '2rem' }}>
                 <label htmlFor="notify-password">Password:</label>
                 <Text
                   field="password"
                   id="notify-password"
-                  validate={passwordValidation}
+                  validate={validatePassword}
                   validateOnChange
                   notify={['confirmPassword']}
                 />
@@ -44,7 +47,7 @@ class Notifications extends React.Component {
                 <Text
                   field="confirmPassword"
                   id="notify-confirm-password"
-                  validate={passwordValidation}
+                  validate={validateConfim}
                   validateOnChange
                   notify={['password']}
                 />

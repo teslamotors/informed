@@ -13,7 +13,7 @@ class FormController extends EventEmitter {
 
     // Map will store all fields
     // Key => fieldName - example: "foo.bar[3].baz"
-    // Val => { field, fieldApi ...fieldProps }
+    // Val => { field, fieldApi }
     // Why? so the form can control the fields!
     this.fields = new Map();
 
@@ -28,9 +28,12 @@ class FormController extends EventEmitter {
     };
 
     // Bind functions that will be called externally
-    this.update = this.update.bind(this);
+    //this.update = this.update.bind(this);
     this.deregister = this.deregister.bind(this);
     this.register = this.register.bind(this);
+    this.setValue = this.setValue.bind(this);
+    this.setTouched = this.setTouched.bind(this);
+    this.setError = this.setError.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.reset = this.reset.bind(this);
 
@@ -38,7 +41,9 @@ class FormController extends EventEmitter {
     this.updater = {
       register: this.register,
       deregister: this.deregister,
-      update: this.update
+      setValue: this.setValue, 
+      setTouched: this.setTouched, 
+      setError: this.setError
     };
   }
 
@@ -75,6 +80,8 @@ class FormController extends EventEmitter {
 
     const getState = () => this.getFormState();
 
+    const getValues = () => this.getFormState().values;
+
     return {
       setValue,
       setTouched,
@@ -84,15 +91,18 @@ class FormController extends EventEmitter {
       getError,
       reset,
       submitForm,
-      getState
+      getState,
+      getValues
     };
   }
 
   /* ------------------- Internal Methods ------------------- */
 
-  setValue(field, value) {
+  setValue(field, value, notify = true) {
     ObjectMap.set(this.state.values, field, value);
     this.emit('change');
+    this.emit('value');
+    if( notify ) this.notify(field);
   }
 
   setTouched(field, value) {
@@ -103,6 +113,24 @@ class FormController extends EventEmitter {
   setError(field, value) {
     ObjectMap.set(this.state.errors, field, value);
     this.emit('change');
+  }
+
+  // Notify other fields 
+  notify( field ) {
+    // Get the notifier
+    const notifier =  this.fields.get(field);
+    // If we have a list we must notify each one
+    if( notifier.notify ){
+      notifier.notify.forEach( fieldName =>{
+        // Get the field toNotify
+        const toNotify =  this.fields.get(fieldName);
+        if( toNotify ){
+          debug('Notifying', toNotify.field);
+          const value = this.getValue(toNotify.field);
+          toNotify.fieldApi.validate(value);
+        }
+      });
+    }
   }
 
   getValue(field) {
@@ -152,11 +180,8 @@ class FormController extends EventEmitter {
 
     // Itterate through and call validate on every field
     this.fields.forEach(( field, key )=>{
-      if(field.validate){
-        console.log('HERE');
-        const value = ObjectMap.get( this.state.values, key );
-        ObjectMap.set(this.state.errors, key, field.validate(value));
-      }
+      const value = this.getValue(key);
+      field.fieldApi.validate(value);
     });
 
     // Emit a change 
@@ -171,19 +196,11 @@ class FormController extends EventEmitter {
 
   /* ---------------- Updater Functions (used by fields) ---------------- */
 
-  update(field, fieldState) {
-    debug('UPDATING', field, fieldState);
-    this.setValue(field, fieldState.value);
-    this.setTouched(field, fieldState.touched);
-    this.setError(field, fieldState.error);
-  }
-
-  register(field, fieldState, fieldProps) {
+  register(field, fieldState, fieldStuff) {
     debug('Register', field);
-    // Register the field
-    this.fields.set(field, { field, ...fieldProps });
+    this.fields.set(field, fieldStuff);
     // Initialize state
-    this.setValue(field, fieldState.value);
+    this.setValue(field, fieldState.value, false);
     this.setTouched(field, fieldState.touched);
     this.setError(field, fieldState.error);
   }

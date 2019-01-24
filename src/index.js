@@ -1,5 +1,6 @@
 import Form from './components/Form';
 import Scope from './components/Scope';
+import ArrayField from './components/ArrayField';
 
 import withFormApi from './HOC/withFormApi';
 import withFormState from './HOC/withFormState';
@@ -55,5 +56,6 @@ export {
   BasicTextArea,
   BasicSelect,
   BasicCheckbox,
-  Scope
+  Scope,
+  ArrayField
 };

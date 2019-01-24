@@ -7,10 +7,10 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.controller = new FormController();
-    this.state = this.controller.state;
     this.controller.on('change', () => this.forceUpdate());
-    this.controller.on('change', () => this.props.onChange && this.props.onChange( this.state ));
-    this.controller.on('submit', () => this.props.onSubmit && this.props.onSubmit( this.state.values ) );
+    this.controller.on('change', () => this.props.onChange && this.props.onChange( this.controller.getFormState() ));
+    this.controller.on('submit', () => this.props.onSubmit && this.props.onSubmit( this.controller.getFormState().values ) );
+    this.controller.on('value', () => this.props.onValueChange && this.props.onValueChange( this.controller.getFormState().values ) );
     if (this.props.getApi) {
       this.props.getApi(this.controller.getFormApi());
     }
@@ -39,7 +39,7 @@ class Form extends React.Component {
   render() {
     debug('Render FORM');
     /* ----------- Destructure props ----------- */
-    const { children, getApi, onChange, onSubmit, ...rest } = this.props;
+    const { children, getApi, onChange, onSubmit, onValueChange, ...rest } = this.props;
 
     const formContext = {
       formState: this.controller.getFormState(),

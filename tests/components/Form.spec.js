@@ -99,7 +99,7 @@ describe('Form', () => {
     expect(input.props()).to.not.have.any.keys(...Object.keys(excludedProps));
   });
 
-  it.skip('should call onValueChange function when value changes', () => {
+  it('should call onValueChange function when value changes', () => {
     const spy = sandbox.spy();
     const wrapper = mount(
       <Form onValueChange={spy}>{() => <Text field="greeting" />}</Form>
@@ -509,23 +509,6 @@ describe('Form', () => {
     const inputs = comp.find('Inputs');
     expect(inputs.length).to.equal(1);
     checkFormApi(inputs.props().formApi);
-  });
-
-  it.skip('onValueChange gets called when value changes', done => {
-    const onValueChange = sandbox.spy();
-    const wrapper = mount(
-      <Form>
-        <Text field="name" onValueChange={onValueChange} />
-      </Form>
-    );
-    const input = wrapper.find('input');
-    input.simulate('change', { target: { value: 'Foo' } });
-
-    setImmediate(() => {
-      expect(onValueChange.called).to.equal(true);
-      expect(onValueChange.args[0][0]).to.equal('Foo');
-      done();
-    });
   });
 
   it('errors should update when input is changed', done => {

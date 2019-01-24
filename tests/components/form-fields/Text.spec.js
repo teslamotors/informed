@@ -60,6 +60,19 @@ describe('Text', () => {
     expect(wrapper.find('input').prop('name')).to.equal('greeting');
   });
 
+  it('onValueChange gets called when value changes', () => {
+    const onValueChange = sandbox.spy();
+    const wrapper = mount(
+      <Form>
+        <Text field="name" onValueChange={onValueChange} />
+      </Form>
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'Foo' } });
+    expect(onValueChange.called).to.equal(true);
+    expect(onValueChange.args[0][0]).to.equal('Foo');
+  });
+
   it.skip('should run mask when user types in text input and mask is passed', () => {
     let savedApi;
     const mask = value => `${value}!`;

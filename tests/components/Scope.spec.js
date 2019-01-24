@@ -106,7 +106,7 @@ describe('Scope', () => {
     const wrapper = mount(
       <Form>
         <Scope scope="favorite">
-          <Text field="color" validate={()=> 'Ahhh!!'}/>
+          <Text field="color" validate={()=> 'Ahhh!!'} validateOnChange/>
           <GetFieldApi />
         </Scope>
       </Form>

@@ -12,7 +12,8 @@ function useField(field, fieldProps = {}) {
     validateOnChange,
     validateOnBlur,
     onValueChange,
-    notify
+    notify,
+    keepState
   } = fieldProps;
 
   // Initialize state 
@@ -103,7 +104,7 @@ function useField(field, fieldProps = {}) {
   useLayoutEffect(
     () => {
       debug('Register', field);
-      updater.register(field, fieldState, { field, fieldApi, fieldState, notify });
+      updater.register(field, fieldState, { field, fieldApi, fieldState, notify, keepState });
 
       return () => {
         debug('Deregister', field);

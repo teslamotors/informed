@@ -3,6 +3,7 @@ import { storiesOf, addDecorator } from '@storybook/react';
 import StoryWrapper from './utils/StoryWrapper';
 import Intro from './Intro';
 import Basic from './Form/Basic';
+import Dynamic from './Form/Dynamic';
 import Complex from './Form/Complex';
 import State from './Form/State';
 import Props from './Form/Props';
@@ -44,7 +45,8 @@ storiesOf('Form', module)
   .add('Complex', Complex)
   .add('State', State)
   .add('Api', Api)
-  .add('Props', Props);
+  .add('Props', Props)
+  .add('Dynamic', Dynamic);
 
 storiesOf('Inputs', module)
   .add('Intro', InputIntro)

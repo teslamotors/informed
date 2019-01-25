@@ -197,20 +197,34 @@ class FormController extends EventEmitter {
   /* ---------------- Updater Functions (used by fields) ---------------- */
 
   register(field, fieldState, fieldStuff) {
-    debug('Register', field);
+    debug('Register', field, fieldState);
     this.fields.set(field, fieldStuff);
     // Initialize state
-    this.setValue(field, fieldState.value, false);
-    this.setTouched(field, fieldState.touched);
+    // When a user had keep state load existing values
+    if( fieldStuff.keepState ){
+      const value = ObjectMap.get(this.state.values, field);
+      this.getFormApi().setValue( field, value || fieldState.value );
+      const touched = ObjectMap.get(this.state.touched, field);
+      this.getFormApi().setTouched( field, touched );
+    } else {
+      this.setValue(field, fieldState.value, false);
+      this.setTouched(field, fieldState.touched);
+    }
     this.setError(field, fieldState.error);
+
   }
 
   deregister(field) {
     debug('Deregister', field);
+    const field2remove = this.fields.get(field);
+    if(!field2remove.keepState){
+      // Dont remove the data!
+      ObjectMap.delete(this.state.values, field);
+      ObjectMap.delete(this.state.errors, field);
+      ObjectMap.delete(this.state.touched, field);
+    }
+    // Always need to delete the field
     this.fields.delete(field);
-    ObjectMap.delete(this.state.values, field);
-    ObjectMap.delete(this.state.errors, field);
-    ObjectMap.delete(this.state.touched, field);
     this.emit('change');
   }
 }

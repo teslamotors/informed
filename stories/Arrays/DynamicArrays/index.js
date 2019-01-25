@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 import FormState from '../../utils/FormState';
@@ -19,38 +19,15 @@ const Tester = () => {
 };
 
 const DynamicArraysContent = () => {
-  const [field, setField] = useState('foo');
-  const [sam, setSam] = useState('sam');
-
-  const toggleField = () => {
-    setField(field === 'foo' ? 'baz' : 'foo');
-  };
-
-  const toggleSam = () => {
-    setSam(sam === 'sam' ? 'bar' : 'sam');
-  };
 
   return (
     <div>
       <Form>
-        <label htmlFor="foo" key={field}>
-          {field}:<Text field={field} id="foo" />
-        </label>
+       
         <label htmlFor="valid" key="valid">
           Valid:
           <Text field="valid" id="valid" validate={validate} />
         </label>
-        {sam === 'sam' ? (
-          <label htmlFor="sam" key="sam">
-            Sam:
-            <Text field="sam" id="sam" />
-          </label>
-        ) : (
-          <label htmlFor="bar" key="bar">
-            Bar:
-            <Text field="bar" id="bar" />
-          </label>
-        )}
         <ArrayField field="sibling">
           {({ add, fields }) => (
             <>
@@ -73,9 +50,6 @@ const DynamicArraysContent = () => {
         <FormState />
         <Tester />
       </Form>
-      <button onClick={toggleField}>Toggle Foo {'<->'} Baz</button>
-      <br />
-      <button onClick={toggleSam}>Toggle Sam {'<->'} Bar</button>
       <br />
       <label htmlFor="test" key="test">
         Test:

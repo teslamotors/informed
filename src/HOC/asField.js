@@ -10,6 +10,7 @@ const asField = Component => props => {
     validateOnBlur,
     onValueChange,
     notify,
+    keepState,
     ...rest } = props;
   const fieldProps = {
     validate,
@@ -18,6 +19,7 @@ const asField = Component => props => {
     validateOnBlur,
     onValueChange,
     notify,
+    keepState
   };
 
   const { fieldState, fieldApi, purify } = useField(field, fieldProps);

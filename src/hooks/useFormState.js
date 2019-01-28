@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { FormContext } from '../Context';
+import { FormStateContext } from '../Context';
 
 function useFormState() {
-  const { formState } = useContext(FormContext);
+  const formState = useContext(FormStateContext);
   return formState;
 }
 

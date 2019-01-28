@@ -8,9 +8,12 @@ The `withFormApi` HOC will allow you to gain access to the formApi.
 import { Form, Text, withFormApi } from 'informed';
 
 const SomeComponent = props => (
-  <pre>
-    <code>{JSON.stringify(props.formApi.getState(), null, 2)}</code>
-  </pre>
+  <button type="button" onClick={()=>
+    props.formApi.setValue(
+      'name', 
+      Math.floor(Math.random() * Math.floor(Number.MAX_SAFE_INTEGER)))}>
+    Random
+  </button>
 );
 
 const ComponentWithFormApi = withFormApi(SomeComponent);

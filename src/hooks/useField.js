@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect, useContext, useMemo } from 'react';
 import { FormRegisterContext } from '../Context';
-import useFormState from './useFormState';
+import useFormApi from './useFormApi';
 import Debug from 'debug';
 const debug = Debug('informed:useField'+ '\t');
 
@@ -26,7 +26,7 @@ function useField(field, fieldProps = {}) {
   const updater = useContext(FormRegisterContext);
 
   // Grab the form state
-  const formState = useFormState();
+  const formApi = useFormApi();
 
   /* ---------------------- Setters ---------------------- */
 
@@ -41,7 +41,7 @@ function useField(field, fieldProps = {}) {
     // We only need to call validate if the user gave us one
     // and they want us to validate on change
     if (validate && validateOnChange) {
-      setError(validate(val, formState.values));
+      setError(validate(val, formApi.getValues()));
     }
     // Now we update the value
     setVal(val);
@@ -76,7 +76,7 @@ function useField(field, fieldProps = {}) {
   // Define validate
   const fieldValidate = (val) => {
     if( validate ){
-      setError(validate(val, formState.values));
+      setError(validate(val, formApi.getValues()));
     }
   };
 

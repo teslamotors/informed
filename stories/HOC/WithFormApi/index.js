@@ -1,14 +1,16 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import Code from '../../utils/Code';
 
 import { Form, Text, withFormApi } from '../../../src';
 
 const SomeComponent = props => (
-  <pre>
-    <code>{JSON.stringify(props.formApi.getState(), null, 2)}</code>
-  </pre>
+  <button type="button" onClick={()=>
+    props.formApi.setValue(
+      'name', 
+      Math.floor(Math.random() * Math.floor(Number.MAX_SAFE_INTEGER)))}>
+    Random
+  </button>
 );
 
 const ComponentWithFormApi = withFormApi(SomeComponent);

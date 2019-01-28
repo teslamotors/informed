@@ -17,7 +17,7 @@ import { Form, BasicText, asField } from 'informed';
 const validate = value => {
   return !value || value.length < 5
     ? 'Field must be at least five characters'
-    : null;
+    : undefined;
 };
 
 const ErrorText = asField(({ fieldState, ...props }) => (

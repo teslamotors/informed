@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { FormContext } from '../Context';
+import { FormApiContext } from '../Context';
 
 function useFormApi() {
-  const { formApi } = useContext(FormContext);
+  const formApi = useContext(FormApiContext);
   return formApi;
 }
 

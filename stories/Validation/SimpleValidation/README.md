@@ -3,7 +3,7 @@
 Simple validation can be achieved by passing a validation function to the input.
 Below is an example form that has validation functions. The function defined
 will return an error when the input has less than five characters, or there is
-no value at all, and null otherwise. We pass this validation function to every
+no value at all, and undefined otherwise. We pass this validation function to every
 input and validation will **occur on submission**.
 
 **Try clicking the submit button and see what happens:**
@@ -22,7 +22,7 @@ click the submit button again and see what happens:**
 import { Form, Text } from 'informed';
 
 const validate = value => {
-  return !value || value.length < 5 ? 'Field must be at least five characters' : null;
+  return !value || value.length < 5 ? 'Field must be at least five characters' : undefined;
 }
 
 <Form id="validate-form">

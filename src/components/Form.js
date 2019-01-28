@@ -1,5 +1,5 @@
-import React from 'react';
-import { FormContext, FormRegisterContext } from '../Context';
+import React, { useMemo } from 'react';
+import { FormStateContext, FormApiContext, FormRegisterContext } from '../Context';
 import FormController from '../FormController';
 import Debug from 'debug';
 const debug = Debug('informed:Form' + '\t\t');
@@ -9,6 +9,7 @@ class Form extends React.Component {
     this.controller = new FormController({
       dontPreventDefault: props.dontPreventDefault
     });
+    this.formApi = this.controller.getFormApi();
     this.controller.on('change', () => this.forceUpdate());
     this.controller.on('change', () => this.props.onChange && this.props.onChange( this.controller.getFormState() ));
     this.controller.on('submit', () => this.props.onSubmit && this.props.onSubmit( this.controller.getFormState().values ) );
@@ -44,23 +45,21 @@ class Form extends React.Component {
     /* ----------- Destructure props ----------- */
     const { children, getApi, onChange, onSubmit, onValueChange, dontPreventDefault, ...rest } = this.props;
 
-    const formContext = {
-      formState: this.controller.getFormState(),
-      formApi: this.controller.getFormApi()
-    };
+    const formState = this.controller.getFormState();
 
     /* --- Create Provider and render Content --- */
     return (
       <FormRegisterContext.Provider value={this.controller.updater}>
-        <FormContext.Provider value={formContext}>
-          <form
-            {...rest}
-            onReset={this.controller.reset}
-            onSubmit={this.controller.submitForm}
-          >
-            {this.content}
-          </form>
-        </FormContext.Provider>
+        <FormApiContext.Provider value={this.formApi}>
+          <FormStateContext.Provider value={formState}>
+            <form
+              {...rest}
+              onReset={this.controller.reset}
+              onSubmit={this.controller.submitForm}>
+              {this.content}
+            </form>
+          </FormStateContext.Provider>
+        </FormApiContext.Provider>
       </FormRegisterContext.Provider>
     );
   }

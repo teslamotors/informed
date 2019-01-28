@@ -5,9 +5,11 @@ import readme from './README.md';
 import { Form, Text, withFieldApi } from '../../../src';
 
 const SomeComponent = props => (
-  <pre>
-    <code>Value: {JSON.stringify(props.fieldApi.getValue(), null, 2)}</code>
-  </pre>
+  <button type="button" onClick={()=>
+    props.fieldApi.setValue(
+      Math.floor(Math.random() * Math.floor(Number.MAX_SAFE_INTEGER)))}>
+    Random
+  </button>
 );
 
 const ComponentWithFieldApi = withFieldApi('name')(SomeComponent);

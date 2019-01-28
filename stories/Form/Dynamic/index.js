@@ -32,12 +32,12 @@ const DynamicContent = () => {
        
         {field2 === 'baz' ? (
           <label htmlFor="baz" key="baz">
-            Baz:
+            baz:
             <Text field="baz" id="baz" />
           </label>
         ) : (
           <label htmlFor="taz" key="taz">
-            Taz:
+            taz:
             <Text field="taz" id="taz" />
           </label>
         )}

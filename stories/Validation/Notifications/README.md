@@ -13,11 +13,11 @@ allows you to pass notify to an input with an array of fields to notify.
 import { Form, Text } from 'informed';
 
 const basicValidation = value => {
-  return !value || value.length < 5 ? 'Password must be at least five characters' : null;
+  return !value || value.length < 5 ? 'Password must be at least five characters' : undefined;
 }
 
 const matchValidation = ( value, values ) => {
-  return values.password !== values.confirmPassword ? 'Passwords must match' : null;
+  return values.password !== values.confirmPassword ? 'Passwords must match' : undefined;
 }
 
 const passwordValidation = ( value, values ) => {

@@ -6,10 +6,11 @@ const FormRegisterContext = React.createContext({
   setValue: () => {},
   setTouched: () => {}, 
   setError: () => {},
-  //update: () => {}
 });
-const FormContext = React.createContext();
+
+const FormStateContext = React.createContext({});
+const FormApiContext = React.createContext({});
 const GroupContext = React.createContext();
 const SelectContext = React.createContext();
 
-export { FormRegisterContext, FormContext, GroupContext, SelectContext };
+export { FormRegisterContext, FormStateContext, FormApiContext, GroupContext, SelectContext };

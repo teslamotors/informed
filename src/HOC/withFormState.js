@@ -1,13 +1,13 @@
 import React from 'react';
-import { FormContext } from '../Context';
+import { FormStateContext } from '../Context';
 
 const withFormState = Component =>
   React.forwardRef((props, ref) => (
-    <FormContext.Consumer>
-      {({ formState }) => (
+    <FormStateContext.Consumer>
+      {(formState) => (
         <Component formState={formState} ref={ref} {...props} />
       )}
-    </FormContext.Consumer>
+    </FormStateContext.Consumer>
   ));
 
 export default withFormState;

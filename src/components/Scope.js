@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from 'react';
-import { FormRegisterContext, FormContext } from '../Context';
+import { FormRegisterContext, FormStateContext, FormApiContext } from '../Context';
 import useFormApi from '../hooks/useFormApi';
 import useFormState from '../hooks/useFormState';
 
@@ -38,16 +38,15 @@ const Scope = ({scope, children}) => {
   const scopedFormApi = useMemo(() => buildScopedFormApi(scope, formApi), [scope]);
   const scopedRegister = useMemo(() => buildScopedRegister(scope, formRegister), [scope]);
 
-  const formContext = {
-    formState, 
-    formApi: scopedFormApi
-  };
+  scopedFormApi;
 
   return (
     <FormRegisterContext.Provider value={scopedRegister}>
-      <FormContext.Provider value={formContext}>
-        {children}
-      </FormContext.Provider>
+      <FormApiContext.Provider value={scopedFormApi}>
+        <FormStateContext.Provider value={formState}>
+          {children}
+        </FormStateContext.Provider>
+      </FormApiContext.Provider>
     </FormRegisterContext.Provider>
   );
 

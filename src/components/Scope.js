@@ -17,11 +17,12 @@ const buildScopedFormApi = ( scope, formApi ) => {
 
 const buildScopedRegister = ( scope, formRegister ) => {
 
-  const { register, deregister, setValue, setTouched, setError } = formRegister;
+  const { register, deregister, setValue, setTouched, setError, update } = formRegister;
 
   return {
     register: ( field, ...args ) => register(`${scope}.${field}`, ...args),
     deregister: ( field, ...args ) => deregister(`${scope}.${field}`, ...args),
+    update: ( field, ...args ) => update(`${scope}.${field}`, ...args),
     setValue: ( field, ...args ) => setValue(`${scope}.${field}`, ...args),
     setTouched: ( field, ...args ) => setTouched(`${scope}.${field}`, ...args),
     setError: ( field, ...args ) => setError(`${scope}.${field}`, ...args),

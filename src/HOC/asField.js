@@ -11,6 +11,7 @@ const asField = Component => props => {
     onValueChange,
     notify,
     keepState,
+    debug,
     ...rest } = props;
   const fieldProps = {
     validate,
@@ -19,16 +20,19 @@ const asField = Component => props => {
     validateOnBlur,
     onValueChange,
     notify,
-    keepState
+    keepState,
+    debug
   };
 
-  const { fieldState, fieldApi, purify } = useField(field, fieldProps);
+  const { fieldState, fieldApi, purify, ref } = useField(field, fieldProps);
    
   return purify(
     <Component
       fieldApi={fieldApi}
       fieldState={fieldState}
       field={field}
+      forwardedRef={ref}
+      debug={debug}
       {...rest}
     />
   );

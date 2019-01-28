@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 import asField from '../../HOC/asField';
 import Debug from 'debug';
-const debug = Debug('informed:Text' + '\t');
+const logger = Debug('informed:Text' + '\t');
 
 const Text = ({ fieldApi, fieldState, ...props }) => {
   const { value } = fieldState;
@@ -12,10 +12,23 @@ const Text = ({ fieldApi, fieldState, ...props }) => {
     field,
     initialValue,
     forwardedRef,
+    debug,
     ...rest
   } = props;
 
-  debug('Render', field);
+  logger('Render', field);
+
+  // for debugging
+  useLayoutEffect(
+    () => {
+      if (debug && forwardedRef) {
+        forwardedRef.current.style.background = 'red';
+        setTimeout(() => {
+          forwardedRef.current.style.background = 'white';
+        }, 500);
+      }
+    }
+  );
 
   return (
     <input

@@ -39,6 +39,7 @@ class FormController extends EventEmitter {
     this.setError = this.setError.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.reset = this.reset.bind(this);
+    this.update = this.update.bind(this);
 
     // Updater will be used by fields to update and register
     this.updater = {
@@ -46,7 +47,8 @@ class FormController extends EventEmitter {
       deregister: this.deregister,
       setValue: this.setValue, 
       setTouched: this.setTouched, 
-      setError: this.setError
+      setError: this.setError,
+      update: this.update
     };
   }
 
@@ -239,6 +241,11 @@ class FormController extends EventEmitter {
     // Always need to delete the field
     this.fields.delete(field);
     this.emit('change');
+  }
+
+  update(field, fieldStuff) {
+    debug('Update', field);
+    this.fields.set(field, fieldStuff);
   }
 }
 

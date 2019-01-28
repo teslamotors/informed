@@ -11,7 +11,7 @@ const Complex = () => (
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, marginRight: '2rem' }}>
           <label htmlFor="complex-name">First name:</label>
-          <Text field="name" id="complex-name" />
+          <Text field="name" id="complex-name"/>
           <Scope scope="favorite">
             <label htmlFor="complex-color">Favorite color:</label>
             <Text field="color" id="complex-color" />

@@ -1,8 +1,8 @@
-import React, { useState, useLayoutEffect, useContext, useMemo } from 'react';
+import React, { useState, useLayoutEffect, useContext, useMemo, useRef } from 'react';
 import { FormRegisterContext } from '../Context';
 import useFormApi from './useFormApi';
 import Debug from 'debug';
-const debug = Debug('informed:useField'+ '\t');
+const logger = Debug('informed:useField'+ '\t');
 
 function useField(field, fieldProps = {}) {
   // Pull props off of field props
@@ -13,7 +13,8 @@ function useField(field, fieldProps = {}) {
     validateOnBlur,
     onValueChange,
     notify,
-    keepState
+    keepState, 
+    debug
   } = fieldProps;
 
   // Initialize state 
@@ -98,21 +99,51 @@ function useField(field, fieldProps = {}) {
     touched
   };
 
-  debug('Render', field, fieldState);
+  logger('Render', field, fieldState);
 
-  // We want to register and deregister this field when specific props change
+  let ref;
+  if(debug){
+    ref = useRef(null);
+  }
+
+  // We want to register and deregister this field when field name changes
   useLayoutEffect(
     () => {
-      debug('Register', field);
+      logger('Register', field);
       updater.register(field, fieldState, { field, fieldApi, fieldState, notify, keepState });
 
       return () => {
-        debug('Deregister', field);
+        logger('Deregister', field);
         updater.deregister(field);
       };
     },
     // This is VERYYYY!! Important!
-    [field, validate, validateOnChange, validateOnBlur, onValueChange]
+    [field]
+  );
+
+  // We want to let the controller know of changes on this field when specific props change
+  useLayoutEffect(
+    () => {
+      logger('Update', field);
+      updater.update(field, { field, fieldApi, fieldState, notify, keepState });
+    },
+    // This is VERYYYY!! Important!
+    [validate, validateOnChange, validateOnBlur, onValueChange]
+  );
+
+  // for debugging
+  useLayoutEffect(
+    () => {
+      if (debug && ref) {
+        ref.current.style.border = '5px solid orange';
+        setTimeout(() => {
+          ref.current.style.borderWidth ='2px';
+          ref.current.style.borderStyle = 'inset';
+          ref.current.style.borderColor = 'initial';
+          ref.current.style.borderImage = 'initial';
+        }, 500);
+      }
+    }
   );
 
   // This is an awesome optimization!!
@@ -120,7 +151,7 @@ function useField(field, fieldProps = {}) {
 
   const purify = (children, userprops = []) => useMemo(() => children, [ ...shouldUpdate, ...userprops]);
 
-  return { fieldState, fieldApi, purify };
+  return { fieldState, fieldApi, purify, ref };
 
 }
 

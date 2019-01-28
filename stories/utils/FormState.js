@@ -3,7 +3,7 @@ import Code from './Code';
 
 import { useFormState } from '../../src';
 
-const FormState = () => {
+const FormState = ({errors}) => {
   const formState = useFormState();
   return (
     <>
@@ -15,6 +15,14 @@ const FormState = () => {
       <Code language="language-js">
         {JSON.stringify(formState.touched, null, 2)}
       </Code>
+      {errors ?
+        <>
+          <label>Errors:</label>
+          <Code language="language-js">
+            {JSON.stringify(formState.errors, null, 2)}
+          </Code>
+        </>
+        : null }
     </>
   );
 };

@@ -6,10 +6,12 @@ const debug = Debug('informed:Controller'+'\t');
 class FormController extends EventEmitter {
 
 
-  constructor() {
+  constructor(options) {
 
     // Dont forget to call super! :)
     super();
+
+    this.options = options;
 
     // Map will store all fields
     // Key => fieldName - example: "foo.bar[3].baz"
@@ -25,6 +27,7 @@ class FormController extends EventEmitter {
       pristine: true,
       dirty: false,
       invalid: false,
+      submits: 0
     };
 
     // Bind functions that will be called externally
@@ -175,8 +178,13 @@ class FormController extends EventEmitter {
 
   submitForm(e) {
 
-    // Prevent default browser form submission
-    e.preventDefault(e);
+    // Incriment number of submit attempts
+    this.state.submits = this.state.submits + 1;
+
+    if( !this.options.dontPreventDefault ){
+      // Prevent default browser form submission
+      e.preventDefault(e);
+    }
 
     // Itterate through and call validate on every field
     this.fields.forEach(( field, key )=>{
@@ -191,6 +199,9 @@ class FormController extends EventEmitter {
     if( this.valid() ){
       debug('Submit', this.state);
       this.emit('submit');
+    } else {
+      debug('Submit', this.state);
+      this.emit('failure');
     }
   }
 
@@ -198,6 +209,7 @@ class FormController extends EventEmitter {
 
   register(field, fieldState, fieldStuff) {
     debug('Register', field, fieldState);
+    // Always register the field
     this.fields.set(field, fieldStuff);
     // Initialize state
     // When a user had keep state load existing values
@@ -206,6 +218,7 @@ class FormController extends EventEmitter {
       this.getFormApi().setValue( field, value || fieldState.value );
       const touched = ObjectMap.get(this.state.touched, field);
       this.getFormApi().setTouched( field, touched );
+      // Error will get set by validator implicitly so we dont need to remember that
     } else {
       this.setValue(field, fieldState.value, false);
       this.setTouched(field, fieldState.touched);
@@ -218,10 +231,10 @@ class FormController extends EventEmitter {
     debug('Deregister', field);
     const field2remove = this.fields.get(field);
     if(!field2remove.keepState){
-      // Dont remove the data!
+      // Remove the data!
       ObjectMap.delete(this.state.values, field);
-      ObjectMap.delete(this.state.errors, field);
       ObjectMap.delete(this.state.touched, field);
+      ObjectMap.delete(this.state.errors, field);
     }
     // Always need to delete the field
     this.fields.delete(field);

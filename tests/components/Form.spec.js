@@ -28,7 +28,8 @@ describe('Form', () => {
       errors: {},
       pristine: true,
       dirty: false,
-      invalid: false
+      invalid: false,
+      submits: 0
     };
     expect(JSON.stringify(state)).to.deep.equal(JSON.stringify(formState));
   };
@@ -41,6 +42,7 @@ describe('Form', () => {
       pristine: true,
       dirty: false,
       invalid: false,
+      submits: 0
     };
     return Object.assign({}, defaultState, state);
   };
@@ -129,33 +131,6 @@ describe('Form', () => {
     });
   });
 
-  it.skip('onSubmit function should get called with clone of values', done => {
-    const spy = sandbox.spy();
-    let savedApi;
-    const wrapper = mount(
-      <Form
-        onSubmit={spy}
-        getApi={api => {
-          savedApi = api;
-        }}>
-        <Text field="greeting" />
-        <button type="submit">Submit</button>
-      </Form>
-    );
-    const input = wrapper.find('input');
-    input.simulate('change', { target: { value: 'hello' } });
-    const button = wrapper.find('button');
-    button.simulate('submit');
-    setImmediate(() => {
-      expect(spy.called).to.equal(true);
-      expect(spy.args[0][0]).to.deep.equal({ greeting: 'hello' });
-      spy.args[0][0].greeting = 'Bad';
-      expect(spy.args[0][0]).to.deep.equal({ greeting: 'Bad' });
-      expect(savedApi.getState().values).to.deep.equal({ greeting: 'hello' });
-      done();
-    });
-  });
-
   it('should call reset function when reset button is clicked', done => {
     let savedApi;
     const wrapper = mount(
@@ -195,7 +170,7 @@ describe('Form', () => {
     });
   });
 
-  it.skip('should NOT preventDefault dontPreventDefault is passed in', done => {
+  it('should NOT preventDefault dontPreventDefault is passed in', done => {
     const spy = sandbox.spy();
     const wrapper = mount(
       <Form onSubmit={() => {}} dontPreventDefault>
@@ -258,7 +233,7 @@ describe('Form', () => {
     });
   });
 
-  it.skip('should call onSubmitFailure function with errors when the invalid form is submitted', done => {
+  it('should call onSubmitFailure function with errors when the invalid form is submitted', done => {
     const spy = sandbox.spy();
     let api;
     const setApi = param => {
@@ -325,7 +300,7 @@ describe('Form', () => {
     });
   });
 
-  it.skip('should incriment submits when form is submitted', done => {
+  it('should incriment submits when form is submitted', done => {
     let api;
     const setApi = param => {
       api = param;
@@ -344,7 +319,7 @@ describe('Form', () => {
     });
   });
 
-  it.skip('should incriment submits when form is submitted more than once', done => {
+  it('should incriment submits when form is submitted more than once', done => {
     let api;
     const setApi = param => {
       api = param;

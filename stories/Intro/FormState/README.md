@@ -98,7 +98,7 @@ const FormContent = ({ formState }) => (
 4) By accessing the `formState` as a prop via a HOC ( High Order Component ).
 
 ```jsx
-const FormState = withFormState(( formState ) => (
+const FormState = withFormState(({ formState }) => (
   <label>Values:</label>
   <code>{JSON.stringify(formState.values)}</code>
   <label>Touched:</label>
@@ -115,10 +115,10 @@ const FormState = withFormState(( formState ) => (
 ```
 
 <br/>
-4) By accessing the `formState` as a prop via Hooks!
+5) By accessing the `formState` via Hooks!
 
 ```jsx
-const FormState = ( formState ) => {
+const FormState = () => {
   const formState = useFormState();
   return (
     <label>Values:</label>
@@ -145,7 +145,7 @@ So if you do need access to the form state, any of these methods will work.
 
 Don't fret! This is also very simple. You have two options:
 
-1. Use the Forms `onChange` prop.
+1) Use the Forms `onChange` prop.
 
 ```jsx
 <Form onChange={formState => console.log(formState)}>
@@ -154,8 +154,8 @@ Don't fret! This is also very simple. You have two options:
 </Form>
 ```
 
-  <br/>
-  2. Use the Forms `getApi` prop, and then use the apis `getState` function.
+<br/>
+2) Use the Forms `getApi` prop, and then use the apis `getState` function.
 
 ```jsx
 class MyAwesomeForm extends React.Component {
@@ -191,63 +191,3 @@ class MyAwesomeForm extends React.Component {
 
 ---
 
-### Form Api ??
-
-**Yes what a beautiful segue into the formApi!**
-
-`Informed` also gives you access to a `formApi`. This api allows you to grab
-and manipulate values using getters and setters. In the previous example, we
-actually used a prop called `getApi` in order to getAccess to informed's api
-externally. Then we used the `getState` function to log out the state when
-our external button was clicked.
-
-**
-Note: for a full list of the available functions within formApi go to the
-formApi section of these docs
-**
-
-There are three ways you can get access to `Informed`s form api.
-
-1. By accessing the `formApi` as a parameter to a child render function.
-
-```jsx
-<Form>
-  {({ formApi }) => (
-    <div>
-      <Text field="hello" />
-      <button type="submit">Submit</button>
-    </div>
-  )}
-</Form>
-```
-
-  <br/>
-  2. By accessing the `formApi` as a parameter to a render prop.
-
-```jsx
-<Form
-  render={({ formApi }) => (
-    <div>
-      <Text field="hello" />
-      <button type="submit">Submit</button>
-    </div>
-  )}
-/>
-```
-
-  <br/>
-  2. By accessing the `formApi` as a prop to a component prop.
-
-```jsx
-const FormContent = ({ formApi }) => (
-  <div>
-    <Text field="hello" />
-    <button type="submit">Submit</button>
-  </div>
-);
-
-<Form component={FormContent} />;
-```
-
-  <br/>
-  So if you do need access to the form api, any of these methods will work.

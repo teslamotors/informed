@@ -10,8 +10,7 @@ const Basic = () => (
     <Form id="basic-form">
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, marginRight: '2rem' }}>
-          <label htmlFor="basic-name">First name:</label>
-          <Text field="name" id="basic-name" />
+          <label>First name:<Text field="name"/></label>
           <button type="submit">Submit</button>
         </div>
         <div style={{ flex: 2, minWidth: '300px' }}>

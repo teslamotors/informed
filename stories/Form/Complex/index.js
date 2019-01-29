@@ -3,27 +3,52 @@ import withDocs from '../../utils/withDocs';
 import FormState from '../../utils/FormState';
 import readme from './README.md';
 
-import { Form, Text, Scope } from '../../../src';
+import { Form, Text, TextArea, RadioGroup, Radio, Checkbox, Select, Option, Scope } from '../../../src';
 
 const Complex = () => (
   <div>
-    <Form id="complex-form">
+    <Form>
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, marginRight: '2rem' }}>
-          <label htmlFor="complex-name">First name:</label>
-          <Text field="name" id="complex-name"/>
+          <label>First name:<Text field="name"/></label>
           <Scope scope="favorite">
-            <label htmlFor="complex-color">Favorite color:</label>
-            <Text field="color" id="complex-color" />
-            <label htmlFor="complex-food">Favorite food:</label>
-            <Text field="food" id="complex-food" />
+            <label>Favorite color:<Text field="color"/></label>
+            <label>Favorite food:<Text field="food"/></label>
           </Scope>
-          <label htmlFor="complex-friend-0">Friend 1:</label>
-          <Text field="friends[0]" id="complex-friend-0" />
-          <label htmlFor="complex-friend-1">Friend 2:</label>
-          <Text field="friends[1]" id="complex-friend-1" />
-          <label htmlFor="complex-friend-2">Friend 3:</label>
-          <Text field="friends[2]" id="complex-friend-2" />
+          <label>Friend 1:<Text field="friends[0]" /></label>
+          <label>Friend 2:<Text field="friends[1]" /></label>
+          <label>Friend 3:<Text field="friends[2]" /></label>
+          <label>Bio:<TextArea field="bio"/></label>
+          <RadioGroup field="gender">
+            <label>Male: <Radio value="male"/></label>            
+            <label>Female: <Radio value="female"/></label>
+          </RadioGroup>
+          <label>
+            Relationship status:
+            <Select field="status">
+              <Option value="" disabled>
+              Select One...
+              </Option>
+              <Option value="single">Single</Option>
+              <Option value="relationship">Relationship</Option>
+              <Option value="complicated">Complicated</Option>
+            </Select>
+          </label>
+          <label>
+            Colors:
+            <Select
+              field="colors"
+              multiple
+              style={{ height: '100px', width: '200px' }}>
+              <Option value="red">Red</Option>
+              <Option value="green">Green</Option>
+              <Option value="blue">Blue</Option>
+              <Option value="yellow">Yellow</Option>
+              <Option value="orange">Orange</Option>
+              <Option value="purple">Purple</Option>
+            </Select>
+          </label>
+          <label>Authorize: <Checkbox field="authorize"/></label>
           <button type="submit">Submit</button>
         </div>
         <div style={{ flex: 2, minWidth: '300px' }}>

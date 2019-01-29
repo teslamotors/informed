@@ -31,8 +31,7 @@ snippet, and then you can read about what the heck is going on.
 import { Form, Text } from 'informed';
 
 <Form id="intro-form">
-  <label htmlFor="intro-name">First name:</label>
-  <Text field="name" id="intro-name" />
+  <label>First name:<Text field="name"/></label>
   <button type="submit">Submit</button>
 </Form>;
 ```

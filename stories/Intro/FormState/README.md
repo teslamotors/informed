@@ -39,9 +39,9 @@ import { Form, Text } from 'informed';
 
 Its not magic, its a Function As A Child, or otherwise known as [render props](https://reactjs.org/docs/render-props.html)
 
-There are three ways you can get access to `Informed`s form state.
+There are five ways you can get access to `Informed`s form state.
 
-1. By accessing the `formState` as a parameter to a child render function.
+1) By accessing the `formState` as a parameter to a child render function.
 
 ```jsx
 <Form>
@@ -49,13 +49,17 @@ There are three ways you can get access to `Informed`s form state.
     <div>
       <Text field="hello" />
       <button type="submit">Submit</button>
+      <label>Values:</label>
+      <code>{JSON.stringify(formState.values)}</code>
+      <label>Touched:</label>
+      <code>{JSON.stringify(formState.touched)}</code>
     </div>
   )}
 </Form>
 ```
 
-  <br/>
-  2. By accessing the `formState` as a parameter to a render prop.
+<br/>
+2) By accessing the `formState` as a parameter to a render prop.
 
 ```jsx
 <Form
@@ -63,27 +67,77 @@ There are three ways you can get access to `Informed`s form state.
     <div>
       <Text field="hello" />
       <button type="submit">Submit</button>
+      <label>Values:</label>
+      <code>{JSON.stringify(formState.values)}</code>
+      <label>Touched:</label>
+      <code>{JSON.stringify(formState.touched)}</code>
     </div>
   )}
 />
 ```
 
-  <br/>
-  2. By accessing the `formState` as a prop to a component prop.
+<br/>
+3) By accessing the `formState` as a prop to a component prop.
 
 ```jsx
 const FormContent = ({ formState }) => (
   <div>
     <Text field="hello" />
     <button type="submit">Submit</button>
+    <label>Values:</label>
+    <code>{JSON.stringify(formState.values)}</code>
+    <label>Touched:</label>
+    <code>{JSON.stringify(formState.touched)}</code>
   </div>
 );
 
 <Form component={FormContent} />;
 ```
 
-  <br/>
-  So if you do need access to the form state, any of these methods will work.
+<br/>
+4) By accessing the `formState` as a prop via a HOC ( High Order Component ).
+
+```jsx
+const FormState = withFormState(( formState ) => (
+  <label>Values:</label>
+  <code>{JSON.stringify(formState.values)}</code>
+  <label>Touched:</label>
+  <code>{JSON.stringify(formState.touched)}</code>
+));
+
+<Form>
+  <div>
+    <Text field="hello" />
+    <button type="submit">Submit</button>
+    <FormState />
+  </div>
+</Form>
+```
+
+<br/>
+4) By accessing the `formState` as a prop via Hooks!
+
+```jsx
+const FormState = ( formState ) => {
+  const formState = useFormState();
+  return (
+    <label>Values:</label>
+    <code>{JSON.stringify(formState.values)}</code>
+    <label>Touched:</label>
+    <code>{JSON.stringify(formState.touched)}</code>
+  );
+};
+
+<Form>
+  <div>
+    <Text field="hello" />
+    <button type="submit">Submit</button>
+    <FormState />
+  </div>
+</Form>
+```
+<br/>
+So if you do need access to the form state, any of these methods will work.
 
 ---
 

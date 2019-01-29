@@ -1,5 +1,20 @@
 # Dynamic Form
 
+Often you need to "pull the rug" out from under a form and dynamically change
+the contents. This is easily achieved with informed. Below is an example of three
+inputs, and three toggle buttons. The first two inputs are basically the same but are
+simply toggled in two different ways ( same result different code ). The third one
+is special because it has an additional "keep-state" prop. 
+
+Do this! Enter somthing in the first and second fields, then hit the first two toggle buttons.
+Notice how the old values are removed from the form state, and the fields are updated. Sometimes,
+this is what a developer wants! When they change the field they want the old value to go away. BUT! 
+sometimes this is not what a developer wants. Instead, they may want a fields value to stick around.
+In order to achive this, you simply tell informed to "keep the state". 
+
+Do this now! Enter somthing in the third field and hit the third toggle button. Enter a new value in the empty field, 
+and then toggle again! You can see how the value persisted!
+
 <!-- STORY -->
 
 ```jsx

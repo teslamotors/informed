@@ -192,6 +192,7 @@ class FormController extends EventEmitter {
     this.fields.forEach(( field, key )=>{
       const value = this.getValue(key);
       field.fieldApi.validate(value);
+      field.fieldApi.setTouched(true);
     });
 
     // Emit a change 

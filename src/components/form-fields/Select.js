@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import asField from '../../HOC/asField';
 
 class Select extends React.Component {
@@ -22,6 +22,16 @@ class Select extends React.Component {
     }
   }
 
+  // for debugging
+  componentDidUpdate(){
+    if (this.props.debug && this.props.forwardedRef) {
+      this.props.forwardedRef.current.style.background = 'red';
+      setTimeout(() => {
+        this.props.forwardedRef.current.style.background = 'white';
+      }, 500);
+    }
+  }
+
   render() {
     const { fieldApi, fieldState, ...props } = this.props;
     const { value } = fieldState;
@@ -32,10 +42,12 @@ class Select extends React.Component {
       field,
       initialValue,
       forwardedRef,
+      debug,
       children,
       multiple,
       ...rest
     } = props;
+
     return (
       <select
         {...rest}

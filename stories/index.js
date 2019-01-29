@@ -15,6 +15,7 @@ import ValidationControl from './Validation/ValidationControl';
 import Notifications from './Validation/Notifications';
 import UnnecessaryRendering from './Gotchas/UnnecessaryRendering';
 import Scope from './Gotchas/Scope';
+import Optimization from './Gotchas/Optimization';
 import DynamicFields from './Dynamic/DynamicFields';
 import CustomInputs from './CustomInputs';
 import {
@@ -80,6 +81,7 @@ storiesOf('High Order Components', module)
 
 storiesOf('Gotchas', module)
   .add('Unnecessary Rendering', UnnecessaryRendering)
+  .add('Optimization', Optimization)
   .add('Scope', Scope);
 
 storiesOf('Dynamic Forms', module).add('Dynamic Fields', DynamicFields);

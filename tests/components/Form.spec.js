@@ -349,7 +349,7 @@ describe('Form', () => {
     checkFormApi(api);
   });
 
-  it.skip('should set initial values when initial values are passed', () => {
+  it('should set initial values when initial values are passed', () => {
     let api;
     const setApi = param => {
       api = param;

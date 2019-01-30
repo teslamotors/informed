@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import { mount } from 'enzyme';
 import { Form, Checkbox } from '../../../src';
 
-describe('Text', () => {
+describe('Checkbox', () => {
   const sandbox = sinon.createSandbox();
 
   beforeEach(() => {
@@ -33,10 +33,10 @@ describe('Text', () => {
         getApi={api => {
           savedApi = api;
         }}>
-        <Checkbox field="greeting" initialValue={true} />
+        <Checkbox field="greeting" initialValue={false} />
       </Form>
     );
-    expect(savedApi.getState().values).to.deep.equal({ greeting: true });
+    expect(savedApi.getState().values).to.deep.equal({ greeting: false });
   });
 
   it('should set initial value to false', () => {

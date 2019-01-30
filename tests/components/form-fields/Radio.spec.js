@@ -42,6 +42,22 @@ describe('RadioButton', () => {
     expect(savedApi.getState().values).to.deep.equal({ happy: 'yes' });
   });
 
+  it('should set initial value', () => {
+    let savedApi;
+    mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <RadioGroup field="happy" initialValue="yes">
+          <Radio id="radio-example-yes" value="yes" />
+          <Radio id="radio-example-no" value="no" />
+        </RadioGroup>
+      </Form>
+    );
+    expect(savedApi.getState().values).to.deep.equal({ happy: 'yes' });
+  });
+
   it('should update error when user clicks radio and validator fails', done => {
     let savedApi;
     const validate = () => 'Error!!';

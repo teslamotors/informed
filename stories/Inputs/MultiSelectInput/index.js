@@ -11,7 +11,7 @@ const MultiSelectInput = () => (
       <div>
         <label htmlFor="select-colors">Colors:</label>
         <Select
-          field="status"
+          field="colors"
           id="select-colors"
           multiple
           style={{ height: '100px', width: '200px' }}>

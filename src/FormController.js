@@ -223,7 +223,14 @@ class FormController extends EventEmitter {
       this.getFormApi().setTouched( field, touched );
       // Error will get set by validator implicitly so we dont need to remember that
     } else {
-      this.setValue(field, fieldState.value, false);
+      // Initialize the values if it needs to be
+      const initialValue = ObjectMap.get(this.options.initialValues, field);
+      if( initialValue ){
+        this.getFormApi().setValue( field, initialValue );
+      } else { 
+        // Otherwise set the value to whatever the field is set to
+        this.setValue(field, fieldState.value, false);
+      }
       this.setTouched(field, fieldState.touched);
     }
     this.setError(field, fieldState.error);

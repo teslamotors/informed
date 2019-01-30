@@ -25,4 +25,17 @@ describe('TextArea', () => {
     input.simulate('change', { target: { value: 'Hello!' } });
     expect(savedApi.getState().values).to.deep.equal({ greeting: 'Hello!' });
   });
+
+  it('should set initial value', () => {
+    let savedApi;
+    mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <TextArea field="greeting" initialValue="foobarbaz" />
+      </Form>
+    );
+    expect(savedApi.getState().values).to.deep.equal({ greeting: 'foobarbaz' });
+  });
 });

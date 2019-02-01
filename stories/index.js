@@ -20,6 +20,7 @@ import DynamicFields from './Dynamic/DynamicFields';
 import CustomInputs from './CustomInputs';
 import {
   TextInput,
+  NumberInput,
   TextAreaInput,
   RadioInput,
   CheckboxInput,
@@ -56,7 +57,8 @@ storiesOf('Inputs', module)
   .add('Radio Input', RadioInput)
   .add('Checkbox Input', CheckboxInput)
   .add('Select Input', SelectInput)
-  .add('Multi Select Input', MultiSelectInput);
+  .add('Multi Select Input', MultiSelectInput)
+  .add('Number Input', NumberInput);
 
 storiesOf('CustomInputs', module).add('Creating Custom Inputs', CustomInputs);
 

@@ -174,7 +174,13 @@ class FormController extends EventEmitter {
     // reset this controllers state!
     this.fields.forEach(( field )=>{
       field.fieldApi.reset();
+      // Initialize the values if it needs to be
+      const initialValue = ObjectMap.get(this.options.initialValues, field.field);
+      if( initialValue ){
+        this.getFormApi().setValue( field.field, initialValue );
+      } 
     });
+
     this.emit('change');
   }
 

@@ -14,12 +14,12 @@ function useField(field, fieldProps = {}) {
     onValueChange,
     notify,
     keepState, 
-    debug
+    debug, 
+    type
   } = fieldProps;
 
   // Initialize state 
-  // TODO support numbers
-  const [value, setVal] = useState(initialValue != null ? initialValue : '');
+  const [value, setVal] = useState(initialValue != null ? initialValue : undefined);
   const [error, setErr] = useState();
   const [touched, setTouch] = useState();
 
@@ -39,6 +39,14 @@ function useField(field, fieldProps = {}) {
 
   // Define set value
   const setValue = val => {
+    // Set value to undefined if its an empty string
+    if( val === '' ){
+      val = undefined;
+    }
+    // Turn string into number for number fields
+    if(type === 'number' && val !== undefined ){
+      val = +val;
+    }
     // We only need to call validate if the user gave us one
     // and they want us to validate on change
     if (validate && validateOnChange) {
@@ -68,7 +76,7 @@ function useField(field, fieldProps = {}) {
   // Define reset
   const reset = () => {
     // TODO support numbers
-    setValue(initialValue != null ? initialValue : '');
+    setValue(initialValue != null ? initialValue : undefined);
     // Setting somthing to undefined will remove it 
     setError(undefined);
     setTouched(undefined);

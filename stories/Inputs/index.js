@@ -1,4 +1,5 @@
 import TextInput from './TextInput';
+import NumberInput from './NumberInput';
 import TextAreaInput from './TextAreaInput';
 import RadioInput from './RadioInput';
 import CheckboxInput from './CheckboxInput';
@@ -13,5 +14,6 @@ export {
   CheckboxInput,
   SelectInput,
   MultiSelectInput,
-  Intro
+  Intro,
+  NumberInput
 };

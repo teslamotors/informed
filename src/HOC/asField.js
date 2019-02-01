@@ -12,6 +12,7 @@ const asField = Component => props => {
     notify,
     keepState,
     debug,
+    type,
     ...rest } = props;
   const fieldProps = {
     validate,
@@ -21,7 +22,8 @@ const asField = Component => props => {
     onValueChange,
     notify,
     keepState,
-    debug
+    debug,
+    type
   };
 
   const { fieldState, fieldApi, purify, ref } = useField(field, fieldProps);
@@ -33,6 +35,7 @@ const asField = Component => props => {
       field={field}
       forwardedRef={ref}
       debug={debug}
+      type={type}
       {...rest}
     />
   );

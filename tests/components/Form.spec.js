@@ -148,7 +148,7 @@ describe('Form', () => {
     const button = wrapper.find('button');
     button.simulate('reset');
     setImmediate(() => {
-      expect(savedApi.getState().values).to.deep.equal({greeting: ''});
+      expect(savedApi.getState().values).to.deep.equal({});
       done();
     });
   });
@@ -402,18 +402,53 @@ describe('Form', () => {
     expect(result).to.be.false;
   });
 
-  it.skip('reset should reset the form to its initial state', () => {
+  it('reset should reset the form to its initial state via initialValue prop on input', () => {
     let api;
     const setApi = param => {
       api = param;
     };
-    mount(<Form getApi={setApi}>{() => <Text field="greeting" />}</Form>);
-    api.setState({ values: { greeting: 'hello' } });
+    const wrapper = mount(
+      <Form getApi={setApi}>
+        <Text field="greeting" initialValue="ayyyoooooo"/>
+      </Form>
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'hello' } });
+    expect(api.getState().values).to.deep.equal({ greeting: 'hello'});
     expect(api.getState()).to.deep.equal(
       getState({ values: { greeting: 'hello' }, pristine: false, dirty: true })
     );
     api.reset();
-    expect(api.getState()).to.deep.equal(getState());
+    expect(api.getState()).to.deep.equal(getState({
+      values: { greeting: 'ayyyoooooo' },
+      pristine: false, 
+      dirty: true
+    }));
+  });
+
+  it('reset should reset the form to its initial state via initialValue prop on form', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const wrapper = mount(
+      <Form getApi={setApi} initialValues={{greeting: 'ayyyoooooo'}}>
+        <Text field="greeting"/>
+      </Form>
+    );
+    expect(api.getState().values).to.deep.equal({ greeting: 'ayyyoooooo' });
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'hello' } });
+    expect(api.getState().values).to.deep.equal({ greeting: 'hello'});
+    expect(api.getState()).to.deep.equal(
+      getState({ values: { greeting: 'hello' }, pristine: false, dirty: true })
+    );
+    api.reset();
+    expect(api.getState()).to.deep.equal(getState({
+      values: { greeting: 'ayyyoooooo' },
+      pristine: false, 
+      dirty: true
+    }));
   });
 
   it('setValue should set a value', () => {

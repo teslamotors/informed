@@ -13,6 +13,9 @@ const asField = Component => props => {
     keepState,
     debug,
     type,
+    mask,
+    format,
+    parse,
     ...rest } = props;
   const fieldProps = {
     validate,
@@ -23,7 +26,10 @@ const asField = Component => props => {
     notify,
     keepState,
     debug,
-    type
+    type,
+    mask,
+    format,
+    parse
   };
 
   const { fieldState, fieldApi, purify, ref } = useField(field, fieldProps);

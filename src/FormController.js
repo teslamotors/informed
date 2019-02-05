@@ -120,6 +120,11 @@ class FormController extends EventEmitter {
     this.emit('change');
   }
 
+  setFormError(value){
+    this.state.error = value;
+    this.emit('change');
+  }
+
   // Notify other fields 
   notify( field ) {
     // Get the notifier
@@ -151,11 +156,11 @@ class FormController extends EventEmitter {
   }
 
   valid(){
-    return ObjectMap.empty(this.state.errors);
+    return !!(ObjectMap.empty(this.state.errors) && !this.state.error);
   }
 
   invalid() {
-    return !ObjectMap.empty(this.state.errors);
+    return !!(!ObjectMap.empty(this.state.errors) || this.state.error);
   }
 
   pristine() {
@@ -200,6 +205,13 @@ class FormController extends EventEmitter {
       field.fieldApi.validate(value);
       field.fieldApi.setTouched(true);
     });
+
+    // Call the form level validation if its present
+    if( this.options.validate ){
+      const res = this.options.validate( this.state.values );
+      console.log(res);
+      this.setFormError(res);
+    }
 
     // Emit a change 
     this.emit('change');

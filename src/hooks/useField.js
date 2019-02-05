@@ -8,6 +8,9 @@ function useField(field, fieldProps = {}) {
   // Pull props off of field props
   const { 
     validate,
+    mask,
+    format,
+    parse,
     initialValue,
     validateOnChange,
     validateOnBlur,
@@ -46,6 +49,14 @@ function useField(field, fieldProps = {}) {
     // Turn string into number for number fields
     if(type === 'number' && val !== undefined ){
       val = +val;
+    }
+    // Call mask if it was passed
+    if(mask){
+      val = mask(val);
+    }
+    // Call format and parse if they were passed
+    if(format && parse){
+      val = format(parse(val));
     }
     // We only need to call validate if the user gave us one
     // and they want us to validate on change

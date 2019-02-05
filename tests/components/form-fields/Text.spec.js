@@ -86,7 +86,44 @@ describe('Text', () => {
     expect(savedApi.getState().values).to.deep.equal({ greeting: 'foobarbaz' });
   });
 
-  it.skip('should run mask when user types in text input and mask is passed', () => {
+  it('should run mask when user types in text input and mask is passed', () => {
+    let savedApi;
+    const mask = value => `${value}!`;
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="hello" mask={mask} />
+      </Form>
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'world' } });
+    expect(savedApi.getState().values).to.deep.equal({ hello: 'world!' });
+  });
+
+  it('should run format and parse when user types in text input and format and parse are passed', () => {
+    let savedApi;
+    const format = value => `$${value}`;
+    const parse = value => value.replace('$','');
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="hello" format={format} parse={parse} />
+      </Form>
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'a' } });
+    expect(savedApi.getState().values).to.deep.equal({ hello: '$a' });
+    input.simulate('change', { target: { value: 'ab' } });
+    expect(savedApi.getState().values).to.deep.equal({ hello: '$ab' });
+    input.simulate('change', { target: { value: 'abc' } });
+    expect(savedApi.getState().values).to.deep.equal({ hello: '$abc' });
+  });
+
+  it('should run mask when user types in text input and mask is passed', () => {
     let savedApi;
     const mask = value => `${value}!`;
     const wrapper = mount(

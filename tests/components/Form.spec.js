@@ -187,7 +187,7 @@ describe('Form', () => {
     });
   });
 
-  it('should NOT call onSubmit function with values when the invalid form is submitted', done => {
+  it('should NOT call onSubmit function with values when the invalid form is submitted due to invalid field validation', done => {
     const spy = sandbox.spy();
     let api;
     const setApi = param => {
@@ -206,6 +206,56 @@ describe('Form', () => {
     button.simulate('submit');
     setImmediate(() => {
       expect(spy.called).to.equal(false);
+      done();
+    });
+  });
+
+  it('should NOT call onSubmit function with values when the invalid form is submitted due to invalid form validation', done => {
+    const spy = sandbox.spy();
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const validate = values => 
+      values.a + values.b !== 4 ? 'values must sum to 4!' : undefined;
+    const wrapper = mount(
+      <Form onSubmit={spy} getApi={setApi} validate={validate}>
+        <Text field="a" />
+        <Text field="b" />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+    api.setValue('a', 1);
+    api.setValue('b', 2);
+    const button = wrapper.find('button');
+    button.simulate('submit');
+    setImmediate(() => {
+      expect(spy.called).to.equal(false);
+      done();
+    });
+  });
+
+  it('should call onSubmit function with values when the valid form is submitted due to valid form validation', done => {
+    const spy = sandbox.spy();
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const validate = values => 
+      values.a + values.b !== 4 ? 'values must sum to 4!' : undefined;
+    const wrapper = mount(
+      <Form onSubmit={spy} getApi={setApi} validate={validate}>
+        <Text field="a" />
+        <Text field="b" />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+    api.setValue('a', 2);
+    api.setValue('b', 2);
+    const button = wrapper.find('button');
+    button.simulate('submit');
+    setImmediate(() => {
+      expect(spy.called).to.equal(true);
       done();
     });
   });

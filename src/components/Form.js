@@ -8,7 +8,8 @@ class Form extends React.Component {
     super(props);
     this.controller = new FormController({
       dontPreventDefault: props.dontPreventDefault, 
-      initialValues: props.initialValues
+      initialValues: props.initialValues,
+      validate: props.validate
     });
     this.formApi = this.controller.getFormApi();
     this.controller.on('change', () => this.forceUpdate());

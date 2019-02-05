@@ -4,6 +4,8 @@ import useFormApi from './useFormApi';
 import Debug from 'debug';
 const logger = Debug('informed:useField'+ '\t');
 
+let cursor;
+
 function useField(field, fieldProps = {}) {
   // Pull props off of field props
   const { 
@@ -17,6 +19,7 @@ function useField(field, fieldProps = {}) {
     onValueChange,
     notify,
     keepState, 
+    maintainCursor,
     debug, 
     type
   } = fieldProps;
@@ -41,7 +44,7 @@ function useField(field, fieldProps = {}) {
   };
 
   // Define set value
-  const setValue = val => {
+  const setValue = (val, e) => {
     // Set value to undefined if its an empty string
     if( val === '' ){
       val = undefined;
@@ -63,12 +66,16 @@ function useField(field, fieldProps = {}) {
     if (validate && validateOnChange) {
       setError(validate(val, formApi.getValues()));
     }
+    // Remember Cursor position!
+    if(e && e.target && e.target.selectionStart ){
+      cursor = e.target.selectionStart;
+    }
     // Now we update the value
     setVal(val);
     // If the user passed in onValueChange then call it!
     if( onValueChange ){
       onValueChange(val);
-    }
+    }    
     // Call the updater
     updater.setValue(field, val);
   };
@@ -120,10 +127,7 @@ function useField(field, fieldProps = {}) {
 
   logger('Render', field, fieldState);
 
-  let ref;
-  if(debug){
-    ref = useRef(null);
-  }
+  const ref = useRef(null);
 
   // We want to register and deregister this field when field name changes
   useLayoutEffect(
@@ -148,6 +152,14 @@ function useField(field, fieldProps = {}) {
     },
     // This is VERYYYY!! Important!
     [validate, validateOnChange, validateOnBlur, onValueChange]
+  );
+
+  // Maintain cursor position
+  useLayoutEffect(
+    () => {
+      if ( maintainCursor && ref.current != null && cursor) ref.current.selectionEnd = cursor;
+    },
+    [value]
   );
 
   // for debugging

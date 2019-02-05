@@ -5,6 +5,11 @@ import FormState from '../../utils/FormState';
 
 import { Form, Text } from '../../../src';
 
+//const mask = value => value.toUpperCase();
+
+// const format = value => `$${value}`;
+// const parse = value => value.replace('$','');
+
 const TextInput = () => (
   <Form id="text-form">
     <div>

@@ -34,7 +34,7 @@ const TextArea = ({ fieldApi, fieldState, ...props }) => {
       ref={forwardedRef}
       value={!value ? '' : value}
       onChange={e => {
-        setValue(e.target.value);
+        setValue(e.target.value, e);
         if (onChange) {
           onChange(e);
         }

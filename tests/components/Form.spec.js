@@ -594,7 +594,7 @@ describe('Form', () => {
     });
   });
 
-  it.skip('errors should update when default value is set and validateOnMount is passed in', done => {
+  it('errors should update when initial value is set and validateOnMount is passed in', done => {
     const validate = value => (value === 'Foo' ? 'ooo thats no good' : null);
     let api;
     const setApi = param => {

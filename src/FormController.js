@@ -104,6 +104,7 @@ class FormController extends EventEmitter {
   /* ------------------- Internal Methods ------------------- */
 
   setValue(field, value, notify = true) {
+    debug(`Setting ${field} to ${value}`);
     ObjectMap.set(this.state.values, field, value);
     this.emit('change');
     this.emit('value');

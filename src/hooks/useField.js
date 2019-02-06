@@ -16,6 +16,7 @@ function useField(field, fieldProps = {}) {
     initialValue,
     validateOnChange,
     validateOnBlur,
+    validateOnMount,
     onValueChange,
     notify,
     keepState, 
@@ -26,7 +27,7 @@ function useField(field, fieldProps = {}) {
 
   // Initialize state 
   const [value, setVal] = useState(initialValue != null ? initialValue : undefined);
-  const [error, setErr] = useState();
+  const [error, setErr] = useState( validateOnMount ? validate(initialValue) : undefined );
   const [touched, setTouch] = useState();
 
   // Grab the form register context
@@ -45,6 +46,7 @@ function useField(field, fieldProps = {}) {
 
   // Define set value
   const setValue = (val, e) => {
+    logger(`Setting ${field} to ${val}`);
     // Set value to undefined if its an empty string
     if( val === '' ){
       val = undefined;
@@ -178,7 +180,7 @@ function useField(field, fieldProps = {}) {
   );
 
   // This is an awesome optimization!!
-  const shouldUpdate = [ ...Object.values(fieldState), ...Object.values(fieldProps) ];
+  const shouldUpdate = [ ...Object.values(fieldState), ...Object.values(fieldProps), field ];
 
   const purify = (children, userprops = []) => useMemo(() => children, [ ...shouldUpdate, ...userprops]);
 

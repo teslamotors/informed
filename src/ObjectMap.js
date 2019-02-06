@@ -8,6 +8,11 @@ import ldpull from 'lodash/pull';
 import Debug from 'debug';
 const debug = Debug('informed:ObjMap' + '\t');
 
+const pathToArrayElem = (path) => {
+  const pathArray = ldtoPath(path);
+  return Number.isInteger(+pathArray[pathArray.length-1]);
+};
+
 class ObjectMap {
   static empty(object) {
     return ldvalues(object).length === 0;
@@ -21,8 +26,15 @@ class ObjectMap {
     if( value !== undefined ){
       ldset(object, path, value);
     } else {
-      // Only delete the field if it needs to be deleted
-      if( ObjectMap.get(object, path) !== undefined ) ObjectMap.delete(object, path);
+      // If the path is to an array leaf then we want to set to undefined
+      if( pathToArrayElem(path) && ObjectMap.get(object, path) !== undefined ) {
+        ldset(object, path, undefined);
+        let pathArray = ldtoPath(path);
+        pathArray = pathArray.slice(0, pathArray.length - 1);
+        cleanup(object, pathArray, false);
+      }
+      // Only delete the field if it needs to be deleted and its not a path to an array ( array leaf )
+      else if( !pathToArrayElem(path) && ObjectMap.get(object, path) !== undefined ) ObjectMap.delete(object, path);
     }
   }
 
@@ -47,7 +59,7 @@ class ObjectMap {
   }
 }
 
-function cleanup(obj, path) {
+function cleanup(obj, path, pull = true) {
   // Base case no path left
   if (path.length === 0) {
     return;
@@ -56,7 +68,7 @@ function cleanup(obj, path) {
   const object = ldget(obj, path);
 
   // Clean up undefined from array
-  if (Array.isArray(object)) {
+  if (Array.isArray(object) && pull) {
     ldpull(object, undefined);
   }
 

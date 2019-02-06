@@ -23,8 +23,6 @@ const FormState = () => (
         <code>{JSON.stringify(formState.touched)}</code>
         <label>Errors:</label>
         <code>{JSON.stringify(formState.errors)}</code>
-        <label>Async Errors:</label>
-        <code>{JSON.stringify(formState.asyncErrors)}</code>
         <label>Invalid:</label>
         <code>{JSON.stringify(formState.invalid)}</code>
         <label>Pristine:</label>

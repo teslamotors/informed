@@ -9,12 +9,6 @@ module.exports = (storybookBaseConfig, configType) => {
     'babel-plugin-emotion',
     'babel-plugin-macros',
     ['@babel/plugin-proposal-class-properties', { loose: false }],
-    [
-      '@babel/plugin-transform-runtime',
-      {
-        corejs: 2
-      }
-    ]
   ];
 
   storybookBaseConfig.module.rules[0].use[0].options.presets = [

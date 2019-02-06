@@ -1,3 +1,26 @@
+## 2.0.0 (Feb 6, 2019)
+
+### Added
+- useFieldApi
+- useFieldState
+- useFormApi
+- useFormState
+- useField
+- ArrayField ( Check out the docs! this is sick! )
+- Form Level validation ( function that can invalidate the form as a whole )
+- debug prop that allows you to visually view the rendering!
+
+### Changed
+
+- the field `"siblings.1"` now resolves to `values.siblings[1]`, it used to resolve to `values.siblings.1`
+- the field `"siblings['2']"` now resolves to `values.siblings[2]`, it used to resolve to `values.siblings.2`
+- withFormApi will no longer trigger a rerender if the fomrs state changes. This is a great optimization for those who want to modify but dont care about the form state!
+
+### Removed
+
+- The Field Component
+- Async Validation. Async validation led to many issues that overcomplicated `informed`. We determined this is something that the developer could achive on there own for now but we may look into adding this in the future. 
+
 ## 1.10.12 ( December 4, 2018 )
 
 ### Updated 

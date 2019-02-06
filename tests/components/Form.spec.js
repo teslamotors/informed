@@ -260,29 +260,6 @@ describe('Form', () => {
     });
   });
 
-  it.skip('should NOT call onSubmit function with values when an asyncrounously invalid form is submitted', done => {
-    const spy = sandbox.spy();
-    let api;
-    const setApi = param => {
-      api = param;
-    };
-    const asyncValidate = greeting =>
-      greeting === 'hello!' ? 'ooo thats no good' : null;
-    const wrapper = mount(
-      <Form onSubmit={spy} getApi={setApi}>
-        <Text field="greeting" asyncValidate={asyncValidate} />
-        <button type="submit">Submit</button>
-      </Form>
-    );
-    api.setValue('greeting', 'hello!');
-    const button = wrapper.find('button');
-    button.simulate('submit');
-    setImmediate(() => {
-      expect(spy.called).to.equal(false);
-      done();
-    });
-  });
-
   it('should call onSubmitFailure function with errors when the invalid form is submitted', done => {
     const spy = sandbox.spy();
     let api;
@@ -303,30 +280,6 @@ describe('Form', () => {
     setImmediate(() => {
       expect(spy.called).to.equal(true);
       expect(spy.args[0][0]).to.deep.equal({ greeting: 'ooo thats no good' });
-      done();
-    });
-  });
-
-  it.skip('should call onSubmitFailure function with asyncErrors when the invalid form is submitted', done => {
-    const spy = sandbox.spy();
-    let api;
-    const setApi = param => {
-      api = param;
-    };
-    const asyncValidate = greeting =>
-      greeting === 'hello!' ? 'ooo thats no good' : null;
-    const wrapper = mount(
-      <Form onSubmitFailure={spy} getApi={setApi}>
-        <Text field="greeting" asyncValidate={asyncValidate} />
-        <button type="submit">Submit</button>
-      </Form>
-    );
-    api.setValue('greeting', 'hello!');
-    const button = wrapper.find('button');
-    button.simulate('submit');
-    setImmediate(() => {
-      expect(spy.called).to.equal(true);
-      expect(spy.args[0][1]).to.deep.equal({ greeting: 'ooo thats no good' });
       done();
     });
   });

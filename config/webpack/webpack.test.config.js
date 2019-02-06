@@ -1,4 +1,4 @@
-const nodeExternals = require('webpack-node-externals')
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   devtool: 'cheap-module-source-map',
@@ -17,25 +17,24 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: [
-              "@babel/preset-env",
-              "@babel/preset-react",
+              '@babel/preset-env',
+              '@babel/preset-react',
             ],
             plugins: [
-              "@babel/plugin-transform-runtime",
-              ["@babel/plugin-proposal-class-properties", { "loose": false }]
+              ['@babel/plugin-proposal-class-properties', { 'loose': false }]
             ]
           }
         }
       },
-			{
-				test: /\.js$|\.jsx$/,
-				use: {
-					loader: 'istanbul-instrumenter-loader',
-					options: { esModules: true }
-				},
-				enforce: 'post',
-				exclude: /node_modules|\.spec\.js$/,
-			}
+      {
+        test: /\.js$|\.jsx$/,
+        use: {
+          loader: 'istanbul-instrumenter-loader',
+          options: { esModules: true }
+        },
+        enforce: 'post',
+        exclude: /node_modules|\.spec\.js$/,
+      }
     ]
   }
-}
+};

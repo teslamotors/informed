@@ -72,8 +72,8 @@ storiesOf('Validation', module)
   .add('Simple Validation', SimpleValidation)
   .add('Complex Validation', ComplexValidation)
   .add('Validation Control', ValidationControl)
-  .add('Notifications', Notifications)
-  .add('Async Validation', AsyncValidation);
+  .add('Notifications', Notifications);
+// .add('Async Validation', AsyncValidation);
 
 storiesOf('High Order Components', module)
   .add('withFormApi', WithFormApi)

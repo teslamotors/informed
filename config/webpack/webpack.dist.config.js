@@ -18,12 +18,6 @@ module.exports = {
           options: {
             presets: ['@babel/preset-env', '@babel/preset-react'],
             plugins: [
-              [
-                '@babel/plugin-transform-runtime',
-                {
-                  corejs: 2
-                }
-              ],
               ['@babel/plugin-proposal-class-properties', { loose: false }]
             ]
           }

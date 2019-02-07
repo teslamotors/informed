@@ -15,11 +15,10 @@ const SomeComponent = props => (
 
 const ComponentWithFormState = withFormState(SomeComponent);
 
-<Form id="withFormState-form">
-  <label htmlFor="withFormState-name">Name:</label>
-  <Text field="name" id="withFormState-name" />
+<Form>
+  <label>Name:<Text field="name"/></label>
   <button type="submit">Submit</button>
   <h5>Component with formState:</h5>
   <ComponentWithFormState />
-</Form>;
+</Form>
 ```

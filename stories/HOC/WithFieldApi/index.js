@@ -15,9 +15,8 @@ const SomeComponent = props => (
 const ComponentWithFieldApi = withFieldApi('name')(SomeComponent);
 
 const WithFieldApi = () => (
-  <Form id="withFieldApi-form">
-    <label htmlFor="withFieldApi-name">Name:</label>
-    <Text field="name" id="withFieldApi-name" />
+  <Form>
+    <label>Name: <Text field="name"/></label>
     <button type="submit">Submit</button>
     <h5>Component with fieldApi:</h5>
     <ComponentWithFieldApi />

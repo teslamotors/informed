@@ -18,11 +18,12 @@ const SomeComponent = props => (
 
 const ComponentWithFormApi = withFormApi(SomeComponent);
 
-<Form id="array-form">
-  <label htmlFor="withFormApi-name">Name:</label>
-  <Text field="name" id="withFormApi-name" />
-  <button type="submit">Submit</button>
-  <h5>Component with formApi:</h5>
-  <ComponentWithFormApi />
-</Form>;
+<Form>
+  <div>
+    <label>Name:<Text field="name"/></label>
+    <button type="submit">Submit</button>
+    <h5>Component with formApi:</h5>
+    <ComponentWithFormApi />
+  </div>
+</Form>
 ```

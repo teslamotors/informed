@@ -14,8 +14,7 @@ const ComponentWithFieldState = withFieldState('name')(SomeComponent);
 
 const WithFieldState = () => (
   <Form id="withFieldState-form">
-    <label htmlFor="withFieldState-name">Name:</label>
-    <Text field="name" id="withFieldState-name" />
+    <label>Name:<Text field="name"/></label>
     <button type="submit">Submit</button>
     <h5>Component with fieldState:</h5>
     <ComponentWithFieldState />

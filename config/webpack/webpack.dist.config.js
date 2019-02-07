@@ -1,11 +1,11 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 //const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   entry: path.join(__dirname, '../../src/index.js'),
   target: 'web',
+  mode: 'production',
   devtool: 'source-map',
   externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
   module: {
@@ -36,19 +36,7 @@ module.exports = {
     umdNamedDefine: true
   },
   optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        sourceMap: true,
-        uglifyOptions: {
-          compress: {
-            warnings: false,
-            keep_fnames: true
-          },
-          mangle: {
-            keep_fnames: true
-          }
-        }
-      })
-    ]
+    //usedExports: true
+    namedModules: true
   }
 };

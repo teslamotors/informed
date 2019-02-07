@@ -14,13 +14,12 @@ const ArrayField = ({ field, children }) => {
 
   const remove = i => {
     const newKeys = keys.slice(0, i).concat(keys.slice(i + 1, keys.length));
-    console.log('NEWKEYS', newKeys);
     setKeys(newKeys);
   };
 
   const add = () => {
     keys.push(uuidv4());
-    setKeys(keys);
+    setKeys([...keys]);
   };
 
   const fields = keys.map((key, i) => ({

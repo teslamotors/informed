@@ -5,12 +5,14 @@ import FormState from '../../utils/FormState';
 
 import { Form, Text } from '../../../src';
 
-const TextInput = () => (
+const mask = value => value != null ? value.toUpperCase() : value;
+
+const Mask = () => (
   <Form>
     <div>
       <label>
         First name:
-        <Text field="name"/>
+        <Text field="name" mask={mask} maintainCursor/>
       </label>
       <button type="submit">Submit</button>
       <FormState />
@@ -18,4 +20,4 @@ const TextInput = () => (
   </Form>
 );
 
-export default withDocs(readme, TextInput);
+export default withDocs(readme, Mask);

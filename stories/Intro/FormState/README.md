@@ -5,7 +5,7 @@ on this 'awesome stuff'??"**
 
 Thats a great question! There are many ways so lets take a look at a few!
 
-Below is the same example as above, except this time, we show you how to access
+Below is a similar example, except this time, we show you how to access
 the form state and render out the values that are changing.
 
 **
@@ -18,11 +18,13 @@ formState section of these docs
 ```jsx
 import { Form, Text } from 'informed';
 
-<Form id="state-form">
+<Form>
   {({ formState }) => (
     <div>
-      <label htmlFor="state-name">First name:</label>
-      <Text field="name" id="state-name" />
+      <label>
+        First name:
+        <Text field="name"/>
+      </label>
       <button type="submit">Submit</button>
       <label>Values:</label>
       <code>{JSON.stringify(formState.values)}</code>

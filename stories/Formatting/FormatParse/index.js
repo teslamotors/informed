@@ -5,12 +5,15 @@ import FormState from '../../utils/FormState';
 
 import { Form, Text } from '../../../src';
 
-const TextInput = () => (
+const format = value => value != null ? `$${value}` : value;
+const parse = value => value != null ? value.replace('$','') : value;
+
+const FormatParse = () => (
   <Form>
     <div>
       <label>
         First name:
-        <Text field="name"/>
+        <Text field="name" format={format} parse={parse} />
       </label>
       <button type="submit">Submit</button>
       <FormState />
@@ -18,4 +21,4 @@ const TextInput = () => (
   </Form>
 );
 
-export default withDocs(readme, TextInput);
+export default withDocs(readme, FormatParse);

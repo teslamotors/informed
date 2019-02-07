@@ -105,9 +105,14 @@ class FormController extends EventEmitter {
 
   setValue(field, value, notify = true) {
     debug(`Setting ${field} to ${value}`);
+    // Set the new value
     ObjectMap.set(this.state.values, field, value);
+    // The forms values have changed so we want to clear form level error
+    delete this.state.error;
+    // Emit change events
     this.emit('change');
     this.emit('value');
+    // Notify other fields 
     if( notify ) this.notify(field);
   }
 
@@ -210,7 +215,6 @@ class FormController extends EventEmitter {
     // Call the form level validation if its present
     if( this.options.validate ){
       const res = this.options.validate( this.state.values );
-      console.log(res);
       this.setFormError(res);
     }
 

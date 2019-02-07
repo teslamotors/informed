@@ -5,9 +5,11 @@
 ```jsx
 import { Form, TextArea } from 'informed';
 
-<Form id="textarea-form">
-  <label htmlFor="textarea-bio">Bio:</label>
-  <TextArea field="bio" id="textarea-bio" />
+<Form>
+  <label>
+    Bio:
+    <TextArea field="bio"/>
+  </label>
   <button type="submit">Submit</button>
 </Form>;
 ```

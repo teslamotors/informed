@@ -111,7 +111,7 @@ describe('Form', () => {
     expect(spy.args[0][0]).to.deep.equal({ greeting: 'hello' });
   });
 
-  it('should call onSubmit function with values when the form is submitted', done => {
+  it('should call onSubmit function with values when the form is submitted', () => {
     const spy = sandbox.spy();
     const wrapper = mount(
       <Form onSubmit={spy}>
@@ -123,14 +123,11 @@ describe('Form', () => {
     input.simulate('change', { target: { value: 'hello' } });
     const button = wrapper.find('button');
     button.simulate('submit');
-    setImmediate(() => {
-      expect(spy.called).to.equal(true);
-      expect(spy.args[0][0]).to.deep.equal({ greeting: 'hello' });
-      done();
-    });
+    expect(spy.called).to.equal(true);
+    expect(spy.args[0][0]).to.deep.equal({ greeting: 'hello' });
   });
 
-  it('should call reset function when reset button is clicked', done => {
+  it('should call reset function when reset button is clicked', () => {
     let savedApi;
     const wrapper = mount(
       <Form
@@ -146,13 +143,10 @@ describe('Form', () => {
     expect(savedApi.getState().values).to.deep.equal({ greeting: 'hello'});
     const button = wrapper.find('button');
     button.simulate('reset');
-    setImmediate(() => {
-      expect(savedApi.getState().values).to.deep.equal({});
-      done();
-    });
+    expect(savedApi.getState().values).to.deep.equal({});
   });
 
-  it('should call preventDefault when the form is submitted', done => {
+  it('should call preventDefault when the form is submitted', () => {
     const spy = sandbox.spy();
     const wrapper = mount(
       <Form onSubmit={() => {}}>
@@ -163,13 +157,10 @@ describe('Form', () => {
     button.simulate('submit', {
       preventDefault: spy
     });
-    setImmediate(() => {
-      expect(spy.called).to.equal(true);
-      done();
-    });
+    expect(spy.called).to.equal(true);
   });
 
-  it('should NOT preventDefault dontPreventDefault is passed in', done => {
+  it('should NOT preventDefault dontPreventDefault is passed in', () => {
     const spy = sandbox.spy();
     const wrapper = mount(
       <Form onSubmit={() => {}} dontPreventDefault>
@@ -180,13 +171,10 @@ describe('Form', () => {
     button.simulate('submit', {
       preventDefault: spy
     });
-    setImmediate(() => {
-      expect(spy.called).to.equal(false);
-      done();
-    });
+    expect(spy.called).to.equal(false);
   });
 
-  it('should NOT call onSubmit function with values when the invalid form is submitted due to invalid field validation', done => {
+  it('should NOT call onSubmit function with values when the invalid form is submitted due to invalid field validation', () => {
     const spy = sandbox.spy();
     let api;
     const setApi = param => {
@@ -203,13 +191,10 @@ describe('Form', () => {
     api.setValue('greeting', 'hello!');
     const button = wrapper.find('button');
     button.simulate('submit');
-    setImmediate(() => {
-      expect(spy.called).to.equal(false);
-      done();
-    });
+    expect(spy.called).to.equal(false);
   });
 
-  it('should NOT call onSubmit function with values when the invalid form is submitted due to invalid form validation', done => {
+  it('should NOT call onSubmit function with values when the invalid form is submitted due to invalid form validation', () => {
     const spy = sandbox.spy();
     let api;
     const setApi = param => {
@@ -228,13 +213,10 @@ describe('Form', () => {
     api.setValue('b', 2);
     const button = wrapper.find('button');
     button.simulate('submit');
-    setImmediate(() => {
-      expect(spy.called).to.equal(false);
-      done();
-    });
+    expect(spy.called).to.equal(false);
   });
 
-  it('should call onSubmit function with values when the valid form is submitted due to valid form validation', done => {
+  it('should call onSubmit function with values when the valid form is submitted due to valid form validation', () => {
     const spy = sandbox.spy();
     let api;
     const setApi = param => {
@@ -253,13 +235,34 @@ describe('Form', () => {
     api.setValue('b', 2);
     const button = wrapper.find('button');
     button.simulate('submit');
-    setImmediate(() => {
-      expect(spy.called).to.equal(true);
-      done();
-    });
+    expect(spy.called).to.equal(true);
   });
 
-  it('should call onSubmitFailure function with errors when the invalid form is submitted', done => {
+  it('should reset form error after invalid form is submitted and value is changed', () => {
+    const spy = sandbox.spy();
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const validate = values => 
+      values.a + values.b !== 4 ? 'values must sum to 4!' : undefined;
+    const wrapper = mount(
+      <Form onSubmit={spy} getApi={setApi} validate={validate}>
+        <Text field="a" />
+        <Text field="b" />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+    api.setValue('a', 1);
+    api.setValue('b', 2);
+    const button = wrapper.find('button');
+    button.simulate('submit');
+    expect(api.getState().error).to.equal('values must sum to 4!');
+    api.setValue('a', 3);
+    expect(api.getState().error).to.be.undefined;
+  });
+
+  it('should call onSubmitFailure function with errors when the invalid form is submitted', () => {
     const spy = sandbox.spy();
     let api;
     const setApi = param => {
@@ -276,14 +279,11 @@ describe('Form', () => {
     api.setValue('greeting', 'hello!');
     const button = wrapper.find('button');
     button.simulate('submit');
-    setImmediate(() => {
-      expect(spy.called).to.equal(true);
-      expect(spy.args[0][0]).to.deep.equal({ greeting: 'ooo thats no good' });
-      done();
-    });
+    expect(spy.called).to.equal(true);
+    expect(spy.args[0][0]).to.deep.equal({ greeting: 'ooo thats no good' });
   });
 
-  it('should incriment submits when form is submitted', done => {
+  it('should incriment submits when form is submitted', () => {
     let api;
     const setApi = param => {
       api = param;
@@ -296,13 +296,10 @@ describe('Form', () => {
     );
     const button = wrapper.find('button');
     button.simulate('submit');
-    setImmediate(() => {
-      expect(api.getState().submits).to.equal(1);
-      done();
-    });
+    expect(api.getState().submits).to.equal(1);
   });
 
-  it('should incriment submits when form is submitted more than once', done => {
+  it('should incriment submits when form is submitted more than once', () => {
     let api;
     const setApi = param => {
       api = param;
@@ -317,10 +314,7 @@ describe('Form', () => {
     button.simulate('submit');
     button.simulate('submit');
     button.simulate('submit');
-    setImmediate(() => {
-      expect(api.getState().submits).to.equal(3);
-      done();
-    });
+    expect(api.getState().submits).to.equal(3);
   });
 
   it('getApi should give the passed function the formApi', () => {
@@ -484,7 +478,7 @@ describe('Form', () => {
     checkFormApi(inputs.props().formApi);
   });
 
-  it('errors should update when input is changed', done => {
+  it('errors should update when input is changed', () => {
     const validate = value => (value === 'Foo' ? 'ooo thats no good' : null);
     let api;
     const setApi = param => {
@@ -499,21 +493,18 @@ describe('Form', () => {
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'Foo' } });
 
-    setImmediate(() => {
-      expect(api.getState().errors).to.deep.equal({
-        name: 'ooo thats no good'
-      });
-      done();
+    expect(api.getState().errors).to.deep.equal({
+      name: 'ooo thats no good'
     });
   });
 
-  it('errors should update when initial value is set and validateOnMount is passed in', done => {
+  it('errors should update when initial value is set and validateOnMount is passed in', () => {
     const validate = value => (value === 'Foo' ? 'ooo thats no good' : null);
     let api;
     const setApi = param => {
       api = param;
     };
-    const wrapper = mount(
+    mount(
       <Form getApi={setApi}>
         <Text
           field="name"
@@ -523,15 +514,12 @@ describe('Form', () => {
         />
       </Form>
     );
-    setImmediate(() => {
-      expect(api.getState().errors).to.deep.equal({
-        name: 'ooo thats no good'
-      });
-      done();
+    expect(api.getState().errors).to.deep.equal({
+      name: 'ooo thats no good'
     });
   });
 
-  it('errors should update when input is changed after changing validation function prop', done => {
+  it('errors should update when input is changed after changing validation function prop', () => {
     const validate1 = value => (value === 'Foo' ? 'ooo thats no good' : null);
     const validate2 = value => (value === 'Foo' ? 'new validation!' : null);
     let api;
@@ -552,19 +540,15 @@ describe('Form', () => {
     expect(api.getState().errors).to.deep.equal({});
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'Foo' } });
-    setImmediate(() => {
-      expect(api.getState().errors).to.deep.equal({
-        name: 'ooo thats no good'
-      });
-      input.simulate('change', { target: { value: 'Foo' } });
-      setImmediate(() => {
-        expect(api.getState().errors).to.deep.equal({
-          name: 'new validation!'
-        });
-        done();
-      });
+    expect(api.getState().errors).to.deep.equal({
+      name: 'ooo thats no good'
+    });
+    input.simulate('change', { target: { value: 'Foo' } });
+    expect(api.getState().errors).to.deep.equal({
+      name: 'new validation!'
     });
   });
+ 
 
   // WARNINGG AND SUCCESS TESTS ^^
 });

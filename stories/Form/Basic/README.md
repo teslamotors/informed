@@ -4,7 +4,10 @@
 
 ```jsx
 <Form>
-  <label>First name:<Text field="name"/></label>
+  <label>
+    First name:
+    <Text field="name"/>
+  </label>
   <button type="submit">Submit</button>
 </Form>
 ```

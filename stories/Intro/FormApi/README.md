@@ -34,13 +34,16 @@ const RandomSetterButton = () => {
 };
 
 <Form>
-  <label>Name:<Text field="name"/></label>
+  <label>
+    Name:
+    <Text field="name"/>
+  </label>
   <button type="submit">Submit</button>
   <RandomSetterButton />
 </Form>;
 ```
 
-There are three ways you can get access to `Informed`s form api.
+There are five ways you can get access to `Informed`s form api.
 
 1) By accessing the `formApi` as a parameter to a child render function.
 

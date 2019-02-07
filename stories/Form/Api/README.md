@@ -15,7 +15,6 @@ This api allows you to grab and manipulate values using getters and setters. Bel
 | getError    | `getError('greeting')`                  | Function that when given a field name will return its error.                                                                                                                                                                                                                                                              |
 | getState    | `getState()`                            | Function that returns the formState. Note this will only return the state as it existed when the function was called.                                                                                                                                                                                                     |
 | reset       | `reset()`                               | Function that will reset the form to its initial state.                                                                                                                                                                                                                                                                   |
-| fieldExists | `fieldExists('greeting')`               | Function that will return true when the field exists on the form.                                                                                                                                                                                                                                                         |
 
 **"Ok so informed gives us access to this formApi.. but how do i get my hands
 on it??**
@@ -33,8 +32,10 @@ import { Form, Text } from 'informed';
 <Form id="form-api-form">
   {({ formApi }) => (
     <div>
-      <label htmlFor="form-state-name">First name:</label>
-      <Text field="name" id="form-api-name" validate={validate} />
+      <label>
+        First name:
+        <Text field="name" validate={validate} />
+      </label>
       <button type="button" onClick={() => formApi.setValue('name', 'Joe')}>
         Set Name to "Joe"
       </button>
@@ -56,15 +57,16 @@ import { Form, Text } from 'informed';
 
 Its not magic, its a Function As A Child, or otherwise known as [render props](https://reactjs.org/docs/render-props.html)
 
-There are three ways you can get access to `Informed`s form api.
+There are five ways you can get access to `Informed`s form api.
 
-1. By accessing the `formApi` as a parameter to a child render function.
+1) By accessing the `formApi` as a parameter to a child render function.
 
 ```jsx
 <Form>
   {({ formApi }) => (
     <div>
       <Text field="hello" />
+      <button type="button" onClick={()=>formApi.setValue('hello', 'world!')}/>
       <button type="submit">Submit</button>
     </div>
   )}
@@ -72,13 +74,14 @@ There are three ways you can get access to `Informed`s form api.
 ```
 
 <br/>
-2. By accessing the `formApi` as a parameter to a render prop.
+2) By accessing the `formApi` as a parameter to a render prop.
 
 ```jsx
 <Form
   render={({ formApi }) => (
     <div>
       <Text field="hello" />
+      <button type="button" onClick={()=>formApi.setValue('hello', 'world!')}/>
       <button type="submit">Submit</button>
     </div>
   )}
@@ -86,17 +89,53 @@ There are three ways you can get access to `Informed`s form api.
 ```
 
 <br/>
-2. By accessing the `formApi` as a prop to a component prop.
+3) By accessing the `formApi` as a prop to a component prop.
 
 ```jsx
 const FormContent = ({ formApi }) => (
   <div>
     <Text field="hello" />
+    <button type="button" onClick={()=>formApi.setValue('hello', 'world!')}/>
     <button type="submit">Submit</button>
   </div>
 );
 
 <Form component={FormContent} />;
+```
+
+<br/>
+4) By accessing the `formApi` as a prop via a HOC ( High Order Component ).
+
+```jsx
+const ComponentWithFormApi = withFormApi(({ formApi }) => (
+  return <button type="button" onClick={()=>formApi.setValue('hello', 'world!')}/>
+));
+
+<Form>
+  <div>
+    <Text field="hello" />
+    <button type="submit">Submit</button>
+    <ComponentWithFormApi />
+  </div>
+</Form>
+```
+
+<br/>
+5) By accessing the `formApi` via Hooks!
+
+```jsx
+const ComponentWithFormApi = () => {
+  const formApi = useFormApi();
+  return <button type="button" onClick={()=>formApi.setValue('hello', 'world!')}/>
+};
+
+<Form>
+  <div>
+    <Text field="hello" />
+    <button type="submit">Submit</button>
+    <ComponentWithFormApi />
+  </div>
+</Form>
 ```
 
 <br/>

@@ -46,14 +46,15 @@ const FromScratch = () => (
     <Form id="custom-form-2">
       {({ formApi, formState }) => (
         <React.Fragment>
-          <label htmlFor="custom-2-name">First name:</label>
-          <ErrorText
-            field="name"
-            id="custom-2-name"
-            validate={validate}
-            validateOnChange
-            validateOnBlur
-          />
+          <label>
+            First name:
+            <ErrorText
+              field="name"
+              validate={validate}
+              validateOnChange
+              validateOnBlur
+            />
+          </label>
           <button type="submit">Submit</button>
           <label>Values:</label>
           <Code language="language-js">

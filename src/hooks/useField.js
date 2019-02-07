@@ -1,10 +1,24 @@
-import React, { useState, useLayoutEffect, useContext, useMemo, useRef } from 'react';
+import React, { useState, useLayoutEffect, useEffect, useContext, useMemo, useRef } from 'react';
 import { FormRegisterContext } from '../Context';
 import useFormApi from './useFormApi';
 import Debug from 'debug';
 const logger = Debug('informed:useField'+ '\t');
 
-let cursor;
+// TODO figure out if this is bad? 
+// https://github.com/facebook/react/issues/14543
+function useStateWithGetter(initial) {
+  const ref = useRef();
+  const [state, setState] = useState(initial);
+  ref.current = state;
+  const set = (value) => {
+    ref.current = value;
+    setState(value);
+  };
+  const get = () => {
+    return ref.current;
+  };
+  return [state, set, get];
+}
 
 function useField(field, fieldProps = {}) {
   // Pull props off of field props
@@ -26,9 +40,10 @@ function useField(field, fieldProps = {}) {
   } = fieldProps;
 
   // Initialize state 
-  const [value, setVal] = useState(initialValue != null ? initialValue : undefined);
+  const [value, setVal, getVal] = useStateWithGetter(initialValue != null ? initialValue : undefined);
   const [error, setErr] = useState( validateOnMount ? validate(initialValue) : undefined );
   const [touched, setTouch] = useState();
+  const [cursor, setCursor, getCursor] = useStateWithGetter(0);
 
   // Grab the form register context
   const updater = useContext(FormRegisterContext);
@@ -66,11 +81,12 @@ function useField(field, fieldProps = {}) {
     // We only need to call validate if the user gave us one
     // and they want us to validate on change
     if (validate && validateOnChange) {
+      logger(`Validating after change ${field} ${val}`);
       setError(validate(val, formApi.getValues()));
     }
     // Remember Cursor position!
     if(e && e.target && e.target.selectionStart ){
-      cursor = e.target.selectionStart;
+      setCursor(e.target.selectionStart);
     }
     // Now we update the value
     setVal(val);
@@ -87,7 +103,8 @@ function useField(field, fieldProps = {}) {
     // We only need to call validate if the user gave us one
     // and they want us to validate on blur
     if (validate && validateOnBlur) {
-      setError(validate(value));
+      logger(`Validating after blur ${field} ${getVal()}`);
+      setError(validate(getVal()));
     }
     setTouch(val);
     updater.setTouched(field, val);
@@ -105,6 +122,7 @@ function useField(field, fieldProps = {}) {
   // Define validate
   const fieldValidate = (val) => {
     if( validate ){
+      logger(`Field validating ${field} ${val}`);
       setError(validate(val, formApi.getValues()));
     }
   };
@@ -159,7 +177,7 @@ function useField(field, fieldProps = {}) {
   // Maintain cursor position
   useLayoutEffect(
     () => {
-      if ( maintainCursor && ref.current != null && cursor) ref.current.selectionEnd = cursor;
+      if ( maintainCursor && ref.current != null && getCursor()) ref.current.selectionEnd = getCursor();
     },
     [value]
   );

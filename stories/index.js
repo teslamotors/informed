@@ -8,11 +8,12 @@ import Complex from './Form/Complex';
 import State from './Form/State';
 import Props from './Form/Props';
 import Api from './Form/Api';
-import AsyncValidation from './Validation/AsyncValidation';
 import SimpleValidation from './Validation/SimpleValidation';
 import ComplexValidation from './Validation/ComplexValidation';
 import ValidationControl from './Validation/ValidationControl';
 import Notifications from './Validation/Notifications';
+import FormatParse from './Formatting/FormatParse';
+import Mask from './Formatting/Mask';
 import UnnecessaryRendering from './Gotchas/UnnecessaryRendering';
 import Scope from './Gotchas/Scope';
 import Optimization from './Gotchas/Optimization';
@@ -80,7 +81,10 @@ storiesOf('Validation', module)
   .add('Complex Validation', ComplexValidation)
   .add('Validation Control', ValidationControl)
   .add('Notifications', Notifications);
-// .add('Async Validation', AsyncValidation);
+
+storiesOf('Formatting', module)
+  .add('Mask', Mask)
+  .add('Format and Parse', FormatParse);
 
 storiesOf('Hooks!', module)
   .add('useFormApi', UseFormApi)

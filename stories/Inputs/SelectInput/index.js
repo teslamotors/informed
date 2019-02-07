@@ -6,18 +6,20 @@ import Code from '../../utils/Code';
 import { Form, Select, Option } from '../../../src';
 
 const SelectInput = () => (
-  <Form id="select-status-form">
+  <Form>
     {({ formState }) => (
       <div>
-        <label htmlFor="select-status">Relationship status:</label>
-        <Select field="status" id="select-status">
-          <Option value="" disabled>
-            Select One...
-          </Option>
-          <Option value="single">Single</Option>
-          <Option value="relationship">Relationship</Option>
-          <Option value="complicated">Complicated</Option>
-        </Select>
+        <label>
+          Relationship status:
+          <Select field="status">
+            <Option value="" disabled>
+              Select One...
+            </Option>
+            <Option value="single">Single</Option>
+            <Option value="relationship">Relationship</Option>
+            <Option value="complicated">Complicated</Option>
+          </Select>
+        </label>
         <button type="submit">Submit</button>
         <Code language="language-js">
           {JSON.stringify(formState.values, null, 2)}

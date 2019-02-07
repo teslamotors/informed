@@ -33,15 +33,16 @@ const ErrorText = asField(({ fieldState, ...props }) => (
   </React.Fragment>
 ));
 
-<Form id="custom-form">
-  <label htmlFor="custom-name">First name:</label>
-  <ErrorText
-    field="name"
-    id="custom-name"
-    validate={validate}
-    validateOnChange
-    validateOnBlur
-  />
+<Form>
+  <label>
+    First name:
+    <ErrorText
+      field="name"
+      validate={validate}
+      validateOnChange
+      validateOnBlur
+    />
+  </label>
   <button type="submit">Submit</button>
 </Form>;
 ```

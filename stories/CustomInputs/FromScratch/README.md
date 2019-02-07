@@ -45,14 +45,15 @@ const ErrorText = asField(({ fieldState, fieldApi, ...props }) => {
 });
 
 <Form id="custom-form">
-  <label htmlFor="custom-name">First name:</label>
-  <ErrorText
-    field="name"
-    id="custom-name"
-    validate={validate}
-    validateOnChange
-    validateOnBlur
-  />
+  <label>
+    First name:
+    <ErrorText
+      field="name"
+      validate={validate}
+      validateOnChange
+      validateOnBlur
+    />
+  </label>
   <button type="submit">Submit</button>
 </Form>;
 ```

@@ -6,6 +6,9 @@
 - useFormApi
 - useFormState
 - useField
+- format
+- parse
+- maintianCursor ( fixes issue where cursor jumps to end on mask )
 - ArrayField ( Check out the docs! this is sick! )
 - Form Level validation ( function that can invalidate the form as a whole )
 - debug prop that allows you to visually view the rendering!
@@ -19,6 +22,7 @@
 ### Removed
 
 - The Field Component
+- `fieldExists` not needed
 - `setState` will maybe add later but its complex and out of scope ATM
 - `setValues` will maybe add later but its complex and out of scope ATM
 - `preSubmit` was never needed.. developers can do this themselves

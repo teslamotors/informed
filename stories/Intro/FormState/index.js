@@ -7,8 +7,7 @@ const FormState = () => (
   <Form id="state-form">
     {({ formState }) => (
       <div>
-        <label htmlFor="state-name">First name:</label>
-        <Text field="name" id="state-name" />
+        <label>First name:<Text field="name"/></label>
         <button type="submit">Submit</button>
         <label>Values:</label>
         <code>{JSON.stringify(formState.values, null, 2)}</code>

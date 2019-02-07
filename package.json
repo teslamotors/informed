@@ -38,17 +38,15 @@
     "url": "http://joepuzzo.github.io"
   },
   "keywords": [
+    "form",
+    "react-form",
+    "forms",
+    "informed",
     "react",
     "reactjs",
     "redux",
     "react-redux",
-    "redux-form",
-    "form",
-    "react-form",
-    "async",
-    "async-form",
-    "asynchronous-form",
-    "asynchronous"
+    "redux-form"
   ],
   "license": "ISC",
   "devDependencies": {

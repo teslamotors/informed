@@ -1,4 +1,4 @@
-## 2.0.0 (Feb 6, 2019)
+## 2.0.0 (Feb 7, 2019)
 
 ### Added
 - useFieldApi

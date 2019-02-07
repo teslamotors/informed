@@ -5,8 +5,6 @@ Fields can also be associated with an dynamic array. Here is an example where yo
 <!-- STORY -->
 
 ```jsx
-import React from 'react';
-
 import { Form, Text, ArrayField } from 'informed';
 
 const DynamicArrays = () => {

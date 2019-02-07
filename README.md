@@ -58,6 +58,8 @@ const validate = value => {
 #### Create a Complex Form
 
 ```jsx
+import { Form, Text, ArrayField } from 'informed';
+
 <Form>
   <label>First name:<Text field="name"/></label>
   <Scope scope="favorite">
@@ -100,3 +102,172 @@ const validate = value => {
   <button type="submit">Submit</button>
 </Form>
 ```
+
+#### Access Form State with Hooks!
+
+```jsx
+import { Form, Text, useFormState } from 'informed';
+
+const ComponentUsingFormState = () => {
+  const formState = useFormState();
+  return (
+    <pre>
+      <code>{JSON.stringify(formState, null, 2)}</code>
+    </pre>
+  );
+};
+
+<Form>
+  <label>Name:<Text field="name" /></label>
+  <button type="submit">Submit</button>
+  <h5>Component using formState:</h5>
+  <ComponentUsingFormState />
+</Form>
+```
+
+#### Control Form via FormApi through the use of Hooks!!
+
+```jsx
+import { Form, Text, useFormApi } from 'informed';
+
+const ComponentUsingFormApi = () => {
+  const formApi = useFormApi();
+  return (
+    <button type="button" onClick={()=>
+      formApi.setValue(
+        'name', 
+        Math.floor(Math.random() * Math.floor(Number.MAX_SAFE_INTEGER)))}>
+      Random
+    </button>
+  );
+};
+  
+<Form>
+  <div>
+    <label>Name:<Text field="name"/></label>
+    <button type="submit">Submit</button>
+    <h5>Component using formApi:</h5>
+    <ComponentUsingFormApi />
+  </div>
+</Form>
+```
+
+#### Create custom inputs with built in validation!!
+
+```jsx
+import { Form, BasicText, asField } from 'informed';
+
+const validate = value => {
+  return !value || value.length < 5
+    ? 'Field must be at least five characters'
+    : undefined;
+};
+
+const ErrorText = asField(({ fieldState, ...props }) => (
+  <React.Fragment>
+    <BasicText
+      fieldState={fieldState}
+      {...props}
+      style={fieldState.error ? { border: 'solid 1px red' } : null}
+    />
+    {fieldState.error ? (
+      <small style={{ color: 'red' }}>{fieldState.error}</small>
+    ) : null}
+  </React.Fragment>
+));
+
+<Form>
+  <label>
+    First name:
+    <ErrorText
+      field="name"
+      validate={validate}
+      validateOnChange
+      validateOnBlur
+    />
+  </label>
+  <button type="submit">Submit</button>
+</Form>;
+```
+
+#### Create dynamic forms
+
+```jsx
+import { Form, Text, RadioGroup, Radio } from 'informed';
+
+<Form>
+  {({ formState }) => (
+    <React.Fragment>
+      <label>First name:<Text field="name"/></label>
+      <label>Are you married?</label>
+      <RadioGroup field="married">
+        <label>Yes <Radio value="yes"/></label>
+        <label>No <Radio value="no"/></label>
+      </RadioGroup>
+      {formState.values.married === 'yes' ? (
+        <label >Spouse name:<Text field="spouse" /></label>
+      ) : null}
+      <button type="submit">Submit</button>
+    </React.Fragment>
+  )}
+</Form>
+```
+
+**WARNING:** writing this in the above way is fine, it works they way we expect and gets us what we need... BUT! There is a better way!
+
+```jsx
+import { Form, Text, RadioGroup, Radio, useFieldState } from 'informed';
+
+const Spouse = () => {
+  const { value: married } = useFieldState('married'); 
+  return married === 'yes' ? <label >Spouse name:<Text field="spouse" /></label> : null;
+};
+
+<Form>
+  <label>First name:<Text field="name"/></label>
+  <label>Are you married?</label>
+  <RadioGroup field="married">
+    <label>Yes <Radio value="yes"/></label>
+    <label>No <Radio value="no"/></label>
+  </RadioGroup>
+  <Spouse />
+  <button type="submit">Submit</button>  
+</Form>
+```
+
+Writing code the second way can typically save excess rendering! And, it looks much cleaner.
+
+#### Create dynamic forms with dynamic arrays !!! Mind Blown!!!
+
+```jsx
+import { Form, Text, ArrayField } from 'informed';
+
+const DynamicArrays = () => {
+
+  return (
+    <div>
+      <Form>
+        <ArrayField field="sibling">
+          {({ add, fields }) => (
+            <>
+              <button onClick={add} type="button">
+                Add Sibling
+              </button>
+              {fields.map(({ field, key, remove }, i) => (
+                <label htmlFor={i} key={key}>
+                  Sibling {i}:
+                  <Text field={field} id={i} />
+                  <button type="button" onClick={remove}>
+                    Remove
+                  </button>
+                </label>
+              ))}
+            </>
+          )}
+        </ArrayField>
+        <button type="submit">Submit</button>
+        <FormState />
+      </Form>
+    </div>
+  );
+};

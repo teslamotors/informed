@@ -1,55 +1,34 @@
-import React, { Component } from 'react';
-import { FormContext } from '../Context';
-import FormController from '../Controller/FormController';
-
-class Form extends Component {
+import React, { useMemo } from 'react';
+import { FormStateContext, FormApiContext, FormRegisterContext } from '../Context';
+import FormController from '../FormController';
+import Debug from 'debug';
+const debug = Debug('informed:Form' + '\t\t');
+class Form extends React.Component {
   constructor(props) {
     super(props);
-    const {
-      onSubmit,
-      preSubmit,
-      getApi,
-      dontPreventDefault,
-      onSubmitFailure,
-      initialValues
-    } = props;
-    this.controller = new FormController(
-      {
-        onSubmit,
-        getApi,
-        preSubmit,
-        onSubmitFailure
-      },
-      {
-        dontPreventDefault,
-        initialValues
-      }
-    );
+    this.controller = new FormController({
+      dontPreventDefault: props.dontPreventDefault, 
+      initialValues: props.initialValues,
+      validate: props.validate
+    });
+    this.formApi = this.controller.getFormApi();
     this.controller.on('change', () => this.forceUpdate());
-    this.controller.on('change', state => {
-      if (props.onChange) {
-        props.onChange(state);
-      }
-    });
-    this.controller.on('values', values => {
-      if (props.onValueChange) {
-        props.onValueChange(values);
-      }
-    });
-  }
-
-  get formContext() {
-    return {
-      formApi: this.controller.api,
-      formState: this.controller.state,
-      controller: this.controller
-    };
+    this.controller.on('change', () => this.props.onChange && this.props.onChange( this.controller.getFormState() ));
+    this.controller.on('submit', () => this.props.onSubmit && this.props.onSubmit( this.controller.getFormState().values ) );
+    this.controller.on('value', () => this.props.onValueChange && this.props.onValueChange( this.controller.getFormState().values ) );
+    this.controller.on('failure', () => this.props.onSubmitFailure && this.props.onSubmitFailure( this.controller.getFormState().errors ) );
+    if (this.props.getApi) {
+      this.props.getApi(this.controller.getFormApi());
+    }
   }
 
   get content() {
     const { children, component, render } = this.props;
 
-    const props = this.formContext;
+    const props = {
+      formState: this.controller.getFormState(),
+      formApi: this.controller.getFormApi()
+    };
 
     if (component) {
       return React.createElement(component, props, children);
@@ -64,30 +43,34 @@ class Form extends Component {
   }
 
   render() {
-    // TODO find better way to get ...rest
-    const {
-      children,
-      component,
-      render,
-      onSubmit,
-      preSubmit,
-      getApi,
-      dontPreventDefault,
-      onSubmitFailure,
+    debug('Render FORM');
+    /* ----------- Destructure props ----------- */
+    const { 
+      children, 
+      getApi, 
+      onChange, 
+      onSubmit, 
+      onValueChange, 
       initialValues,
-      onValueChange,
-      onChange,
-      ...rest
-    } = this.props;
+      onSubmitFailure,
+      dontPreventDefault, ...rest } = this.props;
+
+    const formState = this.controller.getFormState();
+
+    /* --- Create Provider and render Content --- */
     return (
-      <FormContext.Provider value={this.formContext}>
-        <form
-          {...rest}
-          onReset={this.formContext.formApi.reset}
-          onSubmit={this.formContext.formApi.submitForm}>
-          {this.content}
-        </form>
-      </FormContext.Provider>
+      <FormRegisterContext.Provider value={this.controller.updater}>
+        <FormApiContext.Provider value={this.formApi}>
+          <FormStateContext.Provider value={formState}>
+            <form
+              {...rest}
+              onReset={this.controller.reset}
+              onSubmit={this.controller.submitForm}>
+              {this.content}
+            </form>
+          </FormStateContext.Provider>
+        </FormApiContext.Provider>
+      </FormRegisterContext.Provider>
     );
   }
 }

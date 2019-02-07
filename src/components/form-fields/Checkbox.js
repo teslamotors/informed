@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import asField from '../../HOC/asField';
 
 const Checkbox = ({ fieldApi, fieldState, ...props }) => {
@@ -9,6 +9,7 @@ const Checkbox = ({ fieldApi, fieldState, ...props }) => {
     onBlur,
     field,
     initialValue,
+    debug,
     forwardedRef,
     ...rest
   } = props;
@@ -25,7 +26,7 @@ const Checkbox = ({ fieldApi, fieldState, ...props }) => {
         }
       }}
       onBlur={e => {
-        setTouched();
+        setTouched(true);
         if (onBlur) {
           onBlur(e);
         }

@@ -98,28 +98,24 @@ describe('Scope', () => {
   });
 
   it('should scope getters', () => {
-    let savedFormApi;
     let savedFieldApi;
     const GetFieldApi = withFieldApi('color')(({ fieldApi }) => {
       savedFieldApi = fieldApi;
       return <div />;
     });
     const wrapper = mount(
-      <Form
-        getApi={api => {
-          savedFormApi = api;
-        }}>
+      <Form>
         <Scope scope="favorite">
-          <Text field="color" />
+          <Text field="color" validate={()=> 'Ahhh!!'} validateOnChange/>
           <GetFieldApi />
         </Scope>
       </Form>
     );
-    savedFormApi.setState({
-      values: { favorite: { color: 'green' } },
-      touched: { favorite: { color: true } },
-      errors: { favorite: { color: 'Ahhh!!' } }
-    });
+   
+    const input = wrapper.find('input').at(0);
+    input.simulate('change', { target: { value: 'green' } });
+    input.simulate('blur');
+
     expect(savedFieldApi.getValue()).to.equal('green');
     expect(savedFieldApi.getTouched()).to.equal(true);
     expect(savedFieldApi.getError()).to.equal('Ahhh!!');

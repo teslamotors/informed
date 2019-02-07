@@ -42,7 +42,23 @@ describe('RadioButton', () => {
     expect(savedApi.getState().values).to.deep.equal({ happy: 'yes' });
   });
 
-  it('should update error when user clicks radio and validator fails', done => {
+  it('should set initial value', () => {
+    let savedApi;
+    mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <RadioGroup field="happy" initialValue="yes">
+          <Radio id="radio-example-yes" value="yes" />
+          <Radio id="radio-example-no" value="no" />
+        </RadioGroup>
+      </Form>
+    );
+    expect(savedApi.getState().values).to.deep.equal({ happy: 'yes' });
+  });
+
+  it('should update error when user clicks radio and validator fails', () => {
     let savedApi;
     const validate = () => 'Error!!';
     const wrapper = mount(
@@ -58,10 +74,7 @@ describe('RadioButton', () => {
     );
     const input = wrapper.find('input').at(0);
     input.simulate('change', { target: { checked: true } });
-    setImmediate(() => {
-      expect(savedApi.getState().errors).to.deep.equal({ happy: 'Error!!' });
-      done();
-    });
+    expect(savedApi.getState().errors).to.deep.equal({ happy: 'Error!!' });
   });
 
   it('should toggle value when user toggles value option', () => {

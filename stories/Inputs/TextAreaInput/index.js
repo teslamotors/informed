@@ -6,11 +6,13 @@ import Code from '../../utils/Code';
 import { Form, TextArea } from '../../../src';
 
 const TextAreaInput = () => (
-  <Form id="textarea-form">
+  <Form>
     {({ formState }) => (
       <div>
-        <label htmlFor="textarea-bio">Bio:</label>
-        <TextArea field="bio" id="textarea-bio" />
+        <label>
+          Bio:
+          <TextArea field="bio"/>
+        </label>
         <button type="submit">Submit</button>
         <Code language="language-js">
           {JSON.stringify(formState.values, null, 2)}

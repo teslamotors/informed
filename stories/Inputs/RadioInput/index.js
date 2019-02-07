@@ -10,10 +10,8 @@ const RadioInput = () => (
     {({ formState }) => (
       <div>
         <RadioGroup field="gender">
-          <label htmlFor="radio-male">Male</label>
-          <Radio value="male" id="radio-male" />
-          <label htmlFor="radio-female">Female</label>
-          <Radio value="female" id="radio-female" />
+          <label>Male <Radio value="male"/></label>
+          <label>Female <Radio value="female"/></label>
         </RadioGroup>
         <button type="submit">Submit</button>
         <Code language="language-js">

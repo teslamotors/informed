@@ -1,12 +1,13 @@
 import React from 'react';
-import Code from '../utils/Code';
 import GettingStarted from './GettingStarted';
 import FormState from './FormState';
+import FormApi from './FormApi';
 
 const Intro = () => (
   <div>
     <GettingStarted />
     <FormState />
+    <FormApi />
   </div>
 );
 

@@ -3,6 +3,7 @@
   "version": "1.10.12",
   "description": "A lightweight framework and utility for building powerful forms in React applications",
   "main": "dist/index.js",
+  "module": "dist/esm/index.js",
   "types": "index.d.ts",
   "files": [
     "dist/",
@@ -10,10 +11,9 @@
   ],
   "scripts": {
     "start": "webpack-dev-server -d --config webpack.dev.config.js --port 4004 --hot",
-    "build": "webpack -p --config ./config/webpack/webpack.dist.config.js",
+    "build": "webpack --config ./config/webpack/webpack.dist.config.js && rollup --config",
     "test": "mocha-webpack --opts tests/mocha-webpack.opts",
     "test:watch": "npm run test -- --watch",
-    "pretest": "patch-package",
     "preversion": "npm run test:coverage",
     "version": "npm run build",
     "postversion": "git push",
@@ -38,23 +38,20 @@
     "url": "http://joepuzzo.github.io"
   },
   "keywords": [
+    "form",
+    "react-form",
+    "forms",
+    "informed",
     "react",
     "reactjs",
     "redux",
     "react-redux",
-    "redux-form",
-    "form",
-    "react-form",
-    "async",
-    "async-form",
-    "asynchronous-form",
-    "asynchronous"
+    "redux-form"
   ],
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.0.0-rc.1",
     "@babel/plugin-proposal-class-properties": "^7.0.0-rc.1",
-    "@babel/plugin-transform-runtime": "^7.0.0-rc.1",
     "@babel/preset-env": "^7.0.0-rc.1",
     "@babel/preset-react": "^7.0.0-rc.1",
     "@storybook/addon-options": "^3.4.10",
@@ -72,7 +69,7 @@
     "coveralls": "^3.0.2",
     "css-loader": "^1.0.0",
     "enzyme": "^3.4.1",
-    "enzyme-adapter-react-16": "^1.2.0",
+    "enzyme-adapter-react-16": "^1.9.1",
     "eslint": "^5.3.0",
     "eslint-plugin-react": "^7.10.0",
     "html-loader": "^0.5.5",
@@ -85,9 +82,13 @@
     "nyc": "^12.0.2",
     "patch-package": "^5.1.1",
     "prettier": "1.14.2",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1",
     "react-prism": "^4.3.2",
+    "rollup": "^1.1.2",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
     "sass-loader": "^7.1.0",
     "sinon": "^6.1.5",
     "storybook-readme": "^3.3.0",
@@ -96,14 +97,16 @@
     "webpack": "^4.16.5",
     "webpack-bundle-analyzer": "^3.0.2",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5",
+    "webpack-dev-server": "^3.1.14",
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.0.0-rc.1"
+    "debug": "^4.1.1",
+    "lodash": "^4.17.11"
   },
   "peerDependencies": {
-    "react": "^16.0.0"
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
   },
   "nyc": {
     "instrument": false,

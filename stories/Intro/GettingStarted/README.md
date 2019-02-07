@@ -1,6 +1,8 @@
 # Intro
 
-Say hello to the best react form library you have ever used! `Informed` is an extensive, simple, and efficient solution for creating basic to complex forms in react. Out of the box you get the ability to grab and manipulate values, validate fields, and create custom inputs.
+Say hello to the best react form library you have ever used! Informed is an extensive, simple, and efficient solution for creating basic to complex forms in react. Out of the box you get the ability to grab and manipulate values, validate fields, create custom inputs, and much much more!!!
+
+Oh and YES WE USE HOOKS!!
 
 Check out our [GitHub](https://github.com/joepuzzo/informed)!
 
@@ -23,16 +25,26 @@ npm install --save informed
 
 Alright its time to have some fun! The code below is all you need to get
 started. Go ahead and play around with the form below, check out the code
-snippet, and then you can read about what the heck is going on.
+snippet, and then you can read about what the heck is going on. 
+
+**Hint:** type 2 or three characters and click submit and take a look at the state represented on the right.
 
 <!-- STORY -->
 
 ```jsx
 import { Form, Text } from 'informed';
 
-<Form id="intro-form">
-  <label htmlFor="intro-name">First name:</label>
-  <Text field="name" id="intro-name" />
+const validate = value => {
+  return !value || value.length < 5
+    ? 'Field must be at least five characters'
+    : undefined;
+};
+
+<Form>
+  <label>
+    First name:
+    <Text field="name" validate={validate}/>
+  </label>
   <button type="submit">Submit</button>
 </Form>;
 ```

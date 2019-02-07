@@ -7,7 +7,7 @@ import { Form, BasicText, asField } from '../../../src';
 const validate = value => {
   return !value || value.length < 5
     ? 'Field must be at least five characters'
-    : null;
+    : undefined;
 };
 
 const ErrorText = asField(({ fieldState, ...props }) => (
@@ -25,17 +25,18 @@ const ErrorText = asField(({ fieldState, ...props }) => (
 
 const Intro = () => (
   <div>
-    <Form id="custom-form-1">
+    <Form>
       {({ formApi, formState }) => (
         <React.Fragment>
-          <label htmlFor="custom-1-name">First name:</label>
-          <ErrorText
-            field="name"
-            id="custom-1-name"
-            validate={validate}
-            validateOnChange
-            validateOnBlur
-          />
+          <label>
+            First name:
+            <ErrorText
+              field="name"
+              validate={validate}
+              validateOnChange
+              validateOnBlur
+            />
+          </label>
           <button type="submit">Submit</button>
           <label>Values:</label>
           <Code language="language-js">

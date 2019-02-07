@@ -9,13 +9,13 @@ import { Form, Text, Scope } from '../../../src';
 const basicValidation = value => {
   return !value || value.length < 5
     ? 'Field must be at least five characters'
-    : null;
+    : undefined;
 };
 
 const duplicateValidation = (value, values) => {
   return values.filter(v => v === value).length > 1
     ? 'This field must be unique.'
-    : null;
+    : undefined;
 };
 
 const friendValidation = (value, values) => {

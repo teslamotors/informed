@@ -1,5 +1,6 @@
 import React from 'react';
 import Code from '../../utils/Code';
+import FormState from '../../utils/FormState';
 import withDocs from '../../utils/withDocs';
 import readme from './InlineFunctions.md';
 
@@ -9,8 +10,8 @@ const validate = value => 'Field is not valid';
 
 const InlineFunctions = () => (
   <div>
-    <Form id="gotcha-form-1">
-      {({ formApi, formState }) => (
+    <Form id="gotcha-render-form-1">
+      {({ formState }) => (
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>
             <h5>Bad Form</h5>
@@ -22,6 +23,7 @@ const InlineFunctions = () => (
               validateOnBlur
               debug
               validate={value => 'Field is not valid'}
+              autoComplete="off"
             />
             <label htmlFor="gotcha-food-1">Food:</label>
             <small>Validate on change</small>
@@ -31,6 +33,7 @@ const InlineFunctions = () => (
               validateOnChange
               debug
               validate={value => 'Field is not valid'}
+              autoComplete="off"
             />
             <label htmlFor="gotcha-car-1">Car:</label>
             <small>Validate on blur and change</small>
@@ -41,11 +44,21 @@ const InlineFunctions = () => (
               validateOnChange
               debug
               validate={value => 'Field is not valid'}
+              autoComplete="off"
             />
             <button type="submit">Submit</button>
           </div>
+          <div style={{ flex: 2, minWidth: '300px' }}>
+            <FormState errors/>
+          </div>
+        </div>
+      )}
+    </Form>
+    <Form id="gotcha-render-form-2">
+      {({ formState }) => (
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>
-            <h5>Good Form</h5>
+            <h5>Better Form</h5>
             <label htmlFor="gotcha-color-2">Color:</label>
             <small>Validate on blur</small>
             <Text
@@ -54,6 +67,7 @@ const InlineFunctions = () => (
               validateOnBlur
               debug
               validate={validate}
+              autoComplete="off"
             />
             <label htmlFor="gotcha-food-2">Food:</label>
             <small>Validate on change</small>
@@ -63,6 +77,7 @@ const InlineFunctions = () => (
               validateOnChange
               debug
               validate={validate}
+              autoComplete="off"
             />
             <label htmlFor="gotcha-car-2">Car:</label>
             <small>Validate on blur and change</small>
@@ -73,21 +88,57 @@ const InlineFunctions = () => (
               validateOnChange
               debug
               validate={validate}
+              autoComplete="off"
             />
             <button type="submit">Submit</button>
           </div>
           <div style={{ flex: 2, minWidth: '300px' }}>
-            <label>Values:</label>
-            <Code language="language-js">
-              {JSON.stringify(formState.values, null, 2)}
-            </Code>
-            <label>Errors:</label>
-            <Code language="language-js">
-              {JSON.stringify(formState.errors, null, 2)}
-            </Code>
+            <FormState errors/>
           </div>
         </div>
       )}
+    </Form>
+    <Form id="gotcha-render-form-3">
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <div style={{ flex: 1, marginRight: '2rem' }}>
+          <h5>Best Form</h5>
+          <label htmlFor="gotcha-color-2">Color:</label>
+          <small>Validate on blur</small>
+          <Text
+            field="color"
+            id="gotcha-color-2"
+            validateOnBlur
+            debug
+            validate={validate}
+            autoComplete="off"
+          />
+          <label htmlFor="gotcha-food-2">Food:</label>
+          <small>Validate on change</small>
+          <Text
+            field="food"
+            id="gotcha-food-2"
+            validateOnChange
+            debug
+            validate={validate}
+            autoComplete="off"
+          />
+          <label htmlFor="gotcha-car-2">Car:</label>
+          <small>Validate on blur and change</small>
+          <Text
+            field="car"
+            id="gotcha-car-2"
+            validateOnBlur
+            validateOnChange
+            debug
+            validate={validate}
+            autoComplete="off"
+          />
+          <button type="submit">Submit</button>
+        </div>
+        <div style={{ flex: 2, minWidth: '300px' }}>
+          <FormState errors/>
+        </div>
+      </div>
     </Form>
   </div>
 );

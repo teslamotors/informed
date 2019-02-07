@@ -6,8 +6,9 @@
 import { Form, Checkbox } from 'informed';
 
 <Form id="checkbox-form">
-  <label htmlFor="checkbox-authorize">Authorize</label>
-  <Checkbox field="authorize" id="checkbox-authorize" />
+  <label>
+    Authorize <Checkbox field="authorize"/>
+  </label>
   <button type="submit">Submit</button>
 </Form>;
 ```

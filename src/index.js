@@ -1,11 +1,19 @@
 import Form from './components/Form';
 import Scope from './components/Scope';
-import Field from './components/Field';
+import ArrayField from './components/ArrayField';
+
 import withFormApi from './HOC/withFormApi';
 import withFormState from './HOC/withFormState';
-import { withFieldApi, withFieldState } from './HOC/withFieldStuff';
+import withFieldState from './HOC/withFieldState';
+import withFieldApi from './HOC/withFieldApi';
 import withRadioGroup from './HOC/withRadioGroup';
 import asField from './HOC/asField';
+
+import useField from './hooks/useField';
+import useFieldApi from './hooks/useFieldApi';
+import useFieldState from './hooks/useFieldState';
+import useFormApi from './hooks/useFormApi';
+import useFormState from './hooks/useFormState';
 
 import Text from './components/form-fields/Text';
 import Radio from './components/form-fields/Radio';
@@ -24,14 +32,17 @@ import { BasicCheckbox } from './components/form-fields/Checkbox';
 
 export {
   Form,
-  Scope,
-  Field,
   withFormApi,
   withFormState,
   withFieldApi,
   withFieldState,
   withRadioGroup,
   asField,
+  useField,
+  useFieldApi,
+  useFieldState,
+  useFormApi,
+  useFormState,
   Text,
   Radio,
   TextArea,
@@ -44,5 +55,7 @@ export {
   BasicRadioGroup,
   BasicTextArea,
   BasicSelect,
-  BasicCheckbox
+  BasicCheckbox,
+  Scope,
+  ArrayField
 };

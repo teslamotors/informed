@@ -7,15 +7,18 @@ import { Form, Text } from '../../../src';
 const validate = value => {
   return !value || value.length < 5
     ? 'Field must be at least five characters'
-    : null;
+    : undefined;
+};
+
+const validateForm = values => {
+  return values.name === 'Joseph' ? 'Username is already taken!' : undefined;
 };
 
 const FormState = () => (
-  <Form id="form-state-form">
+  <Form id="form-state-form" validate={validateForm}>
     {({ formState }) => (
       <div>
-        <label htmlFor="form-state-name">First name:</label>
-        <Text field="name" id="form-state-name" validate={validate} />
+        <label>First name:<Text field="name" validate={validate} /></label>
         <button type="submit">Submit</button>
         <label>Values:</label>
         <code>{JSON.stringify(formState.values)}</code>
@@ -23,8 +26,6 @@ const FormState = () => (
         <code>{JSON.stringify(formState.touched)}</code>
         <label>Errors:</label>
         <code>{JSON.stringify(formState.errors)}</code>
-        <label>Async Errors:</label>
-        <code>{JSON.stringify(formState.asyncErrors)}</code>
         <label>Invalid:</label>
         <code>{JSON.stringify(formState.invalid)}</code>
         <label>Pristine:</label>
@@ -33,6 +34,8 @@ const FormState = () => (
         <code>{JSON.stringify(formState.dirty)}</code>
         <label>Submits:</label>
         <code>{formState.submits}</code>
+        <label>Submits:</label>
+        <code>{formState.error}</code>
       </div>
     )}
   </Form>

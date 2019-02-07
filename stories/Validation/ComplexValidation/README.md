@@ -4,7 +4,7 @@ Complex validation can be achieved by passing a validation function to an input,
 that also accepts all the values in the form. Below is an example form
 that has validation functions on each input. The Basic validation function will
 return an error when the input has less than five characters, or there is no
-value at all, and null otherwise. The friendValidation function will show errors
+value at all, and undefined otherwise. The friendValidation function will show errors
 when basic validation fails OR two friends have the same name. We pass the input
 validation function to every input and the friendValidation function to the
 friend fields. Validation will **occur on submission**.
@@ -29,11 +29,11 @@ the additional friend checks failed.
 import { Form, Text, Scope } from 'informed';
 
 const basicValidation = value => {
-  return !value || value.length < 5 ? 'Field must be longer than five characters' : null;
+  return !value || value.length < 5 ? 'Field must be longer than five characters' : undefined;
 }
 
 const duplicateValidation = ( value, values ) => {
-  return values.filter( v => v === value ).length > 1 ? 'This field must be unique.' : null;
+  return values.filter( v => v === value ).length > 1 ? 'This field must be unique.' : undefined;
 }
 
 const friendValidation = ( value, values ) => {
@@ -45,7 +45,7 @@ const friendValidation = ( value, values ) => {
   <Text field="name" id="complex-name" validate={basicValidation} />
   <Scope scope="favorite">
     <label htmlFor="complex-color">Favorite color:</label>
-    <Text field="color" id="complex-color" validate={basicValidation} />
+    <Text field="color" id="complex-color" validate={basicValidation} />undefined
     <label htmlFor="complex-food">Favorite food:</label>
     <Text field="food" id="complex-food" validate={basicValidation} />
   </Scope>

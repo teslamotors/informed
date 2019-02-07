@@ -13,11 +13,11 @@ invalid is derived from the errors attribute and therefore cannot be set directl
 | values      | `{name:'Joe'}`     | `{}`          | NO      | Key value pair where key is the form field and value is the value entered or selected.                                                                                                                         |
 | touched     | `{name:true}`      | `{}`          | NO      | Key value pair where key is the form field and value is true or undefined ( touched or untouched ). Submitting form will cause all fields to be touched.                                                       |
 | errors      | `{name:'Invalid'}` | `{}`          | NO      | Key value pair where key is the form field and value is the error associated with that field. If a validate function is provided to an input, then when it is called this object will be modified.             |
-| asyncErrors | `{name:'Invalid'}` | `{}`          | NO      | Key value pair where key is the form field and value is the async error associated with that field. If an asyncValidate function is provided to an input, then when it is called this object will be modified. |
-| invalid     | `true`             | `false`       | YES     | Boolean that is true when form is invalid. A form is invalid when any of its inputs fails its validation function ( if there are errors ). This includes asyncErrors!                                          |
+| invalid     | `true`             | `false`       | YES     | Boolean that is true when form is invalid. A form is invalid when any of its inputs fails its validation function ( if there are errors ).                                         |
 | pristine    | `true`             | `true`        | YES     | Boolean that is true when form is pristine. A form is pristine when it has not been touched && no values have been entered in any field                                                                        |
 | dirty       | `true`             | `false`       | YES     | Boolean that is true when pristine is false                                                                                                                                                                    |
 | submits     | `1`                | `0`           | YES     | Number of times the form was submitted. ( Successful or Unsuccessful )                                                                                                                                         |
+| error       | `Invalid form`     |  undefined    | NO      | Result of the form level validation function                                                                                                                                                                   |
 
 **"Ok so informed takes care of state so I dont have to.. but how do i get my hands
 on this state??**
@@ -33,14 +33,20 @@ the values that are changing.
 import { Form, Text } from 'informed';
 
 const validate = value => {
-  return !value || value.length < 5 ? 'Field must be longer than five characters' : null;
+  return !value || value.length < 5 ? 'Field must be longer than five characters' : undefined;
 }
 
-<Form id="form-state-form">
+const validateForm = values => {
+  return values.name === 'Joseph' ? 'Username is already taken!' : undefined;
+};
+
+<Form validateForm={validateForm}>
   {({ formState }) => (
     <div>
-      <label htmlFor="form-state-name">First name:</label>
-      <Text field="name" id="form-state-name" validate={validate}/>
+      <label>
+        First name:
+        <Text field="name" validate={validate} />
+      </label>
       <button type="submit">
         Submit
       </button>
@@ -56,10 +62,6 @@ const validate = value => {
       <code>
         {JSON.stringify(formState.errors)}
       </code>
-      <label>Async Errors:</label>
-      <code>
-        {JSON.stringify(formState.asyncErrors)}
-      </code>
       <label>Invalid:</label>
       <code>
         {JSON.stringify(formState.invalid)}
@@ -72,6 +74,14 @@ const validate = value => {
       <code>
         {JSON.stringify(formState.dirty)}
       </code>
+      <label>Submits:</label>
+      <code>
+        {JSON.stringify(formState.submits)}
+      </code>
+      <label>Error:</label>
+      <code>
+        {JSON.stringify(formState.error)}
+      </code>
     </div>
   )}
 </Form>
@@ -83,9 +93,9 @@ const validate = value => {
 
 Its not magic, its a Function As A Child, or otherwise known as [render props](https://reactjs.org/docs/render-props.html)
 
-There are three ways you can get access to `Informed`s form state.
+There are five ways you can get access to `Informed`s form state.
 
-1. By accessing the `formState` as a parameter to a child render function.
+1) By accessing the `formState` as a parameter to a child render function.
 
 ```jsx
 <Form>
@@ -93,13 +103,17 @@ There are three ways you can get access to `Informed`s form state.
     <div>
       <Text field="hello" />
       <button type="submit">Submit</button>
+      <label>Values:</label>
+      <code>{JSON.stringify(formState.values)}</code>
+      <label>Touched:</label>
+      <code>{JSON.stringify(formState.touched)}</code>
     </div>
   )}
 </Form>
 ```
 
-  <br/>
-  2. By accessing the `formState` as a parameter to a render prop.
+<br/>
+2) By accessing the `formState` as a parameter to a render prop.
 
 ```jsx
 <Form
@@ -107,27 +121,78 @@ There are three ways you can get access to `Informed`s form state.
     <div>
       <Text field="hello" />
       <button type="submit">Submit</button>
+      <label>Values:</label>
+      <code>{JSON.stringify(formState.values)}</code>
+      <label>Touched:</label>
+      <code>{JSON.stringify(formState.touched)}</code>
     </div>
   )}
 />
 ```
 
-  <br/>
-  2. By accessing the `formState` as a prop to a component prop.
+<br/>
+3) By accessing the `formState` as a prop to a component prop.
 
 ```jsx
 const FormContent = ({ formState }) => (
   <div>
     <Text field="hello" />
     <button type="submit">Submit</button>
+    <label>Values:</label>
+    <code>{JSON.stringify(formState.values)}</code>
+    <label>Touched:</label>
+    <code>{JSON.stringify(formState.touched)}</code>
   </div>
 );
 
 <Form component={FormContent} />;
 ```
 
-  <br/>
-  So if you do need access to the form state, any of these methods will work.
+<br/>
+4) By accessing the `formState` as a prop via a HOC ( High Order Component ).
+
+```jsx
+const FormState = withFormState(({ formState }) => (
+  <label>Values:</label>
+  <code>{JSON.stringify(formState.values)}</code>
+  <label>Touched:</label>
+  <code>{JSON.stringify(formState.touched)}</code>
+));
+
+<Form>
+  <div>
+    <Text field="hello" />
+    <button type="submit">Submit</button>
+    <FormState />
+  </div>
+</Form>
+```
+
+<br/>
+5) By accessing the `formState` via Hooks!
+
+```jsx
+const FormState = () => {
+  const formState = useFormState();
+  return (
+    <label>Values:</label>
+    <code>{JSON.stringify(formState.values)}</code>
+    <label>Touched:</label>
+    <code>{JSON.stringify(formState.touched)}</code>
+  );
+};
+
+<Form>
+  <div>
+    <Text field="hello" />
+    <button type="submit">Submit</button>
+    <FormState />
+  </div>
+</Form>
+```
+<br/>
+So if you do need access to the form state, any of these methods will work.
+
 
 ---
 

@@ -19,6 +19,9 @@
 ### Removed
 
 - The Field Component
+- `setState` will maybe add later but its complex and out of scope ATM
+- `setValues` will maybe add later but its complex and out of scope ATM
+- `preSubmit` was never needed.. developers can do this themselves
 - Async Validation. Async validation led to many issues that overcomplicated `informed`. We determined this is something that the developer could achive on there own for now but we may look into adding this in the future. 
 
 ## 1.10.12 ( December 4, 2018 )

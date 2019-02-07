@@ -6,7 +6,7 @@ const debug = Debug('informed:Controller'+'\t');
 class FormController extends EventEmitter {
 
 
-  constructor(options) {
+  constructor(options = {}) {
 
     // Dont forget to call super! :)
     super();

@@ -45,7 +45,15 @@ class Form extends React.Component {
   render() {
     debug('Render FORM');
     /* ----------- Destructure props ----------- */
-    const { children, getApi, onChange, onSubmit, onValueChange, dontPreventDefault, ...rest } = this.props;
+    const { 
+      children, 
+      getApi, 
+      onChange, 
+      onSubmit, 
+      onValueChange, 
+      initialValues,
+      onSubmitFailure,
+      dontPreventDefault, ...rest } = this.props;
 
     const formState = this.controller.getFormState();
 

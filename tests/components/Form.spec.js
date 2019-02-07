@@ -84,15 +84,14 @@ describe('Form', () => {
     expect(spy.args[0][0].values).to.deep.equal({ greeting: 'hello' });
   });
 
-  it.skip('does not apply unnecessary props to the form element', () => {
+  it('does not apply unnecessary props to the form element', () => {
     const excludedProps = {
-      preSubmit: true,
       getApi: () => {},
       dontPreventDefault: true,
-      onSubmitFailure: true,
-      initialValues: true,
-      onValueChange: true,
-      onChange: () => {}
+      onSubmitFailure: ()=>{},
+      initialValues: {},
+      onValueChange: ()=>{},
+      onChange: () => {},
     };
     const wrapper = mount(
       <Form {...excludedProps}>{() => <Text field="greeting" />}</Form>
@@ -284,25 +283,6 @@ describe('Form', () => {
     });
   });
 
-  it.skip('should call preSubmit function with values when the form is submitted', done => {
-    const spy = sandbox.spy();
-    const wrapper = mount(
-      <Form preSubmit={spy}>
-        <Text field="greeting" />
-        <button type="submit">Submit</button>
-      </Form>
-    );
-    const input = wrapper.find('input');
-    input.simulate('change', { target: { value: 'hello' } });
-    const button = wrapper.find('button');
-    button.simulate('submit');
-    setImmediate(() => {
-      expect(spy.called).to.equal(true);
-      expect(spy.args[0][0]).to.deep.equal({ greeting: 'hello' });
-      done();
-    });
-  });
-
   it('should incriment submits when form is submitted', done => {
     let api;
     const setApi = param => {
@@ -383,26 +363,6 @@ describe('Form', () => {
     mount(<Form getApi={setApi}>{() => <Text field="greeting" />}</Form>);
     api.setValues({ greeting: 'hello' });
     expect(api.getState().values).to.deep.equal({ greeting: 'hello' });
-  });
-
-  it.skip('fieldExists should return true when field exists', () => {
-    let api;
-    const setApi = param => {
-      api = param;
-    };
-    mount(<Form getApi={setApi}>{() => <Text field="greeting" />}</Form>);
-    const result = api.fieldExists('greeting');
-    expect(result).to.be.true;
-  });
-
-  it.skip('fieldExists should return false when field does not exists', () => {
-    let api;
-    const setApi = param => {
-      api = param;
-    };
-    mount(<Form getApi={setApi}>{() => <Text field="greeting" />}</Form>);
-    const result = api.fieldExists('notgreeting');
-    expect(result).to.be.false;
   });
 
   it('reset should reset the form to its initial state via initialValue prop on input', () => {

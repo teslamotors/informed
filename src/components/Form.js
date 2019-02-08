@@ -53,6 +53,9 @@ class Form extends React.Component {
       onValueChange, 
       initialValues,
       onSubmitFailure,
+      render,
+      validate,
+      component,
       dontPreventDefault, ...rest } = this.props;
 
     const formState = this.controller.getFormState();

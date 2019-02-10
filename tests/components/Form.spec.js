@@ -339,6 +339,25 @@ describe('Form', () => {
     expect(api.getState().values).to.deep.equal({ greeting: 'hello' });
   });
 
+  it('should set initial values when initial values are passed and should call onSubmit', () => {
+    const spy = sandbox.spy();
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const validate = value => null;
+    const wrapper = mount(
+      <Form getApi={setApi} initialValues={{ greeting: 'hello' }} onSubmit={spy}>
+        <Text field="greeting" validate={validate} />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+    const button = wrapper.find('button');
+    button.simulate('submit');
+    expect(api.getState().invalid).to.equal(false);
+    expect(spy.called).to.equal(true);
+  });
+
   it.skip('setState should set the formState', () => {
     let api;
     const setApi = param => {

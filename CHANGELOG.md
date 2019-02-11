@@ -1,3 +1,8 @@
+## 2.0.1 (Feb 10, 2019)
+
+### Fixed
+- Issue where render and component props were getting passed to the dom form
+
 ## 2.0.0 (Feb 7, 2019)
 
 ### Added

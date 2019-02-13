@@ -37,6 +37,7 @@
 - the field `"siblings.1"` now resolves to `values.siblings[1]`, it used to resolve to `values.siblings.1`
 - the field `"siblings['2']"` now resolves to `values.siblings[2]`, it used to resolve to `values.siblings.2`
 - withFormApi will no longer trigger a rerender if the fomrs state changes. This is a great optimization for those who want to modify but dont care about the form state!
+- the `validate` prop now expects the validation function to return `undefined` if there is no error. Any other returned value (including falsey `null`, `0`, etc will be treated as an error for the field.
 
 ### Removed
 

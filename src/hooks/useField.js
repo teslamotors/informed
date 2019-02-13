@@ -145,18 +145,19 @@ function useField(field, fieldProps = {}) {
     touched
   };
 
-  logger('Render', field, fieldState);
+  logger('Render', formApi.getFullField(field), fieldState);
 
   const ref = useRef(null);
 
   // We want to register and deregister this field when field name changes
   useLayoutEffect(
     () => {
-      logger('Register', field);
-      updater.register(field, fieldState, { field, fieldApi, fieldState, notify, keepState });
+      const fullField = formApi.getFullField(field);
+      logger('Register', fullField);
+      updater.register(field, fieldState, { field: fullField, fieldApi, fieldState, notify, keepState });
 
       return () => {
-        logger('Deregister', field);
+        logger('Deregister', fullField);
         updater.deregister(field);
       };
     },
@@ -167,8 +168,9 @@ function useField(field, fieldProps = {}) {
   // We want to let the controller know of changes on this field when specific props change
   useLayoutEffect(
     () => {
+      const fullField = formApi.getFullField(field);
       logger('Update', field);
-      updater.update(field, { field, fieldApi, fieldState, notify, keepState });
+      updater.update(field, { field: fullField, fieldApi, fieldState, notify, keepState });
     },
     // This is VERYYYY!! Important!
     [validate, validateOnChange, validateOnBlur, onValueChange]

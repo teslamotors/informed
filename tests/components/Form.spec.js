@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import Enzyme, { mount } from 'enzyme';
 
-import { Form, Text } from '../../src';
+import { Form, Text, Scope } from '../../src';
 
 describe('Form', () => {
   const sandbox = sinon.createSandbox();
@@ -349,14 +349,35 @@ describe('Form', () => {
     expect(api.getState().values).to.deep.equal({ greeting: 'hello' });
   });
 
-  it.skip('setValues should set the forms values', () => {
+  it('setValues should set the forms values', () => {
     let api;
     const setApi = param => {
       api = param;
     };
-    mount(<Form getApi={setApi}>{() => <Text field="greeting" />}</Form>);
-    api.setValues({ greeting: 'hello' });
-    expect(api.getState().values).to.deep.equal({ greeting: 'hello' });
+    mount(
+      <Form getApi={setApi}>
+        <Text field="greeting" />
+        <Text field="name" />
+        <Scope scope="favorite">
+          <Text field="color" />
+          <Text field="food" />
+        </Scope>
+      </Form>
+    );
+    api.setValues({ 
+      greeting: 'hello', 
+      name: 'joe',
+      favorite: {
+        color: 'green'
+      }
+    });
+    expect(api.getState().values).to.deep.equal({ 
+      greeting: 'hello', 
+      name: 'joe',
+      favorite: {
+        color: 'green'
+      }
+    });
   });
 
   it('reset should reset the form to its initial state via initialValue prop on input', () => {
@@ -403,6 +424,62 @@ describe('Form', () => {
     api.reset();
     expect(api.getState()).to.deep.equal(getState({
       values: { greeting: 'ayyyoooooo' },
+      pristine: false, 
+      dirty: true
+    }));
+  });
+
+  it('reset should reset the form to its initial state via initialValue prop on input with scope', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const wrapper = mount(
+      <Form getApi={setApi}>
+        <Scope scope="favorite">
+          <Text field="color" initialValue="red"/>
+        </Scope>
+      </Form>
+    );
+    expect(api.getState()).to.deep.equal(
+      getState({ values: {favorite: { color: 'red'}}, pristine: false, dirty: true })
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'green' } });
+    expect(api.getState()).to.deep.equal(
+      getState({ values: {favorite: { color: 'green'}}, pristine: false, dirty: true })
+    );
+    api.reset();
+    expect(api.getState()).to.deep.equal(getState({
+      values: {favorite: { color: 'red'}},
+      pristine: false, 
+      dirty: true
+    }));
+  });
+
+  it('reset should reset the form to its initial state via initialValue prop on form with scope', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const wrapper = mount(
+      <Form getApi={setApi} initialValues={{ favorite: { color: 'red'} }}>
+        <Scope scope="favorite">
+          <Text field="color" />
+        </Scope>
+      </Form>
+    );
+    expect(api.getState()).to.deep.equal(
+      getState({ values: {favorite: { color: 'red'}}, pristine: false, dirty: true })
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'green' } });
+    expect(api.getState()).to.deep.equal(
+      getState({ values: {favorite: { color: 'green'}}, pristine: false, dirty: true })
+    );
+    api.reset();
+    expect(api.getState()).to.deep.equal(getState({
+      values: {favorite: { color: 'red'}},
       pristine: false, 
       dirty: true
     }));

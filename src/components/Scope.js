@@ -12,6 +12,7 @@ const buildScopedFormApi = ( scope, formApi ) => {
     setValue: (field, value) => formApi.setValue(`${scope}.${field}`, value),
     setTouched: (field, value) => formApi.setTouched(`${scope}.${field}`, value),
     setError: (field, value) => formApi.setError(`${scope}.${field}`, value),
+    getFullField: field => `${formApi.getFullField(scope)}.${field}`
   }; 
 };
 

@@ -1,3 +1,11 @@
+## 2.0.3 (Feb 13, 2019)
+
+### Fixed
+- Issue where reset would not work for scoped fields
+
+### Added 
+- Set Values to the form api!!!
+
 ## 2.0.2 (Feb 13, 2019)
 
 ### Fixed
@@ -35,7 +43,7 @@
 - The Field Component
 - `fieldExists` not needed
 - `setState` will maybe add later but its complex and out of scope ATM
-- `setValues` will maybe add later but its complex and out of scope ATM
+- `setValues` will maybe add later but its complex and out of scope ATM ( as of V 2.0.3 its back! )
 - `preSubmit` was never needed.. developers can do this themselves
 - Async Validation. Async validation led to many issues that overcomplicated `informed`. We determined this is something that the developer could achive on there own for now but we may look into adding this in the future. 
 

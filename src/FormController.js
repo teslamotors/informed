@@ -73,6 +73,8 @@ class FormController extends EventEmitter {
     const setError = (field, value) =>
       this.fields.get(field).fieldApi.setError(value);
 
+    const setValues = values => this.setValues(values);
+
     const getValue = (field) => this.getValue(field);
 
     const getTouched = (field) => this.getTouched(field);
@@ -87,17 +89,21 @@ class FormController extends EventEmitter {
 
     const getValues = () => this.getFormState().values;
 
+    const getFullField = field => this.getFullField(field);
+
     return {
       setValue,
       setTouched,
       setError,
+      setValues,
       getValue,
       getTouched,
       getError,
       reset,
       submitForm,
       getState,
-      getValues
+      getValues,
+      getFullField
     };
   }
 
@@ -161,6 +167,10 @@ class FormController extends EventEmitter {
     return ObjectMap.get(this.state.errors, field);
   }
 
+  getFullField(field) { 
+    return field;
+  }
+
   valid(){
     return !!(ObjectMap.empty(this.state.errors) && !this.state.error);
   }
@@ -189,6 +199,23 @@ class FormController extends EventEmitter {
       const initialValue = ObjectMap.get(this.options.initialValues, field.field);
       if( initialValue ){
         this.getFormApi().setValue( field.field, initialValue );
+      } 
+    });
+
+    this.emit('change');
+  }
+
+  setValues(values){
+    debug('Setting values');
+    // So we because all fields controll themselves and, "inform", this controller
+    // of their changes, we need to literally itterate through all registered fields
+    // and set them. Not a big deal but very important to remember that you cant simply
+    // set this controllers state!
+    this.fields.forEach(( field )=>{
+      // Initialize the values if it needs to be
+      const value = ObjectMap.get(values, field.field);
+      if( value ){
+        this.getFormApi().setValue( field.field, value );
       } 
     });
 

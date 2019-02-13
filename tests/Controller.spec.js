@@ -20,6 +20,7 @@ describe('Controller', () => {
     expect(api).to.have.own.property('getValues');
     expect(api).to.have.own.property('submitForm');
     expect(api).to.have.own.property('reset');
+    expect(api).to.have.own.property('setValues');
   };
 
   describe('constructor', () => {

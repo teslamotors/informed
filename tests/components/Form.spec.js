@@ -497,6 +497,24 @@ describe('Form', () => {
     );
   });
 
+  it('setValue should set a scoped value', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    mount(
+      <Form getApi={setApi}>
+        <Scope scope="favorite">
+          <Text field="color" />
+        </Scope>
+      </Form>
+    );
+    api.setValue('favorite.color', 'green');
+    expect(api.getState()).to.deep.equal(
+      getState({ values: {favorite: { color: 'green'}}, pristine: false, dirty: true })
+    );
+  });
+
   it('setError should set an error', () => {
     let api;
     const setApi = param => {

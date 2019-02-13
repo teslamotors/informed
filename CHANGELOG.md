@@ -1,3 +1,8 @@
+## 2.0.4 (Feb 13, 2019)
+
+### Added 
+- validateFields function to the form!!! 
+
 ## 2.0.3 (Feb 13, 2019)
 
 ### Fixed

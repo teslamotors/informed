@@ -245,6 +245,25 @@ class FormController extends EventEmitter {
       this.setFormError(res);
     }
 
+    // Call the forms field level validation
+    if( this.options.validateFields ){
+      const errors = this.options.validateFields( this.state.values );
+      // So we because all fields controll themselves and, "inform", this controller
+      // of their changes, we need to literally itterate through all registered fields
+      // and set them. Not a big deal but very important to remember that you cant simply
+      // set this controllers state!
+      this.fields.forEach(( field )=>{
+        // Check to see if there is an error to set 
+        // Note: we use has becuause value may be there but undefined
+        if( ObjectMap.has(errors, field.field ) ){
+          const error = ObjectMap.get(errors, field.field);
+          // If there is an error then set it
+          this.getFormApi().setError( field.field, error );
+        } 
+      });
+
+    }
+
     // Emit a change 
     this.emit('change');
 

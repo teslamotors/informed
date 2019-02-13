@@ -25,22 +25,10 @@ const validate = value => {
   return !value || value.length < 5 ? 'Field must be at least five characters' : undefined;
 }
 
-<Form id="validate-form">
-  <label htmlFor="validate-color">Color:</label>
-  <Text
-    field="color"
-    id="validate-color"
-    validate={validate} />
-  <label htmlFor="validate-food">Food:</label>
-  <Text
-    field="food"
-    id="validate-food"
-    validate={validate} />
-  <label htmlFor="validate-car">Car:</label>
-  <Text
-    field="car"
-    id="validate-car"
-    validate={validate} />
+<Form >
+  <label>Color:<Text field="color" validate={validate}/></label>
+  <label>Food:<Text field="food" validate={validate}/></label>
+  <label>Car:<Text field="car" validate={validate}/></label>
   <button type="submit">
     Submit
   </button>

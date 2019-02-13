@@ -238,6 +238,61 @@ describe('Form', () => {
     expect(spy.called).to.equal(true);
   });
 
+  it('should NOT call onSubmit function with values when the invalid form is submitted due to invalid form level field validation', () => {
+    const spy = sandbox.spy();
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const validate = ({a, b}) => {
+      return {
+        a: a.length < 4 ? 'please enter more than 3 characters' : undefined,
+        b: b.length < 4 ? 'please enter more than 3 characters' : undefined
+      };
+    };
+    const wrapper = mount(
+      <Form onSubmit={spy} getApi={setApi} validateFields={validate}>
+        <Text field="a" />
+        <Text field="b" />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+    api.setValue('a', 'asd');
+    api.setValue('b', 'as');
+    const button = wrapper.find('button');
+    button.simulate('submit');
+    expect(spy.called).to.equal(false);
+  });
+
+  it('should set correct errors when invalid form level field validation', () => {
+    const spy = sandbox.spy();
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const validate = ({a, b}) => {
+      return {
+        a: a.length < 4 ? 'please enter more than 3 characters' : undefined,
+        b: b.length < 4 ? 'please enter more than 3 characters' : undefined
+      };
+    };
+    const wrapper = mount(
+      <Form onSubmit={spy} getApi={setApi} validateFields={validate}>
+        <Text field="a" />
+        <Text field="b" />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+    api.setValue('a', 'asd');
+    api.setValue('b', 'as');
+    const button = wrapper.find('button');
+    button.simulate('submit');
+    expect(api.getState().errors).to.eql({
+      a: 'please enter more than 3 characters',
+      b: 'please enter more than 3 characters'
+    });
+  });
+
   it('should reset form error after invalid form is submitted and value is changed', () => {
     const spy = sandbox.spy();
     let api;

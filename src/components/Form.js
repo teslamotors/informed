@@ -9,7 +9,8 @@ class Form extends React.Component {
     this.controller = new FormController({
       dontPreventDefault: props.dontPreventDefault, 
       initialValues: props.initialValues,
-      validate: props.validate
+      validate: props.validate,
+      validateFields: props.validateFields
     });
     this.formApi = this.controller.getFormApi();
     this.controller.on('change', () => this.forceUpdate());
@@ -55,6 +56,7 @@ class Form extends React.Component {
       onSubmitFailure,
       render,
       validate,
+      validateFields,
       component,
       dontPreventDefault, ...rest } = this.props;
 

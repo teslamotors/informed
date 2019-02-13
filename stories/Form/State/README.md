@@ -40,7 +40,7 @@ const validateForm = values => {
   return values.name === 'Joseph' ? 'Username is already taken!' : undefined;
 };
 
-<Form validateForm={validateForm}>
+<Form validate={validateForm}>
   {({ formState }) => (
     <div>
       <label>

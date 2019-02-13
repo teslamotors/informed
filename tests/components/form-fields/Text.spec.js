@@ -138,4 +138,31 @@ describe('Text', () => {
     input.simulate('change', { target: { value: 'world' } });
     expect(savedApi.getState().values).to.deep.equal({ hello: 'world!' });
   });
+
+  it('other user props should update when they change', () => {
+    const propsBefore = { disabled: false };
+    const propsAfter = { disabled: true };
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const wrapper = mount(
+      <Form getApi={setApi}>
+        {({ formState }) => {
+          const rest = formState.values.name === 'Foo' ? propsAfter : propsBefore;
+          return (
+            <Text
+              field="name"
+              {...rest}
+            />
+          );}}
+      </Form>
+    );
+    expect(wrapper.find('input').props().disabled).to.equal(false);
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'Foo' } });
+    expect(wrapper.find('input').props().disabled).to.equal(true);
+  });
+
+
 });

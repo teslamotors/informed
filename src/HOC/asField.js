@@ -47,7 +47,8 @@ const asField = Component => props => {
       debug={debug}
       type={type}
       {...rest}
-    />
+    />, 
+    Object.values(rest)
   );
 };
 

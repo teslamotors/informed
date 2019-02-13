@@ -1,3 +1,9 @@
+## 2.0.2 (Feb 13, 2019)
+
+### Fixed
+- Issue where ArrayField was prefixing all fields with 'field'
+- Issue where when input fields changed input did not rerender.
+
 ## 2.0.1 (Feb 10, 2019)
 
 ### Fixed

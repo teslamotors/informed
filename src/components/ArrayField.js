@@ -24,7 +24,7 @@ const ArrayField = ({ field, children }) => {
 
   const fields = keys.map((key, i) => ({
     key,
-    field: `field[${i}]`,
+    field: `${field}[${i}]`,
     remove: () => remove(i)
   }));
 

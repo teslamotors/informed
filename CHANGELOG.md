@@ -1,3 +1,8 @@
+## 2.0.5 (Feb 14, 2019)
+
+### Fixed 
+- Issue where you could NOT set 0 null or false as initial values because they are falsey
+
 ## 2.0.4 (Feb 13, 2019)
 
 ### Added 

@@ -197,7 +197,7 @@ class FormController extends EventEmitter {
       field.fieldApi.reset();
       // Initialize the values if it needs to be
       const initialValue = ObjectMap.get(this.options.initialValues, field.field);
-      if( initialValue ){
+      if( initialValue !== undefined ){
         this.getFormApi().setValue( field.field, initialValue );
       } 
     });
@@ -294,7 +294,7 @@ class FormController extends EventEmitter {
     } else {
       // Initialize the values if it needs to be
       const initialValue = ObjectMap.get(this.options.initialValues, field);
-      if( initialValue ){
+      if( initialValue !== undefined ){
         this.getFormApi().setValue( field, initialValue );
       } else { 
         // Otherwise set the value to whatever the field is set to

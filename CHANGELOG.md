@@ -1,3 +1,8 @@
+## 2.1.0 (Feb 14, 2019)
+
+### Updated 
+- Format and parse to set maskedValue instead of value
+
 ## 2.0.5 (Feb 14, 2019)
 
 ### Fixed 

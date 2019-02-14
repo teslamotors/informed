@@ -44,6 +44,7 @@ function useField(field, fieldProps = {}) {
   const [error, setErr] = useState( validateOnMount ? validate(initialValue) : undefined );
   const [touched, setTouch] = useState();
   const [cursor, setCursor, getCursor] = useStateWithGetter(0);
+  const [maskedValue, setMaskedValue ] = useState(value);
 
   // Grab the form register context
   const updater = useContext(FormRegisterContext);
@@ -62,6 +63,8 @@ function useField(field, fieldProps = {}) {
   // Define set value
   const setValue = (val, e) => {
     logger(`Setting ${field} to ${val}`);
+    // Initialize maked value
+    let maskedVal = val;
     // Set value to undefined if its an empty string
     if( val === '' ){
       val = undefined;
@@ -72,11 +75,13 @@ function useField(field, fieldProps = {}) {
     }
     // Call mask if it was passed
     if(mask){
+      maskedVal = mask(val);
       val = mask(val);
     }
     // Call format and parse if they were passed
     if(format && parse){
-      val = format(parse(val));
+      val = parse(val);
+      maskedVal = format(val);
     }
     // We only need to call validate if the user gave us one
     // and they want us to validate on change
@@ -88,8 +93,10 @@ function useField(field, fieldProps = {}) {
     if(e && e.target && e.target.selectionStart ){
       setCursor(e.target.selectionStart);
     }
+
     // Now we update the value
     setVal(val);
+    setMaskedValue(maskedVal);
     // If the user passed in onValueChange then call it!
     if( onValueChange ){
       onValueChange(val);
@@ -142,7 +149,8 @@ function useField(field, fieldProps = {}) {
   const fieldState = {
     value,
     error,
-    touched
+    touched,
+    maskedValue
   };
 
   logger('Render', formApi.getFullField(field), fieldState);

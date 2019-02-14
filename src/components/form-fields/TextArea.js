@@ -2,7 +2,7 @@ import React, { useLayoutEffect } from 'react';
 import asField from '../../HOC/asField';
 
 const TextArea = ({ fieldApi, fieldState, ...props }) => {
-  const { value } = fieldState;
+  const { maskedVal } = fieldState;
   const { setValue, setTouched } = fieldApi;
   const {
     onChange,
@@ -32,7 +32,7 @@ const TextArea = ({ fieldApi, fieldState, ...props }) => {
       {...rest}
       name={field}
       ref={forwardedRef}
-      value={!value ? '' : value}
+      value={!maskedVal ? '' : maskedVal}
       onChange={e => {
         setValue(e.target.value, e);
         if (onChange) {

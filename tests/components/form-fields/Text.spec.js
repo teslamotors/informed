@@ -116,11 +116,14 @@ describe('Text', () => {
     );
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'a' } });
-    expect(savedApi.getState().values).to.deep.equal({ hello: '$a' });
+    expect(wrapper.find('input').props().value).to.equal('$a');
+    expect(savedApi.getState().values).to.deep.equal({ hello: 'a' });
     input.simulate('change', { target: { value: 'ab' } });
-    expect(savedApi.getState().values).to.deep.equal({ hello: '$ab' });
+    expect(savedApi.getState().values).to.deep.equal({ hello: 'ab' });
+    expect(wrapper.find('input').props().value).to.equal('$ab');
     input.simulate('change', { target: { value: 'abc' } });
-    expect(savedApi.getState().values).to.deep.equal({ hello: '$abc' });
+    expect(savedApi.getState().values).to.deep.equal({ hello: 'abc' });
+    expect(wrapper.find('input').props().value).to.equal('$abc');
   });
 
   it('should run mask when user types in text input and mask is passed', () => {

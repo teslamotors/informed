@@ -1,3 +1,8 @@
+## 2.1.1 (Feb 14, 2019)
+
+### Fixed 
+- Issue where form values would not get passed to validation function when touched
+
 ## 2.1.0 (Feb 14, 2019)
 
 ### Updated 

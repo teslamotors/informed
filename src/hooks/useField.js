@@ -111,7 +111,7 @@ function useField(field, fieldProps = {}) {
     // and they want us to validate on blur
     if (validate && validateOnBlur) {
       logger(`Validating after blur ${field} ${getVal()}`);
-      setError(validate(getVal()));
+      setError(validate(getVal(), formApi.getValues()));
     }
     setTouch(val);
     updater.setTouched(field, val);

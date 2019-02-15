@@ -227,7 +227,7 @@ class FormController extends EventEmitter {
     // Incriment number of submit attempts
     this.state.submits = this.state.submits + 1;
 
-    if( !this.options.dontPreventDefault ){
+    if( !this.options.dontPreventDefault && e ){
       // Prevent default browser form submission
       e.preventDefault(e);
     }

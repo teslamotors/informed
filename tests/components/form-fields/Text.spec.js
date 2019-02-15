@@ -26,6 +26,21 @@ describe('Text', () => {
     expect(savedApi.getState().values).to.deep.equal({ greeting: 'Hello!' });
   });
 
+  it('should update value to number when user types into number field', () => {
+    let savedApi;
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="greeting" type="number" />
+      </Form>
+    );
+    const input = wrapper.find('input').at(0);
+    input.simulate('change', { target: { value: 1 } });
+    expect(savedApi.getState().values).to.deep.equal({ greeting: 1 });
+  });
+
   it('should call onChange function when value changes', () => {
     const spy = sandbox.spy();
     const wrapper = mount(

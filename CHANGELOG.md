@@ -1,3 +1,8 @@
+## 2.1.2 (Feb 14, 2019)
+
+### Fixed 
+- Issue where form that is submitted through enter key would try to prevent default
+
 ## 2.1.1 (Feb 14, 2019)
 
 ### Fixed 

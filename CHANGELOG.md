@@ -1,3 +1,8 @@
+## 2.1.3 (Feb 14, 2019)
+
+### Added 
+- `fieldExists` api function to check if field exists
+
 ## 2.1.2 (Feb 14, 2019)
 
 ### Fixed 

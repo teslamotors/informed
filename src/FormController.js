@@ -91,6 +91,8 @@ class FormController extends EventEmitter {
 
     const getFullField = field => this.getFullField(field);
 
+    const fieldExists = field => this.fields.get(field) != null;
+
     return {
       setValue,
       setTouched,
@@ -103,7 +105,8 @@ class FormController extends EventEmitter {
       submitForm,
       getState,
       getValues,
-      getFullField
+      getFullField,
+      fieldExists
     };
   }
 

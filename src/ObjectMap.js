@@ -6,6 +6,7 @@ import ldhas from 'lodash/has';
 import ldvalues from 'lodash/values';
 import ldpullAt from 'lodash/pullAt';
 import ldpull from 'lodash/pull';
+import ldequal from 'lodash/isEqual';
 import Debug from 'debug';
 const debug = Debug('informed:ObjMap' + '\t');
 
@@ -17,6 +18,10 @@ const pathToArrayElem = (path) => {
 class ObjectMap {
   static empty(object) {
     return ldvalues(object).length === 0;
+  }
+
+  static equal(object, compareTo) {
+    return ldequal(object, compareTo);
   }
 
   static get(object, path) {

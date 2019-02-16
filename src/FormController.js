@@ -26,6 +26,7 @@ class FormController extends EventEmitter {
       errors: {},
       pristine: true,
       dirty: false,
+      initial: false,
       invalid: false,
       submits: 0
     };
@@ -58,6 +59,7 @@ class FormController extends EventEmitter {
       ...this.state, 
       pristine: this.pristine(),
       dirty: this.dirty(),
+      initial: this.initial(),
       invalid: this.invalid()
     };
   }
@@ -195,6 +197,10 @@ class FormController extends EventEmitter {
 
   getInitialValue( field ){
     return ObjectMap.get(this.options.initialValues, field);
+  }
+  
+  initial() {
+    return ObjectMap.equal(this.options.initialValues || {}, this.state.values);
   }
 
   reset() {

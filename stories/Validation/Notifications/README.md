@@ -5,6 +5,8 @@ A great example of this is when you have a password and confirm password field,
 and when one changes you want the other to validate as well. To achieve this, `informed`
 allows you to pass notify to an input with an array of fields to notify.
 
+To avoid excessive message passing, `informed` only notifies other fields of changes as part of the validation process. If you'd like to control when validation (and thus, notification) occur, you can make use of the  `validateOnChange` and `validateOnBlur` props.
+
 **The form below is an example of this scenario:**
 
 <!-- STORY -->

@@ -1,3 +1,8 @@
+## 2.1.5 (Feb 19, 2019)
+
+### Fixed 
+- Issue with text area input not setting typed value
+
 ## 2.1.4 (Feb 19, 2019)
 
 ### Added 

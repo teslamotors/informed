@@ -31,6 +31,7 @@ function useField(field, fieldProps = {}) {
     validateOnChange,
     validateOnBlur,
     validateOnMount,
+    maskOnBlur,
     onValueChange,
     notify,
     keepState, 
@@ -74,7 +75,7 @@ function useField(field, fieldProps = {}) {
       val = +val;
     }
     // Call mask if it was passed
-    if(mask){
+    if(mask && !maskOnBlur){
       maskedVal = mask(val);
       val = mask(val);
     }
@@ -112,6 +113,19 @@ function useField(field, fieldProps = {}) {
     if (validate && validateOnBlur) {
       logger(`Validating after blur ${field} ${getVal()}`);
       setError(validate(getVal(), formApi.getValues()));
+    }
+    // Call mask if it was passed
+    if(mask && maskOnBlur){
+      const maskedVal = mask( getVal() );
+      // Now we update the value
+      setVal(maskedVal);
+      setMaskedValue(maskedVal);
+      // If the user passed in onValueChange then call it!
+      if( onValueChange ){
+        onValueChange(maskedVal);
+      }    
+      // Call the updater
+      updater.setValue(field, maskedVal);
     }
     setTouch(val);
     updater.setTouched(field, val);

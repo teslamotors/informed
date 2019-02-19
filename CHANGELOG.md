@@ -1,3 +1,8 @@
+## 2.1.4 (Feb 19, 2019)
+
+### Added 
+- `maskOnBlur` prop to inputs
+
 ## 2.1.3 (Feb 14, 2019)
 
 ### Added 

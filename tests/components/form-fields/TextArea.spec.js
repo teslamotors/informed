@@ -21,8 +21,10 @@ describe('TextArea', () => {
         <TextArea field="greeting" />
       </Form>
     );
-    const input = wrapper.find('textarea').at(0);
+    let input = wrapper.find('textarea').at(0);
     input.simulate('change', { target: { value: 'Hello!' } });
+    input = wrapper.find('textarea').at(0);
+    expect(input.props().value).to.equal('Hello!');
     expect(savedApi.getState().values).to.deep.equal({ greeting: 'Hello!' });
   });
 

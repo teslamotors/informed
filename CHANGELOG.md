@@ -5,12 +5,12 @@
 
 ## 2.1.6 (Feb 21, 2019)
 
-### Updated 
+### Updated
 - typing files for type script users
 
 ## 2.1.5 (Feb 19, 2019)
 
-### Fixed 
+### Fixed
 - Issue with text area input not setting typed value
 
 ## 2.1.4 (Feb 19, 2019)

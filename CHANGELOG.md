@@ -1,3 +1,8 @@
+## 2.1.6 (Feb 21, 2019)
+
+### Updated 
+- typing files for type script users
+
 ## 2.1.5 (Feb 19, 2019)
 
 ### Fixed 

@@ -93,6 +93,8 @@ class FormController extends EventEmitter {
 
     const getFullField = field => this.getFullField(field);
 
+    const getInitial = field => this.getInitial(field);
+
     const fieldExists = field => this.fields.get(field) != null;
 
     const getInitialValue = field => this.getInitialValue(field);
@@ -111,7 +113,9 @@ class FormController extends EventEmitter {
       getValues,
       getFullField,
       fieldExists,
-      getInitialValue
+      getInitialValue,
+      getInitial,
+      fieldExists
     };
   }
 
@@ -200,7 +204,33 @@ class FormController extends EventEmitter {
   }
   
   initial() {
-    return ObjectMap.equal(this.options.initialValues || {}, this.state.values);
+    // We'll cycle through every field, checking the fieldState's initial state. This is
+    // because `initial` can be set at the individual field level. Once we've validated
+    // every field's initial state, we can then check against any initial values assigned
+    // to the form's options and return the combined result. We exit on the first mismatch.
+    let isInitial = true;
+    this.fields.forEach(( field )=>{
+      isInitial = isInitial && field.fieldApi.getInitial();
+      const formInitialValue = ObjectMap.get(this.options.initialValues, field.field);
+      if (isInitial && formInitialValue !== undefined) {
+        isInitial = isInitial && (formInitialValue === ObjectMap.get(this.state.values, field.field));
+      }
+    });
+    return isInitial;
+  }
+
+  getInitial(field) {
+    // a variant of initial() designed to check a single field, used in hooks
+    let isInitial = true;
+    const fullField = this.fields.get(field);
+    const formInitialValue = ObjectMap.get(this.options.initialValues, field);
+    if (fullField) {
+      isInitial = isInitial && fullField.fieldApi.getInitial();
+      if (isInitial && formInitialValue !== undefined) {
+        isInitial = isInitial && (formInitialValue === ObjectMap.get(this.state.values, field));
+      }
+    }
+    return isInitial;
   }
 
   reset() {

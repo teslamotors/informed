@@ -53,6 +53,11 @@ function useField(field, fieldProps = {}) {
   // Grab the form state
   const formApi = useFormApi();
 
+  /* ---------------------- Getters ---------------------- */
+  const getInitial = () => {
+    return (initialValue !== null) ? initialValue === getVal() : true;
+  };
+
   /* ---------------------- Setters ---------------------- */
 
   // Define set error
@@ -155,6 +160,7 @@ function useField(field, fieldProps = {}) {
     setValue,
     setTouched,
     setError,
+    getInitial,
     reset, 
     validate: fieldValidate
   };
@@ -164,7 +170,8 @@ function useField(field, fieldProps = {}) {
     value,
     error,
     touched,
-    maskedValue
+    maskedValue,
+    initial: getInitial()
   };
 
   logger('Render', formApi.getFullField(field), fieldState);

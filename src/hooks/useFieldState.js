@@ -7,6 +7,7 @@ const buildFieldState = (fieldApi) => {
     value: fieldApi.getValue(),
     touched: fieldApi.getTouched(),
     error: fieldApi.getError(),
+    initial: fieldApi.getInitial()
   };
 };
 

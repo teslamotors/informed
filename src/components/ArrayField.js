@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useFormApi from '../hooks/useFormApi';
 
 // https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
 const uuidv4 = () => {
@@ -9,8 +10,17 @@ const uuidv4 = () => {
   });
 };
 
-const ArrayField = ({ field, children }) => {
-  const [keys, setKeys] = useState([]);
+const ArrayField = ({ field, children, initialValue }) => {
+
+  const formApi = useFormApi();
+
+  const initialValues = formApi.getInitialValue(field) || initialValue;
+
+  // TODO throw error if initial value and its not array
+
+  const initialKeys = initialValues ? initialValues.map(() => uuidv4()) : [];
+
+  const [keys, setKeys] = useState(initialKeys);
 
   const remove = i => {
     const newKeys = keys.slice(0, i).concat(keys.slice(i + 1, keys.length));
@@ -25,7 +35,8 @@ const ArrayField = ({ field, children }) => {
   const fields = keys.map((key, i) => ({
     key,
     field: `${field}[${i}]`,
-    remove: () => remove(i)
+    remove: () => remove(i),
+    initialValue: initialValues && initialValues[i]
   }));
 
   return children({ fields, add });

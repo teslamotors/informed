@@ -93,6 +93,8 @@ class FormController extends EventEmitter {
 
     const fieldExists = field => this.fields.get(field) != null;
 
+    const getInitialValue = field => this.getInitialValue(field);
+
     return {
       setValue,
       setTouched,
@@ -106,7 +108,8 @@ class FormController extends EventEmitter {
       getState,
       getValues,
       getFullField,
-      fieldExists
+      fieldExists,
+      getInitialValue
     };
   }
 
@@ -188,6 +191,10 @@ class FormController extends EventEmitter {
 
   dirty() {
     return !this.pristine();
+  }
+
+  getInitialValue( field ){
+    return ObjectMap.get(this.options.initialValues, field);
   }
 
   reset() {

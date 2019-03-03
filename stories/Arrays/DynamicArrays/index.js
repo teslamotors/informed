@@ -10,7 +10,7 @@ const DynamicArraysContent = () => {
   return (
     <div>
       <Form>
-        <ArrayField field="siblings">
+        <ArrayField field="siblings" >
           {({ add, fields }) => (
             <>
               <button onClick={add} type="button">

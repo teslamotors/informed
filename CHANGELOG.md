@@ -1,3 +1,8 @@
+## 2.1.7 (March 3, 2019)
+
+### Fixed
+- issue where initial values did not work for `ArrayFields`
+
 ## 2.1.6 (Feb 21, 2019)
 
 ### Updated 

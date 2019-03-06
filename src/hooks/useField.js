@@ -55,7 +55,7 @@ function useField(field, fieldProps = {}) {
 
   /* ---------------------- Getters ---------------------- */
   const getInitial = () => {
-    return (initialValue !== null) ? initialValue === getVal() : true;
+    return (initialValue !== null && typeof initialValue !== 'undefined') ? initialValue === getVal() : true;
   };
 
   /* ---------------------- Setters ---------------------- */

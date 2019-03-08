@@ -297,7 +297,19 @@ class FormController extends EventEmitter {
     // When a user had keep state load existing values
     if( fieldStuff.keepState ){
       const value = ObjectMap.get(this.state.values, field);
-      this.getFormApi().setValue( field, value || fieldState.value );
+      const initialValue = ObjectMap.get(this.options.initialValues, field);
+      // If we have a defined value then set that
+      if( value !== undefined ) {
+        this.getFormApi().setValue( field, value || fieldState.value );
+      }
+      // Otherwise we want to use the initial value 
+      if( initialValue !== undefined ){
+        this.getFormApi().setValue( field, initialValue );
+      } else { 
+        // Otherwise set the value to whatever the field is set to ( might have been field level initial value )
+        this.setValue(field, fieldState.value, false);
+      }
+      // Finnally we set touched
       const touched = ObjectMap.get(this.state.touched, field);
       this.getFormApi().setTouched( field, touched );
       // Error will get set by validator implicitly so we dont need to remember that
@@ -307,7 +319,7 @@ class FormController extends EventEmitter {
       if( initialValue !== undefined ){
         this.getFormApi().setValue( field, initialValue );
       } else { 
-        // Otherwise set the value to whatever the field is set to
+        // Otherwise set the value to whatever the field is set to ( might have been field level initial value )
         this.setValue(field, fieldState.value, false);
       }
       this.setTouched(field, fieldState.touched);

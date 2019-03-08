@@ -303,7 +303,7 @@ class FormController extends EventEmitter {
         this.getFormApi().setValue( field, value || fieldState.value );
       }
       // Otherwise we want to use the initial value 
-      if( initialValue !== undefined ){
+      else if( initialValue !== undefined ){
         this.getFormApi().setValue( field, initialValue );
       } else { 
         // Otherwise set the value to whatever the field is set to ( might have been field level initial value )

@@ -1,3 +1,8 @@
+## 2.1.9 (March 8, 2019)
+
+### Fixed
+- another issue where initial values did not work when keep state was passed
+
 ## 2.1.8 (March 8, 2019)
 
 ### Fixed

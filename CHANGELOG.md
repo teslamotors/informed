@@ -1,3 +1,8 @@
+## 2.1.10 (March 12, 2019)
+
+### Fixed
+- issue when using a field NOT in the context of a form
+
 ## 2.1.9 (March 8, 2019)
 
 ### Fixed

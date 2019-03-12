@@ -28,6 +28,16 @@ describe('Text', () => {
     expect(savedApi.getState().values).to.deep.equal({ greeting: 'Hello!' });
   });
 
+  it('should update value when user types and its not in the context of a form', () => {
+    const wrapper = mount(
+      <Text field="greeting" />
+    );
+    let input = wrapper.find('input').at(0);
+    input.simulate('change', { target: { value: 'Hello!' } });
+    input = wrapper.find('input').at(0);
+    expect(input.props().value).to.equal('Hello!');
+  });
+
   it('should update value to number when user types into number field', () => {
     let savedApi;
     const wrapper = mount(

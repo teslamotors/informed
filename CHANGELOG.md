@@ -1,3 +1,8 @@
+## 2.1.11 (March 12, 2019)
+
+### Fixed
+- issue in typings for ref field on FieldContext
+
 ## 2.1.10 (March 12, 2019)
 
 ### Fixed

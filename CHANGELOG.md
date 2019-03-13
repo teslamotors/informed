@@ -1,3 +1,8 @@
+## 2.1.12 (March 13, 2019)
+
+### Updated
+- ref to be any type in typings
+
 ## 2.1.11 (March 12, 2019)
 
 ### Fixed

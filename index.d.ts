@@ -75,7 +75,7 @@ declare module 'informed' {
     fieldApi: FieldApi<V>
     // not sure what this is for, I actually found it in https://github.com/joepuzzo/informed/blob/02584aeb10bbf04875bddc974f62db95c5612f57/src/hooks/useField.js#L205, not in the docs
     purify: <T>(children: T, userProps?: any[]) => T
-    ref: React.RefObject<HTMLInputElement>
+    ref: React.RefObject<any>
   }
 
   export interface BaseFieldProps<V = FormValue, VS = FormValues>

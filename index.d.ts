@@ -9,7 +9,7 @@ import React from 'react'
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 declare module 'informed' {
-  export type FormValue = string | number | boolean
+  export type FormValue<T = {}> = string | number | boolean | T
   export interface FormValues {
     [key: string]: FormValue
   }

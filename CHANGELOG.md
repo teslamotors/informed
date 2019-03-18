@@ -1,3 +1,8 @@
+## 2.1.13 (March 18, 2019)
+
+### Updated
+- Allowing for optional generic on FormValue 
+
 ## 2.1.12 (March 13, 2019)
 
 ### Updated

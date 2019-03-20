@@ -43,6 +43,7 @@ function useField(field, fieldProps = {}) {
   const [value, setVal, getVal] = useStateWithGetter(initialValue != null ? initialValue : undefined);
   const [error, setErr] = useState( validateOnMount ? validate(initialValue) : undefined );
   const [touched, setTouch] = useState();
+  const [initValue, setInitValue] = useState();
   const [cursor, setCursor, getCursor] = useStateWithGetter(0);
 
   // Grab the form register context
@@ -94,8 +95,9 @@ function useField(field, fieldProps = {}) {
     if( onValueChange ){
       onValueChange(val);
     }    
-    // Call the updater
+    // Call the updaters, a value change could update the initial prop
     updater.setValue(field, val);
+    updater.setInitial(field, val === (initialValue || initValue || ''));
   };
 
   // Define set touched
@@ -108,6 +110,12 @@ function useField(field, fieldProps = {}) {
     }
     setTouch(val);
     updater.setTouched(field, val);
+  };
+
+  // Define set initialValue - When the form API needs to tell a field its initial value
+  const setInitialValue = val => {
+    setInitValue(val);
+    updater.setInitial(field, true);
   };
 
   // Define reset
@@ -133,6 +141,7 @@ function useField(field, fieldProps = {}) {
   const fieldApi = {
     setValue,
     setTouched,
+    setInitialValue,
     setError,
     reset, 
     validate: fieldValidate
@@ -142,7 +151,8 @@ function useField(field, fieldProps = {}) {
   const fieldState = {
     value,
     error,
-    touched
+    touched,
+    initial: value === (initialValue || initValue || ''),
   };
 
   logger('Render', field, fieldState);

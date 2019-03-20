@@ -23,6 +23,7 @@ class FormController extends EventEmitter {
     this.state = {
       values: {},
       touched: {},
+      initial: {},
       errors: {},
       pristine: true,
       dirty: false,
@@ -36,6 +37,7 @@ class FormController extends EventEmitter {
     this.register = this.register.bind(this);
     this.setValue = this.setValue.bind(this);
     this.setTouched = this.setTouched.bind(this);
+    this.setInitial = this.setInitial.bind(this);
     this.setError = this.setError.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.reset = this.reset.bind(this);
@@ -47,6 +49,7 @@ class FormController extends EventEmitter {
       deregister: this.deregister,
       setValue: this.setValue, 
       setTouched: this.setTouched, 
+      setInitial: this.setInitial,
       setError: this.setError,
       update: this.update
     };
@@ -58,7 +61,8 @@ class FormController extends EventEmitter {
       ...this.state, 
       pristine: this.pristine(),
       dirty: this.dirty(),
-      invalid: this.invalid()
+      invalid: this.invalid(),
+      initial: this.initial(),
     };
   }
 
@@ -69,6 +73,9 @@ class FormController extends EventEmitter {
 
     const setTouched = (field, value) =>
       this.fields.get(field).fieldApi.setTouched(value);
+    
+    const setInitialValue = (field, value) =>
+      this.fields.get(field).fieldApi.setInitialValue(value);
 
     const setError = (field, value) =>
       this.fields.get(field).fieldApi.setError(value);
@@ -89,6 +96,7 @@ class FormController extends EventEmitter {
 
     return {
       setValue,
+      setInitialValue,
       setTouched,
       setError,
       getValue,
@@ -118,6 +126,11 @@ class FormController extends EventEmitter {
 
   setTouched(field, value) {
     ObjectMap.set(this.state.touched, field, value);
+    this.emit('change');
+  }
+
+  setInitial(field, value) {
+    ObjectMap.set(this.state.initial, field, value);
     this.emit('change');
   }
 
@@ -157,6 +170,10 @@ class FormController extends EventEmitter {
     return ObjectMap.get(this.state.touched, field);
   }
 
+  getInitial(field) {
+    return ObjectMap.get(this.state.initial, field);
+  }
+
   getError(field) {
     return ObjectMap.get(this.state.errors, field);
   }
@@ -175,6 +192,10 @@ class FormController extends EventEmitter {
 
   dirty() {
     return !this.pristine();
+  }
+
+  initial() {
+    return ObjectMap.every(this.state.initial, v => v);
   }
 
   reset() {
@@ -250,6 +271,7 @@ class FormController extends EventEmitter {
       const initialValue = ObjectMap.get(this.options.initialValues, field);
       if( initialValue ){
         this.getFormApi().setValue( field, initialValue );
+        this.getFormApi().setInitialValue( field, initialValue );
       } else { 
         // Otherwise set the value to whatever the field is set to
         this.setValue(field, fieldState.value, false);
@@ -267,6 +289,7 @@ class FormController extends EventEmitter {
       // Remove the data!
       ObjectMap.delete(this.state.values, field);
       ObjectMap.delete(this.state.touched, field);
+      ObjectMap.delete(this.state.initial, field);
       ObjectMap.delete(this.state.errors, field);
     }
     // Always need to delete the field

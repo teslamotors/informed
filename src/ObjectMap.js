@@ -18,6 +18,10 @@ class ObjectMap {
     return ldvalues(object).length === 0;
   }
 
+  static every(object, fn) {
+    return ldvalues(object).every(fn);
+  }
+
   static get(object, path) {
     return ldget(object, path);
   }

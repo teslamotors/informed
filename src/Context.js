@@ -4,7 +4,8 @@ const FormRegisterContext = React.createContext({
   register: () => {},
   deregister: () => {},
   setValue: () => {},
-  setTouched: () => {}, 
+  setTouched: () => {},
+  setInitial: () => {},
   setError: () => {},
   update: () => {}
 });

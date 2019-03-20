@@ -7,6 +7,7 @@ const buildFieldApi = (formApi, field) => {
     setValue: value => formApi.setValue(field, value),
     getTouched: () => formApi.getTouched(field),
     setTouched: value => formApi.setTouched(field, value),
+    getInitial: () => formApi.getInitial(field),
     getError: () => formApi.getError(field),
     setError: value => formApi.setError(field, value),
   };

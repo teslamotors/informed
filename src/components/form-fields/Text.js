@@ -4,7 +4,7 @@ import Debug from 'debug';
 const logger = Debug('informed:Text' + '\t');
 
 const Text = ({ fieldApi, fieldState, ...props }) => {
-  const { value } = fieldState;
+  const { maskedValue } = fieldState;
   const { setValue, setTouched } = fieldApi;
   const {
     onChange,
@@ -35,7 +35,7 @@ const Text = ({ fieldApi, fieldState, ...props }) => {
       {...rest}
       name={field}
       ref={forwardedRef}
-      value={!value && value !== 0 ? '' : value}
+      value={!maskedValue && maskedValue !== 0 ? '' : maskedValue}
       onChange={e => {
         setValue(e.target.value, e );
         if (onChange) {

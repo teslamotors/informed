@@ -26,6 +26,7 @@ const DynamicForm = () => {
   const [field1, setField1] = useState('foo');
   const [field2, setField2] = useState('baz');
   const [field3, setField3] = useState('boo');
+  const [disabled, setDisabled] = useState(true);
 
   const toggle1 = () => {
     setField1(field1 === 'foo' ? 'bar' : 'foo');
@@ -37,6 +38,10 @@ const DynamicForm = () => {
 
   const toggle3 = () => {
     setField3(field3 === 'boo' ? 'far' : 'boo');
+  };
+
+  const toggle4 = () => {
+    setDisabled(dis => !dis);
   };
 
   return (
@@ -60,6 +65,10 @@ const DynamicForm = () => {
 
         <label htmlFor="field3" key={field3}>
           {field3}:<Text field={field3} id="field3" keepState />
+        </label>
+
+        <label key="diabled">
+          Diabled:<Text field="disabled" disabled={disabled} />
         </label>
       
         <button type="submit">Submit</button>

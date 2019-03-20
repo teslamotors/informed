@@ -10,16 +10,16 @@ const DynamicArraysContent = () => {
   return (
     <div>
       <Form>
-        <ArrayField field="sibling">
+        <ArrayField field="siblings" >
           {({ add, fields }) => (
             <>
               <button onClick={add} type="button">
                 Add Sibling
               </button>
               {fields.map(({ field, key, remove }, i) => (
-                <label htmlFor={i} key={key}>
+                <label key={key}>
                   Sibling {i}:
-                  <Text field={field} id={i} />
+                  <Text field={field} />
                   <button type="button" onClick={remove}>
                     Remove
                   </button>

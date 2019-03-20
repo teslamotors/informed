@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import Enzyme, { mount } from 'enzyme';
 
-import { Form, Text } from '../../src';
+import { Form, Text, Scope } from '../../src';
 
 describe('Form', () => {
   const sandbox = sinon.createSandbox();
@@ -238,6 +238,61 @@ describe('Form', () => {
     expect(spy.called).to.equal(true);
   });
 
+  it('should NOT call onSubmit function with values when the invalid form is submitted due to invalid form level field validation', () => {
+    const spy = sandbox.spy();
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const validate = ({a, b}) => {
+      return {
+        a: a.length < 4 ? 'please enter more than 3 characters' : undefined,
+        b: b.length < 4 ? 'please enter more than 3 characters' : undefined
+      };
+    };
+    const wrapper = mount(
+      <Form onSubmit={spy} getApi={setApi} validateFields={validate}>
+        <Text field="a" />
+        <Text field="b" />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+    api.setValue('a', 'asd');
+    api.setValue('b', 'as');
+    const button = wrapper.find('button');
+    button.simulate('submit');
+    expect(spy.called).to.equal(false);
+  });
+
+  it('should set correct errors when invalid form level field validation', () => {
+    const spy = sandbox.spy();
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const validate = ({a, b}) => {
+      return {
+        a: a.length < 4 ? 'please enter more than 3 characters' : undefined,
+        b: b.length < 4 ? 'please enter more than 3 characters' : undefined
+      };
+    };
+    const wrapper = mount(
+      <Form onSubmit={spy} getApi={setApi} validateFields={validate}>
+        <Text field="a" />
+        <Text field="b" />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+    api.setValue('a', 'asd');
+    api.setValue('b', 'as');
+    const button = wrapper.find('button');
+    button.simulate('submit');
+    expect(api.getState().errors).to.eql({
+      a: 'please enter more than 3 characters',
+      b: 'please enter more than 3 characters'
+    });
+  });
+
   it('should reset form error after invalid form is submitted and value is changed', () => {
     const spy = sandbox.spy();
     let api;
@@ -349,14 +404,35 @@ describe('Form', () => {
     expect(api.getState().values).to.deep.equal({ greeting: 'hello' });
   });
 
-  it.skip('setValues should set the forms values', () => {
+  it('setValues should set the forms values', () => {
     let api;
     const setApi = param => {
       api = param;
     };
-    mount(<Form getApi={setApi}>{() => <Text field="greeting" />}</Form>);
-    api.setValues({ greeting: 'hello' });
-    expect(api.getState().values).to.deep.equal({ greeting: 'hello' });
+    mount(
+      <Form getApi={setApi}>
+        <Text field="greeting" />
+        <Text field="name" />
+        <Scope scope="favorite">
+          <Text field="color" />
+          <Text field="food" />
+        </Scope>
+      </Form>
+    );
+    api.setValues({ 
+      greeting: 'hello', 
+      name: 'joe',
+      favorite: {
+        color: 'green'
+      }
+    });
+    expect(api.getState().values).to.deep.equal({ 
+      greeting: 'hello', 
+      name: 'joe',
+      favorite: {
+        color: 'green'
+      }
+    });
   });
 
   it('reset should reset the form to its initial state via initialValue prop on input', () => {
@@ -408,6 +484,62 @@ describe('Form', () => {
     }));
   });
 
+  it('reset should reset the form to its initial state via initialValue prop on input with scope', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const wrapper = mount(
+      <Form getApi={setApi}>
+        <Scope scope="favorite">
+          <Text field="color" initialValue="red"/>
+        </Scope>
+      </Form>
+    );
+    expect(api.getState()).to.deep.equal(
+      getState({ values: {favorite: { color: 'red'}}, pristine: false, dirty: true })
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'green' } });
+    expect(api.getState()).to.deep.equal(
+      getState({ values: {favorite: { color: 'green'}}, pristine: false, dirty: true })
+    );
+    api.reset();
+    expect(api.getState()).to.deep.equal(getState({
+      values: {favorite: { color: 'red'}},
+      pristine: false, 
+      dirty: true
+    }));
+  });
+
+  it('reset should reset the form to its initial state via initialValue prop on form with scope', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const wrapper = mount(
+      <Form getApi={setApi} initialValues={{ favorite: { color: 'red'} }}>
+        <Scope scope="favorite">
+          <Text field="color" />
+        </Scope>
+      </Form>
+    );
+    expect(api.getState()).to.deep.equal(
+      getState({ values: {favorite: { color: 'red'}}, pristine: false, dirty: true })
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'green' } });
+    expect(api.getState()).to.deep.equal(
+      getState({ values: {favorite: { color: 'green'}}, pristine: false, dirty: true })
+    );
+    api.reset();
+    expect(api.getState()).to.deep.equal(getState({
+      values: {favorite: { color: 'red'}},
+      pristine: false, 
+      dirty: true
+    }));
+  });
+
   it('setValue should set a value', () => {
     let api;
     const setApi = param => {
@@ -417,6 +549,24 @@ describe('Form', () => {
     api.setValue('greeting', 'hello');
     expect(api.getState()).to.deep.equal(
       getState({ values: { greeting: 'hello' }, pristine: false, dirty: true })
+    );
+  });
+
+  it('setValue should set a scoped value', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    mount(
+      <Form getApi={setApi}>
+        <Scope scope="favorite">
+          <Text field="color" />
+        </Scope>
+      </Form>
+    );
+    api.setValue('favorite.color', 'green');
+    expect(api.getState()).to.deep.equal(
+      getState({ values: {favorite: { color: 'green'}}, pristine: false, dirty: true })
     );
   });
 

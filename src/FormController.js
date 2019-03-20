@@ -80,6 +80,8 @@ class FormController extends EventEmitter {
     const setError = (field, value) =>
       this.fields.get(field).fieldApi.setError(value);
 
+    const setValues = values => this.setValues(values);
+
     const getValue = (field) => this.getValue(field);
 
     const getTouched = (field) => this.getTouched(field);
@@ -94,18 +96,28 @@ class FormController extends EventEmitter {
 
     const getValues = () => this.getFormState().values;
 
+    const getFullField = field => this.getFullField(field);
+
+    const fieldExists = field => this.fields.get(field) != null;
+
+    const getInitialValue = field => this.getInitialValue(field);
+
     return {
       setValue,
       setInitialValue,
       setTouched,
       setError,
+      setValues,
       getValue,
       getTouched,
       getError,
       reset,
       submitForm,
       getState,
-      getValues
+      getValues,
+      getFullField,
+      fieldExists,
+      getInitialValue
     };
   }
 
@@ -178,6 +190,10 @@ class FormController extends EventEmitter {
     return ObjectMap.get(this.state.errors, field);
   }
 
+  getFullField(field) { 
+    return field;
+  }
+
   valid(){
     return !!(ObjectMap.empty(this.state.errors) && !this.state.error);
   }
@@ -198,6 +214,10 @@ class FormController extends EventEmitter {
     return ObjectMap.every(this.state.initial, v => v);
   }
 
+  getInitialValue( field ){
+    return ObjectMap.get(this.options.initialValues, field);
+  }
+
   reset() {
     debug('Resetting');
     // So we because all fields controll themselves and, "inform", this controller
@@ -208,8 +228,25 @@ class FormController extends EventEmitter {
       field.fieldApi.reset();
       // Initialize the values if it needs to be
       const initialValue = ObjectMap.get(this.options.initialValues, field.field);
-      if( initialValue ){
+      if( initialValue !== undefined ){
         this.getFormApi().setValue( field.field, initialValue );
+      } 
+    });
+
+    this.emit('change');
+  }
+
+  setValues(values){
+    debug('Setting values');
+    // So we because all fields controll themselves and, "inform", this controller
+    // of their changes, we need to literally itterate through all registered fields
+    // and set them. Not a big deal but very important to remember that you cant simply
+    // set this controllers state!
+    this.fields.forEach(( field )=>{
+      // Initialize the values if it needs to be
+      const value = ObjectMap.get(values, field.field);
+      if( value ){
+        this.getFormApi().setValue( field.field, value );
       } 
     });
 
@@ -221,7 +258,7 @@ class FormController extends EventEmitter {
     // Incriment number of submit attempts
     this.state.submits = this.state.submits + 1;
 
-    if( !this.options.dontPreventDefault ){
+    if( !this.options.dontPreventDefault && e ){
       // Prevent default browser form submission
       e.preventDefault(e);
     }
@@ -237,6 +274,25 @@ class FormController extends EventEmitter {
     if( this.options.validate ){
       const res = this.options.validate( this.state.values );
       this.setFormError(res);
+    }
+
+    // Call the forms field level validation
+    if( this.options.validateFields ){
+      const errors = this.options.validateFields( this.state.values );
+      // So we because all fields controll themselves and, "inform", this controller
+      // of their changes, we need to literally itterate through all registered fields
+      // and set them. Not a big deal but very important to remember that you cant simply
+      // set this controllers state!
+      this.fields.forEach(( field )=>{
+        // Check to see if there is an error to set 
+        // Note: we use has becuause value may be there but undefined
+        if( ObjectMap.has(errors, field.field ) ){
+          const error = ObjectMap.get(errors, field.field);
+          // If there is an error then set it
+          this.getFormApi().setError( field.field, error );
+        } 
+      });
+
     }
 
     // Emit a change 
@@ -262,18 +318,30 @@ class FormController extends EventEmitter {
     // When a user had keep state load existing values
     if( fieldStuff.keepState ){
       const value = ObjectMap.get(this.state.values, field);
-      this.getFormApi().setValue( field, value || fieldState.value );
+      const initialValue = ObjectMap.get(this.options.initialValues, field);
+      // If we have a defined value then set that
+      if( value !== undefined ) {
+        this.getFormApi().setValue( field, value || fieldState.value );
+      }
+      // Otherwise we want to use the initial value 
+      else if( initialValue !== undefined ){
+        this.getFormApi().setValue( field, initialValue );
+      } else { 
+        // Otherwise set the value to whatever the field is set to ( might have been field level initial value )
+        this.setValue(field, fieldState.value, false);
+      }
+      // Finnally we set touched
       const touched = ObjectMap.get(this.state.touched, field);
       this.getFormApi().setTouched( field, touched );
       // Error will get set by validator implicitly so we dont need to remember that
     } else {
       // Initialize the values if it needs to be
       const initialValue = ObjectMap.get(this.options.initialValues, field);
-      if( initialValue ){
+      if( initialValue !== undefined ){
         this.getFormApi().setValue( field, initialValue );
         this.getFormApi().setInitialValue( field, initialValue );
       } else { 
-        // Otherwise set the value to whatever the field is set to
+        // Otherwise set the value to whatever the field is set to ( might have been field level initial value )
         this.setValue(field, fieldState.value, false);
       }
       this.setTouched(field, fieldState.touched);

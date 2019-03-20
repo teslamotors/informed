@@ -1,6 +1,6 @@
 {
   "name": "informed",
-  "version": "2.0.1",
+  "version": "2.1.13",
   "description": "A lightweight framework and utility for building powerful forms in React applications",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
@@ -20,7 +20,7 @@
     "postpublish": "git push --tags",
     "precommit": "pretty-quick --staged",
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "storybook:docs": "build-storybook -c .storybook -o docs",
+    "storybook:docs": "rm -r docs/ && build-storybook -c .storybook -o docs",
     "prettier": "prettier --write 'src/**/*.{js,md}' 'tests/**/*.{js,md}' 'stories/**/*.{js,md}'",
     "pretty-quick": "pretty-quick",
     "lint:fix": "eslint src/** tests/** stories/** --fix",

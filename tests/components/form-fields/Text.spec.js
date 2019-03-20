@@ -21,9 +21,36 @@ describe('Text', () => {
         <Text field="greeting" />
       </Form>
     );
-    const input = wrapper.find('input').at(0);
+    let input = wrapper.find('input').at(0);
     input.simulate('change', { target: { value: 'Hello!' } });
+    input = wrapper.find('input').at(0);
+    expect(input.props().value).to.equal('Hello!');
     expect(savedApi.getState().values).to.deep.equal({ greeting: 'Hello!' });
+  });
+
+  it('should update value when user types and its not in the context of a form', () => {
+    const wrapper = mount(
+      <Text field="greeting" />
+    );
+    let input = wrapper.find('input').at(0);
+    input.simulate('change', { target: { value: 'Hello!' } });
+    input = wrapper.find('input').at(0);
+    expect(input.props().value).to.equal('Hello!');
+  });
+
+  it('should update value to number when user types into number field', () => {
+    let savedApi;
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="greeting" type="number" />
+      </Form>
+    );
+    const input = wrapper.find('input').at(0);
+    input.simulate('change', { target: { value: 1 } });
+    expect(savedApi.getState().values).to.deep.equal({ greeting: 1 });
   });
 
   it('should call onChange function when value changes', () => {
@@ -102,6 +129,22 @@ describe('Text', () => {
     expect(savedApi.getState().values).to.deep.equal({ hello: 'world!' });
   });
 
+  it('should run NOT mask when user types in text input and mask is passed BUT maskOnBlur is also passed', () => {
+    let savedApi;
+    const mask = value => `${value}!`;
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="hello" mask={mask} maskOnBlur/>
+      </Form>
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'world' } });
+    expect(savedApi.getState().values).to.deep.equal({ hello: 'world' });
+  });
+
   it('should run format and parse when user types in text input and format and parse are passed', () => {
     let savedApi;
     const format = value => `$${value}`;
@@ -116,11 +159,14 @@ describe('Text', () => {
     );
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'a' } });
-    expect(savedApi.getState().values).to.deep.equal({ hello: '$a' });
+    expect(wrapper.find('input').props().value).to.equal('$a');
+    expect(savedApi.getState().values).to.deep.equal({ hello: 'a' });
     input.simulate('change', { target: { value: 'ab' } });
-    expect(savedApi.getState().values).to.deep.equal({ hello: '$ab' });
+    expect(savedApi.getState().values).to.deep.equal({ hello: 'ab' });
+    expect(wrapper.find('input').props().value).to.equal('$ab');
     input.simulate('change', { target: { value: 'abc' } });
-    expect(savedApi.getState().values).to.deep.equal({ hello: '$abc' });
+    expect(savedApi.getState().values).to.deep.equal({ hello: 'abc' });
+    expect(wrapper.find('input').props().value).to.equal('$abc');
   });
 
   it('should run mask when user types in text input and mask is passed', () => {
@@ -138,4 +184,31 @@ describe('Text', () => {
     input.simulate('change', { target: { value: 'world' } });
     expect(savedApi.getState().values).to.deep.equal({ hello: 'world!' });
   });
+
+  it('other user props should update when they change', () => {
+    const propsBefore = { disabled: false };
+    const propsAfter = { disabled: true };
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const wrapper = mount(
+      <Form getApi={setApi}>
+        {({ formState }) => {
+          const rest = formState.values.name === 'Foo' ? propsAfter : propsBefore;
+          return (
+            <Text
+              field="name"
+              {...rest}
+            />
+          );}}
+      </Form>
+    );
+    expect(wrapper.find('input').props().disabled).to.equal(false);
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'Foo' } });
+    expect(wrapper.find('input').props().disabled).to.equal(true);
+  });
+
+
 });

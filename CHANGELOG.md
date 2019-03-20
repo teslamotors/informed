@@ -1,3 +1,97 @@
+## 2.1.13 (March 18, 2019)
+
+### Updated
+- Allowing for optional generic on FormValue 
+
+## 2.1.12 (March 13, 2019)
+
+### Updated
+- ref to be any type in typings
+
+## 2.1.11 (March 12, 2019)
+
+### Fixed
+- issue in typings for ref field on FieldContext
+
+## 2.1.10 (March 12, 2019)
+
+### Fixed
+- issue when using a field NOT in the context of a form
+
+## 2.1.9 (March 8, 2019)
+
+### Fixed
+- another issue where initial values did not work when keep state was passed
+
+## 2.1.8 (March 8, 2019)
+
+### Fixed
+- issue where initial values did not work when keep state was passed
+
+## 2.1.7 (March 3, 2019)
+
+### Fixed
+- issue where initial values did not work for `ArrayFields`
+
+## 2.1.6 (Feb 21, 2019)
+
+### Updated 
+- typing files for type script users
+
+## 2.1.5 (Feb 19, 2019)
+
+### Fixed 
+- Issue with text area input not setting typed value
+
+## 2.1.4 (Feb 19, 2019)
+
+### Added 
+- `maskOnBlur` prop to inputs
+
+## 2.1.3 (Feb 14, 2019)
+
+### Added 
+- `fieldExists` api function to check if field exists
+
+## 2.1.2 (Feb 14, 2019)
+
+### Fixed 
+- Issue where form that is submitted through enter key would try to prevent default
+
+## 2.1.1 (Feb 14, 2019)
+
+### Fixed 
+- Issue where form values would not get passed to validation function when touched
+
+## 2.1.0 (Feb 14, 2019)
+
+### Updated 
+- Format and parse to set maskedValue instead of value
+
+## 2.0.5 (Feb 14, 2019)
+
+### Fixed 
+- Issue where you could NOT set 0 null or false as initial values because they are falsey
+
+## 2.0.4 (Feb 13, 2019)
+
+### Added 
+- validateFields function to the form!!! 
+
+## 2.0.3 (Feb 13, 2019)
+
+### Fixed
+- Issue where reset would not work for scoped fields
+
+### Added 
+- Set Values to the form api!!!
+
+## 2.0.2 (Feb 13, 2019)
+
+### Fixed
+- Issue where ArrayField was prefixing all fields with 'field'
+- Issue where when input fields changed input did not rerender.
+
 ## 2.0.1 (Feb 10, 2019)
 
 ### Fixed
@@ -23,13 +117,14 @@
 - the field `"siblings.1"` now resolves to `values.siblings[1]`, it used to resolve to `values.siblings.1`
 - the field `"siblings['2']"` now resolves to `values.siblings[2]`, it used to resolve to `values.siblings.2`
 - withFormApi will no longer trigger a rerender if the fomrs state changes. This is a great optimization for those who want to modify but dont care about the form state!
+- the `validate` prop now expects the validation function to return `undefined` if there is no error. Any other returned value (including falsey `null`, `0`, etc will be treated as an error for the field.
 
 ### Removed
 
 - The Field Component
 - `fieldExists` not needed
 - `setState` will maybe add later but its complex and out of scope ATM
-- `setValues` will maybe add later but its complex and out of scope ATM
+- `setValues` will maybe add later but its complex and out of scope ATM ( as of V 2.0.3 its back! )
 - `preSubmit` was never needed.. developers can do this themselves
 - Async Validation. Async validation led to many issues that overcomplicated `informed`. We determined this is something that the developer could achive on there own for now but we may look into adding this in the future. 
 

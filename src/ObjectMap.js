@@ -2,6 +2,7 @@ import ldset from 'lodash/setWith';
 import ldunset from 'lodash/unset';
 import ldtoPath from 'lodash/toPath';
 import ldget from 'lodash/get';
+import ldhas from 'lodash/has';
 import ldvalues from 'lodash/values';
 import ldpullAt from 'lodash/pullAt';
 import ldpull from 'lodash/pull';
@@ -24,6 +25,10 @@ class ObjectMap {
 
   static get(object, path) {
     return ldget(object, path);
+  }
+
+  static has(object, path) {
+    return ldhas(object, path);
   }
 
   static set(object, path, value) {

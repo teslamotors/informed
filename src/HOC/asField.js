@@ -9,6 +9,7 @@ const asField = Component => props => {
     validateOnChange, 
     validateOnBlur,
     validateOnMount,
+    maskOnBlur,
     onValueChange,
     notify,
     keepState,
@@ -26,6 +27,7 @@ const asField = Component => props => {
     validateOnBlur,
     onValueChange,
     validateOnMount,
+    maskOnBlur,
     notify,
     keepState,
     maintainCursor,
@@ -47,7 +49,8 @@ const asField = Component => props => {
       debug={debug}
       type={type}
       {...rest}
-    />
+    />, 
+    Object.values(rest)
   );
 };
 

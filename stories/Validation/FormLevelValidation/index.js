@@ -6,24 +6,36 @@ import readme from './README.md';
 
 import { Form, Text } from '../../../src';
 
-const validate = value => {
+const validateLength = value => {
   return !value || value.length < 5
     ? 'Field must be at least five characters'
     : undefined;
 };
 
+const validateFields = values => {
+  return { 
+    color: validateLength( values.color ),
+    food: validateLength( values.food ),
+    car: validateLength( values.car ),
+  };
+};
+
+const validate = values => 
+  values.a + values.b !== 4 ? 'a and b must sum to 4!' : undefined;
+
 class SimpleValidation extends Component {
   render() {
     return (
       <div>
-        <Form onSubmit={() => this.modal.open()} id="validate-form">
-          {({ formApi, formState }) => (
+        <Form onSubmit={() => this.modal.open()} validateFields={validateFields} validate={validate}>
+          {({ formState }) => (
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
               <div style={{ flex: 1, marginRight: '2rem' }}>
-                <label>Color:<Text field="color" validate={validate}/></label>
-                <label>Food:<Text field="food" validate={validate}/></label>
-                <label>Car:<Text field="car" validate={validate}/></label>
-                <button type="submit">Submit</button>
+                <label>Color:<Text field="color" /></label>
+                <label>Food:<Text field="food"/></label>
+                <label>Car:<Text field="car"/></label>
+                <label>A:<Text field="a" type="number"/></label>
+                <label>B:<Text field="b" type="number"/></label>
                 <button type="submit">Submit</button>
               </div>
               <div style={{ flex: 2, minWidth: '300px' }}>
@@ -34,6 +46,10 @@ class SimpleValidation extends Component {
                 <label>Errors:</label>
                 <Code language="language-js">
                   {JSON.stringify(formState.errors, null, 2)}
+                </Code>
+                <label>Error:</label>
+                <Code language="language-js">
+                  {JSON.stringify(formState.error, null, 2)}
                 </Code>
                 <label>Invalid:</label>
                 <Code language="language-js">

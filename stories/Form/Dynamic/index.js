@@ -10,6 +10,7 @@ const DynamicContent = () => {
   const [field1, setField1] = useState('foo');
   const [field2, setField2] = useState('baz');
   const [field3, setField3] = useState('boo');
+  const [disabled, setDisabled] = useState(true);
 
   const toggle1 = () => {
     setField1(field1 === 'foo' ? 'bar' : 'foo');
@@ -21,6 +22,10 @@ const DynamicContent = () => {
 
   const toggle3 = () => {
     setField3(field3 === 'boo' ? 'far' : 'boo');
+  };
+
+  const toggle4 = () => {
+    setDisabled(dis => !dis);
   };
 
   return (
@@ -45,6 +50,10 @@ const DynamicContent = () => {
         <label htmlFor="field3" key={field3}>
           {field3}:<Text field={field3} id="field3" keepState/>
         </label>
+
+        <label key="diabled">
+          Diabled:<Text field="disabled" disabled={disabled} />
+        </label>
       
         <button type="submit">Submit</button>
         <FormState />
@@ -54,6 +63,8 @@ const DynamicContent = () => {
       <button onClick={toggle2}>Toggle Baz {'<->'} Taz</button>
       <br />
       <button onClick={toggle3}>Toggle Boo {'<->'} Far</button>
+      <br />
+      <button onClick={toggle4}>Toggle Disabled</button>
       <br />
     </div>
   );

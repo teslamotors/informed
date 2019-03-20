@@ -12,6 +12,7 @@ import SimpleValidation from './Validation/SimpleValidation';
 import ComplexValidation from './Validation/ComplexValidation';
 import ValidationControl from './Validation/ValidationControl';
 import Notifications from './Validation/Notifications';
+import FormLevelValidation from './Validation/FormLevelValidation';
 import FormatParse from './Formatting/FormatParse';
 import Mask from './Formatting/Mask';
 import UnnecessaryRendering from './Gotchas/UnnecessaryRendering';
@@ -80,6 +81,7 @@ storiesOf('Validation', module)
   .add('Simple Validation', SimpleValidation)
   .add('Complex Validation', ComplexValidation)
   .add('Validation Control', ValidationControl)
+  .add('Form Level Validation', FormLevelValidation)
   .add('Notifications', Notifications);
 
 storiesOf('Formatting', module)

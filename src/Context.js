@@ -11,7 +11,8 @@ const FormRegisterContext = React.createContext({
 
 const FormStateContext = React.createContext({});
 const FormApiContext = React.createContext({
-  getFullField: () => {}
+  getFullField: () => {},
+  getValues: () => {},
 });
 const GroupContext = React.createContext();
 const SelectContext = React.createContext();

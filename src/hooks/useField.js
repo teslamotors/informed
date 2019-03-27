@@ -107,10 +107,10 @@ function useField(field, fieldProps = {}) {
   };
 
   // Define set touched
-  const setTouched = val => {
+  const setTouched = ( val, reset ) => {
     // We only need to call validate if the user gave us one
     // and they want us to validate on blur
-    if (validate && validateOnBlur) {
+    if (validate && validateOnBlur && !reset ) {
       logger(`Validating after blur ${field} ${getVal()}`);
       setError(validate(getVal(), formApi.getValues()));
     }
@@ -136,8 +136,8 @@ function useField(field, fieldProps = {}) {
     // TODO support numbers
     setValue(initialValue != null ? initialValue : undefined);
     // Setting somthing to undefined will remove it 
-    setError(undefined);
-    setTouched(undefined);
+    setError(validateOnMount ? validate(initialValue) : undefined);
+    setTouched(undefined, true);
   };
 
   // Define validate

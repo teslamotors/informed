@@ -1,3 +1,8 @@
+## 2.1.14 (March 27, 2019)
+
+### Fixed
+- Issue where reset would call validation
+
 ## 2.1.13 (March 18, 2019)
 
 ### Updated

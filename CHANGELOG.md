@@ -1,3 +1,8 @@
+## 2.1.15 (March 28, 2019)
+
+### Fixed
+- Issue with setValues missing from the default context
+
 ## 2.1.14 (March 27, 2019)
 
 ### Fixed

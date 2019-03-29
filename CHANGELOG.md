@@ -1,3 +1,9 @@
+## 2.2.0 (March 29, 2019)
+
+### Added
+- `setFormError` function to the form api
+- `validate` function to the form api
+
 ## 2.1.15 (March 28, 2019)
 
 ### Fixed

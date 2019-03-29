@@ -16,6 +16,11 @@ This api allows you to grab and manipulate values using getters and setters. Bel
 | getState    | `getState()`                            | Function that returns the formState. Note this will only return the state as it existed when the function was called.                                                                                                                                                                                                     |
 | reset       | `reset()`                               | Function that will reset the form to its initial state.     
 | setValues       | `setValues({ greeting: 'hello'})`   | Function that will set the fields values.                                                                                                                                                                                                                                                               |
+| setValues       | `setValues({ greeting: 'hello'})`   | Function that will set the fields values.       |
+| setFormError    | `setFormError('There was an error!')`   | Function that will set the forms error manually.   |
+| validate        | `validate()`   | Function that will trigger the forms validation manually.   |
+
+
 
 **"Ok so informed gives us access to this formApi.. but how do i get my hands
 on it??**

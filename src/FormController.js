@@ -37,9 +37,11 @@ class FormController extends EventEmitter {
     this.setValue = this.setValue.bind(this);
     this.setTouched = this.setTouched.bind(this);
     this.setError = this.setError.bind(this);
+    this.setFormError = this.setFormError.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.reset = this.reset.bind(this);
     this.update = this.update.bind(this);
+    this.validate = this.validate.bind(this); 
 
     // Updater will be used by fields to update and register
     this.updater = {
@@ -73,6 +75,8 @@ class FormController extends EventEmitter {
     const setError = (field, value) =>
       this.fields.get(field).fieldApi.setError(value);
 
+    const setFormError = ( error ) => this.setFormError(error);
+
     const setValues = values => this.setValues(values);
 
     const getValue = (field) => this.getValue(field);
@@ -95,6 +99,8 @@ class FormController extends EventEmitter {
 
     const getInitialValue = field => this.getInitialValue(field);
 
+    const validate = () => this.validate();
+
     return {
       setValue,
       setTouched,
@@ -109,7 +115,9 @@ class FormController extends EventEmitter {
       getValues,
       getFullField,
       fieldExists,
-      getInitialValue
+      getInitialValue,
+      setFormError,
+      validate
     };
   }
 
@@ -232,29 +240,20 @@ class FormController extends EventEmitter {
     this.emit('change');
   }
 
-  submitForm(e) {
-
-    // Incriment number of submit attempts
-    this.state.submits = this.state.submits + 1;
-
-    if( !this.options.dontPreventDefault && e ){
-      // Prevent default browser form submission
-      e.preventDefault(e);
-    }
-
+  validate() {
     // Itterate through and call validate on every field
     this.fields.forEach(( field, key )=>{
       const value = this.getValue(key);
       field.fieldApi.validate(value);
       field.fieldApi.setTouched(true);
     });
-
+    
     // Call the form level validation if its present
     if( this.options.validate ){
       const res = this.options.validate( this.state.values );
       this.setFormError(res);
     }
-
+    
     // Call the forms field level validation
     if( this.options.validateFields ){
       const errors = this.options.validateFields( this.state.values );
@@ -271,8 +270,22 @@ class FormController extends EventEmitter {
           this.getFormApi().setError( field.field, error );
         } 
       });
-
+    
     }
+  }
+
+  submitForm(e) {
+
+    // Incriment number of submit attempts
+    this.state.submits = this.state.submits + 1;
+
+    if( !this.options.dontPreventDefault && e ){
+      // Prevent default browser form submission
+      e.preventDefault(e);
+    }
+
+    // Validate the form
+    this.validate();
 
     // Emit a change 
     this.emit('change');

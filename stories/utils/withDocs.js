@@ -6,8 +6,8 @@ export default withDocs({
     <div
       style={{
         marginTop: '2rem',
-        marginBottom: '2rem'
-        //border: '1px dashed #e5e5e5',
+        marginBottom: '2rem',
+        border: '1px dashed #e5e5e5',
       }}>
       {children}
     </div>

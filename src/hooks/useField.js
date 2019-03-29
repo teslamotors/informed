@@ -32,6 +32,7 @@ function useField(field, fieldProps = {}) {
     validateOnBlur,
     validateOnMount,
     maskOnBlur,
+    allowEmptyStrings,
     onValueChange,
     notify,
     keepState, 
@@ -67,7 +68,7 @@ function useField(field, fieldProps = {}) {
     // Initialize maked value
     let maskedVal = val;
     // Set value to undefined if its an empty string
-    if( val === '' ){
+    if( val === '' && !allowEmptyStrings ){
       val = undefined;
     }
     // Turn string into number for number fields

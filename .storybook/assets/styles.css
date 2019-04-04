@@ -29,3 +29,8 @@ hr {
     color: #333; /* old IE */
     background-color: #333; /* Modern Browsers */
 }
+
+pre {
+  font-weight: bold;
+  font-size:  1em !important;
+}

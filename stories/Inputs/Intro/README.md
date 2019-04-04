@@ -18,6 +18,7 @@ Below are all the input props that `informed`'s inputs accept.
 | maskOnBlur          | bool          | NO       | Tells the field to only mask onBlur (by default it masks as the user types)        |
 | format && parse     | func          | NO       | Functions that will format values when entered. Example format: `value => $ + value` and parse: `value => value.replace('$','')`         |
 | maintainCursor      | bool          | NO       | format, parse, and mask functions will sometimes cause the cursor position to get lost. You can optionally pass this prop to maintain it!        |
+| allowEmptyString      | bool          | NO       | Enable empty strings in the input value ( by default when you backspace everything in a text field it will remove the value )         |
 | onValueChange       | func          | NO       | Function that will get called when this fields value changes. Function takes the new value as a parameter.                                                                                                                                                                                                                                         |
 | `<input>` props     | html-5        | NO       | All inputs can accept any props that a native html input, select, textarea, etc. can accept. For example, if you want to disable a text input, you would simply pass `disabled`.                                                                                                                                                                   |
 

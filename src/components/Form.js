@@ -10,7 +10,8 @@ class Form extends React.Component {
       dontPreventDefault: props.dontPreventDefault, 
       initialValues: props.initialValues,
       validate: props.validate,
-      validateFields: props.validateFields
+      validateFields: props.validateFields,
+      allowEmptyStrings: props.allowEmptyStrings
     });
     this.formApi = this.controller.getFormApi();
     this.controller.on('change', () => this.forceUpdate());

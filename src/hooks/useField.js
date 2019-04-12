@@ -32,7 +32,7 @@ function useField(field, fieldProps = {}) {
     validateOnBlur,
     validateOnMount,
     maskOnBlur,
-    allowEmptyStrings,
+    allowEmptyString,
     onValueChange,
     notify,
     keepState, 
@@ -63,12 +63,13 @@ function useField(field, fieldProps = {}) {
   };
 
   // Define set value
-  const setValue = (val, e) => {
+  const setValue = (val, e, options = {}) => {
     logger(`Setting ${field} to ${val}`);
     // Initialize maked value
     let maskedVal = val;
     // Set value to undefined if its an empty string
-    if( val === '' && !allowEmptyStrings ){
+
+    if( val === '' && !allowEmptyString && !options.allowEmptyString){
       val = undefined;
     }
     // Turn string into number for number fields

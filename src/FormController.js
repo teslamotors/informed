@@ -67,7 +67,9 @@ class FormController extends EventEmitter {
   // Generate the external form api that will be exposed to the users
   getFormApi() {
     const setValue = (field, value) =>
-      this.fields.get(field).fieldApi.setValue(value);
+      this.fields.get(field).fieldApi.setValue(value, null, {
+        allowEmptyString: this.options.allowEmptyStrings
+      });
 
     const setTouched = (field, value) =>
       this.fields.get(field).fieldApi.setTouched(value);
@@ -232,7 +234,7 @@ class FormController extends EventEmitter {
     this.fields.forEach(( field )=>{
       // Initialize the values if it needs to be
       const value = ObjectMap.get(values, field.field);
-      if( value ){
+      if( value !== undefined ){
         this.getFormApi().setValue( field.field, value );
       } 
     });

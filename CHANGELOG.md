@@ -1,3 +1,12 @@
+## 2.3.0 (April 3, 2019)
+
+### Added
+- `allowEmtyStrings` prop to the form
+- `allowEmtyString` prop to inputs
+
+### Fixed
+- issue where setValues would not allow empty strings
+
 ## 2.2.0 (March 29, 2019)
 
 ### Added

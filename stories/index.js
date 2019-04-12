@@ -65,7 +65,7 @@ const params = {
      * Import theme at _.storybook/config.js_.
      * Full list of theme https://highlightjs.org/static/demo/.
      */
-    codeTheme: 'atom-one-dark',
+    //codeTheme: 'atom-one-dark',
   },
 };
 

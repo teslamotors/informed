@@ -14,9 +14,8 @@ import { addReadme } from 'storybook-readme';
 import './assets/prism';
 import './assets/normalize.css';
 import './assets/skeleton.css';
-//import './assets/prism.css';
+import './assets/prism.css';
 import './assets/styles.css';
-// import 'highlight.js/styles/atelier-cave-dark.css';
 
 setOptions({
   name: 'Informed',

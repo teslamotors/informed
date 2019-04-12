@@ -435,6 +435,93 @@ describe('Form', () => {
     });
   });
 
+  it('setValues should set the forms values to undefined when empty strings are passed', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    mount(
+      <Form getApi={setApi}>
+        <Text field="greeting" />
+        <Text field="name" />
+        <Scope scope="favorite">
+          <Text field="color" />
+          <Text field="food" />
+        </Scope>
+      </Form>
+    );
+    api.setValues({ 
+      greeting: '', 
+      name: '',
+      favorite: {
+        color: ''
+      }
+    });
+    expect(api.getState().values).to.deep.equal({});
+  });
+
+  it('setValues should set the forms values even when value is null or empty string', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    mount(
+      <Form getApi={setApi}>
+        <Text field="greeting" allowEmptyString/>
+        <Text field="name" />
+        <Scope scope="favorite">
+          <Text field="color" />
+          <Text field="food" />
+        </Scope>
+      </Form>
+    );
+    api.setValues({ 
+      greeting: '', 
+      name: null,
+      favorite: {
+        color: false
+      }
+    });
+    expect(api.getState().values).to.deep.equal({ 
+      greeting: '', 
+      name: null,
+      favorite: {
+        color: false
+      }
+    });
+  });
+
+  it('setValues should set the forms values to empty strings when allowEmptyStrings prop is passed to form', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    mount(
+      <Form getApi={setApi} allowEmptyStrings>
+        <Text field="greeting"/>
+        <Text field="name" />
+        <Scope scope="favorite">
+          <Text field="color" />
+          <Text field="food" />
+        </Scope>
+      </Form>
+    );
+    api.setValues({ 
+      greeting: '', 
+      name: '',
+      favorite: {
+        color: ''
+      }
+    });
+    expect(api.getState().values).to.deep.equal({ 
+      greeting: '', 
+      name: '',
+      favorite: {
+        color: ''
+      }
+    });
+  });
+
   it('reset should reset the form to its initial state via initialValue prop on input', () => {
     let api;
     const setApi = param => {

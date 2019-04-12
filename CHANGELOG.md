@@ -1,3 +1,8 @@
+## 2.3.1 (April 12, 2019)
+
+### Updated
+- Babel build
+
 ## 2.3.0 (April 3, 2019)
 
 ### Added

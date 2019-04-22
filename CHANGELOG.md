@@ -1,3 +1,8 @@
+## 2.3.2 (April 22, 2019)
+
+### Updated
+- Issue with dynamic arrays and initial values
+
 ## 2.3.1 (April 12, 2019)
 
 ### Updated

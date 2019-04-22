@@ -19,6 +19,9 @@ class FormController extends EventEmitter {
     // Why? so the form can control the fields!
     this.fields = new Map();
 
+    // Map to store if the field was once registered
+    this.registered = {};
+
     // Initialize the controller state
     this.state = {
       values: {},
@@ -306,6 +309,10 @@ class FormController extends EventEmitter {
 
   register(field, fieldState, fieldStuff) {
     debug('Register', field, fieldState);
+    // Determine if the field has been registered before
+    const registered = this.registered[field];
+    // Set registered flag
+    this.registered[field] = true;
     // Always register the field
     this.fields.set(field, fieldStuff);
     // Initialize state
@@ -331,7 +338,7 @@ class FormController extends EventEmitter {
     } else {
       // Initialize the values if it needs to be
       const initialValue = ObjectMap.get(this.options.initialValues, field);
-      if( initialValue !== undefined ){
+      if( initialValue !== undefined && !registered ){
         this.getFormApi().setValue( field, initialValue );
       } else { 
         // Otherwise set the value to whatever the field is set to ( might have been field level initial value )

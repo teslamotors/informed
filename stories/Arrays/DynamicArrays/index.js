@@ -9,7 +9,7 @@ const DynamicArraysContent = () => {
 
   return (
     <div>
-      <Form>
+      <Form initialValues={{ siblings: ['foo', 'bar', 'baz']}}>
         <ArrayField field="siblings" >
           {({ add, fields }) => (
             <>

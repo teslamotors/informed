@@ -1,3 +1,8 @@
+## 2.4.0 (April 30, 2019)
+
+### Added
+- preventEnter prop to the form so users can prevent enter key form submission
+
 ## 2.3.2 (April 22, 2019)
 
 ### Updated

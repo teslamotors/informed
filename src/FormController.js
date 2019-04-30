@@ -44,7 +44,8 @@ class FormController extends EventEmitter {
     this.submitForm = this.submitForm.bind(this);
     this.reset = this.reset.bind(this);
     this.update = this.update.bind(this);
-    this.validate = this.validate.bind(this); 
+    this.validate = this.validate.bind(this);
+    this.keyDown = this.keyDown.bind(this);
 
     // Updater will be used by fields to update and register
     this.updater = {
@@ -276,6 +277,14 @@ class FormController extends EventEmitter {
         } 
       });
     
+    }
+  }
+
+  keyDown(e) {
+    // If preventEnter then return
+    if( e.keyCode == 13 && this.options.preventEnter ){
+      e.preventDefault(e);
+      return false;
     }
   }
 

@@ -11,7 +11,8 @@ class Form extends React.Component {
       initialValues: props.initialValues,
       validate: props.validate,
       validateFields: props.validateFields,
-      allowEmptyStrings: props.allowEmptyStrings
+      allowEmptyStrings: props.allowEmptyStrings,
+      preventEnter: props.preventEnter
     });
     this.formApi = this.controller.getFormApi();
     this.controller.on('change', () => this.forceUpdate());
@@ -59,6 +60,7 @@ class Form extends React.Component {
       validate,
       validateFields,
       component,
+      preventEnter,
       dontPreventDefault, ...rest } = this.props;
 
     const formState = this.controller.getFormState();
@@ -71,7 +73,8 @@ class Form extends React.Component {
             <form
               {...rest}
               onReset={this.controller.reset}
-              onSubmit={this.controller.submitForm}>
+              onSubmit={this.controller.submitForm}
+              onKeyDown={this.controller.keyDown}>
               {this.content}
             </form>
           </FormStateContext.Provider>

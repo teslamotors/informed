@@ -1,3 +1,8 @@
+## 2.5.0 (April 30, 2019)
+
+### Updated
+- useField hook to useEffect instead of useLayoutEffect
+
 ## 2.4.0 (April 30, 2019)
 
 ### Added

@@ -44,7 +44,7 @@ describe('Text', () => {
         }}>
         <Select field="status" initialValue="single">
           <Option value="" disabled>
-            Select One...
+              Select One...
           </Option>
           <Option value="single">Single</Option>
           <Option value="relationship">Relationship</Option>

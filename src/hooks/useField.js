@@ -41,18 +41,18 @@ function useField(field, fieldProps = {}) {
     type
   } = fieldProps;
 
+  // Grab the form register context
+  const updater = useContext(FormRegisterContext);
+
+  // Grab the form state
+  const formApi = useFormApi();
+
   // Initialize state 
   const [value, setVal, getVal] = useStateWithGetter(initialValue != null ? initialValue : undefined);
   const [error, setErr] = useState( validateOnMount ? validate(initialValue) : undefined );
   const [touched, setTouch] = useState();
   const [cursor, setCursor, getCursor] = useStateWithGetter(0);
   const [maskedValue, setMaskedValue ] = useState(value);
-
-  // Grab the form register context
-  const updater = useContext(FormRegisterContext);
-
-  // Grab the form state
-  const formApi = useFormApi();
 
   /* ---------------------- Setters ---------------------- */
 
@@ -169,12 +169,20 @@ function useField(field, fieldProps = {}) {
     maskedValue
   };
 
+
+  // Initial register needs to happen before render ( simulating constructor muhahahah )
+  useState(()=> {
+    const fullField = formApi.getFullField(field);
+    logger('Initial Register', fullField);
+    updater.register(field, fieldState, { field: fullField, fieldApi, fieldState, notify, keepState });
+  });
+
   logger('Render', formApi.getFullField(field), fieldState);
 
   const ref = useRef(null);
 
   // We want to register and deregister this field when field name changes
-  useLayoutEffect(
+  useEffect(
     () => {
       const fullField = formApi.getFullField(field);
       logger('Register', fullField);
@@ -190,7 +198,7 @@ function useField(field, fieldProps = {}) {
   );
 
   // We want to let the controller know of changes on this field when specific props change
-  useLayoutEffect(
+  useEffect(
     () => {
       const fullField = formApi.getFullField(field);
       logger('Update', field);

@@ -3,9 +3,9 @@ import { FormStateContext, FormApiContext, FormRegisterContext } from '../Contex
 import Debug from 'debug';
 import useForm from '../hooks/useForm';
 
-const debug = Debug('informed:Form' + '\t\t');
+const debug = Debug('informed:FormProvider' + '\t\t');
 
-const Form = ({ 
+const FormProvider = ({ 
   children, 
   getApi, 
   onChange, 
@@ -13,16 +13,14 @@ const Form = ({
   onValueChange, 
   initialValues,
   onSubmitFailure,
-  render,
   validate,
   validateFields,
-  component,
   preventEnter,
   dontPreventDefault,
   allowEmptyStrings,
   ...rest }) => {
 
-  debug('Render FORM');
+  debug('Render FormProvider');
 
   const { 
     formApi, 
@@ -41,25 +39,6 @@ const Form = ({
     onValueChange, 
     onSubmitFailure
   });
-    
-  const getContent = () => {
-
-    const props = {
-      formState,
-      formApi
-    };
-
-    if (component) {
-      return React.createElement(component, props, children);
-    }
-    if (render) {
-      return render(props);
-    }
-    if (typeof children === 'function') {
-      return children(props);
-    }
-    return children;
-  };
 
   /* --- Create Provider and render Content --- */
   return (
@@ -71,7 +50,7 @@ const Form = ({
             onReset={formController.reset}
             onSubmit={formController.submitForm}
             onKeyDown={formController.keyDown}>
-            {getContent()}
+            {children}
           </form>
         </FormStateContext.Provider>
       </FormApiContext.Provider>
@@ -80,4 +59,4 @@ const Form = ({
   
 };
 
-export default Form;
+export default FormProvider;

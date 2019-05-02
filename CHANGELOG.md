@@ -1,3 +1,8 @@
+## 2.6.0 (May 2, 2019)
+
+### Added
+- `useForm` hook!!! and `FormProvider` component!!!
+
 ## 2.5.0 (April 30, 2019)
 
 ### Updated

@@ -1,6 +1,7 @@
 import Form from './components/Form';
 import Scope from './components/Scope';
 import ArrayField from './components/ArrayField';
+import FormProvider from './components/FormProvider';
 
 import withFormApi from './HOC/withFormApi';
 import withFormState from './HOC/withFormState';
@@ -9,6 +10,7 @@ import withFieldApi from './HOC/withFieldApi';
 import withRadioGroup from './HOC/withRadioGroup';
 import asField from './HOC/asField';
 
+import useForm from './hooks/useForm';
 import useField from './hooks/useField';
 import useFieldApi from './hooks/useFieldApi';
 import useFieldState from './hooks/useFieldState';
@@ -32,12 +34,14 @@ import { BasicCheckbox } from './components/form-fields/Checkbox';
 
 export {
   Form,
+  FormProvider,
   withFormApi,
   withFormState,
   withFieldApi,
   withFieldState,
   withRadioGroup,
   asField,
+  useForm, 
   useField,
   useFieldApi,
   useFieldState,

@@ -1,3 +1,8 @@
+## 2.6.2 (May 3, 2019)
+
+### Fixed
+- issue with default register context missin getField function
+
 ## 2.6.1 (May 3, 2019)
 
 ### Fixed

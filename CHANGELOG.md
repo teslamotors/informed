@@ -1,3 +1,11 @@
+## 2.6.1 (May 3, 2019)
+
+### Fixed
+- issue with `useFieldApi` hook and `withFieldApi` HOC where reset and validate were not there
+
+### Added
+- a few more tests to increase test coverage!!!! wooo
+
 ## 2.6.0 (May 2, 2019)
 
 ### Added

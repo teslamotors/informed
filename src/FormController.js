@@ -46,6 +46,7 @@ class FormController extends EventEmitter {
     this.update = this.update.bind(this);
     this.validate = this.validate.bind(this);
     this.keyDown = this.keyDown.bind(this);
+    this.getField = this.getField.bind(this);
 
     // Updater will be used by fields to update and register
     this.updater = {
@@ -54,7 +55,8 @@ class FormController extends EventEmitter {
       setValue: this.setValue, 
       setTouched: this.setTouched, 
       setError: this.setError,
-      update: this.update
+      update: this.update,
+      getField: this.getField
     };
   }
 
@@ -376,6 +378,11 @@ class FormController extends EventEmitter {
   update(field, fieldStuff) {
     debug('Update', field);
     this.fields.set(field, fieldStuff);
+  }
+
+  getField(field){
+    debug('Getting Field', field);
+    return this.fields.get(field);
   }
 }
 

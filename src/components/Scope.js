@@ -18,7 +18,7 @@ const buildScopedFormApi = ( scope, formApi ) => {
 
 const buildScopedRegister = ( scope, formRegister ) => {
 
-  const { register, deregister, setValue, setTouched, setError, update } = formRegister;
+  const { register, deregister, setValue, setTouched, setError, update, getField } = formRegister;
 
   return {
     register: ( field, ...args ) => register(`${scope}.${field}`, ...args),
@@ -27,6 +27,7 @@ const buildScopedRegister = ( scope, formRegister ) => {
     setValue: ( field, ...args ) => setValue(`${scope}.${field}`, ...args),
     setTouched: ( field, ...args ) => setTouched(`${scope}.${field}`, ...args),
     setError: ( field, ...args ) => setError(`${scope}.${field}`, ...args),
+    getField: ( field, ...args ) => getField(`${scope}.${field}`, ...args),
   }; 
 };
 
@@ -39,8 +40,6 @@ const Scope = ({scope, children}) => {
   // VERY important to memoize the builders!
   const scopedFormApi = useMemo(() => buildScopedFormApi(scope, formApi), [scope]);
   const scopedRegister = useMemo(() => buildScopedRegister(scope, formRegister), [scope]);
-
-  scopedFormApi;
 
   return (
     <FormRegisterContext.Provider value={scopedRegister}>

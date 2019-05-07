@@ -1,3 +1,8 @@
+## 2.6.3 (May 7, 2019)
+
+### Removed
+- debug as a dependency and added my own :)
+
 ## 2.6.2 (May 3, 2019)
 
 ### Fixed

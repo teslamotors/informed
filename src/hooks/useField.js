@@ -1,7 +1,7 @@
 import React, { useState, useLayoutEffect, useEffect, useContext, useMemo, useRef } from 'react';
 import { FormRegisterContext } from '../Context';
 import useFormApi from './useFormApi';
-import Debug from 'debug';
+import Debug from '../debug';
 const logger = Debug('informed:useField'+ '\t');
 
 // TODO figure out if this is bad? 

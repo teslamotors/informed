@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormStateContext, FormApiContext, FormRegisterContext } from '../Context';
-import Debug from 'debug';
+import Debug from '../debug';
 import useForm from '../hooks/useForm';
 
 const debug = Debug('informed:FormProvider' + '\t\t');

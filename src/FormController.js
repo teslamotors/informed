@@ -1,6 +1,6 @@
 import ObjectMap from './ObjectMap';
 import { EventEmitter } from 'events';
-import Debug from 'debug';
+import Debug from './debug';
 const debug = Debug('informed:Controller'+'\t');
 
 class FormController extends EventEmitter {

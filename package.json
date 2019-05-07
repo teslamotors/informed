@@ -105,7 +105,6 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "debug": "^4.1.1",
     "lodash": "^4.17.11"
   },
   "peerDependencies": {

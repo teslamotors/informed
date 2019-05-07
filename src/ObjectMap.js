@@ -6,7 +6,7 @@ import ldhas from 'lodash/has';
 import ldvalues from 'lodash/values';
 import ldpullAt from 'lodash/pullAt';
 import ldpull from 'lodash/pull';
-import Debug from 'debug';
+import Debug from './debug';
 const debug = Debug('informed:ObjMap' + '\t');
 
 const pathToArrayElem = (path) => {

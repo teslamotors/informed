@@ -1,6 +1,6 @@
 import React, {useLayoutEffect} from 'react';
 import asField from '../../HOC/asField';
-import Debug from 'debug';
+import Debug from '../../debug';
 const logger = Debug('informed:Text' + '\t');
 
 const Text = ({ fieldApi, fieldState, ...props }) => {

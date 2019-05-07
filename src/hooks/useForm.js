@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Debug from 'debug';
+import Debug from '../debug';
 import FormController from '../FormController';
 
 const debug = Debug('informed:useForm' + '\t\t');

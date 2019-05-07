@@ -58,7 +58,7 @@ const validate = value => {
 #### Create a Complex Form
 
 ```jsx
-import { Form, Text, ArrayField } from 'informed';
+import { Form, Text, Option, Select, Checkbox, Scope, TextArea, RadioGroup, Radio } from 'informed';
 
 <Form>
   <label>First name:<Text field="name"/></label>
@@ -78,7 +78,7 @@ import { Form, Text, ArrayField } from 'informed';
     Relationship status:
     <Select field="status">
       <Option value="" disabled>
-      Select One...
+        Select One...
       </Option>
       <Option value="single">Single</Option>
       <Option value="relationship">Relationship</Option>
@@ -90,6 +90,7 @@ import { Form, Text, ArrayField } from 'informed';
     <Select
       field="colors"
       multiple
+    >
       <Option value="red">Red</Option>
       <Option value="green">Green</Option>
       <Option value="blue">Blue</Option>

@@ -1,3 +1,8 @@
+## 2.6.6 (May 9, 2019)
+
+### Added
+- exists function to the field api so you can check to see if that field exists
+
 ## 2.6.5 (May 9, 2019)
 
 ### Fixed

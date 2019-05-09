@@ -14,7 +14,8 @@ const buildFieldApi = (formApi, field) => {
     getError: () => formApi.getError(field),
     setError: value => formApi.setError(field, value),
     reset: () => formApi.resetField(field),
-    validate: () => formApi.validateField(field)
+    validate: () => formApi.validateField(field), 
+    exists: () => formApi.fieldExists(field)
   };
 };
 

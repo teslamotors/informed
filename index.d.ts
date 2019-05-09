@@ -44,6 +44,7 @@ declare module 'informed' {
     getState: () => FormState<V>
     reset: () => void
     setValues: (values: V) => void
+    validate: () => void
   }
 
   export interface FormContext<V = FormValues> {

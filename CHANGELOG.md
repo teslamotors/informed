@@ -1,3 +1,8 @@
+## 2.6.4 (May 9, 2019)
+
+### Updated
+- useForm hook so that the event handlers can change
+
 ## 2.6.3 (May 7, 2019)
 
 ### Removed

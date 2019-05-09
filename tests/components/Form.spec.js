@@ -179,7 +179,7 @@ describe('Form', () => {
     const setApi = param => {
       api = param;
     };
-    const validate = greeting => 
+    const validate = greeting =>
       greeting === 'hello!' ? 'ooo thats no good' : null;
     const wrapper = mount(
       <Form onSubmit={spy} getApi={setApi}>
@@ -199,7 +199,7 @@ describe('Form', () => {
     const setApi = param => {
       api = param;
     };
-    const validate = values => 
+    const validate = values =>
       values.a + values.b !== 4 ? 'values must sum to 4!' : undefined;
     const wrapper = mount(
       <Form onSubmit={spy} getApi={setApi} validate={validate}>
@@ -221,7 +221,7 @@ describe('Form', () => {
     const setApi = param => {
       api = param;
     };
-    const validate = values => 
+    const validate = values =>
       values.a + values.b !== 4 ? 'values must sum to 4!' : undefined;
     const wrapper = mount(
       <Form onSubmit={spy} getApi={setApi} validate={validate}>
@@ -263,6 +263,28 @@ describe('Form', () => {
     expect(spy.called).to.equal(false);
   });
 
+  it('should update onSubmit function when the onSubmit prop changes', () => {
+    const dummy1 = sandbox.spy();
+    const dummy2 = sandbox.spy();
+    const spy = sandbox.spy();
+    const wrapper = mount(
+      <Form onSubmit={dummy1}>
+        <Text field="greeting" />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+    wrapper.setProps({onSubmit: dummy2});
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'hello' } });
+    wrapper.setProps({onSubmit: spy});
+    const button = wrapper.find('button');
+    button.simulate('submit');
+    expect(dummy1.called).to.equal(false);
+    expect(dummy2.called).to.equal(false);
+    expect(spy.called).to.equal(true);
+    expect(spy.args[0][0]).to.deep.equal({ greeting: 'hello' });
+  });
+
   it('should set correct errors when invalid form level field validation', () => {
     const spy = sandbox.spy();
     let api;
@@ -298,7 +320,7 @@ describe('Form', () => {
     const setApi = param => {
       api = param;
     };
-    const validate = values => 
+    const validate = values =>
       values.a + values.b !== 4 ? 'values must sum to 4!' : undefined;
     const wrapper = mount(
       <Form onSubmit={spy} getApi={setApi} validate={validate}>
@@ -418,15 +440,15 @@ describe('Form', () => {
         </Scope>
       </Form>
     );
-    api.setValues({ 
-      greeting: 'hello', 
+    api.setValues({
+      greeting: 'hello',
       name: 'joe',
       favorite: {
         color: 'green'
       }
     });
-    expect(api.getState().values).to.deep.equal({ 
-      greeting: 'hello', 
+    expect(api.getState().values).to.deep.equal({
+      greeting: 'hello',
       name: 'joe',
       favorite: {
         color: 'green'
@@ -449,8 +471,8 @@ describe('Form', () => {
         </Scope>
       </Form>
     );
-    api.setValues({ 
-      greeting: '', 
+    api.setValues({
+      greeting: '',
       name: '',
       favorite: {
         color: ''
@@ -474,15 +496,15 @@ describe('Form', () => {
         </Scope>
       </Form>
     );
-    api.setValues({ 
-      greeting: '', 
+    api.setValues({
+      greeting: '',
       name: null,
       favorite: {
         color: false
       }
     });
-    expect(api.getState().values).to.deep.equal({ 
-      greeting: '', 
+    expect(api.getState().values).to.deep.equal({
+      greeting: '',
       name: null,
       favorite: {
         color: false
@@ -505,15 +527,15 @@ describe('Form', () => {
         </Scope>
       </Form>
     );
-    api.setValues({ 
-      greeting: '', 
+    api.setValues({
+      greeting: '',
       name: '',
       favorite: {
         color: ''
       }
     });
-    expect(api.getState().values).to.deep.equal({ 
-      greeting: '', 
+    expect(api.getState().values).to.deep.equal({
+      greeting: '',
       name: '',
       favorite: {
         color: ''
@@ -540,7 +562,7 @@ describe('Form', () => {
     api.reset();
     expect(api.getState()).to.deep.equal(getState({
       values: { greeting: 'ayyyoooooo' },
-      pristine: false, 
+      pristine: false,
       dirty: true
     }));
   });
@@ -565,7 +587,7 @@ describe('Form', () => {
     api.reset();
     expect(api.getState()).to.deep.equal(getState({
       values: { greeting: 'ayyyoooooo' },
-      pristine: false, 
+      pristine: false,
       dirty: true
     }));
   });
@@ -593,7 +615,7 @@ describe('Form', () => {
     api.reset();
     expect(api.getState()).to.deep.equal(getState({
       values: {favorite: { color: 'red'}},
-      pristine: false, 
+      pristine: false,
       dirty: true
     }));
   });
@@ -621,7 +643,7 @@ describe('Form', () => {
     api.reset();
     expect(api.getState()).to.deep.equal(getState({
       values: {favorite: { color: 'red'}},
-      pristine: false, 
+      pristine: false,
       dirty: true
     }));
   });
@@ -784,7 +806,7 @@ describe('Form', () => {
       name: 'new validation!'
     });
   });
- 
+
 
   // WARNINGG AND SUCCESS TESTS ^^
 });

@@ -5,7 +5,6 @@ const debug = Debug('informed:Controller'+'\t');
 
 class FormController extends EventEmitter {
 
-
   constructor(options = {}) {
 
     // Dont forget to call super! :)
@@ -109,6 +108,10 @@ class FormController extends EventEmitter {
 
     const validate = () => this.validate();
 
+    const validateField = field => this.fields.get(field).fieldApi.validate();
+
+    const resetField = field => this.fields.get(field).fieldApi.reset();
+
     return {
       setValue,
       setTouched,
@@ -125,7 +128,9 @@ class FormController extends EventEmitter {
       fieldExists,
       getInitialValue,
       setFormError,
-      validate
+      validate,
+      validateField,
+      resetField
     };
   }
 

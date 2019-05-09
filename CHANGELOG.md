@@ -1,3 +1,8 @@
+## 2.6.5 (May 9, 2019)
+
+### Fixed
+- issue where inital render of useFieldApi would fail when field was not registered yet
+
 ## 2.6.4 (May 9, 2019)
 
 ### Updated

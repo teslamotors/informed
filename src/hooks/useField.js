@@ -143,10 +143,10 @@ function useField(field, fieldProps = {}) {
   };
 
   // Define validate
-  const fieldValidate = (val) => {
+  const fieldValidate = () => {
     if( validate ){
-      logger(`Field validating ${field} ${val}`);
-      setError(validate(val, formApi.getValues()));
+      logger(`Field validating ${field} ${getVal()}`);
+      setError(validate(getVal(), formApi.getValues()));
     }
   };
 

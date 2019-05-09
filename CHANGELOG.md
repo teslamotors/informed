@@ -1,3 +1,8 @@
+## 2.6.7 (May 9, 2019)
+
+### Added
+- exists function to the field api types
+
 ## 2.6.6 (May 9, 2019)
 
 ### Added

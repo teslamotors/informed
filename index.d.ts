@@ -62,6 +62,7 @@ declare module 'informed' {
     setError: (error: FormError) => void
     reset: () => void
     validate: () => void
+    exists: () => boolean
   }
 
   export interface FieldState<V> {

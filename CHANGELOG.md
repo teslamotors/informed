@@ -1,3 +1,8 @@
+## 2.6.9 (May 10, 2019)
+
+### Fixed
+- attempting to fix issue that I think is caused by useEffect in useForm hook
+
 ## 2.6.8 (May 10, 2019)
 
 ### Fixed

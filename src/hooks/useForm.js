@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import Debug from '../debug';
 import FormController from '../FormController';
 
@@ -34,7 +34,7 @@ const useForm = ({
   const [ formState, setFormState ] = useState( formController.getFormState() );
 
   // Register for events
-  useEffect(()=>{
+  useLayoutEffect(()=>{
 
     // Update the form state to trigger rerender!
     const onChangeHandlerRerender = () => setFormState( formController.getFormState() );

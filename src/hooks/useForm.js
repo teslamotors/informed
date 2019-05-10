@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Debug from '../debug';
 import FormController from '../FormController';
 
@@ -21,14 +21,14 @@ const useForm = ({
   debug('Render useForm');
 
   // Create form controller
-  const formController = useMemo(() => new FormController({
+  const [formController] = useState(new FormController({
     dontPreventDefault,
     initialValues,
     validate,
     validateFields,
     allowEmptyStrings,
     preventEnter,
-  }), []);
+  }));
 
   // Form state will be used to trigger rerenders
   const [ formState, setFormState ] = useState( formController.getFormState() );
@@ -61,15 +61,15 @@ const useForm = ({
     };
   }, [onChange, onSubmit, onValueChange, onSubmitFailure ]);
 
-  useMemo(() => {
+  useState(()=>{
     // Give access to api outside
     if (getApi) {
       getApi(formController.getFormApi());
     }
-  }, []);
+  });
 
-  // We dont want this to happen on every render so thats why useMemo with an empty array of inputs is used here
-  const formApi = useMemo(() => formController.getFormApi(), []);
+  // We dont want this to happen on every render so thats why useState is used here
+  const [ formApi ] = useState( formController.getFormApi() );
 
   return { formApi, formState, formController };
 };

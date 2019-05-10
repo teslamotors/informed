@@ -1,3 +1,8 @@
+## 2.6.8 (May 10, 2019)
+
+### Fixed
+- issues cause by using `useMemo` instead of `useState` for initial render stuff 
+
 ## 2.6.7 (May 9, 2019)
 
 ### Added

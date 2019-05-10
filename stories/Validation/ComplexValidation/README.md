@@ -25,6 +25,8 @@ and see what happens:**
 All of our basic level validation passed but when the form attempted to submit
 the additional friend checks failed.
 
+<!-- IDFK Strange issue where i need this commnet or code formatting is messed up -->
+
 ```jsx
 import { Form, Text, Scope } from 'informed';
 

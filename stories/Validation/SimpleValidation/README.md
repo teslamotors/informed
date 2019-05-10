@@ -18,6 +18,8 @@ submit a valid form.
 **Get rid of the errors by typing at least 5 characters in each field and
 click the submit button again and see what happens:**
 
+<!-- IDFK Strange issue where i need this commnet or code formatting is messed up -->
+
 ```jsx
 import { Form, Text } from 'informed';
 
@@ -25,12 +27,10 @@ const validate = value => {
   return !value || value.length < 5 ? 'Field must be at least five characters' : undefined;
 }
 
-<Form >
+<Form>
   <label>Color:<Text field="color" validate={validate}/></label>
   <label>Food:<Text field="food" validate={validate}/></label>
   <label>Car:<Text field="car" validate={validate}/></label>
-  <button type="submit">
-    Submit
-  </button>
+  <button type="submit">Submit</button>
 </Form>
 ```

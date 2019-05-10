@@ -30,6 +30,8 @@ Why? Because now the validate function is failing.
 **Get rid of the form level error by typing two values that sum to 4 and
 click the submit button again and see what happens:** 
 
+<!-- IDFK Strange issue where i need this commnet or code formatting is messed up -->
+
 ```jsx
 import { Form, Text } from 'informed';
 

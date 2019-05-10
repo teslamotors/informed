@@ -4,6 +4,8 @@
 
 <!-- STORY -->
 
+<!-- IDFK Strange issue where i need this commnet or code formatting is messed up -->
+
 ```jsx
 import { Form, BasicText, asField } from 'informed';
 

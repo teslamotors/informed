@@ -19,6 +19,8 @@ changes next to `favorite.color:`
 Why? Lets take a look at the code below:
 **
 
+<!-- IDFK Strange issue where i need this commnet or code formatting is messed up -->
+
 ```jsx
 import { Form, Text, Scope, withFieldState } from 'informed';
 

@@ -11,6 +11,8 @@ in one of the following examples.
 Lets say you like `informed`'s text input but you want to show an error and turn
 it red when there is an error. You could achieve this with the following code.
 
+<!-- IDFK Strange issue where i need this commnet or code formatting is messed up -->
+
 ```jsx
 import { Form, BasicText, asField } from 'informed';
 

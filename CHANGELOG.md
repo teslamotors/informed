@@ -1,3 +1,8 @@
+## 2.6.10 (May 10, 2019)
+
+### Fixed
+- issue where initialization code in useform was in the effect and not in constructor
+
 ## 2.6.9 (May 10, 2019)
 
 ### Fixed

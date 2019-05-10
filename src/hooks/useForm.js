@@ -36,10 +36,6 @@ const useForm = ({
   // Register for events
   useLayoutEffect(()=>{
 
-    // Update the form state to trigger rerender!
-    const onChangeHandlerRerender = () => setFormState( formController.getFormState() );
-    formController.on('change', onChangeHandlerRerender);
-
     const onChangeHandler = () => onChange && onChange( formController.getFormState() );
     const onSubmitHandler = () => onSubmit && onSubmit( formController.getFormState().values );
     const onValueHandler = () => onValueChange && onValueChange( formController.getFormState().values );
@@ -53,7 +49,6 @@ const useForm = ({
 
     // Unregister events
     return () => {
-      formController.removeListener('change', onChangeHandlerRerender);
       formController.removeListener('change', onChangeHandler);
       formController.removeListener('submit', onSubmitHandler);
       formController.removeListener('value', onValueHandler);
@@ -61,7 +56,11 @@ const useForm = ({
     };
   }, [onChange, onSubmit, onValueChange, onSubmitFailure ]);
 
+  // Initialize code like constructor but not muhahah
   useState(()=>{
+    // Update the form state to trigger rerender!
+    const onChangeHandlerRerender = () => setFormState( formController.getFormState() );
+    formController.on('change', onChangeHandlerRerender);
     // Give access to api outside
     if (getApi) {
       getApi(formController.getFormApi());

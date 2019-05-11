@@ -1,4 +1,4 @@
-## 2.7.0 (May 11, 2019)
+## 2.6.11 (May 11, 2019)
 
 ### Added
 - useField hook to the docs

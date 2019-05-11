@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
@@ -208,6 +208,37 @@ describe('Text', () => {
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'Foo' } });
     expect(wrapper.find('input').props().disabled).to.equal(true);
+  });
+
+  it('type should change when external change occurs', () => {
+
+    const Changer = () => {
+      const [type, setType] = useState('text');
+      const toggle = () => { 
+        setType( (prev) => prev === 'text' ? 'password' : 'text' );
+      };
+      return (
+        <div>
+          <Form>
+            <Text
+              field="name"
+              type={type}
+            />
+          </Form>
+          <button onClick={toggle}>ClickMe</button>
+        </div>
+      );
+    }; 
+
+    const wrapper = mount(
+      <Changer />
+    );
+    expect(wrapper.find('input').props().type).to.equal('text');
+    let button = wrapper.find('button');
+    button.simulate('click');
+    expect(wrapper.find('input').props().type).to.equal('password');
+    button.simulate('click');
+    expect(wrapper.find('input').props().type).to.equal('text');
   });
 
 

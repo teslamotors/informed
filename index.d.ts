@@ -286,7 +286,6 @@ declare module 'informed' {
   export function useFieldState<V = FormValue>(field: string): FieldState<V>
 
   export function useField<V = FormValue, VS = any>(
-    field: string,
-    fieldProps?: BaseFieldProps<V, VS>,
+    fieldProps?: FieldProps<V, VS>,
   ): FieldContext<V>
 }

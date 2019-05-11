@@ -20,9 +20,10 @@ function useStateWithGetter(initial) {
   return [state, set, get];
 }
 
-function useField(field, fieldProps = {}) {
+function useField(fieldProps = {}) {
   // Pull props off of field props
   const { 
+    field,
     validate,
     mask,
     format,
@@ -38,7 +39,8 @@ function useField(field, fieldProps = {}) {
     keepState, 
     maintainCursor,
     debug, 
-    type
+    type,
+    ...userProps
   } = fieldProps;
 
   // Grab the form register context
@@ -232,11 +234,11 @@ function useField(field, fieldProps = {}) {
   );
 
   // This is an awesome optimization!!
-  const shouldUpdate = [ ...Object.values(fieldState), ...Object.values(fieldProps), field ];
+  const shouldUpdate = [ ...Object.values(fieldState), ...Object.values(fieldProps), ...Object.values(userProps) ];
 
-  const purify = (children, userprops = []) => useMemo(() => children, [ ...shouldUpdate, ...userprops]);
+  const render = (children) => useMemo(() => children, [ ...shouldUpdate ]);
 
-  return { fieldState, fieldApi, purify, ref };
+  return { fieldState, fieldApi, render, ref, userProps };
 
 }
 

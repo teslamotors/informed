@@ -1,3 +1,8 @@
+## 2.6.12 (May 14, 2019)
+
+### Added
+- getters to useFields field api
+
 ## 2.6.11 (May 11, 2019)
 
 ### Added

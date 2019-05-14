@@ -51,8 +51,8 @@ function useField(fieldProps = {}) {
 
   // Initialize state 
   const [value, setVal, getVal] = useStateWithGetter(initialValue != null ? initialValue : undefined);
-  const [error, setErr] = useState( validateOnMount ? validate(initialValue) : undefined );
-  const [touched, setTouch] = useState();
+  const [error, setErr, getErr] = useStateWithGetter( validateOnMount ? validate(initialValue) : undefined );
+  const [touched, setTouch, getTouch] = useStateWithGetter();
   const [cursor, setCursor, getCursor] = useStateWithGetter(0);
   const [maskedValue, setMaskedValue ] = useState(value);
 
@@ -160,7 +160,10 @@ function useField(fieldProps = {}) {
     setTouched,
     setError,
     reset, 
-    validate: fieldValidate
+    validate: fieldValidate, 
+    getValue: getVal,
+    getTouched: getTouch, 
+    getError: getErr
   };
 
   // Build the field state

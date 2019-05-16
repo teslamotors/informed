@@ -67,6 +67,7 @@ declare module 'informed' {
 
   export interface FieldState<V> {
     value: V
+    maskedValue: V
     touched: boolean
     error?: string
   }

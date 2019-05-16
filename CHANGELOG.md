@@ -1,3 +1,8 @@
+## 2.6.13 (May 16, 2019)
+
+### Added
+- maskedValue to types
+
 ## 2.6.12 (May 14, 2019)
 
 ### Added

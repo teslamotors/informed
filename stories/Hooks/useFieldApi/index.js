@@ -7,11 +7,18 @@ import { Form, Text, useFieldApi } from '../../../src';
 const ComponentUsingFieldApi = () => {
   const fieldApi = useFieldApi('name');
   return (
-    <button type="button" onClick={()=>
-      fieldApi.setValue(Math.floor(Math.random() * Math.floor(Number.MAX_SAFE_INTEGER)))
-    }>
-      Random
-    </button>
+    <>
+      <button type="button" onClick={()=>
+        fieldApi.setValue(Math.floor(Math.random() * Math.floor(Number.MAX_SAFE_INTEGER)))
+      }>
+        Random
+      </button>
+      <button type="button" onClick={()=>
+        fieldApi.reset()
+      }>
+        Reset
+      </button>
+    </>
   );
 };
 

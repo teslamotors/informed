@@ -1,3 +1,8 @@
+## 2.6.14 (May 16, 2019)
+
+### Added
+- render and userProps to field context types
+
 ## 2.6.13 (May 16, 2019)
 
 ### Added

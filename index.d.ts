@@ -76,8 +76,9 @@ declare module 'informed' {
     fieldState: FieldState<V>
     fieldApi: FieldApi<V>
     // not sure what this is for, I actually found it in https://github.com/joepuzzo/informed/blob/02584aeb10bbf04875bddc974f62db95c5612f57/src/hooks/useField.js#L205, not in the docs
-    purify: <T>(children: T, userProps?: any[]) => T
+    render: <T>(children: T, userProps?: any[]) => T
     ref: React.RefObject<any>
+    userProps: any
   }
 
   export interface BaseFieldProps<V = FormValue, VS = FormValues>
@@ -203,7 +204,7 @@ declare module 'informed' {
 
   export interface BasicFieldProps<V, VS>
     extends BaseFieldProps<V, VS>,
-      Omit<FieldContext<V>, 'purify' | 'ref'> {
+      Omit<FieldContext<V>, 'render' | 'ref' | 'userProps'> {
     field?: string
   }
 

@@ -89,6 +89,7 @@ declare module 'informed' {
     validateOnChange?: boolean
     validateOnMount?: boolean
     notify?: (keyof VS)[]
+    maintainCursor?: boolean
     mask?: (value: V) => V
     maskOnBlur?: boolean
     format?: (value: V) => V

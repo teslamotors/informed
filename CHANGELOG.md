@@ -1,3 +1,8 @@
+## 2.6.15 (May 20, 2019)
+
+### Added
+- maintainCursor to types
+
 ## 2.6.14 (May 16, 2019)
 
 ### Added

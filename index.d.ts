@@ -51,6 +51,11 @@ declare module 'informed' {
     formState: FormState<V>
   }
 
+  export interface VOffset<V = FormValue> {
+    value: V
+    offset: number
+  }
+
   export type ChildFunction<C> = (props: C) => React.ReactNode
 
   export interface FieldApi<V = FormValue> {
@@ -91,6 +96,7 @@ declare module 'informed' {
     notify?: (keyof VS)[]
     maintainCursor?: boolean
     mask?: (value: V) => V
+    maskWithCursorOffset: (value: V) => VOffset
     maskOnBlur?: boolean
     format?: (value: V) => V
     parse?: (value: V) => V

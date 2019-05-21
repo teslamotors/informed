@@ -1,3 +1,8 @@
+## 2.7.1 (May 21, 2019)
+
+### Added
+- `maskWithCursorOffset` to the type defs
+
 ## 2.7.0 (May 21, 2019)
 
 ### Added

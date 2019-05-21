@@ -1,3 +1,8 @@
+## 2.7.2 (May 21, 2019)
+
+### Added
+- made `maskWithCursorOffset` optional in types 
+
 ## 2.7.1 (May 21, 2019)
 
 ### Added

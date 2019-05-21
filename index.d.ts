@@ -96,7 +96,7 @@ declare module 'informed' {
     notify?: (keyof VS)[]
     maintainCursor?: boolean
     mask?: (value: V) => V
-    maskWithCursorOffset: (value: V) => VOffset
+    maskWithCursorOffset?: (value: V) => VOffset
     maskOnBlur?: boolean
     format?: (value: V) => V
     parse?: (value: V) => V

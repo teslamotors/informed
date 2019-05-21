@@ -26,6 +26,7 @@ function useField(fieldProps = {}) {
     field,
     validate,
     mask,
+    maskWithCursorOffset,
     format,
     parse,
     initialValue,
@@ -54,6 +55,7 @@ function useField(fieldProps = {}) {
   const [error, setErr, getErr] = useStateWithGetter( validateOnMount ? validate(initialValue) : undefined );
   const [touched, setTouch, getTouch] = useStateWithGetter();
   const [cursor, setCursor, getCursor] = useStateWithGetter(0);
+  const [cursorOffset, setCursorOffset, getCursorOffset] = useStateWithGetter(0);
   const [maskedValue, setMaskedValue ] = useState(value);
 
   /* ---------------------- Setters ---------------------- */
@@ -82,6 +84,13 @@ function useField(fieldProps = {}) {
     if(mask && !maskOnBlur){
       maskedVal = mask(val);
       val = mask(val);
+    }
+    // Call maskWithCursorOffset if it was passed
+    if(maskWithCursorOffset && !maskOnBlur){
+      const res = maskWithCursorOffset(val);
+      maskedVal = res.value;
+      val = res.value;
+      setCursorOffset(res.offset);
     }
     // Call format and parse if they were passed
     if(format && parse){
@@ -130,6 +139,20 @@ function useField(fieldProps = {}) {
       }    
       // Call the updater
       updater.setValue(field, maskedVal);
+    }
+    // Call maskWithCursorOffset if it was passed
+    if(maskWithCursorOffset && maskOnBlur){
+      const res = maskWithCursorOffset(getVal());
+      setCursorOffset(res.offset);
+      // Now we update the value
+      setVal(res.value);
+      setMaskedValue(res.value);
+      // If the user passed in onValueChange then call it!
+      if( onValueChange ){
+        onValueChange(res.value);
+      }    
+      // Call the updater
+      updater.setValue(field, res.value);
     }
     setTouch(val);
     updater.setTouched(field, val);
@@ -216,7 +239,7 @@ function useField(fieldProps = {}) {
   // Maintain cursor position
   useLayoutEffect(
     () => {
-      if ( maintainCursor && ref.current != null && getCursor()) ref.current.selectionEnd = getCursor();
+      if ( maintainCursor && ref.current != null && getCursor()) ref.current.selectionEnd = getCursor() + getCursorOffset();
     },
     [value]
   );

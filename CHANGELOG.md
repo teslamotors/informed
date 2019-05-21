@@ -1,3 +1,8 @@
+## 2.7.0 (May 21, 2019)
+
+### Added
+- `maskWithCursorOffset` prop to inputs
+
 ## 2.6.15 (May 20, 2019)
 
 ### Added

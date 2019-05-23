@@ -123,7 +123,7 @@ function useField(fieldProps = {}) {
   const setTouched = ( val, reset ) => {
     // We only need to call validate if the user gave us one
     // and they want us to validate on blur
-    if (validate && validateOnBlur && !reset ) {
+    if (validate && validateOnBlur && !reset && val ) {
       logger(`Validating after blur ${field} ${getVal()}`);
       setError(validate(getVal(), formApi.getValues()));
     }

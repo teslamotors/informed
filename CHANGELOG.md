@@ -1,3 +1,8 @@
+## 2.7.3 (May 22, 2019)
+
+### Fixed
+- issue with validation triggering when keep state and validate on blur 
+
 ## 2.7.2 (May 21, 2019)
 
 ### Added

@@ -30,7 +30,7 @@ const ErrorText = (props) => {
           }
         }}
         onBlur={e => {
-          setTouched();
+          setTouched(true);
           if (onBlur) {
             onBlur(e);
           }

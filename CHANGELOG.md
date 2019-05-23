@@ -1,3 +1,11 @@
+## 2.7.4 (May 23, 2019)
+
+### Fixed
+- documentation for creating custom inputs
+
+### Added
+- the ability to pass your own ref to inputs
+
 ## 2.7.3 (May 22, 2019)
 
 ### Fixed

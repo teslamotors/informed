@@ -32,7 +32,7 @@ const ErrorText = asField(({ fieldState, fieldApi, ...props }) => {
           }
         }}
         onBlur={e => {
-          setTouched();
+          setTouched(true);
           if (onBlur) {
             onBlur(e);
           }

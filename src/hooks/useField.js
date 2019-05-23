@@ -20,7 +20,7 @@ function useStateWithGetter(initial) {
   return [state, set, get];
 }
 
-function useField(fieldProps = {}) {
+function useField(fieldProps = {}, userRef) {
   // Pull props off of field props
   const { 
     field,
@@ -207,7 +207,9 @@ function useField(fieldProps = {}) {
 
   logger('Render', formApi.getFullField(field), fieldState);
 
-  const ref = useRef(null);
+  const internalRef = useRef(null);
+
+  const ref = React.useMemo(() => userRef || internalRef, []);
 
   // We want to register and deregister this field when field name changes
   useEffect(

@@ -24,7 +24,7 @@
     "prettier": "prettier --write 'src/**/*.{js,md}' 'tests/**/*.{js,md}' 'stories/**/*.{js,md}'",
     "pretty-quick": "pretty-quick",
     "lint:fix": "eslint src/** tests/** stories/** --fix",
-    "coveralls": "NODE_ENV=spec nyc npm test && nyc report --reporter=text-lcov | coveralls",
+    "coveralls": "NODE_ENV=spec nyc npm test && nyc -x 'src/debug.js' report --reporter=text-lcov | coveralls",
     "test:coverage": "NODE_ENV=spec nyc -x 'src/debug.js' mocha-webpack --exit --opts tests/mocha-webpack.opts",
     "test:coverage-html": "NODE_ENV=spec nyc -x 'src/debug.js' --reporter=html mocha-webpack --exit --opts tests/mocha-webpack.opts && http-server coverage -o -p 8007"
   },

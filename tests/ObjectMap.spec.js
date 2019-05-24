@@ -94,6 +94,29 @@ describe('ObjectMap', () => {
         expect(actual).to.deep.equal(expected);
       });
 
+      it('should set a value in an array to undefined', () => {
+        const expected = { foo: { bar: [ 'baz', 'taz', undefined ] } };
+        const actual = { foo: { bar: [ 'baz', 'taz', 'raz' ] } };
+        ObjectMap.set(actual, 'foo.bar[2]', undefined);
+        expect(actual).to.deep.equal(expected);
+      });
+
+      it('should set array value to undefined and then cleanup', () => {
+        const expected = {};
+        const actual = { foo: { bar: [ 'baz', 'taz' ] } };
+        ObjectMap.set(actual, 'foo.bar', undefined);
+        expect(actual).to.deep.equal(expected);
+      });
+      
+    });
+
+    describe('delete', () => {
+      it('should delete value', () => {
+        const actual = { foo: { bar: { baz: 3 } } };
+        ObjectMap.delete(actual, 'foo.bar.baz');
+        expect(actual).to.deep.equal({});
+      });
+
       it('should remove objects when they are empty after deleting last attribute', () => {
         const expected = {};
         const actual = { foo: { bar: { baz: 3 } } };
@@ -134,14 +157,6 @@ describe('ObjectMap', () => {
         const actual = { foo: [, { bar: [, 3, 4] }] };
         ObjectMap.delete(actual, 'foo[1].bar[1]');
         expect(actual).to.deep.equal(expected);
-      });
-    });
-
-    describe('delete', () => {
-      it('should delete value', () => {
-        const actual = { foo: { bar: { baz: 3 } } };
-        ObjectMap.delete(actual, 'foo.bar.baz');
-        expect(actual).to.deep.equal({});
       });
 
       it('should delete value from array', () => {

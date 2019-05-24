@@ -3,7 +3,7 @@ import useField from '../hooks/useField';
 
 const asField = Component =>  {
   
-  return React.forwardRef(( props, userRef ) => {
+  const forwardRef = React.forwardRef(( props, userRef ) => {
 
     const { fieldState, fieldApi, render, ref, userProps } = useField(props, userRef);
 
@@ -20,6 +20,10 @@ const asField = Component =>  {
     );
   });
   
+  // const name = Component.displayName || Component.name;
+  // forwardRef.displayName = name; 
+
+  return forwardRef;
 };
 
 export default asField;

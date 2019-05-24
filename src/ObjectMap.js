@@ -31,7 +31,14 @@ class ObjectMap {
     if( value !== undefined ){
       ldset(object, path, value);
     } else {
+      // Setting things to undefined in informed is special!
+      // so in this else statement we deal with that
+
       // If the path is to an array leaf then we want to set to undefined
+      // Example: 
+      // path = 'foo.bar[2]'
+      // foo.bar = [ 'baz', 'raz', 'taz' ]
+      // setting taz to undefined   ^^^
       if( pathToArrayElem(path) && ObjectMap.get(object, path) !== undefined ) {
         ldset(object, path, undefined);
         let pathArray = ldtoPath(path);
@@ -39,6 +46,10 @@ class ObjectMap {
         cleanup(object, pathArray, false);
       }
       // Only delete the field if it needs to be deleted and its not a path to an array ( array leaf )
+      // Example: 
+      // path = 'foo.bar'
+      // foo.bar = 'baz'
+      // removing foo.bar from the object completley
       else if( !pathToArrayElem(path) && ObjectMap.get(object, path) !== undefined ) ObjectMap.delete(object, path);
     }
   }
@@ -51,17 +62,18 @@ class ObjectMap {
     cleanup(object, pathArray);
   }
 
-  static pullOut(object, path, index) {
-    // Get the path to the array
-    let pathArray = ldtoPath(path);
-    pathArray = pathArray.slice(0, pathArray.length - 1).join();
-    debug('PathArray', pathArray);
-    // Get the array
-    const arr = ldget(object, pathArray);
-    debug('Array', arr);
-    // Pull out of array
-    ldpullAt(arr, index);
-  }
+  // May need to do this some day ;)
+  // static pullOut(object, path, index) {
+  //   // Get the path to the array
+  //   let pathArray = ldtoPath(path);
+  //   pathArray = pathArray.slice(0, pathArray.length - 1).join();
+  //   debug('PathArray', pathArray);
+  //   // Get the array
+  //   const arr = ldget(object, pathArray);
+  //   debug('Array', arr);
+  //   // Pull out of array
+  //   ldpullAt(arr, index);
+  // }
 }
 
 function cleanup(obj, path, pull = true) {

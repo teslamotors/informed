@@ -257,5 +257,127 @@ describe('Text', () => {
     expect(wrapper.find('input').props().type).to.equal('text');
   });
 
+  it('should keep state when in a form and toggled', () => {
+
+    let savedApi;
+
+    const Toggle = () => {
+      const [show, setShow] = useState(true);
+      const toggle = () => setShow((prev)=>!prev); 
+      return (
+        <Form
+          getApi={api => {
+            savedApi = api;
+          }}>
+          { show ? <Text field="greeting" keepState/> : null }
+          <button type="button" onClick={toggle}>toggle</button>
+        </Form>
+      );
+    };
+
+
+    const wrapper = mount(
+      <Toggle />
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'Hello!' } });
+    expect(savedApi.getState().values).to.deep.equal({ greeting: 'Hello!' });
+    const button = wrapper.find('button');
+    button.simulate('click');
+    expect(savedApi.getState().values).to.deep.equal({ greeting: 'Hello!' });
+    button.simulate('click');
+    expect(savedApi.getState().values).to.deep.equal({ greeting: 'Hello!' });
+  });
+
+  it('should NOT keep state when in a form and toggled with no keepState prop', () => {
+
+    let savedApi;
+
+    const Toggle = () => {
+      const [show, setShow] = useState(true);
+      const toggle = () => setShow((prev)=>!prev); 
+      return (
+        <Form
+          getApi={api => {
+            savedApi = api;
+          }}>
+          { show ? <Text field="greeting"/> : null }
+          <button type="button" onClick={toggle}>toggle</button>
+        </Form>
+      );
+    };
+
+    const wrapper = mount(
+      <Toggle />
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'Hello!' } });
+    expect(savedApi.getState().values).to.deep.equal({ greeting: 'Hello!' });
+    const button = wrapper.find('button');
+    button.simulate('click');
+    expect(savedApi.getState().values).to.deep.equal({});
+    button.simulate('click');
+    expect(savedApi.getState().values).to.deep.equal({});
+  });
+
+  it('should set value to initial value if no value was added and keep state prop was passed when in a form and toggled', () => {
+
+    let savedApi;
+
+    const Toggle = () => {
+      const [show, setShow] = useState(true);
+      const toggle = () => setShow((prev)=>!prev); 
+      return (
+        <Form
+          getApi={api => {
+            savedApi = api;
+          }}>
+          { show ? <Text field="greeting" keepState initialValue="foobar"/> : null }
+          <button type="button" onClick={toggle}>toggle</button>
+        </Form>
+      );
+    };
+
+    const wrapper = mount(
+      <Toggle />
+    );
+    expect(savedApi.getState().values).to.deep.equal({ greeting: 'foobar' });
+    const button = wrapper.find('button');
+    button.simulate('click');
+    expect(savedApi.getState().values).to.deep.equal({ greeting: 'foobar' });
+    button.simulate('click');
+    expect(savedApi.getState().values).to.deep.equal({ greeting: 'foobar' });
+  });
+
+  it('should set value to initial form value if no value was added and keep state prop was passed when in a form and toggled', () => {
+
+    let savedApi;
+
+    const Toggle = () => {
+      const [show, setShow] = useState(true);
+      const toggle = () => setShow((prev)=>!prev); 
+      return (
+        <Form
+          initialValues={{greeting: 'foobar'}}
+          getApi={api => {
+            savedApi = api;
+          }}>
+          { show ? <Text field="greeting" keepState/> : null }
+          <button type="button" onClick={toggle}>toggle</button>
+        </Form>
+      );
+    };
+
+    const wrapper = mount(
+      <Toggle />
+    );
+    expect(savedApi.getState().values).to.deep.equal({ greeting: 'foobar' });
+    const button = wrapper.find('button');
+    button.simulate('click');
+    expect(savedApi.getState().values).to.deep.equal({ greeting: 'foobar' });
+    button.simulate('click');
+    expect(savedApi.getState().values).to.deep.equal({ greeting: 'foobar' });
+  });
+
 
 });

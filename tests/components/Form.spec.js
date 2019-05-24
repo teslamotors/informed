@@ -841,6 +841,23 @@ describe('Form', () => {
     expect(spy.args[0][0]).to.deep.equal({ greeting: 'hello' });
   });
 
+  // TODO figure out how to test enter button submission!
+  it.skip('should call onSubmit function with values when the form is submitted via enter key', () => {
+    const spy = sandbox.spy();
+    const wrapper = mount(
+      <Form onSubmit={spy}>
+        <Text field="greeting" />
+      </Form>
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'hello' } });
+
+    wrapper.find('input').simulate('keypress', {key: 'Enter'});
+
+    expect(spy.called).to.equal(true);
+    expect(spy.args[0][0]).to.deep.equal({ greeting: 'hello' });
+  });
+
   it('should give child function access to formApi', () => {
     const spy = sandbox.spy();
     mount(<Form>{spy}</Form>);
@@ -975,6 +992,49 @@ describe('Form', () => {
     input.simulate('change', { target: { value: 'Foo' } });
     expect(api.getState().errors).to.deep.equal({
       name: 'new validation!'
+    });
+  });
+
+  it('errors should update when input is changed and notify is passed to a field', () => {
+    const validate = value => (value === 'Foo' ? 'ooo thats no good' : undefined);
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const wrapper = mount(
+      <Form getApi={setApi}>
+        <Text field="name" validateOnChange validate={validate} notify={['confirmName']} />
+        <Text field="confirmName" validate={validate} />
+      </Form>
+    );
+    expect(api.getState().errors).to.deep.equal({});
+    wrapper.find('input').at(1).simulate('change', { target: { value: 'Foo' } });
+    wrapper.find('input').at(0).simulate('change', { target: { value: 'Foo' } });
+
+    expect(api.getState().errors).to.deep.equal({
+      name: 'ooo thats no good',
+      confirmName: 'ooo thats no good'
+    });
+  });
+
+  it('errors should update when input is changed and notify is NOT passed to a field', () => {
+    const validate = value => (value === 'Foo' ? 'ooo thats no good' : undefined);
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const wrapper = mount(
+      <Form getApi={setApi}>
+        <Text field="name" validateOnChange validate={validate} />
+        <Text field="confirmName" validate={validate} />
+      </Form>
+    );
+    expect(api.getState().errors).to.deep.equal({});
+    wrapper.find('input').at(1).simulate('change', { target: { value: 'Foo' } });
+    wrapper.find('input').at(0).simulate('change', { target: { value: 'Foo' } });
+
+    expect(api.getState().errors).to.deep.equal({
+      name: 'ooo thats no good',
     });
   });
 

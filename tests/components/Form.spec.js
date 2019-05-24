@@ -543,6 +543,56 @@ describe('Form', () => {
     });
   });
 
+  it('resetField should reset a field to its initial state via initialValue prop on input', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const wrapper = mount(
+      <Form getApi={setApi}>
+        <Text field="greeting" initialValue="ayyyoooooo"/>
+      </Form>
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'hello' } });
+    expect(api.getState().values).to.deep.equal({ greeting: 'hello'});
+    expect(api.getState()).to.deep.equal(
+      getState({ values: { greeting: 'hello' }, pristine: false, dirty: true })
+    );
+    api.resetField('greeting');
+    expect(api.getState()).to.deep.equal(getState({
+      values: { greeting: 'ayyyoooooo' },
+      pristine: false,
+      dirty: true
+    }));
+  });
+
+  // TODO this is a bug and needs to be addressed!
+  it.skip('resetField should reset a field to its initial state via initialValue prop on form', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const wrapper = mount(
+      <Form getApi={setApi} initialValues={{greeting: 'ayyyoooooo'}}>
+        <Text field="greeting"/>
+      </Form>
+    );
+    expect(api.getState().values).to.deep.equal({ greeting: 'ayyyoooooo' });
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'hello' } });
+    expect(api.getState().values).to.deep.equal({ greeting: 'hello'});
+    expect(api.getState()).to.deep.equal(
+      getState({ values: { greeting: 'hello' }, pristine: false, dirty: true })
+    );
+    api.resetField('greeting');
+    expect(api.getState()).to.deep.equal(getState({
+      values: { greeting: 'ayyyoooooo' },
+      pristine: false,
+      dirty: true
+    }));
+  });
+
   it('reset should reset the form to its initial state via initialValue prop on input', () => {
     let api;
     const setApi = param => {
@@ -705,12 +755,91 @@ describe('Form', () => {
     };
     mount(<Form getApi={setApi}>{() => <Text field="greeting" />}</Form>);
     api.setError('greeting', 'error');
-    // expect(api.getState().invalid).to.equal(true);
-    // api.setError('greeting', undefined);
-    // expect(api.getState().invalid).to.equal(false);
+    expect(api.getState().invalid).to.equal(true);
+    api.setError('greeting', undefined);
+    expect(api.getState().invalid).to.equal(false);
   });
 
+  it('setFormError should set form error', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    mount(<Form getApi={setApi}><Text field="greeting" /></Form>);
+    api.setFormError('error');
+    expect(api.getState().error).to.equal('error');
+  });
+
+  it('when a form error is present the form should be invalid', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    mount(<Form getApi={setApi}>{() => <Text field="greeting" />}</Form>);
+    api.setFormError('error');
+    expect(api.getState().invalid).to.equal(true);
+  });
+
+  it('when an error is present then goes away form should be valid', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    mount(<Form getApi={setApi}>{() => <Text field="greeting" />}</Form>);
+    api.setFormError('error');
+    expect(api.getState().invalid).to.equal(true);
+    api.setFormError(undefined);
+    expect(api.getState().invalid).to.equal(false);
+  });
+
+  it('setTouched should set touched', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    mount(<Form getApi={setApi}><Text field="greeting" /></Form>);
+    api.setTouched('greeting', true);
+    expect(api.getState().touched).to.deep.equal({ greeting: true });
+  });
+
+  it('fieldExists should return true if field exists', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    mount(<Form getApi={setApi}><Text field="greeting" /></Form>);
+    expect(api.fieldExists('greeting')).to.equal( true );
+  });
+
+  it('fieldExists should return true if field exists', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    mount(<Form getApi={setApi}><Text field="greeting" /></Form>);
+    expect(api.fieldExists('foobar')).to.equal( false );
+  });
+
+
   // SET WARNINGG AND SUCCESS TESTS
+
+  it('should call onSubmit function with values when the form is submitted via api submit function', () => {
+    let api;
+    const spy = sandbox.spy();
+    const setApi = param => {
+      api = param;
+    };
+    const wrapper = mount(
+      <Form onSubmit={spy} getApi={setApi}>
+        <Text field="greeting" />
+      </Form>
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'hello' } });
+    api.submitForm();
+    expect(spy.called).to.equal(true);
+    expect(spy.args[0][0]).to.deep.equal({ greeting: 'hello' });
+  });
 
   it('should give child function access to formApi', () => {
     const spy = sandbox.spy();
@@ -751,6 +880,48 @@ describe('Form', () => {
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'Foo' } });
 
+    expect(api.getState().errors).to.deep.equal({
+      name: 'ooo thats no good'
+    });
+  });
+
+  it('errors should update when validate is called manually', () => {
+    const validate = value => (value === 'Foo' ? 'ooo thats no good' : null);
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const wrapper = mount(
+      <Form getApi={setApi}>
+        <Text field="name" validate={validate} />
+      </Form>
+    );
+    expect(api.getState().errors).to.deep.equal({});
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'Foo' } });
+    expect(api.getState().errors).to.deep.equal({});
+    api.validate();
+    expect(api.getState().errors).to.deep.equal({
+      name: 'ooo thats no good'
+    });
+  });
+
+  it('errors should update when validate is called manually on a specific field', () => {
+    const validate = value => (value === 'Foo' ? 'ooo thats no good' : null);
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const wrapper = mount(
+      <Form getApi={setApi}>
+        <Text field="name" validate={validate} />
+      </Form>
+    );
+    expect(api.getState().errors).to.deep.equal({});
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'Foo' } });
+    expect(api.getState().errors).to.deep.equal({});
+    api.validateField('name');
     expect(api.getState().errors).to.deep.equal({
       name: 'ooo thats no good'
     });

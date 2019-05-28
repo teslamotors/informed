@@ -902,6 +902,27 @@ describe('Form', () => {
     });
   });
 
+  it('errors should update when input is blured', () => {
+    const validate = value => (value === 'Foo' ? 'ooo thats no good' : null);
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const wrapper = mount(
+      <Form getApi={setApi}>
+        <Text field="name" validateOnBlur validate={validate} />
+      </Form>
+    );
+    expect(api.getState().errors).to.deep.equal({});
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'Foo' } });
+    input.simulate('blur');
+    
+    expect(api.getState().errors).to.deep.equal({
+      name: 'ooo thats no good'
+    });
+  });
+
   it('errors should update when validate is called manually', () => {
     const validate = value => (value === 'Foo' ? 'ooo thats no good' : null);
     let api;

@@ -34,7 +34,7 @@ import { Form, Text, TextArea, RadioGroup, Radio, Checkbox, Select, Option, Scop
     Colors:
     <Select
       field="colors"
-      multiple
+      multiple>
       <Option value="red">Red</Option>
       <Option value="green">Green</Option>
       <Option value="blue">Blue</Option>

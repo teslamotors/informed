@@ -126,3 +126,5 @@ const ComponentWithFormApi = () => {
 
 <br/>
 So if you do need access to the form api, any of these methods will work.
+
+---

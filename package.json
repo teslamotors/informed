@@ -10,7 +10,7 @@
     "index.d.ts"
   ],
   "scripts": {
-    "start": "webpack-dev-server -d --config webpack.dev.config.js --port 4004 --hot",
+    "start": "npm run storybook",
     "build": "webpack --config ./config/webpack/webpack.dist.config.js && rollup --config",
     "test": "mocha-webpack --opts tests/mocha-webpack.opts",
     "test:watch": "npm run test -- --watch",

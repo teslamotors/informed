@@ -14,7 +14,7 @@ declare module 'informed' {
     [key: string]: FormValue
   }
 
-  export type FormError = string | undefined
+  export type FormError = any
 
   export interface FormStateBasic<V = FormValues> {
     values: V

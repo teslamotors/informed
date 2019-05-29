@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 // Type definitions for informed 2.0.0
 // Project: https://github.com/joepuzzo/informed#readme
@@ -44,6 +44,7 @@ declare module 'informed' {
     getState: () => FormState<V>
     reset: () => void
     setValues: (values: V) => void
+    validate: () => void
   }
 
   export interface FormContext<V = FormValues> {

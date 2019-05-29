@@ -1,3 +1,8 @@
+## 2.7.5 (May 29, 2019)
+
+## Updated
+- Types file to support any type on form errors
+
 ## 2.7.4 (May 23, 2019)
 
 ### Fixed

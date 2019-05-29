@@ -1,3 +1,8 @@
+## 2.7.6 (May 29, 2019)
+
+## Updated
+- Types file to support validate on formApi 
+
 ## 2.7.5 (May 29, 2019)
 
 ## Updated

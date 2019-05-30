@@ -113,6 +113,20 @@ describe('Text', () => {
     expect(savedApi.getState().values).to.deep.equal({ greeting: 'foobarbaz' });
   });
 
+  it('should set initial value and mask them when initial values are passed with mask function', () => {
+    let savedApi;
+    const mask = (val) => `$${val}`; 
+    mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="greeting" initialValue="foobarbaz" mask={mask}/>
+      </Form>
+    );
+    expect(savedApi.getState().values).to.deep.equal({ greeting: '$foobarbaz' });
+  });
+
   it('should run mask when user types in text input and mask is passed', () => {
     let savedApi;
     const mask = value => `${value}!`;

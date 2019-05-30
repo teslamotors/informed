@@ -20,6 +20,18 @@ function useStateWithGetter(initial) {
   return [state, set, get];
 }
 
+const initializeValue = (value, mask) => {
+  if(value != null){
+    // Call mask if it was passed
+    if(mask){
+      return mask(value);
+    }
+    return value;
+  }
+  // Not needed but called out specifically
+  return undefined;
+}; 
+
 function useField(fieldProps = {}, userRef) {
   // Pull props off of field props
   const { 
@@ -51,8 +63,8 @@ function useField(fieldProps = {}, userRef) {
   const formApi = useFormApi();
 
   // Initialize state 
-  const [value, setVal, getVal] = useStateWithGetter(initialValue != null ? initialValue : undefined);
-  const [error, setErr, getErr] = useStateWithGetter( validateOnMount ? validate(initialValue) : undefined );
+  const [value, setVal, getVal] = useStateWithGetter(initializeValue(initialValue, mask));
+  const [error, setErr, getErr] = useStateWithGetter( validateOnMount ? validate(value) : undefined );
   const [touched, setTouch, getTouch] = useStateWithGetter();
   const [cursor, setCursor, getCursor] = useStateWithGetter(0);
   const [cursorOffset, setCursorOffset, getCursorOffset] = useStateWithGetter(0);
@@ -160,10 +172,11 @@ function useField(fieldProps = {}, userRef) {
 
   // Define reset
   const reset = () => {
+    const initVal = initializeValue(initialValue, mask);
     // TODO support numbers
-    setValue(initialValue != null ? initialValue : undefined);
+    setValue(initVal);
     // Setting somthing to undefined will remove it 
-    setError(validateOnMount ? validate(initialValue) : undefined);
+    setError(validateOnMount ? validate(initVal) : undefined);
     setTouched(undefined, true);
   };
 

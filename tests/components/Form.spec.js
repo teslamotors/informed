@@ -415,6 +415,37 @@ describe('Form', () => {
     expect(api.getState().values).to.deep.equal({ greeting: 'hello' });
   });
 
+  it('should set initial values and mask them when initial values are passed with mask function', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const mask = (val) => `$${val}`; 
+    mount(
+      <Form getApi={setApi} initialValues={{ greeting: 'hello' }}>
+        {() => <Text field="greeting" mask={mask}/>}
+      </Form>
+    );
+    expect(api.getState().values).to.deep.equal({ greeting: '$hello' });
+  });
+
+  it('should set initial values and mask them when initial values are passed with mask function then update correctly when typed in', () => {
+    let api;
+    const setApi = param => {
+      api = param;
+    };
+    const mask = (val) => `$${val}`; 
+    const wrapper = mount(
+      <Form getApi={setApi} initialValues={{ greeting: 'hello' }}>
+        {() => <Text field="greeting" mask={mask}/>}
+      </Form>
+    );
+    expect(api.getState().values).to.deep.equal({ greeting: '$hello' });
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'woooo' } });
+    expect(api.getState().values).to.deep.equal({ greeting: '$woooo' });
+  });
+
   it.skip('setState should set the formState', () => {
     let api;
     const setApi = param => {

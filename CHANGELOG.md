@@ -1,3 +1,8 @@
+## 2.7.7 (May 30, 2019)
+
+## Fixed
+- issue where initial values were not being masked 
+
 ## 2.7.6 (May 29, 2019)
 
 ## Updated

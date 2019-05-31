@@ -1,3 +1,8 @@
+## 2.7.8 (May 31, 2019)
+
+## Fixed
+- issue where initial values were not being formatted 
+
 ## 2.7.7 (May 30, 2019)
 
 ## Fixed

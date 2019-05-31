@@ -199,6 +199,22 @@ describe('Text', () => {
     expect(wrapper.find('input').props().value).to.equal('$abc');
   });
 
+  it('should run format and parse when user passes initial value and format and parse are passed', () => {
+    let savedApi;
+    const format = value => `$${value}`;
+    const parse = value => value.replace('$','');
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="hello" format={format} parse={parse} initialValue="1234"/>
+      </Form>
+    );
+    expect(wrapper.find('input').props().value).to.equal('$1234');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '1234' });
+  });
+
   it('should run mask when user types in text input and mask is passed', () => {
     let savedApi;
     const mask = value => `${value}!`;

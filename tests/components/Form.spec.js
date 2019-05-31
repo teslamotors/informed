@@ -446,6 +446,23 @@ describe('Form', () => {
     expect(api.getState().values).to.deep.equal({ greeting: '$woooo' });
   });
 
+  it('should run format and parse when user passes initial values and format and parse are passed', () => {
+    let savedApi;
+    const format = value => `$${value}`;
+    const parse = value => value.replace('$','');
+    const wrapper = mount(
+      <Form
+        initialValues={{hello: '1234'}}
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="hello" format={format} parse={parse}/>
+      </Form>
+    );
+    expect(wrapper.find('input').props().value).to.equal('$1234');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '1234' });
+  });
+
   it.skip('setState should set the formState', () => {
     let api;
     const setApi = param => {

@@ -32,6 +32,14 @@ const initializeValue = (value, mask) => {
   return undefined;
 }; 
 
+const initializeMask = (value, format, parse) => {
+  // Call format and parse if they were passed
+  if(format && parse){
+    return format(value);
+  }
+  return value;
+};
+
 function useField(fieldProps = {}, userRef) {
   // Pull props off of field props
   const { 
@@ -68,7 +76,7 @@ function useField(fieldProps = {}, userRef) {
   const [touched, setTouch, getTouch] = useStateWithGetter();
   const [cursor, setCursor, getCursor] = useStateWithGetter(0);
   const [cursorOffset, setCursorOffset, getCursorOffset] = useStateWithGetter(0);
-  const [maskedValue, setMaskedValue ] = useState(value);
+  const [maskedValue, setMaskedValue ] = useState(initializeMask(value, format, parse));
 
   /* ---------------------- Setters ---------------------- */
 
@@ -174,7 +182,7 @@ function useField(fieldProps = {}, userRef) {
   const reset = () => {
     const initVal = initializeValue(initialValue, mask);
     // TODO support numbers
-    setValue(initVal);
+    setValue(initialValue);
     // Setting somthing to undefined will remove it 
     setError(validateOnMount ? validate(initVal) : undefined);
     setTouched(undefined, true);

@@ -3,6 +3,8 @@
 <!-- STORY -->
 
 ```jsx
+import { Form, Text } from 'informed';
+
 <Form>
   <label>
     First name:

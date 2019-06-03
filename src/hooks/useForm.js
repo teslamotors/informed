@@ -37,7 +37,7 @@ const useForm = ({
   useLayoutEffect(()=>{
 
     const onChangeHandler = () => onChange && onChange( formController.getFormState() );
-    const onSubmitHandler = () => onSubmit && onSubmit( formController.getFormState().values );
+    const onSubmitHandler = () => onSubmit && onSubmit( formController.getFormState().values, formController );
     const onValueHandler = () => onValueChange && onValueChange( formController.getFormState().values );
     const onFailureHandler = () => onSubmitFailure && onSubmitFailure( formController.getFormState().errors );
 

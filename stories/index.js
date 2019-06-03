@@ -34,7 +34,13 @@ import {
   Intro as InputIntro
 } from './Inputs';
 
-import { ArrayOfFields, ArrayOfScopes, DynamicArrays } from './Arrays';
+import {
+  ArrayOfFields,
+  ArrayOfScopes,
+  DynamicArrays,
+  DynamicArrayOfScopes,
+  DynamicArrayOfScopesWithKey,
+} from './Arrays';
 
 import {
   WithFormApi,
@@ -145,7 +151,9 @@ storiesOf('CustomInputs', module).add('Creating Custom Inputs', CustomInputs);
 storiesOf('Arrays', module)
   .add('Array Of Fields', ArrayOfFields)
   .add('Array Of Scopes', ArrayOfScopes)
-  .add('Dynamic Arrays', DynamicArrays);
+  .add('Dynamic Arrays', DynamicArrays)
+  .add('Dynamic Array of scopes', DynamicArrayOfScopes)
+  .add('Dynamic Array of scopes with key', DynamicArrayOfScopesWithKey);
 
 
 storiesOf('Validation', module)

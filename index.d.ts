@@ -111,7 +111,7 @@ declare module 'informed' {
    */
 
   export interface BasicFormProps<V = FormValues> {
-    onSubmit?: (values: V) => void
+    onSubmit?: (values: V, formApi: FormApi<V>) => void
     preSubmit?: (values: V) => V
     initialValues?: V
     onChange?: (formState: FormState<V>) => void

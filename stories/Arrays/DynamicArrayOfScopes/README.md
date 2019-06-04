@@ -5,10 +5,9 @@ Sometimes you need to render an array of scopes
 <!-- STORY -->
 
 ```jsx
-import { Form, Text, ScopeArrayField, Scope } from 'informed';
+import { Form, Text, ArrayField } from 'informed';
 
 const initialValues = {
-  name: "test",
   friends: [{
     name: "Joe",
     age: "20",
@@ -18,58 +17,40 @@ const initialValues = {
   }],
 }
 
-const DynamicArrayOfScopes = () => (
-  <div>
-    <Form
-      initialValues={initialValues}
-    >
-      {({ formApi, formState }) => {
-        return (
-          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-            <div style={{ flex: 1, marginRight: '2rem' }}>
-              <Text field="name"/>
+const DynamicArrayOfScopes = () => {
 
-              <ScopeArrayField field="friends">
-                {({ add, fields }) => {
-                  return (
-                    <React.Fragment>
-                      {fields.map(({key, field, remove}, index) => {
-                        return (
-                          <Scope key={key} scope={field}>
-                            <h5>{field}</h5>
-                            <Text field="name"/>
-                            <Text field="age"/>
-                            <button onClick={remove}>Remove</button>
-                          </Scope>
-                        )
-                      })}
+  return (
+    <div>
+      <Form initialValues={initialValues}>
+        <ArrayField field="siblings">
+          {({ add, fields }) => (
+            <>
+              <button onClick={() => {
+                add();
+              }} type="button">Add</button>
 
-                      <button onClick={() => {
-                        add()
-                      }}>Add</button>
+              <button onClick={() => {
+                addWithInitialValue({name: 'test'});
+              }}>Add with initialValue</button>
 
-                      <button onClick={() => {
-                        add({name: "test"})
-                      }}>Add with preset</button>
+              <button onClick={() => {
+                formApi.setValue('friends[0].name', 'Test');
+              }} type="button">set friends[0].name to test</button>
 
-                      <button onClick={() => {
-                        formApi.setValue("friends[0].name", "Test")
-                        }}>set friends[0].name to test</button>
-                    </React.Fragment>
-                  )
-
-                }}
-              </ScopeArrayField>
-
-            </div>
-            <div style={{ flex: 2, minWidth: '300px' }}>
-              <FormState />
-            </div>
-          </div>
-        )
-      }}
-
-    </Form>
-  </div>
-);
+              {fields.map(({ field, key, remove }, i) => (
+                <label key={key}>
+                  <h5>{field}</h5>
+                  <Text field={`${field}.name`} initialValue={initialValue && initialValue.name}/>
+                  <Text field={`${field}.age`}/>
+                  <button onClick={remove}>Remove</button>
+                </label>
+              ))}
+            </>
+          )}
+        </ArrayField>
+        <button type="submit">Submit</button>
+      </Form>
+    </div>
+  );
+};
 ```

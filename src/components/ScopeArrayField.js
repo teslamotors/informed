@@ -4,13 +4,13 @@ import useFormApi from '../hooks/useFormApi';
 const ScopeArrayField = ({ field, children }) => {
   const formApi = useFormApi();
 
-  var initialValues = formApi.getInitialValue(field)
+  var initialValues = formApi.getInitialValue(field);
 
   if (!initialValues) {
-    throw(new Error("initialValue required for ScopeArrayField " + field))
+    throw(new Error('initialValue required for ScopeArrayField ' + field));
   }
   if (!Array.isArray(initialValues)) {
-    throw(new Error("initialValue should be an array for ScopeArrayField " + field))
+    throw(new Error('initialValue should be an array for ScopeArrayField ' + field));
   }
 
   const initialKeys = initialValues.map((v, index) => index);
@@ -19,46 +19,46 @@ const ScopeArrayField = ({ field, children }) => {
 
   const remove = i => {
     initialValues.splice(i, 1);
-    const prevValues = formApi.getState().values[field]
-    var newValues
+    const prevValues = formApi.getState().values[field];
+    var newValues;
     if (prevValues) {
-      newValues = prevValues.slice()
-      newValues.splice(i, 1)
+      newValues = prevValues.slice();
+      newValues.splice(i, 1);
     } else {
-      newValues = []
+      newValues = [];
     }
-    var set = {}
-    set[field] = newValues
-    formApi.setValues(set)
+    var set = {};
+    set[field] = newValues;
+    formApi.setValues(set);
 
     // state is used to force render on update
     const newKeys = initialValues.map((v, index) => index);
-    setKeys(newKeys)
+    setKeys(newKeys);
   };
 
   const add = (value) => {
     if (!value) {
-      value = {}
+      value = {};
     }
 
-    initialValues.push(value)
+    initialValues.push(value);
 
-    const prevValues = formApi.getState().values[field]
-    var newValues
+    const prevValues = formApi.getState().values[field];
+    var newValues;
     if (prevValues) {
-      newValues = prevValues.slice()
+      newValues = prevValues.slice();
     } else {
-      newValues = []
+      newValues = [];
     }
-    newValues.push(value)
+    newValues.push(value);
 
-    var set = {}
-    set[field] = newValues
-    formApi.setValues(set)
+    var set = {};
+    set[field] = newValues;
+    formApi.setValues(set);
 
     // state is used to force render on update
     const newKeys = initialValues.map((v, index) => index);
-    setKeys(newKeys)
+    setKeys(newKeys);
   };
 
   const fields = initialValues.map((value, i) => {
@@ -66,7 +66,7 @@ const ScopeArrayField = ({ field, children }) => {
       key: i,
       field: `${field}[${i}]`,
       remove: () => remove(i),
-    }
+    };
   });
 
   return children({ fields, add });

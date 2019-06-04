@@ -39,7 +39,6 @@ import {
   ArrayOfScopes,
   DynamicArrays,
   DynamicArrayOfScopes,
-  DynamicArrayOfScopesWithKey,
 } from './Arrays';
 
 import {
@@ -152,8 +151,7 @@ storiesOf('Arrays', module)
   .add('Array Of Fields', ArrayOfFields)
   .add('Array Of Scopes', ArrayOfScopes)
   .add('Dynamic Arrays', DynamicArrays)
-  .add('Dynamic Array of scopes', DynamicArrayOfScopes)
-  .add('Dynamic Array of scopes with key', DynamicArrayOfScopesWithKey);
+  .add('Dynamic Array of scopes', DynamicArrayOfScopes);
 
 
 storiesOf('Validation', module)

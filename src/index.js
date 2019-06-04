@@ -1,7 +1,6 @@
 import Form from './components/Form';
 import Scope from './components/Scope';
 import ArrayField from './components/ArrayField';
-import ScopeArrayField from './components/ScopeArrayField';
 import FormProvider from './components/FormProvider';
 
 import withFormApi from './HOC/withFormApi';
@@ -63,5 +62,4 @@ export {
   BasicCheckbox,
   Scope,
   ArrayField,
-  ScopeArrayField
 };

@@ -374,7 +374,6 @@ class FormController extends EventEmitter {
       ObjectMap.delete(this.state.values, field);
       ObjectMap.delete(this.state.touched, field);
       ObjectMap.delete(this.state.errors, field);
-      this.registered[field] = false;
     }
     // Always need to delete the field
     this.fields.delete(field);

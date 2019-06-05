@@ -1,3 +1,8 @@
+## 2.8.2 (June 5, 2019)
+
+## Added 
+- ability to change out form options such as validateFields
+
 ## 2.8.1 (June 5, 2019)
 
 ## Fixed 

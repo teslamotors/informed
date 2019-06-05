@@ -59,6 +59,10 @@ class FormController extends EventEmitter {
     };
   }
 
+  setOptions(options) {
+    this.options = options;
+  }
+
   // Generate the external form state that will be exposed to the users
   getFormState() {
     return {

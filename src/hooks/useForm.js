@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect, useMemo } from 'react';
 import Debug from '../debug';
 import FormController from '../FormController';
 
@@ -20,18 +20,24 @@ const useForm = ({
 
   debug('Render useForm');
 
-  // Create form controller
-  const [formController] = useState(new FormController({
+  const formControllerOptions = useMemo(()=>({
     dontPreventDefault,
     initialValues,
     validate,
     validateFields,
     allowEmptyStrings,
     preventEnter,
-  }));
+  }), [dontPreventDefault, initialValues, validate, validateFields, allowEmptyStrings, preventEnter]);
+
+  // Create form controller
+  const [formController] = useState(()=> new FormController(formControllerOptions));
+
+  useEffect(()=>{
+    formController.setOptions(formControllerOptions);
+  }, [formControllerOptions]);
 
   // Form state will be used to trigger rerenders
-  const [ formState, setFormState ] = useState( formController.getFormState() );
+  const [ formState, setFormState ] = useState( ()=> formController.getFormState() );
 
   // Register for events
   useLayoutEffect(()=>{
@@ -68,7 +74,7 @@ const useForm = ({
   });
 
   // We dont want this to happen on every render so thats why useState is used here
-  const [ formApi ] = useState( formController.getFormApi() );
+  const [ formApi ] = useState( ()=> formController.getFormApi() );
 
   return { formApi, formState, formController };
 };

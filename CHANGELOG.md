@@ -1,3 +1,8 @@
+## 2.8.0 (June 5, 2019)
+
+## Added 
+- setWithInitialValue to the `ArrayField`
+
 ## 2.7.8 (May 31, 2019)
 
 ## Fixed

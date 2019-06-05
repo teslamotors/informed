@@ -1,6 +1,6 @@
-# Dynamic Array of Scopes
+# Nested form
 
-Sometimes you need to render an array of scopes
+
 
 <!-- STORY -->
 
@@ -17,7 +17,7 @@ const initialValues = {
   }],
 }
 
-const DynamicArrayOfScopes = () => {
+const NestedForm = () => {
 
   return (
     <div>
@@ -37,7 +37,7 @@ const DynamicArrayOfScopes = () => {
                 formApi.setValue('friends[0].name', 'Test');
               }} type="button">set friends[0].name to test</button>
 
-              {fields.map(({ field, key, remove }, i) => (
+              {fields.map(({ field, key, remove, initialValue }, i) => (
                 <label key={key}>
                   <h5>{field}</h5>
                   <Text field={`${field}.name`} initialValue={initialValue && initialValue.name}/>

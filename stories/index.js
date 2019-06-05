@@ -38,7 +38,7 @@ import {
   ArrayOfFields,
   ArrayOfScopes,
   DynamicArrays,
-  DynamicArrayOfScopes,
+  NestedForm,
 } from './Arrays';
 
 import {
@@ -151,8 +151,7 @@ storiesOf('Arrays', module)
   .add('Array Of Fields', ArrayOfFields)
   .add('Array Of Scopes', ArrayOfScopes)
   .add('Dynamic Arrays', DynamicArrays)
-  .add('Dynamic Array of scopes', DynamicArrayOfScopes);
-
+  .add('Nested Form', NestedForm);
 
 storiesOf('Validation', module)
   .add('Simple Validation', SimpleValidation)

@@ -14,7 +14,7 @@ const initialValues = {
   }],
 };
 
-const DynamicArrayOfScopes = () => (
+const NestedForm = () => (
   <div>
     <Form
       initialValues={initialValues}
@@ -67,4 +67,4 @@ const DynamicArrayOfScopes = () => (
   </div>
 );
 
-export default withDocs(readme, DynamicArrayOfScopes);
+export default withDocs(readme, NestedForm);

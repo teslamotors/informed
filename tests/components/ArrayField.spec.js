@@ -283,18 +283,6 @@ describe('ArrayField', () => {
       expect(savedApi.getState().values).to.deep.equal({ siblings: [{name: 'Jeff'}] });
     });
   
-    it.skip('should throw when no initial value', () => {
-      expect(() => {
-        mount(<Form>{getComponent()}</Form>);
-      }).to.throw(Error, 'initialValue required for ScopeArrayField siblings');
-    });
-  
-    it.skip('should throw when non-array initial value', () => {
-      expect(() => {
-        mount(<Form initialValues={{siblings: 'test'}}>{getComponent()}</Form>);
-      }).to.throw(Error, 'initialValue should be an array for ScopeArrayField siblings');
-    });
-  
     it('should update value when set via formApi', () => {
       let savedApi;
   

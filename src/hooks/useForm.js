@@ -20,6 +20,7 @@ const useForm = ({
 
   debug('Render useForm');
 
+  // Generate form controller options 
   const formControllerOptions = useMemo(()=>({
     dontPreventDefault,
     initialValues,
@@ -32,12 +33,13 @@ const useForm = ({
   // Create form controller
   const [formController] = useState(()=> new FormController(formControllerOptions));
 
+  // Update the options when they change
   useEffect(()=>{
     formController.setOptions(formControllerOptions);
   }, [formControllerOptions]);
 
   // Form state will be used to trigger rerenders
-  const [ formState, setFormState ] = useState( ()=> formController.getFormState() );
+  const [ formState, setFormState ] = useState( () => formController.getFormState() );
 
   // Register for events
   useLayoutEffect(()=>{

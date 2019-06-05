@@ -14,9 +14,11 @@ const ArrayField = ({ field, children, initialValue }) => {
 
   const formApi = useFormApi();
 
-  const initialValues = formApi.getInitialValue(field) || initialValue;
+  const initialVals = formApi.getInitialValue(field) || initialValue || [];
 
   // TODO throw error if initial value and its not array
+
+  const [initialValues, setInitialValues] = useState(initialVals);
 
   const initialKeys = initialValues ? initialValues.map(() => uuidv4()) : [];
 
@@ -25,11 +27,19 @@ const ArrayField = ({ field, children, initialValue }) => {
   const remove = i => {
     const newKeys = keys.slice(0, i).concat(keys.slice(i + 1, keys.length));
     setKeys(newKeys);
+    const newInitialValues = initialValues.slice(0, i).concat(initialValues.slice(i + 1, initialValues.length));
+    setInitialValues(newInitialValues);
   };
 
   const add = () => {
     keys.push(uuidv4());
     setKeys([...keys]);
+  };
+
+  const addWithInitialValue = ( initialValue ) => {
+    keys.push(uuidv4());
+    setKeys([...keys]);
+    setInitialValues(initialValues.concat([initialValue]));
   };
 
   const fields = keys.map((key, i) => ({
@@ -39,7 +49,7 @@ const ArrayField = ({ field, children, initialValue }) => {
     initialValue: initialValues && initialValues[i]
   }));
 
-  return children({ fields, add });
+  return children({ fields, add, addWithInitialValue });
 };
 
 export default ArrayField;

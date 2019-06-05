@@ -61,5 +61,5 @@ export {
   BasicSelect,
   BasicCheckbox,
   Scope,
-  ArrayField
+  ArrayField,
 };

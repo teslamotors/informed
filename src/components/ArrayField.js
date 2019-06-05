@@ -39,7 +39,7 @@ const ArrayField = ({ field, children, initialValue }) => {
   const addWithInitialValue = ( initialValue ) => {
     keys.push(uuidv4());
     setKeys([...keys]);
-    initialValues[keys.length - 1] = initialValue;
+    setInitialValues(initialValues.concat([initialValue]));
   };
 
   const fields = keys.map((key, i) => ({

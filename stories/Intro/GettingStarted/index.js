@@ -18,7 +18,7 @@ const GettingStarted = () => (
         <div style={{ flex: 1, marginRight: '2rem' }}>
           <label>
             First name:
-            <Text field="name" validate={validate} allowEmptyStrings/>
+            <Text field="name" validate={validate}/>
           </label>
           <button type="submit">Submit</button>
         </div>

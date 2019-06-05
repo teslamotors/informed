@@ -34,12 +34,15 @@ const ArrayField = ({ field, children, initialValue }) => {
   const add = () => {
     keys.push(uuidv4());
     setKeys([...keys]);
+
   };
 
   const addWithInitialValue = ( initialValue ) => {
     keys.push(uuidv4());
     setKeys([...keys]);
-    setInitialValues(initialValues.concat([initialValue]));
+    const newInitialValues = [...initialValues];
+    newInitialValues[keys.length - 1] = initialValue;
+    setInitialValues(newInitialValues);
   };
 
   const fields = keys.map((key, i) => ({

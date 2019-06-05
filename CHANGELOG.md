@@ -1,7 +1,12 @@
+## 2.8.1 (June 5, 2019)
+
+## Fixed 
+- issue with addWithInitialValue when using add and then addWithInitialValue
+
 ## 2.8.0 (June 5, 2019)
 
 ## Added 
-- setWithInitialValue to the `ArrayField`
+- addWithInitialValue to the `ArrayField`
 
 ## 2.7.8 (May 31, 2019)
 

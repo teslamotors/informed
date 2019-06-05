@@ -285,6 +285,28 @@ describe('Form', () => {
     expect(spy.args[0][0]).to.deep.equal({ greeting: 'hello' });
   });
 
+  it('should update validateFields function when the validateFields prop changes', () => {
+    const dummy1 = sandbox.spy();
+    const dummy2 = sandbox.spy();
+    const spy = sandbox.spy();
+    const wrapper = mount(
+      <Form validateFields={dummy1}>
+        <Text field="greeting" />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+    wrapper.setProps({validateFields: dummy2});
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'hello' } });
+    wrapper.setProps({validateFields: spy});
+    const button = wrapper.find('button');
+    button.simulate('submit');
+    expect(dummy1.called).to.equal(false);
+    expect(dummy2.called).to.equal(false);
+    expect(spy.called).to.equal(true);
+    expect(spy.args[0][0]).to.deep.equal({ greeting: 'hello' });
+  });
+
   it('should set correct errors when invalid form level field validation', () => {
     const spy = sandbox.spy();
     let api;

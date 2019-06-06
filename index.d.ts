@@ -148,9 +148,9 @@ declare module 'informed' {
   export class Scope extends React.Component<ScopeProps> {}
 
   export interface ArrayFieldProps {
-    key: React.Key
+    key?: React.Key
     field: string
-    remove: () => void
+    remove?: () => void
   }
   export interface ArrayFieldReturnPropParameters {
     add: () => void

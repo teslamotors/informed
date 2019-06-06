@@ -88,6 +88,9 @@ class FormController extends EventEmitter {
 
     const setFormError = ( error ) => this.setFormError(error);
 
+    // Special setter for directly setting errors ( used for array fields )
+    const setFieldError = ( field, value ) => this.setError(field, value);
+
     const setValues = values => this.setValues(values);
 
     const getValue = (field) => this.getValue(field);
@@ -134,7 +137,9 @@ class FormController extends EventEmitter {
       setFormError,
       validate,
       validateField,
-      resetField
+      resetField,
+      emitter: this,
+      setFieldError
     };
   }
 
@@ -148,7 +153,7 @@ class FormController extends EventEmitter {
     delete this.state.error;
     // Emit change events
     this.emit('change');
-    this.emit('value');
+    this.emit('value', field, value);
     // Notify other fields 
     if( notify ) this.notify(field);
   }

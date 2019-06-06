@@ -1,3 +1,8 @@
+## 2.9.0 (June 6, 2019)
+
+## Added 
+- useArrayField hook
+
 ## 2.8.2 (June 5, 2019)
 
 ## Added 

@@ -154,6 +154,7 @@ declare module 'informed' {
   }
   export interface ArrayFieldReturnPropParameters {
     add: () => void
+    addWithInitialValue: ( initialValue: any ) => void
     fields: Array<ArrayFieldProps>
   }
   export interface ArrayFieldProps {
@@ -294,6 +295,13 @@ declare module 'informed' {
 
   export function useFieldApi<V = FormValue>(field: string): FieldApi<V>
   export function useFieldState<V = FormValue>(field: string): FieldState<V>
+
+  export interface useArrayFieldParams {
+    field: string
+    initialValue?: any
+  }
+
+  export function useArrayField(useArrayFieldParams: useArrayFieldParams): ArrayFieldReturnPropParameters
 
   export function useField<V = FormValue, VS = any>(
     fieldProps?: FieldProps<V, VS>,

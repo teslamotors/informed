@@ -13,6 +13,7 @@ import Api from './Form/Api';
 import SimpleValidation from './Validation/SimpleValidation';
 import ComplexValidation from './Validation/ComplexValidation';
 import ValidationControl from './Validation/ValidationControl';
+import ArrayFieldValidation from './Validation/ArrayFieldValidation';
 import Notifications from './Validation/Notifications';
 import FormLevelValidation from './Validation/FormLevelValidation';
 import FormatParse from './Formatting/FormatParse';
@@ -52,7 +53,8 @@ import {
   UseFormApi,
   UseFormState,
   UseFieldApi,
-  UseFieldState
+  UseFieldState,
+  UseArrayField,
 } from './Hooks';
 
 addDecorator(StoryWrapper);
@@ -159,6 +161,7 @@ storiesOf('Validation', module)
   .add('Validation Control', ValidationControl)
   .add('Form Level Validation', FormLevelValidation)
   .add('Notifications', Notifications);
+// .add('Array Field Validation', ArrayFieldValidation);
 
 storiesOf('Formatting', module)
   .add('Mask', Mask)
@@ -169,7 +172,8 @@ storiesOf('Hooks!', module)
   .add('useFormApi', UseFormApi)
   .add('useFormState', UseFormState)
   .add('useFieldApi', UseFieldApi)
-  .add('useFieldState', UseFieldState);
+  .add('useFieldState', UseFieldState)
+  .add('useArrayField', UseArrayField);
 
 storiesOf('High Order Components', module)
   .add('withFormApi', WithFormApi)

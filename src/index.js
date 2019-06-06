@@ -16,6 +16,7 @@ import useFieldApi from './hooks/useFieldApi';
 import useFieldState from './hooks/useFieldState';
 import useFormApi from './hooks/useFormApi';
 import useFormState from './hooks/useFormState';
+import useArrayField from './hooks/useArrayField';
 
 import Text from './components/form-fields/Text';
 import Radio from './components/form-fields/Radio';
@@ -62,4 +63,5 @@ export {
   BasicCheckbox,
   Scope,
   ArrayField,
+  useArrayField
 };

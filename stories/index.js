@@ -160,8 +160,8 @@ storiesOf('Validation', module)
   .add('Complex Validation', ComplexValidation)
   .add('Validation Control', ValidationControl)
   .add('Form Level Validation', FormLevelValidation)
-  .add('Notifications', Notifications);
-// .add('Array Field Validation', ArrayFieldValidation);
+  .add('Notifications', Notifications)
+  .add('Array Field Validation', ArrayFieldValidation);
 
 storiesOf('Formatting', module)
   .add('Mask', Mask)

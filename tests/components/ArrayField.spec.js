@@ -12,12 +12,8 @@ describe('ArrayField', () => {
   });
 
   it('should add unigue fields when add is clicked', () => {
-    let savedApi;
     const wrapper = mount(
-      <Form
-        getApi={api => {
-          savedApi = api;
-        }}>
+      <Form>
         <ArrayField field="siblings">
           {({ add, fields }) => (
             <>
@@ -157,6 +153,71 @@ describe('ArrayField', () => {
     expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff'] });
   });
 
+  it('should validate on submit with array level validation', () => {
+
+    const validate = ( values ) => {
+      if( !values || values.length < 3 ){
+        return 'You must have at least three friends.';
+      } 
+    };
+    
+    const validateLength = value => {
+      return !value || value.length < 5 ? 'Field must be at least five characters' : undefined;
+    };
+
+    let savedApi;
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <ArrayField field="siblings" validate={validate}>
+          {({ add, fields }) => (
+            <>
+              <button onClick={add} type="button" id="add">
+                Add Sibling
+              </button>
+              {fields.map(({ field, key, remove }, i) => (
+                <label key={key}>
+                  Sibling {i}:
+                  <Text field={field} validate={validateLength} />
+                  <button type="button" onClick={remove}>
+                    Remove
+                  </button>
+                </label>
+              ))}
+            </>
+          )}
+        </ArrayField>
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const button = wrapper.find('button').at(1);
+    button.simulate('submit');
+    expect(savedApi.getState().errors).to.eql({ siblings: 'You must have at least three friends.' });
+    const add = wrapper.find('#add');
+    add.simulate('click');
+    add.simulate('click');
+    add.simulate('click');
+    const inputs = wrapper.find('input');
+    inputs.at(0).simulate('change', { target: { value: 'asdf' } });
+    inputs.at(1).simulate('change', { target: { value: 'asdg' } });
+    inputs.at(2).simulate('change', { target: { value: 'asdh' } });
+    button.simulate('submit');
+    expect(savedApi.getState().errors).to.eql({ 'siblings': [
+      'Field must be at least five characters',
+      'Field must be at least five characters',
+      'Field must be at least five characters'
+    ] });
+    inputs.at(0).simulate('change', { target: { value: 'asdfj' } });
+    inputs.at(1).simulate('change', { target: { value: 'asdgj' } });
+    inputs.at(2).simulate('change', { target: { value: 'asdhj' } });
+    button.simulate('submit');
+    expect(savedApi.getState().errors).to.eql({});
+
+  });
+
   describe('ScopeArrayField', () => {
     const sandbox = sinon.createSandbox();
   
@@ -164,7 +225,7 @@ describe('ArrayField', () => {
       sandbox.restore();
     });
   
-    function getComponent(siblings) {
+    function getComponent() {
       return (
         <>
           <ArrayField field="siblings">

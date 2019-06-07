@@ -164,6 +164,19 @@ class FormController extends EventEmitter {
   }
 
   setError(field, value) {
+    debug(`Setting ${field}'s error to ${value}`);
+
+    // Dont set the error if there is already an array level error ( array specific case )
+    // Elaborate... supose the following 
+    // - the field is an array field
+    // - we have an error already for friends array field
+    // - the error is not an array meaning its array level validation
+    const error = ObjectMap.get(this.state.errors, field);
+    if( /\[[0-9]*\]$/.test(field) && error && !Array.isArray(error) ){
+      debug(`Never set ${field}'s error to ${value} becuase there is already array level validation`);
+      return;
+    }
+
     ObjectMap.set(this.state.errors, field, value);
     this.emit('change');
   }
@@ -192,6 +205,7 @@ class FormController extends EventEmitter {
   }
 
   getValue(field) {
+    debug('Getting value for', field, ObjectMap.get(this.state.values, field));
     return ObjectMap.get(this.state.values, field);
   }
 
@@ -263,6 +277,7 @@ class FormController extends EventEmitter {
   }
 
   validate() {
+    debug('Validating all fields');
     // Itterate through and call validate on every field
     this.fields.forEach(( field, key )=>{
       const value = this.getValue(key);
@@ -340,6 +355,10 @@ class FormController extends EventEmitter {
     this.registered[field] = true;
     // Always register the field
     this.fields.set(field, fieldStuff);
+    // The field is a shadow field ooo spooky so dont set anything
+    if( fieldStuff.shadow ){
+      return;
+    }
     // Initialize state
     // When a user had keep state load existing values
     if( fieldStuff.keepState ){

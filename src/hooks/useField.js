@@ -59,8 +59,8 @@ function useField(fieldProps = {}, userRef) {
     notify,
     keepState, 
     maintainCursor,
-    debug, 
-    type,
+    debug,
+    shadow, 
     ...userProps
   } = fieldProps;
 
@@ -82,6 +82,7 @@ function useField(fieldProps = {}, userRef) {
 
   // Define set error
   const setError = (val) => { 
+    logger(`Setting ${field}'s error to ${val}`);
     setErr(val);
     updater.setError(field, val);
   };
@@ -97,7 +98,7 @@ function useField(fieldProps = {}, userRef) {
       val = undefined;
     }
     // Turn string into number for number fields
-    if(type === 'number' && val !== undefined ){
+    if(fieldProps.type === 'number' && val !== undefined ){
       val = +val;
     }
     // Call mask if it was passed
@@ -189,10 +190,10 @@ function useField(fieldProps = {}, userRef) {
   };
 
   // Define validate
-  const fieldValidate = () => {
+  const fieldValidate = ( override ) => {
     if( validate ){
-      logger(`Field validating ${field} ${getVal()}`);
-      setError(validate(getVal(), formApi.getValues()));
+      logger(`Field validating ${field} ${getVal() || override}`);
+      setError(validate(getVal() || override, formApi.getValues()));
     }
   };
 
@@ -211,19 +212,26 @@ function useField(fieldProps = {}, userRef) {
   };
 
   // Build the field state
-  const fieldState = {
+  let fieldState = {
     value,
     error,
     touched,
     maskedValue
   };
 
+  // Create shadow state if this is a shadow field
+  if( shadow ){
+    fieldState = {
+      error,
+      touched,
+    };
+  }
 
   // Initial register needs to happen before render ( simulating constructor muhahahah )
   useState(()=> {
     const fullField = formApi.getFullField(field);
     logger('Initial Register', fullField);
-    updater.register(field, fieldState, { field: fullField, fieldApi, fieldState, notify, keepState });
+    updater.register(field, fieldState, { field: fullField, fieldApi, fieldState, notify, keepState, shadow });
   });
 
   logger('Render', formApi.getFullField(field), fieldState);
@@ -237,7 +245,7 @@ function useField(fieldProps = {}, userRef) {
     () => {
       const fullField = formApi.getFullField(field);
       logger('Register', fullField);
-      updater.register(field, fieldState, { field: fullField, fieldApi, fieldState, notify, keepState });
+      updater.register(field, fieldState, { field: fullField, fieldApi, fieldState, notify, keepState, shadow });
 
       return () => {
         logger('Deregister', fullField);
@@ -253,7 +261,7 @@ function useField(fieldProps = {}, userRef) {
     () => {
       const fullField = formApi.getFullField(field);
       logger('Update', field);
-      updater.update(field, { field: fullField, fieldApi, fieldState, notify, keepState });
+      updater.update(field, { field: fullField, fieldApi, fieldState, notify, keepState, shadow });
     },
     // This is VERYYYY!! Important!
     [validate, validateOnChange, validateOnBlur, onValueChange]

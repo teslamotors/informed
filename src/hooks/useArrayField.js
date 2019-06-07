@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import useFormApi from '../hooks/useFormApi';
+import useField from '../hooks/useField';
 
 // https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
 const uuidv4 = () => {
@@ -10,9 +11,40 @@ const uuidv4 = () => {
   });
 };
 
-const useArrayField = ({ field, initialValue }) => {
+const useArrayField = ({ field, initialValue, validate, ...props }) => {
 
   const formApi = useFormApi();
+
+  const { fieldApi } = useField({ field, validate, shadow: true, ...props });
+
+  // Register for events
+  useLayoutEffect(()=>{
+
+    // Define event handler
+    const onChangeHandler = ( fieldName  ) => {
+
+      // Dont do anythign if we updated
+      if( fieldName === field ){
+        return;
+      }
+
+      // determine if one of our array children triggered this change 
+      const arrayFieldName = fieldName.replace(/\[[0-9]*\]$/, '');
+      if( arrayFieldName === field ) {
+        // If it was than update the shadow field!!! 
+        const arrayFieldValue = formApi.getValue(arrayFieldName);
+        fieldApi.setValue(arrayFieldValue);
+      }
+    };
+
+    // Register for events
+    formApi.emitter.on('value', onChangeHandler);
+
+    // Unregister events
+    return () => {
+      formApi.emitter.removeListener('value', onChangeHandler);
+    };
+  }, [field]);
 
   const initialVals = formApi.getInitialValue(field) || initialValue || [];
 

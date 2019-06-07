@@ -22,7 +22,7 @@ const DynamicArraysContent = () => {
       <Form>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>
-            <ArrayField field="siblings"validate={validate}>
+            <ArrayField field="siblings" validate={validate}>
               {({ add, fields }) => (
             <>
               <button onClick={add} type="button">

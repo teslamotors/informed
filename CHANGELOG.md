@@ -1,3 +1,9 @@
+## 2.10.0 (June 7, 2019)
+
+## Added 
+- ability to pass validation function to an array field
+- arrayFields are now treaded as "shadow" fields
+
 ## 2.9.0 (June 6, 2019)
 
 ## Added 

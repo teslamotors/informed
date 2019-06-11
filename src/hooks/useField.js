@@ -1,24 +1,9 @@
 import React, { useState, useLayoutEffect, useEffect, useContext, useMemo, useRef } from 'react';
 import { FormRegisterContext } from '../Context';
 import useFormApi from './useFormApi';
+import useStateWithGetter from './useStateWithGetter';
 import Debug from '../debug';
 const logger = Debug('informed:useField'+ '\t');
-
-// TODO figure out if this is bad? 
-// https://github.com/facebook/react/issues/14543
-function useStateWithGetter(initial) {
-  const ref = useRef();
-  const [state, setState] = useState(initial);
-  ref.current = state;
-  const set = (value) => {
-    ref.current = value;
-    setState(value);
-  };
-  const get = () => {
-    return ref.current;
-  };
-  return [state, set, get];
-}
 
 const initializeValue = (value, mask) => {
   if(value != null){

@@ -155,8 +155,8 @@ describe('ArrayField', () => {
 
   it('should validate on submit with array level validation', () => {
 
-    const validate = ( values ) => {
-      if( !values || values.length < 3 ){
+    const validate = ( values, length ) => {
+      if( length < 3 ){
         return 'You must have at least three friends.';
       } 
     };

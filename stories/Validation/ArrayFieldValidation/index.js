@@ -5,8 +5,8 @@ import FormState from '../../utils/FormState';
 
 import { Form, Text, ArrayField } from '../../../src';
 
-const validate = ( values ) => {
-  if( !values || values.length < 3 ){
+const validate = ( values, length ) => {
+  if( length < 3 ){
     return 'You must have at least three friends.';
   } 
 };

@@ -1,3 +1,11 @@
+## 2.10.1 (June 11, 2019)
+
+## Fixed
+- Issue where array level validation would not trigger for complex nested fields within array field
+
+## Added 
+- length as a second parameter to arrayFields validate function
+
 ## 2.10.0 (June 7, 2019)
 
 ## Added 

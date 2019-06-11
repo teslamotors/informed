@@ -16,8 +16,8 @@ Play with the form below, clicking submit will trigger validation.
 ```jsx
 import { Form, Text, ArrayField } from 'informed';
 
-const validate = ( values ) => {
-  if( !values || values.length < 3 ){
+const validate = ( values, length ) => {
+  if( length < 3 ){
     return 'You must have at least three friends.';
   } 
 };

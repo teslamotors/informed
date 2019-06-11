@@ -1,6 +1,11 @@
-import React, { useState, useLayoutEffect } from 'react';
-import useFormApi from '../hooks/useFormApi';
-import useField from '../hooks/useField';
+import React, { useState, useLayoutEffect, useMemo } from 'react';
+import useFormApi from './useFormApi';
+import useField from './useField';
+import useStateWithGetter from './useStateWithGetter';
+import Debug from '../debug';
+
+const logger = Debug('informed:useArrayField'+ '\t');
+
 
 // https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
 const uuidv4 = () => {
@@ -15,7 +20,22 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
 
   const formApi = useFormApi();
 
-  const { fieldApi } = useField({ field, validate, shadow: true, ...props });
+  const initialVals = formApi.getInitialValue(field) || initialValue || [];
+
+  // TODO throw error if initial value and its not array
+
+  const [initialValues, setInitialValues] = useState(initialVals);
+
+  const initialKeys = initialValues ? initialValues.map(() => uuidv4()) : [];
+
+  const [keys, setKeys, getKeys] = useStateWithGetter(initialKeys);
+
+  const validateWithLength = useMemo( () => ( value, values ) => { 
+    const length = getKeys() == null ? 0 : getKeys().length;
+    return validate( value, length, values );
+  });
+
+  const { fieldApi } = useField({ field, validate: validateWithLength, shadow: true, ...props });
 
   // Register for events
   useLayoutEffect(()=>{
@@ -27,14 +47,17 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
       if( fieldName === field ){
         return;
       }
+      
+      logger(`${fieldName} changed`);
 
       // determine if one of our array children triggered this change 
-      const arrayFieldName = fieldName.replace(/\[[0-9]*\]$/, '');
-      if( arrayFieldName === field ) {
+      if( RegExp(`${field}\\[[0-9]+\\]`).test(fieldName) ) {
         // If it was than update the shadow field!!! 
-        const arrayFieldValue = formApi.getValue(arrayFieldName);
+        logger(`${field} changed`);
+        const arrayFieldValue = formApi.getValue(field);
         fieldApi.setValue(arrayFieldValue);
       }
+
     };
 
     // Register for events
@@ -46,15 +69,7 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
     };
   }, [field]);
 
-  const initialVals = formApi.getInitialValue(field) || initialValue || [];
 
-  // TODO throw error if initial value and its not array
-
-  const [initialValues, setInitialValues] = useState(initialVals);
-
-  const initialKeys = initialValues ? initialValues.map(() => uuidv4()) : [];
-
-  const [keys, setKeys] = useState(initialKeys);
 
   const remove = i => {
     const newKeys = keys.slice(0, i).concat(keys.slice(i + 1, keys.length));

@@ -406,6 +406,7 @@ class FormController extends EventEmitter {
     // Always need to delete the field
     this.fields.delete(field);
     this.emit('change');
+    this.emit('value', field);
   }
 
   update(field, fieldStuff) {

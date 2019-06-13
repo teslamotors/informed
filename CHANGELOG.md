@@ -1,3 +1,8 @@
+## 2.10.2 (June 13, 2019)
+
+## Fixed
+- Issue where initial values did not change when form was reset
+
 ## 2.10.1 (June 11, 2019)
 
 ## Fixed

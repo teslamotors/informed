@@ -32,7 +32,7 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
 
   const validateWithLength = useMemo( () => ( value, values ) => { 
     const length = getKeys() == null ? 0 : getKeys().length;
-    return validate( value, length, values );
+    return validate ? validate( value, length, values ) : undefined;
   });
 
   const { fieldApi } = useField({ field, validate: validateWithLength, shadow: true, ...props });

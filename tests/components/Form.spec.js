@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import Enzyme, { mount } from 'enzyme';
@@ -143,6 +143,32 @@ describe('Form', () => {
     const button = wrapper.find('button');
     button.simulate('reset');
     expect(savedApi.getState().values).to.deep.equal({});
+  });
+
+  it('should call reset function when reset button is clicked', () => {
+    let savedApi;
+
+    const ResetTester = () => {
+      const [init, setInit] = useState('init');
+      return (      
+        <Form
+          getApi={api => {
+            savedApi = api;
+          }}>
+          <Text initialValue={init} field="greeting" />
+          <button id="reset" type="reset">Reset</button>
+          <button id='update' onClick={() => setInit('new')}>Update</button>
+        </Form>
+      );
+    };
+    const wrapper = mount(
+      <ResetTester />
+    );
+    const updateButton = wrapper.find('button#update');
+    updateButton.simulate('click');
+    const button = wrapper.find('button#reset');
+    button.simulate('reset');
+    expect(savedApi.getState().values).to.deep.equal({greeting: 'new'});
   });
 
   it('should call preventDefault when the form is submitted', () => {

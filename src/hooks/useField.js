@@ -238,7 +238,7 @@ function useField(fieldProps = {}, userRef) {
       };
     },
     // This is VERYYYY!! Important!
-    [field]
+    [field, initialValue]
   );
 
   // We want to let the controller know of changes on this field when specific props change

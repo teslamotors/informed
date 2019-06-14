@@ -2,7 +2,7 @@ import React from 'react';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import Enzyme, { mount } from 'enzyme';
-import { FormProvider, Text, Scope } from '../../src';
+import { FormProvider, Text, Scope, useForm } from '../../src';
 
 describe('FormProvider', () => {
   const sandbox = sinon.createSandbox();
@@ -44,6 +44,29 @@ describe('FormProvider', () => {
       submits: 0
     };
     return Object.assign({}, defaultState, state);
+  };
+
+  const TestForm = ({children, ...props}) => {
+    const { 
+      formApi, 
+      formController,
+      formState, 
+      userProps
+    } = useForm(props);
+    return (
+      <FormProvider 
+        formApi={formApi} 
+        formState={formState} 
+        formController={formController}>
+        <form
+          {...userProps}
+          onReset={formController.reset}
+          onSubmit={formController.submitForm}
+          onKeyDown={formController.keyDown}>
+          {children}
+        </form>
+      </FormProvider>
+    );
   };
 
   beforeEach(() => {
@@ -96,11 +119,12 @@ describe('FormProvider', () => {
 
   it('should call onSubmit function with values when the form is submitted', () => {
     const spy = sandbox.spy();
+
     const wrapper = mount(
-      <FormProvider onSubmit={spy}>
+      <TestForm onSubmit={spy}>
         <Text field="greeting" />
         <button type="submit">Submit</button>
-      </FormProvider>
+      </TestForm>
     );
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'hello' } });
@@ -113,13 +137,12 @@ describe('FormProvider', () => {
   it('should call reset function when reset button is clicked', () => {
     let savedApi;
     const wrapper = mount(
-      <FormProvider
-        getApi={api => {
-          savedApi = api;
-        }}>
+      <TestForm getApi={api => {
+        savedApi = api;
+      }}>
         <Text field="greeting" />
-        <button type="reset">Reset</button>
-      </FormProvider>
+        <button type="submit">Submit</button>
+      </TestForm>
     );
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'hello' } });
@@ -131,11 +154,14 @@ describe('FormProvider', () => {
 
   it('should call preventDefault when the form is submitted', () => {
     const spy = sandbox.spy();
+  
     const wrapper = mount(
-      <FormProvider onSubmit={() => {}}>
+      <TestForm onSubmit={spy}>
+        <Text field="greeting" />
         <button type="submit">Submit</button>
-      </FormProvider>
+      </TestForm>
     );
+
     const button = wrapper.find('button');
     button.simulate('submit', {
       preventDefault: spy
@@ -145,11 +171,14 @@ describe('FormProvider', () => {
 
   it('should NOT preventDefault dontPreventDefault is passed in', () => {
     const spy = sandbox.spy();
+
     const wrapper = mount(
-      <FormProvider onSubmit={() => {}} dontPreventDefault>
+      <TestForm dontPreventDefault>
+        <Text field="greeting" />
         <button type="submit">Submit</button>
-      </FormProvider>
+      </TestForm>
     );
+
     const button = wrapper.find('button');
     button.simulate('submit', {
       preventDefault: spy
@@ -166,10 +195,10 @@ describe('FormProvider', () => {
     const validate = greeting => 
       greeting === 'hello!' ? 'ooo thats no good' : null;
     const wrapper = mount(
-      <FormProvider onSubmit={spy} getApi={setApi}>
+      <TestForm onSubmit={spy} getApi={setApi}>
         <Text field="greeting" validate={validate} />
         <button type="submit">Submit</button>
-      </FormProvider>
+      </TestForm>
     );
     api.setValue('greeting', 'hello!');
     const button = wrapper.find('button');
@@ -186,11 +215,11 @@ describe('FormProvider', () => {
     const validate = values => 
       values.a + values.b !== 4 ? 'values must sum to 4!' : undefined;
     const wrapper = mount(
-      <FormProvider onSubmit={spy} getApi={setApi} validate={validate}>
+      <TestForm onSubmit={spy} getApi={setApi} validate={validate}>
         <Text field="a" />
         <Text field="b" />
         <button type="submit">Submit</button>
-      </FormProvider>
+      </TestForm>
     );
     api.setValue('a', 1);
     api.setValue('b', 2);
@@ -208,11 +237,11 @@ describe('FormProvider', () => {
     const validate = values => 
       values.a + values.b !== 4 ? 'values must sum to 4!' : undefined;
     const wrapper = mount(
-      <FormProvider onSubmit={spy} getApi={setApi} validate={validate}>
+      <TestForm onSubmit={spy} getApi={setApi} validate={validate}>
         <Text field="a" />
         <Text field="b" />
         <button type="submit">Submit</button>
-      </FormProvider>
+      </TestForm>
     );
     api.setValue('a', 2);
     api.setValue('b', 2);
@@ -234,11 +263,11 @@ describe('FormProvider', () => {
       };
     };
     const wrapper = mount(
-      <FormProvider onSubmit={spy} getApi={setApi} validateFields={validate}>
+      <TestForm onSubmit={spy} getApi={setApi} validateFields={validate}>
         <Text field="a" />
         <Text field="b" />
         <button type="submit">Submit</button>
-      </FormProvider>
+      </TestForm>
     );
     api.setValue('a', 'asd');
     api.setValue('b', 'as');
@@ -260,11 +289,11 @@ describe('FormProvider', () => {
       };
     };
     const wrapper = mount(
-      <FormProvider onSubmit={spy} getApi={setApi} validateFields={validate}>
+      <TestForm onSubmit={spy} getApi={setApi} validateFields={validate}>
         <Text field="a" />
         <Text field="b" />
         <button type="submit">Submit</button>
-      </FormProvider>
+      </TestForm>
     );
     api.setValue('a', 'asd');
     api.setValue('b', 'as');
@@ -285,11 +314,11 @@ describe('FormProvider', () => {
     const validate = values => 
       values.a + values.b !== 4 ? 'values must sum to 4!' : undefined;
     const wrapper = mount(
-      <FormProvider onSubmit={spy} getApi={setApi} validate={validate}>
+      <TestForm onSubmit={spy} getApi={setApi} validate={validate}>
         <Text field="a" />
         <Text field="b" />
         <button type="submit">Submit</button>
-      </FormProvider>
+      </TestForm>
     );
     api.setValue('a', 1);
     api.setValue('b', 2);
@@ -309,10 +338,10 @@ describe('FormProvider', () => {
     const validate = greeting =>
       greeting === 'hello!' ? 'ooo thats no good' : null;
     const wrapper = mount(
-      <FormProvider onSubmitFailure={spy} getApi={setApi}>
+      <TestForm onSubmitFailure={spy} getApi={setApi}>
         <Text field="greeting" validate={validate} />
         <button type="submit">Submit</button>
-      </FormProvider>
+      </TestForm>
     );
     api.setValue('greeting', 'hello!');
     const button = wrapper.find('button');
@@ -327,10 +356,10 @@ describe('FormProvider', () => {
       api = param;
     };
     const wrapper = mount(
-      <FormProvider getApi={setApi}>
+      <TestForm getApi={setApi}>
         <Text field="greeting" />
         <button type="submit">Submit</button>
-      </FormProvider>
+      </TestForm>
     );
     const button = wrapper.find('button');
     button.simulate('submit');
@@ -343,10 +372,10 @@ describe('FormProvider', () => {
       api = param;
     };
     const wrapper = mount(
-      <FormProvider getApi={setApi}>
+      <TestForm getApi={setApi}>
         <Text field="greeting" />
         <button type="submit">Submit</button>
-      </FormProvider>
+      </TestForm>
     );
     const button = wrapper.find('button');
     button.simulate('submit');

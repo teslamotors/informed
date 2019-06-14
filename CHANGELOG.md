@@ -1,3 +1,9 @@
+## 2.11.0 (June 14, 2019)
+
+## Updated 
+- useForm to return user props and a render method
+- Form provider to no longer render a `<form></form>` IT NEVER SHOULD HAVE.
+
 ## 2.10.2 (June 13, 2019)
 
 ## Fixed

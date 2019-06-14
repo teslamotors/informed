@@ -3,55 +3,41 @@ import { FormStateContext, FormApiContext, FormRegisterContext } from '../Contex
 import Debug from '../debug';
 import useForm from '../hooks/useForm';
 
-const debug = Debug('informed:FormProvider' + '\t\t');
+const logger = Debug('informed:FormProvider' + '\t\t');
 
 const FormProvider = ({ 
   children, 
-  getApi, 
-  onChange, 
-  onSubmit, 
-  onValueChange, 
-  initialValues,
-  onSubmitFailure,
-  validate,
-  validateFields,
-  preventEnter,
-  dontPreventDefault,
-  allowEmptyStrings,
-  ...rest }) => {
+  formApi, 
+  formController,
+  formState, 
+  ...rest
+}) => {
 
-  debug('Render FormProvider');
+  logger('Render FormProvider');
 
-  const { 
-    formApi, 
-    formController,
-    formState 
-  } = useForm({
-    dontPreventDefault,
-    initialValues,
-    validate,
-    validateFields,
-    allowEmptyStrings,
-    preventEnter,
-    getApi,
-    onChange,
-    onSubmit,
-    onValueChange, 
-    onSubmitFailure
-  });
-
-  /* --- Create Provider and render Content --- */
-  return (
-    <FormRegisterContext.Provider value={formController.updater}>
-      <FormApiContext.Provider value={formApi}>
-        <FormStateContext.Provider value={formState}>
-          <form
-            {...rest}
-            onReset={formController.reset}
-            onSubmit={formController.submitForm}
-            onKeyDown={formController.keyDown}>
+  if( formApi ){
+    logger('Render FormProvider with given values');
+    /* --- Create Provider with given values and render Content --- */
+    return (
+      <FormRegisterContext.Provider value={formController.updater}>
+        <FormApiContext.Provider value={formApi}>
+          <FormStateContext.Provider value={formState}>
             {children}
-          </form>
+          </FormStateContext.Provider>
+        </FormApiContext.Provider>
+      </FormRegisterContext.Provider>
+    );
+  } 
+
+  logger('Render FormProvider with generated values');
+  /* --- User did not pass values so create them --- */
+  const value = useForm(rest);
+
+  return (
+    <FormRegisterContext.Provider value={value.formController.updater}>
+      <FormApiContext.Provider value={value.formApi}>
+        <FormStateContext.Provider value={value.formState}>
+          {children}
         </FormStateContext.Provider>
       </FormApiContext.Provider>
     </FormRegisterContext.Provider>

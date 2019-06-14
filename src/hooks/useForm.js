@@ -1,8 +1,9 @@
 import React, { useState, useLayoutEffect, useEffect, useMemo } from 'react';
 import Debug from '../debug';
 import FormController from '../FormController';
+import FormProvider from '../components/FormProvider';
 
-const debug = Debug('informed:useForm' + '\t\t');
+const logger = Debug('informed:useForm' + '\t\t');
 
 const useForm = ({
   dontPreventDefault,
@@ -15,10 +16,11 @@ const useForm = ({
   onChange,
   onSubmit,
   onValueChange,
-  onSubmitFailure
+  onSubmitFailure,
+  ...userProps
 }) => {
 
-  debug('Render useForm');
+  logger('Render useForm');
 
   // Generate form controller options 
   const formControllerOptions = useMemo(()=>({
@@ -78,7 +80,13 @@ const useForm = ({
   // We dont want this to happen on every render so thats why useState is used here
   const [ formApi ] = useState( ()=> formController.getFormApi() );
 
-  return { formApi, formState, formController };
+  const render = (children) => (
+    <FormProvider formApi={formApi} formState={formState} formController={formController}>
+      {children}
+    </FormProvider>
+  );
+
+  return { formApi, formState, formController, render, userProps };
 };
 
 export default useForm;

@@ -1,3 +1,9 @@
+
+## 2.11.1 (June 18, 2019)
+
+## Fixed
+- Issue where initial values changing on multiselects caused looping .. oops
+
 ## 2.11.0 (June 14, 2019)
 
 ## Updated 

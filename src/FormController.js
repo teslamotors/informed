@@ -243,7 +243,7 @@ class FormController extends EventEmitter {
 
   reset() {
     debug('Resetting');
-    // So we because all fields controll themselves and, "inform", this controller
+    // So because all fields controll themselves and, "inform", this controller
     // of their changes, we need to literally itterate through all registered fields
     // and reset them. Not a big deal but very important to remember that you cant simply
     // reset this controllers state!

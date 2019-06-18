@@ -63,6 +63,10 @@ function useField(fieldProps = {}, userRef) {
   const [cursorOffset, setCursorOffset, getCursorOffset] = useStateWithGetter(0);
   const [maskedValue, setMaskedValue ] = useState(initializeMask(value, format, parse));
 
+  // Create then update refs to props
+  const initialValueRef = useRef(initialValue);
+  initialValueRef.current = initialValue;
+
   /* ---------------------- Setters ---------------------- */
 
   // Define set error
@@ -166,9 +170,9 @@ function useField(fieldProps = {}, userRef) {
 
   // Define reset
   const reset = () => {
-    const initVal = initializeValue(initialValue, mask);
+    const initVal = initializeValue(initialValueRef.current, mask);
     // TODO support numbers
-    setValue(initialValue);
+    setValue(initialValueRef.current);
     // Setting somthing to undefined will remove it 
     setError(validateOnMount ? validate(initVal) : undefined);
     setTouched(undefined, true);
@@ -238,7 +242,7 @@ function useField(fieldProps = {}, userRef) {
       };
     },
     // This is VERYYYY!! Important!
-    [field, initialValue]
+    [field]
   );
 
   // We want to let the controller know of changes on this field when specific props change

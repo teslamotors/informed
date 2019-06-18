@@ -1,17 +1,32 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import Code from '../../utils/Code';
+import FormState from '../../utils/FormState';
 
 import { Form, Select, Option } from '../../../src';
 
-const MultiSelectInput = () => (
-  <Form id="select-colors-form">
-    {({ formState }) => (
+// const options = ['red', 'green', 'blue', 'orange', 'purple'];
+
+const MultiSelectInput = () => {
+
+  // const [ initialValue, setInitialValue ] = useState( ['green', 'yellow'] );
+
+  // const toggle = () => {
+  //   const color1 = options[ Math.floor(Math.random() * 5) ];
+  //   let color2 = options[ Math.floor(Math.random() * 5) ];
+  //   while( color1 === color2 ){
+  //     color2 = options[ Math.floor(Math.random() * 5) ];
+  //   }
+  //   setInitialValue( [ color1, color2 ] );
+  // };
+
+  return (
+    <Form id="select-colors-form">
       <div>
         <label>
           Colors:
           <Select
+            // initialValue={initialValue}
             field="colors"
             id="select-colors"
             multiple
@@ -25,13 +40,19 @@ const MultiSelectInput = () => (
           </Select>
         </label>
         <button type="submit">Submit</button>
-        <label>Values:</label>
-        <Code language="language-js">
-          {JSON.stringify(formState.values, null, 2)}
-        </Code>
+        {/* <button type="reset">Reset</button>
+        <button type="toggle" type="button" onClick={toggle}>Toggle</button> */}
+        <FormState />
+        {/* {JSON.stringify(initialValue)} */}
       </div>
-    )}
-  </Form>
-);
+    </Form>
+  );
+};
 
-export default withDocs(readme, MultiSelectInput);
+const MultiSelectInputWrapper = () => {
+  return (
+    <MultiSelectInput />
+  );
+};
+
+export default withDocs(readme, MultiSelectInputWrapper);

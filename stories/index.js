@@ -14,6 +14,7 @@ import SimpleValidation from './Validation/SimpleValidation';
 import ComplexValidation from './Validation/ComplexValidation';
 import ValidationControl from './Validation/ValidationControl';
 import ArrayFieldValidation from './Validation/ArrayFieldValidation';
+import ComplexArrayFieldValidation from './Validation/ComplexArrayFieldValidation';
 import Notifications from './Validation/Notifications';
 import FormLevelValidation from './Validation/FormLevelValidation';
 import FormatParse from './Formatting/FormatParse';
@@ -162,7 +163,8 @@ storiesOf('Validation', module)
   .add('Validation Control', ValidationControl)
   .add('Form Level Validation', FormLevelValidation)
   .add('Notifications', Notifications)
-  .add('Array Field Validation', ArrayFieldValidation);
+  .add('Array Field Validation', ArrayFieldValidation)
+  .add('Complex Array Field Validation', ComplexArrayFieldValidation);
 
 storiesOf('Formatting', module)
   .add('Mask', Mask)

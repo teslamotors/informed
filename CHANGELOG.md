@@ -1,4 +1,9 @@
 
+## 2.11.2 (June 27, 2019)
+
+## Updated
+- README file to include minzipped badge
+
 ## 2.11.1 (June 18, 2019)
 
 ## Fixed

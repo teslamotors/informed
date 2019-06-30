@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 import asField from '../../HOC/asField';
 
 const Checkbox = ({ fieldApi, fieldState, ...props }) => {

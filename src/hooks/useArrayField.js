@@ -1,8 +1,9 @@
-import React, { useState, useLayoutEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import useFormApi from './useFormApi';
 import useField from './useField';
 import useStateWithGetter from './useStateWithGetter';
 import Debug from '../debug';
+import useLayoutEffect from './useIsomorphicLayoutEffect';
 
 const logger = Debug('informed:useArrayField'+ '\t');
 

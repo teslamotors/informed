@@ -1,6 +1,7 @@
-import React, {useLayoutEffect} from 'react';
+import React from 'react';
 import asField from '../../HOC/asField';
 import Debug from '../../debug';
+import useLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 const logger = Debug('informed:Text' + '\t');
 
 const Text = ({ fieldApi, fieldState, ...props }) => {

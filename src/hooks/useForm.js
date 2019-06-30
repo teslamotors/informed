@@ -1,7 +1,8 @@
-import React, { useState, useLayoutEffect, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Debug from '../debug';
 import FormController from '../FormController';
 import FormProvider from '../components/FormProvider';
+import useLayoutEffect from './useIsomorphicLayoutEffect';
 
 const logger = Debug('informed:useForm' + '\t\t');
 

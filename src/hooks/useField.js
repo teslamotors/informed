@@ -1,8 +1,9 @@
-import React, { useState, useLayoutEffect, useEffect, useContext, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useContext, useMemo, useRef } from 'react';
 import { FormRegisterContext } from '../Context';
 import useFormApi from './useFormApi';
 import useStateWithGetter from './useStateWithGetter';
 import Debug from '../debug';
+import useLayoutEffect from './useIsomorphicLayoutEffect';
 const logger = Debug('informed:useField'+ '\t');
 
 const initializeValue = (value, mask) => {

@@ -1,3 +1,7 @@
+## 2.11.3 (July 1, 2019)
+
+## Fixes 
+- warning with useLayoutEffect when using SSR
 
 ## 2.11.2 (June 27, 2019)
 

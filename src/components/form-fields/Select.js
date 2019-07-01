@@ -1,6 +1,7 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import asField from '../../HOC/asField';
 import Debug from '../../debug';
+import useLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 
 const logger = Debug('informed:Select' + '\t');
 

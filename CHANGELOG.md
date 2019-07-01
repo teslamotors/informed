@@ -1,3 +1,8 @@
+## 2.11.4 (July 1, 2019)
+
+## Fixes 
+- issue 215 where selects dont work in Edge becase .. you know.. Microsoft
+
 ## 2.11.3 (July 1, 2019)
 
 ## Fixes 

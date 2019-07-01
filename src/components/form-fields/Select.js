@@ -23,7 +23,8 @@ const Select = ({ fieldApi, fieldState, ...props }) => {
   const selectRef = useRef();
 
   const handleChange = (e) => {
-    let selected = [...(forwardedRef || selectRef).current]
+
+    let selected = Array.from((forwardedRef || selectRef).current)
       .filter(option => option.selected)
       .map(option => option.value);
 

@@ -21,7 +21,10 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
 
   const formApi = useFormApi();
 
-  const initialVals = formApi.getInitialValue(field) || initialValue || [];
+  // May be scoped so get full field name!!
+  const fullField = formApi.getFullField(field);
+
+  const initialVals = formApi.getInitialValue(fullField) || initialValue || [];
 
   // TODO throw error if initial value and its not array
 
@@ -36,6 +39,7 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
     return validate ? validate( value, length, values ) : undefined;
   });
 
+  // NOTE: important that we use "field" and NOT full field as getter is scoped!
   const { fieldApi } = useField({ field, validate: validateWithLength, shadow: true, ...props });
 
   // Register for events
@@ -45,17 +49,18 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
     const onChangeHandler = ( fieldName  ) => {
 
       // Dont do anythign if we updated
-      if( fieldName === field ){
+      if( fieldName === fullField ){
         return;
       }
       
-      logger(`${fieldName} changed`);
+      logger(`${fullField} changed`);
 
       // determine if one of our array children triggered this change 
-      if( RegExp(`${field}\\[[0-9]+\\]`).test(fieldName) ) {
+      if( RegExp(`${fullField}\\[[0-9]+\\]`).test(fieldName) ) {
         // If it was than update the shadow field!!! 
-        logger(`${field} changed`);
+        // NOTE: important that we use "field" and NOT full field as getter is scoped!
         const arrayFieldValue = formApi.getValue(field);
+        logger(`setting array field ${fullField} to ${arrayFieldValue}`);
         fieldApi.setValue(arrayFieldValue);
       }
 

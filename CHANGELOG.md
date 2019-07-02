@@ -1,3 +1,8 @@
+## 2.11.6 (July 2, 2019)
+
+## Fixes 
+- issue 219 where array fields would not work with scope
+
 ## 2.11.5 (July 2, 2019)
 
 ## Fixes 

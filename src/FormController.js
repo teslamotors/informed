@@ -75,9 +75,10 @@ class FormController extends EventEmitter {
 
   // Generate the external form api that will be exposed to the users
   getFormApi() {
-    const setValue = (field, value) =>
+    const setValue = (field, value, options ) =>
       this.fields.get(field).fieldApi.setValue(value, null, {
-        allowEmptyString: this.options.allowEmptyStrings
+        allowEmptyString: this.options.allowEmptyStrings, 
+        ...options
       });
 
     const setTouched = (field, value) =>
@@ -252,7 +253,7 @@ class FormController extends EventEmitter {
       // Initialize the values if it needs to be
       const initialValue = ObjectMap.get(this.options.initialValues, field.field);
       if( initialValue !== undefined ){
-        this.getFormApi().setValue( field.field, initialValue );
+        this.getFormApi().setValue( field.field, initialValue, { initial: true } );
       } 
     });
 
@@ -383,7 +384,7 @@ class FormController extends EventEmitter {
       // Initialize the values if it needs to be
       const initialValue = ObjectMap.get(this.options.initialValues, field);
       if( initialValue !== undefined && !registered ){
-        this.getFormApi().setValue( field, initialValue );
+        this.getFormApi().setValue( field, initialValue, { initial: true } );
       } else { 
         // Otherwise set the value to whatever the field is set to ( might have been field level initial value )
         this.setValue(field, fieldState.value, false);

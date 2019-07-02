@@ -1,3 +1,8 @@
+## 2.11.5 (July 2, 2019)
+
+## Fixes 
+- issue 225 where validation will occur on mount when there are initial values
+
 ## 2.11.4 (July 1, 2019)
 
 ## Fixes 

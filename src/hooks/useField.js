@@ -109,8 +109,8 @@ function useField(fieldProps = {}, userRef) {
       maskedVal = format(val);
     }
     // We only need to call validate if the user gave us one
-    // and they want us to validate on change
-    if (validate && validateOnChange) {
+    // and they want us to validate on change && its not the initial validation
+    if (validate && validateOnChange && !options.initial ) {
       logger(`Validating after change ${field} ${val}`);
       setError(validate(val, formApi.getValues()));
     }

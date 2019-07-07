@@ -142,7 +142,9 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
       const v = deferredUpdates[field];
       delete deferredUpdates[field];
       setDeferredUpdates(deferredUpdates);
-      formApi.setValue(field, v || "");
+      if(v !== null && v !== undefined) {
+          formApi.setValue(field, v);
+      }
     }
   });
 

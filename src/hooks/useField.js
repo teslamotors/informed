@@ -79,12 +79,15 @@ function useField(fieldProps = {}, userRef) {
 
   // Define set value
   const setValue = (val, e, options = {}) => {
+
+    const formOptions = formApi.getOptions();
+
     logger(`Setting ${field} to ${val}`);
     // Initialize maked value
     let maskedVal = val;
     // Set value to undefined if its an empty string
 
-    if( val === '' && !allowEmptyString && !options.allowEmptyString){
+    if( val === '' && !allowEmptyString && !options.allowEmptyString && !formOptions.allowEmptyStrings ){
       val = undefined;
     }
     // Turn string into number for number fields

@@ -1,3 +1,8 @@
+## 2.11.7 (July 8, 2019)
+
+## Fixes 
+- issue 227 where allowEmptyStrings form level prop did not work
+
 ## 2.11.6 (July 2, 2019)
 
 ## Fixes 

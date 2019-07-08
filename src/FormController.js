@@ -120,6 +120,8 @@ class FormController extends EventEmitter {
 
     const resetField = field => this.fields.get(field).fieldApi.reset();
 
+    const getOptions = () => this.options;
+
     return {
       setValue,
       setTouched,
@@ -140,7 +142,8 @@ class FormController extends EventEmitter {
       validateField,
       resetField,
       emitter: this,
-      setFieldError
+      setFieldError,
+      getOptions
     };
   }
 

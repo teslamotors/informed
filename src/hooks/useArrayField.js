@@ -45,6 +45,10 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
     ...props
   });
 
+  // deferredUpdates is a map of field to value for fields which do not yet exist.
+  // On every re-render, we will try to set the fields of all the deferredUpdates if the field exists.
+  // The point is that we may receive an update for an array field which doesn't yet exist, so we will create the key.
+  // The next time it renders the field will get created, and then the deferred update can be committed.
   const [deferredUpdates, setDeferredUpdates] = React.useState({});
 
   const remove = i => {
@@ -86,6 +90,7 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
                 return;
               }
 
+              // Defer the updates as is appropriate based on the data type which is being deferred.
               if (Array.isArray(v)) {
                 deferredUpdates[prefix] = v;
               } else if (typeof v === 'object') {
@@ -99,6 +104,7 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
 
             let keys = getKeys();
 
+            // Add missing fields to keys and defer the update to the field since it won't yet exist.
             for (let i = keys.length; i < values.length; i++) {
               keys.push(uuidv4());
               makeDeferredUpdates(values[i], `${fullField}[${i}]`);
@@ -125,7 +131,7 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
           // NOTE: important that we use "field" and NOT full field as getter is scoped!
           const arrayFieldValue = formApi.getValue(field);
           logger(`setting array field ${fullField} to ${arrayFieldValue}`);
-          // Call ourselves with the recursiveFlag set
+          // Call ourselves with the recursiveFlag set in order to set the field value
           onChangeHandler(fullField, arrayFieldValue, true);
         }
       };
@@ -148,6 +154,7 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
     initialValue: initialValues && initialValues[i]
   }));
 
+  // For each of the deferredUpdates check if the field exists, and if it does then perform the update and remove it from deferredUpdates.
   const len = Object.keys(deferredUpdates).length;
   Object.keys(deferredUpdates).forEach(field => {
     if (formApi.fieldExists(field)) {
@@ -156,6 +163,8 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
       if (formApi.getValue(field) !== v) formApi.setValue(field, v);
     }
   });
+  // If we changed deferredUpdates (meaning that we removed one or more keys), then save it back. 
+  // Without this check it will call setState every time which is an infinite loop.
   if (len !== Object.keys(deferredUpdates).length) {
     setDeferredUpdates(deferredUpdates);
   }

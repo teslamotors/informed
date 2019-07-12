@@ -111,6 +111,7 @@ declare module 'informed' {
    */
 
   export interface BasicFormProps<V = FormValues> {
+    allowEmptyStrings?: boolean
     onSubmit?: (values: V) => void
     preSubmit?: (values: V) => V
     initialValues?: V

@@ -1,3 +1,8 @@
+## 2.11.8 (July 16, 2019)
+
+## Adds 
+- allowEmptyStrings form level prop to types
+
 ## 2.11.7 (July 8, 2019)
 
 ## Fixes 

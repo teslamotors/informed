@@ -104,6 +104,7 @@ declare module 'informed' {
     onValueChange?: (value: V) => void
     value?: V
     forwardedRef?: React.RefObject<HTMLInputElement>
+    keepState?: boolean
   }
 
   /*

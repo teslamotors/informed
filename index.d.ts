@@ -90,6 +90,7 @@ declare module 'informed' {
   export interface BaseFieldProps<V = FormValue, VS = FormValues>
     extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value'> {
     initialValue?: V
+    keepState?: boolean
     validate?: (value: V, values: VS) => FormError
     validateOnBlur?: boolean
     validateOnChange?: boolean

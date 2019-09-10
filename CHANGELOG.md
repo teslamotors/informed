@@ -1,3 +1,8 @@
+## 2.11.9 (September 10, 2019)
+
+## Added
+- keepState to types
+
 ## 2.11.8 (July 16, 2019)
 
 ## Adds 

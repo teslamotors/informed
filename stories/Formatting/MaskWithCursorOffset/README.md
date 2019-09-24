@@ -1,7 +1,7 @@
 # Mask With Cursor Offset
 
 Masking values and offseting the cursor is made simple with the use of the `maskWithCursorOffset` function. Please NOTE! 
-the use of the `maintianCursor` prop. This is not always necessary, but in the following
+the use of the `maintainCursor` prop. This is not always necessary, but in the following
 example was needed! If you remove it the cursor will jump to the end every time the user types.
 
 <!-- STORY -->

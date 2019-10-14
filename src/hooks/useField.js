@@ -56,6 +56,10 @@ function useField(fieldProps = {}, userRef) {
   // Grab the form state
   const formApi = useFormApi();
 
+  if (!updater || !formApi) {
+    throw new Error('FormContext is not defined. Have you initialized a Form component higher in the tree?');
+  }
+
   // Initialize state 
   const [value, setVal, getVal] = useStateWithGetter(initializeValue(initialValue, mask));
   const [error, setErr, getErr] = useStateWithGetter( validateOnMount ? validate(value) : undefined );

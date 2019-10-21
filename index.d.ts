@@ -41,6 +41,7 @@ declare module 'informed' {
     getTouched: (name: string) => boolean
     setError: (name: string, error: FormError) => void
     getError: (name: string) => FormError
+    setFormError: (error: FormError) => void
     getState: () => FormState<V>
     reset: () => void
     setValues: (values: V) => void

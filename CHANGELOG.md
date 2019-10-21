@@ -1,3 +1,8 @@
+## 2.11.10 (October 21, 2019)
+
+## Added
+- missing setFormError prop to FormApi interface
+
 ## 2.11.9 (September 10, 2019)
 
 ## Added

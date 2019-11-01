@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import useField from '../hooks/useField';
+import { getChildDisplayName } from '../utils';
 
-const asField = Component =>  {
-  
-  const forwardRef = React.forwardRef(( props, userRef ) => {
-
-    const { fieldState, fieldApi, render, ref, userProps } = useField(props, userRef);
+const asField = Component => {
+  const forwardRef = React.forwardRef((props, userRef) => {
+    const { fieldState, fieldApi, render, ref, userProps } = useField(
+      props,
+      userRef
+    );
 
     return render(
       <Component
@@ -19,9 +21,8 @@ const asField = Component =>  {
       />
     );
   });
-  
-  // const name = Component.displayName || Component.name;
-  // forwardRef.displayName = name; 
+
+  forwardRef.displayName = `asField(${getChildDisplayName(Component)})`;
 
   return forwardRef;
 };

@@ -1,3 +1,8 @@
+## 2.11.11 (November 1, 2019)
+
+## Added
+- comp name to useField hook
+
 ## 2.11.10 (October 21, 2019)
 
 ## Added

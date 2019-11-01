@@ -1,7 +1,6 @@
 import React from 'react';
 import { storiesOf, addDecorator } from '@storybook/react';
 import { configureReadme } from 'storybook-readme';
-import { themes } from '@storybook/theming';
 import StoryWrapper from './utils/StoryWrapper';
 import Intro from './Intro';
 import Basic from './Form/Basic';

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 import FormState from '../../utils/FormState';
@@ -35,8 +35,44 @@ const DynamicArraysContent = () => {
   );
 };
 
+const DynamicArraysContent2 = () => {
+
+  const [show, setShow] = useState(true);
+
+  return (
+    <div>
+      <Form initialValues={{ siblings: ['foo', 'bar', 'baz']}}>
+        { show ? 
+          <ArrayField field="siblings" keepState>
+            {({ add, fields }) => (
+              <>
+                <button onClick={add} type="button">
+                  Add Sibling
+                </button>
+                {fields.map(({ field, key, remove }, i) => (
+                  <label key={key}>
+                    Sibling {i}:
+                    <Text field={field} keepState/>
+                    <button type="button" onClick={remove}>
+                      Remove
+                    </button>
+                  </label>
+                ))}
+              </>
+            )}
+          </ArrayField> : null 
+        }
+        <button type="submit">Submit</button>
+        <FormState />
+      </Form>
+      <button onClick={()=>{setShow((prev) => !prev)}}>ShowHide</button>
+    </div>
+  );
+};
+
 const DynamicArrays = () => (
   <DynamicArraysContent />
+  // <DynamicArraysContent2 />
 );
 
 export default withDocs(readme, DynamicArrays);

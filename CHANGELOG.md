@@ -1,3 +1,8 @@
+## 2.11.12 (November 1, 2019)
+
+## Fixed
+- issue with keep state on array fields
+
 ## 2.11.11 (November 1, 2019)
 
 ## Added

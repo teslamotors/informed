@@ -28,7 +28,12 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
 
   // TODO throw error if initial value and its not array
 
-  const [initialValues, setInitialValues] = useState(initialVals);
+  // If keep state was passed into the child inputs we need to maintain the length of 
+  // keys, in order to do so we grab the value from informeds api
+
+  const keptValues = formApi.getValue(fullField);
+
+  const [initialValues, setInitialValues] = useState(keptValues || initialVals);
 
   const initialKeys = initialValues ? initialValues.map(() => uuidv4()) : [];
 

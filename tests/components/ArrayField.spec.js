@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
@@ -150,6 +150,62 @@ describe('ArrayField', () => {
     add.simulate('click');
     const inputs = wrapper.find('input');
     inputs.at(0).simulate('change', { target: { value: 'Jeff' } });
+    expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff'] });
+  });
+
+  it('should keep state after user hides and shows array field', () => {
+    let savedApi;
+
+    const TestComp = () => {
+      const [show, setShow] = useState(true);
+      return (
+        <Form
+          getApi={api => {
+            savedApi = api;
+          }}>
+          { show ? 
+            <ArrayField field="siblings" keepState>
+              {({ add, fields }) => (
+                <>
+                  <button onClick={add} type="button" id="add">
+                    Add Sibling
+                  </button>
+                  {fields.map(({ field, key, remove }, i) => (
+                    <label htmlFor={i} key={key}>
+                      Sibling {i}:
+                      <Text field={field} id={i} keepState/>
+                      <button type="button" onClick={remove}>
+                        Remove
+                      </button>
+                    </label>
+                  ))}
+                </>
+              )}
+            </ArrayField> : null 
+          }
+          <button type="submit">Submit</button>
+          <button type="button" id="showhide" onClick={()=>{setShow((prev) => !prev)}}>Submit</button>
+        </Form>
+      );
+    };
+
+    const wrapper = mount(
+      <TestComp />
+    );
+
+    const add = wrapper.find('#add');
+    add.simulate('click');
+    let inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(1);
+    inputs.at(0).simulate('change', { target: { value: 'Jeff' } });
+    expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff'] });
+    const showhidebutton = wrapper.find('#showhide');
+    showhidebutton.simulate('click');
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(0);
+    showhidebutton.simulate('click');
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(1);
     expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff'] });
   });
 

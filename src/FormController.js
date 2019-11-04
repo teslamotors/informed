@@ -398,10 +398,10 @@ class FormController extends EventEmitter {
 
   }
 
-  deregister(field) {
+  deregister(field, options) {
     debug('Deregister', field);
     const field2remove = this.fields.get(field);
-    if(!field2remove.keepState){
+    if(!field2remove.keepState || ( field2remove.keepState && options.removable )){
       // Remove the data!
       ObjectMap.delete(this.state.values, field);
       ObjectMap.delete(this.state.touched, field);

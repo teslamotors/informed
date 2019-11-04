@@ -43,7 +43,7 @@ const DynamicArraysContent2 = () => {
     <div>
       <Form initialValues={{ siblings: ['foo', 'bar', 'baz']}}>
         { show ? 
-          <ArrayField field="siblings" keepState>
+          <ArrayField field="siblings">
             {({ add, fields }) => (
               <>
                 <button onClick={add} type="button">
@@ -52,7 +52,7 @@ const DynamicArraysContent2 = () => {
                 {fields.map(({ field, key, remove }, i) => (
                   <label key={key}>
                     Sibling {i}:
-                    <Text field={field} keepState/>
+                    <Text field={field} removable/>
                     <button type="button" onClick={remove}>
                       Remove
                     </button>
@@ -70,9 +70,40 @@ const DynamicArraysContent2 = () => {
   );
 };
 
+const DynamicArraysContent3 = () => {
+
+  return (
+    <div>
+      <Form >
+        <ArrayField field="siblings" keepState>
+          {({ add, fields }) => (
+            <>
+              <button onClick={add} type="button">
+                Add Sibling
+              </button>
+              {fields.map(({ field, key, remove }, i) => (
+                <label key={key}>
+                  Sibling {i}:
+                  <Text field={field} keepState removable />
+                  <button type="button" onClick={remove}>
+                    Remove
+                  </button>
+                </label>
+              ))}
+            </>
+          )}
+        </ArrayField>
+        <button type="submit">Submit</button>
+        <FormState />
+      </Form>
+    </div>
+  );
+};
+
 const DynamicArrays = () => (
   <DynamicArraysContent />
   // <DynamicArraysContent2 />
+  // <DynamicArraysContent3 />
 );
 
 export default withDocs(readme, DynamicArrays);

@@ -1,3 +1,8 @@
+## 2.11.13 (November 4, 2019)
+
+## Added
+- removable prop to inputs ( adds support for pairing keep state and array fields such that remove button actually removes field )
+
 ## 2.11.12 (November 1, 2019)
 
 ## Fixed

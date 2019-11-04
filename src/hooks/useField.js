@@ -43,6 +43,7 @@ function useField(fieldProps = {}, userRef) {
     allowEmptyString,
     onValueChange,
     notify,
+    removable,
     keepState, 
     maintainCursor,
     debug,
@@ -242,7 +243,7 @@ function useField(fieldProps = {}, userRef) {
 
       return () => {
         logger('Deregister', fullField);
-        updater.deregister(field);
+        updater.deregister(field, { removable });
       };
     },
     // This is VERYYYY!! Important!

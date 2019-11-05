@@ -18,7 +18,7 @@ const buildScopedFormApi = ( scope, formApi ) => {
 
 const buildScopedRegister = ( scope, formRegister ) => {
 
-  const { register, deregister, setValue, setTouched, setError, update, getField } = formRegister;
+  const { register, deregister, setValue, setTouched, setError, update, getField, expectRemoval } = formRegister;
 
   return {
     register: ( field, ...args ) => register(`${scope}.${field}`, ...args),
@@ -28,6 +28,7 @@ const buildScopedRegister = ( scope, formRegister ) => {
     setTouched: ( field, ...args ) => setTouched(`${scope}.${field}`, ...args),
     setError: ( field, ...args ) => setError(`${scope}.${field}`, ...args),
     getField: ( field, ...args ) => getField(`${scope}.${field}`, ...args),
+    expectRemoval: ( field, ...args ) => expectRemoval(`${scope}.${field}`, ...args),
   }; 
 };
 

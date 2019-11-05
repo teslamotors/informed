@@ -7,7 +7,8 @@ const FormRegisterContext = React.createContext({
   setTouched: () => {}, 
   setError: () => {},
   update: () => {}, 
-  getField: () => {}
+  getField: () => {}, 
+  expectRemoval: () => {}
 });
 
 const FormStateContext = React.createContext({});

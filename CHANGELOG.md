@@ -1,3 +1,8 @@
+## 2.11.14 (November 5, 2019)
+
+## Removed
+- removable prop to inputs because it was a bad idea... now it supports removal nativley
+
 ## 2.11.13 (November 4, 2019)
 
 ## Added

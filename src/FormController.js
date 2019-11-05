@@ -21,6 +21,9 @@ class FormController extends EventEmitter {
     // Map to store if the field was once registered
     this.registered = {};
 
+    // Map to store fields being removed
+    this.expectedRemovals = {};
+
     // Initialize the controller state
     this.state = {
       values: {},
@@ -46,6 +49,7 @@ class FormController extends EventEmitter {
     this.validate = this.validate.bind(this);
     this.keyDown = this.keyDown.bind(this);
     this.getField = this.getField.bind(this);
+    this.expectRemoval = this.expectRemoval.bind(this);
 
     // Updater will be used by fields to update and register
     this.updater = {
@@ -55,7 +59,8 @@ class FormController extends EventEmitter {
       setTouched: this.setTouched, 
       setError: this.setError,
       update: this.update,
-      getField: this.getField
+      getField: this.getField, 
+      expectRemoval: this.expectRemoval
     };
   }
 
@@ -401,16 +406,22 @@ class FormController extends EventEmitter {
   deregister(field, options) {
     debug('Deregister', field);
     const field2remove = this.fields.get(field);
-    if(!field2remove.keepState || ( field2remove.keepState && options.removable )){
+    if(!field2remove.keepState || this.expectedRemovals[field] ){
       // Remove the data!
       ObjectMap.delete(this.state.values, field);
       ObjectMap.delete(this.state.touched, field);
       ObjectMap.delete(this.state.errors, field);
+      delete this.expectedRemovals[field];
     }
     // Always need to delete the field
     this.fields.delete(field);
     this.emit('change');
     this.emit('value', field);
+  }
+
+  expectRemoval( field ) {
+    debug('Expecting removal of', field);
+    this.expectedRemovals[field] = true;
   }
 
   update(field, fieldStuff) {

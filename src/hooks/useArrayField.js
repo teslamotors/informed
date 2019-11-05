@@ -1,9 +1,10 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useContext } from 'react';
 import useFormApi from './useFormApi';
 import useField from './useField';
 import useStateWithGetter from './useStateWithGetter';
 import Debug from '../debug';
 import useLayoutEffect from './useIsomorphicLayoutEffect';
+import { FormRegisterContext } from '../Context';
 
 const logger = Debug('informed:useArrayField'+ '\t');
 
@@ -20,6 +21,9 @@ const uuidv4 = () => {
 const useArrayField = ({ field, initialValue, validate, ...props }) => {
 
   const formApi = useFormApi();
+
+  // Grab the form register context
+  const updater = useContext(FormRegisterContext);
 
   // May be scoped so get full field name!!
   const fullField = formApi.getFullField(field);
@@ -80,9 +84,12 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
     };
   }, [field]);
 
-
-
   const remove = i => {
+
+    // Notify form to expect removal
+    updater.expectRemoval(`${field}[${i}]`);
+
+    // Remove the key
     const newKeys = keys.slice(0, i).concat(keys.slice(i + 1, keys.length));
     setKeys(newKeys);
     const newInitialValues = initialValues.slice(0, i).concat(initialValues.slice(i + 1, initialValues.length));

@@ -41,9 +41,9 @@ const DynamicArraysContent2 = () => {
 
   return (
     <div>
-      <Form initialValues={{ siblings: ['foo', 'bar', 'baz']}}>
+      <Form >
         { show ? 
-          <ArrayField field="siblings">
+          <ArrayField field="siblings" keepState>
             {({ add, fields }) => (
               <>
                 <button onClick={add} type="button">
@@ -52,7 +52,7 @@ const DynamicArraysContent2 = () => {
                 {fields.map(({ field, key, remove }, i) => (
                   <label key={key}>
                     Sibling {i}:
-                    <Text field={field} removable/>
+                    <Text field={field} keepState/>
                     <button type="button" onClick={remove}>
                       Remove
                     </button>
@@ -84,7 +84,7 @@ const DynamicArraysContent3 = () => {
               {fields.map(({ field, key, remove }, i) => (
                 <label key={key}>
                   Sibling {i}:
-                  <Text field={field} keepState removable />
+                  <Text field={field} keepState />
                   <button type="button" onClick={remove}>
                     Remove
                   </button>

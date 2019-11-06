@@ -99,6 +99,8 @@ class FormController extends EventEmitter {
 
     const setValues = values => this.setValues(values);
 
+    const setInitialValue = ( field, value ) => this.setInitialValue(field, value);
+
     const getValue = (field) => this.getValue(field);
 
     const getTouched = (field) => this.getTouched(field);
@@ -132,6 +134,7 @@ class FormController extends EventEmitter {
       setTouched,
       setError,
       setValues,
+      setInitialValue,
       getValue,
       getTouched,
       getError,
@@ -193,6 +196,10 @@ class FormController extends EventEmitter {
   setFormError(value){
     this.state.error = value;
     this.emit('change');
+  }
+
+  setInitialValue(field, value){
+    ObjectMap.set(this.options.initialValues, field, value);
   }
 
   // Notify other fields 
@@ -364,6 +371,9 @@ class FormController extends EventEmitter {
     this.registered[field] = true;
     // Always register the field
     this.fields.set(field, fieldStuff);
+    // Check for expected removal and clear it out on register
+    const magicValue = field.slice( 0, field.lastIndexOf(']') + 1 || field.length );
+    delete this.expectedRemovals[magicValue];
     // The field is a shadow field ooo spooky so dont set anything
     if( fieldStuff.shadow ){
       return;
@@ -406,12 +416,12 @@ class FormController extends EventEmitter {
   deregister(field, options) {
     debug('Deregister', field);
     const field2remove = this.fields.get(field);
-    if(!field2remove.keepState || this.expectedRemovals[field] ){
+    const magicValue = field.slice( 0, field.lastIndexOf(']') + 1 || field.length );
+    if(!field2remove.keepState || this.expectedRemovals[magicValue] ){
       // Remove the data!
       ObjectMap.delete(this.state.values, field);
       ObjectMap.delete(this.state.touched, field);
       ObjectMap.delete(this.state.errors, field);
-      delete this.expectedRemovals[field];
     }
     // Always need to delete the field
     this.fields.delete(field);

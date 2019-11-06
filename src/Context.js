@@ -16,6 +16,8 @@ const FormApiContext = React.createContext({
   getFullField: () => {},
   getValues: () => {},
   getOptions: () => ({}),
+  setInitialValue: () => {},
+  getInitialValue: () => {}
 });
 const GroupContext = React.createContext();
 const SelectContext = React.createContext();

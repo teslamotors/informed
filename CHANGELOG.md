@@ -1,3 +1,8 @@
+## 2.11.15 (November 6, 2019)
+
+## Fixed
+- issue with array field where removing multiple fields did not remove the data from state 
+
 ## 2.11.14 (November 5, 2019)
 
 ## Removed

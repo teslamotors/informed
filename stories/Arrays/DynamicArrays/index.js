@@ -52,7 +52,8 @@ const DynamicArraysContent2 = () => {
                 {fields.map(({ field, key, remove }, i) => (
                   <label key={key}>
                     Sibling {i}:
-                    <Text field={field} keepState/>
+                    <Text field={`${field}.value`} keepState/>
+                    <Text field={`${field}.mode`} keepState/>
                     <button type="button" onClick={remove}>
                       Remove
                     </button>
@@ -101,7 +102,7 @@ const DynamicArraysContent3 = () => {
 };
 
 const DynamicArrays = () => (
-  <DynamicArraysContent />
+ <DynamicArraysContent />
   // <DynamicArraysContent2 />
   // <DynamicArraysContent3 />
 );

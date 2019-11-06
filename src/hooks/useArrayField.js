@@ -92,8 +92,10 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
     // Remove the key
     const newKeys = keys.slice(0, i).concat(keys.slice(i + 1, keys.length));
     setKeys(newKeys);
+    // Remove the initial value ( user wanted to get rid of that input )
     const newInitialValues = initialValues.slice(0, i).concat(initialValues.slice(i + 1, initialValues.length));
     setInitialValues(newInitialValues);
+    formApi.setInitialValue(field, newInitialValues);
   };
 
   const add = () => {

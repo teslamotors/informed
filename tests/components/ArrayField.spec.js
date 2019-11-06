@@ -161,7 +161,54 @@ describe('ArrayField', () => {
     add.simulate('click');
     inputs = wrapper.find('input');
     expect(inputs.length).to.equal(3);
-    expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff', 'Bob', 'Bob'] });
+    expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff', 'Bob'] });
+  });
+
+  it('should remove correct fields << plural when remove is clicked && keepState is passed', () => {
+    let savedApi;
+    const wrapper = mount(
+      <Form
+        initialValues={{ 
+          siblings: [{ foo: 'Jeff', bar: 'Joe' }, { foo: 'Bob', bar: 'Bill' }]
+        }}
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <ArrayField field="siblings" keepState>
+          {({ add, fields }) => (
+            <>
+              <button onClick={add} type="button" id="add">
+                Add Sibling
+              </button>
+              {fields.map(({ field, key, remove }, i) => (
+                <label key={key}>
+                  Sibling {i}:
+                  <Text field={`${field}.foo`} keepState/>
+                  <Text field={`${field}.bar`} keepState/>
+                  <button type="button" onClick={remove} id="remove">
+                    Remove
+                  </button>
+                </label>
+              ))}
+            </>
+          )}
+        </ArrayField>
+        <button type="submit">Submit</button>
+      </Form>
+    );
+    const add = wrapper.find('#add');
+    let inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(4);
+    expect(savedApi.getState().values).to.deep.equal({ siblings: [{ foo: 'Jeff', bar: 'Joe' }, { foo: 'Bob', bar: 'Bill' }] });
+    let remove = wrapper.find('#remove').at(1);
+    remove.simulate('click');
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(2);
+    expect(savedApi.getState().values).to.deep.equal({ siblings: [{ foo: 'Jeff', bar: 'Joe' } ] });
+    add.simulate('click');
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(4);
+    expect(savedApi.getState().values).to.deep.equal({ siblings: [{ foo: 'Jeff', bar: 'Joe' } ] });
   });
 
   it('should update value when user types', () => {

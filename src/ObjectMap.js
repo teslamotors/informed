@@ -11,7 +11,7 @@ const debug = Debug('informed:ObjMap' + '\t');
 
 const pathToArrayElem = (path) => {
   const pathArray = ldtoPath(path);
-  return Number.isInteger(+pathArray[pathArray.length-1]);
+  return Number.isInteger(+pathArray[pathArray.length - 1]);
 };
 
 class ObjectMap {
@@ -20,7 +20,9 @@ class ObjectMap {
   }
 
   static get(object, path) {
-    return ldget(object, path);
+    const val = ldget(object, path);
+    debug('GOT', path, val);
+    return val;
   }
 
   static has(object, path) {
@@ -28,7 +30,8 @@ class ObjectMap {
   }
 
   static set(object, path, value) {
-    if( value !== undefined ){
+    if (value !== undefined) {
+      debug('SETTING', path, value);
       ldset(object, path, value);
     } else {
       // Setting things to undefined in informed is special!
@@ -39,7 +42,8 @@ class ObjectMap {
       // path = 'foo.bar[2]'
       // foo.bar = [ 'baz', 'raz', 'taz' ]
       // setting taz to undefined   ^^^
-      if( pathToArrayElem(path) && ObjectMap.get(object, path) !== undefined ) {
+      if (pathToArrayElem(path) && ObjectMap.get(object, path) !== undefined) {
+        debug('Special case SETTING', path, 'to undefined');
         ldset(object, path, undefined);
         let pathArray = ldtoPath(path);
         pathArray = pathArray.slice(0, pathArray.length - 1);
@@ -50,7 +54,10 @@ class ObjectMap {
       // path = 'foo.bar'
       // foo.bar = 'baz'
       // removing foo.bar from the object completley
-      else if( !pathToArrayElem(path) && ObjectMap.get(object, path) !== undefined ) ObjectMap.delete(object, path);
+      else if (!pathToArrayElem(path) && ObjectMap.get(object, path) !== undefined) {
+        debug('Special case REMOVING', path, 'from object completley');
+        ObjectMap.delete(object, path);
+      }
     }
   }
 

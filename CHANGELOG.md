@@ -1,3 +1,8 @@
+## 2.11.16 (November 18, 2019)
+
+## Fixed
+- issue with array field where validation would fail 
+
 ## 2.11.15 (November 6, 2019)
 
 ## Fixed

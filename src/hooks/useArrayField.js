@@ -6,12 +6,12 @@ import Debug from '../debug';
 import useLayoutEffect from './useIsomorphicLayoutEffect';
 import { FormRegisterContext } from '../Context';
 
-const logger = Debug('informed:useArrayField'+ '\t');
+const logger = Debug('informed:useArrayField' + '\t');
 
 
 // https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
 const uuidv4 = () => {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
     var r = (Math.random() * 16) | 0,
       v = c == 'x' ? r : (r & 0x3) | 0x8;
     return v.toString(16);
@@ -35,7 +35,7 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
   // If keep state was passed into the child inputs we need to maintain the length of 
   // keys, in order to do so we grab the value from informeds api
 
-  const keptValues = formApi.getValue(fullField);
+  const keptValues = undefined; //formApi.getValue(fullField);
 
   const [initialValues, setInitialValues] = useState(keptValues || initialVals);
 
@@ -43,29 +43,29 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
 
   const [keys, setKeys, getKeys] = useStateWithGetter(initialKeys);
 
-  const validateWithLength = useMemo( () => ( value, values ) => { 
+  const validateWithLength = useMemo(() => (value, values) => {
     const length = getKeys() == null ? 0 : getKeys().length;
-    return validate ? validate( value, length, values ) : undefined;
+    return validate ? validate(value, length, values) : undefined;
   });
 
   // NOTE: important that we use "field" and NOT full field as getter is scoped!
   const { fieldApi } = useField({ field, validate: validateWithLength, shadow: true, ...props });
 
   // Register for events
-  useLayoutEffect(()=>{
+  useLayoutEffect(() => {
 
     // Define event handler
-    const onChangeHandler = ( fieldName  ) => {
+    const onChangeHandler = (fieldName) => {
 
       // Dont do anythign if we updated
-      if( fieldName === fullField ){
+      if (fieldName === fullField) {
         return;
       }
-      
+
       logger(`${fullField} changed`);
 
       // determine if one of our array children triggered this change 
-      if( RegExp(`${fullField}\\[[0-9]+\\]`).test(fieldName) ) {
+      if (RegExp(`${fullField}\\[[0-9]+\\]`).test(fieldName)) {
         // If it was than update the shadow field!!! 
         // NOTE: important that we use "field" and NOT full field as getter is scoped!
         const arrayFieldValue = formApi.getValue(field);
@@ -103,7 +103,7 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
     setKeys([...keys]);
   };
 
-  const addWithInitialValue = ( initialValue ) => {
+  const addWithInitialValue = (initialValue) => {
     keys.push(uuidv4());
     setKeys([...keys]);
     const newInitialValues = [...initialValues];

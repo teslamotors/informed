@@ -21,6 +21,9 @@ class FormController extends EventEmitter {
     // Map to store if the field was once registered
     this.registered = {};
 
+    // Map to store fields being removed
+    this.expectedRemovals = {};
+
     // Initialize the controller state
     this.state = {
       pristine: true,
@@ -35,6 +38,7 @@ class FormController extends EventEmitter {
     this.getValue = this.getValue.bind(this);
     this.getTouched = this.getTouched.bind(this);
     this.getError = this.getError.bind(this);
+    this.getErrors = this.getErrors.bind(this);
     this.setValue = this.setValue.bind(this);
     this.getValues = this.getValues.bind(this);
     this.setTouched = this.setTouched.bind(this);
@@ -47,6 +51,10 @@ class FormController extends EventEmitter {
     this.keyDown = this.keyDown.bind(this);
     this.getField = this.getField.bind(this);
     this.getInitialValue = this.getInitialValue.bind(this);
+    this.setInitialValue = this.setInitialValue.bind(this);
+    this.getOptions = this.getOptions.bind(this);
+    this.getFormState = this.getFormState.bind(this);
+    this.expectRemoval = this.expectRemoval.bind(this);
 
     // Updater will be used by fields to update and register
     this.updater = {
@@ -59,7 +67,8 @@ class FormController extends EventEmitter {
         this.emit('value', field, value);
       },
       setTouched: () => this.emit('change'),
-      setError: () => this.emit('change')
+      setError: () => this.emit('change'),
+      expectRemoval: this.expectRemoval
     };
 
     // Define the formApi
@@ -179,7 +188,9 @@ class FormController extends EventEmitter {
     // and build the values object.
     const values = {};
     this.fields.forEach((field) => {
-      ObjectMap.set(values, field.field, field.fieldApi.getValue());
+      if (!field.fieldApi.getHidden()) {
+        ObjectMap.set(values, field.field, field.fieldApi.getValue());
+      }
     });
     return values;
   }
@@ -191,7 +202,9 @@ class FormController extends EventEmitter {
     // and build the touched object.
     const touched = {};
     this.fields.forEach((field) => {
-      ObjectMap.set(touched, field.field, field.fieldApi.getTouched());
+      if (!field.fieldApi.getHidden()) {
+        ObjectMap.set(touched, field.field, field.fieldApi.getTouched());
+      }
     });
     return touched;
   }
@@ -203,7 +216,9 @@ class FormController extends EventEmitter {
     // and build the errors object.
     const errors = {};
     this.fields.forEach((field) => {
-      ObjectMap.set(errors, field.field, field.fieldApi.getError());
+      if (!field.fieldApi.getHidden()) {
+        ObjectMap.set(errors, field.field, field.fieldApi.getError());
+      }
     });
     return errors;
   }
@@ -366,20 +381,33 @@ class FormController extends EventEmitter {
     this.registered[name] = true;
     // Always register the field
     this.fields.set(name, field);
+
+    // Check for expected removal and clear it out on register
+    const magicValue = name.slice(0, name.lastIndexOf(']') + 1 || name.length);
+    delete this.expectedRemovals[magicValue];
+
     // Initialize the values if it needs to be
     const initialValue = ObjectMap.get(this.options.initialValues, name);
     if (initialValue !== undefined && !registered) {
-      field.fieldApi.setValue(name, initialValue);
+      field.fieldApi.setValue(initialValue);
     }
+    // Check to see if we need to unhide
+    if (field.fieldApi.getHidden) {
+      field.fieldApi.show();
+    }
+    this.emit('change');
   }
 
   deregister(name) {
     debug('Deregister', name);
     const field = this.fields.get(name);
+    const magicValue = name.slice(0, name.lastIndexOf(']') + 1 || name.length);
+
     // If the fields state is to be kept then simply mark as hidden
-    if (field.keepState) {
-      debug(`Marking field ${name} as hidden`);
-      field.hide();
+    // And its not an expected removal
+    if (field.keepState && !this.expectedRemovals[magicValue]) {
+      console.log(`Marking field ${name} as hidden`, this.expectedRemovals);
+      field.fieldApi.hide(); // << ISSUE IS HIDING array field
     } else {
       // Remove the field completley
       debug('Removing field', name);
@@ -387,6 +415,11 @@ class FormController extends EventEmitter {
     }
     this.emit('change');
     this.emit('value', name);
+  }
+
+  expectRemoval(field) {
+    debug('Expecting removal of', field);
+    this.expectedRemovals[field] = true;
   }
 
   update(name, field) {

@@ -60,6 +60,7 @@ function useField(fieldProps = {}, userRef) {
   const [value, setVal, getVal] = useStateWithGetter(initializeValue(initialValue, mask));
   const [error, setErr, getErr] = useStateWithGetter(validateOnMount ? validate(value) : undefined);
   const [touched, setTouch, getTouch] = useStateWithGetter();
+  const [hidden, setHidden, getHidden] = useStateWithGetter();
   const [cursor, setCursor, getCursor] = useStateWithGetter(0);
   const [cursorOffset, setCursorOffset, getCursorOffset] = useStateWithGetter(0);
   const [maskedValue, setMaskedValue] = useState(initializeMask(value, format, parse));
@@ -201,7 +202,10 @@ function useField(fieldProps = {}, userRef) {
     validate: fieldValidate,
     getValue: getVal,
     getTouched: getTouch,
-    getError: getErr
+    getError: getErr,
+    getHidden: getHidden,
+    hide: () => setHidden(true),
+    show: () => setHidden(false)
   };
 
   // Build the field state
@@ -209,7 +213,8 @@ function useField(fieldProps = {}, userRef) {
     value,
     error,
     touched,
-    maskedValue
+    maskedValue,
+    hidden
   };
 
   // Create shadow state if this is a shadow field

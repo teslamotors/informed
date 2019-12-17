@@ -37,6 +37,8 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
 
   const keptValues = undefined; //formApi.getValue(fullField);
 
+  console.log('WTF', initialVals);
+
   const [initialValues, setInitialValues] = useState(keptValues || initialVals);
 
   const initialKeys = initialValues ? initialValues.map(() => uuidv4()) : [];
@@ -49,40 +51,40 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
   });
 
   // NOTE: important that we use "field" and NOT full field as getter is scoped!
-  const { fieldApi } = useField({ field, validate: validateWithLength, shadow: true, ...props });
+  //const { fieldApi } = useField({ field, validate: validateWithLength, shadow: true, ...props });
 
   // Register for events
-  useLayoutEffect(() => {
+  // useLayoutEffect(() => {
 
-    // Define event handler
-    const onChangeHandler = (fieldName) => {
+  //   // Define event handler
+  //   const onChangeHandler = (fieldName) => {
 
-      // Dont do anythign if we updated
-      if (fieldName === fullField) {
-        return;
-      }
+  //     // Dont do anythign if we updated
+  //     if (fieldName === fullField) {
+  //       return;
+  //     }
 
-      logger(`${fullField} changed`);
+  //     logger(`${fullField} changed`);
 
-      // determine if one of our array children triggered this change 
-      if (RegExp(`${fullField}\\[[0-9]+\\]`).test(fieldName)) {
-        // If it was than update the shadow field!!! 
-        // NOTE: important that we use "field" and NOT full field as getter is scoped!
-        const arrayFieldValue = formApi.getValue(field);
-        logger(`setting array field ${fullField} to ${arrayFieldValue}`);
-        fieldApi.setValue(arrayFieldValue);
-      }
+  //     // determine if one of our array children triggered this change 
+  //     if (RegExp(`${fullField}\\[[0-9]+\\]`).test(fieldName)) {
+  //       // If it was than update the shadow field!!! 
+  //       // NOTE: important that we use "field" and NOT full field as getter is scoped!
+  //       const arrayFieldValue = formApi.getValue(field);
+  //       logger(`setting array field ${fullField} to ${arrayFieldValue}`);
+  //       fieldApi.setValue(arrayFieldValue);
+  //     }
 
-    };
+  //   };
 
-    // Register for events
-    formApi.emitter.on('value', onChangeHandler);
+  //   // Register for events
+  //   formApi.emitter.on('value', onChangeHandler);
 
-    // Unregister events
-    return () => {
-      formApi.emitter.removeListener('value', onChangeHandler);
-    };
-  }, [field]);
+  //   // Unregister events
+  //   return () => {
+  //     formApi.emitter.removeListener('value', onChangeHandler);
+  //   };
+  // }, [field]);
 
   const remove = i => {
 

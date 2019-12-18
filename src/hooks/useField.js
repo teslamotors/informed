@@ -57,10 +57,9 @@ function useField(fieldProps = {}, userRef) {
   const formApi = useFormApi();
 
   // Initialize state 
-  const [value, setVal, getVal] = useStateWithGetter(initializeValue(initialValue, mask));
+  const [value, setVal, getTheVal] = useStateWithGetter(initializeValue(initialValue, mask));
   const [error, setErr, getErr] = useStateWithGetter(validateOnMount ? validate(value) : undefined);
   const [touched, setTouch, getTouch] = useStateWithGetter();
-  const [hidden, setHidden, getHidden] = useStateWithGetter();
   const [cursor, setCursor, getCursor] = useStateWithGetter(0);
   const [cursorOffset, setCursorOffset, getCursorOffset] = useStateWithGetter(0);
   const [maskedValue, setMaskedValue] = useState(initializeMask(value, format, parse));
@@ -68,6 +67,11 @@ function useField(fieldProps = {}, userRef) {
   // Create then update refs to props
   const initialValueRef = useRef(initialValue);
   initialValueRef.current = initialValue;
+
+  // Special getter to support shadow fields
+  const getVal = () => {
+    return shadow ? formApi.getDerrivedValue(field) : getTheVal();
+  };
 
   /* ---------------------- Setters ---------------------- */
 
@@ -184,10 +188,10 @@ function useField(fieldProps = {}, userRef) {
   };
 
   // Define validate
-  const fieldValidate = (override) => {
+  const fieldValidate = (values) => {
     if (validate) {
-      logger(`Field validating ${field} ${getVal() || override}`);
-      setError(validate(getVal() || override, formApi.getValues()));
+      logger(`Field validating ${field} ${getVal()}`);
+      setError(validate(getVal(), values || formApi.getValues()));
     }
   };
 
@@ -203,9 +207,10 @@ function useField(fieldProps = {}, userRef) {
     getValue: getVal,
     getTouched: getTouch,
     getError: getErr,
-    getHidden: getHidden,
-    hide: () => setHidden(true),
-    show: () => setHidden(false)
+    getFieldState: () => ({
+      value: getVal(),
+      touched: getTouch(),
+    })
   };
 
   // Build the field state
@@ -214,7 +219,6 @@ function useField(fieldProps = {}, userRef) {
     error,
     touched,
     maskedValue,
-    hidden
   };
 
   // Create shadow state if this is a shadow field

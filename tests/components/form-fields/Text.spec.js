@@ -80,7 +80,7 @@ describe('Text', () => {
 
   it('should expose the field name', () => {
     const wrapper = mount(
-      <Form getApi={() => {}}>
+      <Form getApi={() => { }}>
         <Text field="greeting" />
       </Form>
     );
@@ -115,13 +115,13 @@ describe('Text', () => {
 
   it('should set initial value and mask them when initial values are passed with mask function', () => {
     let savedApi;
-    const mask = (val) => `$${val}`; 
+    const mask = (val) => `$${val}`;
     mount(
       <Form
         getApi={api => {
           savedApi = api;
         }}>
-        <Text field="greeting" initialValue="foobarbaz" mask={mask}/>
+        <Text field="greeting" initialValue="foobarbaz" mask={mask} />
       </Form>
     );
     expect(savedApi.getState().values).to.deep.equal({ greeting: '$foobarbaz' });
@@ -151,7 +151,7 @@ describe('Text', () => {
         getApi={api => {
           savedApi = api;
         }}>
-        <Text field="hello" mask={mask} maskOnBlur/>
+        <Text field="hello" mask={mask} maskOnBlur />
       </Form>
     );
     const input = wrapper.find('input');
@@ -178,7 +178,7 @@ describe('Text', () => {
   it('should run format and parse when user types in text input and format and parse are passed', () => {
     let savedApi;
     const format = value => `$${value}`;
-    const parse = value => value.replace('$','');
+    const parse = value => value.replace('$', '');
     const wrapper = mount(
       <Form
         getApi={api => {
@@ -202,13 +202,13 @@ describe('Text', () => {
   it('should run format and parse when user passes initial value and format and parse are passed', () => {
     let savedApi;
     const format = value => `$${value}`;
-    const parse = value => value.replace('$','');
+    const parse = value => value.replace('$', '');
     const wrapper = mount(
       <Form
         getApi={api => {
           savedApi = api;
         }}>
-        <Text field="hello" format={format} parse={parse} initialValue="1234"/>
+        <Text field="hello" format={format} parse={parse} initialValue="1234" />
       </Form>
     );
     expect(wrapper.find('input').props().value).to.equal('$1234');
@@ -247,7 +247,8 @@ describe('Text', () => {
               field="name"
               {...rest}
             />
-          );}}
+          );
+        }}
       </Form>
     );
     expect(wrapper.find('input').props().disabled).to.equal(false);
@@ -260,8 +261,8 @@ describe('Text', () => {
 
     const Changer = () => {
       const [type, setType] = useState('text');
-      const toggle = () => { 
-        setType( (prev) => prev === 'text' ? 'password' : 'text' );
+      const toggle = () => {
+        setType((prev) => prev === 'text' ? 'password' : 'text');
       };
       return (
         <div>
@@ -274,7 +275,7 @@ describe('Text', () => {
           <button onClick={toggle}>ClickMe</button>
         </div>
       );
-    }; 
+    };
 
     const wrapper = mount(
       <Changer />
@@ -293,13 +294,13 @@ describe('Text', () => {
 
     const Toggle = () => {
       const [show, setShow] = useState(true);
-      const toggle = () => setShow((prev)=>!prev); 
+      const toggle = () => setShow((prev) => !prev);
       return (
         <Form
           getApi={api => {
             savedApi = api;
           }}>
-          { show ? <Text field="greeting" keepState/> : null }
+          {show ? <Text field="greeting" keepState /> : null}
           <button type="button" onClick={toggle}>toggle</button>
         </Form>
       );
@@ -325,13 +326,13 @@ describe('Text', () => {
 
     const Toggle = () => {
       const [show, setShow] = useState(true);
-      const toggle = () => setShow((prev)=>!prev); 
+      const toggle = () => setShow((prev) => !prev);
       return (
         <Form
           getApi={api => {
             savedApi = api;
           }}>
-          { show ? <Text field="greeting"/> : null }
+          {show ? <Text field="greeting" /> : null}
           <button type="button" onClick={toggle}>toggle</button>
         </Form>
       );
@@ -356,13 +357,13 @@ describe('Text', () => {
 
     const Toggle = () => {
       const [show, setShow] = useState(true);
-      const toggle = () => setShow((prev)=>!prev); 
+      const toggle = () => setShow((prev) => !prev);
       return (
         <Form
           getApi={api => {
             savedApi = api;
           }}>
-          { show ? <Text field="greeting" keepState initialValue="foobar"/> : null }
+          {show ? <Text field="greeting" keepState initialValue="foobar" /> : null}
           <button type="button" onClick={toggle}>toggle</button>
         </Form>
       );
@@ -385,14 +386,14 @@ describe('Text', () => {
 
     const Toggle = () => {
       const [show, setShow] = useState(true);
-      const toggle = () => setShow((prev)=>!prev); 
+      const toggle = () => setShow((prev) => !prev);
       return (
         <Form
-          initialValues={{greeting: 'foobar'}}
+          initialValues={{ greeting: 'foobar' }}
           getApi={api => {
             savedApi = api;
           }}>
-          { show ? <Text field="greeting" keepState/> : null }
+          {show ? <Text field="greeting" keepState /> : null}
           <button type="button" onClick={toggle}>toggle</button>
         </Form>
       );

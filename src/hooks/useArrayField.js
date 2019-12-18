@@ -35,9 +35,9 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
   // If keep state was passed into the child inputs we need to maintain the length of 
   // keys, in order to do so we grab the value from informeds api
 
-  const keptValues = undefined; //formApi.getValue(fullField);
+  const keptValues = formApi.getSavedValue(fullField) && formApi.getSavedValue(fullField).value;
 
-  console.log('WTF', initialVals);
+  console.log('WTF', keptValues, fullField);
 
   const [initialValues, setInitialValues] = useState(keptValues || initialVals);
 
@@ -50,46 +50,13 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
     return validate ? validate(value, length, values) : undefined;
   });
 
-  // NOTE: important that we use "field" and NOT full field as getter is scoped!
-  //const { fieldApi } = useField({ field, validate: validateWithLength, shadow: true, ...props });
-
-  // Register for events
-  // useLayoutEffect(() => {
-
-  //   // Define event handler
-  //   const onChangeHandler = (fieldName) => {
-
-  //     // Dont do anythign if we updated
-  //     if (fieldName === fullField) {
-  //       return;
-  //     }
-
-  //     logger(`${fullField} changed`);
-
-  //     // determine if one of our array children triggered this change 
-  //     if (RegExp(`${fullField}\\[[0-9]+\\]`).test(fieldName)) {
-  //       // If it was than update the shadow field!!! 
-  //       // NOTE: important that we use "field" and NOT full field as getter is scoped!
-  //       const arrayFieldValue = formApi.getValue(field);
-  //       logger(`setting array field ${fullField} to ${arrayFieldValue}`);
-  //       fieldApi.setValue(arrayFieldValue);
-  //     }
-
-  //   };
-
-  //   // Register for events
-  //   formApi.emitter.on('value', onChangeHandler);
-
-  //   // Unregister events
-  //   return () => {
-  //     formApi.emitter.removeListener('value', onChangeHandler);
-  //   };
-  // }, [field]);
+  // Register shadow field
+  useField({ field, validate: validateWithLength, shadow: true, ...props });
 
   const remove = i => {
 
-    // Notify form to expect removal
-    updater.expectRemoval(`${field}[${i}]`);
+    // Notify form to expect removal on this field
+    updater.expectRemoval(`${field}`);
 
     // Remove the key
     const newKeys = keys.slice(0, i).concat(keys.slice(i + 1, keys.length));

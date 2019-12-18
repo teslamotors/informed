@@ -24,6 +24,9 @@ class FormController extends EventEmitter {
     // Map to store fields being removed
     this.expectedRemovals = {};
 
+    // Map of saved values 
+    this.savedValues = {};
+
     // Initialize the controller state
     this.state = {
       pristine: true,
@@ -55,6 +58,13 @@ class FormController extends EventEmitter {
     this.getOptions = this.getOptions.bind(this);
     this.getFormState = this.getFormState.bind(this);
     this.expectRemoval = this.expectRemoval.bind(this);
+    this.getSavedValue = this.getSavedValue.bind(this);
+    this.getDerrivedValue = this.getDerrivedValue.bind(this);
+    this.setValues = this.setValues.bind(this);
+    this.resetField = this.resetField.bind(this);
+    this.fieldExists = this.fieldExists.bind(this);
+    this.validateField = this.validateField.bind(this);
+    this.notify = this.notify.bind(this);
 
     // Updater will be used by fields to update and register
     this.updater = {
@@ -94,7 +104,15 @@ class FormController extends EventEmitter {
       resetField: this.resetField,
       getOptions: this.getOptions,
       emitter: this,
+      getSavedValue: this.getSavedValue,
+      getDerrivedValue: this.getDerrivedValue
     };
+
+    this.on('value', (field) => {
+      // The forms values have changed so we want to clear form level error
+      delete this.state.error;
+      this.notify(field);
+    });
   }
 
   // Sets the form options
@@ -117,6 +135,11 @@ class FormController extends EventEmitter {
 
   getFormApi() {
     return this.formApi;
+  }
+
+  getDerrivedValue(name) {
+    const values = this.getValues();
+    return ObjectMap.get(values, name);
   }
 
   /* ------------------- Internal Methods ------------------- */
@@ -150,7 +173,7 @@ class FormController extends EventEmitter {
     // Get the notifier
     const notifier = this.fields.get(field);
     // If we have a list we must notify each one
-    if (notifier.notify) {
+    if (notifier && notifier.notify) {
       notifier.notify.forEach(fieldName => {
         // Get the field toNotify
         const toNotify = this.fields.get(fieldName);
@@ -163,9 +186,9 @@ class FormController extends EventEmitter {
     }
   }
 
-  getValue(field) {
-    const value = this.getField(field).fieldApi.getValue();
-    debug('Getting value for', field, value);
+  getValue(name) {
+    const value = this.getField(name).fieldApi.getValue();
+    debug('Getting value for', name, value);
     return value;
   }
 
@@ -188,7 +211,7 @@ class FormController extends EventEmitter {
     // and build the values object.
     const values = {};
     this.fields.forEach((field) => {
-      if (!field.fieldApi.getHidden()) {
+      if (!field.shadow) {
         ObjectMap.set(values, field.field, field.fieldApi.getValue());
       }
     });
@@ -202,9 +225,7 @@ class FormController extends EventEmitter {
     // and build the touched object.
     const touched = {};
     this.fields.forEach((field) => {
-      if (!field.fieldApi.getHidden()) {
-        ObjectMap.set(touched, field.field, field.fieldApi.getTouched());
-      }
+      ObjectMap.set(touched, field.field, field.fieldApi.getTouched());
     });
     return touched;
   }
@@ -216,15 +237,18 @@ class FormController extends EventEmitter {
     // and build the errors object.
     const errors = {};
     this.fields.forEach((field) => {
-      if (!field.fieldApi.getHidden()) {
-        ObjectMap.set(errors, field.field, field.fieldApi.getError());
-      }
+      ObjectMap.set(errors, field.field, field.fieldApi.getError());
+
     });
     return errors;
   }
 
   getOptions() {
     return this.options;
+  }
+
+  getSavedValue(name) {
+    return ObjectMap.get(this.savedValues, name);
   }
 
   validateField(field) {
@@ -304,22 +328,24 @@ class FormController extends EventEmitter {
 
   validate() {
     debug('Validating all fields');
+
+    const values = this.getValues();
+
     // Itterate through and call validate on every field
-    this.fields.forEach((field, key) => {
-      const value = this.getValue(key);
-      field.fieldApi.validate(value);
+    this.fields.forEach((field) => {
+      field.fieldApi.validate(values);
       field.fieldApi.setTouched(true);
     });
 
     // Call the form level validation if its present
     if (this.options.validate) {
-      const res = this.options.validate(this.state.values);
+      const res = this.options.validate(values);
       this.setFormError(res);
     }
 
     // Call the forms field level validation
     if (this.options.validateFields) {
-      const errors = this.options.validateFields(this.getValues());
+      const errors = this.options.validateFields(values);
       // So we because all fields controll themselves and, "inform", this controller
       // of their changes, we need to literally itterate through all registered fields
       // and set them. Not a big deal but very important to remember that you cant simply
@@ -375,6 +401,7 @@ class FormController extends EventEmitter {
 
   register(name, field) {
     debug('Register', name, field.state);
+
     // Determine if the field has been registered before
     const registered = this.registered[name];
     // Set registered flag
@@ -382,37 +409,58 @@ class FormController extends EventEmitter {
     // Always register the field
     this.fields.set(name, field);
 
-    // Check for expected removal and clear it out on register
-    const magicValue = name.slice(0, name.lastIndexOf(']') + 1 || name.length);
+    // Example foo.bar.baz[3].baz >>>> foo.bar.baz
+    const magicValue = name.slice(0, name.lastIndexOf('[') != -1 ? name.lastIndexOf('[') : name.length);
+
+    // Always clear out expected removals when a reregistering array field comes in
     delete this.expectedRemovals[magicValue];
 
-    // Initialize the values if it needs to be
+    // The field is a shadow field ooo spooky so dont set anything
+    if (field.shadow) {
+      return;
+    }
+
+    //Initialize the values if it needs to be
     const initialValue = ObjectMap.get(this.options.initialValues, name);
     if (initialValue !== undefined && !registered) {
       field.fieldApi.setValue(initialValue);
     }
-    // Check to see if we need to unhide
-    if (field.fieldApi.getHidden) {
-      field.fieldApi.show();
+
+    // Check to see if we need to load in saved state
+    const savedState = ObjectMap.get(this.savedValues, name);
+    if (field.keepState && savedState) {
+      console.log(`Setting field ${name}'s kept state`, savedState);
+      field.fieldApi.setValue(savedState.value);
+      field.fieldApi.setTouched(savedState.touched);
+      // Remove the saved state
+      ObjectMap.delete(this.savedValues, name);
     }
+
     this.emit('change');
   }
 
   deregister(name) {
     debug('Deregister', name);
-    const field = this.fields.get(name);
-    const magicValue = name.slice(0, name.lastIndexOf(']') + 1 || name.length);
 
-    // If the fields state is to be kept then simply mark as hidden
-    // And its not an expected removal
+    const field = this.fields.get(name);
+
+    // Example foo.bar.baz[3].baz >>>> foo.bar.baz
+    const magicValue = name.slice(0, name.lastIndexOf('[') != -1 ? name.lastIndexOf('[') : name.length);
+
+    // If the fields state is to be kept then save the value
+    // Exception where its expected to be removed! 
     if (field.keepState && !this.expectedRemovals[magicValue]) {
-      console.log(`Marking field ${name} as hidden`, this.expectedRemovals);
-      field.fieldApi.hide(); // << ISSUE IS HIDING array field
-    } else {
+      console.log(`Saving field ${name}'s value`, field.fieldApi.getFieldState());
+      ObjectMap.set(this.savedValues, name, field.fieldApi.getFieldState());
+    }
+
+    // Remove if its an expected removal OR we dont have keep state 
+    if (this.expectedRemovals[magicValue] || !field.keepState) {
       // Remove the field completley
       debug('Removing field', name);
       this.fields.delete(name);
     }
+
     this.emit('change');
     this.emit('value', name);
   }

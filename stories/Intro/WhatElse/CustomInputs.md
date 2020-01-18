@@ -61,4 +61,4 @@ const validate = value => {
 
 <!-- STORY -->
 
-**Note: this is one of a few ways to create custome inputs. See the custom input section in the docs for more details!**
+**Note: this is one of a few ways to create custom inputs. See the custom input section in the docs for more details!**

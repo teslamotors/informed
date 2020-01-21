@@ -225,7 +225,15 @@ class FormController extends EventEmitter {
     // and build the touched object.
     const touched = {};
     this.fields.forEach((field) => {
-      ObjectMap.set(touched, field.field, field.fieldApi.getTouched());
+      if (!field.shadow) {
+        ObjectMap.set(touched, field.field, field.fieldApi.getTouched());
+      }
+    });
+    // Shadow values override unless undefined
+    this.fields.forEach((field) => {
+      if (field.shadow && field.fieldApi.getError() != undefined) {
+        ObjectMap.set(touched, field.field, field.fieldApi.getTouched());
+      }
     });
     return touched;
   }
@@ -237,8 +245,17 @@ class FormController extends EventEmitter {
     // and build the errors object.
     const errors = {};
     this.fields.forEach((field) => {
-      ObjectMap.set(errors, field.field, field.fieldApi.getError());
-
+      // EXAMPLE special cases
+      // siblings && siblings[1] && favorite.color && favorite
+      if (!field.shadow) {
+        ObjectMap.set(errors, field.field, field.fieldApi.getError());
+      }
+    });
+    // Shadow values override unless undefined
+    this.fields.forEach((field) => {
+      if (field.shadow && field.fieldApi.getError() != undefined) {
+        ObjectMap.set(errors, field.field, field.fieldApi.getError());
+      }
     });
     return errors;
   }
@@ -429,7 +446,7 @@ class FormController extends EventEmitter {
     // Check to see if we need to load in saved state
     const savedState = ObjectMap.get(this.savedValues, name);
     if (field.keepState && savedState) {
-      console.log(`Setting field ${name}'s kept state`, savedState);
+      debug(`Setting field ${name}'s kept state`, savedState);
       field.fieldApi.setValue(savedState.value);
       field.fieldApi.setTouched(savedState.touched);
       // Remove the saved state
@@ -450,7 +467,7 @@ class FormController extends EventEmitter {
     // If the fields state is to be kept then save the value
     // Exception where its expected to be removed! 
     if (field.keepState && !this.expectedRemovals[magicValue]) {
-      console.log(`Saving field ${name}'s value`, field.fieldApi.getFieldState());
+      debug(`Saving field ${name}'s value`, field.fieldApi.getFieldState());
       ObjectMap.set(this.savedValues, name, field.fieldApi.getFieldState());
     }
 

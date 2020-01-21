@@ -37,8 +37,6 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
 
   const keptValues = formApi.getSavedValue(fullField) && formApi.getSavedValue(fullField).value;
 
-  console.log('WTF', keptValues, fullField);
-
   const [initialValues, setInitialValues] = useState(keptValues || initialVals);
 
   const initialKeys = initialValues ? initialValues.map(() => uuidv4()) : [];
@@ -51,7 +49,39 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
   });
 
   // Register shadow field
-  useField({ field, validate: validateWithLength, shadow: true, ...props });
+  const { fieldApi } = useField({ field, validate: validateWithLength, shadow: true, ...props });
+
+  // Register for events
+  useLayoutEffect(() => {
+
+    // Define event handler
+    const onChangeHandler = (fieldName) => {
+
+      // Dont do anythign if we updated
+      if (fieldName === fullField) {
+        return;
+      }
+
+      logger(`${fullField} changed`);
+
+      // determine if one of our array children triggered this change 
+      if (RegExp(`${fullField}\\[[0-9]+\\]`).test(fieldName)) {
+        // If it was we need to call validate
+        fieldApi.validate();
+      }
+
+    };
+
+    // Register for events
+    formApi.emitter.on('value', onChangeHandler);
+
+    // Unregister events
+    return () => {
+      formApi.emitter.removeListener('value', onChangeHandler);
+    };
+  }, [field]);
+
+
 
   const remove = i => {
 

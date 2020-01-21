@@ -497,7 +497,6 @@ describe('ArrayField', () => {
       remove.simulate('click');
       inputs = wrapper.find('input');
       expect(inputs.length).to.equal(4);
-      console.log('HHMMMMM', savedApi.getState().values);
       expect(savedApi.getState().values).to.deep.equal({ siblings: [{ name: 'Jeff' }, { name: 'test3' }] });
 
       remove = wrapper.find('.remove').at(0);

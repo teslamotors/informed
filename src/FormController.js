@@ -3,6 +3,7 @@ import { EventEmitter } from 'events';
 import Debug from './debug';
 const debug = Debug('informed:Controller' + '\t');
 
+const noop = () => { };
 class FormController extends EventEmitter {
 
   constructor(options = {}) {
@@ -33,6 +34,21 @@ class FormController extends EventEmitter {
       dirty: false,
       invalid: false,
       submits: 0
+    };
+
+    // Initialize a dummy field ( see getField for example use )
+    this.dummyField = {
+      fieldApi: {
+        setValue: noop,
+        setTouched: noop,
+        setError: noop,
+        reset: noop,
+        validate: noop,
+        getValue: noop,
+        getTouched: noop,
+        getError: noop,
+        getFieldState: noop
+      }
     };
 
     // Bind functions that will be called externally
@@ -115,13 +131,45 @@ class FormController extends EventEmitter {
     });
   }
 
-  // Sets the form options
+  /* ---------------------------------- Setters ---------------------------------- */
+
   setOptions(options) {
     this.options = options;
   }
 
-  // Generate the external form state that will be exposed to the users
+  setValue(name, value, options) {
+    this.getField(name).fieldApi.setValue(value, null, {
+      allowEmptyString: this.options.allowEmptyStrings,
+      ...options
+    });
+  }
+
+  setTouched(name, value) {
+    this.getField(name).fieldApi.setTouched(value);
+  }
+
+  setError(name, value) {
+    this.getField(name).fieldApi.setError(value);
+  }
+
+  setFormError(value) {
+    this.state.error = value;
+    this.emit('change');
+  }
+
+  setInitialValue(field, value) {
+    ObjectMap.set(this.options.initialValues, field, value);
+  }
+
+  /* ---------------------------------- Getters ---------------------------------- */
+
+  /**
+   * Generate the external form state that will be exposed to the users
+   * 
+   * @returns Form State
+   */
   getFormState() {
+    debug('Generating form state');
     return {
       ...this.state,
       values: this.getValues(),
@@ -140,50 +188,6 @@ class FormController extends EventEmitter {
   getDerrivedValue(name) {
     const values = this.getValues();
     return ObjectMap.get(values, name);
-  }
-
-  /* ------------------- Internal Methods ------------------- */
-
-  setValue(name, value, options) {
-    this.fields.get(name).fieldApi.setValue(value, null, {
-      allowEmptyString: this.options.allowEmptyStrings,
-      ...options
-    });
-  }
-
-  setTouched(name, value) {
-    this.fields.get(name).fieldApi.setTouched(value);
-  }
-
-  setError(name, value) {
-    this.fields.get(name).fieldApi.setError(value);
-  }
-
-  setFormError(value) {
-    this.state.error = value;
-    this.emit('change');
-  }
-
-  setInitialValue(field, value) {
-    ObjectMap.set(this.options.initialValues, field, value);
-  }
-
-  // Notify other fields 
-  notify(field) {
-    // Get the notifier
-    const notifier = this.fields.get(field);
-    // If we have a list we must notify each one
-    if (notifier && notifier.notify) {
-      notifier.notify.forEach(fieldName => {
-        // Get the field toNotify
-        const toNotify = this.fields.get(fieldName);
-        if (toNotify) {
-          debug('Notifying', toNotify.field);
-          const value = this.getValue(toNotify.field);
-          toNotify.fieldApi.validate(value);
-        }
-      });
-    }
   }
 
   getValue(name) {
@@ -268,16 +272,48 @@ class FormController extends EventEmitter {
     return ObjectMap.get(this.savedValues, name);
   }
 
+  getFullField(field) {
+    return field;
+  }
+
+  getInitialValue(field) {
+    return ObjectMap.get(this.options.initialValues, field);
+  }
+
+  getField(name) {
+    debug('Getting Field', name);
+    const field = this.fields.get(name);
+    if (!field) {
+      console.warn(`Attempting to get field ${name} but it does not exist`);
+      // Prevent app from crashing
+      return this.dummyField;
+    }
+    return field;
+  }
+
+  // Notify other fields 
+  notify(field) {
+    // Get the notifier
+    const notifier = this.getField(field);
+    // If we have a list we must notify each one
+    if (notifier && notifier.notify) {
+      notifier.notify.forEach(fieldName => {
+        // Get the field toNotify
+        const toNotify = this.getField(fieldName);
+        if (toNotify) {
+          debug('Notifying', toNotify.field);
+          toNotify.fieldApi.validate();
+        }
+      });
+    }
+  }
+
   validateField(field) {
-    this.fields.get(field).fieldApi.validate();
+    this.getField(field).fieldApi.validate();
   }
 
   resetField(field) {
-    this.fields.get(field).fieldApi.reset();
-  }
-
-  getFullField(field) {
-    return field;
+    this.getField(field).fieldApi.reset();
   }
 
   fieldExists(field) {
@@ -302,10 +338,6 @@ class FormController extends EventEmitter {
 
   dirty() {
     return !this.pristine();
-  }
-
-  getInitialValue(field) {
-    return ObjectMap.get(this.options.initialValues, field);
   }
 
   reset() {
@@ -479,7 +511,7 @@ class FormController extends EventEmitter {
     }
 
     this.emit('change');
-    this.emit('value', name);
+    //this.emit('value', name); // << WHY DID I PUT THIS 
   }
 
   expectRemoval(field) {
@@ -492,10 +524,6 @@ class FormController extends EventEmitter {
     this.fields.set(name, field);
   }
 
-  getField(field) {
-    debug('Getting Field', field);
-    return this.fields.get(field);
-  }
 }
 
 export default FormController;

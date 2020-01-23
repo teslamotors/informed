@@ -5,6 +5,7 @@ import useStateWithGetter from './useStateWithGetter';
 import Debug from '../debug';
 import useLayoutEffect from './useIsomorphicLayoutEffect';
 const logger = Debug('informed:useField' + '\t');
+// localStorage.debug = 'informed:.*' << HOW to enable debuging
 
 const initializeValue = (value, mask) => {
   if (value != null) {
@@ -85,25 +86,30 @@ function useField(fieldProps = {}, userRef) {
   // Define set value
   const setValue = (val, e, options = {}) => {
 
+    logger(`Setting ${field} to ${val}`);
+
+    // Get the most up to date options
     const formOptions = formApi.getOptions();
 
-    logger(`Setting ${field} to ${val}`);
     // Initialize maked value
     let maskedVal = val;
-    // Set value to undefined if its an empty string
 
+    // Set value to undefined if its an empty string
     if (val === '' && !allowEmptyString && !options.allowEmptyString && !formOptions.allowEmptyStrings) {
       val = undefined;
     }
+
     // Turn string into number for number fields
     if (fieldProps.type === 'number' && val !== undefined) {
       val = +val;
     }
+
     // Call mask if it was passed
     if (mask && !maskOnBlur) {
       maskedVal = mask(val);
       val = mask(val);
     }
+
     // Call maskWithCursorOffset if it was passed
     if (maskWithCursorOffset && !maskOnBlur) {
       const res = maskWithCursorOffset(val);
@@ -111,17 +117,21 @@ function useField(fieldProps = {}, userRef) {
       val = res.value;
       setCursorOffset(res.offset);
     }
+
     // Call format and parse if they were passed
     if (format && parse) {
+      // Masked value only differs from value when format and parse are used
       val = parse(val);
       maskedVal = format(val);
     }
+
     // We only need to call validate if the user gave us one
     // and they want us to validate on change && its not the initial validation
     if (validate && validateOnChange && !options.initial) {
       logger(`Validating after change ${field} ${val}`);
       setError(validate(val, formApi.getValues()));
     }
+
     // Remember Cursor position!
     if (e && e.target && e.target.selectionStart) {
       setCursor(e.target.selectionStart);
@@ -130,49 +140,68 @@ function useField(fieldProps = {}, userRef) {
     // Now we update the value
     setVal(val);
     setMaskedValue(maskedVal);
+
     // If the user passed in onValueChange then call it!
     if (onValueChange) {
       onValueChange(val);
     }
+
     // Call the updater
     updater.setValue(field, val);
   };
 
   // Define set touched
   const setTouched = (val, reset) => {
+
+    logger(`Field ${field} has been touched`);
+
     // We only need to call validate if the user gave us one
     // and they want us to validate on blur
     if (validate && validateOnBlur && !reset && val) {
       logger(`Validating after blur ${field} ${getVal()}`);
       setError(validate(getVal(), formApi.getValues()));
     }
+
     // Call mask if it was passed
     if (mask && maskOnBlur) {
+      // Generate the masked value from the current value
       const maskedVal = mask(getVal());
+
       // Now we update the value
       setVal(maskedVal);
       setMaskedValue(maskedVal);
+
       // If the user passed in onValueChange then call it!
       if (onValueChange) {
         onValueChange(maskedVal);
       }
+
       // Call the updater
       updater.setValue(field, maskedVal);
     }
+
     // Call maskWithCursorOffset if it was passed
     if (maskWithCursorOffset && maskOnBlur) {
+      // Generate the mask and offset
       const res = maskWithCursorOffset(getVal());
+
+      // Set the offset
       setCursorOffset(res.offset);
+
       // Now we update the value
       setVal(res.value);
       setMaskedValue(res.value);
+
       // If the user passed in onValueChange then call it!
       if (onValueChange) {
         onValueChange(res.value);
       }
+
       // Call the updater
       updater.setValue(field, res.value);
     }
+
+    // Finally we set touched and call the updater
     setTouch(val);
     updater.setTouched(field, val);
   };
@@ -188,6 +217,9 @@ function useField(fieldProps = {}, userRef) {
   };
 
   // Define validate
+  // Note: it takes values as an optimization for when 
+  // the form controller calls it ( dont need to generate all values )
+  // over and over :) 
   const fieldValidate = (values) => {
     if (validate) {
       logger(`Field validating ${field} ${getVal()}`);

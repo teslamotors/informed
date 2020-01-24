@@ -1,7 +1,5 @@
 # Informed 
 
-## We have released V2!!!
-
 ### Go to [live examples, code and docs](https://joepuzzo.github.io/informed)!
 
 [![npmversion](https://img.shields.io/npm/v/informed.svg)](https://www.npmjs.com/package/informed)

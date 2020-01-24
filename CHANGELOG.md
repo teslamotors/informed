@@ -1,3 +1,28 @@
+## 3.0.0 (January 24, 2020)
+
+### Fixed
+- Issue with array field validation https://github.com/joepuzzo/informed/issues/259
+- Issue where informed would throw errors when fields were hidden but referenced
+
+### Added
+- Ability to ( in the near future ) add validations to scopes ( Enabled because of code refacotor... will add soon :) 
+### Changed
+
+- The internals to no longer keep track of giant state object but instead generate it on demand
+
+### Removed
+
+- A bunch of useless code :)
+
+#### Cleaned up
+- Large portion of the code .. Mostly the formController!
+
+
+## 2.11.17 (January 21, 2020)
+
+## Update
+- useField to trigger validation when validation related props change
+
 ## 2.11.16 (November 18, 2019)
 
 ## Fixed

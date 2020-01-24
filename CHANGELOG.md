@@ -1,3 +1,8 @@
+## 3.0.2 (January 24, 2020)
+
+### Fixed 
+- Issue https://github.com/joepuzzo/informed/issues/267
+
 ## 3.0.1 (January 24, 2020)
 
 ### Fixed 

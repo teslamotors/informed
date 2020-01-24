@@ -312,13 +312,14 @@ function useField(fieldProps = {}, userRef) {
       updater.update(field, fieldObj);
 
       // Should re-trigger validation if validation handler updates
-      const val = getVal();
-      if (
-        validate &&
-        ((validateOnChange && val) || (validateOnBlur && getTouch()))
-      ) {
-        setError(validate(val, formApi.getValues()));
-      }
+      // TODO figure out how to do this without breaking validate={val=> validateFunc}
+      // const val = getVal();
+      // if (
+      //   validate &&
+      //   ((validateOnChange && val) || (validateOnBlur && getTouch()))
+      // ) {
+      //   setError(validate(val, formApi.getValues()));
+      // }
 
     },
     // This is VERYYYY!! Important!

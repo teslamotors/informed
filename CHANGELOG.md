@@ -1,3 +1,8 @@
+## 3.0.1 (January 24, 2020)
+
+### Fixed 
+- README ( I wish there was a way on npm to update readme without publishing version )
+
 ## 3.0.0 (January 24, 2020)
 
 ### Fixed

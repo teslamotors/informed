@@ -1,23 +1,24 @@
 import React from 'react';
 
 const FormRegisterContext = React.createContext({
-  register: () => {},
-  deregister: () => {},
-  setValue: () => {},
-  setTouched: () => {}, 
-  setError: () => {},
-  update: () => {}, 
-  getField: () => {}, 
-  expectRemoval: () => {}
+  register: () => { },
+  deregister: () => { },
+  setValue: () => { },
+  setTouched: () => { },
+  setError: () => { },
+  update: () => { },
+  getField: () => { },
+  expectRemoval: () => { }
 });
 
 const FormStateContext = React.createContext({});
 const FormApiContext = React.createContext({
-  getFullField: () => {},
-  getValues: () => {},
+  getFullField: () => { },
+  getValues: () => { },
   getOptions: () => ({}),
-  setInitialValue: () => {},
-  getInitialValue: () => {}
+  setInitialValue: () => { },
+  getInitialValue: () => { },
+  getDerrivedValue: () => { }
 });
 const GroupContext = React.createContext();
 const SelectContext = React.createContext();

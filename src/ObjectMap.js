@@ -21,7 +21,7 @@ class ObjectMap {
 
   static get(object, path) {
     const val = ldget(object, path);
-    debug('GOT', path, val);
+    //debug('GOT', path, val);
     return val;
   }
 

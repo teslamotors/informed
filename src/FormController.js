@@ -3,6 +3,7 @@ import { EventEmitter } from 'events';
 import Debug from './debug';
 const debug = Debug('informed:Controller' + '\t');
 
+const noop = () => { };
 class FormController extends EventEmitter {
 
   constructor(options = {}) {
@@ -24,22 +25,41 @@ class FormController extends EventEmitter {
     // Map to store fields being removed
     this.expectedRemovals = {};
 
+    // Map of saved values 
+    this.savedValues = {};
+
     // Initialize the controller state
     this.state = {
-      values: {},
-      touched: {},
-      errors: {},
       pristine: true,
       dirty: false,
       invalid: false,
       submits: 0
     };
 
+    // Initialize a dummy field ( see getField for example use )
+    this.dummyField = {
+      fieldApi: {
+        setValue: noop,
+        setTouched: noop,
+        setError: noop,
+        reset: noop,
+        validate: noop,
+        getValue: noop,
+        getTouched: noop,
+        getError: noop,
+        getFieldState: noop
+      }
+    };
+
     // Bind functions that will be called externally
-    //this.update = this.update.bind(this);
     this.deregister = this.deregister.bind(this);
     this.register = this.register.bind(this);
+    this.getValue = this.getValue.bind(this);
+    this.getTouched = this.getTouched.bind(this);
+    this.getError = this.getError.bind(this);
+    this.getErrors = this.getErrors.bind(this);
     this.setValue = this.setValue.bind(this);
+    this.getValues = this.getValues.bind(this);
     this.setTouched = this.setTouched.bind(this);
     this.setError = this.setError.bind(this);
     this.setFormError = this.setFormError.bind(this);
@@ -49,157 +69,87 @@ class FormController extends EventEmitter {
     this.validate = this.validate.bind(this);
     this.keyDown = this.keyDown.bind(this);
     this.getField = this.getField.bind(this);
+    this.getInitialValue = this.getInitialValue.bind(this);
+    this.setInitialValue = this.setInitialValue.bind(this);
+    this.getOptions = this.getOptions.bind(this);
+    this.getFormState = this.getFormState.bind(this);
     this.expectRemoval = this.expectRemoval.bind(this);
+    this.getSavedValue = this.getSavedValue.bind(this);
+    this.getDerrivedValue = this.getDerrivedValue.bind(this);
+    this.setValues = this.setValues.bind(this);
+    this.resetField = this.resetField.bind(this);
+    this.fieldExists = this.fieldExists.bind(this);
+    this.validateField = this.validateField.bind(this);
+    this.notify = this.notify.bind(this);
 
     // Updater will be used by fields to update and register
     this.updater = {
       register: this.register,
       deregister: this.deregister,
+      getField: this.getField,
+      update: this.update,
+      setValue: (field, value) => {
+        this.emit('change');
+        this.emit('value', field, value);
+      },
+      setTouched: () => this.emit('change'),
+      setError: () => this.emit('change'),
+      expectRemoval: this.expectRemoval
+    };
+
+    // Define the formApi
+    this.formApi = {
       setValue: this.setValue,
       setTouched: this.setTouched,
       setError: this.setError,
-      update: this.update,
-      getField: this.getField,
-      expectRemoval: this.expectRemoval
+      setFormError: this.setFormError,
+      setValues: this.setValues,
+      setInitialValue: this.setInitialValue,
+      getValue: this.getValue,
+      getTouched: this.getTouched,
+      getError: this.getError,
+      reset: this.reset,
+      submitForm: this.submitForm,
+      getState: this.getFormState,
+      getValues: this.getValues,
+      getFullField: this.getFullField,
+      fieldExists: this.fieldExists,
+      getInitialValue: this.getInitialValue,
+      validate: this.validate,
+      validateField: this.validateField,
+      resetField: this.resetField,
+      getOptions: this.getOptions,
+      emitter: this,
+      getSavedValue: this.getSavedValue,
+      getDerrivedValue: this.getDerrivedValue
     };
+
+    this.on('value', (field) => {
+      // The forms values have changed so we want to clear form level error
+      delete this.state.error;
+      this.notify(field);
+    });
   }
+
+  /* ---------------------------------- Setters ---------------------------------- */
 
   setOptions(options) {
     this.options = options;
   }
 
-  // Generate the external form state that will be exposed to the users
-  getFormState() {
-    return {
-      ...this.state,
-      pristine: this.pristine(),
-      dirty: this.dirty(),
-      invalid: this.invalid()
-    };
+  setValue(name, value, options) {
+    this.getField(name).fieldApi.setValue(value, null, {
+      allowEmptyString: this.options.allowEmptyStrings,
+      ...options
+    });
   }
 
-  // Generate the external form api that will be exposed to the users
-  getFormApi() {
-    const setValue = (field, value, options) =>
-      this.fields.get(field).fieldApi.setValue(value, null, {
-        allowEmptyString: this.options.allowEmptyStrings,
-        ...options
-      });
-
-    const setTouched = (field, value) =>
-      this.fields.get(field).fieldApi.setTouched(value);
-
-    const setError = (field, value) =>
-      this.fields.get(field).fieldApi.setError(value);
-
-    const setFormError = (error) => this.setFormError(error);
-
-    // Special setter for directly setting errors ( used for array fields )
-    const setFieldError = (field, value) => this.setError(field, value);
-
-    const setValues = values => this.setValues(values);
-
-    const setInitialValue = (field, value) => this.setInitialValue(field, value);
-
-    const getValue = (field) => this.getValue(field);
-
-    const getTouched = (field) => this.getTouched(field);
-
-    const getError = (field) => this.getError(field);
-
-    const reset = () => this.reset();
-
-    const submitForm = e => this.submitForm(e);
-
-    const getState = () => this.getFormState();
-
-    const getValues = () => this.getFormState().values;
-
-    const getFullField = field => this.getFullField(field);
-
-    const fieldExists = field => this.fields.get(field) != null;
-
-    const getInitialValue = field => this.getInitialValue(field);
-
-    const validate = () => this.validate();
-
-    const validateField = field => this.fields.get(field).fieldApi.validate();
-
-    const resetField = field => this.fields.get(field).fieldApi.reset();
-
-    const getOptions = () => this.options;
-
-    return {
-      setValue,
-      setTouched,
-      setError,
-      setValues,
-      setInitialValue,
-      getValue,
-      getTouched,
-      getError,
-      reset,
-      submitForm,
-      getState,
-      getValues,
-      getFullField,
-      fieldExists,
-      getInitialValue,
-      setFormError,
-      validate,
-      validateField,
-      resetField,
-      emitter: this,
-      setFieldError,
-      getOptions
-    };
+  setTouched(name, value) {
+    this.getField(name).fieldApi.setTouched(value);
   }
 
-  /* ------------------- Internal Methods ------------------- */
-
-  setValue(field, value, notify = true) {
-    debug(`Setting ${field} to ${value}`);
-    // Set the new value
-    ObjectMap.set(this.state.values, field, value);
-    // The forms values have changed so we want to clear form level error
-    delete this.state.error;
-    // Emit change events
-    this.emit('change');
-    this.emit('value', field, value);
-    // Notify other fields 
-    if (notify) this.notify(field);
-  }
-
-  setTouched(field, value) {
-    ObjectMap.set(this.state.touched, field, value);
-    this.emit('change');
-  }
-
-  setError(field, value) {
-    debug(`Setting ${field}'s error to ${value}`);
-
-    // Dont set the error if there is already an array level error ( array specific case )
-    // Elaborate... supose the following 
-    // - the field is an array field
-    // - we have an error already for friends array field
-    // - the error is not an array meaning its array level validation
-    if (/\[[0-9]*\]$/.test(field)) {
-
-      const arrayField = field.slice(0, field.lastIndexOf('['));
-
-      const error = ObjectMap.get(this.state.errors, arrayField);
-
-      debug(`Array field ${arrayField}'s error is ${error}`);
-
-      if (error && !Array.isArray(error)) {
-        debug(`Never set ${field}'s error to ${value} becuase there is already array level validation with error ${error}`);
-        return;
-      }
-
-    }
-
-    ObjectMap.set(this.state.errors, field, value);
-    this.emit('change');
+  setError(name, value) {
+    this.getField(name).fieldApi.setError(value);
   }
 
   setFormError(value) {
@@ -211,59 +161,183 @@ class FormController extends EventEmitter {
     ObjectMap.set(this.options.initialValues, field, value);
   }
 
-  // Notify other fields 
-  notify(field) {
-    // Get the notifier
-    const notifier = this.fields.get(field);
-    // If we have a list we must notify each one
-    if (notifier.notify) {
-      notifier.notify.forEach(fieldName => {
-        // Get the field toNotify
-        const toNotify = this.fields.get(fieldName);
-        if (toNotify) {
-          debug('Notifying', toNotify.field);
-          const value = this.getValue(toNotify.field);
-          toNotify.fieldApi.validate(value);
-        }
-      });
-    }
+  /* ---------------------------------- Getters ---------------------------------- */
+
+  /**
+   * Generate the external form state that will be exposed to the users
+   * 
+   * @returns Form State
+   */
+  getFormState() {
+    debug('Generating form state');
+    return {
+      ...this.state,
+      values: this.getValues(),
+      errors: this.getErrors(),
+      touched: this.getAllTouched(),
+      pristine: this.pristine(),
+      dirty: this.dirty(),
+      invalid: this.invalid()
+    };
   }
 
-  getValue(field) {
-    debug('Getting value for', field, ObjectMap.get(this.state.values, field));
-    return ObjectMap.get(this.state.values, field);
+  getFormApi() {
+    return this.formApi;
+  }
+
+  getDerrivedValue(name) {
+    const values = this.getValues();
+    return ObjectMap.get(values, name);
+  }
+
+  getValue(name) {
+    const value = this.getField(name).fieldApi.getValue();
+    debug('Getting value for', name, value);
+    return value;
   }
 
   getTouched(field) {
-    return ObjectMap.get(this.state.touched, field);
+    const touched = this.getField(field).fieldApi.getTouched();
+    debug('Getting touched for', field, touched);
+    return touched;
   }
 
   getError(field) {
-    return ObjectMap.get(this.state.errors, field);
+    const error = this.getField(field).fieldApi.getError();
+    debug('Getting error for', field, error);
+    return error;
+  }
+
+  getValues() {
+    debug('Gettings values');
+    // So we because all fields controll themselves and, "inform", this controller
+    // of their changes, we need to literally itterate through all registered fields
+    // and build the values object.
+    const values = {};
+    this.fields.forEach((field) => {
+      if (!field.shadow) {
+        ObjectMap.set(values, field.field, field.fieldApi.getValue());
+      }
+    });
+    return values;
+  }
+
+  getAllTouched() {
+    debug('Gettings touched');
+    // So we because all fields controll themselves and, "inform", this controller
+    // of their changes, we need to literally itterate through all registered fields
+    // and build the touched object.
+    const touched = {};
+    this.fields.forEach((field) => {
+      if (!field.shadow) {
+        ObjectMap.set(touched, field.field, field.fieldApi.getTouched());
+      }
+    });
+    // Shadow values override unless undefined
+    this.fields.forEach((field) => {
+      if (field.shadow && field.fieldApi.getError() != undefined) {
+        ObjectMap.set(touched, field.field, field.fieldApi.getTouched());
+      }
+    });
+    return touched;
+  }
+
+  getErrors() {
+    debug('Gettings errors');
+    // So we because all fields controll themselves and, "inform", this controller
+    // of their changes, we need to literally itterate through all registered fields
+    // and build the errors object.
+    const errors = {};
+    this.fields.forEach((field) => {
+      // EXAMPLE special cases
+      // siblings && siblings[1] && favorite.color && favorite
+      if (!field.shadow) {
+        ObjectMap.set(errors, field.field, field.fieldApi.getError());
+      }
+    });
+    // Shadow values override unless undefined
+    this.fields.forEach((field) => {
+      if (field.shadow && field.fieldApi.getError() != undefined) {
+        ObjectMap.set(errors, field.field, field.fieldApi.getError());
+      }
+    });
+    return errors;
+  }
+
+  getOptions() {
+    return this.options;
+  }
+
+  getSavedValue(name) {
+    return ObjectMap.get(this.savedValues, name);
   }
 
   getFullField(field) {
     return field;
   }
 
+  getInitialValue(field) {
+    return ObjectMap.get(this.options.initialValues, field);
+  }
+
+  getField(name) {
+    debug('Getting Field', name);
+    const field = this.fields.get(name);
+    if (!field) {
+      console.warn(`Attempting to get field ${name} but it does not exist`);
+      // Prevent app from crashing
+      return this.dummyField;
+    }
+    return field;
+  }
+
+  // Notify other fields 
+  notify(field) {
+    // Get the notifier
+    const notifier = this.getField(field);
+    // If we have a list we must notify each one
+    if (notifier && notifier.notify) {
+      notifier.notify.forEach(fieldName => {
+        // Get the field toNotify
+        const toNotify = this.getField(fieldName);
+        if (toNotify) {
+          debug('Notifying', toNotify.field);
+          toNotify.fieldApi.validate();
+        }
+      });
+    }
+  }
+
+  validateField(field) {
+    this.getField(field).fieldApi.validate();
+  }
+
+  resetField(field) {
+    this.getField(field).fieldApi.reset();
+  }
+
+  fieldExists(field) {
+    return this.fields.get(field) != null;
+  }
+
   valid() {
-    return !!(ObjectMap.empty(this.state.errors) && !this.state.error);
+    const errors = this.getErrors();
+    return !!(ObjectMap.empty(errors) && !this.state.error);
   }
 
   invalid() {
-    return !!(!ObjectMap.empty(this.state.errors) || this.state.error);
+    const errors = this.getErrors();
+    return !!(!ObjectMap.empty(errors) || this.state.error);
   }
 
   pristine() {
-    return ObjectMap.empty(this.state.touched) && ObjectMap.empty(this.state.values);
+    const touched = this.getAllTouched();
+    const values = this.getValues();
+    return ObjectMap.empty(touched) && ObjectMap.empty(values);
   }
 
   dirty() {
     return !this.pristine();
-  }
-
-  getInitialValue(field) {
-    return ObjectMap.get(this.options.initialValues, field);
   }
 
   reset() {
@@ -277,7 +351,7 @@ class FormController extends EventEmitter {
       // Initialize the values if it needs to be
       const initialValue = ObjectMap.get(this.options.initialValues, field.field);
       if (initialValue !== undefined) {
-        this.getFormApi().setValue(field.field, initialValue, { initial: true });
+        this.setValue(field.field, initialValue, { initial: true });
       }
     });
 
@@ -294,7 +368,7 @@ class FormController extends EventEmitter {
       // Initialize the values if it needs to be
       const value = ObjectMap.get(values, field.field);
       if (value !== undefined) {
-        this.getFormApi().setValue(field.field, value);
+        field.fieldApi.setValue(value);
       }
     });
 
@@ -303,22 +377,24 @@ class FormController extends EventEmitter {
 
   validate() {
     debug('Validating all fields');
+
+    const values = this.getValues();
+
     // Itterate through and call validate on every field
-    this.fields.forEach((field, key) => {
-      const value = this.getValue(key);
-      field.fieldApi.validate(value);
+    this.fields.forEach((field) => {
+      field.fieldApi.validate(values);
       field.fieldApi.setTouched(true);
     });
 
     // Call the form level validation if its present
     if (this.options.validate) {
-      const res = this.options.validate(this.state.values);
+      const res = this.options.validate(values);
       this.setFormError(res);
     }
 
     // Call the forms field level validation
     if (this.options.validateFields) {
-      const errors = this.options.validateFields(this.state.values);
+      const errors = this.options.validateFields(values);
       // So we because all fields controll themselves and, "inform", this controller
       // of their changes, we need to literally itterate through all registered fields
       // and set them. Not a big deal but very important to remember that you cant simply
@@ -329,7 +405,7 @@ class FormController extends EventEmitter {
         if (ObjectMap.has(errors, field.field)) {
           const error = ObjectMap.get(errors, field.field);
           // If there is an error then set it
-          this.getFormApi().setError(field.field, error);
+          this.setError(field.field, error);
         }
       });
 
@@ -372,70 +448,70 @@ class FormController extends EventEmitter {
 
   /* ---------------- Updater Functions (used by fields) ---------------- */
 
-  register(field, fieldState, fieldStuff) {
-    debug('Register', field, fieldState);
+  register(name, field) {
+    debug('Register', name, field.state);
+
     // Determine if the field has been registered before
-    const registered = this.registered[field];
+    const registered = this.registered[name];
     // Set registered flag
-    this.registered[field] = true;
+    this.registered[name] = true;
     // Always register the field
-    this.fields.set(field, fieldStuff);
-    // Check for expected removal and clear it out on register
-    const magicValue = field.slice(0, field.lastIndexOf(']') + 1 || field.length);
+    this.fields.set(name, field);
+
+    // Example foo.bar.baz[3].baz >>>> foo.bar.baz
+    const magicValue = name.slice(0, name.lastIndexOf('[') != -1 ? name.lastIndexOf('[') : name.length);
+
+    // Always clear out expected removals when a reregistering array field comes in
     delete this.expectedRemovals[magicValue];
+
     // The field is a shadow field ooo spooky so dont set anything
-    if (fieldStuff.shadow) {
+    if (field.shadow) {
       return;
     }
-    // Initialize state
-    // When a user had keep state load existing values
-    if (fieldStuff.keepState) {
-      const value = ObjectMap.get(this.state.values, field);
-      const initialValue = ObjectMap.get(this.options.initialValues, field);
-      // If we have a defined value then set that
-      if (value !== undefined) {
-        this.getFormApi().setValue(field, value || fieldState.value);
-      }
-      // Otherwise we want to use the initial value 
-      else if (initialValue !== undefined) {
-        this.getFormApi().setValue(field, initialValue);
-      } else {
-        // Otherwise set the value to whatever the field is set to ( might have been field level initial value )
-        this.setValue(field, fieldState.value, false);
-      }
-      // Finnally we set touched
-      const touched = ObjectMap.get(this.state.touched, field);
-      this.getFormApi().setTouched(field, touched);
-      // Error will get set by validator implicitly so we dont need to remember that
-    } else {
-      // Initialize the values if it needs to be
-      const initialValue = ObjectMap.get(this.options.initialValues, field);
-      if (initialValue !== undefined && !registered) {
-        this.getFormApi().setValue(field, initialValue, { initial: true });
-      } else {
-        // Otherwise set the value to whatever the field is set to ( might have been field level initial value )
-        this.setValue(field, fieldState.value, false);
-      }
-      this.setTouched(field, fieldState.touched);
-    }
-    this.setError(field, fieldState.error);
 
+    //Initialize the values if it needs to be
+    const initialValue = ObjectMap.get(this.options.initialValues, name);
+    if (initialValue !== undefined && !registered) {
+      field.fieldApi.setValue(initialValue);
+    }
+
+    // Check to see if we need to load in saved state
+    const savedState = ObjectMap.get(this.savedValues, name);
+    if (field.keepState && savedState) {
+      debug(`Setting field ${name}'s kept state`, savedState);
+      field.fieldApi.setValue(savedState.value);
+      field.fieldApi.setTouched(savedState.touched);
+      // Remove the saved state
+      ObjectMap.delete(this.savedValues, name);
+    }
+
+    this.emit('change');
   }
 
-  deregister(field, options) {
-    debug('Deregister', field);
-    const field2remove = this.fields.get(field);
-    const magicValue = field.slice(0, field.lastIndexOf(']') + 1 || field.length);
-    if (!field2remove.keepState || this.expectedRemovals[magicValue]) {
-      // Remove the data!
-      ObjectMap.delete(this.state.values, field);
-      ObjectMap.delete(this.state.touched, field);
-      ObjectMap.delete(this.state.errors, field);
+  deregister(name) {
+    debug('Deregister', name);
+
+    const field = this.fields.get(name);
+
+    // Example foo.bar.baz[3].baz >>>> foo.bar.baz
+    const magicValue = name.slice(0, name.lastIndexOf('[') != -1 ? name.lastIndexOf('[') : name.length);
+
+    // If the fields state is to be kept then save the value
+    // Exception where its expected to be removed! 
+    if (field.keepState && !this.expectedRemovals[magicValue]) {
+      debug(`Saving field ${name}'s value`, field.fieldApi.getFieldState());
+      ObjectMap.set(this.savedValues, name, field.fieldApi.getFieldState());
     }
-    // Always need to delete the field
-    this.fields.delete(field);
+
+    // Remove if its an expected removal OR we dont have keep state 
+    if (this.expectedRemovals[magicValue] || !field.keepState) {
+      // Remove the field completley
+      debug('Removing field', name);
+      this.fields.delete(name);
+    }
+
     this.emit('change');
-    this.emit('value', field);
+    //this.emit('value', name); // << WHY DID I PUT THIS 
   }
 
   expectRemoval(field) {
@@ -443,15 +519,11 @@ class FormController extends EventEmitter {
     this.expectedRemovals[field] = true;
   }
 
-  update(field, fieldStuff) {
-    debug('Update', field);
-    this.fields.set(field, fieldStuff);
+  update(name, field) {
+    debug('Update', name);
+    this.fields.set(name, field);
   }
 
-  getField(field) {
-    debug('Getting Field', field);
-    return this.fields.get(field);
-  }
 }
 
 export default FormController;

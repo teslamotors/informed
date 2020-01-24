@@ -19,8 +19,8 @@ const duplicateValidation = (value, values) => {
 };
 
 const friendValidation = (value, values) => {
-  console.log('WTF1', basicValidation(value));
-  console.log('WTF2', values.fiends && duplicateValidation(value, values.friends));
+  // console.log('WTF1', basicValidation(value));
+  // console.log('WTF2', values.fiends && duplicateValidation(value, values.friends));
   return basicValidation(value) || duplicateValidation(value, values.friends);
 };
 

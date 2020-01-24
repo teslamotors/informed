@@ -22,13 +22,13 @@ describe('Form', () => {
 
   const checkFormState = state => {
     const formState = {
-      values: {},
-      touched: {},
-      errors: {},
       pristine: true,
       dirty: false,
       invalid: false,
-      submits: 0
+      submits: 0,
+      values: {},
+      errors: {},
+      touched: {},
     };
     expect(JSON.stringify(state)).to.deep.equal(JSON.stringify(formState));
   };
@@ -80,17 +80,17 @@ describe('Form', () => {
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'hello' } });
     expect(spy.called).to.equal(true);
-    expect(spy.args[0][0].values).to.deep.equal({ greeting: 'hello' });
+    expect(spy.args[1][0].values).to.deep.equal({ greeting: 'hello' });
   });
 
   it('does not apply unnecessary props to the form element', () => {
     const excludedProps = {
-      getApi: () => {},
+      getApi: () => { },
       dontPreventDefault: true,
-      onSubmitFailure: ()=>{},
+      onSubmitFailure: () => { },
       initialValues: {},
-      onValueChange: ()=>{},
-      onChange: () => {},
+      onValueChange: () => { },
+      onChange: () => { },
     };
     const wrapper = mount(
       <Form {...excludedProps}>{() => <Text field="greeting" />}</Form>
@@ -139,7 +139,7 @@ describe('Form', () => {
     );
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'hello' } });
-    expect(savedApi.getState().values).to.deep.equal({ greeting: 'hello'});
+    expect(savedApi.getState().values).to.deep.equal({ greeting: 'hello' });
     const button = wrapper.find('button');
     button.simulate('reset');
     expect(savedApi.getState().values).to.deep.equal({});
@@ -150,7 +150,7 @@ describe('Form', () => {
 
     const ResetTester = () => {
       const [init, setInit] = useState('init');
-      return (      
+      return (
         <Form
           getApi={api => {
             savedApi = api;
@@ -168,13 +168,13 @@ describe('Form', () => {
     updateButton.simulate('click');
     const button = wrapper.find('button#reset');
     button.simulate('reset');
-    expect(savedApi.getState().values).to.deep.equal({greeting: 'new'});
+    expect(savedApi.getState().values).to.deep.equal({ greeting: 'new' });
   });
 
   it('should call preventDefault when the form is submitted', () => {
     const spy = sandbox.spy();
     const wrapper = mount(
-      <Form onSubmit={() => {}}>
+      <Form onSubmit={() => { }}>
         <button type="submit">Submit</button>
       </Form>
     );
@@ -188,7 +188,7 @@ describe('Form', () => {
   it('should NOT preventDefault dontPreventDefault is passed in', () => {
     const spy = sandbox.spy();
     const wrapper = mount(
-      <Form onSubmit={() => {}} dontPreventDefault>
+      <Form onSubmit={() => { }} dontPreventDefault>
         <button type="submit">Submit</button>
       </Form>
     );
@@ -269,7 +269,7 @@ describe('Form', () => {
     const setApi = param => {
       api = param;
     };
-    const validate = ({a, b}) => {
+    const validate = ({ a, b }) => {
       return {
         a: a.length < 4 ? 'please enter more than 3 characters' : undefined,
         b: b.length < 4 ? 'please enter more than 3 characters' : undefined
@@ -299,10 +299,10 @@ describe('Form', () => {
         <button type="submit">Submit</button>
       </Form>
     );
-    wrapper.setProps({onSubmit: dummy2});
+    wrapper.setProps({ onSubmit: dummy2 });
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'hello' } });
-    wrapper.setProps({onSubmit: spy});
+    wrapper.setProps({ onSubmit: spy });
     const button = wrapper.find('button');
     button.simulate('submit');
     expect(dummy1.called).to.equal(false);
@@ -321,10 +321,10 @@ describe('Form', () => {
         <button type="submit">Submit</button>
       </Form>
     );
-    wrapper.setProps({validateFields: dummy2});
+    wrapper.setProps({ validateFields: dummy2 });
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'hello' } });
-    wrapper.setProps({validateFields: spy});
+    wrapper.setProps({ validateFields: spy });
     const button = wrapper.find('button');
     button.simulate('submit');
     expect(dummy1.called).to.equal(false);
@@ -339,7 +339,7 @@ describe('Form', () => {
     const setApi = param => {
       api = param;
     };
-    const validate = ({a, b}) => {
+    const validate = ({ a, b }) => {
       return {
         a: a.length < 4 ? 'please enter more than 3 characters' : undefined,
         b: b.length < 4 ? 'please enter more than 3 characters' : undefined
@@ -468,10 +468,10 @@ describe('Form', () => {
     const setApi = param => {
       api = param;
     };
-    const mask = (val) => `$${val}`; 
+    const mask = (val) => `$${val}`;
     mount(
       <Form getApi={setApi} initialValues={{ greeting: 'hello' }}>
-        {() => <Text field="greeting" mask={mask}/>}
+        {() => <Text field="greeting" mask={mask} />}
       </Form>
     );
     expect(api.getState().values).to.deep.equal({ greeting: '$hello' });
@@ -482,10 +482,10 @@ describe('Form', () => {
     const setApi = param => {
       api = param;
     };
-    const mask = (val) => `$${val}`; 
+    const mask = (val) => `$${val}`;
     const wrapper = mount(
       <Form getApi={setApi} initialValues={{ greeting: 'hello' }}>
-        {() => <Text field="greeting" mask={mask}/>}
+        {() => <Text field="greeting" mask={mask} />}
       </Form>
     );
     expect(api.getState().values).to.deep.equal({ greeting: '$hello' });
@@ -497,14 +497,14 @@ describe('Form', () => {
   it('should run format and parse when user passes initial values and format and parse are passed', () => {
     let savedApi;
     const format = value => `$${value}`;
-    const parse = value => value.replace('$','');
+    const parse = value => value.replace('$', '');
     const wrapper = mount(
       <Form
-        initialValues={{hello: '1234'}}
+        initialValues={{ hello: '1234' }}
         getApi={api => {
           savedApi = api;
         }}>
-        <Text field="hello" format={format} parse={parse}/>
+        <Text field="hello" format={format} parse={parse} />
       </Form>
     );
     expect(wrapper.find('input').props().value).to.equal('$1234');
@@ -584,7 +584,7 @@ describe('Form', () => {
     };
     mount(
       <Form getApi={setApi}>
-        <Text field="greeting" allowEmptyString/>
+        <Text field="greeting" allowEmptyString />
         <Text field="name" />
         <Scope scope="favorite">
           <Text field="color" />
@@ -615,7 +615,7 @@ describe('Form', () => {
     };
     mount(
       <Form getApi={setApi} allowEmptyStrings>
-        <Text field="greeting"/>
+        <Text field="greeting" />
         <Text field="name" />
         <Scope scope="favorite">
           <Text field="color" />
@@ -646,12 +646,12 @@ describe('Form', () => {
     };
     const wrapper = mount(
       <Form getApi={setApi}>
-        <Text field="greeting" initialValue="ayyyoooooo"/>
+        <Text field="greeting" initialValue="ayyyoooooo" />
       </Form>
     );
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'hello' } });
-    expect(api.getState().values).to.deep.equal({ greeting: 'hello'});
+    expect(api.getState().values).to.deep.equal({ greeting: 'hello' });
     expect(api.getState()).to.deep.equal(
       getState({ values: { greeting: 'hello' }, pristine: false, dirty: true })
     );
@@ -670,14 +670,14 @@ describe('Form', () => {
       api = param;
     };
     const wrapper = mount(
-      <Form getApi={setApi} initialValues={{greeting: 'ayyyoooooo'}}>
-        <Text field="greeting"/>
+      <Form getApi={setApi} initialValues={{ greeting: 'ayyyoooooo' }}>
+        <Text field="greeting" />
       </Form>
     );
     expect(api.getState().values).to.deep.equal({ greeting: 'ayyyoooooo' });
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'hello' } });
-    expect(api.getState().values).to.deep.equal({ greeting: 'hello'});
+    expect(api.getState().values).to.deep.equal({ greeting: 'hello' });
     expect(api.getState()).to.deep.equal(
       getState({ values: { greeting: 'hello' }, pristine: false, dirty: true })
     );
@@ -696,12 +696,12 @@ describe('Form', () => {
     };
     const wrapper = mount(
       <Form getApi={setApi}>
-        <Text field="greeting" initialValue="ayyyoooooo"/>
+        <Text field="greeting" initialValue="ayyyoooooo" />
       </Form>
     );
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'hello' } });
-    expect(api.getState().values).to.deep.equal({ greeting: 'hello'});
+    expect(api.getState().values).to.deep.equal({ greeting: 'hello' });
     expect(api.getState()).to.deep.equal(
       getState({ values: { greeting: 'hello' }, pristine: false, dirty: true })
     );
@@ -719,14 +719,14 @@ describe('Form', () => {
       api = param;
     };
     const wrapper = mount(
-      <Form getApi={setApi} initialValues={{greeting: 'ayyyoooooo'}}>
-        <Text field="greeting"/>
+      <Form getApi={setApi} initialValues={{ greeting: 'ayyyoooooo' }}>
+        <Text field="greeting" />
       </Form>
     );
     expect(api.getState().values).to.deep.equal({ greeting: 'ayyyoooooo' });
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'hello' } });
-    expect(api.getState().values).to.deep.equal({ greeting: 'hello'});
+    expect(api.getState().values).to.deep.equal({ greeting: 'hello' });
     expect(api.getState()).to.deep.equal(
       getState({ values: { greeting: 'hello' }, pristine: false, dirty: true })
     );
@@ -746,21 +746,21 @@ describe('Form', () => {
     const wrapper = mount(
       <Form getApi={setApi}>
         <Scope scope="favorite">
-          <Text field="color" initialValue="red"/>
+          <Text field="color" initialValue="red" />
         </Scope>
       </Form>
     );
     expect(api.getState()).to.deep.equal(
-      getState({ values: {favorite: { color: 'red'}}, pristine: false, dirty: true })
+      getState({ values: { favorite: { color: 'red' } }, pristine: false, dirty: true })
     );
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'green' } });
     expect(api.getState()).to.deep.equal(
-      getState({ values: {favorite: { color: 'green'}}, pristine: false, dirty: true })
+      getState({ values: { favorite: { color: 'green' } }, pristine: false, dirty: true })
     );
     api.reset();
     expect(api.getState()).to.deep.equal(getState({
-      values: {favorite: { color: 'red'}},
+      values: { favorite: { color: 'red' } },
       pristine: false,
       dirty: true
     }));
@@ -772,23 +772,23 @@ describe('Form', () => {
       api = param;
     };
     const wrapper = mount(
-      <Form getApi={setApi} initialValues={{ favorite: { color: 'red'} }}>
+      <Form getApi={setApi} initialValues={{ favorite: { color: 'red' } }}>
         <Scope scope="favorite">
           <Text field="color" />
         </Scope>
       </Form>
     );
     expect(api.getState()).to.deep.equal(
-      getState({ values: {favorite: { color: 'red'}}, pristine: false, dirty: true })
+      getState({ values: { favorite: { color: 'red' } }, pristine: false, dirty: true })
     );
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'green' } });
     expect(api.getState()).to.deep.equal(
-      getState({ values: {favorite: { color: 'green'}}, pristine: false, dirty: true })
+      getState({ values: { favorite: { color: 'green' } }, pristine: false, dirty: true })
     );
     api.reset();
     expect(api.getState()).to.deep.equal(getState({
-      values: {favorite: { color: 'red'}},
+      values: { favorite: { color: 'red' } },
       pristine: false,
       dirty: true
     }));
@@ -820,7 +820,7 @@ describe('Form', () => {
     );
     api.setValue('favorite.color', 'green');
     expect(api.getState()).to.deep.equal(
-      getState({ values: {favorite: { color: 'green'}}, pristine: false, dirty: true })
+      getState({ values: { favorite: { color: 'green' } }, pristine: false, dirty: true })
     );
   });
 
@@ -904,7 +904,7 @@ describe('Form', () => {
       api = param;
     };
     mount(<Form getApi={setApi}><Text field="greeting" /></Form>);
-    expect(api.fieldExists('greeting')).to.equal( true );
+    expect(api.fieldExists('greeting')).to.equal(true);
   });
 
   it('fieldExists should return true if field exists', () => {
@@ -913,7 +913,7 @@ describe('Form', () => {
       api = param;
     };
     mount(<Form getApi={setApi}><Text field="greeting" /></Form>);
-    expect(api.fieldExists('foobar')).to.equal( false );
+    expect(api.fieldExists('foobar')).to.equal(false);
   });
 
 
@@ -948,7 +948,7 @@ describe('Form', () => {
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'hello' } });
 
-    wrapper.find('input').simulate('keypress', {key: 'Enter'});
+    wrapper.find('input').simulate('keypress', { key: 'Enter' });
 
     expect(spy.called).to.equal(true);
     expect(spy.args[0][0]).to.deep.equal({ greeting: 'hello' });
@@ -1013,7 +1013,7 @@ describe('Form', () => {
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'Foo' } });
     input.simulate('blur');
-    
+
     expect(api.getState().errors).to.deep.equal({
       name: 'ooo thats no good'
     });

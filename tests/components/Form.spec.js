@@ -26,6 +26,7 @@ describe('Form', () => {
       dirty: false,
       invalid: false,
       submits: 0,
+      step: 0,
       values: {},
       errors: {},
       touched: {},
@@ -41,7 +42,8 @@ describe('Form', () => {
       pristine: true,
       dirty: false,
       invalid: false,
-      submits: 0
+      submits: 0,
+      step: 0
     };
     return Object.assign({}, defaultState, state);
   };

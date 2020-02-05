@@ -9,6 +9,7 @@ import Complex from './Form/Complex';
 import State from './Form/State';
 import Props from './Form/Props';
 import Api from './Form/Api';
+import BasicMultistep from './Multistep/Basic';
 import SimpleValidation from './Validation/SimpleValidation';
 import ComplexValidation from './Validation/ComplexValidation';
 import ValidationControl from './Validation/ValidationControl';
@@ -183,6 +184,9 @@ storiesOf('High Order Components', module)
   .add('withFormState', WithFormState)
   .add('withFieldApi', WithFieldApi)
   .add('withFieldState', WithFieldState);
+
+storiesOf('Multistep Forms', module)
+  .add('Basic Multistep', BasicMultistep);
 
 storiesOf('Gotchas', module)
   .add('Unnecessary Rendering', UnnecessaryRendering)

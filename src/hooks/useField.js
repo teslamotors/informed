@@ -49,6 +49,7 @@ function useField(fieldProps = {}, userRef) {
     maintainCursor,
     debug,
     shadow,
+    step,
     ...userProps
   } = fieldProps;
 
@@ -81,9 +82,16 @@ function useField(fieldProps = {}, userRef) {
   // Define set error
 
   const setError = (val) => {
-    logger(`Setting ${field}'s error to ${val}`);
-    setErr(val);
-    updater.setError(field, val);
+    // For multistep forms always set error to undefined when not at that step
+    if (step && formApi.getStep() < step) {
+      logger(`Setting ${field}'s error to undefined as we are not at that step`);
+      setErr(undefined);
+      updater.setError(field, undefined);
+    } else {
+      logger(`Setting ${field}'s error to ${val}`);
+      setErr(val);
+      updater.setError(field, val);
+    }
   };
 
   // Define set value

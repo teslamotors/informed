@@ -1,3 +1,8 @@
+## 3.1.0 (February 5, 2020)
+
+### Added 
+- Step functionality to support multistep forms
+
 ## 3.0.2 (January 24, 2020)
 
 ### Fixed 

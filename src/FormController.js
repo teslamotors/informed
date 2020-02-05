@@ -33,7 +33,8 @@ class FormController extends EventEmitter {
       pristine: true,
       dirty: false,
       invalid: false,
-      submits: 0
+      submits: 0,
+      step: 0
     };
 
     // Initialize a dummy field ( see getField for example use )
@@ -60,6 +61,10 @@ class FormController extends EventEmitter {
     this.getErrors = this.getErrors.bind(this);
     this.setValue = this.setValue.bind(this);
     this.getValues = this.getValues.bind(this);
+    this.getStep = this.getStep.bind(this);
+    this.setStep = this.setStep.bind(this);
+    this.back = this.back.bind(this);
+    this.next = this.next.bind(this);
     this.setTouched = this.setTouched.bind(this);
     this.setError = this.setError.bind(this);
     this.setFormError = this.setFormError.bind(this);
@@ -121,7 +126,11 @@ class FormController extends EventEmitter {
       getOptions: this.getOptions,
       emitter: this,
       getSavedValue: this.getSavedValue,
-      getDerrivedValue: this.getDerrivedValue
+      getDerrivedValue: this.getDerrivedValue,
+      getStep: this.getStep,
+      setStep: this.setStep,
+      next: this.next,
+      back: this.back
     };
 
     this.on('value', (field) => {
@@ -154,6 +163,30 @@ class FormController extends EventEmitter {
 
   setFormError(value) {
     this.state.error = value;
+    this.emit('change');
+  }
+
+  setStep(value) {
+    this.state.step = value;
+    this.emit('change');
+  }
+
+  back() {
+    this.state.step = this.state.step - 1;
+    this.emit('change');
+  }
+
+  next() {
+
+    // Validate the entire form
+    this.validate();
+
+    // If its valid move on
+    if (this.valid()) {
+      this.state.step = this.state.step + 1;
+    }
+
+    // State will have changed
     this.emit('change');
   }
 
@@ -266,6 +299,10 @@ class FormController extends EventEmitter {
 
   getOptions() {
     return this.options;
+  }
+
+  getStep() {
+    return this.state.step;
   }
 
   getSavedValue(name) {

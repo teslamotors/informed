@@ -3,7 +3,7 @@ import Code from './Code';
 
 import { useFormState } from '../../src';
 
-const FormState = ({errors, noTouched}) => {
+const FormState = ({ errors, step, noTouched }) => {
   const formState = useFormState();
   return (
     <>
@@ -14,12 +14,12 @@ const FormState = ({errors, noTouched}) => {
 
       {!noTouched ?
         <>
-        <label>Touched:</label>
+          <label>Touched:</label>
           <Code language="language-js">
             {JSON.stringify(formState.touched, null, 2)}
           </Code>
         </>
-        : null }
+        : null}
       {errors ?
         <>
           <label>Errors:</label>
@@ -27,7 +27,15 @@ const FormState = ({errors, noTouched}) => {
             {JSON.stringify(formState.errors, null, 2)}
           </Code>
         </>
-        : null }
+        : null}
+      {step ?
+        <>
+          <label>Step:</label>
+          <Code language="language-js">
+            {formState.step}
+          </Code>
+        </>
+        : null}
     </>
   );
 };

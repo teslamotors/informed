@@ -7,7 +7,7 @@ Oh and YES WE USE HOOKS!!
 Check out our [GitHub](https://github.com/joepuzzo/informed)!
 
 [![npmversion](https://img.shields.io/npm/v/informed.svg)](https://www.npmjs.com/package/informed)
-[![Informed-Chat](https://img.shields.io/badge/slack-informed--chat-blue.svg)](https://spectrum.chat/informed)
+[![Discord](https://img.shields.io/discord/676066734746370058)](https://discord.gg/zpF5wA)
 [![Build Status](https://travis-ci.org/joepuzzo/informed.svg?branch=master)](https://travis-ci.org/joepuzzo/informed)
 [![Coverage Status](https://coveralls.io/repos/github/joepuzzo/informed/badge.svg?branch=master)](https://coveralls.io/github/joepuzzo/informed?branch=master)
 [![Minzipped-Size](https://badgen.net/bundlephobia/minzip/informed)](https://bundlephobia.com/result?p=informed)

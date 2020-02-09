@@ -1,3 +1,8 @@
+## 3.1.2 (February 9, 2020)
+
+### Updated 
+- docs and readme to link to dicord channel
+
 ## 3.1.1 (February 8, 2020)
 
 ### Added 

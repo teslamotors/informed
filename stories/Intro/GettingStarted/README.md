@@ -49,7 +49,7 @@ const validate = value => {
     <Text field="name" validate={validate}/>
   </label>
   <button type="submit">Submit</button>
-</Form>;
+</Form>
 ```
 
 ---

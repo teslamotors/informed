@@ -1,3 +1,8 @@
+## 3.1.1 (February 8, 2020)
+
+### Added 
+- apiRef so you can just pass a ref to the form
+
 ## 3.1.0 (February 5, 2020)
 
 ### Added 

@@ -452,6 +452,12 @@ describe('Form', () => {
     checkFormApi(api);
   });
 
+  it('apiRef should give the passed ref the formApi', () => {
+    const apiRef = {};
+    mount(<Form apiRef={apiRef}>{() => <Text field="greeting" />}</Form>);
+    checkFormApi(apiRef.current);
+  });
+
   it('should set initial values when initial values are passed', () => {
     let api;
     const setApi = param => {

@@ -8,10 +8,8 @@ Thats a great question! There are many ways so lets take a look at a few!
 Below is a similar example, except this time, we show you how to access
 the form state and render out the values that are changing.
 
-**
-Note: for a full list of the available values within formState go to the
-formState section of these docs
-**
+**Note: for a full list of the available values within formState go to the
+formState section of these docs**
 
 <!-- STORY -->
 
@@ -157,38 +155,31 @@ Don't fret! This is also very simple. You have two options:
 ```
 
 <br/>
-2) Use the Forms `getApi` prop, and then use the apis `getState` function.
+2) Use the Forms `apiRef` prop, and then use the apis `getState` function.
 
 ```jsx
-class MyAwesomeForm extends React.Component {
-  constructor(props) {
-    super(props);
+import React, { useRef } from 'react';
+import { Form, Text } from 'informed';
 
-    // Remember! This binding is necessary to make `this` work in the callback
-    this.handleClick = this.handleClick.bind(this);
-    this.setFormApi = this.setFormApi.bind(this);
-  }
+const MyAwesomeForm = () => {
 
-  handleClick() {
-    console.log(this.formApi.getState());
-  }
+  const apiRef = useRef();
 
-  setFormApi(formApi) {
-    this.formApi = formApi;
-  }
+  const handleClick = () => {
+    console.log(apiRef.current.getState());
+  };
 
-  render() {
-    return (
-      <div>
-        <Form getApi={this.setFormApi}>
-          <Text field="hello" />
-          <button type="submit">Submit</button>
-        </Form>
-        <button onClick={this.handleClick}>Print Form State</button>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Form apiRef={apiRef}>
+        <Text field="hello" />
+        <button type="submit">Submit</button>
+      </Form>
+      <button onClick={handleClick}>Print Form State</button>
+    </div>
+  );
+
+};
 ```
 
 ---

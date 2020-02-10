@@ -1,3 +1,8 @@
+## 3.2.1 (February 9, 2020)
+
+### Fixed 
+- Typo in yup docs and readme
+
 ## 3.2.0 (February 9, 2020)
 
 ### Added 

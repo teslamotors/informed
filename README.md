@@ -293,9 +293,9 @@ const SignupSchema = Yup.object().shape({
 });
 
 <Form validationSchema={SignupSchema}>
-  <label>Color:<Text field="color" /></label>
-  <label>Food:<Text field="food" /></label>
-  <label>Car:<Text field="car" /></label>
+  <label>First Name:<Text field="firstName" /></label>
+  <label>Last Name:<Text field="lastName" /></label>
+  <label>Email:<Text field="email" /></label>
   <button type="submit">Submit</button>
 </Form>
 ```

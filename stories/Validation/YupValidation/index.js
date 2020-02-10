@@ -5,22 +5,33 @@ import Modal from '../../utils/Modal';
 import readme from './README.md';
 
 import { Form, Text } from '../../../src';
+import * as Yup from 'yup'; // for everything
 
-const validate = value => {
-  if (!value || value.length < 5) return 'Field must be at least five characters';
-};
+const SignupSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+  lastName: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Required'),
+});
 
 class SimpleValidation extends Component {
   render() {
     return (
       <div>
-        <Form onSubmit={() => this.modal.open()} id="validate-form">
+        <Form onSubmit={() => this.modal.open()} validationSchema={SignupSchema} id="validate-form" >
           {({ formApi, formState }) => (
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
               <div style={{ flex: 1, marginRight: '2rem' }}>
-                <label>Color:<Text field="color" validate={validate} /></label>
-                <label>Food:<Text field="food" validate={validate} /></label>
-                <label>Car:<Text field="car" validate={validate} /></label>
+                <label>First Name:<Text field="firstName" /></label>
+                <label>Last Name:<Text field="lastName" /></label>
+                <label>Email:<Text field="email" /></label>
                 <button type="submit">Submit</button>
               </div>
               <div style={{ flex: 2, minWidth: '300px' }}>

@@ -1,3 +1,8 @@
+## 3.2.0 (February 9, 2020)
+
+### Added 
+- Yup support
+
 ## 3.1.2 (February 9, 2020)
 
 ### Updated 

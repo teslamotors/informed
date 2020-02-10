@@ -6,9 +6,7 @@ import { Form, Text } from '../../../src';
 import FormState from '../../utils/FormState';
 
 const validate = value => {
-  return !value || value.length < 5
-    ? 'Field must be at least five characters'
-    : undefined;
+  if (!value || value.length < 5) return 'Field must be at least five characters';
 };
 
 const GettingStarted = () => (
@@ -18,7 +16,7 @@ const GettingStarted = () => (
         <div style={{ flex: 1, marginRight: '2rem' }}>
           <label>
             First name:
-            <Text field="name" validate={validate}/>
+            <Text field="name" validate={validate} />
           </label>
           <button type="submit">Submit</button>
         </div>
@@ -29,7 +27,7 @@ const GettingStarted = () => (
             display: 'flex',
             minWidth: '300px'
           }}>
-          <FormState errors/>
+          <FormState errors />
         </div>
       </div>
     </Form>

@@ -10,9 +10,9 @@
 
 ## Introduction
 
-Say hello to the best react form library you have ever used! Informed is an extensive, simple, and efficient solution for creating basic to complex forms in react. Out of the box you get the ability to grab and manipulate values, validate fields, create custom inputs, and much much more!!!
+Say hello to the best react form library you have ever used! Informed is an extensive, simple, and efficient solution for creating basic to complex forms in react. Out of the box you get the ability to grab and manipulate values, validate fields, create custom inputs, and much much more!
 
-Oh and YES WE USE HOOKS!!
+Oh and YES WE USE HOOKS!
 
 ## Getting Started
 
@@ -41,9 +41,7 @@ import { Form, Text } from 'informed';
 import { Form, Text } from 'informed';
 
 const validate = value => {
-  return !value || value.length < 5
-    ? 'Field must be at least five characters'
-    : undefined;
+  if (!value || value.length < 5) return 'Field must be at least five characters';
 };
 
 <Form>
@@ -238,7 +236,7 @@ const Spouse = () => {
 
 Writing code the second way can typically save excess rendering! And, it looks much cleaner.
 
-#### Create dynamic forms with dynamic arrays !!! Mind Blown!!!
+#### Create dynamic forms with dynamic arrays ! Mind Blown!
 
 ```jsx
 import { Form, Text, ArrayField } from 'informed';
@@ -272,3 +270,32 @@ const DynamicArrays = () => {
     </div>
   );
 };
+```
+
+#### Perform validation via Yup!
+
+```jsx
+import { Form, Text } from 'informed';
+import * as Yup from 'yup'; 
+
+const SignupSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+  lastName: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Required'),
+});
+
+<Form validationSchema={SignupSchema}>
+  <label>Color:<Text field="color" /></label>
+  <label>Food:<Text field="food" /></label>
+  <label>Car:<Text field="car" /></label>
+  <button type="submit">Submit</button>
+</Form>
+```

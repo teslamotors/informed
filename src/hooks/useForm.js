@@ -19,6 +19,7 @@ const useForm = ({
   onSubmit,
   onValueChange,
   onSubmitFailure,
+  validationSchema,
   ...userProps
 }) => {
 
@@ -32,7 +33,8 @@ const useForm = ({
     validateFields,
     allowEmptyStrings,
     preventEnter,
-  }), [dontPreventDefault, initialValues, validate, validateFields, allowEmptyStrings, preventEnter]);
+    validationSchema
+  }), [dontPreventDefault, initialValues, validate, validateFields, allowEmptyStrings, preventEnter, validationSchema]);
 
   // Create form controller
   const [formController] = useState(() => new FormController(formControllerOptions));

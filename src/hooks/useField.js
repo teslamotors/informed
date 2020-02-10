@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext, useMemo, useRef } from 'react';
 import { FormRegisterContext } from '../Context';
 import useFormApi from './useFormApi';
 import useStateWithGetter from './useStateWithGetter';
+import { validateYupField } from '../utils';
+
 import Debug from '../debug';
 import useLayoutEffect from './useIsomorphicLayoutEffect';
 const logger = Debug('informed:useField' + '\t');
@@ -28,11 +30,26 @@ const initializeMask = (value, format, parse) => {
   return value;
 };
 
+const generateValidationFunction = (validationFunc, validationSchema) => {
+  // We dont want a validation function if there was nothing passed
+  if (validationFunc || validationSchema) {
+    return (val, values) => {
+      if (validationSchema) {
+        return validateYupField(validationSchema, val);
+      }
+      if (validationFunc) {
+        return validationFunc(val, values);
+      }
+    };
+  }
+};
+
 function useField(fieldProps = {}, userRef) {
   // Pull props off of field props
   const {
     field,
-    validate,
+    validate: validationFunc,
+    validationSchema,
     mask,
     maskWithCursorOffset,
     format,
@@ -59,6 +76,8 @@ function useField(fieldProps = {}, userRef) {
   // Grab the form state
   const formApi = useFormApi();
 
+  // Generate validation function
+  const validate = generateValidationFunction(validationFunc, validationSchema);
 
   // Initialize state 
   const [value, setVal, getTheVal] = useStateWithGetter(initializeValue(initialValue, mask));
@@ -331,7 +350,7 @@ function useField(fieldProps = {}, userRef) {
 
     },
     // This is VERYYYY!! Important!
-    [validate, validateOnChange, validateOnBlur, onValueChange]
+    [validationFunc, validateOnChange, validateOnBlur, onValueChange]
   );
 
   // Maintain cursor position

@@ -299,3 +299,33 @@ const SignupSchema = Yup.object().shape({
   <button type="submit">Submit</button>
 </Form>
 ```
+
+#### Perform field level Yup validation!
+
+```jsx
+import { Form, Text } from 'informed';
+import * as Yup from 'yup'; 
+
+const SignupSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Required'),
+});
+
+const lastNameSchema = Yup.string()
+  .min(2, 'Last Name Too Short!')
+  .max(50, 'Last Name Too Long!')
+  .required('Last Name Required');
+
+<Form validationSchema={SignupSchema}>
+  <label>First Name:<Text field="firstName" /></label>
+  <label>Last Name:<Text field="lastName" validationSchema={lastNameSchema}/></label>
+  <label>Email:<Text field="email" /></label>
+  <button type="submit">Submit</button>
+</Form>
+```
+

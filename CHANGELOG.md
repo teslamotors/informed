@@ -1,3 +1,8 @@
+## 3.3.0 (February 10, 2020)
+
+### Added 
+- Field level Yup support
+
 ## 3.2.1 (February 9, 2020)
 
 ### Fixed 

@@ -418,18 +418,6 @@ class FormController extends EventEmitter {
 
     const values = this.getValues();
 
-    // Itterate through and call validate on every field
-    this.fields.forEach((field) => {
-      field.fieldApi.validate(values);
-      field.fieldApi.setTouched(true);
-    });
-
-    // Call the form level validation if its present
-    if (this.options.validate) {
-      const res = this.options.validate(values);
-      this.setFormError(res);
-    }
-
     // Validate schema if needed
     if (this.options.validationSchema) {
       const errors = validateYupSchema(this.options.validationSchema, values);
@@ -449,6 +437,18 @@ class FormController extends EventEmitter {
           this.setError(field.field, undefined);
         }
       });
+    }
+
+    // Itterate through and call validate on every field
+    this.fields.forEach((field) => {
+      field.fieldApi.validate(values);
+      field.fieldApi.setTouched(true);
+    });
+
+    // Call the form level validation if its present
+    if (this.options.validate) {
+      const res = this.options.validate(values);
+      this.setFormError(res);
     }
 
     // Call the forms field level validation

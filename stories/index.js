@@ -12,6 +12,7 @@ import Api from './Form/Api';
 import BasicMultistep from './Multistep/Basic';
 import SimpleValidation from './Validation/SimpleValidation';
 import YupValidation from './Validation/YupValidation';
+import FieldLevelYupValidation from './Validation/FieldLevelYupValidation';
 import ComplexValidation from './Validation/ComplexValidation';
 import ValidationControl from './Validation/ValidationControl';
 import ArrayFieldValidation from './Validation/ArrayFieldValidation';
@@ -166,7 +167,8 @@ storiesOf('Validation', module)
   .add('Notifications', Notifications)
   .add('Array Field Validation', ArrayFieldValidation)
   .add('Complex Array Field Validation', ComplexArrayFieldValidation)
-  .add('Yup Validation', YupValidation);
+  .add('Yup Validation', YupValidation)
+  .add('Field Level + Yup Validation', FieldLevelYupValidation);
 
 storiesOf('Formatting', module)
   .add('Mask', Mask)

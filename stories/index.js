@@ -63,24 +63,6 @@ import {
 
 addDecorator(StoryWrapper);
 
-const params = {
-  readme: {
-    /**
-     * Override theme values
-     *
-     * All theme values https://github.com/tuchk4/storybook-readme/blob/master/packages/storybook-readme/src/styles/githubMarkdownCss.js#L436
-     */
-    //theme: themes.dark,
-
-    /**
-     * Highlightjs code theme
-     * Import theme at _.storybook/config.js_.
-     * Full list of theme https://highlightjs.org/static/demo/.
-     */
-    //codeTheme: 'atom-one-dark',
-  },
-};
-
 configureReadme({
   /**
    * Wrapper for story. Usually used to set some styles
@@ -129,8 +111,10 @@ configureReadme({
   footer: '',
 });
 
+//addParameters(params);
+
 storiesOf('Introduction', module)
-  .addParameters(params)
+  //.addParameters(params)
   .add('Getting Started', Intro);
 
 storiesOf('Form', module)

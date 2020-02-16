@@ -26,7 +26,9 @@ npm install --save informed
 ```jsx
 import { Form, Text } from 'informed';
 
-<Form>
+const submit = values => window.alert(`Form successfully submitted with ${JSON.stringify(values)}`);
+
+<Form onSubmit={submit}>
   <label>
     First name:
     <Text field="name"/>
@@ -44,7 +46,9 @@ const validate = value => {
   if (!value || value.length < 5) return 'Field must be at least five characters';
 };
 
-<Form>
+const submit = values => window.alert(`Form successfully submitted with ${JSON.stringify(values)}`);
+
+<Form onSubmit={submit}>
   <label>
     First name:
     <Text field="name" validate={validate}/>

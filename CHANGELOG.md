@@ -1,3 +1,8 @@
+## 3.3.1 (February 16, 2020)
+
+### Updated 
+- Intro examples to inculde on submit example
+
 ## 3.3.0 (February 10, 2020)
 
 ### Added 

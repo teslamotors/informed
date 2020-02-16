@@ -87,6 +87,11 @@ const useForm = ({
   // We dont want this to happen on every render so thats why useState is used here
   const [formApi] = useState(() => formController.getFormApi());
 
+  // TODO technically speaking this can be unsafe as there is circular dependency 
+  // between form provider and useForm.. Its ok because anyone that in theory 
+  // Uses a form provider and a use form hook themselves will never call the render 
+  // function created here... that being said I will look into fixing that warning
+  // at some point :)
   const render = (children) => (
     <FormProvider formApi={formApi} formState={formState} formController={formController}>
       {children}

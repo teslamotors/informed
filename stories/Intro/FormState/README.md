@@ -39,7 +39,7 @@ import { Form, Text } from 'informed';
 
 Its not magic, its a Function As A Child, or otherwise known as [render props](https://reactjs.org/docs/render-props.html)
 
-There are five ways you can get access to `Informed`s form state.
+There are a few ways you can get access to `Informed`s form state.
 
 1) By accessing the `formState` as a parameter to a child render function.
 
@@ -59,43 +59,7 @@ There are five ways you can get access to `Informed`s form state.
 ```
 
 <br/>
-2) By accessing the `formState` as a parameter to a render prop.
-
-```jsx
-<Form
-  render={({ formState }) => (
-    <div>
-      <Text field="hello" />
-      <button type="submit">Submit</button>
-      <label>Values:</label>
-      <code>{JSON.stringify(formState.values)}</code>
-      <label>Touched:</label>
-      <code>{JSON.stringify(formState.touched)}</code>
-    </div>
-  )}
-/>
-```
-
-<br/>
-3) By accessing the `formState` as a prop to a component prop.
-
-```jsx
-const FormContent = ({ formState }) => (
-  <div>
-    <Text field="hello" />
-    <button type="submit">Submit</button>
-    <label>Values:</label>
-    <code>{JSON.stringify(formState.values)}</code>
-    <label>Touched:</label>
-    <code>{JSON.stringify(formState.touched)}</code>
-  </div>
-);
-
-<Form component={FormContent} />;
-```
-
-<br/>
-4) By accessing the `formState` as a prop via a HOC ( High Order Component ).
+2) By accessing the `formState` as a prop via a HOC ( High Order Component ).
 
 ```jsx
 const FormState = withFormState(({ formState }) => (
@@ -115,7 +79,7 @@ const FormState = withFormState(({ formState }) => (
 ```
 
 <br/>
-5) By accessing the `formState` via Hooks!
+3) By accessing the `formState` via Hooks!
 
 ```jsx
 const FormState = () => {

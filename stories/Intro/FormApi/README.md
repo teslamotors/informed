@@ -41,7 +41,7 @@ const RandomSetterButton = () => {
 </Form>;
 ```
 
-There are five ways you can get access to `Informed`s form api.
+There are a few ways you can get access to `Informed`s form api.
 
 1) By accessing the `formApi` as a parameter to a child render function.
 
@@ -58,37 +58,7 @@ There are five ways you can get access to `Informed`s form api.
 ```
 
 <br/>
-2) By accessing the `formApi` as a parameter to a render prop.
-
-```jsx
-<Form
-  render={({ formApi }) => (
-    <div>
-      <Text field="hello" />
-      <button type="button" onClick={()=>formApi.setValue('hello', 'world!')}/>
-      <button type="submit">Submit</button>
-    </div>
-  )}
-/>
-```
-
-<br/>
-3) By accessing the `formApi` as a prop to a component prop.
-
-```jsx
-const FormContent = ({ formApi }) => (
-  <div>
-    <Text field="hello" />
-    <button type="button" onClick={()=>formApi.setValue('hello', 'world!')}/>
-    <button type="submit">Submit</button>
-  </div>
-);
-
-<Form component={FormContent} />;
-```
-
-<br/>
-4) By accessing the `formApi` as a prop via a HOC ( High Order Component ).
+2) By accessing the `formApi` as a prop via a HOC ( High Order Component ).
 
 ```jsx
 const ComponentWithFormApi = withFormApi(({ formApi }) => (
@@ -105,7 +75,7 @@ const ComponentWithFormApi = withFormApi(({ formApi }) => (
 ```
 
 <br/>
-5) By accessing the `formApi` via Hooks!
+3) By accessing the `formApi` via Hooks!
 
 ```jsx
 const ComponentWithFormApi = () => {

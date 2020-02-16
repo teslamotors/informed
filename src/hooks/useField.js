@@ -138,15 +138,20 @@ function useField(fieldProps = {}, userRef) {
       val = +val;
     }
 
+    // Remember Cursor position!
+    if (e && e.target && e.target.selectionStart) {
+      setCursor(e.target.selectionStart);
+    }
+
     // Call mask if it was passed
     if (mask && !maskOnBlur) {
-      maskedVal = mask(val);
-      val = mask(val);
+      maskedVal = mask(val, getCursor());
+      val = mask(val, getCursor());
     }
 
     // Call maskWithCursorOffset if it was passed
     if (maskWithCursorOffset && !maskOnBlur) {
-      const res = maskWithCursorOffset(val);
+      const res = maskWithCursorOffset(val, getCursor());
       maskedVal = res.value;
       val = res.value;
       setCursorOffset(res.offset);
@@ -164,11 +169,6 @@ function useField(fieldProps = {}, userRef) {
     if (validate && validateOnChange && !options.initial) {
       logger(`Validating after change ${field} ${val}`);
       setError(validate(val, formApi.getValues()));
-    }
-
-    // Remember Cursor position!
-    if (e && e.target && e.target.selectionStart) {
-      setCursor(e.target.selectionStart);
     }
 
     // Now we update the value

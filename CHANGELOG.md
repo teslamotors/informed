@@ -1,3 +1,8 @@
+## 3.3.2 (February 16, 2020)
+
+### Added 
+- Ability to use cursor position in mask function
+
 ## 3.3.1 (February 16, 2020)
 
 ### Updated 

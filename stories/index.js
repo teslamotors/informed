@@ -21,6 +21,7 @@ import Notifications from './Validation/Notifications';
 import FormLevelValidation from './Validation/FormLevelValidation';
 import FormatParse from './Formatting/FormatParse';
 import Mask from './Formatting/Mask';
+// import MaskWithCursor from './Formatting/MaskWithCursor';
 import MaskWithCursorOffset from './Formatting/MaskWithCursorOffset';
 import UnnecessaryRendering from './Gotchas/UnnecessaryRendering';
 import Scope from './Gotchas/Scope';
@@ -156,6 +157,7 @@ storiesOf('Validation', module)
 
 storiesOf('Formatting', module)
   .add('Mask', Mask)
+  // .add('Mask With Cursor', MaskWithCursor)
   .add('Mask With Cursor Offset', MaskWithCursorOffset)
   .add('Format and Parse', FormatParse);
 

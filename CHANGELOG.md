@@ -1,3 +1,8 @@
+## 3.3.3 (February 18, 2020)
+
+### Added 
+- Types for multisetp forms
+
 ## 3.3.2 (February 16, 2020)
 
 ### Added 

@@ -2,6 +2,7 @@ import Form from './components/Form';
 import Scope from './components/Scope';
 import ArrayField from './components/ArrayField';
 import FormProvider from './components/FormProvider';
+import FormState from './components/FormState';
 
 import withFormApi from './HOC/withFormApi';
 import withFormState from './HOC/withFormState';
@@ -42,7 +43,7 @@ export {
   withFieldState,
   withRadioGroup,
   asField,
-  useForm, 
+  useForm,
   useField,
   useFieldApi,
   useFieldState,
@@ -63,5 +64,6 @@ export {
   BasicCheckbox,
   Scope,
   ArrayField,
-  useArrayField
+  useArrayField,
+  FormState
 };

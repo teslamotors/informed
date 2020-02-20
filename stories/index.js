@@ -7,6 +7,7 @@ import Basic from './Form/Basic';
 import Dynamic from './Form/Dynamic';
 import Complex from './Form/Complex';
 import State from './Form/State';
+import FormState from './Debugging/FormState';
 import Props from './Form/Props';
 import Api from './Form/Api';
 import BasicMultistep from './Multistep/Basic';
@@ -154,6 +155,9 @@ storiesOf('Validation', module)
   .add('Complex Array Field Validation', ComplexArrayFieldValidation)
   .add('Yup Validation', YupValidation)
   .add('Field Level + Yup Validation', FieldLevelYupValidation);
+
+storiesOf('Debugging', module)
+  .add('Form State', FormState);
 
 storiesOf('Formatting', module)
   .add('Mask', Mask)

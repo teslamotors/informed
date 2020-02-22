@@ -7,7 +7,7 @@
 <!-- IDFK Strange issue where i need this commnet or code formatting is messed up -->
 
 ```jsx
-import { Form, BasicText, asField } from 'informed';
+import { Form, asField } from 'informed';
 
 const validate = value => {
   return !value || value.length < 5

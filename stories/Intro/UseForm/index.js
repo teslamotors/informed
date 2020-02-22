@@ -19,7 +19,10 @@ const UseForm = () => {
 
   return render(
     <div>
-      <form onSubmit={formController.submitForm}>
+      <form
+        onReset={formController.reset}
+        onSubmit={formController.submitForm}
+        onKeyDown={formController.keyDown}>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>
             <label>

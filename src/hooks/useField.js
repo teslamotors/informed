@@ -44,6 +44,72 @@ const generateValidationFunction = (validationFunc, validationSchema) => {
   }
 };
 
+const generateOnChange = ({ fieldType, setValue, onChange, multiple, ref }) => {
+
+  let setter = val => setValue(val);
+
+  if (fieldType === 'text' || fieldType === 'textArea' || fieldType === 'number') {
+    setter = e => setValue(e.target.value, e);
+  }
+
+  if (fieldType === 'select') {
+    setter = () => {
+      let selected = Array.from(ref.current)
+        .filter(option => option.selected)
+        .map(option => option.value);
+
+      setValue(multiple ? selected : selected[0] || '');
+    };
+  }
+
+  if (fieldType === 'checkbox') {
+    setter = e => {
+      setValue(e.target.checked);
+      if (onChange) {
+        onChange(e);
+      }
+    };
+  }
+
+  return val => {
+    setter(val);
+    if (onChange) {
+      onChange(val);
+    }
+  };
+};
+
+const generateOnBlur = ({ setTouched, onBlur }) => {
+  return e => {
+    setTouched(true);
+    if (onBlur) {
+      onBlur(e);
+    }
+  };
+};
+
+const generateValue = ({ fieldType, maskedValue, multiple, value }) => {
+  switch (fieldType) {
+    case 'text':
+    case 'number':
+      return (!maskedValue && maskedValue !== 0) ? '' : maskedValue;
+    case 'textArea':
+      return !maskedValue ? '' : maskedValue;
+    case 'select':
+      return value || (multiple ? [] : '');
+    case 'checkbox':
+      return !!value;
+    default:
+      return value;
+  }
+};
+
+// const generateType = ({ fieldType }) => {
+//   if (fieldType === 'number') {
+//     return 'number';
+//   }
+// };
+
 function useField(fieldProps = {}, userRef) {
   // Pull props off of field props
   const {
@@ -67,6 +133,10 @@ function useField(fieldProps = {}, userRef) {
     debug,
     shadow,
     step,
+    fieldType,
+    multiple,
+    onChange,
+    onBlur,
     ...userProps
   } = fieldProps;
 
@@ -134,7 +204,7 @@ function useField(fieldProps = {}, userRef) {
     }
 
     // Turn string into number for number fields
-    if (fieldProps.type === 'number' && val !== undefined) {
+    if ((fieldProps.type === 'number' || fieldType === 'number') && val !== undefined) {
       val = +val;
     }
 
@@ -383,7 +453,34 @@ function useField(fieldProps = {}, userRef) {
 
   const render = children => useMemo(() => children, [...shouldUpdate]);
 
-  return { fieldState, fieldApi, render, ref, userProps };
+  // Build some setub fields so users can easily intagrate without any hookup code
+
+  const name = field;
+  const changeHandler = generateOnChange({ fieldType, setValue, onChange, multiple, ref });
+  const blurHandler = generateOnBlur({ setTouched, onBlur });
+  const hookedValue = generateValue({ fieldType, maskedValue, multiple, value });
+
+  return {
+    fieldState,
+    fieldApi,
+    render,
+    ref,
+    userProps: {
+      ...userProps,
+      multiple, // WE NEED TO PUT THESE BACK!! 
+      onChange, // WE NEED TO PUT THESE BACK!! 
+      onBlur    // WE NEED TO PUT THESE BACK!! 
+    },
+    informed: {
+      name,
+      multiple,
+      onChange: changeHandler,
+      onBlur: blurHandler,
+      value: hookedValue,
+      ref,
+      ...userProps
+    }
+  };
 }
 
 export default useField;

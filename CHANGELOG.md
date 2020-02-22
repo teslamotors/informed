@@ -1,3 +1,8 @@
+## 3.4.0 (February 22, 2020)
+
+### Added 
+- Ability to spread `informed` object on inputs via the `useField` hook
+
 ## 3.3.5 (February 22, 2020)
 
 ### Updated 

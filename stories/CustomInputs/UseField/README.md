@@ -10,7 +10,7 @@ set a default validation function!
 <!-- IDFK Strange issue where i need this commnet or code formatting is messed up -->
 
 ```jsx
-import { Form, BasicText, asField } from 'informed';
+import { Form, useField } from 'informed';
 
 const validate = value => {
   return !value || value.length < 5
@@ -58,7 +58,6 @@ const ErrorText = (props) => {
     First name:
     <ErrorText
       field="name"
-      validate={validate}
       validateOnChange
       validateOnBlur
     />

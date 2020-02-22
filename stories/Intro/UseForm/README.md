@@ -23,7 +23,10 @@ const UseFormExample = () => {
   });
 
   return render(
-    <form onSubmit={formController.submitForm}>
+    <form 
+      onReset={formController.reset}
+      onSubmit={formController.submitForm}
+      onKeyDown={formController.keyDown}>
       <label>
         First name:
         <Text field="name" validate={validate}/>

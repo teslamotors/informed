@@ -12,29 +12,12 @@ const validate = value => {
 
 const ErrorText = (props) => {
 
-  const { fieldState, fieldApi, render, ref, userProps } = useField({ ...props, validate });
+  const { render, informed, fieldState } = useField({ fieldType: 'text', validate, ...props });
 
-  const { value } = fieldState;
-  const { setValue, setTouched } = fieldApi;
-  const { onChange, onBlur, ...rest } = userProps;
   return render(
     <React.Fragment>
       <input
-        {...rest}
-        ref={ref}
-        value={!value && value !== 0 ? '' : value}
-        onChange={e => {
-          setValue(e.target.value);
-          if (onChange) {
-            onChange(e);
-          }
-        }}
-        onBlur={e => {
-          setTouched(true);
-          if (onBlur) {
-            onBlur(e);
-          }
-        }}
+        {...informed}
         style={fieldState.error ? { border: 'solid 1px red' } : null}
       />
       {fieldState.error ? (

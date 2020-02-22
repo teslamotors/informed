@@ -60,7 +60,8 @@ import {
   UseFieldApi,
   UseFieldState,
   UseArrayField,
-  UseForm
+  UseForm,
+  UseField
 } from './Hooks';
 
 addDecorator(StoryWrapper);
@@ -171,7 +172,8 @@ storiesOf('Hooks!', module)
   .add('useFieldApi', UseFieldApi)
   .add('useFieldState', UseFieldState)
   .add('useArrayField', UseArrayField)
-  .add('useForm', UseForm);
+  .add('useForm', UseForm)
+  .add('useField', UseField);
 
 storiesOf('High Order Components', module)
   .add('withFormApi', WithFormApi)

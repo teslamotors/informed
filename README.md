@@ -106,6 +106,42 @@ import { Form, Text, Option, Select, Checkbox, Scope, TextArea, RadioGroup, Radi
 </Form>
 ```
 
+
+#### Hook things up yourself via the `useForm` hook
+
+```jsx
+import { Form, Text } from 'informed';
+
+const validate = value => {
+  if (!value || value.length < 5) return 'Field must be at least five characters';
+};
+
+const onSubmit = values => window.alert(`Form successfully submitted with ${JSON.stringify(values)}`);
+
+const UseFormExample = () => {
+
+  const { formController, formState, render } = useForm({
+    onSubmit
+  });
+
+  return render(
+    <form onSubmit={formController.submitForm}>
+      <label>
+        First name:
+        <Text field="name" validate={validate}/>
+        <small style={{ color: 'red' }}>{formState.errors.name}</small>
+      </label>
+      <button type="submit">Submit</button>
+      <pre>
+        <code>
+          {JSON.stringify(formState, null, 2)}
+        </code>
+      </pre>
+    </form>
+  );
+}
+```
+
 #### Access Form State with Hooks!
 
 ```jsx

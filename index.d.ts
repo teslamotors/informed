@@ -23,6 +23,7 @@ declare module 'informed' {
     asyncErrors: { [key in keyof V]: FormError }
     error: FormError
     step: number
+    Current: any
   }
   export interface FormStateDerived {
     invalid: boolean
@@ -50,6 +51,7 @@ declare module 'informed' {
     back: () => void
     next: () => void
     setStep: (value: number) => void
+    setCurrent: (component: any) => void
   }
 
   export interface FormContext<V = FormValues> {

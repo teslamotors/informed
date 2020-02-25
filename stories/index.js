@@ -11,6 +11,7 @@ import FormState from './Debugging/FormState';
 import Props from './Form/Props';
 import Api from './Form/Api';
 import BasicMultistep from './Multistep/Basic';
+import ComplexMultistep from './Multistep/Complex';
 import SimpleValidation from './Validation/SimpleValidation';
 import YupValidation from './Validation/YupValidation';
 import FieldLevelYupValidation from './Validation/FieldLevelYupValidation';
@@ -182,7 +183,8 @@ storiesOf('High Order Components', module)
   .add('withFieldState', WithFieldState);
 
 storiesOf('Multistep Forms', module)
-  .add('Basic Multistep', BasicMultistep);
+  .add('Basic Multistep', BasicMultistep)
+  .add('Complex Multistep', ComplexMultistep);
 
 storiesOf('Gotchas', module)
   .add('Unnecessary Rendering', UnnecessaryRendering)

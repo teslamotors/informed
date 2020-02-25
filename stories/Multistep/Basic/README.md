@@ -5,14 +5,11 @@ Below is an example of a form that has three steps. It will not proceed to the n
 unless the previous step is valid! It will also clear out errors from proceeding steps when 
 you go back :) 
 
-Note two very important things in the example.
+Note one very important thing in this example.
 
 1. the use of the `keepState` prop
-2. the use of the `step` prop
 
 The keep state guarentees that the state is kept from step to step when the fields are "unrendered". 
-
-The step prop lets informed know what step in the process the field is involved.
 
 
 <!-- STORY -->
@@ -29,7 +26,7 @@ const Step1 = ({ next }) => {
     <div>
       <label>
         Please enter your first name:
-        <Text field="first" validate={validate} keepState step={0} />
+        <Text field="first" validate={validate} keepState />
       </label>
       <button type="button" onClick={next}>Next</button>
     </div>
@@ -41,7 +38,7 @@ const Step2 = ({ back, next }) => {
     <div>
       <label>
         Please enter your last name:
-        <Text field="last" validate={validate} keepState step={1} />
+        <Text field="last" validate={validate} keepState />
       </label>
       <button type="button" onClick={next}>Next</button>
       <button type="button" onClick={back}>Back</button>
@@ -54,7 +51,7 @@ const Step3 = ({ back }) => {
     <div>
       <label>
         Please enter your favorite color:
-        <Text field="color" validate={validate} keepState step={2} />
+        <Text field="color" validate={validate} keepState />
       </label>
       <button type="button" onClick={back}>Back</button>
       <button type="submit" >Submit</button>

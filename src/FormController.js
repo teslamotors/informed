@@ -23,6 +23,9 @@ class FormController extends EventEmitter {
     // Map to store if the field was once registered
     this.registered = {};
 
+    // Map to store whos on the screen
+    this.onScreen = {};
+
     // Map to store fields being removed
     this.expectedRemovals = {};
 
@@ -66,6 +69,7 @@ class FormController extends EventEmitter {
     this.setStep = this.setStep.bind(this);
     this.back = this.back.bind(this);
     this.next = this.next.bind(this);
+    this.setCurrent = this.setCurrent.bind(this);
     this.setTouched = this.setTouched.bind(this);
     this.setError = this.setError.bind(this);
     this.setFormError = this.setFormError.bind(this);
@@ -131,7 +135,8 @@ class FormController extends EventEmitter {
       getStep: this.getStep,
       setStep: this.setStep,
       next: this.next,
-      back: this.back
+      back: this.back,
+      setCurrent: this.setCurrent
     };
 
     this.on('value', (field) => {
@@ -172,19 +177,34 @@ class FormController extends EventEmitter {
     this.emit('change');
   }
 
-  back() {
-    this.state.step = this.state.step - 1;
+  setCurrent(component) {
+    this.state.Current = component;
     this.emit('change');
   }
 
-  next() {
+  back(prevComponent) {
+    this.state.step = this.state.step - 1;
+
+    this.state.Current = prevComponent;
+
+    this.emit('change');
+  }
+
+  next(nextComponent) {
 
     // Validate the entire form
     this.validate();
 
-    // If its valid move on
-    if (this.valid()) {
+    // // If its valid move on
+    // if (this.valid()) {
+    //   this.state.step = this.state.step + 1;
+    //   this.state.Current = nextComponent;
+    // }
+
+    // If fields on the screen ( currently rendered ) are valid move on
+    if (this.screenValid()) {
       this.state.step = this.state.step + 1;
+      this.state.Current = nextComponent;
     }
 
     // State will have changed
@@ -253,31 +273,42 @@ class FormController extends EventEmitter {
         ObjectMap.set(values, field.field, field.fieldApi.getValue());
       }
     });
+
+    // Cleanup phase to get rid of irrelevant fields
+    this.fields.forEach((field) => {
+      if (!field.fieldApi.relevant(values)) {
+        ObjectMap.delete(values, field.field);
+      }
+    });
+
     return values;
   }
 
   getAllTouched() {
     debug('Gettings touched');
+    const values = this.getValues();
     // So we because all fields controll themselves and, "inform", this controller
     // of their changes, we need to literally itterate through all registered fields
     // and build the touched object.
     const touched = {};
     this.fields.forEach((field) => {
-      if (!field.shadow) {
+      if (!field.shadow && field.fieldApi.relevant(values)) {
         ObjectMap.set(touched, field.field, field.fieldApi.getTouched());
       }
     });
     // Shadow values override unless undefined
     this.fields.forEach((field) => {
-      if (field.shadow && field.fieldApi.getError() != undefined) {
+      if (field.shadow && field.fieldApi.getError() != undefined && field.fieldApi.relevant(values)) {
         ObjectMap.set(touched, field.field, field.fieldApi.getTouched());
       }
     });
+
     return touched;
   }
 
   getErrors() {
     debug('Gettings errors');
+    const values = this.getValues();
     // So we because all fields controll themselves and, "inform", this controller
     // of their changes, we need to literally itterate through all registered fields
     // and build the errors object.
@@ -285,13 +316,13 @@ class FormController extends EventEmitter {
     this.fields.forEach((field) => {
       // EXAMPLE special cases
       // siblings && siblings[1] && favorite.color && favorite
-      if (!field.shadow) {
+      if (!field.shadow && field.fieldApi.relevant(values)) {
         ObjectMap.set(errors, field.field, field.fieldApi.getError());
       }
     });
     // Shadow values override unless undefined
     this.fields.forEach((field) => {
-      if (field.shadow && field.fieldApi.getError() != undefined) {
+      if (field.shadow && field.fieldApi.getError() != undefined && field.fieldApi.relevant(values)) {
         ObjectMap.set(errors, field.field, field.fieldApi.getError());
       }
     });
@@ -361,6 +392,12 @@ class FormController extends EventEmitter {
   valid() {
     const errors = this.getErrors();
     return !!(ObjectMap.empty(errors) && !this.state.error);
+  }
+
+  screenValid() {
+    // Return false if any of the fields on the screen are invalid
+    const error = Object.entries(this.onScreen).some(([name, field]) => field.fieldApi.getError());
+    return !error;
   }
 
   invalid() {
@@ -510,6 +547,9 @@ class FormController extends EventEmitter {
   register(name, field) {
     debug('Register', name, field.state);
 
+    // The field is on the screen
+    this.onScreen[name] = field;
+
     // Determine if the field has been registered before
     const registered = this.registered[name];
     // Set registered flag
@@ -549,6 +589,9 @@ class FormController extends EventEmitter {
 
   deregister(name) {
     debug('Deregister', name);
+
+    // The field is off the screen
+    delete this.onScreen[name];
 
     const field = this.fields.get(name);
 

@@ -137,6 +137,7 @@ function useField(fieldProps = {}, userRef) {
     multiple,
     onChange,
     onBlur,
+    relevant: userRelevant,
     ...userProps
   } = fieldProps;
 
@@ -336,6 +337,8 @@ function useField(fieldProps = {}, userRef) {
 
   /* ----------------- Field Api && State ----------------- */
 
+  const relevantFunc = () => true;
+
   // Build the field api
   const fieldApi = {
     setValue,
@@ -349,7 +352,8 @@ function useField(fieldProps = {}, userRef) {
     getFieldState: () => ({
       value: getVal(),
       touched: getTouch(),
-    })
+    }),
+    relevant: userRelevant || relevantFunc
   };
 
   // Build the field state

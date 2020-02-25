@@ -1,3 +1,8 @@
+## 3.5.0 (February 25, 2020)
+
+### Added 
+- New multistep abilities via setCurrent in `formApi` and `Current` in `formState`. See compex multistep form in docs
+
 ## 3.4.0 (February 22, 2020)
 
 ### Added 

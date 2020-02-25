@@ -14,7 +14,7 @@ const Step1 = ({ next }) => {
     <div>
       <label>
         Please enter your first name:
-        <Text field="first" validate={validate} keepState step={0} />
+        <Text field="first" validate={validate} keepState />
       </label>
       <button type="button" onClick={next}>Next</button>
     </div>
@@ -26,7 +26,7 @@ const Step2 = ({ back, next }) => {
     <div>
       <label>
         Please enter your last name:
-        <Text field="last" validate={validate} keepState step={1} />
+        <Text field="last" validate={validate} keepState />
       </label>
       <button type="button" onClick={next}>Next</button>
       <button type="button" onClick={back}>Back</button>
@@ -39,7 +39,7 @@ const Step3 = ({ back }) => {
     <div>
       <label>
         Please enter your favorite color:
-        <Text field="color" validate={validate} keepState step={2} />
+        <Text field="color" validate={validate} keepState />
       </label>
       <button type="button" onClick={back}>Back</button>
       <button type="submit" >Submit</button>

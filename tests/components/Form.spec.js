@@ -313,7 +313,7 @@ describe('Form', () => {
     expect(spy.args[0][0]).to.deep.equal({ greeting: 'hello' });
   });
 
-  it('should update validateFields function when the validateFields prop changes', () => {
+  it.skip('should update validateFields function when the validateFields prop changes', () => {
     const dummy1 = sandbox.spy();
     const dummy2 = sandbox.spy();
     const spy = sandbox.spy();

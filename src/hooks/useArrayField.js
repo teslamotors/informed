@@ -28,7 +28,7 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
   // May be scoped so get full field name!!
   const fullField = formApi.getFullField(field);
 
-  const initialVals = formApi.getInitialValue(fullField) || initialValue || [];
+  const initialVals = formApi.getInitialValue(field) || initialValue || [];
 
   // TODO throw error if initial value and its not array
 
@@ -86,6 +86,7 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
   const remove = i => {
 
     // Notify form to expect removal on this field
+    logger('EXPECTING REMOVAL OF', `${field}[${i}] and ${field}[${keys.length - 1}]`);
     updater.expectRemoval(`${field}[${i}]`);
     updater.expectRemoval(`${field}[${keys.length - 1}]`);
 

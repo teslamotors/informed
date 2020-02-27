@@ -8,7 +8,7 @@ const FormRegisterContext = React.createContext({
   setError: () => { },
   update: () => { },
   getField: () => { },
-  expectRemoval: () => { }
+  expectRemoval: () => { },
 });
 
 const FormStateContext = React.createContext({});
@@ -18,7 +18,9 @@ const FormApiContext = React.createContext({
   getOptions: () => ({}),
   setInitialValue: () => { },
   getInitialValue: () => { },
-  getDerrivedValue: () => { }
+  getDerrivedValue: () => { },
+  getSavedValue: () => { },
+  removeSavedState: () => { }
 });
 const GroupContext = React.createContext();
 const SelectContext = React.createContext();

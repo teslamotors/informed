@@ -150,10 +150,38 @@ function useField(fieldProps = {}, userRef) {
   // Generate validation function
   const validate = generateValidationFunction(validationFunc, validationSchema);
 
+  // Grab possible initial value from form
+  const formInitialValue = formApi.getInitialValue(field);
+
+  // We might have keep state so check for it!
+  const savedState = formApi.getSavedValue(field);
+  let savedValue;
+  let savedTouched;
+  if (keepState && savedState) {
+    logger(`Setting field ${name}'s kept state`, savedState);
+    savedValue = savedState.value;
+    savedTouched = savedState.touched;
+    // Remove the saved state
+    formApi.removeSavedState(name);
+  }
+
+  // Create Initial Value
+  let initVal;
+
+  // We do these checks because initial value could be false or zero!!
+  if (keepState && savedValue != undefined) {
+    initVal = savedValue;
+  } else if (initialValue != undefined) {
+    initVal = initialValue;
+  } else {
+    initVal = formInitialValue;
+  }
+
   // Initialize state 
-  const [value, setVal, getTheVal] = useStateWithGetter(initializeValue(initialValue, mask));
+  // TODO look into possible issue wuere savedValue is empty string 
+  const [value, setVal, getTheVal] = useStateWithGetter(initializeValue(initVal, mask));
   const [error, setErr, getErr] = useStateWithGetter(validateOnMount ? validate(value) : undefined);
-  const [touched, setTouch, getTouch] = useStateWithGetter();
+  const [touched, setTouch, getTouch] = useStateWithGetter(savedTouched);
   const [cursor, setCursor, getCursor] = useStateWithGetter(0);
   const [cursorOffset, setCursorOffset, getCursorOffset] = useStateWithGetter(0);
   const [maskedValue, setMaskedValue] = useState(initializeMask(value, format, parse));
@@ -377,7 +405,7 @@ function useField(fieldProps = {}, userRef) {
     const fullField = formApi.getFullField(field);
     logger('Initial Register', fullField);
     const fieldObj = { field: fullField, fieldApi, fieldState, notify, keepState, shadow };
-    updater.register(field, fieldObj);
+    updater.register(field, fieldObj, true);
   });
 
   logger('Render', formApi.getFullField(field), fieldState);

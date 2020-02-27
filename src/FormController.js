@@ -85,6 +85,7 @@ class FormController extends EventEmitter {
     this.getFormState = this.getFormState.bind(this);
     this.expectRemoval = this.expectRemoval.bind(this);
     this.getSavedValue = this.getSavedValue.bind(this);
+    this.removeSavedState = this.removeSavedState.bind(this);
     this.getDerrivedValue = this.getDerrivedValue.bind(this);
     this.setValues = this.setValues.bind(this);
     this.resetField = this.resetField.bind(this);
@@ -131,6 +132,7 @@ class FormController extends EventEmitter {
       getOptions: this.getOptions,
       emitter: this,
       getSavedValue: this.getSavedValue,
+      removeSavedState: this.removeSavedState,
       getDerrivedValue: this.getDerrivedValue,
       getStep: this.getStep,
       setStep: this.setStep,
@@ -341,6 +343,10 @@ class FormController extends EventEmitter {
     return ObjectMap.get(this.savedValues, name);
   }
 
+  removeSavedState(name) {
+    ObjectMap.delete(this.savedValues, name);
+  }
+
   getFullField(field) {
     return field;
   }
@@ -544,16 +550,20 @@ class FormController extends EventEmitter {
 
   /* ---------------- Updater Functions (used by fields) ---------------- */
 
-  register(name, field) {
+  // ADDED initialRender parameter because of react 16.13.0 warning that does not like
+  // setting initial value during first render
+  register(name, field, initialRender) {
     debug('Register', name, field.state);
 
     // The field is on the screen
     this.onScreen[name] = field;
 
     // Determine if the field has been registered before
-    const registered = this.registered[name];
+    //const registered = this.registered[name];
+
     // Set registered flag
     this.registered[name] = true;
+
     // Always register the field
     this.fields.set(name, field);
 
@@ -571,22 +581,25 @@ class FormController extends EventEmitter {
     }
 
     //Initialize the values if it needs to be
-    const initialValue = ObjectMap.get(this.options.initialValues, name);
-    if (initialValue !== undefined && !registered) {
-      field.fieldApi.setValue(initialValue);
-    }
+    // THIS HAS BEEN MOVED TO THE USE FIELD HOOK!!
+    // const initialValue = ObjectMap.get(this.options.initialValues, name);
+    // if (initialValue !== undefined && !registered) {
+    //   field.fieldApi.setValue(initialValue);
+    // }
 
     // Check to see if we need to load in saved state
-    const savedState = ObjectMap.get(this.savedValues, name);
-    if (field.keepState && savedState) {
-      debug(`Setting field ${name}'s kept state`, savedState);
-      field.fieldApi.setValue(savedState.value);
-      field.fieldApi.setTouched(savedState.touched);
-      // Remove the saved state
-      ObjectMap.delete(this.savedValues, name);
-    }
+    // const savedState = ObjectMap.get(this.savedValues, name);
+    // if (field.keepState && savedState) {
+    //   debug(`Setting field ${name}'s kept state`, savedState);
+    //   field.fieldApi.setValue(savedState.value);
+    //   field.fieldApi.setTouched(savedState.touched);
+    //   // Remove the saved state
+    //   ObjectMap.delete(this.savedValues, name);
+    // }
 
-    this.emit('change');
+    if (!initialRender) {
+      this.emit('change');
+    }
   }
 
   deregister(name) {
@@ -614,6 +627,10 @@ class FormController extends EventEmitter {
       debug('Removing field', name);
       this.fields.delete(name);
     }
+
+    // Always clear out expected removals when a deregistering array field comes in
+    // console.log('clearing expected', magicValue);
+    // delete this.expectedRemovals[magicValue];
 
     this.emit('change');
     //this.emit('value', name); // << WHY DID I PUT THIS 

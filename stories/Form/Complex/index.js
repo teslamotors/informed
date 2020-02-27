@@ -10,24 +10,24 @@ const Complex = () => (
     <Form>
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, marginRight: '2rem' }}>
-          <label>First name:<Text field="name"/></label>
+          <label>First name:<Text field="name" /></label>
           <Scope scope="favorite">
-            <label>Favorite color:<Text field="color"/></label>
-            <label>Favorite food:<Text field="food"/></label>
+            <label>Favorite color:<Text field="color" /></label>
+            <label>Favorite food:<Text field="food" /></label>
           </Scope>
           <label>Friend 1:<Text field="friends[0]" /></label>
           <label>Friend 2:<Text field="friends[1]" /></label>
           <label>Friend 3:<Text field="friends[2]" /></label>
-          <label>Bio:<TextArea field="bio"/></label>
+          <label>Bio:<TextArea field="bio" /></label>
           <RadioGroup field="gender">
-            <label>Male: <Radio value="male"/></label>            
-            <label>Female: <Radio value="female"/></label>
+            <label>Male: <Radio value="male" /></label>
+            <label>Female: <Radio value="female" /></label>
           </RadioGroup>
           <label>
             Relationship status:
             <Select field="status">
               <Option value="" disabled>
-              Select One...
+                Select One...
               </Option>
               <Option value="single">Single</Option>
               <Option value="relationship">Relationship</Option>
@@ -48,7 +48,7 @@ const Complex = () => (
               <Option value="purple">Purple</Option>
             </Select>
           </label>
-          <label>Authorize: <Checkbox field="authorize"/></label>
+          <label>Authorize: <Checkbox field="authorize" /></label>
           <button type="submit">Submit</button>
         </div>
         <div style={{ flex: 2, minWidth: '300px' }}>

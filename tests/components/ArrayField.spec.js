@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
+import { act } from 'react-dom/test-utils';
 import { Form, Text, ArrayField, Scope } from '../../src';
 
 describe('ArrayField', () => {
@@ -120,35 +121,40 @@ describe('ArrayField', () => {
 
   it('should remove correct field when remove is clicked && keepState is passed', () => {
     let savedApi;
-    const wrapper = mount(
-      <Form
-        initialValues={{
-          siblings: ['Jeff', 'Joe', 'Bob']
-        }}
-        getApi={api => {
-          savedApi = api;
-        }}>
-        <ArrayField field="siblings" keepState>
-          {({ add, fields }) => (
-            <>
-              <button onClick={add} type="button" id="add">
-                Add Sibling
-              </button>
-              {fields.map(({ field, key, remove }, i) => (
-                <label key={key}>
-                  Sibling {i}:
-                  <Text field={field} keepState />
-                  <button type="button" onClick={remove} id="remove">
-                    Remove
-                  </button>
-                </label>
-              ))}
-            </>
-          )}
-        </ArrayField>
-        <button type="submit">Submit</button>
-      </Form>
-    );
+    let wrapper;
+    act(() => {
+
+      wrapper = mount(
+        <Form
+          initialValues={{
+            siblings: ['Jeff', 'Joe', 'Bob']
+          }}
+          getApi={api => {
+            savedApi = api;
+          }}>
+          <ArrayField field="siblings" keepState>
+            {({ add, fields }) => (
+              <>
+                <button onClick={add} type="button" id="add">
+                  Add Sibling
+                </button>
+                {fields.map(({ field, key, remove }, i) => (
+                  <label key={key}>
+                    Sibling {i}:
+                    <Text field={field} keepState />
+                    <button type="button" onClick={remove} id="remove">
+                      Remove
+                    </button>
+                  </label>
+                ))}
+              </>
+            )}
+          </ArrayField>
+          <button type="submit">Submit</button>
+        </Form>
+      );
+    });
+
     const add = wrapper.find('#add');
     let inputs = wrapper.find('input');
     expect(inputs.length).to.equal(3);
@@ -164,37 +170,96 @@ describe('ArrayField', () => {
     expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff', 'Bob'] });
   });
 
+  it('should remove correct field when remove is clicked && keepState is passed', () => {
+    let savedApi;
+    let wrapper;
+    act(() => {
+      wrapper = mount(
+        <Form
+          initialValues={{
+            siblings: [{ name: 'Jeff', age: '25' }, { name: 'Joe', age: '45' }, { name: 'Bob', age: '50' }]
+          }}
+          getApi={api => {
+            savedApi = api;
+          }}>
+          <ArrayField field="siblings" keepState>
+            {({ add, fields }) => (
+              <>
+                <button onClick={add} type="button" id="add">
+                  Add Sibling
+                </button>
+                {fields.map(({ field, key, remove }, i) => (
+                  <label key={key}>
+                    Sibling {i}:
+                    <Text field={`${field}.name`} keepState />
+                    <Text field={`${field}.age`} keepState />
+                    <button type="button" onClick={remove} id="remove">
+                      Remove
+                    </button>
+                  </label>
+                ))}
+              </>
+            )}
+          </ArrayField>
+          <button type="submit">Submit</button>
+        </Form>
+      );
+    });
+    const add = wrapper.find('#add');
+    let inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(6);
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: [{ name: 'Jeff', age: '25' }, { name: 'Joe', age: '45' }, { name: 'Bob', age: '50' }]
+    });
+    let remove = wrapper.find('#remove').at(1);
+    remove.simulate('click');
+
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(4);
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: [{ name: 'Jeff', age: '25' }, { name: 'Bob', age: '50' }]
+    });
+    // add.simulate('click');
+    // inputs = wrapper.find('input');
+    // expect(inputs.length).to.equal(3);
+    // expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff', 'Bob'] });
+  });
+
   it('should remove correct field when remove is clicked && keepState is passed and NOT reset after its added back ', () => {
     let savedApi;
-    const wrapper = mount(
-      <Form
-        initialValues={{
-          siblings: ['Jeff', 'Joe', 'Bob']
-        }}
-        getApi={api => {
-          savedApi = api;
-        }}>
-        <ArrayField field="siblings" keepState>
-          {({ add, fields }) => (
-            <>
-              <button onClick={add} type="button" id="add">
-                Add Sibling
-              </button>
-              {fields.map(({ field, key, remove }, i) => (
-                <label key={key}>
-                  Sibling {i}:
-                  <Text field={field} keepState />
-                  <button type="button" onClick={remove} id="remove">
-                    Remove
-                  </button>
-                </label>
-              ))}
-            </>
-          )}
-        </ArrayField>
-        <button type="submit">Submit</button>
-      </Form>
-    );
+    let wrapper;
+    act(() => {
+
+      wrapper = mount(
+        <Form
+          initialValues={{
+            siblings: ['Jeff', 'Joe', 'Bob']
+          }}
+          getApi={api => {
+            savedApi = api;
+          }}>
+          <ArrayField field="siblings" keepState>
+            {({ add, fields }) => (
+              <>
+                <button onClick={add} type="button" id="add">
+                  Add Sibling
+                </button>
+                {fields.map(({ field, key, remove }, i) => (
+                  <label key={key}>
+                    Sibling {i}:
+                    <Text field={field} keepState />
+                    <button type="button" onClick={remove} id="remove">
+                      Remove
+                    </button>
+                  </label>
+                ))}
+              </>
+            )}
+          </ArrayField>
+          <button type="submit">Submit</button>
+        </Form>
+      );
+    });
     const add = wrapper.find('#add');
     let inputs = wrapper.find('input');
     expect(inputs.length).to.equal(3);
@@ -212,36 +277,40 @@ describe('ArrayField', () => {
 
   it('should remove correct fields << plural when remove is clicked && keepState is passed', () => {
     let savedApi;
-    const wrapper = mount(
-      <Form
-        initialValues={{
-          siblings: [{ foo: 'Jeff', bar: 'Joe' }, { foo: 'Bob', bar: 'Bill' }]
-        }}
-        getApi={api => {
-          savedApi = api;
-        }}>
-        <ArrayField field="siblings" keepState>
-          {({ add, fields }) => (
-            <>
-              <button onClick={add} type="button" id="add">
-                Add Sibling
-              </button>
-              {fields.map(({ field, key, remove }, i) => (
-                <label key={key}>
-                  Sibling {i}:
-                  <Text field={`${field}.foo`} keepState />
-                  <Text field={`${field}.bar`} keepState />
-                  <button type="button" onClick={remove} id="remove">
-                    Remove
-                  </button>
-                </label>
-              ))}
-            </>
-          )}
-        </ArrayField>
-        <button type="submit">Submit</button>
-      </Form>
-    );
+    let wrapper;
+    act(() => {
+
+      wrapper = mount(
+        <Form
+          initialValues={{
+            siblings: [{ foo: 'Jeff', bar: 'Joe' }, { foo: 'Bob', bar: 'Bill' }]
+          }}
+          getApi={api => {
+            savedApi = api;
+          }}>
+          <ArrayField field="siblings" keepState>
+            {({ add, fields }) => (
+              <>
+                <button onClick={add} type="button" id="add">
+                  Add Sibling
+                </button>
+                {fields.map(({ field, key, remove }, i) => (
+                  <label key={key}>
+                    Sibling {i}:
+                    <Text field={`${field}.foo`} keepState />
+                    <Text field={`${field}.bar`} keepState />
+                    <button type="button" onClick={remove} id="remove">
+                      Remove
+                    </button>
+                  </label>
+                ))}
+              </>
+            )}
+          </ArrayField>
+          <button type="submit">Submit</button>
+        </Form>
+      );
+    });
     const add = wrapper.find('#add');
     let inputs = wrapper.find('input');
     expect(inputs.length).to.equal(4);
@@ -630,17 +699,20 @@ describe('ArrayField', () => {
 
     it('should remove correct field when remove is clicked', () => {
       let savedApi;
+      let wrapper;
+      act(() => {
 
-      const wrapper = mount(
-        <Form
-          initialValues={{ foo: { siblings: [{ name: 'test1' }, { name: 'test2' }, { name: 'test3' }] } }}
-          getApi={api => {
-            savedApi = api;
-          }}>
-          >
-          {getComponent()}
-        </Form>
-      );
+        wrapper = mount(
+          <Form
+            initialValues={{ foo: { siblings: [{ name: 'test1' }, { name: 'test2' }, { name: 'test3' }] } }}
+            getApi={api => {
+              savedApi = api;
+            }}>
+            >
+            {getComponent()}
+          </Form>
+        );
+      });
 
       let inputs = wrapper.find('input');
       expect(inputs.length).to.equal(6);

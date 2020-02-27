@@ -86,7 +86,8 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
   const remove = i => {
 
     // Notify form to expect removal on this field
-    updater.expectRemoval(`${field}`);
+    updater.expectRemoval(`${field}[${i}]`);
+    updater.expectRemoval(`${field}[${keys.length - 1}]`);
 
     // Remove the key
     const newKeys = keys.slice(0, i).concat(keys.slice(i + 1, keys.length));

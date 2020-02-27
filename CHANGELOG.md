@@ -1,3 +1,8 @@
+## 3.5.1 (February 27, 2020)
+
+### Fixed  
+- [Issue](https://github.com/joepuzzo/informed/issues/272) where dynamic nested array fields with keep state kept too much state :)
+
 ## 3.5.0 (February 25, 2020)
 
 ### Added 

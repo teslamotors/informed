@@ -557,10 +557,12 @@ class FormController extends EventEmitter {
     // Always register the field
     this.fields.set(name, field);
 
-    // Example foo.bar.baz[3].baz >>>> foo.bar.baz
-    const magicValue = name.slice(0, name.lastIndexOf('[') != -1 ? name.lastIndexOf('[') : name.length);
+    // Example foo.bar.baz[3].baz >>>> foo.bar.baz[3]
+    //const magicValue = name.slice(0, name.lastIndexOf('[') != -1 ? name.lastIndexOf('[') : name.length);
+    const magicValue = name.slice(0, name.lastIndexOf('[') != -1 ? name.lastIndexOf(']') + 1 : name.length);
 
     // Always clear out expected removals when a reregistering array field comes in
+    debug('clearing expected', magicValue);
     delete this.expectedRemovals[magicValue];
 
     // The field is a shadow field ooo spooky so dont set anything
@@ -595,8 +597,9 @@ class FormController extends EventEmitter {
 
     const field = this.fields.get(name);
 
-    // Example foo.bar.baz[3].baz >>>> foo.bar.baz
-    const magicValue = name.slice(0, name.lastIndexOf('[') != -1 ? name.lastIndexOf('[') : name.length);
+    // Example foo.bar.baz[3].baz >>>> foo.bar.baz[3]
+    //const magicValue = name.slice(0, name.lastIndexOf('[') != -1 ? name.lastIndexOf('[') : name.length);
+    const magicValue = name.slice(0, name.lastIndexOf('[') != -1 ? name.lastIndexOf(']') + 1 : name.length);
 
     // If the fields state is to be kept then save the value
     // Exception where its expected to be removed! 

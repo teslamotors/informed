@@ -1,3 +1,8 @@
+## 3.5.2 (February 28, 2020)
+
+### Fixed  
+- [Issue](https://github.com/joepuzzo/informed/issues/275) where new version of react would throw warnings due to bad code
+
 ## 3.5.1 (February 27, 2020)
 
 ### Fixed  

@@ -20,9 +20,6 @@ class FormController extends EventEmitter {
     // Why? so the form can control the fields!
     this.fields = new Map();
 
-    // Map to store if the field was once registered
-    this.registered = {};
-
     // Map to store whos on the screen
     this.onScreen = {};
 
@@ -196,12 +193,6 @@ class FormController extends EventEmitter {
 
     // Validate the entire form
     this.validate();
-
-    // // If its valid move on
-    // if (this.valid()) {
-    //   this.state.step = this.state.step + 1;
-    //   this.state.Current = nextComponent;
-    // }
 
     // If fields on the screen ( currently rendered ) are valid move on
     if (this.screenValid()) {
@@ -558,17 +549,10 @@ class FormController extends EventEmitter {
     // The field is on the screen
     this.onScreen[name] = field;
 
-    // Determine if the field has been registered before
-    //const registered = this.registered[name];
-
-    // Set registered flag
-    this.registered[name] = true;
-
     // Always register the field
     this.fields.set(name, field);
 
     // Example foo.bar.baz[3].baz >>>> foo.bar.baz[3]
-    //const magicValue = name.slice(0, name.lastIndexOf('[') != -1 ? name.lastIndexOf('[') : name.length);
     const magicValue = name.slice(0, name.lastIndexOf('[') != -1 ? name.lastIndexOf(']') + 1 : name.length);
 
     // Always clear out expected removals when a reregistering array field comes in
@@ -580,23 +564,7 @@ class FormController extends EventEmitter {
       return;
     }
 
-    //Initialize the values if it needs to be
-    // THIS HAS BEEN MOVED TO THE USE FIELD HOOK!!
-    // const initialValue = ObjectMap.get(this.options.initialValues, name);
-    // if (initialValue !== undefined && !registered) {
-    //   field.fieldApi.setValue(initialValue);
-    // }
-
-    // Check to see if we need to load in saved state
-    // const savedState = ObjectMap.get(this.savedValues, name);
-    // if (field.keepState && savedState) {
-    //   debug(`Setting field ${name}'s kept state`, savedState);
-    //   field.fieldApi.setValue(savedState.value);
-    //   field.fieldApi.setTouched(savedState.touched);
-    //   // Remove the saved state
-    //   ObjectMap.delete(this.savedValues, name);
-    // }
-
+    // We register field right away but dont want it to triger a rerender
     if (!initialRender) {
       this.emit('change');
     }
@@ -611,7 +579,6 @@ class FormController extends EventEmitter {
     const field = this.fields.get(name);
 
     // Example foo.bar.baz[3].baz >>>> foo.bar.baz[3]
-    //const magicValue = name.slice(0, name.lastIndexOf('[') != -1 ? name.lastIndexOf('[') : name.length);
     const magicValue = name.slice(0, name.lastIndexOf('[') != -1 ? name.lastIndexOf(']') + 1 : name.length);
 
     // If the fields state is to be kept then save the value
@@ -628,12 +595,7 @@ class FormController extends EventEmitter {
       this.fields.delete(name);
     }
 
-    // Always clear out expected removals when a deregistering array field comes in
-    // console.log('clearing expected', magicValue);
-    // delete this.expectedRemovals[magicValue];
-
     this.emit('change');
-    //this.emit('value', name); // << WHY DID I PUT THIS 
   }
 
   expectRemoval(field) {

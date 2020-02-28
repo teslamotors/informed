@@ -104,12 +104,6 @@ const generateValue = ({ fieldType, maskedValue, multiple, value }) => {
   }
 };
 
-// const generateType = ({ fieldType }) => {
-//   if (fieldType === 'number') {
-//     return 'number';
-//   }
-// };
-
 function useField(fieldProps = {}, userRef) {
   // Pull props off of field props
   const {
@@ -155,22 +149,18 @@ function useField(fieldProps = {}, userRef) {
 
   // We might have keep state so check for it!
   const savedState = formApi.getSavedValue(field);
-  let savedValue;
-  let savedTouched;
-  if (keepState && savedState) {
-    logger(`Setting field ${name}'s kept state`, savedState);
-    savedValue = savedState.value;
-    savedTouched = savedState.touched;
-    // Remove the saved state
-    formApi.removeSavedState(name);
-  }
 
-  // Create Initial Value
+  // Create Initial Values
   let initVal;
+  let initTouched;
 
   // We do these checks because initial value could be false or zero!!
-  if (keepState && savedValue != undefined) {
-    initVal = savedValue;
+  if (keepState && savedState) {
+    logger(`Setting field ${name}'s kept state`, savedState);
+    initVal = savedState.value;
+    initTouched = savedState.touched;
+    // Remove the saved state
+    formApi.removeSavedState(name);
   } else if (initialValue != undefined) {
     initVal = initialValue;
   } else {
@@ -178,10 +168,9 @@ function useField(fieldProps = {}, userRef) {
   }
 
   // Initialize state 
-  // TODO look into possible issue wuere savedValue is empty string 
   const [value, setVal, getTheVal] = useStateWithGetter(initializeValue(initVal, mask));
   const [error, setErr, getErr] = useStateWithGetter(validateOnMount ? validate(value) : undefined);
-  const [touched, setTouch, getTouch] = useStateWithGetter(savedTouched);
+  const [touched, setTouch, getTouch] = useStateWithGetter(initTouched);
   const [cursor, setCursor, getCursor] = useStateWithGetter(0);
   const [cursorOffset, setCursorOffset, getCursorOffset] = useStateWithGetter(0);
   const [maskedValue, setMaskedValue] = useState(initializeMask(value, format, parse));
@@ -197,7 +186,7 @@ function useField(fieldProps = {}, userRef) {
 
   /* ---------------------- Setters ---------------------- */
 
-  // Define set error
+  // ---- Define set error ---- 
 
   const setError = (val) => {
     // For multistep forms always set error to undefined when not at that step
@@ -212,7 +201,7 @@ function useField(fieldProps = {}, userRef) {
     }
   };
 
-  // Define set value
+  // ---- Define set value ----
   const setValue = (val, e, options = {}) => {
 
     logger(`Setting ${field} to ${val}`);
@@ -283,7 +272,7 @@ function useField(fieldProps = {}, userRef) {
     updater.setValue(field, val);
   };
 
-  // Define set touched
+  // ---- Define set touched ----
   const setTouched = (val, reset) => {
 
     logger(`Field ${field} has been touched`);
@@ -341,7 +330,7 @@ function useField(fieldProps = {}, userRef) {
     updater.setTouched(field, val);
   };
 
-  // Define reset
+  // ---- Define reset ----
   const reset = () => {
     const initVal = initializeValue(initialValueRef.current, mask);
     // TODO support numbers
@@ -351,7 +340,7 @@ function useField(fieldProps = {}, userRef) {
     setTouched(undefined, true);
   };
 
-  // Define validate
+  // ---- Define validate ----
 
   // Note: it takes values as an optimization for when
   // the form controller calls it ( dont need to generate all values )
@@ -439,17 +428,6 @@ function useField(fieldProps = {}, userRef) {
       const fieldObj = { field: fullField, fieldApi, fieldState, notify, keepState, shadow };
 
       updater.update(field, fieldObj);
-
-      // Should re-trigger validation if validation handler updates
-      // TODO figure out how to do this without breaking validate={val=> validateFunc}
-      // const val = getVal();
-      // if (
-      //   validate &&
-      //   ((validateOnChange && val) || (validateOnBlur && getTouch()))
-      // ) {
-      //   setError(validate(val, formApi.getValues()));
-      // }
-
     },
     // This is VERYYYY!! Important!
     [validationFunc, validateOnChange, validateOnBlur, onValueChange]

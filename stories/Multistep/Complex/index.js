@@ -10,6 +10,7 @@ import {
   useFormState,
   useFieldState,
   //FormState,
+  ArrayField,
   Checkbox,
   RadioGroup,
   Radio
@@ -89,6 +90,25 @@ const EpiPen = () => {
           <label>Yes <Radio value="yes" /></label>
           <label>No <Radio value="no" /></label>
         </RadioGroup>
+        {/* <ArrayField field="siblings" keepState>
+          {({ add, fields }) => (
+            <>
+              <button onClick={add} type="button">
+                Add Sibling
+              </button>
+              {fields.map(({ field, key, remove }, i) => (
+                <label key={key}>
+                  Sibling {i}:
+                  <Text field={`${field}.name`} keepState/>
+                  <Text field={`${field}.age`} keepState/>
+                  <button type="button" onClick={remove}>
+                    Remove
+                  </button>
+                </label>
+              ))}
+            </>
+          )}
+        </ArrayField> */}
       </label>
       <button type="button" onClick={() => next(NextComponent)}>Next</button>
       <button type="button" onClick={() => back(PrevComponent)}>Back</button>

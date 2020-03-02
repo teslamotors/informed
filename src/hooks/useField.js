@@ -6,6 +6,7 @@ import { validateYupField } from '../utils';
 
 import Debug from '../debug';
 import useLayoutEffect from './useIsomorphicLayoutEffect';
+import FormController from '../FormController';
 const logger = Debug('informed:useField' + '\t');
 
 // localStorage.debug = 'informed:.*' << HOW to enable debuging
@@ -131,15 +132,22 @@ function useField(fieldProps = {}, userRef) {
     multiple,
     onChange,
     onBlur,
+    formController,
     relevant: userRelevant,
     ...userProps
   } = fieldProps;
 
   // Grab the form register context
-  const updater = useContext(FormRegisterContext);
+  let updater = useContext(FormRegisterContext);
 
   // Grab the form state
-  const formApi = useFormApi();
+  let formApi = useFormApi();
+
+  // If the form Controller was passed in then use that instead
+  if( formController ){
+    updater = formController.updater;
+    formApi = formController.getFormApi();
+  }
 
   // Generate validation function
   const validate = generateValidationFunction(validationFunc, validationSchema);

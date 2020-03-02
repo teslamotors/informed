@@ -1,3 +1,8 @@
+## 3.6.0 (March 1, 2020)
+
+### Added  
+- Ability to pass formController to useField hook
+
 ## 3.5.2 (February 28, 2020)
 
 ### Fixed  

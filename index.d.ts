@@ -126,6 +126,7 @@ declare module 'informed' {
     onChange?: (formState: FormState<V>) => void
     onValueChange?: (values: V) => void
     dontPreventDefault?: boolean
+    preventEnter?: boolean
     getApi?: (formApi: FormApi<V>) => void
     onSubmitFailure?: (errors: { [key in keyof V]: FormError }) => void
     validate?: (values: V) => FormError

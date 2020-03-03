@@ -1,3 +1,8 @@
+## 3.6.1 (March 2, 2020)
+
+### Updated  
+- Type file to include preventEnter on form props
+
 ## 3.6.0 (March 1, 2020)
 
 ### Added  

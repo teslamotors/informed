@@ -6,9 +6,7 @@ import readme from './README.md';
 import { Form, Text } from '../../../src';
 
 const validate = value => {
-  return !value || value.length < 5
-    ? 'Field must be at least five characters'
-    : null;
+  if(!value || value.length < 5) return 'Field must be at least five characters';
 };
 
 const ValidationControl = () => (

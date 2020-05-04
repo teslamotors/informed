@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useMemo, useRef } from 'react';
 import { FormRegisterContext } from '../Context';
 import useFormApi from './useFormApi';
 import useStateWithGetter from './useStateWithGetter';
-import { validateYupField } from '../utils';
+import { validateYupField, uuidv4 } from '../utils';
 
 import Debug from '../debug';
 import useLayoutEffect from './useIsomorphicLayoutEffect';
@@ -137,10 +137,13 @@ function useField(fieldProps = {}, userRef) {
     ...userProps
   } = fieldProps;
 
+  // Create ref to a field id
+  const [fieldId] = useState(uuidv4());
+
   // Grab the form register context
   let updater = useContext(FormRegisterContext);
 
-  // Grab the form state
+  // Grab the form api
   let formApi = useFormApi();
 
   // If the form Controller was passed in then use that instead
@@ -185,7 +188,9 @@ function useField(fieldProps = {}, userRef) {
 
   // Create then update refs to props
   const initialValueRef = useRef(initialValue);
+  const fieldRef = useRef(field);
   initialValueRef.current = initialValue;
+  fieldRef.current = field;
 
   // Special getter to support shadow fields
   const getVal = () => {
@@ -400,9 +405,9 @@ function useField(fieldProps = {}, userRef) {
   // Initial register needs to happen before render ( simulating constructor muhahahah )
   useState(() => {
     const fullField = formApi.getFullField(field);
-    logger('Initial Register', fullField);
-    const fieldObj = { field: fullField, fieldApi, fieldState, notify, keepState, shadow };
-    updater.register(field, fieldObj, true);
+    logger('Initial Register', fieldId, fullField);
+    const fieldObj = { field: fullField, fieldId, fieldApi, fieldState, notify, keepState, shadow };
+    updater.register(fieldId, fieldObj, true);
   });
 
   logger('Render', formApi.getFullField(field), fieldState);
@@ -411,20 +416,20 @@ function useField(fieldProps = {}, userRef) {
 
   const ref = React.useMemo(() => userRef || internalRef, []);
 
-  // We want to register and deregister this field when field name changes
+  // We want to register and deregister this field
   useEffect(
     () => {
-      const fullField = formApi.getFullField(field);
-      logger('Register', fullField);
-      const fieldObj = { field: fullField, fieldApi, fieldState, notify, keepState, shadow };
-      updater.register(field, fieldObj);
+      const fullField = formApi.getFullField(fieldRef.current);
+      logger('Register', fieldId, fieldRef.current);
+      const fieldObj = { field: fullField, fieldId, fieldApi, fieldState, notify, keepState, shadow };
+      updater.register(fieldId, fieldObj);
       return () => {
-        logger('Deregister', fullField);
-        updater.deregister(field);
+        const fullField = formApi.getFullField(fieldRef.current);
+        logger('Deregister', fieldId, fullField);
+        updater.deregister(fieldId);
       };
     },
-    // This is VERYYYY!! Important!
-    [field]
+    []
   );
 
   // We want to let the controller know of changes on this field when specific props change
@@ -433,12 +438,12 @@ function useField(fieldProps = {}, userRef) {
       const fullField = formApi.getFullField(field);
       logger('Update', field);
 
-      const fieldObj = { field: fullField, fieldApi, fieldState, notify, keepState, shadow };
+      const fieldObj = { field: fullField, fieldId, fieldApi, fieldState, notify, keepState, shadow };
 
-      updater.update(field, fieldObj);
+      updater.update(fieldId, fieldObj);
     },
     // This is VERYYYY!! Important!
-    [validationFunc, validateOnChange, validateOnBlur, onValueChange]
+    [validationFunc, validateOnChange, validateOnBlur, onValueChange, field]
   );
 
   // Maintain cursor position

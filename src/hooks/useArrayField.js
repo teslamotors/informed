@@ -153,7 +153,8 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
   };
 
   const arrayFieldState = {
-    fields
+    fields,
+    field
   };
 
   // Wrap the updater to update array fields references
@@ -185,7 +186,8 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
     addWithInitialValue,
     fields,
     arrayFieldState,
-    arrayFieldApi
+    arrayFieldApi,
+    field,
   };
 };
 

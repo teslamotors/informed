@@ -38,13 +38,21 @@ const NestedForm = () => {
               }} type="button">set friends[0].name to test</button>
 
                <ArrayField.Items>
-                  {({ remove, field, reset, initialValue }) => (
+                  {({ remove, field, reset, initialValue, values, setValue }) => (
                     <label>
                       <h5>{field}</h5>
                       <Text field={`${field}.name`} initialValue={initialValue && initialValue.name}/>
                       <Text field={`${field}.age`}/>
                       <button type="button" onClick={reset}>Reset</button>
                       <button type="button" onClick={remove}>Remove</button>
+                      <button type="button" onClick={() => setValue('name', 'Elon')}>
+                        Set Name to "Elon"
+                      </button>
+                      <pre>
+                        <code>
+                          {JSON.stringify(values, null, 2)}
+                        </code>
+                      </pre>
                     </label>
                   )}
                 </ArrayField.Items>

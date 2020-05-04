@@ -1,5 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import ObjectMap from '../ObjectMap';
 import useArrayField from '../hooks/useArrayField';
+import useFormApi from '../hooks/useFormApi';
+import useScopedApi from '../hooks/useScopedApi';
 import {
   ArrayFieldStateContext,
   ArrayFieldItemApiContext,
@@ -8,16 +11,17 @@ import {
 } from '../Context';
 
 const ArrayField = ({ children, ...props }) => {
-  const { render, arrayFieldState, arrayFieldApi } = useArrayField(props);
+  const { render, arrayFieldState, arrayFieldApi, field } = useArrayField(props);
 
   if (typeof children === 'function') {
     return render(
       children({
+        field,
         arrayFieldApi,
         arrayFieldState,
         // Make it easier for user
         ...arrayFieldApi,
-        ...arrayFieldState
+        ...arrayFieldState,
       })
     );
   }
@@ -33,15 +37,70 @@ const ArrayFieldItem = ({
   // Grab the form register context
   const updater = useContext(FormRegisterContext);
 
+  // Grab the form state
+  const formApi = useFormApi();
+
+  // A little trick I learned in nam to trigger rerender
+  const [state, setState] = useState(false);
+
   // Keep track of fields that belong to this array field
   const [fieldsById] = useState(new Map());
 
+  // Get this items field 
+  const { field } = arrayFieldItemState;
+
+  // Create scoped api
+  const scopedApi = useScopedApi(field);
+
+  // State generation function
+  const getState = () => {
+    const { values, errors, touched } = formApi.getState();
+    // Get this fields state
+    const itemState = {
+      values: ObjectMap.get(values, field),
+      errors: ObjectMap.get(errors, field),
+      touched: ObjectMap.get(touched, field)
+    };
+    return itemState;
+  };
+
+  // Register for events for rerenders!
+  useEffect(
+    () => {
+      // Define event handler
+      const onChangeHandler = fieldName => {
+        // Example foo.bar.baz[3].baz >>>> foo.bar.baz[3]
+        const magicValue = fieldName.slice(
+          0,
+          fieldName.lastIndexOf('[') != -1 ? fieldName.lastIndexOf(']') + 1 : fieldName.length
+        );
+
+        // This field updated so trigger rerender
+        if( magicValue === field ){
+          setState( prev => !prev );
+        }
+      };
+
+      // Register for events
+      formApi.emitter.on('value', onChangeHandler);
+
+      // Unregister events
+      return () => {
+        formApi.emitter.removeListener('value', onChangeHandler);
+      };
+    },
+    [field]
+  );
+ 
   // Resets all fields in this item
   const reset = () => {
     fieldsById.forEach(fld => {
       fld.fieldApi.reset();
     });
   };
+
+  // Generate the item state
+  const itemState = getState();
 
   // Wrap the updater to update array fields references
   const wrappedUpdator = {
@@ -58,20 +117,26 @@ const ArrayFieldItem = ({
 
   const arrayFieldItemApiValue = {
     ...arrayFieldItemApi,
+    ...scopedApi,
     reset,
   };
+
+  const arrayFieldItemStateValue = { 
+    ...arrayFieldItemState,
+    ...itemState
+  }
 
   if (typeof children === 'function') {
     return (
       <FormRegisterContext.Provider value={wrappedUpdator}>
         <ArrayFieldItemApiContext.Provider value={arrayFieldItemApiValue}>
-          <ArrayFieldItemStateContext.Provider value={arrayFieldItemState}>
+          <ArrayFieldItemStateContext.Provider value={arrayFieldItemStateValue}>
             {children({
               arrayFieldItemApi: arrayFieldItemApiValue,
-              arrayFieldItemState,
+              arrayFieldItemState: arrayFieldItemStateValue,
               // Make it easier for user
               ...arrayFieldItemApiValue,
-              ...arrayFieldItemState
+              ...arrayFieldItemStateValue
             })}
           </ArrayFieldItemStateContext.Provider>
         </ArrayFieldItemApiContext.Provider>
@@ -82,7 +147,7 @@ const ArrayFieldItem = ({
   return (
     <FormRegisterContext.Provider value={wrappedUpdator}>
       <ArrayFieldItemApiContext.Provider value={arrayFieldItemApiValue}>
-        <ArrayFieldItemStateContext.Provider value={arrayFieldItemState}>
+        <ArrayFieldItemStateContext.Provider value={arrayFieldItemStateValue}>
           {children}
         </ArrayFieldItemStateContext.Provider>
       </ArrayFieldItemApiContext.Provider>

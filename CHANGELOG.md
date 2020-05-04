@@ -1,3 +1,8 @@
+## 3.8.0 (May 4, 2020)
+
+### Added  
+- Array field Api control for ArrayFieldItems
+
 ## 3.7.0 (May 4, 2020)
 
 ### Refactored  

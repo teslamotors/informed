@@ -46,6 +46,7 @@ import {
   ArrayOfScopes,
   DynamicArrays,
   NestedForm,
+  AlternateSyntax
 } from './Arrays';
 
 import {
@@ -73,29 +74,30 @@ configureReadme({
    * React: React.ReactNode
    * Vue: Vue component
    */
-  StoryPreview: ({ children }) => <div style={{
-    marginTop: '2rem',
-    marginBottom: '2rem',
-    // border: '1px dashed #e5e5e5',
-  }}>{children}</div>,
+  StoryPreview: ({ children }) => (
+    <div
+      style={{
+        marginTop: '2rem',
+        marginBottom: '2rem'
+        // border: '1px dashed #e5e5e5',
+      }}>
+      {children}
+    </div>
+  ),
 
   /**
    * Wrapper for content and sidebar docs. Usually used to set some styles
    * React: React.ReactNode
    * Vue: Vue component
    */
-  DocPreview: ({ children }) => (
-    <div> {children}</div>
-  ),
+  DocPreview: ({ children }) => <div> {children}</div>,
 
   /**
    * Wrapper for hedaer docs. Usually used to set some styles
    * React: React.ReactNode
    * Vue: Vue component
    */
-  HeaderPreview: ({ children }) => (
-    <div>{children}</div>
-  ),
+  HeaderPreview: ({ children }) => <div>{children}</div>,
 
   /**
    * Wrapper for footer docs. Usually used to set some styles
@@ -112,7 +114,7 @@ configureReadme({
   /**
    * Footer docs in markdown format
    */
-  footer: '',
+  footer: ''
 });
 
 //addParameters(params);
@@ -144,8 +146,9 @@ storiesOf('CustomInputs', module).add('Creating Custom Inputs', CustomInputs);
 storiesOf('Arrays', module)
   .add('Array Of Fields', ArrayOfFields)
   .add('Array Of Scopes', ArrayOfScopes)
-  .add('Dynamic Arrays', DynamicArrays)
+  .add('Dynamic Arrays', AlternateSyntax)
   .add('Nested Form', NestedForm);
+// .add('Alternate Syntax', AlternateSyntax);
 
 storiesOf('Validation', module)
   .add('Simple Validation', SimpleValidation)
@@ -158,8 +161,7 @@ storiesOf('Validation', module)
   .add('Yup Validation', YupValidation)
   .add('Field Level + Yup Validation', FieldLevelYupValidation);
 
-storiesOf('Debugging', module)
-  .add('Form State', FormState);
+storiesOf('Debugging', module).add('Form State', FormState);
 
 storiesOf('Formatting', module)
   .add('Mask', Mask)

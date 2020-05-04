@@ -1,3 +1,11 @@
+## 3.7.0 (May 4, 2020)
+
+### Refactored  
+- To use field ids instead of names
+
+### Added
+- `<Relevant>` component
+
 ## 3.6.1 (March 2, 2020)
 
 ### Updated  

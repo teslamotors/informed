@@ -3,6 +3,7 @@ import Scope from './components/Scope';
 import ArrayField from './components/ArrayField';
 import FormProvider from './components/FormProvider';
 import FormState from './components/FormState';
+import Relevant from './components/Relevant';
 
 import withFormApi from './HOC/withFormApi';
 import withFormState from './HOC/withFormState';
@@ -65,5 +66,6 @@ export {
   Scope,
   ArrayField,
   useArrayField,
-  FormState
+  FormState,
+  Relevant
 };

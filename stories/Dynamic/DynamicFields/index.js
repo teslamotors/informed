@@ -3,7 +3,7 @@ import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 import FormState from '../../utils/FormState';
 
-import { Form, Text, RadioGroup, Radio, useFieldState } from '../../../src';
+import { Form, Text, RadioGroup, Radio, Relevant } from '../../../src';
 
 // const DynamicFields = () => (
 //   <div>
@@ -31,11 +31,6 @@ import { Form, Text, RadioGroup, Radio, useFieldState } from '../../../src';
 //   </div>
 // );
 
-const Spouse = () => {
-  const { value: married } = useFieldState('married'); 
-  return married === 'yes' ? <label >Spouse name:<Text field="spouse" /></label> : null;
-};
-
 const DynamicFields = () => (
   <div>
     <Form>
@@ -47,7 +42,9 @@ const DynamicFields = () => (
             <label>Yes <Radio value="yes"/></label>
             <label>No <Radio value="no"/></label>
           </RadioGroup>
-          <Spouse />
+          <Relevant when={({ values }) => values.married === 'yes'}>
+            <label>Spouse name:<Text field="spouse" /></label>
+          </Relevant>
           <button type="submit">Submit</button>
         </div>
         <div style={{ flex: 2, minWidth: '300px' }}>

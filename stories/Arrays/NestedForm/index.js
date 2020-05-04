@@ -24,7 +24,7 @@ const NestedForm = () => (
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             <div style={{ flex: 1, marginRight: '2rem' }}>
               <ArrayField field="friends">
-                {({ add, fields, addWithInitialValue }) => {
+                {({ add, addWithInitialValue }) => {
                   return (
                     <React.Fragment>
 
@@ -39,17 +39,17 @@ const NestedForm = () => (
                       <button onClick={() => {
                         formApi.setValue('friends[0].name', 'Test');
                       }} type="button">set friends[0].name to test</button>
-
-                      {fields.map(({key, field, remove, initialValue}) => {
-                        return (
-                          <label key={key}>
+                      <ArrayField.Items>
+                        {({ remove, field, reset, initialValue }) => (
+                          <label>
                             <h5>{field}</h5>
                             <Text field={`${field}.name`} initialValue={initialValue && initialValue.name}/>
                             <Text field={`${field}.age`}/>
-                            <button onClick={remove}>Remove</button>
+                            <button type="button" onClick={reset}>Reset</button>
+                            <button type="button" onClick={remove}>Remove</button>
                           </label>
-                        );
-                      })}
+                        )}
+                      </ArrayField.Items>
                     </React.Fragment>
                   );
 

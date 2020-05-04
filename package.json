@@ -101,14 +101,14 @@
     "style-loader": "^0.22.1",
     "universal-dotenv": "^1.8.3",
     "webpack": "^4.29.6",
-    "webpack-bundle-analyzer": "^3.0.2",
-    "webpack-cli": "^3.1.0",
+    "webpack-bundle-analyzer": "^3.7.0",
+    "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.1.14",
     "webpack-node-externals": "^1.7.2",
     "yup": "^0.28.1"
   },
   "dependencies": {
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.15"
   },
   "peerDependencies": {
     "react": "^16.8.0",

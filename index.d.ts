@@ -48,8 +48,8 @@ declare module 'informed' {
     reset: () => void
     setValues: (values: V) => void
     validate: () => void
-    back: () => void
-    next: () => void
+    back: (prevComponent: any) => void
+    next: (nextComponent: any) => void
     setStep: (value: number) => void
     setCurrent: (component: any) => void
   }

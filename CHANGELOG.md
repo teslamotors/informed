@@ -1,3 +1,8 @@
+## 3.8.1 (May 11, 2020)
+
+### Fixed  
+- Issue with back and next types for multistep fields
+
 ## 3.8.0 (May 4, 2020)
 
 ### Added  

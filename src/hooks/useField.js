@@ -159,7 +159,7 @@ function useField(fieldProps = {}, userRef) {
   const validate = generateValidationFunction(validationFunc, validationSchema);
 
   // Grab possible initial value from form
-  const formInitialValue = formApi.getInitialValue(field);
+  const [formInitialValue] = useState(() => updater.getInitialValue(field));
 
   // We might have keep state so check for it!
   const savedState = formApi.getSavedValue(field);
@@ -212,18 +212,22 @@ function useField(fieldProps = {}, userRef) {
 
   // ---- Define set error ----
 
-  const setError = val => {
+  const setError = (val, { preventUpdate } = {}) => {
     // For multistep forms always set error to undefined when not at that step
     if (step && formApi.getStep() < step) {
       logger(
         `Setting ${field}'s error to undefined as we are not at that step`
       );
       setErr(undefined);
-      updater.setError(field, undefined);
+      if (!preventUpdate) {
+        updater.setError(field, undefined);
+      }
     } else {
       logger(`Setting ${field}'s error to ${val}`);
       setErr(val);
-      updater.setError(field, val);
+      if (!preventUpdate) {
+        updater.setError(field, val);
+      }
     }
   };
 
@@ -297,11 +301,13 @@ function useField(fieldProps = {}, userRef) {
     }
 
     // Call the updater
-    updater.setValue(field, val);
+    if (!options.preventUpdate) {
+      updater.setValue(field, val);
+    }
   };
 
   // ---- Define set touched ----
-  const setTouched = (val, reset) => {
+  const setTouched = (val, reset, { preventUpdate } = {}) => {
     logger(`Field ${field} has been touched`);
 
     // We only need to call validate if the user gave us one
@@ -326,7 +332,9 @@ function useField(fieldProps = {}, userRef) {
       }
 
       // Call the updater
-      updater.setValue(field, maskedVal);
+      if (!preventUpdate) {
+        updater.setValue(field, maskedVal);
+      }
     }
 
     // Call maskWithCursorOffset if it was passed
@@ -347,25 +355,31 @@ function useField(fieldProps = {}, userRef) {
       }
 
       // Call the updater
-      updater.setValue(field, res.value);
+      if (!preventUpdate) {
+        updater.setValue(field, res.value);
+      }
     }
 
     // Finally we set touched and call the updater
     setTouch(val);
-    updater.setTouched(field, val);
+    if (!preventUpdate) {
+      updater.setTouched(field, val);
+    }
   };
 
   // ---- Define reset ----
-  const reset = () => {
+  const reset = ({ preventUpdate } = {}) => {
     const initVal = initializeValue(
-      initialValueRef.current || formApi.getInitialValue(field),
+      initialValueRef.current || updater.getInitialValue(field),
       mask
     );
     // TODO support numbers
-    setValue(initVal, null, { initial: true });
+    setValue(initVal, null, { initial: true, preventUpdate });
     // Setting somthing to undefined will remove it
-    setError(validateOnMount ? validate(initVal) : undefined);
-    setTouched(undefined, true);
+    setError(validateOnMount ? validate(initVal) : undefined, {
+      preventUpdate
+    });
+    setTouched(undefined, true, { preventUpdate });
   };
 
   // ---- Define validate ----

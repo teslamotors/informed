@@ -1,124 +1,156 @@
+## 3.9.0 (June 15, 2020)
+
+### Updated
+
+- useArray field to expose a reset that resets to initial values
+
 ## 3.8.1 (May 11, 2020)
 
-### Fixed  
+### Fixed
+
 - Issue with back and next types for multistep fields
 
 ## 3.8.0 (May 4, 2020)
 
-### Added  
+### Added
+
 - Array field Api control for ArrayFieldItems
 
 ## 3.7.0 (May 4, 2020)
 
-### Refactored  
+### Refactored
+
 - To use field ids instead of names
 
 ### Added
+
 - `<Relevant>` component
 
 ## 3.6.1 (March 2, 2020)
 
-### Updated  
+### Updated
+
 - Type file to include preventEnter on form props
 
 ## 3.6.0 (March 1, 2020)
 
-### Added  
+### Added
+
 - Ability to pass formController to useField hook
 
 ## 3.5.2 (February 28, 2020)
 
-### Fixed  
+### Fixed
+
 - [Issue](https://github.com/joepuzzo/informed/issues/275) where new version of react would throw warnings due to bad code
 
 ## 3.5.1 (February 27, 2020)
 
-### Fixed  
+### Fixed
+
 - [Issue](https://github.com/joepuzzo/informed/issues/272) where dynamic nested array fields with keep state kept too much state :)
 
 ## 3.5.0 (February 25, 2020)
 
-### Added 
+### Added
+
 - New multistep abilities via setCurrent in `formApi` and `Current` in `formState`. See compex multistep form in docs
 
 ## 3.4.0 (February 22, 2020)
 
-### Added 
+### Added
+
 - Ability to spread `informed` object on inputs via the `useField` hook
 
 ## 3.3.5 (February 22, 2020)
 
-### Updated 
+### Updated
+
 - Readme to show useForm example
 
 ## 3.3.4 (February 20, 2020)
 
-### Added 
+### Added
+
 - FormState component to assist when debugging!
 
 ## 3.3.3 (February 18, 2020)
 
-### Added 
+### Added
+
 - Types for multisetp forms
 
 ## 3.3.2 (February 16, 2020)
 
-### Added 
+### Added
+
 - Ability to use cursor position in mask function
 
 ## 3.3.1 (February 16, 2020)
 
-### Updated 
+### Updated
+
 - Intro examples to inculde on submit example
 
 ## 3.3.0 (February 10, 2020)
 
-### Added 
+### Added
+
 - Field level Yup support
 
 ## 3.2.1 (February 9, 2020)
 
-### Fixed 
+### Fixed
+
 - Typo in yup docs and readme
 
 ## 3.2.0 (February 9, 2020)
 
-### Added 
+### Added
+
 - Yup support
 
 ## 3.1.2 (February 9, 2020)
 
-### Updated 
+### Updated
+
 - docs and readme to link to dicord channel
 
 ## 3.1.1 (February 8, 2020)
 
-### Added 
+### Added
+
 - apiRef so you can just pass a ref to the form
 
 ## 3.1.0 (February 5, 2020)
 
-### Added 
+### Added
+
 - Step functionality to support multistep forms
 
 ## 3.0.2 (January 24, 2020)
 
-### Fixed 
+### Fixed
+
 - Issue https://github.com/joepuzzo/informed/issues/267
 
 ## 3.0.1 (January 24, 2020)
 
-### Fixed 
+### Fixed
+
 - README ( I wish there was a way on npm to update readme without publishing version )
 
 ## 3.0.0 (January 24, 2020)
 
 ### Fixed
+
 - Issue with array field validation https://github.com/joepuzzo/informed/issues/259
 - Issue where informed would throw errors when fields were hidden but referenced
 
 ### Added
-- Ability to ( in the near future ) add validations to scopes ( Enabled because of code refacotor... will add soon :) 
+
+- Ability to ( in the near future ) add validations to scopes ( Enabled because of code refacotor... will add soon :)
+
 ### Changed
 
 - The internals to no longer keep track of giant state object but instead generate it on demand
@@ -128,420 +160,504 @@
 - A bunch of useless code :)
 
 #### Cleaned up
-- Large portion of the code .. Mostly the formController!
 
+- Large portion of the code .. Mostly the formController!
 
 ## 2.11.17 (January 21, 2020)
 
 ## Update
+
 - useField to trigger validation when validation related props change
 
 ## 2.11.16 (November 18, 2019)
 
 ## Fixed
-- issue with array field where validation would fail 
+
+- issue with array field where validation would fail
 
 ## 2.11.15 (November 6, 2019)
 
 ## Fixed
-- issue with array field where removing multiple fields did not remove the data from state 
+
+- issue with array field where removing multiple fields did not remove the data from state
 
 ## 2.11.14 (November 5, 2019)
 
 ## Removed
+
 - removable prop to inputs because it was a bad idea... now it supports removal nativley
 
 ## 2.11.13 (November 4, 2019)
 
 ## Added
+
 - removable prop to inputs ( adds support for pairing keep state and array fields such that remove button actually removes field )
 
 ## 2.11.12 (November 1, 2019)
 
 ## Fixed
+
 - issue with keep state on array fields
 
 ## 2.11.11 (November 1, 2019)
 
 ## Added
+
 - comp name to useField hook
 
 ## 2.11.10 (October 21, 2019)
 
 ## Added
+
 - missing setFormError prop to FormApi interface
 
 ## 2.11.9 (September 10, 2019)
 
 ## Added
+
 - keepState to types
 
 ## 2.11.8 (July 16, 2019)
 
-## Adds 
+## Adds
+
 - allowEmptyStrings form level prop to types
 
 ## 2.11.7 (July 8, 2019)
 
-## Fixes 
+## Fixes
+
 - issue 227 where allowEmptyStrings form level prop did not work
 
 ## 2.11.6 (July 2, 2019)
 
-## Fixes 
+## Fixes
+
 - issue 219 where array fields would not work with scope
 
 ## 2.11.5 (July 2, 2019)
 
-## Fixes 
+## Fixes
+
 - issue 225 where validation will occur on mount when there are initial values
 
 ## 2.11.4 (July 1, 2019)
 
-## Fixes 
+## Fixes
+
 - issue 215 where selects dont work in Edge becase .. you know.. Microsoft
 
 ## 2.11.3 (July 1, 2019)
 
-## Fixes 
+## Fixes
+
 - warning with useLayoutEffect when using SSR
 
 ## 2.11.2 (June 27, 2019)
 
 ## Updated
+
 - README file to include minzipped badge
 
 ## 2.11.1 (June 18, 2019)
 
 ## Fixed
+
 - Issue where initial values changing on multiselects caused looping .. oops
 
 ## 2.11.0 (June 14, 2019)
 
-## Updated 
+## Updated
+
 - useForm to return user props and a render method
 - Form provider to no longer render a `<form></form>` IT NEVER SHOULD HAVE.
 
 ## 2.10.2 (June 13, 2019)
 
 ## Fixed
+
 - Issue where initial values did not change when form was reset
 
 ## 2.10.1 (June 11, 2019)
 
 ## Fixed
+
 - Issue where array level validation would not trigger for complex nested fields within array field
 
-## Added 
+## Added
+
 - length as a second parameter to arrayFields validate function
 
 ## 2.10.0 (June 7, 2019)
 
-## Added 
+## Added
+
 - ability to pass validation function to an array field
 - arrayFields are now treaded as "shadow" fields
 
 ## 2.9.0 (June 6, 2019)
 
-## Added 
+## Added
+
 - useArrayField hook
 
 ## 2.8.2 (June 5, 2019)
 
-## Added 
+## Added
+
 - ability to change out form options such as validateFields
 
 ## 2.8.1 (June 5, 2019)
 
-## Fixed 
+## Fixed
+
 - issue with addWithInitialValue when using add and then addWithInitialValue
 
 ## 2.8.0 (June 5, 2019)
 
-## Added 
+## Added
+
 - addWithInitialValue to the `ArrayField`
 
 ## 2.7.8 (May 31, 2019)
 
 ## Fixed
-- issue where initial values were not being formatted 
+
+- issue where initial values were not being formatted
 
 ## 2.7.7 (May 30, 2019)
 
 ## Fixed
-- issue where initial values were not being masked 
+
+- issue where initial values were not being masked
 
 ## 2.7.6 (May 29, 2019)
 
 ## Updated
-- Types file to support validate on formApi 
+
+- Types file to support validate on formApi
 
 ## 2.7.5 (May 29, 2019)
 
 ## Updated
+
 - Types file to support any type on form errors
 
 ## 2.7.4 (May 23, 2019)
 
 ### Fixed
+
 - documentation for creating custom inputs
 
 ### Added
+
 - the ability to pass your own ref to inputs
 
 ## 2.7.3 (May 22, 2019)
 
 ### Fixed
-- issue with validation triggering when keep state and validate on blur 
+
+- issue with validation triggering when keep state and validate on blur
 
 ## 2.7.2 (May 21, 2019)
 
 ### Added
-- made `maskWithCursorOffset` optional in types 
+
+- made `maskWithCursorOffset` optional in types
 
 ## 2.7.1 (May 21, 2019)
 
 ### Added
+
 - `maskWithCursorOffset` to the type defs
 
 ## 2.7.0 (May 21, 2019)
 
 ### Added
+
 - `maskWithCursorOffset` prop to inputs
 
 ## 2.6.15 (May 20, 2019)
 
 ### Added
+
 - maintainCursor to types
 
 ## 2.6.14 (May 16, 2019)
 
 ### Added
+
 - render and userProps to field context types
 
 ## 2.6.13 (May 16, 2019)
 
 ### Added
+
 - maskedValue to types
 
 ## 2.6.12 (May 14, 2019)
 
 ### Added
+
 - getters to useFields field api
 
 ## 2.6.11 (May 11, 2019)
 
 ### Added
+
 - useField hook to the docs
 
 ### Updated
+
 - the interface for useField hook
 
 ## 2.6.10 (May 10, 2019)
 
 ### Fixed
+
 - issue where initialization code in useform was in the effect and not in constructor
 
 ## 2.6.9 (May 10, 2019)
 
 ### Fixed
+
 - attempting to fix issue that I think is caused by useEffect in useForm hook
 
 ## 2.6.8 (May 10, 2019)
 
 ### Fixed
-- issues cause by using `useMemo` instead of `useState` for initial render stuff 
+
+- issues cause by using `useMemo` instead of `useState` for initial render stuff
 
 ## 2.6.7 (May 9, 2019)
 
 ### Added
+
 - exists function to the field api types
 
 ## 2.6.6 (May 9, 2019)
 
 ### Added
+
 - exists function to the field api so you can check to see if that field exists
 
 ## 2.6.5 (May 9, 2019)
 
 ### Fixed
+
 - issue where inital render of useFieldApi would fail when field was not registered yet
 
 ## 2.6.4 (May 9, 2019)
 
 ### Updated
+
 - useForm hook so that the event handlers can change
 
 ## 2.6.3 (May 7, 2019)
 
 ### Removed
+
 - debug as a dependency and added my own :)
 
 ## 2.6.2 (May 3, 2019)
 
 ### Fixed
+
 - issue with default register context missin getField function
 
 ## 2.6.1 (May 3, 2019)
 
 ### Fixed
+
 - issue with `useFieldApi` hook and `withFieldApi` HOC where reset and validate were not there
 
 ### Added
+
 - a few more tests to increase test coverage!!!! wooo
 
 ## 2.6.0 (May 2, 2019)
 
 ### Added
+
 - `useForm` hook!!! and `FormProvider` component!!!
 
 ## 2.5.0 (April 30, 2019)
 
 ### Updated
+
 - useField hook to useEffect instead of useLayoutEffect
 
 ## 2.4.0 (April 30, 2019)
 
 ### Added
+
 - preventEnter prop to the form so users can prevent enter key form submission
 
 ## 2.3.2 (April 22, 2019)
 
 ### Updated
+
 - Issue with dynamic arrays and initial values
 
 ## 2.3.1 (April 12, 2019)
 
 ### Updated
+
 - Babel build
 
 ## 2.3.0 (April 3, 2019)
 
 ### Added
+
 - `allowEmtyStrings` prop to the form
 - `allowEmtyString` prop to inputs
 
 ### Fixed
+
 - issue where setValues would not allow empty strings
 
 ## 2.2.0 (March 29, 2019)
 
 ### Added
+
 - `setFormError` function to the form api
 - `validate` function to the form api
 
 ## 2.1.15 (March 28, 2019)
 
 ### Fixed
+
 - Issue with setValues missing from the default context
 
 ## 2.1.14 (March 27, 2019)
 
 ### Fixed
+
 - Issue where reset would call validation
 
 ## 2.1.13 (March 18, 2019)
 
 ### Updated
-- Allowing for optional generic on FormValue 
+
+- Allowing for optional generic on FormValue
 
 ## 2.1.12 (March 13, 2019)
 
 ### Updated
+
 - ref to be any type in typings
 
 ## 2.1.11 (March 12, 2019)
 
 ### Fixed
+
 - issue in typings for ref field on FieldContext
 
 ## 2.1.10 (March 12, 2019)
 
 ### Fixed
+
 - issue when using a field NOT in the context of a form
 
 ## 2.1.9 (March 8, 2019)
 
 ### Fixed
+
 - another issue where initial values did not work when keep state was passed
 
 ## 2.1.8 (March 8, 2019)
 
 ### Fixed
+
 - issue where initial values did not work when keep state was passed
 
 ## 2.1.7 (March 3, 2019)
 
 ### Fixed
+
 - issue where initial values did not work for `ArrayFields`
 
 ## 2.1.6 (Feb 21, 2019)
 
-### Updated 
+### Updated
+
 - typing files for type script users
 
 ## 2.1.5 (Feb 19, 2019)
 
-### Fixed 
+### Fixed
+
 - Issue with text area input not setting typed value
 
 ## 2.1.4 (Feb 19, 2019)
 
-### Added 
+### Added
+
 - `maskOnBlur` prop to inputs
 
 ## 2.1.3 (Feb 14, 2019)
 
-### Added 
+### Added
+
 - `fieldExists` api function to check if field exists
 
 ## 2.1.2 (Feb 14, 2019)
 
-### Fixed 
+### Fixed
+
 - Issue where form that is submitted through enter key would try to prevent default
 
 ## 2.1.1 (Feb 14, 2019)
 
-### Fixed 
+### Fixed
+
 - Issue where form values would not get passed to validation function when touched
 
 ## 2.1.0 (Feb 14, 2019)
 
-### Updated 
+### Updated
+
 - Format and parse to set maskedValue instead of value
 
 ## 2.0.5 (Feb 14, 2019)
 
-### Fixed 
+### Fixed
+
 - Issue where you could NOT set 0 null or false as initial values because they are falsey
 
 ## 2.0.4 (Feb 13, 2019)
 
-### Added 
-- validateFields function to the form!!! 
+### Added
+
+- validateFields function to the form!!!
 
 ## 2.0.3 (Feb 13, 2019)
 
 ### Fixed
+
 - Issue where reset would not work for scoped fields
 
-### Added 
+### Added
+
 - Set Values to the form api!!!
 
 ## 2.0.2 (Feb 13, 2019)
 
 ### Fixed
+
 - Issue where ArrayField was prefixing all fields with 'field'
 - Issue where when input fields changed input did not rerender.
 
 ## 2.0.1 (Feb 10, 2019)
 
 ### Fixed
+
 - Issue where render and component props were getting passed to the dom form
 
 ## 2.0.0 (Feb 7, 2019)
 
 ### Added
+
 - useFieldApi
 - useFieldState
 - useFormApi
@@ -568,11 +684,11 @@
 - `setState` will maybe add later but its complex and out of scope ATM
 - `setValues` will maybe add later but its complex and out of scope ATM ( as of V 2.0.3 its back! )
 - `preSubmit` was never needed.. developers can do this themselves
-- Async Validation. Async validation led to many issues that overcomplicated `informed`. We determined this is something that the developer could achive on there own for now but we may look into adding this in the future. 
+- Async Validation. Async validation led to many issues that overcomplicated `informed`. We determined this is something that the developer could achive on there own for now but we may look into adding this in the future.
 
 ## 1.10.12 ( December 4, 2018 )
 
-### Updated 
+### Updated
 
 - typescript definition file
 
@@ -580,11 +696,11 @@
 
 ### Updated
 
-- Select forward ref 
+- Select forward ref
 
 ## 1.10.9 ( November 16, 2018 )
 
-### Updated 
+### Updated
 
 - files in package json to include typeigs
 
@@ -606,7 +722,7 @@
 
 - Skipped test for select!!!
 
-### Updated 
+### Updated
 
 - Select to use new ref interface
 

@@ -6,6 +6,7 @@ import Intro from './Intro';
 import Basic from './Form/Basic';
 import Dynamic from './Form/Dynamic';
 import Complex from './Form/Complex';
+import Big from './Form/Big';
 import State from './Form/State';
 import FormState from './Debugging/FormState';
 import Props from './Form/Props';
@@ -129,7 +130,8 @@ storiesOf('Form', module)
   .add('State', State)
   .add('Api', Api)
   .add('Props', Props)
-  .add('Dynamic', Dynamic);
+  .add('Dynamic', Dynamic)
+  .add('Big', Big);
 
 storiesOf('Inputs', module)
   .add('Intro', InputIntro)

@@ -106,7 +106,8 @@ class FormController extends EventEmitter {
       },
       setTouched: () => this.emit('change'),
       setError: () => this.emit('change'),
-      expectRemoval: this.expectRemoval
+      expectRemoval: this.expectRemoval,
+      getInitialValue: this.getInitialValue
     };
 
     // Define the formApi
@@ -220,6 +221,7 @@ class FormController extends EventEmitter {
    */
   getFormState() {
     debug('Generating form state');
+    // console.log('GENERATING!!');
     return {
       ...this.state,
       values: this.getValues(),
@@ -432,7 +434,7 @@ class FormController extends EventEmitter {
     // and reset them. Not a big deal but very important to remember that you cant simply
     // reset this controllers state!
     this.fieldsById.forEach(field => {
-      field.fieldApi.reset();
+      field.fieldApi.reset({ preventUpdate: true });
     });
 
     this.emit('change');
@@ -448,7 +450,7 @@ class FormController extends EventEmitter {
       // Initialize the values if it needs to be
       const value = ObjectMap.get(values, field.field);
       if (value !== undefined) {
-        field.fieldApi.setValue(value);
+        field.fieldApi.setValue(value, null, { preventUpdate: true });
       }
     });
 
@@ -625,7 +627,7 @@ class FormController extends EventEmitter {
     this.fieldsById.set(id, field);
     this.fieldsByName.set(name, field);
     // Only emit change if field name changed
-    if(prevName !== name){
+    if (prevName !== name) {
       this.emit('change');
     }
   }

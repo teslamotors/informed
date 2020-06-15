@@ -8,7 +8,8 @@ const FormRegisterContext = React.createContext({
   setError: () => {},
   update: () => {},
   getField: () => {},
-  expectRemoval: () => {}
+  expectRemoval: () => {},
+  getInitialValue: () => {}
 });
 
 const FormStateContext = React.createContext({});

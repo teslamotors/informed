@@ -11,10 +11,17 @@ import {
 } from '../Context';
 
 import { uuidv4 } from '../utils';
+import ObjectMap from '../ObjectMap';
 
 const logger = Debug('informed:useArrayField' + '\t');
 
-const useArrayField = ({ field, initialValue, validate, ...props }) => {
+const useArrayField = ({
+  field,
+  initialValue,
+  validate,
+  arrayFieldApiRef,
+  ...props
+}) => {
   // Reference to the form Api
   const formApi = useFormApi();
 
@@ -27,7 +34,7 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
   // May be scoped so get full field name!!
   const fullField = formApi.getFullField(field);
 
-  const initialVals = formApi.getInitialValue(field) || initialValue || [];
+  const initialVals = updater.getInitialValue(field) || initialValue || [];
 
   // TODO throw error if initial value and its not array
 
@@ -37,7 +44,11 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
   const keptValues =
     formApi.getSavedValue(fullField) && formApi.getSavedValue(fullField).value;
 
-  const [initialValues, setInitialValues] = useState(keptValues || initialVals);
+  const [
+    initialValues,
+    setInitialValues,
+    getInitialValues
+  ] = useStateWithGetter(keptValues || initialVals);
 
   const initialKeys = initialValues ? initialValues.map(() => uuidv4()) : [];
 
@@ -99,11 +110,12 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
     const newKeys = keys.slice(0, i).concat(keys.slice(i + 1, keys.length));
     setKeys(newKeys);
     // Remove the initial value ( user wanted to get rid of that input )
-    const newInitialValues = initialValues
+    const initVals = getInitialValues();
+    const newInitialValues = initVals
       .slice(0, i)
-      .concat(initialValues.slice(i + 1, initialValues.length));
+      .concat(initVals.slice(i + 1, initVals.length));
     setInitialValues(newInitialValues);
-    formApi.setInitialValue(field, newInitialValues);
+    //formApi.setInitialValue(field, newInitialValues);
   };
 
   const add = () => {
@@ -114,15 +126,20 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
   const addWithInitialValue = initialValue => {
     keys.push(uuidv4());
     setKeys([...keys]);
-    const newInitialValues = [...initialValues];
+    const newInitialValues = [...getInitialValues()];
     newInitialValues[keys.length - 1] = initialValue;
     setInitialValues(newInitialValues);
   };
 
   const reset = () => {
-    fieldsById.forEach(fld => {
-      fld.fieldApi.reset();
-    });
+    // When resetting we reset to the users initial value not the one tracked by this hook
+    const initVals = updater.getInitialValue(field) || initialValue || [];
+    // Set our initial values back to what the user set at beginning
+    setInitialValues(initVals);
+    // Build a new set of keys because everything is new !!!
+    const resetKeys = initVals ? initVals.map(() => uuidv4()) : [];
+    // Finally set that shit !
+    setKeys(resetKeys);
   };
 
   const fields = keys.map((key, i) => {
@@ -152,6 +169,10 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
     reset
   };
 
+  if (arrayFieldApiRef) {
+    arrayFieldApiRef.current = arrayFieldApi;
+  }
+
   const arrayFieldState = {
     fields,
     field
@@ -167,6 +188,14 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
     deregister: (id, ...args) => {
       fieldsById.delete(id);
       updater.deregister(id, ...args);
+    },
+    getInitialValue: fieldName => {
+      // determine if one of our array children triggered this change
+      if (RegExp(`${fullField}\\[[0-9]+\\]`).test(fieldName)) {
+        const path = fieldName.replace(field, '');
+        return ObjectMap.get(getInitialValues(), path);
+      }
+      return updater.getInitialValue(fieldName);
     }
   };
 
@@ -187,7 +216,7 @@ const useArrayField = ({ field, initialValue, validate, ...props }) => {
     fields,
     arrayFieldState,
     arrayFieldApi,
-    field,
+    field
   };
 };
 

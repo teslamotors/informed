@@ -1,4 +1,5 @@
 import * as React from 'react'
+import {Schema} from 'yup'
 
 // Type definitions for informed 2.0.0
 // Project: https://github.com/joepuzzo/informed#readme
@@ -99,6 +100,7 @@ declare module 'informed' {
     initialValue?: V
     keepState?: boolean
     validate?: (value: V, values: VS) => FormError
+    validationSchema?: Schema<any>
     validateOnBlur?: boolean
     validateOnChange?: boolean
     validateOnMount?: boolean
@@ -131,6 +133,7 @@ declare module 'informed' {
     onSubmitFailure?: (errors: { [key in keyof V]: FormError }) => void
     validate?: (values: V) => FormError
     validateFields?: (values: V) => { [key in keyof V]: FormError } | undefined
+    validationSchema?: Schema<any>
   }
   export interface ChildrenFormProps<V> extends BasicFormProps<V> {
     children: React.ReactNode | ChildFunction<FormContext<V>>

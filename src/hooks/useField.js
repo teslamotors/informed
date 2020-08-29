@@ -36,7 +36,7 @@ const generateValidationFunction = (validationFunc, validationSchema) => {
   if (validationFunc || validationSchema) {
     return (val, values) => {
       if (validationSchema) {
-        return validateYupField(validationSchema, val);
+        return validateYupField(validationSchema, val, values);
       }
       if (validationFunc) {
         return validationFunc(val, values);
@@ -377,7 +377,7 @@ function useField(fieldProps = {}, userRef) {
     setValue(initVal, null, { initial: true, preventUpdate });
     // Setting somthing to undefined will remove it
     setError(validateOnMount ? validate(initVal) : undefined, {
-      preventUpdate
+      preventUpdate,
     });
     setTouched(undefined, true, { preventUpdate });
   };
@@ -410,9 +410,9 @@ function useField(fieldProps = {}, userRef) {
     getError: getErr,
     getFieldState: () => ({
       value: getVal(),
-      touched: getTouch()
+      touched: getTouch(),
     }),
-    relevant: userRelevant || relevantFunc
+    relevant: userRelevant || relevantFunc,
   };
 
   // Build the field state
@@ -420,14 +420,14 @@ function useField(fieldProps = {}, userRef) {
     value,
     error,
     touched,
-    maskedValue
+    maskedValue,
   };
 
   // Create shadow state if this is a shadow field
   if (shadow) {
     fieldState = {
       error,
-      touched
+      touched,
     };
   }
 
@@ -442,7 +442,7 @@ function useField(fieldProps = {}, userRef) {
       fieldState,
       notify,
       keepState,
-      shadow
+      shadow,
     };
     updater.register(fieldId, fieldObj, true);
   });
@@ -464,7 +464,7 @@ function useField(fieldProps = {}, userRef) {
       fieldState,
       notify,
       keepState,
-      shadow
+      shadow,
     };
     updater.register(fieldId, fieldObj);
     return () => {
@@ -487,7 +487,7 @@ function useField(fieldProps = {}, userRef) {
         fieldState,
         notify,
         keepState,
-        shadow
+        shadow,
       };
 
       updater.update(fieldId, fieldObj);
@@ -522,7 +522,7 @@ function useField(fieldProps = {}, userRef) {
   const shouldUpdate = [
     ...Object.values(fieldState),
     ...Object.values(fieldProps),
-    ...Object.values(userProps)
+    ...Object.values(userProps),
   ];
 
   const render = children => useMemo(() => children, [...shouldUpdate]);
@@ -535,14 +535,14 @@ function useField(fieldProps = {}, userRef) {
     setValue,
     onChange,
     multiple,
-    ref
+    ref,
   });
   const blurHandler = generateOnBlur({ setTouched, onBlur });
   const hookedValue = generateValue({
     fieldType,
     maskedValue,
     multiple,
-    value
+    value,
   });
 
   return {
@@ -554,7 +554,7 @@ function useField(fieldProps = {}, userRef) {
       ...userProps,
       multiple, // WE NEED TO PUT THESE BACK!!
       onChange, // WE NEED TO PUT THESE BACK!!
-      onBlur // WE NEED TO PUT THESE BACK!!
+      onBlur, // WE NEED TO PUT THESE BACK!!
     },
     informed: {
       name,
@@ -563,8 +563,8 @@ function useField(fieldProps = {}, userRef) {
       onBlur: blurHandler,
       value: hookedValue,
       ref,
-      ...userProps
-    }
+      ...userProps,
+    },
   };
 }
 

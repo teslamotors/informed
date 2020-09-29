@@ -581,13 +581,13 @@ class FormController extends EventEmitter {
       return;
     }
 
+    // Update the forms state right away
+    this.updater.setValue(id, field.fieldApi.getValue(), false);
+    this.updater.setError(id, field.fieldApi.getError(), false);
+    this.updater.setTouched(id, field.fieldApi.getTouched(), false);
+
     // We register field right away but dont want it to triger a rerender
     if (!initialRender) {
-
-      this.updater.setValue(id, field.fieldApi.getValue(), false);
-      this.updater.setError(id, field.fieldApi.getError(), false);
-      this.updater.setTouched(id, field.fieldApi.getTouched(), false);
-
       this.emit('change');
     }
   }
@@ -620,9 +620,9 @@ class FormController extends EventEmitter {
       this.fieldsById.delete(id);
       this.fieldsByName.delete(name);
       // Clean up state
-      ObjectMap.set(this.state.values, name, undefined);
-      ObjectMap.set(this.state.touched, name, undefined);
-      ObjectMap.set(this.state.errors, name, undefined);
+      ObjectMap.delete(this.state.values, name);
+      ObjectMap.delete(this.state.touched, name);
+      ObjectMap.delete(this.state.errors, name);
     }
 
     this.emit('change');

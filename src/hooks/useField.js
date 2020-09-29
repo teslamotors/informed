@@ -185,6 +185,7 @@ function useField(fieldProps = {}, userRef) {
   const [value, setVal, getTheVal] = useStateWithGetter(
     initializeValue(initVal, mask)
   );
+
   const [error, setErr, getErr] = useStateWithGetter(
     validateOnMount ? validate(value) : undefined
   );
@@ -219,15 +220,12 @@ function useField(fieldProps = {}, userRef) {
         `Setting ${field}'s error to undefined as we are not at that step`
       );
       setErr(undefined);
-      if (!preventUpdate) {
-        updater.setError(fieldId, undefined);
-      }
+      updater.setError(fieldId, undefined, !preventUpdate);
     } else {
       logger(`Setting ${field}'s error to ${val}`);
       setErr(val);
-      if (!preventUpdate) {
-        updater.setError(fieldId, val);
-      }
+      updater.setError(fieldId, val, !preventUpdate);
+      
     }
   };
 
@@ -301,9 +299,8 @@ function useField(fieldProps = {}, userRef) {
     }
 
     // Call the updater
-    if (!options.preventUpdate) {
-      updater.setValue(fieldId, val);
-    }
+    updater.setValue(fieldId, val, !options.preventUpdate);
+    
   };
 
   // ---- Define set touched ----
@@ -332,9 +329,8 @@ function useField(fieldProps = {}, userRef) {
       }
 
       // Call the updater
-      if (!preventUpdate) {
-        updater.setValue(fieldId, maskedVal);
-      }
+      updater.setValue(fieldId, maskedVal, !preventUpdate);
+      
     }
 
     // Call maskWithCursorOffset if it was passed
@@ -355,16 +351,14 @@ function useField(fieldProps = {}, userRef) {
       }
 
       // Call the updater
-      if (!preventUpdate) {
-        updater.setValue(fieldId, res.value);
-      }
+      updater.setValue(fieldId, res.value, !preventUpdate);
+      
     }
 
     // Finally we set touched and call the updater
     setTouch(val);
-    if (!preventUpdate) {
-      updater.setTouched(fieldId, val);
-    }
+    updater.setTouched(fieldId, val, !preventUpdate);
+    
   };
 
   // ---- Define reset ----

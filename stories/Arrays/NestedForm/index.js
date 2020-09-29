@@ -17,6 +17,14 @@ const initialValues = {
   ]
 };
 
+// const friends = Array.from(Array(50)).map(e => {
+//   return { name: 'Joe', age: 1 };
+// });
+
+// const initialValues = {
+//   friends
+// };
+
 const NestedForm = () => (
   <div>
     <Form initialValues={initialValues}>
@@ -50,9 +58,30 @@ const NestedForm = () => (
                         Add with initialValue
                       </button>
 
-                      {/* <button onClick={() => {
-                        formApi.setValue('friends[0].name', 'Test');
-                      }} type="button">set friends[0].name to test</button> */}
+                      {/* <button
+                        onClick={() => {
+                          formApi.setValue('friends[0].name', 'Test');
+                        }}
+                        type="button">
+                        set friends[0].name to test
+                      </button> */}
+
+                      {/* <button
+                        onClick={() => {
+                          formApi.setInitialValue('friends', [
+                            {
+                              name: 'Boo',
+                              age: '30'
+                            },
+                            {
+                              name: 'Bar',
+                              age: '50'
+                            }
+                          ]);
+                        }}
+                        type="button">
+                        Set new initial values
+                      </button> */}
 
                       <ArrayField.Items>
                         {({
@@ -70,6 +99,20 @@ const NestedForm = () => (
                               initialValue={initialValue && initialValue.name}
                             />
                             <Text field={`${field}.age`} />
+                            {/* <Text field={`${field}.a`} />
+                            <Text field={`${field}.b`} />
+                            <Text field={`${field}.c`} />
+                            <Text field={`${field}.d`} />
+                            <Text field={`${field}.e`} />
+                            <Text field={`${field}.f`} />
+                            <Text field={`${field}.g`} />
+                            <Text field={`${field}.h`} />
+                            <Text field={`${field}.i`} />
+                            <Text field={`${field}.j`} />
+                            <Text field={`${field}.k`} />
+                            <Text field={`${field}.l`} />
+                            <Text field={`${field}.m`} /> */}
+
                             <button type="button" onClick={reset}>
                               Reset
                             </button>

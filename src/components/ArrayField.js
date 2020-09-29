@@ -11,7 +11,9 @@ import {
 } from '../Context';
 
 const ArrayField = ({ children, ...props }) => {
-  const { render, arrayFieldState, arrayFieldApi, field } = useArrayField(props);
+  const { render, arrayFieldState, arrayFieldApi, field } = useArrayField(
+    props
+  );
 
   if (typeof children === 'function') {
     return render(
@@ -21,7 +23,7 @@ const ArrayField = ({ children, ...props }) => {
         arrayFieldState,
         // Make it easier for user
         ...arrayFieldApi,
-        ...arrayFieldState,
+        ...arrayFieldState
       })
     );
   }
@@ -41,12 +43,12 @@ const ArrayFieldItem = ({
   const formApi = useFormApi();
 
   // A little trick I learned in nam to trigger rerender
-  const [state, setState] = useState(false);
+  const [state, setState] = useState(0);
 
   // Keep track of fields that belong to this array field
   const [fieldsById] = useState(new Map());
 
-  // Get this items field 
+  // Get this items field
   const { field } = arrayFieldItemState;
 
   // Create scoped api
@@ -77,7 +79,7 @@ const ArrayFieldItem = ({
 
         // This field updated so trigger rerender
         if( magicValue === field ){
-          setState( prev => !prev );
+          setState( Math.random() );
         }
       };
 
@@ -91,7 +93,7 @@ const ArrayFieldItem = ({
     },
     [field]
   );
- 
+
   // Resets all fields in this item
   const reset = () => {
     fieldsById.forEach(fld => {
@@ -105,9 +107,9 @@ const ArrayFieldItem = ({
   // Wrap the updater to update array fields references
   const wrappedUpdator = {
     ...updater,
-    register: (id, fld, ...args) => {
+    register: (id, fld, initialRender) => {
       fieldsById.set(id, fld);
-      updater.register(id, fld, ...args);
+      updater.register(id, fld, initialRender);
     },
     deregister: (id, ...args) => {
       fieldsById.delete(id);
@@ -118,13 +120,13 @@ const ArrayFieldItem = ({
   const arrayFieldItemApiValue = {
     ...arrayFieldItemApi,
     ...scopedApi,
-    reset,
+    reset
   };
 
-  const arrayFieldItemStateValue = { 
+  const arrayFieldItemStateValue = {
     ...arrayFieldItemState,
     ...itemState
-  }
+  };
 
   if (typeof children === 'function') {
     return (

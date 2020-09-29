@@ -9,7 +9,7 @@ export const getChildDisplayName = WrappedComponent => {
   return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 };
 
-export const yupToFormErrors = (yupError) => {
+export const yupToFormErrors = yupError => {
   const errors = {};
   if (yupError.inner) {
     if (yupError.inner.length === 0) {
@@ -36,12 +36,12 @@ export const validateYupSchema = (schema, values) => {
   }
 };
 
-export const yupToFormError = (yupError) => {
+export const yupToFormError = yupError => {
   if (yupError.inner) {
     if (yupError.inner.length === 0) {
       return;
     }
-    const err = yupError.inner[0]
+    const err = yupError.inner[0];
     return err.message;
   }
 };
@@ -56,9 +56,23 @@ export const validateYupField = (schema, value) => {
 
 // https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
 export const uuidv4 = () => {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
     var r = (Math.random() * 16) | 0,
       v = c == 'x' ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
+};
+
+export const debounce = (func, wait) => {
+  let timeout;
+
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
 };

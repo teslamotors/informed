@@ -220,13 +220,13 @@ function useField(fieldProps = {}, userRef) {
       );
       setErr(undefined);
       if (!preventUpdate) {
-        updater.setError(field, undefined);
+        updater.setError(fieldId, undefined);
       }
     } else {
       logger(`Setting ${field}'s error to ${val}`);
       setErr(val);
       if (!preventUpdate) {
-        updater.setError(field, val);
+        updater.setError(fieldId, val);
       }
     }
   };
@@ -302,7 +302,7 @@ function useField(fieldProps = {}, userRef) {
 
     // Call the updater
     if (!options.preventUpdate) {
-      updater.setValue(field, val);
+      updater.setValue(fieldId, val);
     }
   };
 
@@ -333,7 +333,7 @@ function useField(fieldProps = {}, userRef) {
 
       // Call the updater
       if (!preventUpdate) {
-        updater.setValue(field, maskedVal);
+        updater.setValue(fieldId, maskedVal);
       }
     }
 
@@ -356,14 +356,14 @@ function useField(fieldProps = {}, userRef) {
 
       // Call the updater
       if (!preventUpdate) {
-        updater.setValue(field, res.value);
+        updater.setValue(fieldId, res.value);
       }
     }
 
     // Finally we set touched and call the updater
     setTouch(val);
     if (!preventUpdate) {
-      updater.setTouched(field, val);
+      updater.setTouched(fieldId, val);
     }
   };
 

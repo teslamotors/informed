@@ -39,7 +39,10 @@ class FormController extends EventEmitter {
       dirty: false,
       invalid: false,
       submits: 0,
-      step: 0
+      step: 0,
+      values: {},
+      errors: {}, 
+      touched: {},
     };
 
     // Initialize a dummy field ( see getField for example use )
@@ -100,12 +103,73 @@ class FormController extends EventEmitter {
       deregister: this.deregister,
       getField: this.getField,
       update: this.update,
-      setValue: (field, value) => {
-        this.emit('change');
-        this.emit('value', field, value);
+      setValue: (fieldId, value, emit = true) => {
+
+        const field = this.fieldsById.get(fieldId);
+
+        if (!field.shadow) {
+          ObjectMap.set(this.state.values, field.field, field.fieldApi.getValue());
+        }
+
+        if (!field.fieldApi.relevant(this.state.values)) {
+          ObjectMap.delete(this.state.values, field.field);
+        }
+
+        // Cleanup phase to get rid of irrelevant fields
+        this.fieldsById.forEach(f => {
+          if (!f.fieldApi.relevant(this.state.values)) {
+            ObjectMap.delete(this.state.values, f.field);
+            ObjectMap.delete(this.state.touched, f.field);
+            ObjectMap.delete(this.state.errors, f.field);
+          }
+        });       
+
+        if( emit ){
+          this.emit('change');
+          this.emit('value', field.field, value);
+        }
       },
-      setTouched: () => this.emit('change'),
-      setError: () => this.emit('change'),
+      setTouched: (fieldId, touch, emit = true) => {
+        const field = this.fieldsById.get(fieldId);
+
+        if (!field.shadow && field.fieldApi.relevant(this.state.values)) {
+          ObjectMap.set(this.state.touched, field.field, field.fieldApi.getTouched());
+        }
+        
+        // Shadow values override unless undefined
+        if (
+          field.shadow &&
+          field.fieldApi.getError() != undefined &&
+          field.fieldApi.relevant(this.state.values)
+        ) {
+          ObjectMap.set(this.state.touched, field.field, field.fieldApi.getTouched());
+        }
+        if( emit ){
+          this.emit('change');
+          //this.emit('touch', field.field, touch);
+        }
+      },
+      setError: (fieldId, error, emit = true) => {
+        const field = this.fieldsById.get(fieldId);
+
+        if (!field.shadow && field.fieldApi.relevant(this.state.values)) {
+          ObjectMap.set(this.state.errors, field.field, field.fieldApi.getError());
+        }
+
+        // Shadow values override unless undefined
+        if (
+          field.shadow &&
+          field.fieldApi.getError() != undefined &&
+          field.fieldApi.relevant(this.state.values)
+        ) {
+          ObjectMap.set(this.state.errors, field.field, field.fieldApi.getError());
+        }
+
+        if( emit ){
+          this.emit('change');
+          //this.emit('error', field.field, error);
+        }
+      },
       expectRemoval: this.expectRemoval,
       getInitialValue: this.getInitialValue
     };
@@ -224,9 +288,9 @@ class FormController extends EventEmitter {
     // console.log('GENERATING!!');
     return {
       ...this.state,
-      values: this.getValues(),
-      errors: this.getErrors(),
-      touched: this.getAllTouched(),
+      // values: this.getValues(),
+      // errors: this.getErrors(),
+      // touched: this.getAllTouched(),
       pristine: this.pristine(),
       dirty: this.dirty(),
       invalid: this.invalid()
@@ -262,77 +326,17 @@ class FormController extends EventEmitter {
 
   getValues() {
     debug('Gettings values');
-    // So we because all fields controll themselves and, "inform", this controller
-    // of their changes, we need to literally itterate through all registered fields
-    // and build the values object.
-    const values = {};
-    this.fieldsById.forEach(field => {
-      if (!field.shadow) {
-        ObjectMap.set(values, field.field, field.fieldApi.getValue());
-      }
-    });
-
-    // Cleanup phase to get rid of irrelevant fields
-    this.fieldsById.forEach(field => {
-      if (!field.fieldApi.relevant(values)) {
-        ObjectMap.delete(values, field.field);
-      }
-    });
-
-    return values;
+    return this.state.values;
   }
 
   getAllTouched() {
     debug('Gettings touched');
-    const values = this.getValues();
-    // So we because all fields controll themselves and, "inform", this controller
-    // of their changes, we need to literally itterate through all registered fields
-    // and build the touched object.
-    const touched = {};
-    this.fieldsById.forEach(field => {
-      if (!field.shadow && field.fieldApi.relevant(values)) {
-        ObjectMap.set(touched, field.field, field.fieldApi.getTouched());
-      }
-    });
-    // Shadow values override unless undefined
-    this.fieldsById.forEach(field => {
-      if (
-        field.shadow &&
-        field.fieldApi.getError() != undefined &&
-        field.fieldApi.relevant(values)
-      ) {
-        ObjectMap.set(touched, field.field, field.fieldApi.getTouched());
-      }
-    });
-
-    return touched;
+    return this.state.touched;
   }
 
   getErrors() {
     debug('Gettings errors');
-    const values = this.getValues();
-    // So we because all fields controll themselves and, "inform", this controller
-    // of their changes, we need to literally itterate through all registered fields
-    // and build the errors object.
-    const errors = {};
-    this.fieldsById.forEach(field => {
-      // EXAMPLE special cases
-      // siblings && siblings[1] && favorite.color && favorite
-      if (!field.shadow && field.fieldApi.relevant(values)) {
-        ObjectMap.set(errors, field.field, field.fieldApi.getError());
-      }
-    });
-    // Shadow values override unless undefined
-    this.fieldsById.forEach(field => {
-      if (
-        field.shadow &&
-        field.fieldApi.getError() != undefined &&
-        field.fieldApi.relevant(values)
-      ) {
-        ObjectMap.set(errors, field.field, field.fieldApi.getError());
-      }
-    });
-    return errors;
+    return this.state.errors;
   }
 
   getOptions() {
@@ -553,7 +557,7 @@ class FormController extends EventEmitter {
   // setting initial value during first render
   register(id, field, initialRender) {
     const { field: name, state } = field;
-    debug('Register ID:', id, 'Name:', name, state);
+    debug('Register ID:', id, 'Name:', name, state, 'Initial', initialRender);
 
     // The field is on the screen
     this.onScreen[id] = field;
@@ -579,6 +583,11 @@ class FormController extends EventEmitter {
 
     // We register field right away but dont want it to triger a rerender
     if (!initialRender) {
+
+      this.updater.setValue(id, field.fieldApi.getValue(), false);
+      this.updater.setError(id, field.fieldApi.getError(), false);
+      this.updater.setTouched(id, field.fieldApi.getTouched(), false);
+
       this.emit('change');
     }
   }
@@ -610,6 +619,10 @@ class FormController extends EventEmitter {
       debug('Removing field', name);
       this.fieldsById.delete(id);
       this.fieldsByName.delete(name);
+      // Clean up state
+      ObjectMap.set(this.state.values, name, undefined);
+      ObjectMap.set(this.state.touched, name, undefined);
+      ObjectMap.set(this.state.errors, name, undefined);
     }
 
     this.emit('change');

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Debug from '../debug';
+import { debounce } from '../utils';
 import FormController from '../FormController';
 import FormProvider from '../components/FormProvider';
 import useLayoutEffect from './useIsomorphicLayoutEffect';
@@ -74,6 +75,7 @@ const useForm = ({
   useState(() => {
     // Update the form state to trigger rerender!
     const onChangeHandlerRerender = () => setFormState(formController.getFormState());
+    // const debounced = debounce(onChangeHandlerRerender, 250);
     formController.on('change', onChangeHandlerRerender);
     // Give access to api outside
     if (getApi) {

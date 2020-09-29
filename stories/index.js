@@ -47,7 +47,8 @@ import {
   ArrayOfScopes,
   DynamicArrays,
   NestedForm,
-  AlternateSyntax
+  AlternateSyntax,
+  HugeArrayForm
 } from './Arrays';
 
 import {
@@ -149,7 +150,8 @@ storiesOf('Arrays', module)
   .add('Array Of Fields', ArrayOfFields)
   .add('Array Of Scopes', ArrayOfScopes)
   .add('Dynamic Arrays', AlternateSyntax)
-  .add('Nested Form', NestedForm);
+  .add('Nested Form', NestedForm)
+  .add('Huge Array Form', HugeArrayForm);
 // .add('Alternate Syntax', AlternateSyntax);
 
 storiesOf('Validation', module)

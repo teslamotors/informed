@@ -1,3 +1,9 @@
+## 3.10.0 (September 29, 2020)
+
+### Updated
+
+- internals to modify state direct to improve performance!
+
 ## 3.9.0 (June 15, 2020)
 
 ### Updated

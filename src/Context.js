@@ -30,6 +30,9 @@ const ArrayFieldStateContext = React.createContext();
 const ArrayFieldApiContext = React.createContext();
 const ArrayFieldItemApiContext = React.createContext();
 const ArrayFieldItemStateContext = React.createContext();
+const MultistepStateContext = React.createContext();
+const MultistepApiContext = React.createContext();
+const MultistepStepContext = React.createContext();
 
 export {
   FormRegisterContext,
@@ -40,5 +43,8 @@ export {
   ArrayFieldApiContext,
   ArrayFieldStateContext,
   ArrayFieldItemApiContext,
-  ArrayFieldItemStateContext
+  ArrayFieldItemStateContext,
+  MultistepStateContext,
+  MultistepApiContext,
+  MultistepStepContext
 };

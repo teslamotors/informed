@@ -41,8 +41,8 @@ class FormController extends EventEmitter {
       submits: 0,
       step: 0,
       values: {},
-      errors: {}, 
-      touched: {},
+      errors: {},
+      touched: {}
     };
 
     // Initialize a dummy field ( see getField for example use )
@@ -81,6 +81,7 @@ class FormController extends EventEmitter {
     this.reset = this.reset.bind(this);
     this.update = this.update.bind(this);
     this.validate = this.validate.bind(this);
+    this.screenValid = this.screenValid.bind(this);
     this.keyDown = this.keyDown.bind(this);
     this.getField = this.getField.bind(this);
     this.getInitialValue = this.getInitialValue.bind(this);
@@ -104,11 +105,14 @@ class FormController extends EventEmitter {
       getField: this.getField,
       update: this.update,
       setValue: (fieldId, value, emit = true) => {
-
         const field = this.fieldsById.get(fieldId);
 
         if (!field.shadow) {
-          ObjectMap.set(this.state.values, field.field, field.fieldApi.getValue());
+          ObjectMap.set(
+            this.state.values,
+            field.field,
+            field.fieldApi.getValue()
+          );
         }
 
         if (!field.fieldApi.relevant(this.state.values)) {
@@ -122,9 +126,9 @@ class FormController extends EventEmitter {
             ObjectMap.delete(this.state.touched, f.field);
             ObjectMap.delete(this.state.errors, f.field);
           }
-        });       
+        });
 
-        if( emit ){
+        if (emit) {
           this.emit('change');
           this.emit('value', field.field, value);
         }
@@ -133,18 +137,26 @@ class FormController extends EventEmitter {
         const field = this.fieldsById.get(fieldId);
 
         if (!field.shadow && field.fieldApi.relevant(this.state.values)) {
-          ObjectMap.set(this.state.touched, field.field, field.fieldApi.getTouched());
+          ObjectMap.set(
+            this.state.touched,
+            field.field,
+            field.fieldApi.getTouched()
+          );
         }
-        
+
         // Shadow values override unless undefined
         if (
           field.shadow &&
           field.fieldApi.getError() != undefined &&
           field.fieldApi.relevant(this.state.values)
         ) {
-          ObjectMap.set(this.state.touched, field.field, field.fieldApi.getTouched());
+          ObjectMap.set(
+            this.state.touched,
+            field.field,
+            field.fieldApi.getTouched()
+          );
         }
-        if( emit ){
+        if (emit) {
           this.emit('change');
           //this.emit('touch', field.field, touch);
         }
@@ -153,7 +165,11 @@ class FormController extends EventEmitter {
         const field = this.fieldsById.get(fieldId);
 
         if (!field.shadow && field.fieldApi.relevant(this.state.values)) {
-          ObjectMap.set(this.state.errors, field.field, field.fieldApi.getError());
+          ObjectMap.set(
+            this.state.errors,
+            field.field,
+            field.fieldApi.getError()
+          );
         }
 
         // Shadow values override unless undefined
@@ -162,10 +178,14 @@ class FormController extends EventEmitter {
           field.fieldApi.getError() != undefined &&
           field.fieldApi.relevant(this.state.values)
         ) {
-          ObjectMap.set(this.state.errors, field.field, field.fieldApi.getError());
+          ObjectMap.set(
+            this.state.errors,
+            field.field,
+            field.fieldApi.getError()
+          );
         }
 
-        if( emit ){
+        if (emit) {
           this.emit('change');
           //this.emit('error', field.field, error);
         }
@@ -194,6 +214,7 @@ class FormController extends EventEmitter {
       getInitialValue: this.getInitialValue,
       validate: this.validate,
       validateField: this.validateField,
+      screenValid: this.screenValid,
       resetField: this.resetField,
       getOptions: this.getOptions,
       emitter: this,

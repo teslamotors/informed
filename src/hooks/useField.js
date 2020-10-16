@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useMemo, useRef } from 'react';
-import { FormRegisterContext } from '../Context';
+import { FormRegisterContext, MultistepStepContext } from '../Context';
 import useFormApi from './useFormApi';
 import useStateWithGetter from './useStateWithGetter';
 import { validateYupField, uuidv4 } from '../utils';
@@ -146,6 +146,9 @@ function useField(fieldProps = {}, userRef) {
   // Grab the form register context
   let updater = useContext(FormRegisterContext);
 
+  // Grab multistepContext
+  const multistepContext = useContext(MultistepStepContext);
+
   // Grab the form api
   let formApi = useFormApi();
 
@@ -225,7 +228,6 @@ function useField(fieldProps = {}, userRef) {
       logger(`Setting ${field}'s error to ${val}`);
       setErr(val);
       updater.setError(fieldId, val, !preventUpdate);
-      
     }
   };
 
@@ -300,7 +302,6 @@ function useField(fieldProps = {}, userRef) {
 
     // Call the updater
     updater.setValue(fieldId, val, !options.preventUpdate);
-    
   };
 
   // ---- Define set touched ----
@@ -330,7 +331,6 @@ function useField(fieldProps = {}, userRef) {
 
       // Call the updater
       updater.setValue(fieldId, maskedVal, !preventUpdate);
-      
     }
 
     // Call maskWithCursorOffset if it was passed
@@ -352,13 +352,11 @@ function useField(fieldProps = {}, userRef) {
 
       // Call the updater
       updater.setValue(fieldId, res.value, !preventUpdate);
-      
     }
 
     // Finally we set touched and call the updater
     setTouch(val);
     updater.setTouched(fieldId, val, !preventUpdate);
-    
   };
 
   // ---- Define reset ----
@@ -406,7 +404,13 @@ function useField(fieldProps = {}, userRef) {
       value: getVal(),
       touched: getTouch()
     }),
-    relevant: userRelevant || relevantFunc
+    relevant: params => {
+      const rel = userRelevant || relevantFunc;
+      if (multistepContext && multistepContext.relevant) {
+        return rel(params) && multistepContext.relevant(params);
+      }
+      return rel(params);
+    }
   };
 
   // Build the field state

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 import FormState from '../../utils/FormState';
@@ -7,88 +7,105 @@ import {
   Form,
   Text,
   useFormApi,
+  useMultistepApi,
   useFormState,
   useFieldState,
   //FormState,
   ArrayField,
+  Multistep,
   Checkbox,
   RadioGroup,
   Radio
 } from '../../../src';
+import { values } from 'lodash';
 
-
-const validate = value => value == null ? 'This field is required' : undefined;
+const validate = value =>
+  value == null ? 'This field is required' : undefined;
 
 /**
- * 
+ *
  * At any point in time the form is in a state, and the following questions
- * need to be answered 
+ * need to be answered
  * 1. What is the next quesion
  * 2. What is the previous quesion
  * 3. Am I a relevant quesion
- * 
+ *
  * Example
- * 
+ *
  * Name ------> Allergic( yes ) -------> EpiPen ------> Color
  *                                                        ^
  * Name ------> Allergic( yes ) -------> EpiPen ------> Color
  *                 ^
  * Name ------> Allergic( no )  -------> EpiPen ------> Color
  *                 ^
- * At this point Allertic decides his next is color and epi pen decides he is No longer relevant 
- * 
+ * At this point Allertic decides his next is color and epi pen decides he is No longer relevant
+ *
  * Name ------> Allergic( no ) ------> Color
  *                 ^
  **/
 
-
-const FirstName = () => {
-  const { next } = useFormApi();
-  const NextComponent = Allergic;
+const Info = () => {
+  const { next } = useMultistepApi();
   return (
-    <div>
+    <Multistep.Step step="info" next="allergies">
       <label>
         Please enter your first name:
         <Text field="first" validate={validate} keepState />
       </label>
-      <button type="button" onClick={() => next(NextComponent)}>Next</button>
-    </div>
+      <button type="button" onClick={next}>
+        Next
+      </button>
+    </Multistep.Step>
   );
 };
 
-const Allergic = () => {
-  const { next, back } = useFormApi();
-  const { value } = useFieldState('allergic');
-  const NextComponent = value ? EpiPen : Color;
-  const PrevComponent = FirstName;
+const Allergic = ({ state }) => {
+  const { next, back } = useMultistepApi();
   return (
-    <div>
+    <Multistep.Step
+      step="allergies"
+      next={values => {
+        // if (state % 2 === 0) {
+        //   return 'info';
+        // }
+        return values.allergic ? 'epipen' : 'color';
+      }}
+      previous="info">
       <label>
         Are you alergic to penut butter?:
         <Checkbox field="allergic" validate={validate} keepState />
       </label>
-      <button type="button" onClick={() => next(NextComponent)}>Next</button>
-      <button type="button" onClick={() => back(PrevComponent)}>Back</button>
-    </div>
+      <button type="button" onClick={next}>
+        Next
+      </button>
+      <button type="button" onClick={back}>
+        Back
+      </button>
+    </Multistep.Step>
   );
 };
 
-
 const EpiPen = () => {
-  const { next, back } = useFormApi();
+  const { next, back } = useMultistepApi();
 
-  // Only relevant if the person is allergic 
-  const relevant = (values) => values.allergic;
-  const NextComponent = Color;
-  const PrevComponent = Allergic;
+  // Only relevant if the person is allergic
+  const relevant = ({ allergic }) => allergic;
 
   return (
-    <div>
+    <Multistep.Step
+      step="epipen"
+      next="color"
+      previous="allergies"
+      relevant={relevant}>
       <label>
         Do you have an epipen?:
-        <RadioGroup field="epipen" relevant={relevant} validate={validate} keepState>
-          <label>Yes <Radio value="yes" /></label>
-          <label>No <Radio value="no" /></label>
+        <RadioGroup field="epipen" validate={validate} keepState>
+          <label>
+            Yes <Radio value="yes" />
+          </label>
+          <label>
+            No <Radio value="no" />
+          </label>
         </RadioGroup>
         {/* <ArrayField field="siblings" keepState>
           {({ add, fields }) => (
@@ -110,62 +127,97 @@ const EpiPen = () => {
           )}
         </ArrayField> */}
       </label>
-      <button type="button" onClick={() => next(NextComponent)}>Next</button>
-      <button type="button" onClick={() => back(PrevComponent)}>Back</button>
-    </div>
+      <button type="button" onClick={next}>
+        Next
+      </button>
+      <button type="button" onClick={back}>
+        Back
+      </button>
+    </Multistep.Step>
   );
 };
 
 const Color = () => {
-  const { back } = useFormApi();
-  const { value } = useFieldState('allergic');
-  const PrevComponent = value ? EpiPen : Allergic;
+  const { back } = useMultistepApi();
+
   return (
-    <div>
+    <Multistep.Step
+      step="color"
+      previous={values => (values.allergic ? 'epipen' : 'allergies')}>
       <label>
         Please enter your favorite color:
         <Text field="color" validate={validate} keepState />
       </label>
-      <button type="button" onClick={() => back(PrevComponent)}>Back</button>
-      <button type="submit" >Submit</button>
-    </div>
+      <button type="button" onClick={back}>
+        Back
+      </button>
+      <button type="submit">Submit</button>
+    </Multistep.Step>
   );
-};
-
-const Steps = () => {
-  const { Current } = useFormState();
-  return Current ? <Current /> : <FirstName />;
 };
 
 const Buttons = () => {
-  const { setCurrent } = useFormApi();
+  const { setCurrent } = useMultistepApi();
 
   return (
     <div>
-      <button type="button" onClick={() => setCurrent(FirstName)}>Jump2 FirstName</button>
-      <button type="button" onClick={() => setCurrent(Allergic)}>Jump2 Allergic</button>
-      <button type="button" onClick={() => setCurrent(EpiPen)}>Jump2 EpiPen</button>
-      <button type="button" onClick={() => setCurrent(Color)}>Jump2 Color</button>
+      <button type="button" onClick={() => setCurrent('info')}>
+        Jump2 Info
+      </button>
+      <button type="button" onClick={() => setCurrent('allergies')}>
+        Jump2 Allergic
+      </button>
+      <button type="button" onClick={() => setCurrent('epipen')}>
+        Jump2 EpiPen
+      </button>
+      <button type="button" onClick={() => setCurrent('color')}>
+        Jump2 Color
+      </button>
     </div>
   );
 };
 
-const Basic = () => (
-  <div>
-    <Form id="basic-form">
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        <div style={{ flex: 1, marginRight: '2rem' }}>
-          <div style={{ border: 'solid 1px', padding: '10px', marginBottom: '10px' }}>
-            <Steps />
+const Basic = () => {
+  const [state, setState] = useState(0);
+  const multistepApiRef = useRef();
+
+  return (
+    <div>
+      {/* {state}
+      <button type="button" onClick={() => setState(prev => prev + 1)}>
+        Click Me
+      </button> */}
+      {/* <button
+        type="button"
+        onClick={() => multistepApiRef.current.setCurrent('color')}>
+        Click Me
+      </button> */}
+
+      <Form id="basic-form">
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          <div style={{ flex: 1, marginRight: '2rem' }}>
+            <Multistep initialStep="info" multistepApiRef={multistepApiRef}>
+              <div
+                style={{
+                  border: 'solid 1px',
+                  padding: '10px',
+                  marginBottom: '10px'
+                }}>
+                <Info />
+                <Allergic state={state} />
+                <EpiPen />
+                <Color />
+              </div>
+              <Buttons />
+            </Multistep>
           </div>
-          <Buttons />
+          <div style={{ flex: 2, minWidth: '300px' }}>
+            <FormState errors step />
+          </div>
         </div>
-        <div style={{ flex: 2, minWidth: '300px' }}>
-          <FormState errors step />
-        </div>
-      </div>
-    </Form>
-  </div>
-);
+      </Form>
+    </div>
+  );
+};
 
 export default withDocs(readme, Basic);

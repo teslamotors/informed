@@ -188,9 +188,7 @@ storiesOf('High Order Components', module)
   .add('withFieldApi', WithFieldApi)
   .add('withFieldState', WithFieldState);
 
-storiesOf('Multistep Forms', module)
-  .add('Basic Multistep', BasicMultistep)
-  .add('Complex Multistep', ComplexMultistep);
+storiesOf('Multistep Forms', module).add('Dynamic Multistep', ComplexMultistep);
 
 storiesOf('Gotchas', module)
   .add('Unnecessary Rendering', UnnecessaryRendering)

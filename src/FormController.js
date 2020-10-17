@@ -29,6 +29,7 @@ class FormController extends EventEmitter {
 
     // Map to store fields being removed
     this.expectedRemovals = {};
+    this.pulledOut = {};
 
     // Map of saved values
     this.savedValues = {};
@@ -594,8 +595,9 @@ class FormController extends EventEmitter {
     );
 
     // Always clear out expected removals when a reregistering array field comes in
-    debug('clearing expected', magicValue);
+    debug('clearing expected removal', magicValue);
     delete this.expectedRemovals[magicValue];
+    delete this.pulledOut[magicValue];
 
     // The field is a shadow field ooo spooky so dont set anything
     if (field.shadow) {
@@ -640,10 +642,25 @@ class FormController extends EventEmitter {
       debug('Removing field', name);
       this.fieldsById.delete(id);
       this.fieldsByName.delete(name);
-      // Clean up state
-      ObjectMap.delete(this.state.values, name);
-      ObjectMap.delete(this.state.touched, name);
-      ObjectMap.delete(this.state.errors, name);
+      // Clean up state only if its not expected removal, otherwise we will just pull it out
+      if (!this.expectedRemovals[magicValue]) {
+        ObjectMap.delete(this.state.values, name);
+        ObjectMap.delete(this.state.touched, name);
+        ObjectMap.delete(this.state.errors, name);
+        ObjectMap.delete(this.savedValues, name);
+      }
+
+      // If we expected this removal the pullOut
+      if (this.expectedRemovals[magicValue] && this.pulledOut[magicValue]) {
+        debug('Pulling out', name, 'with magic value', magicValue);
+        ObjectMap.pullOut(this.state.values, magicValue);
+        ObjectMap.pullOut(this.state.touched, magicValue);
+        ObjectMap.pullOut(this.state.errors, magicValue);
+        ObjectMap.pullOut(this.savedValues, magicValue);
+        // console.log('Pull1', this.state.values);
+        // console.log('Pull2', this.savedValues);
+        delete this.pulledOut[magicValue];
+      }
     }
 
     this.emit('change');
@@ -652,6 +669,7 @@ class FormController extends EventEmitter {
   expectRemoval(name) {
     debug('Expecting removal of', name);
     this.expectedRemovals[name] = true;
+    this.pulledOut[name] = true;
   }
 
   update(id, field) {
@@ -662,6 +680,14 @@ class FormController extends EventEmitter {
     this.fieldsByName.set(name, field);
     // Only emit change if field name changed
     if (prevName !== name) {
+      // Also remember to clear removals
+      // Example foo.bar.baz[3].baz >>>> foo.bar.baz[3]
+      const magicValue = name.slice(
+        0,
+        name.lastIndexOf('[') != -1 ? name.lastIndexOf(']') + 1 : name.length
+      );
+      debug('clearing expected removal', magicValue);
+      delete this.expectedRemovals[magicValue];
       this.emit('change');
     }
   }

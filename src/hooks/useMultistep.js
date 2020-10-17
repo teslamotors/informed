@@ -87,12 +87,14 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
         }
       },
       // Registers the step
-      register: (name, step) => {
+      register: (name, step, initial) => {
         stepsByName.set(name, step);
-        setMultistepState(prev => ({
-          ...prev,
-          steps: Array.from(stepsByName.keys())
-        }));
+        if (!initial) {
+          setMultistepState(prev => ({
+            ...prev,
+            steps: Array.from(stepsByName.keys())
+          }));
+        }
       },
       // Deregisters the step
       deregister: name => {

@@ -9,7 +9,7 @@ import ldpull from 'lodash/pull';
 import Debug from './debug';
 const debug = Debug('informed:ObjMap' + '\t');
 
-const pathToArrayElem = (path) => {
+const pathToArrayElem = path => {
   const pathArray = ldtoPath(path);
   return Number.isInteger(+pathArray[pathArray.length - 1]);
 };
@@ -38,7 +38,7 @@ class ObjectMap {
       // so in this else statement we deal with that
 
       // If the path is to an array leaf then we want to set to undefined
-      // Example: 
+      // Example:
       // path = 'foo.bar[2]'
       // foo.bar = [ 'baz', 'raz', 'taz' ]
       // setting taz to undefined   ^^^
@@ -50,11 +50,14 @@ class ObjectMap {
         cleanup(object, pathArray, false);
       }
       // Only delete the field if it needs to be deleted and its not a path to an array ( array leaf )
-      // Example: 
+      // Example:
       // path = 'foo.bar'
       // foo.bar = 'baz'
       // removing foo.bar from the object completley
-      else if (!pathToArrayElem(path) && ObjectMap.get(object, path) !== undefined) {
+      else if (
+        !pathToArrayElem(path) &&
+        ObjectMap.get(object, path) !== undefined
+      ) {
         debug('Special case REMOVING', path, 'from object completley');
         ObjectMap.delete(object, path);
       }
@@ -63,24 +66,36 @@ class ObjectMap {
 
   static delete(object, path) {
     debug('DELETE', path);
-    ldunset(object, path);
+
+    // Special case for arrays
+    if (pathToArrayElem(path)) {
+      debug('ARRAY', path);
+      //ldunset(object, path);
+      this.pullOut(object, path);
+    } else {
+      ldunset(object, path);
+    }
+
     let pathArray = ldtoPath(path);
     pathArray = pathArray.slice(0, pathArray.length - 1);
     cleanup(object, pathArray);
   }
 
-  // May need to do this some day ;)
-  // static pullOut(object, path, index) {
-  //   // Get the path to the array
-  //   let pathArray = ldtoPath(path);
-  //   pathArray = pathArray.slice(0, pathArray.length - 1).join();
-  //   debug('PathArray', pathArray);
-  //   // Get the array
-  //   const arr = ldget(object, pathArray);
-  //   debug('Array', arr);
-  //   // Pull out of array
-  //   ldpullAt(arr, index);
-  // }
+  // Very important ;)
+  static pullOut(object, path) {
+    // Get the path to the array
+    let pathArray = ldtoPath(path);
+    debug('PathArray1', pathArray);
+    const index = pathArray[pathArray.length - 1];
+    pathArray = pathArray.slice(0, pathArray.length - 1);
+    debug('PathArray2', pathArray, 'index', index);
+    // Get the array
+    const arr = ldget(object, pathArray);
+    debug('Array', arr);
+    // Pull out of array
+    ldpullAt(arr, index);
+    cleanup(object, pathArray);
+  }
 }
 
 function cleanup(obj, path, pull = true) {
@@ -92,9 +107,9 @@ function cleanup(obj, path, pull = true) {
   const object = ldget(obj, path);
 
   // Clean up undefined from array
-  if (Array.isArray(object) && pull) {
-    ldpull(object, undefined);
-  }
+  // if (Array.isArray(object) && pull) {
+  //   ldpull(object, undefined);
+  // }
 
   // Delete object if its empty
   if (

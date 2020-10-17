@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import useMultistepState from './useMultistepState';
 import useFormState from './useFormState';
 import useMultistepApi from './useMultistepApi';
@@ -18,6 +18,18 @@ const useMultistepStep = ({ step, next, previous, relevant }) => {
   nextRef.current = next;
   prevRef.current = previous;
   relevantRef.current = relevant;
+
+  useState(() => {
+    register(
+      step,
+      {
+        name: step,
+        getNext: () => nextRef.current,
+        getPrevious: () => prevRef.current
+      },
+      true
+    );
+  });
 
   useEffect(
     () => {

@@ -2,7 +2,6 @@ import ObjectMap from '../src/ObjectMap';
 import { expect } from 'chai';
 
 describe('ObjectMap', () => {
-
   describe('get', () => {
     it('should get value from very nested object', () => {
       const expected = 2;
@@ -43,8 +42,9 @@ describe('ObjectMap', () => {
           }
         }
       };
-      const actual = ObjectMap.get( object,
-        'foo[\'bar\'].baz[0].taz.bar[10][3].bar[\'0\'].5'
+      const actual = ObjectMap.get(
+        object,
+        "foo['bar'].baz[0].taz.bar[10][3].bar['0'].5"
       );
       expect(actual).to.equal(expected);
     });
@@ -83,7 +83,7 @@ describe('ObjectMap', () => {
       it('should set a nested value and initialize objects along the way with array object syntax', () => {
         const expected = { foo: { bar: { baz: 3 } } };
         const actual = {};
-        ObjectMap.set(actual, 'foo[\'bar\'].baz', 3);
+        ObjectMap.set(actual, "foo['bar'].baz", 3);
         expect(actual).to.deep.equal(expected);
       });
 
@@ -95,19 +95,18 @@ describe('ObjectMap', () => {
       });
 
       it('should set a value in an array to undefined', () => {
-        const expected = { foo: { bar: [ 'baz', 'taz', undefined ] } };
-        const actual = { foo: { bar: [ 'baz', 'taz', 'raz' ] } };
+        const expected = { foo: { bar: ['baz', 'taz', undefined] } };
+        const actual = { foo: { bar: ['baz', 'taz', 'raz'] } };
         ObjectMap.set(actual, 'foo.bar[2]', undefined);
         expect(actual).to.deep.equal(expected);
       });
 
       it('should set array value to undefined and then cleanup', () => {
         const expected = {};
-        const actual = { foo: { bar: [ 'baz', 'taz' ] } };
+        const actual = { foo: { bar: ['baz', 'taz'] } };
         ObjectMap.set(actual, 'foo.bar', undefined);
         expect(actual).to.deep.equal(expected);
       });
-      
     });
 
     describe('delete', () => {
@@ -153,7 +152,7 @@ describe('ObjectMap', () => {
       });
 
       it('should NOT remove arrays and objects when they are NOT empty after deleting', () => {
-        const expected = { foo: [ { bar: [4] }] };
+        const expected = { foo: [{ bar: [4] }] };
         const actual = { foo: [, { bar: [, 3, 4] }] };
         ObjectMap.delete(actual, 'foo[1].bar[1]');
         expect(actual).to.deep.equal(expected);
@@ -180,7 +179,7 @@ describe('ObjectMap', () => {
         ObjectMap.delete(actual, 'foo.bar.baz[0]');
         expect(actual).to.deep.equal({ foo: { bar: { baz: [2, 3] } } });
         ObjectMap.delete(actual, 'foo.bar.baz[0]');
-        expect(actual).to.deep.equal({ foo: { bar: { baz: [ 3 ] } } });
+        expect(actual).to.deep.equal({ foo: { bar: { baz: [3] } } });
         ObjectMap.delete(actual, 'foo.bar.baz[0]');
         expect(actual).to.deep.equal({});
       });
@@ -226,7 +225,10 @@ describe('ObjectMap', () => {
         }
       };
       ObjectMap.set(object, 'foo.bar.baz[0].taz.bar[10][3].bar.0.5', 3);
-      const actual = ObjectMap.get(object, 'foo.bar.baz[0].taz.bar[10][3].bar.0.5');
+      const actual = ObjectMap.get(
+        object,
+        'foo.bar.baz[0].taz.bar[10][3].bar.0.5'
+      );
       expect(actual).to.equal(expected);
     });
   });

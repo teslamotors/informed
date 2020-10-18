@@ -85,10 +85,10 @@ class ObjectMap {
   static pullOut(object, path) {
     // Get the path to the array
     let pathArray = ldtoPath(path);
-    debug('PathArray1', pathArray);
+    // debug('PathArray1', pathArray);
     const index = pathArray[pathArray.length - 1];
     pathArray = pathArray.slice(0, pathArray.length - 1);
-    debug('PathArray2', pathArray, 'index', index);
+    debug('Pulling out:', pathArray, 'index', index);
     // Get the array
     const arr = ldget(object, pathArray);
     debug('Array', arr);

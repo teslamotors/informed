@@ -84,20 +84,10 @@ const NestedForm = () => (
                       </button> */}
 
                       <ArrayField.Items>
-                        {({
-                          remove,
-                          field,
-                          reset,
-                          initialValue,
-                          values,
-                          setValue
-                        }) => (
+                        {({ remove, field, reset, values, setValue }) => (
                           <label>
                             <h5>{field}</h5>
-                            <Text
-                              field={`${field}.name`}
-                              initialValue={initialValue && initialValue.name}
-                            />
+                            <Text field={`${field}.name`} />
                             <Text field={`${field}.age`} />
                             {/* <Text field={`${field}.a`} />
                             <Text field={`${field}.b`} />

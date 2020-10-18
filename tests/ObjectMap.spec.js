@@ -152,7 +152,7 @@ describe('ObjectMap', () => {
       });
 
       it('should NOT remove arrays and objects when they are NOT empty after deleting', () => {
-        const expected = { foo: [{ bar: [4] }] };
+        const expected = { foo: [, { bar: [, 4] }] };
         const actual = { foo: [, { bar: [, 3, 4] }] };
         ObjectMap.delete(actual, 'foo[1].bar[1]');
         expect(actual).to.deep.equal(expected);

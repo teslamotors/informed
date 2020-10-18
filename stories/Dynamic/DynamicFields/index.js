@@ -59,11 +59,17 @@ const DynamicFields = () => (
           <Relevant when={({ values }) => values.married === 'yes'}>
             <label>
               Spouse name:
-              <Text field="spouse" keepState />
+              <Text field="spouse" />
             </label>
 
-            <h5>Siblings:</h5>
-            <ArrayField field="siblings" keepState>
+            {/* <h5>Siblings:</h5>
+            <ArrayField
+              field="siblings"
+              keepState
+              initialValue={[
+                { first: 'Foo', last: 'ahh' },
+                { first: 'Bar', last: 'last' }
+              ]}>
               {({ add, reset }) => (
                 <>
                   <button type="button" onClick={add}>
@@ -75,9 +81,10 @@ const DynamicFields = () => (
                   <ArrayField.Items>
                     {({ remove, field, index }) => (
                       <label>
-                        Sibling {index}:<Text field={`${field}`} keepState />
-                        {/* Sibling {index}:
-                        <Text field={`${field}.last`} keepState /> */}
+                        Sibling {index}:
+                        <Text field={`${field}.first`} keepState />
+                        Sibling {index}:
+                        <Text field={`${field}.last`} keepState />
                         <button type="button" onClick={remove}>
                           Remove
                         </button>
@@ -86,7 +93,7 @@ const DynamicFields = () => (
                   </ArrayField.Items>
                 </>
               )}
-            </ArrayField>
+            </ArrayField> */}
           </Relevant>
           <button type="submit">Submit</button>
         </div>

@@ -370,11 +370,19 @@ class FormController extends EventEmitter {
   }
 
   getSavedValue(name) {
+    const field = this.fieldsByName.get(name);
+    if (field && field.shadow) {
+      return ObjectMap.get(this.savedValues, `shadow-${name}`);
+    }
     return ObjectMap.get(this.savedValues, name);
   }
 
   removeSavedState(name) {
-    ObjectMap.delete(this.savedValues, name);
+    const field = this.fieldsByName.get(name);
+    if (field && field.shadow) {
+      return ObjectMap.delete(this.savedValues, `shadow-${name}`);
+    }
+    return ObjectMap.delete(this.savedValues, name);
   }
 
   getFullField(field) {
@@ -633,7 +641,16 @@ class FormController extends EventEmitter {
     // Exception where its expected to be removed!
     if (field.keepState && !this.expectedRemovals[magicValue]) {
       debug(`Saving field ${name}'s value`, field.fieldApi.getFieldState());
-      ObjectMap.set(this.savedValues, name, field.fieldApi.getFieldState());
+      if (!field.shadow) {
+        ObjectMap.set(this.savedValues, name, field.fieldApi.getFieldState());
+      } else {
+        // We are shadow field and will store this value in the shadows
+        ObjectMap.set(
+          this.savedValues,
+          `shadow-${name}`,
+          field.fieldApi.getFieldState()
+        );
+      }
     }
 
     // Remove if its an expected removal OR we dont have keep state
@@ -647,7 +664,12 @@ class FormController extends EventEmitter {
         ObjectMap.delete(this.state.values, name);
         ObjectMap.delete(this.state.touched, name);
         ObjectMap.delete(this.state.errors, name);
-        ObjectMap.delete(this.savedValues, name);
+
+        if (!field.shadow) {
+          ObjectMap.delete(this.savedValues, name);
+        } else {
+          ObjectMap.delete(this.savedValues, `shadow-${name}`);
+        }
       }
 
       // If we expected this removal the pullOut

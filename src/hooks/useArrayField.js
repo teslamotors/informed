@@ -190,7 +190,7 @@ const useArrayField = ({
       updater.deregister(id, ...args);
     },
     getInitialValue: fieldName => {
-      // determine if one of our array children triggered this change
+      // If we are getting initial value and its for this field return that
       if (RegExp(`${fullField}\\[[0-9]+\\]`).test(fieldName)) {
         const path = fieldName.replace(field, '');
         return ObjectMap.get(getInitialValues(), path);

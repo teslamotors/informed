@@ -6,21 +6,21 @@ import { act } from 'react-dom/test-utils';
 import { Form, Text, Checkbox, Multistep } from '../../src';
 import { Test } from 'mocha';
 
-const MultistepTestForm = ({ onSubmit, apiRef }) => {
+const MultistepTestForm = ({ onSubmit, apiRef, validate }) => {
   return (
     <Form onSubmit={onSubmit} apiRef={apiRef}>
       <Multistep initialStep="info">
         {({ next, back }) => (
           <React.Fragment>
             <Multistep.Step step="info" next="allergies">
-              <Text field="name" keepState />
-              <Text field="age" type="number" keepState />
+              <Text field="name" keepState validate={validate} />
+              <Text field="age" type="number" keepState validate={validate} />
               <button type="button" id="next" onClick={next}>
                 Next
               </button>
             </Multistep.Step>
             <Multistep.Step step="allergies" next="epipen">
-              <Checkbox field="allergic" keepState />
+              <Checkbox field="allergic" keepState validate={validate} />
               <button type="button" id="next" onClick={next}>
                 Next
               </button>
@@ -104,5 +104,36 @@ describe('Multistep', () => {
       age: 26,
       allergic: true
     });
+  });
+
+  it('should NOT move to second step when next is clicked until fields are valid', () => {
+    const validate = v => (!v ? 'required' : undefined);
+
+    const wrapper = mount(<MultistepTestForm validate={validate} />);
+
+    // Check initial step
+    let inputs = wrapper.find('input');
+    let next = wrapper.find('#next');
+    expect(inputs.length).to.equal(2);
+    expect(inputs.at(0).props().name).to.equal('name');
+
+    // Try to Move to next step
+    next.simulate('click');
+
+    // Validate
+    expect(inputs.length).to.equal(2);
+    expect(inputs.at(0).props().name).to.equal('name');
+
+    // Fill in the form
+    inputs.at(0).simulate('change', { target: { value: 'Joe' } });
+    inputs.at(1).simulate('change', { target: { value: 26 } });
+
+    // Move to next step
+    next.simulate('click');
+
+    // Validate
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(1);
+    expect(inputs.at(0).props().name).to.equal('allergic');
   });
 });

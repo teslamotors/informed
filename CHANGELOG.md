@@ -1,3 +1,15 @@
+## 3.10.1 (October 18, 2020)
+
+### Fixed
+
+- Array fields because I stupidly broke them
+
+#### Added
+
+- Tests for multistep fields
+- Better multistep form syntax
+- Better multistep docs
+
 ## 3.10.0 (September 29, 2020)
 
 ### Updated

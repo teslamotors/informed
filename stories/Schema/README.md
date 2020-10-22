@@ -1,5 +1,7 @@
 # JSON Schema Form
 
+** Note: This is in beta and is subject to change! **
+
 ```jsx
 import { Form } from 'informed';
 

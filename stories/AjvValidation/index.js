@@ -2,24 +2,29 @@ import React from 'react';
 import withDocs from '../utils/withDocs';
 import readme from './README.md';
 import FormState from '../utils/FormState';
+import Ajv from 'ajv';
 
 import { Form } from '../../src';
 
 const schema = {
   type: 'object',
+  required: ['name', 'friend', 'age', 'bio', 'color', 'model', 'cars'],
   properties: {
     name: {
       type: 'string',
       title: 'First name',
+      'ui:control': 'input'
+    },
+    friend: {
+      type: 'string',
+      title: 'Friend',
       'ui:control': 'input',
-      'informed:props': {
-        validate: v => (v == null ? 'Required' : undefined)
-      },
-      'informed:validate': {}
+      oneOf: [{ const: 'Elon' }, { const: 'Kimbal' }]
     },
     age: {
       type: 'number',
       title: 'Age',
+      minimum: 0,
       'ui:control': 'input',
       'input:props': {
         type: 'number'
@@ -28,15 +33,16 @@ const schema = {
     bio: {
       type: 'string',
       title: 'Bio',
-      'ui:control': 'textarea'
+      'ui:control': 'textarea',
+      minLength: 10
     },
     authorize: {
-      type: 'string',
+      type: 'boolean',
       title: 'Authorize',
       'ui:control': 'checkbox'
     },
     color: {
-      type: 'array',
+      type: 'string',
       title: 'Color',
       'ui:control': 'select',
       oneOf: [
@@ -62,7 +68,6 @@ const schema = {
         { const: 'mx', title: 'Model X' },
         { const: 'my', title: 'Model Y' }
       ],
-      default: null,
       'informed:props': {
         initialValue: 'm3'
       }
@@ -70,6 +75,7 @@ const schema = {
     cars: {
       type: 'array',
       title: 'Cars',
+      minItems: 3,
       'ui:control': 'select',
       'input:props': {
         multiple: true,
@@ -91,9 +97,12 @@ const schema = {
 };
 
 const Schema = () => (
-  <Form schema={schema}>
-    <FormState errors />
+  <Form
+    schema={schema}
+    ajv={Ajv}
+    onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
     <button type="submit">Submit</button>
+    <FormState errors />
   </Form>
 );
 

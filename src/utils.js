@@ -1,4 +1,5 @@
 import ObjectMap from './ObjectMap';
+import { rest } from 'lodash';
 
 export const getChildDisplayName = WrappedComponent => {
   // fix for "memo" components
@@ -54,6 +55,28 @@ export const validateYupField = (schema, value) => {
   }
 };
 
+export const validateAjvSchema = (validate, data) => {
+  validate(data);
+  const errors = {};
+  if (validate.errors) {
+    validate.errors.forEach(({ message, dataPath, keyword, params }) => {
+      let path = dataPath;
+
+      // Special case for required
+      if (keyword === 'required') {
+        path = `${path}.${params.missingProperty}`;
+      }
+
+      // Get rid of leading dot
+      path = path.replace('.', '');
+      // console.log('PATH', path, message);
+      // TODO get message from informed if present
+      ObjectMap.set(errors, path, message);
+    });
+  }
+  return errors;
+};
+
 // https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
 export const uuidv4 = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -77,8 +100,8 @@ export const debounce = (func, wait) => {
   };
 };
 
-export const computeFieldsFromSchema = schema => {
-  if (!schema) {
+export const computeFieldsFromSchema = (schema, onlyValidateSchema) => {
+  if (!schema || onlyValidateSchema) {
     return [];
   }
   const { properties = {}, propertyOrder = [] } = schema;
@@ -100,11 +123,17 @@ export const computeFieldsFromSchema = schema => {
         'informed:props': informedProps,
         'input:props': inputProps,
         oneOf,
-        title
+        items,
+        title: label,
+        minimum: min,
+        maximum: max,
+        minLength,
+        maxLength,
+        pattern
       } = property;
 
       // Set Id if not passed
-      let id = title;
+      let id = label;
       if (inputProps && inputProps.id) {
         id = inputProps.id;
       }
@@ -112,11 +141,33 @@ export const computeFieldsFromSchema = schema => {
       const field = {
         componentType: uiControl,
         field: propertyName,
-        props: { label: title, ...informedProps, ...inputProps, id }
+        props: {
+          label: label,
+          id,
+          min,
+          max,
+          minLength,
+          maxLength,
+          pattern,
+          ...informedProps,
+          ...inputProps
+        }
       };
 
       if (oneOf) {
         const options = property.oneOf.map(option => {
+          const { 'input:props': inputProps = {} } = option;
+          return {
+            value: option.const,
+            label: option.title,
+            ...inputProps
+          };
+        });
+        field.props.options = options;
+      }
+
+      if (items && items.oneOf) {
+        const options = items.oneOf.map(option => {
           const { 'input:props': inputProps = {} } = option;
           return {
             value: option.const,

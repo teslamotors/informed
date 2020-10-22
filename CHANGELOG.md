@@ -1,3 +1,9 @@
+## 3.12.0 (October 22, 2020)
+
+### Added
+
+- Added AJV Schema shit!!!
+
 ## 3.11.0 (October 21, 2020)
 
 ### Added

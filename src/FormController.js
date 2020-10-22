@@ -1,7 +1,7 @@
 import ObjectMap from './ObjectMap';
 import { EventEmitter } from 'events';
 import Debug from './debug';
-import { validateYupSchema } from './utils';
+import { validateYupSchema, validateAjvSchema } from './utils';
 const debug = Debug('informed:Controller' + '\t');
 
 const noop = () => {};
@@ -11,6 +11,12 @@ class FormController extends EventEmitter {
     super();
 
     this.options = options;
+
+    const { ajv, schema } = options;
+
+    // Create new ajv instance if passed
+    this.ajv = ajv ? new ajv({ allErrors: true }) : null;
+    this.ajvValidate = ajv ? this.ajv.compile(schema) : null;
 
     // Map will store all fields by id
     // Key => uuid
@@ -499,6 +505,27 @@ class FormController extends EventEmitter {
     // Validate schema if needed
     if (this.options.validationSchema) {
       const errors = validateYupSchema(this.options.validationSchema, values);
+      // So we because all fields controll themselves and, "inform", this controller
+      // of their changes, we need to literally itterate through all registered fields
+      // and set them. Not a big deal but very important to remember that you cant simply
+      // set this controllers state!
+      this.fieldsById.forEach(field => {
+        // Check to see if there is an error to set
+        // Note: we use has becuause value may be there but undefined
+        if (ObjectMap.has(errors, field.field)) {
+          const error = ObjectMap.get(errors, field.field);
+          // If there is an error then set it
+          this.setError(field.field, error);
+        } else {
+          // If we are doing schema validation then we need to clear out any old errors
+          this.setError(field.field, undefined);
+        }
+      });
+    }
+
+    // Validate AJV schema if needed
+    if (this.options.schema && this.options.ajv) {
+      const errors = validateAjvSchema(this.ajvValidate, values);
       // So we because all fields controll themselves and, "inform", this controller
       // of their changes, we need to literally itterate through all registered fields
       // and set them. Not a big deal but very important to remember that you cant simply

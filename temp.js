@@ -1,25 +1,40 @@
-import React from 'react';
-import withDocs from '../utils/withDocs';
-import readme from './README.md';
-import FormState from '../utils/FormState';
-
-import { Form } from '../../src';
+// Node.js require:
+const Ajv = require('ajv');
+// const ajv = new Ajv({ allErrors: true, jsonPointers: true });
+// require('ajv-errors')(ajv);
+const ajv = new Ajv({ allErrors: true });
 
 const schema = {
   type: 'object',
+  required: ['name'],
   properties: {
     name: {
       type: 'string',
       title: 'First name',
       'ui:control': 'input',
-      'informed:props': {
-        validate: v => (v == null ? 'Required' : undefined)
-      },
-      'informed:validate': {}
+      maxLength: 5
+    },
+    brothers: {
+      type: 'array',
+      items: {
+        name: {
+          type: 'string',
+          title: 'First name',
+          'ui:control': 'input'
+        },
+        age: {
+          type: 'number',
+          title: 'First name',
+          'ui:control': 'input',
+          'input:props': {
+            type: 'number'
+          }
+        }
+      }
     },
     age: {
       type: 'number',
-      title: 'Age',
+      title: 'First name',
       'ui:control': 'input',
       'input:props': {
         type: 'number'
@@ -33,10 +48,13 @@ const schema = {
     authorize: {
       type: 'string',
       title: 'Authorize',
-      'ui:control': 'checkbox'
+      'ui:control': 'checkbox',
+      errorMessage: {
+        type: 'Invalid format'
+      }
     },
     color: {
-      type: 'array',
+      type: 'string',
       title: 'Color',
       'ui:control': 'select',
       oneOf: [
@@ -90,11 +108,17 @@ const schema = {
   }
 };
 
-const Schema = () => (
-  <Form schema={schema}>
-    <FormState errors />
-    <button type="submit">Submit</button>
-  </Form>
-);
+const data = {
+  model: 'm3',
+  cars: ['jeep', 'tesla'],
+  // name: 'Joe Puzzo',
+  age: 26,
+  bio: 'Hello',
+  authorize: true,
+  color: 'red'
+};
 
-export default withDocs(readme, Schema);
+const validate = ajv.compile(schema);
+const valid = validate(data);
+
+console.log(validate.errors);

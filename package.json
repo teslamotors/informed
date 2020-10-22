@@ -62,6 +62,8 @@
     "@storybook/addons": "^5.3.13",
     "@storybook/react": "^5.3.13",
     "@storybook/theming": "^5.3.13",
+    "ajv": "^6.12.6",
+    "ajv-errors": "^1.0.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.5",
     "babel-plugin-emotion": "^9.2.6",

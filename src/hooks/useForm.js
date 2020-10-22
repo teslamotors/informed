@@ -24,6 +24,8 @@ const useForm = ({
   onSubmitFailure,
   validationSchema,
   schema,
+  ajv,
+  onlyValidateSchema,
   ...userProps
 }) => {
   logger('Render useForm');
@@ -37,7 +39,9 @@ const useForm = ({
       validateFields,
       allowEmptyStrings,
       preventEnter,
-      validationSchema
+      validationSchema,
+      schema,
+      ajv
     }),
     [
       dontPreventDefault,
@@ -46,7 +50,9 @@ const useForm = ({
       validateFields,
       allowEmptyStrings,
       preventEnter,
-      validationSchema
+      validationSchema,
+      schema,
+      ajv
     ]
   );
 
@@ -118,7 +124,7 @@ const useForm = ({
   const [formApi] = useState(() => formController.getFormApi());
 
   // Get fields from scheama
-  const schemaFields = computeFieldsFromSchema(schema);
+  const schemaFields = computeFieldsFromSchema(schema, onlyValidateSchema);
 
   // TODO technically speaking this can be unsafe as there is circular dependency
   // between form provider and useForm.. Its ok because anyone that in theory

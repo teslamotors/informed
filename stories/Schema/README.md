@@ -6,6 +6,7 @@
 import { Form } from 'informed';
 
 const schema = {
+  type: 'object',
   properties: {
     name: {
       type: 'string',
@@ -13,6 +14,14 @@ const schema = {
       'ui:control': 'input',
       'informed:props': {
         validate: v => (v == null ? 'Required' : undefined)
+      }
+    },
+    age: {
+      type: 'number',
+      title: 'First name',
+      'ui:control': 'input',
+      'input:props': {
+        type: 'number'
       }
     },
     bio: {
@@ -26,7 +35,7 @@ const schema = {
       'ui:control': 'checkbox'
     },
     color: {
-      type: 'string',
+      type: 'array',
       title: 'Color',
       'ui:control': 'select',
       oneOf: [
@@ -55,6 +64,26 @@ const schema = {
       default: null,
       'informed:props': {
         initialValue: 'm3'
+      }
+    },
+    cars: {
+      type: 'array',
+      title: 'Cars',
+      'ui:control': 'select',
+      'input:props': {
+        multiple: true,
+        style: { height: '100px', width: '200px' }
+      },
+      items: {
+        oneOf: [
+          { const: 'tesla', title: 'Tesla' },
+          { const: 'volvo', title: 'Volvo' },
+          { const: 'audi', title: 'Audi' },
+          { const: 'jeep', title: 'Jeep' }
+        ]
+      },
+      'informed:props': {
+        initialValue: ['jeep', 'tesla']
       }
     }
   }

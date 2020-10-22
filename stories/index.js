@@ -6,6 +6,7 @@ import Intro from './Intro';
 import Basic from './Form/Basic';
 import Dynamic from './Form/Dynamic';
 import Schema from './Schema';
+import AjvValidation from './AjvValidation';
 import Complex from './Form/Complex';
 import Big from './Form/Big';
 import State from './Form/State';
@@ -165,7 +166,8 @@ storiesOf('Validation', module)
   .add('Array Field Validation', ArrayFieldValidation)
   .add('Complex Array Field Validation', ComplexArrayFieldValidation)
   .add('Yup Validation', YupValidation)
-  .add('Field Level + Yup Validation', FieldLevelYupValidation);
+  .add('Field Level + Yup Validation', FieldLevelYupValidation)
+  .add('JSON Schema Validation', AjvValidation);
 
 storiesOf('Debugging', module).add('Form State', FormState);
 

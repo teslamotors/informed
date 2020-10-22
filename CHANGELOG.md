@@ -1,3 +1,9 @@
+## 3.11.0 (October 21, 2020)
+
+### Added
+
+- Schema shit
+
 ## 3.10.1 (October 18, 2020)
 
 ### Fixed

@@ -5,6 +5,7 @@ import StoryWrapper from './utils/StoryWrapper';
 import Intro from './Intro';
 import Basic from './Form/Basic';
 import Dynamic from './Form/Dynamic';
+import Schema from './Schema';
 import Complex from './Form/Complex';
 import Big from './Form/Big';
 import State from './Form/State';
@@ -132,6 +133,7 @@ storiesOf('Form', module)
   .add('Api', Api)
   .add('Props', Props)
   .add('Dynamic', Dynamic)
+  .add('Schema', Schema)
   .add('Big', Big);
 
 storiesOf('Inputs', module)

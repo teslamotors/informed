@@ -11,28 +11,35 @@ const Checkbox = ({ fieldApi, fieldState, ...props }) => {
     initialValue,
     debug,
     forwardedRef,
+    id,
+    label,
     ...rest
   } = props;
   return (
-    <input
-      {...rest}
-      name={field}
-      ref={forwardedRef}
-      checked={!!value}
-      onChange={e => {
-        setValue(e.target.checked);
-        if (onChange) {
-          onChange(e);
-        }
-      }}
-      onBlur={e => {
-        setTouched(true);
-        if (onBlur) {
-          onBlur(e);
-        }
-      }}
-      type="checkbox"
-    />
+    <>
+      {label ? <label htmlFor={id}> {label} </label> : null}
+
+      <input
+        {...rest}
+        id={id}
+        name={field}
+        ref={forwardedRef}
+        checked={!!value}
+        onChange={e => {
+          setValue(e.target.checked);
+          if (onChange) {
+            onChange(e);
+          }
+        }}
+        onBlur={e => {
+          setTouched(true);
+          if (onBlur) {
+            onBlur(e);
+          }
+        }}
+        type="checkbox"
+      />
+    </>
   );
 };
 

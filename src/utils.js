@@ -76,3 +76,59 @@ export const debounce = (func, wait) => {
     timeout = setTimeout(later, wait);
   };
 };
+
+export const computeFieldsFromSchema = schema => {
+  if (!schema) {
+    return [];
+  }
+  const { properties = {}, propertyOrder = [] } = schema;
+  const fields = Object.keys(properties)
+    .sort((a, b) => {
+      const aIndex = propertyOrder.indexOf(a);
+      const bIndex = propertyOrder.indexOf(b);
+
+      return (
+        (aIndex > -1 ? aIndex : propertyOrder.length + 1) -
+        (bIndex > -1 ? bIndex : propertyOrder.length + 1)
+      );
+    })
+    .map(propertyName => {
+      const property = properties[propertyName];
+
+      const {
+        'ui:control': uiControl,
+        'informed:props': informedProps,
+        'input:props': inputProps,
+        oneOf,
+        title
+      } = property;
+
+      // Set Id if not passed
+      let id = title;
+      if (inputProps && inputProps.id) {
+        id = inputProps.id;
+      }
+
+      const field = {
+        componentType: uiControl,
+        field: propertyName,
+        props: { label: title, ...informedProps, ...inputProps, id }
+      };
+
+      if (oneOf) {
+        const options = property.oneOf.map(option => {
+          const { 'input:props': inputProps = {} } = option;
+          return {
+            value: option.const,
+            label: option.title,
+            ...inputProps
+          };
+        });
+        field.props.options = options;
+      }
+
+      return field;
+    });
+
+  return fields;
+};

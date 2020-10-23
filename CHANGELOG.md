@@ -1,3 +1,9 @@
+## 3.13.1 (October 23, 2020)
+
+### Fixed
+
+- Bug where inforemd would crash if schema was missing field that was in JSX ( returns null )
+
 ## 3.13.0 (October 23, 2020)
 
 ### Added

@@ -24,6 +24,11 @@ const FormField = ({ field }) => {
   const path = getSchemaPathFromJsonPath(fullField);
   const property = ObjectMap.get(schema, path);
 
+  // If property was not found return null
+  if (!property) {
+    return null;
+  }
+
   // Next compute the field from property
   const schemaField = computeFieldFromProperty(field, property);
 

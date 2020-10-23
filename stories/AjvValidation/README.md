@@ -105,7 +105,7 @@ const Schema = () => (
     onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
     <SchemaFields />
     <button type="submit">Submit</button>
-    <FormState />
+    <FormState errors />
   </Form>
 );
 ```

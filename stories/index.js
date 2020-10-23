@@ -8,7 +8,6 @@ import Dynamic from './Form/Dynamic';
 import Schema from './Schema/Intro';
 import FormattedSchema from './Schema/FormattedSchema';
 import NestedSchema from './Schema/NestedSchema';
-import AjvValidation from './AjvValidation';
 import Complex from './Form/Complex';
 import Big from './Form/Big';
 import State from './Form/State';
@@ -26,6 +25,9 @@ import ArrayFieldValidation from './Validation/ArrayFieldValidation';
 import ComplexArrayFieldValidation from './Validation/ComplexArrayFieldValidation';
 import Notifications from './Validation/Notifications';
 import FormLevelValidation from './Validation/FormLevelValidation';
+import AjvValidation from './Validation/AjvValidation';
+import AjvValidationNoRender from './Validation/AjvValidationNoRender';
+
 import FormatParse from './Formatting/FormatParse';
 import Mask from './Formatting/Mask';
 // import MaskWithCursor from './Formatting/MaskWithCursor';
@@ -168,7 +170,8 @@ storiesOf('Validation', module)
   .add('Complex Array Field Validation', ComplexArrayFieldValidation)
   .add('Yup Validation', YupValidation)
   .add('Field Level + Yup Validation', FieldLevelYupValidation)
-  .add('JSON Schema Validation', AjvValidation);
+  .add('JSON Schema Validation + Rendering', AjvValidation)
+  .add('Only JSON Schema Validation', AjvValidationNoRender);
 
 storiesOf('Schema', module)
   .add('Schema', Schema)

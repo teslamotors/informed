@@ -1,5 +1,7 @@
 # AJV Validation
 
+You can pass a JSON schema to the form to both build and validate the form!
+
 ** Note: This is in beta and is subject to change! **
 
 <!-- STORY -->

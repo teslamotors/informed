@@ -1,10 +1,10 @@
 import React from 'react';
-import withDocs from '../utils/withDocs';
+import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../utils/FormState';
+import FormState from '../../utils/FormState';
 import Ajv from 'ajv';
 
-import { Form, SchemaFields } from '../../src';
+import { Form, SchemaFields } from '../../../src';
 
 const schema = {
   type: 'object',

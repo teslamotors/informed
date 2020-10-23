@@ -1,9 +1,11 @@
-import React from 'react';
-import withDocs from '../utils/withDocs';
-import readme from './README.md';
-import FormState from '../utils/FormState';
+# JSON Schema Form
 
-import { Form } from '../../src';
+** Note: This is in beta and is subject to change! **
+
+<!-- STORY -->
+
+```jsx
+import { Form, SchemaFields, FormState } from 'informed';
 
 const schema = {
   type: 'object',
@@ -14,12 +16,11 @@ const schema = {
       'ui:control': 'input',
       'informed:props': {
         validate: v => (v == null ? 'Required' : undefined)
-      },
-      'informed:validate': {}
+      }
     },
     age: {
       type: 'number',
-      title: 'Age',
+      title: 'First name',
       'ui:control': 'input',
       'input:props': {
         type: 'number'
@@ -92,9 +93,9 @@ const schema = {
 
 const Schema = () => (
   <Form schema={schema}>
-    <FormState errors />
+    <SchemaFields />
     <button type="submit">Submit</button>
+    <FormState />
   </Form>
 );
-
-export default withDocs(readme, Schema);
+```

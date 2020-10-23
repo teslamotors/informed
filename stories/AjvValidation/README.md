@@ -5,7 +5,7 @@
 <!-- STORY -->
 
 ```jsx
-import { Form } from 'informed';
+import { Form, SchemaFields } from 'informed';
 import Ajv from 'ajv';
 
 const schema = {
@@ -103,8 +103,9 @@ const Schema = () => (
     schema={schema}
     ajv={Ajv}
     onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
+    <SchemaFields />
     <button type="submit">Submit</button>
-    <FormState errors />
+    <FormState />
   </Form>
 );
 ```

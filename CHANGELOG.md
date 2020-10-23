@@ -1,3 +1,9 @@
+## 3.13.0 (October 23, 2020)
+
+### Added
+
+- Ability to render schema fields in specific paces within JSX!!
+
 ## 3.12.0 (October 22, 2020)
 
 ### Added

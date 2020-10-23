@@ -5,7 +5,9 @@ import StoryWrapper from './utils/StoryWrapper';
 import Intro from './Intro';
 import Basic from './Form/Basic';
 import Dynamic from './Form/Dynamic';
-import Schema from './Schema';
+import Schema from './Schema/Intro';
+import FormattedSchema from './Schema/FormattedSchema';
+import NestedSchema from './Schema/NestedSchema';
 import AjvValidation from './AjvValidation';
 import Complex from './Form/Complex';
 import Big from './Form/Big';
@@ -134,7 +136,6 @@ storiesOf('Form', module)
   .add('Api', Api)
   .add('Props', Props)
   .add('Dynamic', Dynamic)
-  .add('Schema', Schema)
   .add('Big', Big);
 
 storiesOf('Inputs', module)
@@ -168,6 +169,11 @@ storiesOf('Validation', module)
   .add('Yup Validation', YupValidation)
   .add('Field Level + Yup Validation', FieldLevelYupValidation)
   .add('JSON Schema Validation', AjvValidation);
+
+storiesOf('Schema', module)
+  .add('Schema', Schema)
+  .add('Nested Schema', NestedSchema)
+  .add('Formatted Schema', FormattedSchema);
 
 storiesOf('Debugging', module).add('Form State', FormState);
 

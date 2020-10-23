@@ -5,6 +5,8 @@ import FormProvider from './components/FormProvider';
 import FormState from './components/FormState';
 import Relevant from './components/Relevant';
 import Multistep from './components/Multistep';
+import FormField from './components/FormField';
+import SchemaFields from './components/SchemaFields';
 
 import withFormApi from './HOC/withFormApi';
 import withFormState from './HOC/withFormState';
@@ -73,5 +75,7 @@ export {
   useArrayField,
   FormState,
   Relevant,
-  Multistep
+  Multistep,
+  FormField,
+  SchemaFields
 };

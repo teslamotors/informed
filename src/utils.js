@@ -100,6 +100,74 @@ export const debounce = (func, wait) => {
   };
 };
 
+export const computeFieldFromProperty = (propertyName, property) => {
+  const {
+    'ui:control': uiControl,
+    'informed:props': informedProps,
+    'input:props': inputProps,
+    oneOf,
+    items,
+    title: label,
+    minimum: min,
+    maximum: max,
+    minLength,
+    maxLength,
+    pattern,
+    type,
+    properties: subProperties
+  } = property;
+
+  // Set Id if not passed
+  let id = uuidv4();
+  if (inputProps && inputProps.id) {
+    id = inputProps.id;
+  }
+
+  const field = {
+    componentType: uiControl,
+    field: propertyName,
+    type,
+    properties: type === 'object' ? subProperties : undefined,
+    props: {
+      label: label,
+      id,
+      min,
+      max,
+      minLength,
+      maxLength,
+      pattern,
+      ...informedProps,
+      ...inputProps
+    }
+  };
+
+  if (oneOf) {
+    const options = property.oneOf.map(option => {
+      const { 'input:props': inputProps = {} } = option;
+      return {
+        value: option.const,
+        label: option.title,
+        ...inputProps
+      };
+    });
+    field.props.options = options;
+  }
+
+  if (items && items.oneOf) {
+    const options = items.oneOf.map(option => {
+      const { 'input:props': inputProps = {} } = option;
+      return {
+        value: option.const,
+        label: option.title,
+        ...inputProps
+      };
+    });
+    field.props.options = options;
+  }
+
+  return field;
+};
+
 export const computeFieldsFromSchema = (schema, onlyValidateSchema) => {
   if (!schema || onlyValidateSchema) {
     return [];
@@ -118,68 +186,24 @@ export const computeFieldsFromSchema = (schema, onlyValidateSchema) => {
     .map(propertyName => {
       const property = properties[propertyName];
 
-      const {
-        'ui:control': uiControl,
-        'informed:props': informedProps,
-        'input:props': inputProps,
-        oneOf,
-        items,
-        title: label,
-        minimum: min,
-        maximum: max,
-        minLength,
-        maxLength,
-        pattern
-      } = property;
-
-      // Set Id if not passed
-      let id = label;
-      if (inputProps && inputProps.id) {
-        id = inputProps.id;
-      }
-
-      const field = {
-        componentType: uiControl,
-        field: propertyName,
-        props: {
-          label: label,
-          id,
-          min,
-          max,
-          minLength,
-          maxLength,
-          pattern,
-          ...informedProps,
-          ...inputProps
-        }
-      };
-
-      if (oneOf) {
-        const options = property.oneOf.map(option => {
-          const { 'input:props': inputProps = {} } = option;
-          return {
-            value: option.const,
-            label: option.title,
-            ...inputProps
-          };
-        });
-        field.props.options = options;
-      }
-
-      if (items && items.oneOf) {
-        const options = items.oneOf.map(option => {
-          const { 'input:props': inputProps = {} } = option;
-          return {
-            value: option.const,
-            label: option.title,
-            ...inputProps
-          };
-        });
-        field.props.options = options;
-      }
+      const field = computeFieldFromProperty(propertyName, property);
 
       return field;
     });
 
   return fields;
+};
+
+// Examples
+// field = "name" ---> properties.name
+// field = "brother.name" ---> properties.brother.properties.name
+// field = "brother.siblings[1].friend.name" ---> properties.brother.properties.siblings.items[1].properties.friend.properties.name
+export const getSchemaPathFromJsonPath = jsonPath => {
+  // Convert
+  let schemaPath = jsonPath
+    .replace(/\./g, '.properties.')
+    .replace(/\[/g, '.itmes[');
+  // Add first properties
+  schemaPath = `properties.${schemaPath}`;
+  return schemaPath;
 };

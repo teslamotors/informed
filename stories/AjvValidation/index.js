@@ -4,7 +4,7 @@ import readme from './README.md';
 import FormState from '../utils/FormState';
 import Ajv from 'ajv';
 
-import { Form } from '../../src';
+import { Form, SchemaFields } from '../../src';
 
 const schema = {
   type: 'object',
@@ -101,6 +101,7 @@ const Schema = () => (
     schema={schema}
     ajv={Ajv}
     onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
+    <SchemaFields />
     <button type="submit">Submit</button>
     <FormState errors />
   </Form>

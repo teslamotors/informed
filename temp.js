@@ -14,15 +14,15 @@ const schema = {
       'ui:control': 'input',
       maxLength: 5
     },
-    brothers: {
-      type: 'array',
-      items: {
-        name: {
+    brother: {
+      type: 'object',
+      properties: {
+        foo: {
           type: 'string',
           title: 'First name',
           'ui:control': 'input'
         },
-        age: {
+        bar: {
           type: 'number',
           title: 'First name',
           'ui:control': 'input',
@@ -122,3 +122,5 @@ const validate = ajv.compile(schema);
 const valid = validate(data);
 
 console.log(validate.errors);
+
+console.log('KEYS', Object.keys(schema.properties));

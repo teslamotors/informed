@@ -1,3 +1,9 @@
+## 3.13.2 (October 27, 2020)
+
+### Fixed
+
+- Issue with strict mode double registering
+
 ## 3.13.1 (October 23, 2020)
 
 ### Fixed

@@ -430,20 +430,37 @@ function useField(fieldProps = {}, userRef) {
   }
 
   // Initial register needs to happen before render ( simulating constructor muhahahah )
-  useState(() => {
-    const fullField = formApi.getFullField(field);
-    logger('Initial Register', fieldId, fullField);
-    const fieldObj = {
-      field: fullField,
-      fieldId,
-      fieldApi,
-      fieldState,
-      notify,
-      keepState,
-      shadow
-    };
-    updater.register(fieldId, fieldObj, true);
-  });
+  // useState(() => {
+  //   const fullField = formApi.getFullField(field);
+  //   logger('Initial Register', fieldId, fullField);
+  //   const fieldObj = {
+  //     field: fullField,
+  //     fieldId,
+  //     fieldApi,
+  //     fieldState,
+  //     notify,
+  //     keepState,
+  //     shadow
+  //   };
+  //   updater.register(fieldId, fieldObj, true);
+  // });
+
+  // const setUp = React.useRef(false);
+  // if (!setUp.current) {
+  //   setUp.current = true;
+  //   const fullField = formApi.getFullField(field);
+  //   logger('Initial Register', fieldId, fullField);
+  //   const fieldObj = {
+  //     field: fullField,
+  //     fieldId,
+  //     fieldApi,
+  //     fieldState,
+  //     notify,
+  //     keepState,
+  //     shadow
+  //   };
+  //   updater.register(fieldId, fieldObj, true);
+  // }
 
   logger('Render', formApi.getFullField(field), fieldState);
 
@@ -452,7 +469,7 @@ function useField(fieldProps = {}, userRef) {
   const ref = React.useMemo(() => userRef || internalRef, []);
 
   // We want to register and deregister this field
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fullField = formApi.getFullField(fieldRef.current);
     logger('Register', fieldId, fieldRef.current);
     const fieldObj = {

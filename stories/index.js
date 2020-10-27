@@ -29,6 +29,7 @@ import AjvValidation from './Validation/AjvValidation';
 import AjvValidationNoRender from './Validation/AjvValidationNoRender';
 
 import FormatParse from './Formatting/FormatParse';
+import Formatter from './Formatting/Formatter';
 import Mask from './Formatting/Mask';
 // import MaskWithCursor from './Formatting/MaskWithCursor';
 import MaskWithCursorOffset from './Formatting/MaskWithCursorOffset';
@@ -182,9 +183,10 @@ storiesOf('Debugging', module).add('Form State', FormState);
 
 storiesOf('Formatting', module)
   .add('Mask', Mask)
+  .add('Formatter', Formatter);
   // .add('Mask With Cursor', MaskWithCursor)
-  .add('Mask With Cursor Offset', MaskWithCursorOffset)
-  .add('Format and Parse', FormatParse);
+  // .add('Mask With Cursor Offset', MaskWithCursorOffset)
+  // .add('Format and Parse', FormatParse);
 
 storiesOf('Hooks!', module)
   .add('useFormApi', UseFormApi)

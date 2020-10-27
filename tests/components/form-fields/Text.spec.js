@@ -199,6 +199,136 @@ describe('Text', () => {
     expect(wrapper.find('input').props().value).to.equal('$abc');
   });
 
+  it('should run formatter and parser when user types in text input and formatter and parser are passed', () => {
+    let savedApi;
+   
+    const formatter = ['+', '1', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
+    const parser = value => {
+      return value.replace('+1 ', '').replace(/-/g, '');
+    };
+
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="hello" formatter={formatter} parser={parser} />
+      </Form>
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: '1' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 1');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '1' });
+
+    input.simulate('change', { target: { value: '12' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 12');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '12' });
+    
+    input.simulate('change', { target: { value: '123' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '123' });
+
+    input.simulate('change', { target: { value: '1234' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123-4');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '1234' });
+
+    input.simulate('change', { target: { value: '+1 1' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 1');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '1' });
+ 
+    input.simulate('change', { target: { value: '+1 123a' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123-');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '123' });
+
+    input.simulate('change', { target: { value: '+1 123abc' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123-');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '123' });
+  });
+
+  it('should run formatter when user types in text input and ONLY formatter is passed', () => {
+    let savedApi;
+   
+    const formatter = ['+', '1', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="hello" formatter={formatter} />
+      </Form>
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: '1' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 1');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 1' });
+
+    input.simulate('change', { target: { value: '12' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 12');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 12' });
+    
+    input.simulate('change', { target: { value: '123' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 123' });
+
+    input.simulate('change', { target: { value: '1234' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123-4');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 123-4' });
+
+    input.simulate('change', { target: { value: '+1 1' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 1');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 1' });
+ 
+    input.simulate('change', { target: { value: '+1 123a' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123-');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 123-' });
+
+    input.simulate('change', { target: { value: '+1 123abc' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123-');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 123-' });
+  });
+
+  it('should run formatter on initial value', () => {
+    let savedApi;
+   
+    const formatter = ['+', '1', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="hello" formatter={formatter} initialValue="1231231234" />
+      </Form>
+    );
+    expect(wrapper.find('input').props().value).to.equal('+1 123-123-1234');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 123-123-1234' });
+
+  });
+
+  it('should run formatter and parser on initial value', () => {
+    let savedApi;
+   
+    const formatter = ['+', '1', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
+    const parser = value => {
+      return value.replace('+1 ', '').replace(/-/g, '');
+    };
+
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="hello" formatter={formatter} parser={parser} initialValue="1231231234" />
+      </Form>
+    );
+    expect(wrapper.find('input').props().value).to.equal('+1 123-123-1234');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '1231231234' });
+
+  });
+
   it('should run format and parse when user passes initial value and format and parse are passed', () => {
     let savedApi;
     const format = value => `$${value}`;

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useMemo, useRef } from 'react';
 import { FormRegisterContext, MultistepStepContext } from '../Context';
 import useFormApi from './useFormApi';
 import useStateWithGetter from './useStateWithGetter';
-import { validateYupField, uuidv4 } from '../utils';
+import { validateYupField, uuidv4, informedFormat } from '../utils';
 
 import Debug from '../debug';
 import useLayoutEffect from './useIsomorphicLayoutEffect';
@@ -11,11 +11,15 @@ const logger = Debug('informed:useField' + '\t');
 
 // localStorage.debug = 'informed:.*' << HOW to enable debuging
 
-const initializeValue = (value, mask) => {
+const initializeValue = (value, mask, formatter, parser) => {
   if (value != null) {
     // Call mask if it was passed
     if (mask) {
       return mask(value);
+    }
+    if (formatter && !parser) {
+      const res = informedFormat(value, formatter);
+      return res.value;
     }
     return value;
   }
@@ -23,11 +27,18 @@ const initializeValue = (value, mask) => {
   return undefined;
 };
 
-const initializeMask = (value, format, parse) => {
+const initializeMask = (value, format, parse, formatter, parser) => {
   // Call format and parse if they were passed
   if (format && parse) {
     return format(value);
   }
+
+  // Call formatter
+  if (formatter) {
+    const res = informedFormat(value, formatter);
+    return res.value;
+  }
+
   return value;
 };
 
@@ -118,6 +129,8 @@ function useField(fieldProps = {}, userRef) {
     maskWithCursorOffset,
     format,
     parse,
+    formatter,
+    parser,
     initialValue,
     validateOnChange,
     validateOnBlur,
@@ -186,7 +199,7 @@ function useField(fieldProps = {}, userRef) {
 
   // Initialize state
   const [value, setVal, getTheVal] = useStateWithGetter(
-    initializeValue(initVal, mask)
+    initializeValue(initVal, mask, formatter, parser)
   );
 
   const [error, setErr, getErr] = useStateWithGetter(
@@ -197,8 +210,8 @@ function useField(fieldProps = {}, userRef) {
   const [cursorOffset, setCursorOffset, getCursorOffset] = useStateWithGetter(
     0
   );
-  const [maskedValue, setMaskedValue] = useState(
-    initializeMask(value, format, parse)
+  const [maskedValue, setMaskedValue] = useState(() =>
+    initializeMask(value, format, parse, formatter, parser)
   );
 
   // Create then update refs to props
@@ -284,6 +297,19 @@ function useField(fieldProps = {}, userRef) {
       maskedVal = format(val);
     }
 
+    // Call formatter and parser if passed
+    if (formatter) {
+      const res = informedFormat(val, formatter);
+      setCursorOffset(res.offset);
+      maskedVal = res.value;
+      val = maskedVal;
+    }
+
+    // // Only parse if parser was passed
+    if (parser) {
+      val = val != null ? parser(val) : val;
+    }
+
     // We only need to call validate if the user gave us one
     // and they want us to validate on change && its not the initial validation
     if (validate && validateOnChange && !options.initial) {
@@ -363,7 +389,9 @@ function useField(fieldProps = {}, userRef) {
   const reset = ({ preventUpdate } = {}) => {
     const initVal = initializeValue(
       initialValueRef.current || updater.getInitialValue(field),
-      mask
+      mask,
+      formatter,
+      parser
     );
     // TODO support numbers
     setValue(initVal, null, { initial: true, preventUpdate });

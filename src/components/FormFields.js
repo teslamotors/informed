@@ -1,32 +1,82 @@
 import React, { useMemo } from 'react';
 import { computeFieldsFromSchema } from '../utils';
 import fieldMap from '../fieldMap';
-import Scope from './Scope';
+import ArrayField from './ArrayField';
 import Debug from '../debug';
 
 const logger = Debug('informed:FormFields' + '\t');
 
-const FormFields = ({ schema, onlyValidateSchema }) => {
+const FormComponents = ({ components }) => {
+  if (!components) return null;
+
+  return components.map((comp, i) => {
+    const { 'ui:control': componentType } = comp;
+    const Component = fieldMap[componentType];
+    return <Component key={`ui-comp-${i}`} />;
+  });
+};
+
+const FormFields = ({ schema, prefix, onlyValidateSchema }) => {
   // Get fields from scheama
 
   const fields = useMemo(
     () => {
-      const schemaFields = computeFieldsFromSchema(schema, onlyValidateSchema);
+      const schemaFields = computeFieldsFromSchema(
+        schema,
+        onlyValidateSchema,
+        prefix
+      );
 
       const mapedFields = schemaFields.map((schemaField, i) => {
-        const { field, props, type, properties, componentType } = schemaField;
+        const {
+          field,
+          props,
+          type,
+          properties,
+          items,
+          componentType,
+          uiBefore,
+          uiAfter
+        } = schemaField;
 
         const Component = fieldMap[componentType];
 
         // console.log('WTF', schemaField);
         logger('Rendering Field', field, schemaField);
 
+        // Scope for nested
         if (!Component && type === 'object' && properties) {
           return (
-            <Scope scope={field} key={`ScheamField-${i}`}>
-              <FormFields schema={schemaField} />
-            </Scope>
+            <FormFields
+              schema={schemaField}
+              prefix={field}
+              key={`ScheamField-${i}`}
+            />
           );
+        }
+
+        // Array field for array
+        if (!Component && type === 'array' && items) {
+          return (
+            <ArrayField field={field} key={`ScheamField-${i}`}>
+              <FormComponents components={uiBefore} />
+              <ArrayField.Items>
+                {({ field }) => (
+                  <React.Fragment>
+                    <FormComponents components={items['ui:before']} />
+                    <FormFields schema={items} prefix={field} />
+                    <FormComponents components={items['ui:after']} />
+                  </React.Fragment>
+                )}
+              </ArrayField.Items>
+              <FormComponents components={uiAfter} />
+            </ArrayField>
+          );
+        }
+
+        // If no com ret null ( dont render )
+        if (!Component) {
+          return null;
         }
 
         return <Component key={`ScheamField-${i}`} field={field} {...props} />;
@@ -34,7 +84,7 @@ const FormFields = ({ schema, onlyValidateSchema }) => {
 
       return mapedFields;
     },
-    [schema]
+    [schema, prefix]
   );
 
   return fields;

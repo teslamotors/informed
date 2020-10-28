@@ -1,3 +1,9 @@
+## 3.15.0 (October 28, 2020)
+
+### Added
+
+- Ability to add array fields in schema!!!!
+
 ## 3.14.0 (October 27, 2020)
 
 ### Added

@@ -62,7 +62,7 @@ const useArrayField = ({
   // Register shadow field
   const { fieldApi } = useField({
     field,
-    validate: validateWithLength,
+    validate: validate ? validateWithLength : undefined,
     shadow: true,
     ...props
   });

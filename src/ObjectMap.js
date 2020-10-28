@@ -93,7 +93,9 @@ class ObjectMap {
     const arr = ldget(object, pathArray);
     debug('Array', arr);
     // Pull out of array
-    ldpullAt(arr, index);
+    if (Array.isArray(arr)) {
+      ldpullAt(arr, index);
+    }
     cleanup(object, pathArray);
   }
 }

@@ -24,6 +24,7 @@ import useFormState from './hooks/useFormState';
 import useArrayField from './hooks/useArrayField';
 import useMultistepApi from './hooks/useMultistepApi';
 import useMultistepState from './hooks/useMultistepState';
+import useArrayFieldApi from './hooks/useArrayFieldApi';
 
 import Text from './components/form-fields/Text';
 import Radio from './components/form-fields/Radio';
@@ -57,6 +58,7 @@ export {
   useFormState,
   useMultistepState,
   useMultistepApi,
+  useArrayFieldApi,
   Text,
   Radio,
   TextArea,

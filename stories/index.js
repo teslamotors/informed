@@ -8,6 +8,7 @@ import Dynamic from './Form/Dynamic';
 import Schema from './Schema/Intro';
 import FormattedSchema from './Schema/FormattedSchema';
 import NestedSchema from './Schema/NestedSchema';
+import ArrayFieldSchema from './Schema/ArrayFieldSchema';
 import Complex from './Form/Complex';
 import Big from './Form/Big';
 import State from './Form/State';
@@ -74,6 +75,7 @@ import {
   UseForm,
   UseField
 } from './Hooks';
+import { add } from 'lodash';
 
 addDecorator(StoryWrapper);
 
@@ -177,7 +179,8 @@ storiesOf('Validation', module)
 storiesOf('Schema', module)
   .add('Schema', Schema)
   .add('Nested Schema', NestedSchema)
-  .add('Formatted Schema', FormattedSchema);
+  .add('Formatted Schema', FormattedSchema)
+  .add('Array Field Schema', ArrayFieldSchema);
 
 storiesOf('Debugging', module).add('Form State', FormState);
 

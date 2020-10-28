@@ -180,10 +180,26 @@ class FormController extends EventEmitter {
         }
 
         // Shadow values override unless undefined
+        const currentError = ObjectMap.get(this.state.errors, field.field);
         if (
           field.shadow &&
           field.fieldApi.getError() != undefined &&
           field.fieldApi.relevant(this.state.values)
+        ) {
+          ObjectMap.set(
+            this.state.errors,
+            field.field,
+            field.fieldApi.getError()
+          );
+        }
+
+        // Special case for attempting to set shadow to undefiend
+        else if (
+          field.shadow &&
+          field.fieldApi.getError() === undefined &&
+          field.fieldApi.relevant(this.state.values) &&
+          // TODO maybe check if object or array
+          typeof currentError === 'string'
         ) {
           ObjectMap.set(
             this.state.errors,

@@ -100,11 +100,13 @@ export const debounce = (func, wait) => {
   };
 };
 
-export const computeFieldFromProperty = (propertyName, property) => {
+export const computeFieldFromProperty = (propertyName, property, prefix) => {
   const {
     'ui:control': uiControl,
     'informed:props': informedProps,
     'input:props': inputProps,
+    'ui:before': uiBefore,
+    'ui:after': uiAfter,
     oneOf,
     items,
     title: label,
@@ -125,9 +127,12 @@ export const computeFieldFromProperty = (propertyName, property) => {
 
   const field = {
     componentType: uiControl,
-    field: propertyName,
+    field: prefix ? `${prefix}.${propertyName}` : propertyName,
     type,
+    uiBefore,
+    uiAfter,
     properties: type === 'object' ? subProperties : undefined,
+    items: type === 'array' ? items : undefined,
     props: {
       label: label,
       id,
@@ -168,30 +173,38 @@ export const computeFieldFromProperty = (propertyName, property) => {
   return field;
 };
 
-export const computeFieldsFromSchema = (schema, onlyValidateSchema) => {
+export const computeFieldsFromSchema = (schema, onlyValidateSchema, prefix) => {
   if (!schema || onlyValidateSchema) {
     return [];
   }
+
+  // Grab properties and items off of schema
   const { properties = {}, propertyOrder = [] } = schema;
-  const fields = Object.keys(properties)
-    .sort((a, b) => {
-      const aIndex = propertyOrder.indexOf(a);
-      const bIndex = propertyOrder.indexOf(b);
 
-      return (
-        (aIndex > -1 ? aIndex : propertyOrder.length + 1) -
-        (bIndex > -1 ? bIndex : propertyOrder.length + 1)
-      );
-    })
-    .map(propertyName => {
-      const property = properties[propertyName];
+  if (Object.keys(properties).length > 0) {
+    // Attempt to generate fields from properties
+    const fields = Object.keys(properties)
+      .sort((a, b) => {
+        const aIndex = propertyOrder.indexOf(a);
+        const bIndex = propertyOrder.indexOf(b);
 
-      const field = computeFieldFromProperty(propertyName, property);
+        return (
+          (aIndex > -1 ? aIndex : propertyOrder.length + 1) -
+          (bIndex > -1 ? bIndex : propertyOrder.length + 1)
+        );
+      })
+      .map(propertyName => {
+        const property = properties[propertyName];
 
-      return field;
-    });
+        const field = computeFieldFromProperty(propertyName, property, prefix);
 
-  return fields;
+        return field;
+      });
+
+    return fields;
+  }
+
+  return [];
 };
 
 // Examples
@@ -265,7 +278,7 @@ export const informedFormat = (value, frmtr) => {
   if (!value) {
     return {
       value,
-      offset: 0,
+      offset: 0
     };
   }
 

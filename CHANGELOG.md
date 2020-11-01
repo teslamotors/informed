@@ -1,3 +1,9 @@
+## 3.16.0 (November 1, 2020)
+
+### Added
+
+- Ability to have conditional schemas!!!!
+
 ## 3.15.0 (October 28, 2020)
 
 ### Added

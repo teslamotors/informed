@@ -109,6 +109,7 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
     'ui:after': uiAfter,
     oneOf,
     items,
+    enum: schemaEnum,
     title: label,
     minimum: min,
     maximum: max,
@@ -158,6 +159,16 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
     field.props.options = options;
   }
 
+  if (schemaEnum) {
+    const options = property.enum.map(val => {
+      return {
+        value: val,
+        label: val
+      };
+    });
+    field.props.options = options;
+  }
+
   if (items && items.oneOf) {
     const options = items.oneOf.map(option => {
       const { 'input:props': inputProps = {} } = option;
@@ -179,7 +190,7 @@ export const computeFieldsFromSchema = (schema, onlyValidateSchema, prefix) => {
   }
 
   // Grab properties and items off of schema
-  const { properties = {}, propertyOrder = [] } = schema;
+  const { properties = {}, allOf, propertyOrder = [] } = schema;
 
   if (Object.keys(properties).length > 0) {
     // Attempt to generate fields from properties
@@ -200,6 +211,15 @@ export const computeFieldsFromSchema = (schema, onlyValidateSchema, prefix) => {
 
         return field;
       });
+
+    // Check for all of ( we have conditionals )
+    if (allOf) {
+      fields.push({
+        componentType: 'conditionals',
+        // Each element of the "allOf" array is a conditional
+        allOf: allOf
+      });
+    }
 
     return fields;
   }

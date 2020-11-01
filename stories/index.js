@@ -76,6 +76,7 @@ import {
   UseField
 } from './Hooks';
 import { add } from 'lodash';
+import ConditionalSchema from './Schema/ConditionalSchema';
 
 addDecorator(StoryWrapper);
 
@@ -180,16 +181,17 @@ storiesOf('Schema', module)
   .add('Schema', Schema)
   .add('Nested Schema', NestedSchema)
   .add('Formatted Schema', FormattedSchema)
-  .add('Array Field Schema', ArrayFieldSchema);
+  .add('Array Field Schema', ArrayFieldSchema)
+  .add('Conditional Schema', ConditionalSchema);
 
 storiesOf('Debugging', module).add('Form State', FormState);
 
 storiesOf('Formatting', module)
   .add('Mask', Mask)
   .add('Formatter', Formatter);
-  // .add('Mask With Cursor', MaskWithCursor)
-  // .add('Mask With Cursor Offset', MaskWithCursorOffset)
-  // .add('Format and Parse', FormatParse);
+// .add('Mask With Cursor', MaskWithCursor)
+// .add('Mask With Cursor Offset', MaskWithCursorOffset)
+// .add('Format and Parse', FormatParse);
 
 storiesOf('Hooks!', module)
   .add('useFormApi', UseFormApi)

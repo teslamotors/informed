@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { computeFieldsFromSchema } from '../utils';
 import fieldMap from '../fieldMap';
 import ArrayField from './ArrayField';
+import Relevant from './Relevant';
 import Debug from '../debug';
 
 const logger = Debug('informed:FormFields' + '\t');
@@ -36,7 +37,8 @@ const FormFields = ({ schema, prefix, onlyValidateSchema }) => {
           items,
           componentType,
           uiBefore,
-          uiAfter
+          uiAfter,
+          allOf
         } = schemaField;
 
         const Component = fieldMap[componentType];
@@ -72,6 +74,47 @@ const FormFields = ({ schema, prefix, onlyValidateSchema }) => {
               <FormComponents components={uiAfter} />
             </ArrayField>
           );
+        }
+
+        // For conditionals
+        if (componentType === 'conditionals') {
+          return allOf.map(conditional => {
+            // Example then ( its a subschema )
+            // then: {
+            //   properties: {
+            //     spouse: {
+            //       type: 'string',
+            //       title: 'Spouse name',
+            //       'ui:control': 'input'
+            //     }
+            //   }
+            // }
+            const subSchema = conditional.then;
+
+            // Turn the if into a when function for informed
+            // Example if condition
+            // if: {
+            //   properties: {
+            //     married: { const: 'yes' }
+            //   },
+            //   required: ['married']
+            // },
+            const { properties: conditions } = conditional.if;
+            const when = ({ values }) => {
+              // Example key "married, Example condition: "{ const: 'yes' }"
+              return Object.keys(conditions).every(key => {
+                const condition = conditions[key];
+                // values.married === 'yes'
+                return values[key] === condition.const;
+              });
+            };
+
+            return (
+              <Relevant key={`ScheamField-${i}`} when={when}>
+                <FormFields schema={subSchema} />
+              </Relevant>
+            );
+          });
         }
 
         // If no com ret null ( dont render )

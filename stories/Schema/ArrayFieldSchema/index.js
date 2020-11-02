@@ -6,6 +6,17 @@ import Ajv from 'ajv';
 
 import { Form, SchemaFields } from '../../../src';
 
+const initialValue = [
+  {
+    name: 'Joe',
+    age: '26'
+  },
+  {
+    name: 'Elon',
+    age: '49'
+  }
+];
+
 const schema = {
   type: 'object',
   required: ['name', 'siblings'],
@@ -20,6 +31,9 @@ const schema = {
       minItems: 2,
       'ui:control': 'array',
       'ui:before': [{ 'ui:control': 'add' }],
+      'informed:props': {
+        initialValue
+      },
       items: {
         type: 'object',
         'ui:after': [{ 'ui:control': 'remove' }],

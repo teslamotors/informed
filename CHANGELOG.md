@@ -1,3 +1,9 @@
+## 3.16.1 (November 2, 2020)
+
+### Fixed
+
+- Issue where informed props were not passed down to array fields in schema
+
 ## 3.16.0 (November 1, 2020)
 
 ### Added

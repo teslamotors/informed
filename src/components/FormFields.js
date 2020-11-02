@@ -60,7 +60,7 @@ const FormFields = ({ schema, prefix, onlyValidateSchema }) => {
         // Array field for array
         if (!Component && type === 'array' && items) {
           return (
-            <ArrayField field={field} key={`ScheamField-${i}`}>
+            <ArrayField field={field} key={`ScheamField-${i}`} {...props}>
               <FormComponents components={uiBefore} />
               <ArrayField.Items>
                 {({ field }) => (

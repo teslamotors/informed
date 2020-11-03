@@ -42,7 +42,11 @@ const initializeMask = (value, format, parse, formatter, parser) => {
   return value;
 };
 
-const generateValidationFunction = (validationFunc, validationSchema) => {
+const generateValidationFunction = (
+  validationFunc,
+  validationSchema,
+  { required }
+) => {
   // We dont want a validation function if there was nothing passed
   if (validationFunc || validationSchema) {
     return (val, values) => {
@@ -52,6 +56,11 @@ const generateValidationFunction = (validationFunc, validationSchema) => {
       if (validationFunc) {
         return validationFunc(val, values);
       }
+    };
+  }
+  if (required) {
+    return val => {
+      return validateRequired(val, required);
     };
   }
 };
@@ -119,6 +128,25 @@ const generateValue = ({ fieldType, maskedValue, multiple, value }) => {
   }
 };
 
+const generateFieldType = fieldType => {
+  switch (fieldType) {
+    case 'text':
+      return fieldType;
+    case 'number':
+      return fieldType;
+    case 'checkbox':
+      return fieldType;
+    default:
+      return;
+  }
+};
+
+const validateRequired = (value, required) => {
+  if (required && (value == null || value === '')) {
+    return typeof required === 'string' ? required : 'This field is required';
+  }
+};
+
 function useField(fieldProps = {}, userRef) {
   // Pull props off of field props
   const {
@@ -150,6 +178,7 @@ function useField(fieldProps = {}, userRef) {
     onBlur,
     formController,
     relevant: userRelevant,
+    required,
     ...userProps
   } = fieldProps;
 
@@ -172,7 +201,11 @@ function useField(fieldProps = {}, userRef) {
   }
 
   // Generate validation function
-  const validate = generateValidationFunction(validationFunc, validationSchema);
+  const validate = generateValidationFunction(
+    validationFunc,
+    validationSchema,
+    { required }
+  );
 
   // Grab possible initial value from form
   const [formInitialValue] = useState(() => updater.getInitialValue(field));
@@ -588,6 +621,8 @@ function useField(fieldProps = {}, userRef) {
     value
   });
 
+  const type = generateFieldType(fieldType);
+
   return {
     fieldState,
     fieldApi,
@@ -597,7 +632,8 @@ function useField(fieldProps = {}, userRef) {
       ...userProps,
       multiple, // WE NEED TO PUT THESE BACK!!
       onChange, // WE NEED TO PUT THESE BACK!!
-      onBlur // WE NEED TO PUT THESE BACK!!
+      onBlur, // WE NEED TO PUT THESE BACK!!
+      required // WE NEED TO PUT THESE BACK!!
     },
     informed: {
       name,
@@ -606,6 +642,7 @@ function useField(fieldProps = {}, userRef) {
       onBlur: blurHandler,
       value: hookedValue,
       ref,
+      type,
       ...userProps
     }
   };

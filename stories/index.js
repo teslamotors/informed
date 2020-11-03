@@ -3,6 +3,7 @@ import { storiesOf, addDecorator } from '@storybook/react';
 import { configureReadme } from 'storybook-readme';
 import StoryWrapper from './utils/StoryWrapper';
 import Intro from './Intro';
+import TLDR from './TLDR';
 import Basic from './Form/Basic';
 import Dynamic from './Form/Dynamic';
 import Schema from './Schema/Intro';
@@ -133,6 +134,7 @@ configureReadme({
 
 storiesOf('Introduction', module)
   //.addParameters(params)
+  .add('TLDR', TLDR)
   .add('Getting Started', Intro);
 
 storiesOf('Form', module)

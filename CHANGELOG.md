@@ -1,3 +1,9 @@
+## 3.17.0 (November 3, 2020)
+
+### Added
+
+- Required attribute to input and automatic type generation for useField hook
+
 ## 3.16.1 (November 2, 2020)
 
 ### Fixed

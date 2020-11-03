@@ -1,6 +1,6 @@
 # TLDR
 
-[GitHub](https://github.com/joepuzzo/informed)!
+[GitHub](https://github.com/joepuzzo/informed)
 
 [![npmversion](https://img.shields.io/npm/v/informed.svg)](https://www.npmjs.com/package/informed)
 [![Discord](https://img.shields.io/discord/676066734746370058)](https://discord.gg/zpF5wA)
@@ -17,12 +17,12 @@ npm install --save informed
 ---
 
 ```jsx
-import { useForm, useField, Relevant } from 'informed';
+import { useForm, useField, Relevant, FormState } from 'informed';
 
 // Step 1. Build your form component ---------------------
 
-const Form = ({ children, ...rest }) => {
-  const { formController, render, userProps } = useForm(rest);
+const Form = ({ children, ...props }) => {
+  const { formController, render, userProps } = useForm(props);
 
   return render(
     <form {...userProps} onSubmit={formController.submitForm}>
@@ -86,6 +86,7 @@ const ExampleForm = () => (
       <Input field="spouse" label="Spouse" />
     </Relevant>
     <button type="submit">Submit</button>
+    <FormState />
   </Form>
 );
 ```

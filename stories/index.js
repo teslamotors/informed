@@ -134,8 +134,8 @@ configureReadme({
 
 storiesOf('Introduction', module)
   //.addParameters(params)
-  .add('TLDR', TLDR)
-  .add('Getting Started', Intro);
+  .add('Getting Started', Intro)
+  .add('TLDR', TLDR);
 
 storiesOf('Form', module)
   .add('Basic', Basic)

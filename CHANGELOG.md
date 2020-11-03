@@ -1,3 +1,9 @@
+## 3.17.1 (November 3, 2020)
+
+### Fixed
+
+- useField was not adding id to label by default
+
 ## 3.17.0 (November 3, 2020)
 
 ### Added

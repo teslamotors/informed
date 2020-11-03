@@ -633,7 +633,8 @@ function useField(fieldProps = {}, userRef) {
       multiple, // WE NEED TO PUT THESE BACK!!
       onChange, // WE NEED TO PUT THESE BACK!!
       onBlur, // WE NEED TO PUT THESE BACK!!
-      required // WE NEED TO PUT THESE BACK!!
+      // required // WE NEED TO PUT THESE BACK!!
+      id: userProps.id || fieldId // If user did not pass id we pass fields id
     },
     informed: {
       name,

@@ -1,6 +1,7 @@
 import ObjectMap from './ObjectMap';
 import { EventEmitter } from 'events';
 import Debug from './debug';
+import defaultFieldMap from './fieldMap';
 import { validateYupSchema, validateAjvSchema } from './utils';
 const debug = Debug('informed:Controller' + '\t');
 
@@ -12,11 +13,14 @@ class FormController extends EventEmitter {
 
     this.options = options;
 
-    const { ajv, schema } = options;
+    const { ajv, schema, fieldMap } = options;
 
     // Create new ajv instance if passed
     this.ajv = ajv ? new ajv({ allErrors: true }) : null;
     this.ajvValidate = ajv ? this.ajv.compile(schema) : null;
+
+    // Add field map ( defaults to our field map )
+    this.fieldMap = fieldMap || defaultFieldMap;
 
     // Map will store all fields by id
     // Key => uuid
@@ -111,6 +115,7 @@ class FormController extends EventEmitter {
       deregister: this.deregister,
       getField: this.getField,
       update: this.update,
+      fieldMap: this.fieldMap,
       setValue: (fieldId, value, emit = true) => {
         const field = this.fieldsById.get(fieldId);
 

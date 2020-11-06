@@ -24,6 +24,7 @@ const useForm = ({
   validationSchema,
   schema,
   ajv,
+  fieldMap,
   onlyValidateSchema,
   ...userProps
 }) => {
@@ -40,7 +41,8 @@ const useForm = ({
       preventEnter,
       validationSchema,
       schema,
-      ajv
+      ajv,
+      fieldMap
     }),
     [
       dontPreventDefault,
@@ -51,7 +53,8 @@ const useForm = ({
       preventEnter,
       validationSchema,
       schema,
-      ajv
+      ajv,
+      fieldMap
     ]
   );
 

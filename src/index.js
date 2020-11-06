@@ -7,6 +7,8 @@ import Relevant from './components/Relevant';
 import Multistep from './components/Multistep';
 import FormField from './components/FormField';
 import SchemaFields from './components/SchemaFields';
+import FormFields from './components/FormFields';
+import FormComponents from './components/FormComponents';
 
 import withFormApi from './HOC/withFormApi';
 import withFormState from './HOC/withFormState';
@@ -25,6 +27,7 @@ import useArrayField from './hooks/useArrayField';
 import useMultistepApi from './hooks/useMultistepApi';
 import useMultistepState from './hooks/useMultistepState';
 import useArrayFieldApi from './hooks/useArrayFieldApi';
+import useArrayFieldItemApi from './hooks/useArrayFieldItemApi';
 
 import Text from './components/form-fields/Text';
 import Radio from './components/form-fields/Radio';
@@ -61,6 +64,7 @@ export {
   useMultistepState,
   useMultistepApi,
   useArrayFieldApi,
+  useArrayFieldItemApi,
   Text,
   Input,
   Radio,
@@ -82,5 +86,7 @@ export {
   Relevant,
   Multistep,
   FormField,
-  SchemaFields
+  SchemaFields,
+  FormFields,
+  FormComponents
 };

@@ -1,3 +1,9 @@
+## 3.18.0 (November 5, 2020)
+
+### Added
+
+- ability to create custom schema fields
+
 ## 3.17.1 (November 3, 2020)
 
 ### Fixed

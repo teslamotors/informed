@@ -1,11 +1,13 @@
-import React from 'react';
-import Form from './Form';
-import fieldMap from '../fieldMap';
+import React, { useContext } from 'react';
 import useFormApi from '../hooks/useFormApi';
 import { computeFieldFromProperty, getSchemaPathFromJsonPath } from '../utils';
 import ObjectMap from '../ObjectMap';
+import { FormRegisterContext } from '../Context';
 
 const FormField = ({ field }) => {
+  // Get the field map off the forms context
+  const { fieldMap } = useContext(FormRegisterContext);
+
   // Grab the form api ( we need it to get the actual field name because might be in scope )
   const { getFullField, getOptions } = useFormApi();
 

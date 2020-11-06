@@ -36,7 +36,7 @@ const schema = {
       'ui:control': 'checkbox'
     },
     color: {
-      type: 'array',
+      type: 'string',
       title: 'Color',
       'ui:control': 'select',
       oneOf: [

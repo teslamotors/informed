@@ -1,23 +1,16 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useContext } from 'react';
 import { computeFieldsFromSchema } from '../utils';
-import fieldMap from '../fieldMap';
-import ArrayField from './ArrayField';
+import ArrayField from './form-fields/ArrayField';
 import Relevant from './Relevant';
 import Debug from '../debug';
+import { FormRegisterContext } from '../Context';
 
 const logger = Debug('informed:FormFields' + '\t');
 
-const FormComponents = ({ components }) => {
-  if (!components) return null;
-
-  return components.map((comp, i) => {
-    const { 'ui:control': componentType } = comp;
-    const Component = fieldMap[componentType];
-    return <Component key={`ui-comp-${i}`} />;
-  });
-};
-
 const FormFields = ({ schema, prefix, onlyValidateSchema }) => {
+  // Get the field map off the forms context
+  const { fieldMap } = useContext(FormRegisterContext);
+
   // Get fields from scheama
 
   const fields = useMemo(
@@ -57,22 +50,36 @@ const FormFields = ({ schema, prefix, onlyValidateSchema }) => {
           );
         }
 
-        // Array field for array
+        // Array field for array ( if none was provided use our default )
         if (!Component && type === 'array' && items) {
           return (
-            <ArrayField field={field} key={`ScheamField-${i}`} {...props}>
-              <FormComponents components={uiBefore} />
-              <ArrayField.Items>
-                {({ field }) => (
-                  <React.Fragment>
-                    <FormComponents components={items['ui:before']} />
-                    <FormFields schema={items} prefix={field} />
-                    <FormComponents components={items['ui:after']} />
-                  </React.Fragment>
-                )}
-              </ArrayField.Items>
-              <FormComponents components={uiAfter} />
-            </ArrayField>
+            <ArrayField
+              key={`ScheamField-${i}`}
+              field={field}
+              items={items}
+              uiBefore={uiBefore}
+              uiAfter={uiAfter}
+              {...props}
+            />
+          );
+        }
+
+        // User created custom array field
+        if (
+          Component &&
+          componentType === 'array' &&
+          items &&
+          type === 'array'
+        ) {
+          return (
+            <Component
+              key={`ScheamField-${i}`}
+              field={field}
+              items={items}
+              uiBefore={uiBefore}
+              uiAfter={uiAfter}
+              {...props}
+            />
           );
         }
 

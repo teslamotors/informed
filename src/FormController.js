@@ -651,10 +651,25 @@ class FormController extends EventEmitter {
       }
     });
 
-    if (!this.expectedRemovals[magicValue] && alreadyRegistered) {
+    if (
+      !this.expectedRemovals[magicValue] &&
+      alreadyRegistered &&
+      field.keepState
+    ) {
       debug('Already Registered', name);
       this.fieldsById.delete(alreadyRegistered);
       this.fieldsByName.delete(name);
+    }
+
+    if (
+      !this.expectedRemovals[magicValue] &&
+      alreadyRegistered &&
+      !field.keepState
+    ) {
+      console.warn(
+        'Check to make sure you have not registered two fields with the fieldName',
+        name
+      );
     }
 
     debug('Fields Registered', this.fieldsById.size);

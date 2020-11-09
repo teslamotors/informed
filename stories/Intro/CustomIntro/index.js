@@ -58,7 +58,7 @@ const GettingStarted = () => (
     <div style={{ display: 'flex' }}>
       <div style={{ flex: '1' }}>
         <Input field="name" label="Name" placeholder="Elon" />
-        <Input field="name" type="number" label="Age" required="Age Required" />
+        <Input field="age" type="number" label="Age" required="Age Required" />
         <Input field="phone" label="Phone" formatter="+1 (###)-###-####" />
         <Select field="car" label="Car" initialValue="ms">
           <option value="ms">Model S</option>

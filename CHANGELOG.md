@@ -1,3 +1,9 @@
+## 3.18.2 (November 9, 2020)
+
+### Fixed
+
+- bug with duplicate fields
+
 ## 3.18.1 (November 9, 2020)
 
 ### Fixed

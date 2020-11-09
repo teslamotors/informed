@@ -637,18 +637,34 @@ class FormController extends EventEmitter {
     const { field: name, state } = field;
     debug('Register ID:', id, 'Name:', name, state, 'Initial', initialRender);
 
+    // Example foo.bar.baz[3].baz >>>> foo.bar.baz[3]
+    const magicValue = name.slice(
+      0,
+      name.lastIndexOf('[') != -1 ? name.lastIndexOf(']') + 1 : name.length
+    );
+
+    // Field might be coming back after render remove old field
+    let alreadyRegistered;
+    this.fieldsById.forEach((value, key) => {
+      if (value && value.field === name) {
+        alreadyRegistered = key;
+      }
+    });
+
+    if (!this.expectedRemovals[magicValue] && alreadyRegistered) {
+      debug('Already Registered', name);
+      this.fieldsById.delete(alreadyRegistered);
+      this.fieldsByName.delete(name);
+    }
+
+    debug('Fields Registered', this.fieldsById.size);
+
     // The field is on the screen
     this.onScreen[id] = field;
 
     // Always register the field
     this.fieldsById.set(id, field);
     this.fieldsByName.set(name, field);
-
-    // Example foo.bar.baz[3].baz >>>> foo.bar.baz[3]
-    const magicValue = name.slice(
-      0,
-      name.lastIndexOf('[') != -1 ? name.lastIndexOf(']') + 1 : name.length
-    );
 
     // Always clear out expected removals when a reregistering array field comes in
     debug('clearing expected removal', magicValue);

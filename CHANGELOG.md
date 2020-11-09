@@ -1,3 +1,9 @@
+## 3.18.1 (November 9, 2020)
+
+### Fixed
+
+- bug with keep state registering phantom fields
+
 ## 3.18.0 (November 5, 2020)
 
 ### Added

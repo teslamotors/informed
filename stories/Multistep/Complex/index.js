@@ -144,15 +144,15 @@ const Color = () => {
   return (
     <Multistep.Step
       step="color"
-      // next="dog"
+      next="dog"
       previous={values => (values.allergic ? 'epipen' : 'allergies')}>
       <label>
         Please enter your favorite color:
         <Text field="color" validate={validate} keepState />
       </label>
-      {/* <button type="button" onClick={next}>
+      <button type="button" onClick={next}>
         Next
-      </button> */}
+      </button>
       <button type="button" onClick={back}>
         Back
       </button>
@@ -161,32 +161,32 @@ const Color = () => {
   );
 };
 
-// const Dog = () => {
-//   const { back } = useMultistepApi();
+const Dog = () => {
+  const { back } = useMultistepApi();
 
-//   return (
-//     <Multistep.Step step="dog" previous="color">
-//       <label>
-//         Do you have a dog? <Checkbox field="hasDog" keepState />
-//       </label>
-//       <Relevant when={({ values }) => values.hasDog}>
-//         <label>
-//           Whats your dogs name?:
-//           <Text
-//             field="dogName"
-//             validate={validate}
-//             keepState
-//             relevant={values => values.hasDog}
-//           />
-//         </label>
-//       </Relevant>
-//       <button type="button" onClick={back}>
-//         Back
-//       </button>
-//       <button type="submit">Submit</button>
-//     </Multistep.Step>
-//   );
-// };
+  return (
+    <Multistep.Step step="dog" previous="color">
+      <label>
+        Do you have a dog? <Checkbox field="hasDog" keepState />
+      </label>
+      <Relevant when={({ values }) => values.hasDog}>
+        <label>
+          Whats your dogs name?:
+          <Text
+            field="dogName"
+            validate={validate}
+            keepState
+            relevant={values => values.hasDog}
+          />
+        </label>
+      </Relevant>
+      <button type="button" onClick={back}>
+        Back
+      </button>
+      <button type="submit">Submit</button>
+    </Multistep.Step>
+  );
+};
 
 const Buttons = () => {
   const { setCurrent } = useMultistepApi();
@@ -204,6 +204,9 @@ const Buttons = () => {
       </button>
       <button type="button" onClick={() => setCurrent('color')}>
         Jump2 Color
+      </button>
+      <button type="button" onClick={() => setCurrent('dog')}>
+        Jump2 Dog
       </button>
     </div>
   );
@@ -239,7 +242,7 @@ const Basic = () => {
                 <Allergic state={state} />
                 <EpiPen />
                 <Color />
-                {/* <Dog /> */}
+                <Dog />
               </div>
               <Buttons />
             </Multistep>

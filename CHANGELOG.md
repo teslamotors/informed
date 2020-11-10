@@ -1,3 +1,9 @@
+## 3.18.3 (November 10, 2020)
+
+### Fixed
+
+- bug with resetting array field items
+
 ## 3.18.2 (November 9, 2020)
 
 ### Fixed

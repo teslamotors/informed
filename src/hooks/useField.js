@@ -421,7 +421,7 @@ function useField(fieldProps = {}, userRef) {
   // ---- Define reset ----
   const reset = ({ preventUpdate } = {}) => {
     const initVal = initializeValue(
-      initialValueRef.current || updater.getInitialValue(field),
+      initialValueRef.current || updater.getInitialValue(fieldRef.current),
       mask,
       formatter,
       parser

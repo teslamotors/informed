@@ -193,7 +193,9 @@ const useArrayField = ({
       // If we are getting initial value and its for this field return that
       if (RegExp(`${fullField}\\[[0-9]+\\]`).test(fieldName)) {
         const path = fieldName.replace(field, '');
-        return ObjectMap.get(getInitialValues(), path);
+        const v = ObjectMap.get(getInitialValues(), path);
+        logger(`Resetting ${path} to ${v}`);
+        return v;
       }
       return updater.getInitialValue(fieldName);
     }

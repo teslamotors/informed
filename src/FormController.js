@@ -652,7 +652,7 @@ class FormController extends EventEmitter {
     });
 
     if (
-      !this.expectedRemovals[magicValue] &&
+      //!this.expectedRemovals[magicValue] &&
       alreadyRegistered &&
       field.keepState
     ) {
@@ -662,7 +662,7 @@ class FormController extends EventEmitter {
     }
 
     if (
-      !this.expectedRemovals[magicValue] &&
+      //!this.expectedRemovals[magicValue] &&
       alreadyRegistered &&
       !field.keepState
     ) {

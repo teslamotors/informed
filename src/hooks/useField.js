@@ -191,9 +191,13 @@ function useField(fieldProps = {}, userRef) {
 
   // Grab multistepContext
   const multistepContext = useContext(MultistepStepContext);
+  const inMultistep = multistepContext;
 
   // Grab the form api
   let formApi = useFormApi();
+
+  // Create ref to fieldApi
+  const fieldApiRef = useRef();
 
   // If the form Controller was passed in then use that instead
   if (formController) {
@@ -219,7 +223,7 @@ function useField(fieldProps = {}, userRef) {
   let initTouched;
 
   // We do these checks because initial value could be false or zero!!
-  if (keepState && savedState) {
+  if ((keepState || inMultistep) && savedState) {
     logger(`Setting field ${name}'s kept state`, savedState);
     initVal = savedState.value;
     initTouched = savedState.touched;
@@ -275,8 +279,22 @@ function useField(fieldProps = {}, userRef) {
     relevant(formApi.getValues())
   );
 
+  const multistepRelevant = params => {
+    if (multistepContext && multistepContext.relevant) {
+      return multistepContext.relevant(params);
+    }
+    return true;
+  };
+
   const checkRelevant = () => {
-    setIsRelevant(relevant(formApi.getValues()));
+    setIsRelevant(prev => {
+      const newRel = relevant(formApi.getValues());
+      // Reset if it relevance changes and we dont have keep state.
+      if (newRel != prev && !keepState) {
+        fieldApiRef.current.reset();
+      }
+      return newRel;
+    });
   };
 
   // Special getter to support shadow fields
@@ -490,8 +508,10 @@ function useField(fieldProps = {}, userRef) {
       touched: getTouch()
     }),
     relevant,
+    multistepRelevant,
     checkRelevant
   };
+  fieldApiRef.current = fieldApi;
 
   // Build the field state
   let fieldState = {
@@ -527,6 +547,7 @@ function useField(fieldProps = {}, userRef) {
       fieldState,
       notify,
       keepState,
+      inMultistep,
       shadow
     };
     updater.register(fieldId, fieldObj);
@@ -541,7 +562,7 @@ function useField(fieldProps = {}, userRef) {
   useEffect(
     () => {
       const fullField = formApi.getFullField(field);
-      logger('Update', field);
+      logger('Update', field, inMultistep);
 
       const fieldObj = {
         field: fullField,
@@ -550,14 +571,33 @@ function useField(fieldProps = {}, userRef) {
         fieldState,
         notify,
         keepState,
+        inMultistep,
         shadow
       };
 
       updater.update(fieldId, fieldObj);
     },
     // This is VERYYYY!! Important!
-    [validationFunc, validateOnChange, validateOnBlur, onValueChange, field]
+    [
+      validationFunc,
+      validateOnChange,
+      validateOnBlur,
+      onValueChange,
+      field,
+      inMultistep
+    ]
   );
+
+  // Need to update when we become relevent again
+  // useEffect(
+  //   () => {
+  //     // console.log('WTF', field, keepState, fieldApi.getValue());
+  //     updater.setValue(fieldId, fieldApi.getValue());
+  //     updater.setError(fieldId, fieldApi.getError());
+  //     updater.setTouched(fieldId, fieldApi.getTouched());
+  //   },
+  //   [isRelevant]
+  // );
 
   // Maintain cursor position
   useLayoutEffect(

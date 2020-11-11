@@ -1,3 +1,9 @@
+## 3.20.0 (November 11, 2020)
+
+### Added
+
+- Ability to not pass keep state to multistep fields, and also added docs for conditional relevant nested array fields
+
 ## 3.19.0 (November 10, 2020)
 
 ### Added

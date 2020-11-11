@@ -51,7 +51,7 @@ const Info = () => {
     <Multistep.Step step="info" next="allergies">
       <label>
         Please enter your first name:
-        <Text field="first" validate={validate} keepState />
+        <Text field="first" validate={validate} />
       </label>
       <button type="button" onClick={next}>
         Next
@@ -74,7 +74,7 @@ const Allergic = ({ state }) => {
       previous="info">
       <label>
         Are you alergic to penut butter?:
-        <Checkbox field="allergic" validate={validate} keepState />
+        <Checkbox field="allergic" validate={validate} />
       </label>
       <button type="button" onClick={next}>
         Next
@@ -100,7 +100,7 @@ const EpiPen = () => {
       relevant={relevant}>
       <label>
         Do you have an epipen?:
-        <RadioGroup field="epipen" validate={validate} keepState>
+        <RadioGroup field="epipen" validate={validate}>
           <label>
             Yes <Radio value="yes" />
           </label>
@@ -148,7 +148,7 @@ const Color = () => {
       previous={values => (values.allergic ? 'epipen' : 'allergies')}>
       <label>
         Please enter your favorite color:
-        <Text field="color" validate={validate} keepState />
+        <Text field="color" validate={validate} />
       </label>
       <button type="button" onClick={next}>
         Next
@@ -167,7 +167,7 @@ const Dog = () => {
   return (
     <Multistep.Step step="dog" previous="color">
       <label>
-        Do you have a dog? <Checkbox field="hasDog" keepState />
+        Do you have a dog? <Checkbox field="hasDog" />
       </label>
       <Relevant when={({ values }) => values.hasDog}>
         <label>
@@ -175,7 +175,7 @@ const Dog = () => {
           <Text
             field="dogName"
             validate={validate}
-            keepState
+            // keepState
             relevant={values => values.hasDog}
           />
         </label>

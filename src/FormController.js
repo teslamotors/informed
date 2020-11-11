@@ -134,7 +134,12 @@ class FormController extends EventEmitter {
 
         // Cleanup phase to get rid of irrelevant fields
         this.fieldsById.forEach(f => {
-          if (!f.fieldApi.relevant(this.state.values)) {
+          // If a fields within an irrelivant step then remove it
+          // Otherwise, check to see if its relevant and only remove if keep state is false
+          if (
+            !f.fieldApi.multistepRelevant(this.state.values) ||
+            (!f.fieldApi.relevant(this.state.values) && !f.keepState)
+          ) {
             ObjectMap.delete(this.state.values, f.field);
             ObjectMap.delete(this.state.touched, f.field);
             ObjectMap.delete(this.state.errors, f.field);
@@ -664,7 +669,7 @@ class FormController extends EventEmitter {
     if (
       //!this.expectedRemovals[magicValue] &&
       alreadyRegistered &&
-      field.keepState
+      (field.keepState || field.inMultistep)
     ) {
       debug('Already Registered', name);
       this.fieldsById.delete(alreadyRegistered);
@@ -674,7 +679,7 @@ class FormController extends EventEmitter {
     if (
       //!this.expectedRemovals[magicValue] &&
       alreadyRegistered &&
-      !field.keepState
+      (!field.keepState || !field.inMultistep)
     ) {
       console.warn(
         'Check to make sure you have not registered two fields with the fieldName',
@@ -728,7 +733,10 @@ class FormController extends EventEmitter {
 
     // If the fields state is to be kept then save the value
     // Exception where its expected to be removed!
-    if (field.keepState && !this.expectedRemovals[magicValue]) {
+    if (
+      (field.keepState || field.inMultistep) &&
+      !this.expectedRemovals[magicValue]
+    ) {
       debug(`Saving field ${name}'s value`, field.fieldApi.getFieldState());
       if (!field.shadow) {
         ObjectMap.set(this.savedValues, name, field.fieldApi.getFieldState());
@@ -743,7 +751,10 @@ class FormController extends EventEmitter {
     }
 
     // Remove if its an expected removal OR we dont have keep state
-    if (this.expectedRemovals[magicValue] || !field.keepState) {
+    if (
+      this.expectedRemovals[magicValue] ||
+      (!field.keepState && !field.inMultistep)
+    ) {
       // Remove the field completley
       debug('Removing field', name);
       this.fieldsById.delete(id);

@@ -50,7 +50,8 @@ const useMultistepStep = ({ step, next, previous, relevant }) => {
       <MultistepStepContext.Provider
         value={{
           relevant: params =>
-            relevantRef.current ? relevantRef.current(params) : true
+            relevantRef.current ? relevantRef.current(params) : true,
+          multistep: true
         }}>
         {isCurrent && isRelevant ? children : null}
       </MultistepStepContext.Provider>

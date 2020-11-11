@@ -21,8 +21,8 @@ const MultistepTestForm = ({ onSubmit, apiRef, validate }) => {
         {({ next, back }) => (
           <React.Fragment>
             <Multistep.Step step="info" next="allergies">
-              <Text field="name" keepState validate={validate} />
-              <Text field="age" type="number" keepState validate={validate} />
+              <Text field="name" validate={validate} />
+              <Text field="age" type="number" validate={validate} />
               <button type="button" id="next" onClick={next}>
                 Next
               </button>
@@ -32,7 +32,7 @@ const MultistepTestForm = ({ onSubmit, apiRef, validate }) => {
               next={values => {
                 return values.allergic ? 'epipen' : 'dog';
               }}>
-              <Checkbox field="allergic" keepState validate={validate} />
+              <Checkbox field="allergic" validate={validate} />
               <button type="button" id="next" onClick={next}>
                 Next
               </button>
@@ -45,7 +45,7 @@ const MultistepTestForm = ({ onSubmit, apiRef, validate }) => {
               next="dog"
               previous="allergies"
               relevant={({ allergic }) => allergic}>
-              <RadioGroup field="epipen" validate={validate} keepState>
+              <RadioGroup field="epipen" validate={validate}>
                 <Radio value="yes" />
                 <Radio value="no" />
               </RadioGroup>
@@ -56,12 +56,11 @@ const MultistepTestForm = ({ onSubmit, apiRef, validate }) => {
             <Multistep.Step
               step="dog"
               previous={values => (values.allergic ? 'epipen' : 'allergies')}>
-              <Checkbox field="hasDog" keepState />
+              <Checkbox field="hasDog" />
               <Relevant when={({ values }) => values.hasDog}>
                 <Text
                   field="dogName"
                   validate={validate}
-                  keepState
                   relevant={values => values.hasDog}
                 />
               </Relevant>

@@ -10,6 +10,7 @@ import Schema from './Schema/Intro';
 import FormattedSchema from './Schema/FormattedSchema';
 import NestedSchema from './Schema/NestedSchema';
 import ArrayFieldSchema from './Schema/ArrayFieldSchema';
+import ArrayFieldSchemaNested from './Schema/ArrayFieldSchemaNested';
 import CustomSchema from './Schema/CustomSchema';
 import Complex from './Form/Complex';
 import Big from './Form/Big';
@@ -186,7 +187,8 @@ storiesOf('Schema', module)
   .add('Formatted Schema', FormattedSchema)
   .add('Array Field Schema', ArrayFieldSchema)
   .add('Conditional Schema', ConditionalSchema)
-  .add('Custom Schema', CustomSchema);
+  .add('Custom Schema', CustomSchema)
+  .add('Nested Array Fields', ArrayFieldSchemaNested);
 
 storiesOf('Debugging', module).add('Form State', FormState);
 

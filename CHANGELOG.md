@@ -1,3 +1,9 @@
+## 3.19.0 (November 10, 2020)
+
+### Added
+
+- Ability to hide or show fields based on relevant, and notify relevant fields
+
 ## 3.18.3 (November 10, 2020)
 
 ### Fixed

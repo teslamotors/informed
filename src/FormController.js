@@ -67,7 +67,8 @@ class FormController extends EventEmitter {
         getValue: noop,
         getTouched: noop,
         getError: noop,
-        getFieldState: noop
+        getFieldState: noop,
+        checkRelevant: noop
       }
     };
 
@@ -433,16 +434,25 @@ class FormController extends EventEmitter {
 
   // Notify other fields
   notify(field) {
+    // Example field - siblings[0].married
     // Get the notifier
     const notifier = this.getField(field);
     // If we have a list we must notify each one
     if (notifier && notifier.notify) {
+      // Example: ['spouse']
       notifier.notify.forEach(fieldName => {
         // Get the field toNotify
-        const toNotify = this.getField(fieldName);
+        const JSPAN = `.${field}`;
+        const path = `${JSPAN.replace(/(.*)[.[].*/, '$1')}.${fieldName}`.slice(
+          1
+        );
+        // console.log('PATH', path);
+        // Example path - siblings[0].spouse
+        const toNotify = this.getField(path);
         if (toNotify) {
           debug('Notifying', toNotify.field);
           toNotify.fieldApi.validate();
+          toNotify.fieldApi.checkRelevant();
         }
       });
     }

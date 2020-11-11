@@ -7,6 +7,7 @@ import { validateYupField, uuidv4, informedFormat } from '../utils';
 import Debug from '../debug';
 import useLayoutEffect from './useIsomorphicLayoutEffect';
 import FormController from '../FormController';
+import ObjectMap from '../ObjectMap';
 const logger = Debug('informed:useField' + '\t');
 
 // localStorage.debug = 'informed:.*' << HOW to enable debuging
@@ -253,6 +254,31 @@ function useField(fieldProps = {}, userRef) {
   initialValueRef.current = initialValue;
   fieldRef.current = field;
 
+  // Default relevant function
+  const relevantFunc = () => true;
+
+  const relevant = params => {
+    const rel = userRelevant || relevantFunc;
+    const ff = formApi.getFullField(fieldRef.current) || fieldRef.current;
+    const args = {
+      path: ff,
+      parentPath: ff.replace(/(.*)[.[].*/, '$1'),
+      get: (values, path) => ObjectMap.get(values, path)
+    };
+    if (multistepContext && multistepContext.relevant) {
+      return rel(params, args) && multistepContext.relevant(params, args);
+    }
+    return rel(params, args);
+  };
+
+  const [isRelevant, setIsRelevant, getIsRelevant] = useStateWithGetter(
+    relevant(formApi.getValues())
+  );
+
+  const checkRelevant = () => {
+    setIsRelevant(relevant(formApi.getValues()));
+  };
+
   // Special getter to support shadow fields
   const getVal = () => {
     return shadow ? formApi.getDerrivedValue(field) : getTheVal();
@@ -449,8 +475,6 @@ function useField(fieldProps = {}, userRef) {
 
   /* ----------------- Field Api && State ----------------- */
 
-  const relevantFunc = () => true;
-
   // Build the field api
   const fieldApi = {
     setValue,
@@ -465,13 +489,8 @@ function useField(fieldProps = {}, userRef) {
       value: getVal(),
       touched: getTouch()
     }),
-    relevant: params => {
-      const rel = userRelevant || relevantFunc;
-      if (multistepContext && multistepContext.relevant) {
-        return rel(params) && multistepContext.relevant(params);
-      }
-      return rel(params);
-    }
+    relevant,
+    checkRelevant
   };
 
   // Build the field state
@@ -479,7 +498,8 @@ function useField(fieldProps = {}, userRef) {
     value,
     error,
     touched,
-    maskedValue
+    maskedValue,
+    isRelevant
   };
 
   // Create shadow state if this is a shadow field
@@ -489,39 +509,6 @@ function useField(fieldProps = {}, userRef) {
       touched
     };
   }
-
-  // Initial register needs to happen before render ( simulating constructor muhahahah )
-  // useState(() => {
-  //   const fullField = formApi.getFullField(field);
-  //   logger('Initial Register', fieldId, fullField);
-  //   const fieldObj = {
-  //     field: fullField,
-  //     fieldId,
-  //     fieldApi,
-  //     fieldState,
-  //     notify,
-  //     keepState,
-  //     shadow
-  //   };
-  //   updater.register(fieldId, fieldObj, true);
-  // });
-
-  // const setUp = React.useRef(false);
-  // if (!setUp.current) {
-  //   setUp.current = true;
-  //   const fullField = formApi.getFullField(field);
-  //   logger('Initial Register', fieldId, fullField);
-  //   const fieldObj = {
-  //     field: fullField,
-  //     fieldId,
-  //     fieldApi,
-  //     fieldState,
-  //     notify,
-  //     keepState,
-  //     shadow
-  //   };
-  //   updater.register(fieldId, fieldObj, true);
-  // }
 
   logger('Render', formApi.getFullField(field), fieldState);
 
@@ -601,7 +588,8 @@ function useField(fieldProps = {}, userRef) {
     ...Object.values(userProps)
   ];
 
-  const render = children => useMemo(() => children, [...shouldUpdate]);
+  const render = children =>
+    useMemo(() => (isRelevant ? children : null), [...shouldUpdate]);
 
   // Build some setub fields so users can easily intagrate without any hookup code
 

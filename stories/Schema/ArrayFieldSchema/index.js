@@ -52,6 +52,26 @@ const schema = {
             'input:props': {
               type: 'number'
             }
+          },
+          married: {
+            type: 'string',
+            title: 'Are you married?',
+            enum: ['yes', 'no'],
+            'ui:control': 'radio',
+            'informed:props': {
+              notify: ['spouse']
+            }
+          },
+          spouse: {
+            type: 'string',
+            title: 'Spouse name',
+            'ui:control': 'input',
+            'informed:props': {
+              relevant: (values, { parentPath, get }) => {
+                const married = get(values, `${parentPath}.married`);
+                return married === 'yes';
+              }
+            }
           }
         }
       }

@@ -51,6 +51,8 @@ class FormController extends EventEmitter {
       invalid: false,
       submits: 0,
       step: 0,
+      validating: 0,
+      submitting: false,
       values: {},
       errors: {},
       touched: {}
@@ -109,6 +111,8 @@ class FormController extends EventEmitter {
     this.fieldExists = this.fieldExists.bind(this);
     this.validateField = this.validateField.bind(this);
     this.notify = this.notify.bind(this);
+    this.validating = this.validating.bind(this);
+    this.validated = this.validated.bind(this);
 
     // Updater will be used by fields to update and register
     this.updater = {
@@ -259,7 +263,9 @@ class FormController extends EventEmitter {
       setStep: this.setStep,
       next: this.next,
       back: this.back,
-      setCurrent: this.setCurrent
+      setCurrent: this.setCurrent,
+      validated: this.validated,
+      validating: this.validating
     };
 
     this.on('value', field => {
@@ -292,6 +298,43 @@ class FormController extends EventEmitter {
 
   setFormError(value) {
     this.state.error = value;
+    this.emit('change');
+  }
+
+  validating() {
+    this.state.validating = this.state.validating + 1;
+    this.emit('change');
+  }
+
+  validated(name, error) {
+    // Decrement the validating
+    this.state.validating = this.state.validating - 1;
+
+    // Set the error if there is not already one ( sync error first )
+    if (!this.getError(name)) {
+      this.setError(name, error);
+    }
+
+    // If we are not still validating, and we were submitting, then submit form
+    // If we are async validating then dont submit yet
+    if (this.state.validating > 0) {
+      this.emit('change');
+      return;
+    }
+
+    // If we were submitting
+    if (this.state.submitting) {
+      // Check validity and perform submission if valid
+      if (this.valid()) {
+        debug('Submit', this.state);
+        this.emit('submit');
+      } else {
+        debug('Submit', this.state);
+        this.emit('failure');
+      }
+      this.state.submitting = false;
+    }
+
     this.emit('change');
   }
 
@@ -583,7 +626,8 @@ class FormController extends EventEmitter {
     // Itterate through and call validate on every field
     this.fieldsById.forEach(field => {
       field.fieldApi.validate(values);
-      field.fieldApi.setTouched(true);
+      // Second param to prevent validation
+      field.fieldApi.setTouched(true, true);
     });
 
     // Call the form level validation if its present
@@ -611,6 +655,16 @@ class FormController extends EventEmitter {
     }
   }
 
+  asyncValidate() {
+    debug('Async Validating all fields');
+    const values = this.getValues();
+
+    // Itterate through and call validate on every field
+    this.fieldsById.forEach(field => {
+      field.fieldApi.asyncValidate(values);
+    });
+  }
+
   keyDown(e) {
     // If preventEnter then return
     if (e.keyCode == 13 && this.options.preventEnter) {
@@ -622,6 +676,7 @@ class FormController extends EventEmitter {
   submitForm(e) {
     // Incriment number of submit attempts
     this.state.submits = this.state.submits + 1;
+    this.state.submitting = true;
 
     if (!this.options.dontPreventDefault && e) {
       // Prevent default browser form submission
@@ -634,6 +689,14 @@ class FormController extends EventEmitter {
     // Emit a change
     this.emit('change');
 
+    // Trigger all async validations
+    this.asyncValidate();
+
+    // If we are async validating then dont submit yet
+    if (this.state.validating > 0) {
+      return;
+    }
+
     // Check validity and perform submission if valid
     if (this.valid()) {
       debug('Submit', this.state);
@@ -642,6 +705,8 @@ class FormController extends EventEmitter {
       debug('Submit', this.state);
       this.emit('failure');
     }
+
+    this.state.submitting = false;
   }
 
   /* ---------------- Updater Functions (used by fields) ---------------- */

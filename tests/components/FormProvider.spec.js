@@ -28,7 +28,9 @@ describe('FormProvider', () => {
       pristine: true,
       dirty: false,
       invalid: false,
-      submits: 0
+      submits: 0,
+      submitting: false,
+      validating: 0
     };
     expect(JSON.stringify(state)).to.deep.equal(JSON.stringify(formState));
   };
@@ -42,7 +44,9 @@ describe('FormProvider', () => {
       dirty: false,
       invalid: false,
       submits: 0,
-      step: 0
+      step: 0,
+      submitting: false,
+      validating: 0
     };
     return Object.assign({}, defaultState, state);
   };

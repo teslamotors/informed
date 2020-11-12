@@ -153,6 +153,7 @@ function useField(fieldProps = {}, userRef) {
   const {
     field,
     validate: validationFunc,
+    asyncValidate,
     validationSchema,
     mask,
     maskWithCursorOffset,
@@ -164,6 +165,7 @@ function useField(fieldProps = {}, userRef) {
     validateOnChange,
     validateOnBlur,
     validateOnMount,
+    asyncValidateOnBlur,
     maskOnBlur,
     allowEmptyString,
     onValueChange,
@@ -418,6 +420,12 @@ function useField(fieldProps = {}, userRef) {
       setError(validate(getVal(), formApi.getValues()));
     }
 
+    // Same for async
+    if (asyncValidate && asyncValidateOnBlur && !reset && val) {
+      logger(`Validating async after blur ${field} ${getVal()}`);
+      asyncValidate(getVal(), formApi.getValues());
+    }
+
     // Call mask if it was passed
     if (mask && maskOnBlur) {
       // Generate the masked value from the current value
@@ -491,6 +499,13 @@ function useField(fieldProps = {}, userRef) {
     }
   };
 
+  const fieldAsyncValidate = values => {
+    if (asyncValidate) {
+      logger(`Field async validating ${field} ${getVal()}`);
+      asyncValidate(getVal(), values || formApi.getValues());
+    }
+  };
+
   /* ----------------- Field Api && State ----------------- */
 
   // Build the field api
@@ -500,6 +515,7 @@ function useField(fieldProps = {}, userRef) {
     setError,
     reset,
     validate: fieldValidate,
+    asyncValidate: fieldAsyncValidate,
     getValue: getVal,
     getTouched: getTouch,
     getError: getErr,

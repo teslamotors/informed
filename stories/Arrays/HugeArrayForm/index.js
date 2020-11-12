@@ -4,7 +4,6 @@ import readme from './README.md';
 import FormState from '../../utils/FormState';
 import { Form, Text, ArrayField } from '../../../src';
 
-
 const friends = Array.from(Array(50)).map(e => {
   return { name: 'Joe', age: 26 };
 });
@@ -15,9 +14,12 @@ const initialValues = {
 
 const NestedForm = () => (
   <div>
-    <Form initialValues={initialValues}>
+    <Form
+      initialValues={initialValues}
+      onSubmit={values => console.log(values)}>
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, marginRight: '2rem' }}>
+          <button type="submit">Submit</button>
           <ArrayField field="friends">
             {({ add, addWithInitialValue, reset }) => {
               return (

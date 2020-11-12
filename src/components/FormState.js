@@ -4,7 +4,16 @@ import useFormState from '../hooks/useFormState';
 
 const FormState = () => {
   const formState = useFormState();
-  const { pristine, dirty, invalid, values, errors, touched } = formState;
+  const {
+    pristine,
+    dirty,
+    invalid,
+    values,
+    errors,
+    touched,
+    validating,
+    submitting
+  } = formState;
   return (
     <pre>
       <code>
@@ -15,7 +24,9 @@ const FormState = () => {
             invalid,
             values,
             errors,
-            touched
+            touched,
+            validating,
+            submitting
           },
           null,
           2

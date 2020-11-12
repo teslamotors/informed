@@ -1,9 +1,11 @@
 # Async Validation
 
+** Note: This is in beta and is subject to change! **
+
 Async validation can be achieved by passing an asyncValidation function to the input.
 Below is an example form that has validation functions. The synchronous function defined
-will return an error when the input is empty, and null otherwise. The second asynchronous
-function defined will, after two seconds, resolve an error or null depending on what is typed.
+will return an error when the input is empty, and nothing otherwise. The second asynchronous
+function defined will, after two seconds, resolve an error or nothing depending on what is typed.
 We pass these validation functions to the username input and validation will **occur on submission**.
 
 **Try clicking the submit button WITH AN EMPTY FIELD! and see what happens:**
@@ -25,37 +27,53 @@ Lets make our asynchronous validation fail!
 
 The form did NOT submit!! Why? Because asynchronous validation failed.
 
+**Ok now type "reject" into the field, click on the submit button, and wait two more seconds.**
+
+The form did not submit because the "apicall" to validate failed.
+
 ```jsx
 import { Form, Text } from 'informed';
 
-const validate = username => !username || username.trim() === '' ? 'Username is a required field' : null
+const validate = username =>
+  !username || username.trim() === ''
+    ? 'Username is a required field'
+    : undefined;
 
-const asyncValidate = username => new Promise((resolve, reject) => {
-    setTimeout(() => {
-      // Simulate username check
-      if (['joe', 'tanner', 'billy', 'bob'].includes(username)) {
-        resolve('That username is taken');
-      }
-      // Simulate request faulure
-      if (username === 'reject') {
-        reject('Failure while making call to validate username does not exist');
-      }
-      // Sumulate username success check
-      resolve(null);
-    }, 2000)
-  }
-)
+const ExampleForm = () => {
+  const apiRef = useRef();
 
-<Form id="async-form">
-  <label htmlFor="async-username">Username:</label>
-  <Text
-    field="username"
-    id="async-username"
-    validate={validate} asyncValidate={asyncValidate}/>
-  <button type="submit">
-    Submit
-  </button>
-</Form>
+  const asyncValidate = username =>
+    new Promise((resolve, reject) => {
+      apiRef.current.validating();
+      setTimeout(() => {
+        // Simulate username check
+        if (['joe', 'tanner', 'billy', 'bob'].includes(username)) {
+          apiRef.current.validated('username', 'That username is taken');
+          return resolve();
+        }
+        // Simulate request faulure
+        if (username === 'reject') {
+          apiRef.current.validated('username', 'Unable to validate username.');
+          return reject();
+        }
+        // Sumulate username success check
+        apiRef.current.validated('username');
+        return resolve();
+      }, 2000);
+    });
+
+  return (
+    <Form apiRef={apiRef} onSubmit={values => console.log(values)}>
+      <Text
+        field="username"
+        label="Username"
+        validate={validate}
+        asyncValidate={asyncValidate}
+      />
+      <button type="submit">Submit</button>
+    </Form>
+  );
+};
 ```
 
 ## On Blur

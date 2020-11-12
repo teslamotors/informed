@@ -1,3 +1,9 @@
+## 3.21.0 (November 12, 2020)
+
+### Added
+
+- Ability to add async validation functions to inputs
+
 ## 3.20.0 (November 11, 2020)
 
 ### Added

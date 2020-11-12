@@ -31,6 +31,7 @@ import Notifications from './Validation/Notifications';
 import FormLevelValidation from './Validation/FormLevelValidation';
 import AjvValidation from './Validation/AjvValidation';
 import AjvValidationNoRender from './Validation/AjvValidationNoRender';
+import AsyncValidation from './Validation/AsyncValidation';
 
 import FormatParse from './Formatting/FormatParse';
 import Formatter from './Formatting/Formatter';
@@ -179,7 +180,8 @@ storiesOf('Validation', module)
   .add('Yup Validation', YupValidation)
   .add('Field Level + Yup Validation', FieldLevelYupValidation)
   .add('JSON Schema Validation + Rendering', AjvValidation)
-  .add('Only JSON Schema Validation', AjvValidationNoRender);
+  .add('Only JSON Schema Validation', AjvValidationNoRender)
+  .add('Async Validation', AsyncValidation);
 
 storiesOf('Schema', module)
   .add('Schema', Schema)

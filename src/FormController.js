@@ -707,6 +707,8 @@ class FormController extends EventEmitter {
     }
 
     this.state.submitting = false;
+
+    this.emit('change');
   }
 
   /* ---------------- Updater Functions (used by fields) ---------------- */

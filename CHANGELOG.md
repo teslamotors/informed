@@ -1,3 +1,9 @@
+## 3.21.1 (November 12, 2020)
+
+### Fixed
+
+- Isssue where state would not update after submit
+
 ## 3.21.0 (November 12, 2020)
 
 ### Added

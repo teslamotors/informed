@@ -60,10 +60,7 @@ const schema = {
             type: 'string',
             title: 'Are you married?',
             enum: ['yes', 'no'],
-            'ui:control': 'radio',
-            'informed:props': {
-              notify: ['spouse']
-            }
+            'ui:control': 'radio'
           },
           spouse: {
             type: 'string',
@@ -95,10 +92,7 @@ const schema = {
                   type: 'string',
                   title: 'Married?',
                   enum: ['yes', 'no'],
-                  'ui:control': 'radio',
-                  'informed:props': {
-                    notify: ['spouse']
-                  }
+                  'ui:control': 'radio'
                 },
                 spouse: {
                   type: 'string',

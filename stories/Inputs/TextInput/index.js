@@ -10,7 +10,7 @@ const TextInput = () => (
     <div>
       <label>
         First name:
-        <Text field="name" initialValue="foo" />
+        <Text field="name" />
       </label>
       <button type="submit">Submit</button>
       <FormState />

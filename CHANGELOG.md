@@ -1,3 +1,13 @@
+## 3.21.2 (November 14, 2020)
+
+### Fixed
+
+- Bug with field level relevant
+
+### Updated
+
+- Form to always evaluate relevance, and not force the user to pass notify.
+
 ## 3.21.1 (November 12, 2020)
 
 ### Fixed

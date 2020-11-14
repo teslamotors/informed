@@ -180,4 +180,219 @@ describe('Schema', () => {
 
     // expect(selects.at(0).prop('value')).to.equal('radio');
   });
+
+  it('should render update state properly based on relevance when NO keep state is passed', () => {
+    const schema = {
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string',
+          title: 'First name',
+          'ui:control': 'input'
+        },
+        married: {
+          type: 'string',
+          title: 'Are you married?',
+          enum: ['yes', 'no'],
+          'ui:control': 'radio'
+        },
+        spouse: {
+          type: 'string',
+          title: 'Spouse name',
+          'ui:control': 'input',
+          'informed:props': {
+            relevant: values => {
+              return values.married === 'yes';
+            }
+          }
+        }
+      }
+    };
+
+    const apiRef = {};
+
+    const wrapper = mount(
+      <Form schema={schema} apiRef={apiRef}>
+        <SchemaFields />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    // Validate that it renders name field and the radio but nothing else !
+    expect(wrapper.find('form').length).to.equal(1);
+    let inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(3);
+    expect(inputs.at(0).prop('name')).to.equal('name');
+    expect(inputs.at(1).prop('value')).to.equal('yes');
+    expect(inputs.at(2).prop('value')).to.equal('no');
+
+    // Validate the state
+    expect(apiRef.current.getState().values).to.deep.equal({});
+
+    // Select YES on the first radio field
+    let yesRadio = wrapper.find('input').at(1);
+    yesRadio.simulate('change', { target: { checked: true } });
+    expect(apiRef.current.getState().values).to.deep.equal({ married: 'yes' });
+
+    // Validate that it renders the spouse field
+    expect(wrapper.find('form').length).to.equal(1);
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(4);
+    expect(inputs.at(0).prop('name')).to.equal('name');
+    expect(inputs.at(1).prop('value')).to.equal('yes');
+    expect(inputs.at(2).prop('value')).to.equal('no');
+    expect(inputs.at(3).prop('name')).to.equal('spouse');
+
+    // Fill in the spouse field
+    let input = wrapper.find('input').at(3);
+    input.simulate('change', { target: { value: 'Jess' } });
+
+    // Validate the state changed
+    expect(apiRef.current.getState().values).to.deep.equal({
+      married: 'yes',
+      spouse: 'Jess'
+    });
+
+    // Select no for married
+    let noRadio = wrapper.find('input').at(2);
+    noRadio.simulate('change', { target: { checked: true } });
+
+    // Validate that it does NOT render the spouse field
+    expect(wrapper.find('form').length).to.equal(1);
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(3);
+    expect(inputs.at(0).prop('name')).to.equal('name');
+    expect(inputs.at(1).prop('value')).to.equal('yes');
+    expect(inputs.at(2).prop('value')).to.equal('no');
+
+    // Valdiate state changed
+    expect(apiRef.current.getState().values).to.deep.equal({ married: 'no' });
+
+    // Select yes for married
+    yesRadio = wrapper.find('input').at(1);
+    yesRadio.simulate('change', { target: { checked: true } });
+
+    // Validate that it does NOT render the spouse field
+    expect(wrapper.find('form').length).to.equal(1);
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(4);
+    expect(inputs.at(0).prop('name')).to.equal('name');
+    expect(inputs.at(1).prop('value')).to.equal('yes');
+    expect(inputs.at(2).prop('value')).to.equal('no');
+    expect(inputs.at(3).prop('name')).to.equal('spouse');
+
+    // Valdiate state changed
+    expect(apiRef.current.getState().values).to.deep.equal({ married: 'yes' });
+  });
+
+  it('should render update state properly based on relevance when keepState is passed', () => {
+    const schema = {
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string',
+          title: 'First name',
+          'ui:control': 'input'
+        },
+        married: {
+          type: 'string',
+          title: 'Are you married?',
+          enum: ['yes', 'no'],
+          'ui:control': 'radio'
+        },
+        spouse: {
+          type: 'string',
+          title: 'Spouse name',
+          'ui:control': 'input',
+          'informed:props': {
+            relevant: values => {
+              return values.married === 'yes';
+            },
+            keepState: true
+          }
+        }
+      }
+    };
+
+    const apiRef = {};
+
+    const wrapper = mount(
+      <Form schema={schema} apiRef={apiRef}>
+        <SchemaFields />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    // Validate that it renders name field and the radio but nothing else !
+    expect(wrapper.find('form').length).to.equal(1);
+    let inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(3);
+    expect(inputs.at(0).prop('name')).to.equal('name');
+    expect(inputs.at(1).prop('value')).to.equal('yes');
+    expect(inputs.at(2).prop('value')).to.equal('no');
+
+    // Validate the state
+    expect(apiRef.current.getState().values).to.deep.equal({});
+
+    // Select YES on the first radio field
+    let yesRadio = wrapper.find('input').at(1);
+    yesRadio.simulate('change', { target: { checked: true } });
+    expect(apiRef.current.getState().values).to.deep.equal({ married: 'yes' });
+
+    // Validate that it renders the spouse field
+    expect(wrapper.find('form').length).to.equal(1);
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(4);
+    expect(inputs.at(0).prop('name')).to.equal('name');
+    expect(inputs.at(1).prop('value')).to.equal('yes');
+    expect(inputs.at(2).prop('value')).to.equal('no');
+    expect(inputs.at(3).prop('name')).to.equal('spouse');
+
+    // Fill in the spouse field
+    let input = wrapper.find('input').at(3);
+    input.simulate('change', { target: { value: 'Jess' } });
+
+    // Validate the state changed
+    expect(apiRef.current.getState().values).to.deep.equal({
+      married: 'yes',
+      spouse: 'Jess'
+    });
+
+    // Select no for married
+    let noRadio = wrapper.find('input').at(2);
+    noRadio.simulate('change', { target: { checked: true } });
+
+    // Validate that it does NOT render the spouse field
+    expect(wrapper.find('form').length).to.equal(1);
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(3);
+    expect(inputs.at(0).prop('name')).to.equal('name');
+    expect(inputs.at(1).prop('value')).to.equal('yes');
+    expect(inputs.at(2).prop('value')).to.equal('no');
+
+    // Valdiate state changed
+    expect(apiRef.current.getState().values).to.deep.equal({
+      married: 'no',
+      spouse: 'Jess'
+    });
+
+    // Select yes for married
+    yesRadio = wrapper.find('input').at(1);
+    yesRadio.simulate('change', { target: { checked: true } });
+
+    // Validate that it does NOT render the spouse field
+    expect(wrapper.find('form').length).to.equal(1);
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(4);
+    expect(inputs.at(0).prop('name')).to.equal('name');
+    expect(inputs.at(1).prop('value')).to.equal('yes');
+    expect(inputs.at(2).prop('value')).to.equal('no');
+    expect(inputs.at(3).prop('name')).to.equal('spouse');
+
+    // Valdiate state changed
+    expect(apiRef.current.getState().values).to.deep.equal({
+      married: 'yes',
+      spouse: 'Jess'
+    });
+  });
 });

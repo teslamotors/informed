@@ -81,6 +81,7 @@ import {
 } from './Hooks';
 import { add } from 'lodash';
 import ConditionalSchema from './Schema/ConditionalSchema';
+import HugeSchema from './Schema/HugeSchema';
 
 addDecorator(StoryWrapper);
 
@@ -191,6 +192,7 @@ storiesOf('Schema', module)
   .add('Conditional Schema', ConditionalSchema)
   .add('Custom Schema', CustomSchema)
   .add('Nested Array Fields', ArrayFieldSchemaNested);
+// .add('Huge Schema', HugeSchema);
 
 storiesOf('Debugging', module).add('Form State', FormState);
 

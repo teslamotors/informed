@@ -289,15 +289,24 @@ function useField(fieldProps = {}, userRef) {
   };
 
   const checkRelevant = () => {
-    setIsRelevant(prev => {
-      const newRel = relevant(formApi.getValues());
-      // Reset if it relevance changes and we dont have keep state.
-      if (newRel != prev && !keepState) {
+    const newRel = relevant(formApi.getValues());
+    const curRel = getIsRelevant();
+
+    if (newRel != curRel) {
+      setIsRelevant(newRel);
+    }
+    return newRel;
+  };
+
+  useEffect(
+    () => {
+      // Reset if we dont have keep state and relevance changed.
+      if (!isRelevant && !keepState) {
         fieldApiRef.current.reset();
       }
-      return newRel;
-    });
-  };
+    },
+    [isRelevant]
+  );
 
   // Special getter to support shadow fields
   const getVal = () => {
@@ -519,6 +528,7 @@ function useField(fieldProps = {}, userRef) {
     getValue: getVal,
     getTouched: getTouch,
     getError: getErr,
+    getIsRelevant: getIsRelevant,
     getFieldState: () => ({
       value: getVal(),
       touched: getTouch()

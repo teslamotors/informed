@@ -137,12 +137,14 @@ class FormController extends EventEmitter {
         }
 
         // Cleanup phase to get rid of irrelevant fields
+        // Also evaluate relevance on all fields
         this.fieldsById.forEach(f => {
           // If a fields within an irrelivant step then remove it
           // Otherwise, check to see if its relevant and only remove if keep state is false
+          const newRel = f.fieldApi.checkRelevant();
           if (
             !f.fieldApi.multistepRelevant(this.state.values) ||
-            (!f.fieldApi.relevant(this.state.values) && !f.keepState)
+            (!newRel && !f.keepState)
           ) {
             ObjectMap.delete(this.state.values, f.field);
             ObjectMap.delete(this.state.touched, f.field);
@@ -158,7 +160,7 @@ class FormController extends EventEmitter {
       setTouched: (fieldId, touch, emit = true) => {
         const field = this.fieldsById.get(fieldId);
 
-        if (!field.shadow && field.fieldApi.relevant(this.state.values)) {
+        if (!field.shadow && field.fieldApi.getIsRelevant()) {
           ObjectMap.set(
             this.state.touched,
             field.field,
@@ -186,7 +188,7 @@ class FormController extends EventEmitter {
       setError: (fieldId, error, emit = true) => {
         const field = this.fieldsById.get(fieldId);
 
-        if (!field.shadow && field.fieldApi.relevant(this.state.values)) {
+        if (!field.shadow && field.fieldApi.getIsRelevant()) {
           ObjectMap.set(
             this.state.errors,
             field.field,
@@ -741,9 +743,7 @@ class FormController extends EventEmitter {
       debug('Already Registered', name);
       this.fieldsById.delete(alreadyRegistered);
       this.fieldsByName.delete(name);
-    }
-
-    if (
+    } else if (
       //!this.expectedRemovals[magicValue] &&
       alreadyRegistered &&
       (!field.keepState || !field.inMultistep)
@@ -799,11 +799,13 @@ class FormController extends EventEmitter {
     );
 
     // If the fields state is to be kept then save the value
-    // Exception where its expected to be removed!
     if (
+      // We are in a multistep or want to keep the state
       (field.keepState || field.inMultistep) &&
+      // We are NOT expected to be removed
       !this.expectedRemovals[magicValue]
     ) {
+      // TODO ?? Exception where the field is irrelivant AND keep state was not passed ??
       debug(`Saving field ${name}'s value`, field.fieldApi.getFieldState());
       if (!field.shadow) {
         ObjectMap.set(this.savedValues, name, field.fieldApi.getFieldState());
@@ -819,8 +821,15 @@ class FormController extends EventEmitter {
 
     // Remove if its an expected removal OR we dont have keep state
     if (
+      // This field was expected to be removed
       this.expectedRemovals[magicValue] ||
-      (!field.keepState && !field.inMultistep)
+      // This field does not have keepstate and is NOT within a multistep
+      (!field.keepState && !field.inMultistep) ||
+      // If field is in multistep then we would always keep due to field.inMultistep
+      // BUT.. we need to also check if the field is irrelivant
+      // because if it gets unmounted, even if its part of a multistep, we want to remove
+      // the field completley, unless keep state was passed.
+      (!field.fieldApi.getIsRelevant() && !field.keepState)
     ) {
       // Remove the field completley
       debug('Removing field', name);

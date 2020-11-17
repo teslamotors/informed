@@ -1,3 +1,9 @@
+## 3.22.0 (November 17, 2020)
+
+### Added
+
+- Ability to pass relevant to array fields!!!
+
 ## 3.21.2 (November 14, 2020)
 
 ### Fixed

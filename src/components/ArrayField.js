@@ -3,6 +3,7 @@ import ObjectMap from '../ObjectMap';
 import useArrayField from '../hooks/useArrayField';
 import useFormApi from '../hooks/useFormApi';
 import useScopedApi from '../hooks/useScopedApi';
+import Relevant from './Relevant';
 import {
   ArrayFieldStateContext,
   ArrayFieldItemApiContext,
@@ -10,7 +11,33 @@ import {
   FormRegisterContext
 } from '../Context';
 
-const ArrayField = ({ children, ...props }) => {
+const ArrayField = ({ relevant, field, ...props }) => {
+  // Need to get formApi to have consistant interface for relevant function
+  const formApi = useFormApi();
+
+  if (relevant) {
+    const ff = formApi.getFullField(field);
+    const args = {
+      path: ff,
+      parentPath: ff.replace(/(.*)[.[].*/, '$1'),
+      get: (values, path) => ObjectMap.get(values, path)
+    };
+
+    const when = ({ values }) => {
+      return relevant(values, args);
+    };
+
+    return (
+      <Relevant when={when}>
+        <ArrayFieldWrapper field={field} {...props} />
+      </Relevant>
+    );
+  } else {
+    return <ArrayFieldWrapper field={field} {...props} />;
+  }
+};
+
+const ArrayFieldWrapper = ({ children, ...props }) => {
   const { render, arrayFieldState, arrayFieldApi, field } = useArrayField(
     props
   );
@@ -74,12 +101,14 @@ const ArrayFieldItem = ({
         // Example foo.bar.baz[3].baz >>>> foo.bar.baz[3]
         const magicValue = fieldName.slice(
           0,
-          fieldName.lastIndexOf('[') != -1 ? fieldName.lastIndexOf(']') + 1 : fieldName.length
+          fieldName.lastIndexOf('[') != -1
+            ? fieldName.lastIndexOf(']') + 1
+            : fieldName.length
         );
 
         // This field updated so trigger rerender
-        if( magicValue === field ){
-          setState( Math.random() );
+        if (magicValue === field) {
+          setState(Math.random());
         }
       };
 

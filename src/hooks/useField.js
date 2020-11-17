@@ -182,6 +182,7 @@ function useField(fieldProps = {}, userRef) {
     formController,
     relevant: userRelevant,
     required,
+    keepStateIfRelevant,
     ...userProps
   } = fieldProps;
 
@@ -193,7 +194,7 @@ function useField(fieldProps = {}, userRef) {
 
   // Grab multistepContext
   const multistepContext = useContext(MultistepStepContext);
-  const inMultistep = multistepContext;
+  const inMultistep = multistepContext || keepStateIfRelevant;
 
   // Grab the form api
   let formApi = useFormApi();

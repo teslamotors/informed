@@ -163,8 +163,8 @@ storiesOf('Inputs', module)
 storiesOf('CustomInputs', module).add('Creating Custom Inputs', CustomInputs);
 
 storiesOf('Arrays', module)
-  .add('Array Of Fields', ArrayOfFields)
-  .add('Array Of Scopes', ArrayOfScopes)
+  // .add('Array Of Fields', ArrayOfFields)
+  // .add('Array Of Scopes', ArrayOfScopes)
   .add('Dynamic Arrays', AlternateSyntax)
   .add('Nested Form', NestedForm)
   .add('Huge Array Form', HugeArrayForm);

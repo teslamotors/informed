@@ -110,9 +110,7 @@
     "webpack-node-externals": "^1.7.2",
     "yup": "^0.28.1"
   },
-  "dependencies": {
-    "lodash": "^4.17.15"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "react": "^16.8.0",
     "react-dom": "^16.8.0"

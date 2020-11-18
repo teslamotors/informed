@@ -18,7 +18,6 @@ import {
   Radio,
   Relevant
 } from '../../../src';
-import { values } from 'lodash';
 
 const validate = value =>
   value == null ? 'This field is required' : undefined;

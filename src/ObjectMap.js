@@ -1,13 +1,150 @@
-import ldset from 'lodash/setWith';
-import ldunset from 'lodash/unset';
-import ldtoPath from 'lodash/toPath';
-import ldget from 'lodash/get';
-import ldhas from 'lodash/has';
-import ldvalues from 'lodash/values';
-import ldpullAt from 'lodash/pullAt';
-import ldpull from 'lodash/pull';
 import Debug from './debug';
 const debug = Debug('informed:ObjMap' + '\t');
+
+/* -------------------- toPath -------------------- */
+
+const ldtoPath = (path = '') => {
+  return String.prototype.replace
+    .call(path, /\['(.+?)'\]/g, '.$1')
+    .split(/[,[\].]+?/)
+    .filter(Boolean);
+};
+
+/* --------------------- get --------------------- */
+
+const ldget = (obj, path = '', defaultValue) => {
+  const result = String.prototype.replace
+    .call(path, /\['(.+?)'\]/g, '.$1')
+    .split(/[,[\].]+?/)
+    .filter(Boolean)
+    .reduce(
+      (res, key) => (res !== null && res !== undefined ? res[key] : res),
+      obj
+    );
+  return result === undefined || result === obj ? defaultValue : result;
+};
+
+/* --------------------- has --------------------- */
+
+// foo -->
+// foo.bar --> foo
+// foo.bar[3] --> foo.bar
+// foo.bar.baz[2].raz.taz[5].laz --> foo.bar.baz[2].raz.taz[5]
+const parentPath = path => {
+  return `.${path}`.replace(/(.*)[.[].*/, '$1').replace(/\./, '');
+};
+
+// foo --> foo
+// foo.bar --> bar
+// foo.bar[3] --> [3]
+// foo.bar.baz[2].raz.taz[5].laz --> laz
+const pathKey = path => {
+  return path.replace(parentPath(path), '').replace(/\./, '');
+};
+
+const ldhas = (obj, path) => {
+  const pPath = parentPath(path);
+  const key = pathKey(path);
+  // If we have parent path then get the object at that location
+  // .. otherwise its the root object
+  const parentObj = pPath ? get(obj, pPath) : obj;
+  // If its [3] turn key into 3
+  return !!(
+    parentObj &&
+    Object.hasOwnProperty.call(parentObj, key.replace(/\[(.*)\]/, '$1'))
+  );
+};
+
+/* --------------------- set --------------------- */
+
+const ldset = (obj, path = '', val) => {
+  String.prototype.replace
+    .call(path, /\['(.+?)'\]/g, '.$1')
+    .split(/[,[\].]+?/)
+    .filter(Boolean)
+    .reduce((res, key, i, arr) => {
+      //console.log('RES', res, 'Key', key, 'I', i, 'Arr', arr, 'OBJ', obj);
+      // At the leaf set the value
+      if (i === arr.length - 1) {
+        res[key] = val;
+        return res[key];
+      }
+      // Initialize to new array or object if needed
+      if (res[key] === undefined) {
+        if (Number.isInteger(+arr[i + 1])) {
+          res[key] = [];
+        } else {
+          res[key] = {};
+        }
+        return res[key];
+      }
+      // Exception for if the value is changeing to an array
+      if (Number.isInteger(+arr[i + 1]) && !Array.isArray(res[key])) {
+        res[key] = [];
+      }
+      //TODO exception for if object ??
+
+      // Otherwise keep whats there
+      return res[key];
+    }, obj);
+};
+
+/* --------------------- unset --------------------- */
+
+const ldunset = (obj, path = '') => {
+  let found = false;
+  String.prototype.replace
+    .call(path, /\['(.+?)'\]/g, '.$1')
+    .split(/[,[\].]+?/)
+    .filter(Boolean)
+    .reduce((res, key, i, arr) => {
+      // Base case res is undefined
+      if (res === undefined) {
+        return res;
+      }
+      // At the leaf delete the value
+      if (i === arr.length - 1) {
+        delete res[key];
+        found = true;
+        return res[key];
+      }
+      // Otherwise keep going
+      return res[key];
+    }, obj);
+  return found;
+};
+
+/* --------------------- pullAt --------------------- */
+
+const ldpullAt = (obj, path = '') => {
+  let pulled;
+  String.prototype.replace
+    .call(path, /\['(.+?)'\]/g, '.$1')
+    .split(/[,[\].]+?/)
+    .filter(Boolean)
+    .reduce((res, key, i, arr) => {
+      // Base case res is undefined
+      if (res === undefined) {
+        return res;
+      }
+      // At the leaf delete the value
+      if (i === arr.length - 1 && Array.isArray(res)) {
+        // Pull out one value at index ( key )
+        pulled = res.splice(key, 1);
+        return res[key];
+      }
+      // Otherwise keep going
+      return res[key];
+    }, obj);
+  return pulled;
+};
+
+/* --------------------- values --------------------- */
+
+const ldvalues = (obj = {}) => {
+  const props = Object.keys(obj);
+  return props.map(key => obj[key]);
+};
 
 const pathToArrayElem = path => {
   const pathArray = ldtoPath(path);

@@ -1,5 +1,4 @@
 import ObjectMap from './ObjectMap';
-import { rest } from 'lodash';
 
 export const getChildDisplayName = WrappedComponent => {
   // fix for "memo" components

@@ -1,3 +1,9 @@
+## 3.23.0 (November 18, 2020)
+
+### Removed
+
+- LODASH!!!!! SEE YA LATER NEVER
+
 ## 3.22.0 (November 17, 2020)
 
 ### Added

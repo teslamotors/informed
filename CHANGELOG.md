@@ -1,3 +1,9 @@
+## 3.23.1 (November 19, 2020)
+
+### Fixed
+
+- Issue where Id was not getting passed to default select field
+
 ## 3.23.0 (November 18, 2020)
 
 ### Removed

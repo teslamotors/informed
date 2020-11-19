@@ -54,6 +54,7 @@ const Select = ({ fieldApi, fieldState, ...props }) => {
       {label ? <label htmlFor={id}> {label} </label> : null}
       <select
         {...rest}
+        id={id}
         multiple={multiple}
         name={field}
         ref={forwardedRef || selectRef}

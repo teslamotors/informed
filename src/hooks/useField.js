@@ -699,6 +699,7 @@ function useField(fieldProps = {}, userRef) {
       value: hookedValue,
       ref,
       type,
+      id: userProps.id || fieldId, // If user did not pass id we pass fields id
       ...userProps
     }
   };

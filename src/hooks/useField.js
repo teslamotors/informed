@@ -6,7 +6,6 @@ import { validateYupField, uuidv4, informedFormat } from '../utils';
 
 import Debug from '../debug';
 import useLayoutEffect from './useIsomorphicLayoutEffect';
-import FormController from '../FormController';
 import ObjectMap from '../ObjectMap';
 const logger = Debug('informed:useField' + '\t');
 
@@ -28,7 +27,7 @@ const initializeValue = (value, mask, formatter, parser) => {
   return undefined;
 };
 
-const initializeMask = (value, format, parse, formatter, parser) => {
+const initializeMask = (value, format, parse, formatter) => {
   // Call format and parse if they were passed
   if (format && parse) {
     return format(value);
@@ -115,30 +114,30 @@ const generateOnBlur = ({ setTouched, onBlur }) => {
 
 const generateValue = ({ fieldType, maskedValue, multiple, value }) => {
   switch (fieldType) {
-    case 'text':
-    case 'number':
-      return !maskedValue && maskedValue !== 0 ? '' : maskedValue;
-    case 'textArea':
-      return !maskedValue ? '' : maskedValue;
-    case 'select':
-      return value || (multiple ? [] : '');
-    case 'checkbox':
-      return !!value;
-    default:
-      return value;
+  case 'text':
+  case 'number':
+    return !maskedValue && maskedValue !== 0 ? '' : maskedValue;
+  case 'textArea':
+    return !maskedValue ? '' : maskedValue;
+  case 'select':
+    return value || (multiple ? [] : '');
+  case 'checkbox':
+    return !!value;
+  default:
+    return value;
   }
 };
 
 const generateFieldType = fieldType => {
   switch (fieldType) {
-    case 'text':
-      return fieldType;
-    case 'number':
-      return fieldType;
-    case 'checkbox':
-      return fieldType;
-    default:
-      return;
+  case 'text':
+    return fieldType;
+  case 'number':
+    return fieldType;
+  case 'checkbox':
+    return fieldType;
+  default:
+    return;
   }
 };
 
@@ -247,6 +246,7 @@ function useField(fieldProps = {}, userRef) {
     validateOnMount ? validate(value) : undefined
   );
   const [touched, setTouch, getTouch] = useStateWithGetter(initTouched);
+  /* eslint-disable no-unused-vars */
   const [cursor, setCursor, getCursor] = useStateWithGetter(0);
   const [cursorOffset, setCursorOffset, getCursorOffset] = useStateWithGetter(
     0

@@ -1,3 +1,9 @@
+## 3.24.1 (November 23, 2020)
+
+### Fixed
+
+- Type issue ( missing allow empty string from props def )
+
 ## 3.24.0 (November 19, 2020)
 
 ### Fixed

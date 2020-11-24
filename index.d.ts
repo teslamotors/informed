@@ -104,6 +104,7 @@ declare module 'informed' {
     validateOnMount?: boolean
     notify?: (keyof VS)[]
     maintainCursor?: boolean
+    allowEmptyString?: boolean
     mask?: (value: V) => V
     maskWithCursorOffset?: (value: V) => VOffset
     maskOnBlur?: boolean

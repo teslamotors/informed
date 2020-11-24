@@ -1,3 +1,9 @@
+## 3.24.2 (November 24, 2020)
+
+### Updated
+
+- README and needed to get it to npm
+
 ## 3.24.1 (November 23, 2020)
 
 ### Fixed

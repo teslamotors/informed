@@ -84,6 +84,7 @@ import {
 } from './Hooks';
 import ConditionalSchema from './Schema/ConditionalSchema';
 import HugeSchema from './Schema/HugeSchema';
+import FormatDependent from './Form/FormatDependent';
 
 addDecorator(StoryWrapper);
 
@@ -149,7 +150,8 @@ storiesOf('Form', module)
   .add('State', State)
   .add('Api', Api)
   .add('Props', Props)
-  .add('Dynamic', Dynamic)
+  .add('Dynamic', DynamicFields)
+  .add('Dependent Fields', FormatDependent)
   .add('Big', Big);
 
 storiesOf('Inputs', module)
@@ -228,7 +230,9 @@ storiesOf('Gotchas', module)
   .add('Optimization', Optimization)
   .add('Scope', Scope);
 
-storiesOf('Dynamic Forms', module).add('Dynamic Fields', DynamicFields);
+storiesOf('Dynamic Forms', module)
+  .add('Dynamic Fields', DynamicFields)
+  .add('Dynamic Rendering', Dynamic);
 
 storiesOf('Playground', module)
   .add('Format Example', FormatPlayground)

@@ -7,10 +7,11 @@ Oh and YES WE USE HOOKS!
 Check out our [GitHub](https://github.com/joepuzzo/informed)!
 
 [![npmversion](https://img.shields.io/npm/v/informed.svg)](https://www.npmjs.com/package/informed)
-[![Discord](https://img.shields.io/discord/676066734746370058)](https://discord.gg/zpF5wA)
 [![Build Status](https://travis-ci.org/joepuzzo/informed.svg?branch=master)](https://travis-ci.org/joepuzzo/informed)
 [![Coverage Status](https://coveralls.io/repos/github/joepuzzo/informed/badge.svg?branch=master)](https://coveralls.io/github/joepuzzo/informed?branch=master)
 [![Minzipped-Size](https://badgen.net/bundlephobia/minzip/informed)](https://bundlephobia.com/result?p=informed)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/A_swsdEUI24" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Getting Started
 
@@ -19,8 +20,6 @@ Check out our [GitHub](https://github.com/joepuzzo/informed)!
 ```
 npm install --save informed
 ```
-
----
 
 #### What Can it do ?
 

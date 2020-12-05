@@ -37,7 +37,7 @@ const Schema = () => (
     <Text field="name" label="First name:" />
     <Text field="age" label="Age:" type="number" />
     <Text field="friend" label="Friend:" />
-    <FormState errors />
+    <FormState errors values />
   </Form>
 );
 

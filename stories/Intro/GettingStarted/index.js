@@ -28,7 +28,7 @@ const GettingStarted = () => (
             display: 'flex',
             minWidth: '300px'
           }}>
-          <FormState errors />
+          <FormState errors values />
         </div>
       </div>
     </Form>

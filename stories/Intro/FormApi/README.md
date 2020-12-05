@@ -22,10 +22,14 @@ import { Form, Text, useFormApi } from 'informed';
 const RandomSetterButton = () => {
   const formApi = useFormApi();
   return (
-    <button type="button" onClick={()=>
-      formApi.setValue(
-        'name', 
-        Math.floor(Math.random() * Math.floor(Number.MAX_SAFE_INTEGER)))}>
+    <button
+      type="button"
+      onClick={() =>
+        formApi.setValue(
+          'name',
+          Math.floor(Math.random() * Math.floor(Number.MAX_SAFE_INTEGER))
+        )
+      }>
       Random
     </button>
   );
@@ -34,7 +38,7 @@ const RandomSetterButton = () => {
 <Form>
   <label>
     Name:
-    <Text field="name"/>
+    <Text field="name" />
   </label>
   <button type="submit">Submit</button>
   <RandomSetterButton />
@@ -43,14 +47,17 @@ const RandomSetterButton = () => {
 
 There are a few ways you can get access to `Informed`s form api.
 
-1) By accessing the `formApi` as a parameter to a child render function.
+1. By accessing the `formApi` as a parameter to a child render function.
 
 ```jsx
 <Form>
   {({ formApi }) => (
     <div>
       <Text field="hello" />
-      <button type="button" onClick={()=>formApi.setValue('hello', 'world!')}/>
+      <button
+        type="button"
+        onClick={() => formApi.setValue('hello', 'world!')}
+      />
       <button type="submit">Submit</button>
     </div>
   )}
@@ -80,7 +87,9 @@ const ComponentWithFormApi = withFormApi(({ formApi }) => (
 ```jsx
 const ComponentWithFormApi = () => {
   const formApi = useFormApi();
-  return <button type="button" onClick={()=>formApi.setValue('hello', 'world!')}/>
+  return (
+    <button type="button" onClick={() => formApi.setValue('hello', 'world!')} />
+  );
 };
 
 <Form>
@@ -89,10 +98,8 @@ const ComponentWithFormApi = () => {
     <button type="submit">Submit</button>
     <ComponentWithFormApi />
   </div>
-</Form>
+</Form>;
 ```
 
 <br/>
 So if you do need access to the form api, any of these methods will work.
-
----

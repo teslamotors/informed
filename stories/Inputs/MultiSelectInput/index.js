@@ -1,14 +1,22 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
+import Code from '../../utils/Code';
 
-import { Form, Select, Option } from '../../../src';
+import { Form, Select, Option, useFormState } from '../../../src';
+
+const FormState = () => {
+  const formState = useFormState();
+  return (
+    <Code language="language-js">
+      {JSON.stringify(formState.values, null, 2)}
+    </Code>
+  );
+};
 
 // const options = ['red', 'green', 'blue', 'orange', 'purple'];
 
 const MultiSelectInput = () => {
-
   // const [ initialValue, setInitialValue ] = useState( ['green', 'yellow'] );
 
   // const toggle = () => {
@@ -50,9 +58,7 @@ const MultiSelectInput = () => {
 };
 
 const MultiSelectInputWrapper = () => {
-  return (
-    <MultiSelectInput />
-  );
+  return <MultiSelectInput />;
 };
 
 export default withDocs(readme, MultiSelectInputWrapper);

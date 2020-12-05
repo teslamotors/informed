@@ -49,7 +49,7 @@ const InlineFunctions = () => (
             <button type="submit">Submit</button>
           </div>
           <div style={{ flex: 2, minWidth: '300px' }}>
-            <FormState errors/>
+            <FormState errors values />
           </div>
         </div>
       )}
@@ -93,7 +93,7 @@ const InlineFunctions = () => (
             <button type="submit">Submit</button>
           </div>
           <div style={{ flex: 2, minWidth: '300px' }}>
-            <FormState errors/>
+            <FormState errors values />
           </div>
         </div>
       )}
@@ -136,7 +136,7 @@ const InlineFunctions = () => (
           <button type="submit">Submit</button>
         </div>
         <div style={{ flex: 2, minWidth: '300px' }}>
-          <FormState errors/>
+          <FormState errors values />
         </div>
       </div>
     </Form>

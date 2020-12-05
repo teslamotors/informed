@@ -66,7 +66,7 @@ const GettingStarted = () => (
           <option value="mx">Model X</option>
           <option value="my">Model Y</option>
         </Select>
-        <Checkbox field="married" label="Married?" />
+        <Checkbox field="married" label="Married? " />
         <Relevant when={({ values }) => values.married}>
           <Input field="spouse" label="Spouse" />
         </Relevant>

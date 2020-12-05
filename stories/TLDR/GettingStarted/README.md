@@ -14,8 +14,6 @@
 npm install --save informed
 ```
 
----
-
 ```jsx
 import { useForm, useField, Relevant, FormState } from 'informed';
 
@@ -92,5 +90,3 @@ const ExampleForm = () => (
 ```
 
 <!-- STORY -->
-
----

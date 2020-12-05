@@ -103,7 +103,7 @@ const Schema = () => (
         <button type="submit">Submit</button>
       </div>
       <div style={{ flex: '1' }}>
-        <FormState errors noTouched />
+        <FormState errors values />
       </div>
     </div>
   </Form>

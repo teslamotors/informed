@@ -25,8 +25,6 @@ const submit = values =>
 </Form>;
 ```
 
----
-
 ### Explanation
 
 **Ok so what the Foo is going on?**

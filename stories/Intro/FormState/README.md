@@ -21,7 +21,7 @@ import { Form, Text } from 'informed';
     <div>
       <label>
         First name:
-        <Text field="name"/>
+        <Text field="name" />
       </label>
       <button type="submit">Submit</button>
       <label>Values:</label>
@@ -33,15 +33,13 @@ import { Form, Text } from 'informed';
 </Form>;
 ```
 
----
-
 ### What is this magic?
 
 Its not magic, its a Function As A Child, or otherwise known as [render props](https://reactjs.org/docs/render-props.html)
 
 There are a few ways you can get access to `Informed`s form state.
 
-1) By accessing the `formState` as a parameter to a child render function.
+1. By accessing the `formState` as a parameter to a child render function.
 
 ```jsx
 <Form>
@@ -100,16 +98,15 @@ const FormState = () => {
   </div>
 </Form>
 ```
+
 <br/>
 So if you do need access to the form state, any of these methods will work.
-
----
 
 ### Ok so what if i need the state outside of the `<Form />` ??
 
 Don't fret! This is also very simple. You have two options:
 
-1) Use the Forms `onChange` prop.
+1. Use the Forms `onChange` prop.
 
 ```jsx
 <Form onChange={formState => console.log(formState)}>
@@ -126,7 +123,6 @@ import React, { useRef } from 'react';
 import { Form, Text } from 'informed';
 
 const MyAwesomeForm = () => {
-
   const apiRef = useRef();
 
   const handleClick = () => {
@@ -142,9 +138,5 @@ const MyAwesomeForm = () => {
       <button onClick={handleClick}>Print Form State</button>
     </div>
   );
-
 };
 ```
-
----
-

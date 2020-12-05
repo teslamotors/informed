@@ -40,6 +40,38 @@ const Checkbox = ({ label, ...props }) => {
   );
 };
 
+const ErrorInput = props => {
+  const { render, informed, fieldState } = useField({
+    fieldType: 'text',
+    ...props
+  });
+
+  return render(
+    <>
+      <input
+        {...informed}
+        style={fieldState.error ? { border: 'solid 1px red' } : null}
+      />
+      {fieldState.error ? (
+        <small style={{ color: 'red' }}>{fieldState.error}</small>
+      ) : null}
+    </>
+  );
+};
+
+// const Checkbox = ({ label, ...props }) => {
+//   const { render, informed } = useField({ fieldType: 'checkbox', ...props });
+
+//   const { id } = informed;
+
+//   return render(
+//     <>
+//       <label htmlFor={id}> {label} </label>
+//       <input {...informed} />
+//     </>
+//   );
+// };
+
 const Select = ({ label, children, ...props }) => {
   const { render, informed } = useField({ fieldType: 'select', ...props });
 
@@ -58,7 +90,12 @@ const GettingStarted = () => (
     <div style={{ display: 'flex' }}>
       <div style={{ flex: '1' }}>
         <Input field="name" label="Name" placeholder="Elon" />
-        <Input field="age" type="number" label="Age" required="Age Required" />
+        <ErrorInput
+          field="age"
+          type="number"
+          label="Age"
+          required="Age Required"
+        />
         <Input field="phone" label="Phone" formatter="+1 (###)-###-####" />
         <Select field="car" label="Car" initialValue="ms">
           <option value="ms">Model S</option>
@@ -66,7 +103,7 @@ const GettingStarted = () => (
           <option value="mx">Model X</option>
           <option value="my">Model Y</option>
         </Select>
-        <Checkbox field="married" label="Married?" />
+        <Checkbox field="married" label="Married: " />
         <Relevant when={({ values }) => values.married}>
           <Input field="spouse" label="Spouse" />
         </Relevant>

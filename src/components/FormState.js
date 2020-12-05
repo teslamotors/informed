@@ -2,8 +2,19 @@ import React from 'react';
 
 import useFormState from '../hooks/useFormState';
 
-const FormState = () => {
+const FormState = props => {
   const formState = useFormState();
+
+  let displayState = {};
+
+  if (Object.keys(props).length > 0) {
+    Object.keys(props).forEach(key => {
+      displayState[key] = formState[key];
+    });
+  } else {
+    displayState = formState;
+  }
+
   const {
     pristine,
     dirty,
@@ -13,7 +24,7 @@ const FormState = () => {
     touched,
     validating,
     submitting
-  } = formState;
+  } = displayState;
   return (
     <pre>
       <code>

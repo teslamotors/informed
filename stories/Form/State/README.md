@@ -8,16 +8,16 @@ Below is a table that describes each value within a forms state.
 whether or not the attribute is derived from other attributes. For example,
 invalid is derived from the errors attribute and therefore cannot be set directly.
 
-| Attribute   | Example            | Initial Value | Derived | Description                                                                                                                                                                                                    |
-| ----------- | ------------------ | ------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| values      | `{name:'Joe'}`     | `{}`          | NO      | Key value pair where key is the form field and value is the value entered or selected.                                                                                                                         |
-| touched     | `{name:true}`      | `{}`          | NO      | Key value pair where key is the form field and value is true or undefined ( touched or untouched ). Submitting form will cause all fields to be touched.                                                       |
-| errors      | `{name:'Invalid'}` | `{}`          | NO      | Key value pair where key is the form field and value is the error associated with that field. If a validate function is provided to an input, then when it is called this object will be modified.             |
-| invalid     | `true`             | `false`       | YES     | Boolean that is true when form is invalid. A form is invalid when any of its inputs fails its validation function ( if there are errors ).                                         |
-| pristine    | `true`             | `true`        | YES     | Boolean that is true when form is pristine. A form is pristine when it has not been touched && no values have been entered in any field                                                                        |
-| dirty       | `true`             | `false`       | YES     | Boolean that is true when pristine is false                                                                                                                                                                    |
-| submits     | `1`                | `0`           | YES     | Number of times the form was submitted. ( Successful or Unsuccessful )                                                                                                                                         |
-| error       | `Invalid form`     |  undefined    | NO      | Result of the form level validation function                                                                                                                                                                   |
+| Attribute | Example            | Initial Value | Derived | Description                                                                                                                                                                                        |
+| --------- | ------------------ | ------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| values    | `{name:'Joe'}`     | `{}`          | NO      | Key value pair where key is the form field and value is the value entered or selected.                                                                                                             |
+| touched   | `{name:true}`      | `{}`          | NO      | Key value pair where key is the form field and value is true or undefined ( touched or untouched ). Submitting form will cause all fields to be touched.                                           |
+| errors    | `{name:'Invalid'}` | `{}`          | NO      | Key value pair where key is the form field and value is the error associated with that field. If a validate function is provided to an input, then when it is called this object will be modified. |
+| invalid   | `true`             | `false`       | YES     | Boolean that is true when form is invalid. A form is invalid when any of its inputs fails its validation function ( if there are errors ).                                                         |
+| pristine  | `true`             | `true`        | YES     | Boolean that is true when form is pristine. A form is pristine when it has not been touched && no values have been entered in any field                                                            |
+| dirty     | `true`             | `false`       | YES     | Boolean that is true when pristine is false                                                                                                                                                        |
+| submits   | `1`                | `0`           | YES     | Number of times the form was submitted. ( Successful or Unsuccessful )                                                                                                                             |
+| error     | `Invalid form`     | undefined     | NO      | Result of the form level validation function                                                                                                                                                       |
 
 **"Ok so informed takes care of state so I dont have to.. but how do i get my hands
 on this state??**
@@ -33,8 +33,10 @@ the values that are changing.
 import { Form, Text } from 'informed';
 
 const validate = value => {
-  return !value || value.length < 5 ? 'Field must be longer than five characters' : undefined;
-}
+  return !value || value.length < 5
+    ? 'Field must be longer than five characters'
+    : undefined;
+};
 
 const validateForm = values => {
   return values.name === 'Joseph' ? 'Username is already taken!' : undefined;
@@ -47,47 +49,27 @@ const validateForm = values => {
         First name:
         <Text field="name" validate={validate} />
       </label>
-      <button type="submit">
-        Submit
-      </button>
+      <button type="submit">Submit</button>
       <label>Values:</label>
-      <code>
-        {JSON.stringify(formState.values)}
-      </code>
+      <code>{JSON.stringify(formState.values)}</code>
       <label>Touched:</label>
-      <code>
-        {JSON.stringify(formState.touched)}
-      </code>
+      <code>{JSON.stringify(formState.touched)}</code>
       <label>Errors:</label>
-      <code>
-        {JSON.stringify(formState.errors)}
-      </code>
+      <code>{JSON.stringify(formState.errors)}</code>
       <label>Invalid:</label>
-      <code>
-        {JSON.stringify(formState.invalid)}
-      </code>
+      <code>{JSON.stringify(formState.invalid)}</code>
       <label>Pristine:</label>
-      <code>
-        {JSON.stringify(formState.pristine)}
-      </code>
+      <code>{JSON.stringify(formState.pristine)}</code>
       <label>Dirty:</label>
-      <code>
-        {JSON.stringify(formState.dirty)}
-      </code>
+      <code>{JSON.stringify(formState.dirty)}</code>
       <label>Submits:</label>
-      <code>
-        {JSON.stringify(formState.submits)}
-      </code>
+      <code>{JSON.stringify(formState.submits)}</code>
       <label>Error:</label>
-      <code>
-        {JSON.stringify(formState.error)}
-      </code>
+      <code>{JSON.stringify(formState.error)}</code>
     </div>
   )}
-</Form>
+</Form>;
 ```
-
----
 
 ### What is this magic?
 
@@ -95,7 +77,7 @@ Its not magic, its a Function As A Child, or otherwise known as [render props](h
 
 There are five ways you can get access to `Informed`s form state.
 
-1) By accessing the `formState` as a parameter to a child render function.
+1. By accessing the `formState` as a parameter to a child render function.
 
 ```jsx
 <Form>
@@ -190,11 +172,9 @@ const FormState = () => {
   </div>
 </Form>
 ```
+
 <br/>
 So if you do need access to the form state, any of these methods will work.
-
-
----
 
 ### Ok so what if i need the state outside of the `<Form />` ??
 
@@ -217,7 +197,6 @@ import React, { useRef } from 'react';
 import { Form, Text } from 'informed';
 
 const MyAwesomeForm = () => {
-
   const apiRef = useRef();
 
   const handleClick = () => {
@@ -233,6 +212,5 @@ const MyAwesomeForm = () => {
       <button onClick={handleClick}>Print Form State</button>
     </div>
   );
-
 };
 ```

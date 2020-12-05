@@ -247,7 +247,7 @@ const Basic = () => {
             </Multistep>
           </div>
           <div style={{ flex: 2, minWidth: '300px' }}>
-            <FormState errors step />
+            <FormState errors values />
           </div>
         </div>
       </Form>

@@ -101,6 +101,7 @@
     "rollup-plugin-node-resolve": "^4.0.0",
     "sass-loader": "^7.1.0",
     "sinon": "^6.1.5",
+    "storybook-dark-mode": "^1.0.3",
     "storybook-readme": "^5.0.8",
     "style-loader": "^0.22.1",
     "universal-dotenv": "^1.8.3",

@@ -4,8 +4,6 @@ But what if you dont want the out of the box stuff??
 
 No problem, see example below!
 
----
-
 ```jsx
 import { useForm, useField, Relevant, FormState } from 'informed';
 
@@ -31,6 +29,25 @@ const Input = ({ label, ...props }) => {
       {label}
       <input {...informed} />
     </label>
+  );
+};
+
+const ErrorInput = props => {
+  const { render, informed, fieldState } = useField({
+    fieldType: 'text',
+    ...props
+  });
+
+  return render(
+    <>
+      <input
+        {...informed}
+        style={fieldState.error ? { border: 'solid 1px red' } : null}
+      />
+      {fieldState.error ? (
+        <small style={{ color: 'red' }}>{fieldState.error}</small>
+      ) : null}
+    </>
   );
 };
 
@@ -63,7 +80,7 @@ const onSubmit = data => console.log(data);
 const ExampleForm = () => (
   <Form onSubmit={onSubmit}>
     <Input field="name" label="Name" placeholder="Elon" />
-    <Input field="age" type="number" label="Age" required="Age Required" />
+    <ErrorInput field="age" type="number" label="Age" required="Age Required" />
     <Input field="phone" label="Phone" formatter="+1 (###)-###-####" />
     <Select field="car" label="Car" initialValue="ms">
       <option value="ms">Model S</option>

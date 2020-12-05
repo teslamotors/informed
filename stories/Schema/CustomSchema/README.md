@@ -4,8 +4,6 @@ Informed comes with a custom schema adapter that maps field types to actual JSX 
 
 Whenever you create your own inputs, you have to create or add to informds `fieldMap`.
 
----
-
 ```jsx
 import {
   useForm,
@@ -218,5 +216,3 @@ const Schema = () => (
 ```
 
 <!-- STORY -->
-
----

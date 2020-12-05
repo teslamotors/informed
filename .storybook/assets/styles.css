@@ -87,6 +87,7 @@ select {
 }
 
 textarea {
+  max-width: 100%;
 }
 
 select {

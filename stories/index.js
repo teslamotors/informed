@@ -33,6 +33,8 @@ import FormLevelValidation from './Validation/FormLevelValidation';
 import AjvValidation from './Validation/AjvValidation';
 import AjvValidationNoRender from './Validation/AjvValidationNoRender';
 import AsyncValidation from './Validation/AsyncValidation';
+import FormatPlayground from './Playground/Format';
+import SchemaPlayground from './Playground/Schema';
 
 import FormatParse from './Formatting/FormatParse';
 import Formatter from './Formatting/Formatter';
@@ -227,3 +229,7 @@ storiesOf('Gotchas', module)
   .add('Scope', Scope);
 
 storiesOf('Dynamic Forms', module).add('Dynamic Fields', DynamicFields);
+
+storiesOf('Playground', module)
+  .add('Format Example', FormatPlayground)
+  .add('Schema Example', SchemaPlayground);

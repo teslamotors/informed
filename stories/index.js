@@ -35,6 +35,7 @@ import AjvValidationNoRender from './Validation/AjvValidationNoRender';
 import AsyncValidation from './Validation/AsyncValidation';
 import FormatPlayground from './Playground/Format';
 import SchemaPlayground from './Playground/Schema';
+import RickRoll from './Playground/RickRoll';
 
 import FormatParse from './Formatting/FormatParse';
 import Formatter from './Formatting/Formatter';
@@ -237,3 +238,5 @@ storiesOf('Dynamic Forms', module)
 storiesOf('Playground', module)
   .add('Format Example', FormatPlayground)
   .add('Schema Example', SchemaPlayground);
+
+storiesOf('Cool Examples', module).add('Cool Example', RickRoll);

@@ -1,3 +1,9 @@
+## 3.25.0 (December 8, 2020)
+
+### Added
+
+- `onReset` to form props
+
 ## 3.24.4 (December 5, 2020)
 
 ### Updated

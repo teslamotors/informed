@@ -188,6 +188,54 @@ describe('Form', () => {
     expect(savedApi.getState().values).to.deep.equal({ greeting: 'new' });
   });
 
+  it('should call onReset function when the form is reset when reset button is clicked', () => {
+    const spy = sandbox.spy();
+
+    const wrapper = mount(
+      <Form onReset={spy}>
+        <Text field="a" />
+        <Text field="b" />
+        <button type="reset">Reset</button>
+      </Form>
+    );
+    const button = wrapper.find('button');
+    button.simulate('reset');
+    expect(spy.called).to.equal(true);
+  });
+
+  it('should update onReset function when the onReset prop changes', () => {
+    const dummy1 = sandbox.spy();
+    const dummy2 = sandbox.spy();
+    const wrapper = mount(
+      <Form onReset={dummy1}>
+        <Text field="greeting" />
+        <button type="reset">Reset</button>
+      </Form>
+    );
+    wrapper.setProps({ onReset: dummy2 });
+
+    const button = wrapper.find('button');
+    button.simulate('reset');
+    expect(dummy1.called).to.equal(false);
+    expect(dummy2.called).to.equal(true);
+  });
+
+  it('should call onReset function when the form is reset via api reset function', () => {
+    let api;
+    const spy = sandbox.spy();
+    const setApi = param => {
+      api = param;
+    };
+    const wrapper = mount(
+      <Form onReset={spy} getApi={setApi}>
+        <Text field="greeting" />
+      </Form>
+    );
+
+    api.reset();
+    expect(spy.called).to.equal(true);
+  });
+
   it('should call preventDefault when the form is submitted', () => {
     const spy = sandbox.spy();
     const wrapper = mount(

@@ -6,7 +6,7 @@ import FormState from '../../utils/FormState';
 import { Form, Text, useArrayField } from '../../../src';
 
 const Siblings = () => {
-  const { add, fields } = useArrayField({field: 'siblings'});
+  const { add, fields } = useArrayField({ field: 'siblings' });
 
   return (
     <React.Fragment>
@@ -21,8 +21,8 @@ const Siblings = () => {
             Remove
           </button>
         </label>
-      ))}   
-    </React.Fragment>  
+      ))}
+    </React.Fragment>
   );
 };
 
@@ -30,7 +30,7 @@ const UseArrayFieldWrapper = () => {
 
   return (
     <div>
-      <Form initialValues={{ siblings: ['foo', 'bar', 'baz']}}>
+      <Form initialValues={{ siblings: ['foo', 'bar', 'baz'] }}>
         <Siblings />
         <button type="submit">Submit</button>
         <FormState />
@@ -40,7 +40,7 @@ const UseArrayFieldWrapper = () => {
 };
 
 const UseArrayField = () => (
-  <UseArrayFieldWrapper /> 
+  <UseArrayFieldWrapper />
 );
 
 export default withDocs(readme, UseArrayField);

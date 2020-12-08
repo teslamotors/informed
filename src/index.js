@@ -2,6 +2,13 @@ import Form from './components/Form';
 import Scope from './components/Scope';
 import ArrayField from './components/ArrayField';
 import FormProvider from './components/FormProvider';
+import FormState from './components/FormState';
+import Relevant from './components/Relevant';
+import Multistep from './components/Multistep';
+import FormField from './components/FormField';
+import SchemaFields from './components/SchemaFields';
+import FormFields from './components/FormFields';
+import FormComponents from './components/FormComponents';
 
 import withFormApi from './HOC/withFormApi';
 import withFormState from './HOC/withFormState';
@@ -17,6 +24,10 @@ import useFieldState from './hooks/useFieldState';
 import useFormApi from './hooks/useFormApi';
 import useFormState from './hooks/useFormState';
 import useArrayField from './hooks/useArrayField';
+import useMultistepApi from './hooks/useMultistepApi';
+import useMultistepState from './hooks/useMultistepState';
+import useArrayFieldApi from './hooks/useArrayFieldApi';
+import useArrayFieldItemApi from './hooks/useArrayFieldItemApi';
 
 import Text from './components/form-fields/Text';
 import Radio from './components/form-fields/Radio';
@@ -33,6 +44,8 @@ import { BasicTextArea } from './components/form-fields/TextArea';
 import { BasicSelect } from './components/form-fields/Select';
 import { BasicCheckbox } from './components/form-fields/Checkbox';
 
+const Input = Text;
+
 export {
   Form,
   FormProvider,
@@ -42,13 +55,18 @@ export {
   withFieldState,
   withRadioGroup,
   asField,
-  useForm, 
+  useForm,
   useField,
   useFieldApi,
   useFieldState,
   useFormApi,
   useFormState,
+  useMultistepState,
+  useMultistepApi,
+  useArrayFieldApi,
+  useArrayFieldItemApi,
   Text,
+  Input,
   Radio,
   TextArea,
   Select,
@@ -63,5 +81,12 @@ export {
   BasicCheckbox,
   Scope,
   ArrayField,
-  useArrayField
+  useArrayField,
+  FormState,
+  Relevant,
+  Multistep,
+  FormField,
+  SchemaFields,
+  FormFields,
+  FormComponents
 };

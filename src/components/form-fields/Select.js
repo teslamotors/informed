@@ -1,72 +1,85 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useRef } from 'react';
 import asField from '../../HOC/asField';
+import Debug from '../../debug';
+import useLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 
-class Select extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.selectRef = React.createRef();
-  }
+const logger = Debug('informed:Select' + '\t');
 
-  handleChange(e) {
-    let selected = [...(this.props.forwardedRef || this.selectRef).current]
+const Select = ({ fieldApi, fieldState, ...props }) => {
+  const { value } = fieldState;
+  const { setTouched } = fieldApi;
+  const {
+    onChange,
+    onBlur,
+    field,
+    initialValue,
+    options,
+    children,
+    forwardedRef,
+    debug,
+    multiple,
+    label,
+    id,
+    ...rest
+  } = props;
+
+  const selectRef = useRef();
+
+  const handleChange = e => {
+    let selected = Array.from((forwardedRef || selectRef).current)
       .filter(option => option.selected)
       .map(option => option.value);
 
-    this.props.fieldApi.setValue(
-      this.props.multiple ? selected : selected[0] || ''
-    );
+    fieldApi.setValue(multiple ? selected : selected[0] || '');
 
-    if (this.props.onChange) {
-      this.props.onChange(e);
+    if (onChange && e) {
+      onChange(e);
     }
-  }
+  };
 
   // for debugging
-  componentDidUpdate(){
-    if (this.props.debug && this.props.forwardedRef) {
-      this.props.forwardedRef.current.style.background = 'red';
+  useLayoutEffect(() => {
+    if (debug && forwardedRef) {
+      forwardedRef.current.style.background = 'red';
       setTimeout(() => {
-        this.props.forwardedRef.current.style.background = 'white';
+        forwardedRef.current.style.background = 'white';
       }, 500);
     }
-  }
+  });
 
-  render() {
-    const { fieldApi, fieldState, ...props } = this.props;
-    const { value } = fieldState;
-    const { setValue, setTouched } = fieldApi;
-    const {
-      onChange,
-      onBlur,
-      field,
-      initialValue,
-      forwardedRef,
-      debug,
-      children,
-      multiple,
-      ...rest
-    } = props;
+  logger('Render', field, value);
 
-    return (
+  return (
+    <>
+      {label ? <label htmlFor={id}> {label} </label> : null}
       <select
         {...rest}
+        id={id}
         multiple={multiple}
         name={field}
-        ref={forwardedRef || this.selectRef}
+        ref={forwardedRef || selectRef}
         value={value || (multiple ? [] : '')}
-        onChange={this.handleChange}
+        onChange={handleChange}
         onBlur={e => {
           setTouched(true);
           if (onBlur) {
             onBlur(e);
           }
         }}>
-        {children}
+        {options
+          ? options.map(option => (
+              <option
+                key={option.value}
+                value={option.value}
+                disabled={option.disabled}>
+                {option.label}
+              </option>
+            ))
+          : children}
       </select>
-    );
-  }
-}
+    </>
+  );
+};
 
 export { Select as BasicSelect };
 

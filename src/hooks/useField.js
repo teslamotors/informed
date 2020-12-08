@@ -1,184 +1,518 @@
-import React, { useState, useLayoutEffect, useEffect, useContext, useMemo, useRef } from 'react';
-import { FormRegisterContext } from '../Context';
+import React, { useState, useEffect, useContext, useMemo, useRef } from 'react';
+import { FormRegisterContext, MultistepStepContext } from '../Context';
 import useFormApi from './useFormApi';
 import useStateWithGetter from './useStateWithGetter';
-import Debug from '../debug';
-const logger = Debug('informed:useField'+ '\t');
+import { validateYupField, uuidv4, informedFormat } from '../utils';
 
-const initializeValue = (value, mask) => {
-  if(value != null){
+import Debug from '../debug';
+import useLayoutEffect from './useIsomorphicLayoutEffect';
+import ObjectMap from '../ObjectMap';
+const logger = Debug('informed:useField' + '\t');
+
+// localStorage.debug = 'informed:.*' << HOW to enable debuging
+
+const initializeValue = (value, mask, formatter, parser) => {
+  if (value != null) {
     // Call mask if it was passed
-    if(mask){
+    if (mask) {
       return mask(value);
+    }
+    if (formatter && !parser) {
+      const res = informedFormat(value, formatter);
+      return res.value;
     }
     return value;
   }
   // Not needed but called out specifically
   return undefined;
-}; 
+};
 
-const initializeMask = (value, format, parse) => {
+const initializeMask = (value, format, parse, formatter) => {
   // Call format and parse if they were passed
-  if(format && parse){
+  if (format && parse) {
     return format(value);
   }
+
+  // Call formatter
+  if (formatter) {
+    const res = informedFormat(value, formatter);
+    return res.value;
+  }
+
   return value;
+};
+
+const generateValidationFunction = (
+  validationFunc,
+  validationSchema,
+  { required }
+) => {
+  // We dont want a validation function if there was nothing passed
+  if (validationFunc || validationSchema) {
+    return (val, values) => {
+      if (validationSchema) {
+        return validateYupField(validationSchema, val);
+      }
+      if (validationFunc) {
+        return validationFunc(val, values);
+      }
+    };
+  }
+  if (required) {
+    return val => {
+      return validateRequired(val, required);
+    };
+  }
+};
+
+const generateOnChange = ({ fieldType, setValue, onChange, multiple, ref }) => {
+  let setter = val => setValue(val);
+
+  if (
+    fieldType === 'text' ||
+    fieldType === 'textArea' ||
+    fieldType === 'number'
+  ) {
+    setter = e => setValue(e.target.value, e);
+  }
+
+  if (fieldType === 'select') {
+    setter = () => {
+      let selected = Array.from(ref.current)
+        .filter(option => option.selected)
+        .map(option => option.value);
+
+      setValue(multiple ? selected : selected[0] || '');
+    };
+  }
+
+  if (fieldType === 'checkbox') {
+    setter = e => {
+      setValue(e.target.checked);
+      if (onChange) {
+        onChange(e);
+      }
+    };
+  }
+
+  return val => {
+    setter(val);
+    if (onChange) {
+      onChange(val);
+    }
+  };
+};
+
+const generateOnBlur = ({ setTouched, onBlur }) => {
+  return e => {
+    setTouched(true);
+    if (onBlur) {
+      onBlur(e);
+    }
+  };
+};
+
+const generateValue = ({ fieldType, maskedValue, multiple, value }) => {
+  switch (fieldType) {
+  case 'text':
+  case 'number':
+    return !maskedValue && maskedValue !== 0 ? '' : maskedValue;
+  case 'textArea':
+    return !maskedValue ? '' : maskedValue;
+  case 'select':
+    return value || (multiple ? [] : '');
+  case 'checkbox':
+    return !!value;
+  default:
+    return value;
+  }
+};
+
+const generateFieldType = fieldType => {
+  switch (fieldType) {
+  case 'text':
+    return fieldType;
+  case 'number':
+    return fieldType;
+  case 'checkbox':
+    return fieldType;
+  default:
+    return;
+  }
+};
+
+const validateRequired = (value, required) => {
+  if (required && (value == null || value === '')) {
+    return typeof required === 'string' ? required : 'This field is required';
+  }
 };
 
 function useField(fieldProps = {}, userRef) {
   // Pull props off of field props
-  const { 
+  const {
     field,
-    validate,
+    validate: validationFunc,
+    asyncValidate,
+    validationSchema,
     mask,
     maskWithCursorOffset,
     format,
     parse,
+    formatter,
+    parser,
     initialValue,
     validateOnChange,
     validateOnBlur,
     validateOnMount,
+    asyncValidateOnBlur,
     maskOnBlur,
     allowEmptyString,
     onValueChange,
     notify,
-    keepState, 
+    keepState,
     maintainCursor,
     debug,
-    shadow, 
+    shadow,
+    step,
+    fieldType,
+    multiple,
+    onChange,
+    onBlur,
+    formController,
+    relevant: userRelevant,
+    required,
+    keepStateIfRelevant,
     ...userProps
   } = fieldProps;
 
+  // Create ref to a field id
+  const [fieldId] = useState(uuidv4());
+
   // Grab the form register context
-  const updater = useContext(FormRegisterContext);
+  let updater = useContext(FormRegisterContext);
 
-  // Grab the form state
-  const formApi = useFormApi();
+  // Grab multistepContext
+  const multistepContext = useContext(MultistepStepContext);
+  const inMultistep = multistepContext || keepStateIfRelevant;
 
-  // Initialize state 
-  const [value, setVal, getVal] = useStateWithGetter(initializeValue(initialValue, mask));
-  const [error, setErr, getErr] = useStateWithGetter( validateOnMount ? validate(value) : undefined );
-  const [touched, setTouch, getTouch] = useStateWithGetter();
+  // Grab the form api
+  let formApi = useFormApi();
+
+  // Create ref to fieldApi
+  const fieldApiRef = useRef();
+
+  // If the form Controller was passed in then use that instead
+  if (formController) {
+    updater = formController.updater;
+    formApi = formController.getFormApi();
+  }
+
+  // Generate validation function
+  const validate = generateValidationFunction(
+    validationFunc,
+    validationSchema,
+    { required }
+  );
+
+  // Grab possible initial value from form
+  const [formInitialValue] = useState(() => updater.getInitialValue(field));
+
+  // We might have keep state so check for it!
+  const savedState = formApi.getSavedValue(field);
+
+  // Create Initial Values
+  let initVal;
+  let initTouched;
+
+  // We do these checks because initial value could be false or zero!!
+  if ((keepState || inMultistep) && savedState) {
+    logger(`Setting field ${name}'s kept state`, savedState);
+    initVal = savedState.value;
+    initTouched = savedState.touched;
+    // Remove the saved state
+    formApi.removeSavedState(name);
+  } else if (initialValue != undefined) {
+    initVal = initialValue;
+  } else {
+    initVal = formInitialValue;
+  }
+
+  // Initialize state
+  const [value, setVal, getTheVal] = useStateWithGetter(
+    initializeValue(initVal, mask, formatter, parser)
+  );
+
+  const [error, setErr, getErr] = useStateWithGetter(
+    validateOnMount ? validate(value) : undefined
+  );
+  const [touched, setTouch, getTouch] = useStateWithGetter(initTouched);
+  /* eslint-disable no-unused-vars */
   const [cursor, setCursor, getCursor] = useStateWithGetter(0);
-  const [cursorOffset, setCursorOffset, getCursorOffset] = useStateWithGetter(0);
-  const [maskedValue, setMaskedValue ] = useState(initializeMask(value, format, parse));
+  const [cursorOffset, setCursorOffset, getCursorOffset] = useStateWithGetter(
+    0
+  );
+  const [maskedValue, setMaskedValue] = useState(() =>
+    initializeMask(value, format, parse, formatter, parser)
+  );
+
+  // Create then update refs to props
+  const initialValueRef = useRef(initialValue);
+  const fieldRef = useRef(field);
+  initialValueRef.current = initialValue;
+  fieldRef.current = field;
+
+  // Default relevant function
+  const relevantFunc = () => true;
+
+  const relevant = params => {
+    const rel = userRelevant || relevantFunc;
+    const ff = formApi.getFullField(fieldRef.current) || fieldRef.current;
+    const args = {
+      path: ff,
+      parentPath: ff.replace(/(.*)[.[].*/, '$1'),
+      get: (values, path) => ObjectMap.get(values, path)
+    };
+    if (multistepContext && multistepContext.relevant) {
+      return rel(params, args) && multistepContext.relevant(params, args);
+    }
+    return rel(params, args);
+  };
+
+  const [isRelevant, setIsRelevant, getIsRelevant] = useStateWithGetter(
+    relevant(formApi.getValues())
+  );
+
+  const multistepRelevant = params => {
+    if (multistepContext && multistepContext.relevant) {
+      return multistepContext.relevant(params);
+    }
+    return true;
+  };
+
+  const checkRelevant = () => {
+    const newRel = relevant(formApi.getValues());
+    const curRel = getIsRelevant();
+
+    if (newRel != curRel) {
+      setIsRelevant(newRel);
+    }
+    return newRel;
+  };
+
+  useEffect(
+    () => {
+      // Reset if we dont have keep state and relevance changed.
+      if (!isRelevant && !keepState) {
+        fieldApiRef.current.reset();
+      }
+    },
+    [isRelevant]
+  );
+
+  // Special getter to support shadow fields
+  const getVal = () => {
+    return shadow ? formApi.getDerrivedValue(field) : getTheVal();
+  };
 
   /* ---------------------- Setters ---------------------- */
 
-  // Define set error
-  const setError = (val) => { 
-    logger(`Setting ${field}'s error to ${val}`);
-    setErr(val);
-    updater.setError(field, val);
+  // ---- Define set error ----
+
+  const setError = (val, { preventUpdate } = {}) => {
+    // For multistep forms always set error to undefined when not at that step
+    if (step && formApi.getStep() < step) {
+      logger(
+        `Setting ${field}'s error to undefined as we are not at that step`
+      );
+      setErr(undefined);
+      updater.setError(fieldId, undefined, !preventUpdate);
+    } else {
+      logger(`Setting ${field}'s error to ${val}`);
+      setErr(val);
+      updater.setError(fieldId, val, !preventUpdate);
+    }
   };
 
-  // Define set value
+  // ---- Define set value ----
   const setValue = (val, e, options = {}) => {
     logger(`Setting ${field} to ${val}`);
+
+    // Get the most up to date options
+    const formOptions = formApi.getOptions();
+
     // Initialize maked value
     let maskedVal = val;
-    // Set value to undefined if its an empty string
 
-    if( val === '' && !allowEmptyString && !options.allowEmptyString){
+    if (
+      val === '' &&
+      !allowEmptyString &&
+      !options.allowEmptyString &&
+      !formOptions.allowEmptyStrings
+    ) {
       val = undefined;
     }
+
     // Turn string into number for number fields
-    if(fieldProps.type === 'number' && val !== undefined ){
+    if (
+      (fieldProps.type === 'number' || fieldType === 'number') &&
+      val !== undefined
+    ) {
       val = +val;
     }
-    // Call mask if it was passed
-    if(mask && !maskOnBlur){
-      maskedVal = mask(val);
-      val = mask(val);
+
+    // Remember Cursor position!
+    if (e && e.target && e.target.selectionStart) {
+      setCursor(e.target.selectionStart);
     }
+
+    // Call mask if it was passed
+    if (mask && !maskOnBlur) {
+      maskedVal = mask(val, getCursor());
+      val = mask(val, getCursor());
+    }
+
     // Call maskWithCursorOffset if it was passed
-    if(maskWithCursorOffset && !maskOnBlur){
-      const res = maskWithCursorOffset(val);
+    if (maskWithCursorOffset && !maskOnBlur) {
+      const res = maskWithCursorOffset(val, getCursor());
       maskedVal = res.value;
       val = res.value;
       setCursorOffset(res.offset);
     }
+
     // Call format and parse if they were passed
-    if(format && parse){
+    if (format && parse) {
+      // Masked value only differs from value when format and parse are used
       val = parse(val);
       maskedVal = format(val);
     }
+
+    // Call formatter and parser if passed
+    if (formatter) {
+      const res = informedFormat(val, formatter);
+      setCursorOffset(res.offset);
+      maskedVal = res.value;
+      val = maskedVal;
+    }
+
+    // // Only parse if parser was passed
+    if (parser) {
+      val = val != null ? parser(val) : val;
+    }
+
     // We only need to call validate if the user gave us one
-    // and they want us to validate on change
-    if (validate && validateOnChange) {
+    // and they want us to validate on change && its not the initial validation
+    if (validate && validateOnChange && !options.initial) {
       logger(`Validating after change ${field} ${val}`);
       setError(validate(val, formApi.getValues()));
-    }
-    // Remember Cursor position!
-    if(e && e.target && e.target.selectionStart ){
-      setCursor(e.target.selectionStart);
     }
 
     // Now we update the value
     setVal(val);
     setMaskedValue(maskedVal);
+
     // If the user passed in onValueChange then call it!
-    if( onValueChange ){
+    if (onValueChange) {
       onValueChange(val);
-    }    
+    }
+
     // Call the updater
-    updater.setValue(field, val);
+    updater.setValue(fieldId, val, !options.preventUpdate);
   };
 
-  // Define set touched
-  const setTouched = ( val, reset ) => {
+  // ---- Define set touched ----
+  const setTouched = (val, reset, { preventUpdate } = {}) => {
+    logger(`Field ${field} has been touched`);
+
     // We only need to call validate if the user gave us one
     // and they want us to validate on blur
-    if (validate && validateOnBlur && !reset && val ) {
+    if (validate && validateOnBlur && !reset && val) {
       logger(`Validating after blur ${field} ${getVal()}`);
       setError(validate(getVal(), formApi.getValues()));
     }
+
+    // Same for async
+    if (asyncValidate && asyncValidateOnBlur && !reset && val) {
+      logger(`Validating async after blur ${field} ${getVal()}`);
+      asyncValidate(getVal(), formApi.getValues());
+    }
+
     // Call mask if it was passed
-    if(mask && maskOnBlur){
-      const maskedVal = mask( getVal() );
+    if (mask && maskOnBlur) {
+      // Generate the masked value from the current value
+      const maskedVal = mask(getVal());
+
       // Now we update the value
       setVal(maskedVal);
       setMaskedValue(maskedVal);
+
       // If the user passed in onValueChange then call it!
-      if( onValueChange ){
+      if (onValueChange) {
         onValueChange(maskedVal);
-      }    
+      }
+
       // Call the updater
-      updater.setValue(field, maskedVal);
+      updater.setValue(fieldId, maskedVal, !preventUpdate);
     }
+
     // Call maskWithCursorOffset if it was passed
-    if(maskWithCursorOffset && maskOnBlur){
+    if (maskWithCursorOffset && maskOnBlur) {
+      // Generate the mask and offset
       const res = maskWithCursorOffset(getVal());
+
+      // Set the offset
       setCursorOffset(res.offset);
+
       // Now we update the value
       setVal(res.value);
       setMaskedValue(res.value);
+
       // If the user passed in onValueChange then call it!
-      if( onValueChange ){
+      if (onValueChange) {
         onValueChange(res.value);
-      }    
+      }
+
       // Call the updater
-      updater.setValue(field, res.value);
+      updater.setValue(fieldId, res.value, !preventUpdate);
     }
+
+    // Finally we set touched and call the updater
     setTouch(val);
-    updater.setTouched(field, val);
+    updater.setTouched(fieldId, val, !preventUpdate);
   };
 
-  // Define reset
-  const reset = () => {
-    const initVal = initializeValue(initialValue, mask);
+  // ---- Define reset ----
+  const reset = ({ preventUpdate } = {}) => {
+    const initVal = initializeValue(
+      initialValueRef.current || updater.getInitialValue(fieldRef.current),
+      mask,
+      formatter,
+      parser
+    );
     // TODO support numbers
-    setValue(initialValue);
-    // Setting somthing to undefined will remove it 
-    setError(validateOnMount ? validate(initVal) : undefined);
-    setTouched(undefined, true);
+    setValue(initVal, null, { initial: true, preventUpdate });
+    // Setting somthing to undefined will remove it
+    setError(validateOnMount ? validate(initVal) : undefined, {
+      preventUpdate
+    });
+    setTouched(undefined, true, { preventUpdate });
   };
 
-  // Define validate
-  const fieldValidate = ( override ) => {
-    if( validate ){
-      logger(`Field validating ${field} ${getVal() || override}`);
-      setError(validate(getVal() || override, formApi.getValues()));
+  // ---- Define validate ----
+
+  // Note: it takes values as an optimization for when
+  // the form controller calls it ( dont need to generate all values )
+  // over and over :)
+  const fieldValidate = values => {
+    if (validate) {
+      logger(`Field validating ${field} ${getVal()}`);
+      setError(validate(getVal(), values || formApi.getValues()));
+    }
+  };
+
+  const fieldAsyncValidate = values => {
+    if (asyncValidate) {
+      logger(`Field async validating ${field} ${getVal()}`);
+      asyncValidate(getVal(), values || formApi.getValues());
     }
   };
 
@@ -189,35 +523,39 @@ function useField(fieldProps = {}, userRef) {
     setValue,
     setTouched,
     setError,
-    reset, 
-    validate: fieldValidate, 
+    reset,
+    validate: fieldValidate,
+    asyncValidate: fieldAsyncValidate,
     getValue: getVal,
-    getTouched: getTouch, 
-    getError: getErr
+    getTouched: getTouch,
+    getError: getErr,
+    getIsRelevant: getIsRelevant,
+    getFieldState: () => ({
+      value: getVal(),
+      touched: getTouch()
+    }),
+    relevant,
+    multistepRelevant,
+    checkRelevant
   };
+  fieldApiRef.current = fieldApi;
 
   // Build the field state
   let fieldState = {
     value,
     error,
     touched,
-    maskedValue
+    maskedValue,
+    isRelevant
   };
 
   // Create shadow state if this is a shadow field
-  if( shadow ){
+  if (shadow) {
     fieldState = {
       error,
-      touched,
+      touched
     };
   }
-
-  // Initial register needs to happen before render ( simulating constructor muhahahah )
-  useState(()=> {
-    const fullField = formApi.getFullField(field);
-    logger('Initial Register', fullField);
-    updater.register(field, fieldState, { field: fullField, fieldApi, fieldState, notify, keepState, shadow });
-  });
 
   logger('Render', formApi.getFullField(field), fieldState);
 
@@ -225,63 +563,146 @@ function useField(fieldProps = {}, userRef) {
 
   const ref = React.useMemo(() => userRef || internalRef, []);
 
-  // We want to register and deregister this field when field name changes
-  useEffect(
-    () => {
-      const fullField = formApi.getFullField(field);
-      logger('Register', fullField);
-      updater.register(field, fieldState, { field: fullField, fieldApi, fieldState, notify, keepState, shadow });
-
-      return () => {
-        logger('Deregister', fullField);
-        updater.deregister(field);
-      };
-    },
-    // This is VERYYYY!! Important!
-    [field, initialValue]
-  );
+  // We want to register and deregister this field
+  useLayoutEffect(() => {
+    const fullField = formApi.getFullField(fieldRef.current);
+    logger('Register', fieldId, fieldRef.current);
+    const fieldObj = {
+      field: fullField,
+      fieldId,
+      fieldApi,
+      fieldState,
+      notify,
+      keepState,
+      inMultistep,
+      shadow
+    };
+    updater.register(fieldId, fieldObj);
+    return () => {
+      const fullField = formApi.getFullField(fieldRef.current);
+      logger('Deregister', fieldId, fullField);
+      updater.deregister(fieldId);
+    };
+  }, []);
 
   // We want to let the controller know of changes on this field when specific props change
   useEffect(
     () => {
       const fullField = formApi.getFullField(field);
-      logger('Update', field);
-      updater.update(field, { field: fullField, fieldApi, fieldState, notify, keepState, shadow });
+      logger('Update', field, inMultistep);
+
+      const fieldObj = {
+        field: fullField,
+        fieldId,
+        fieldApi,
+        fieldState,
+        notify,
+        keepState,
+        inMultistep,
+        shadow
+      };
+
+      updater.update(fieldId, fieldObj);
     },
     // This is VERYYYY!! Important!
-    [validate, validateOnChange, validateOnBlur, onValueChange]
+    [
+      validationFunc,
+      validateOnChange,
+      validateOnBlur,
+      onValueChange,
+      field,
+      inMultistep
+    ]
   );
+
+  // Need to update when we become relevent again
+  // useEffect(
+  //   () => {
+  //     // console.log('WTF', field, keepState, fieldApi.getValue());
+  //     updater.setValue(fieldId, fieldApi.getValue());
+  //     updater.setError(fieldId, fieldApi.getError());
+  //     updater.setTouched(fieldId, fieldApi.getTouched());
+  //   },
+  //   [isRelevant]
+  // );
 
   // Maintain cursor position
   useLayoutEffect(
     () => {
-      if ( maintainCursor && ref.current != null && getCursor()) ref.current.selectionEnd = getCursor() + getCursorOffset();
+      if (maintainCursor && ref.current != null && getCursor())
+        ref.current.selectionEnd = getCursor() + getCursorOffset();
     },
     [value]
   );
 
   // for debugging
-  useLayoutEffect(
-    () => {
-      if (debug && ref) {
-        ref.current.style.border = '5px solid orange';
-        setTimeout(() => {
-          ref.current.style.borderWidth ='2px';
-          ref.current.style.borderStyle = 'inset';
-          ref.current.style.borderColor = 'initial';
-          ref.current.style.borderImage = 'initial';
-        }, 500);
-      }
+  useLayoutEffect(() => {
+    if (debug && ref) {
+      ref.current.style.border = '5px solid orange';
+      setTimeout(() => {
+        ref.current.style.borderWidth = '2px';
+        ref.current.style.borderStyle = 'inset';
+        ref.current.style.borderColor = 'initial';
+        ref.current.style.borderImage = 'initial';
+      }, 500);
     }
-  );
+  });
 
   // This is an awesome optimization!!
-  const shouldUpdate = [ ...Object.values(fieldState), ...Object.values(fieldProps), ...Object.values(userProps) ];
+  const shouldUpdate = [
+    ...Object.values(fieldState),
+    ...Object.values(fieldProps),
+    ...Object.values(userProps)
+  ];
 
-  const render = (children) => useMemo(() => children, [ ...shouldUpdate ]);
+  const render = children =>
+    useMemo(() => (isRelevant ? children : null), [...shouldUpdate]);
 
-  return { fieldState, fieldApi, render, ref, userProps };
+  // Build some setub fields so users can easily intagrate without any hookup code
 
+  const name = field;
+  const changeHandler = generateOnChange({
+    fieldType,
+    setValue,
+    onChange,
+    multiple,
+    ref
+  });
+  const blurHandler = generateOnBlur({ setTouched, onBlur });
+  const hookedValue = generateValue({
+    fieldType,
+    maskedValue,
+    multiple,
+    value
+  });
+
+  const type = generateFieldType(fieldType);
+
+  return {
+    fieldState,
+    fieldApi,
+    render,
+    ref,
+    userProps: {
+      ...userProps,
+      multiple, // WE NEED TO PUT THESE BACK!!
+      onChange, // WE NEED TO PUT THESE BACK!!
+      onBlur, // WE NEED TO PUT THESE BACK!!
+      // required // WE NEED TO PUT THESE BACK!!
+      id: userProps.id || fieldId // If user did not pass id we pass fields id
+    },
+    informed: {
+      name,
+      multiple,
+      onChange: changeHandler,
+      onBlur: blurHandler,
+      value: hookedValue,
+      ref,
+      type,
+      id: userProps.id || fieldId, // If user did not pass id we pass fields id
+      ...userProps
+    }
+  };
 }
 
 export default useField;

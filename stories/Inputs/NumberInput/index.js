@@ -1,9 +1,18 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
+import Code from '../../utils/Code';
 
-import { Form, Text } from '../../../src';
+import { Form, Text, useFormState } from '../../../src';
+
+const FormState = () => {
+  const formState = useFormState();
+  return (
+    <Code language="language-js">
+      {JSON.stringify(formState.values, null, 2)}
+    </Code>
+  );
+};
 
 const Number = () => (
   <Form>

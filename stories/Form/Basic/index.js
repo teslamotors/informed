@@ -12,12 +12,12 @@ const Basic = () => (
         <div style={{ flex: 1, marginRight: '2rem' }}>
           <label>
             First name:
-            <Text field="name"/>
+            <Text field="name" />
           </label>
           <button type="submit">Submit</button>
         </div>
         <div style={{ flex: 2, minWidth: '300px' }}>
-          <FormState />
+          <FormState values />
         </div>
       </div>
     </Form>

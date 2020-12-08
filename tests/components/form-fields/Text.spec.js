@@ -80,7 +80,7 @@ describe('Text', () => {
 
   it('should expose the field name', () => {
     const wrapper = mount(
-      <Form getApi={() => {}}>
+      <Form getApi={() => { }}>
         <Text field="greeting" />
       </Form>
     );
@@ -115,13 +115,13 @@ describe('Text', () => {
 
   it('should set initial value and mask them when initial values are passed with mask function', () => {
     let savedApi;
-    const mask = (val) => `$${val}`; 
+    const mask = (val) => `$${val}`;
     mount(
       <Form
         getApi={api => {
           savedApi = api;
         }}>
-        <Text field="greeting" initialValue="foobarbaz" mask={mask}/>
+        <Text field="greeting" initialValue="foobarbaz" mask={mask} />
       </Form>
     );
     expect(savedApi.getState().values).to.deep.equal({ greeting: '$foobarbaz' });
@@ -151,7 +151,7 @@ describe('Text', () => {
         getApi={api => {
           savedApi = api;
         }}>
-        <Text field="hello" mask={mask} maskOnBlur/>
+        <Text field="hello" mask={mask} maskOnBlur />
       </Form>
     );
     const input = wrapper.find('input');
@@ -178,7 +178,7 @@ describe('Text', () => {
   it('should run format and parse when user types in text input and format and parse are passed', () => {
     let savedApi;
     const format = value => `$${value}`;
-    const parse = value => value.replace('$','');
+    const parse = value => value.replace('$', '');
     const wrapper = mount(
       <Form
         getApi={api => {
@@ -199,16 +199,146 @@ describe('Text', () => {
     expect(wrapper.find('input').props().value).to.equal('$abc');
   });
 
-  it('should run format and parse when user passes initial value and format and parse are passed', () => {
+  it('should run formatter and parser when user types in text input and formatter and parser are passed', () => {
     let savedApi;
-    const format = value => `$${value}`;
-    const parse = value => value.replace('$','');
+   
+    const formatter = ['+', '1', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
+    const parser = value => {
+      return value.replace('+1 ', '').replace(/-/g, '');
+    };
+
     const wrapper = mount(
       <Form
         getApi={api => {
           savedApi = api;
         }}>
-        <Text field="hello" format={format} parse={parse} initialValue="1234"/>
+        <Text field="hello" formatter={formatter} parser={parser} />
+      </Form>
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: '1' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 1');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '1' });
+
+    input.simulate('change', { target: { value: '12' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 12');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '12' });
+    
+    input.simulate('change', { target: { value: '123' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '123' });
+
+    input.simulate('change', { target: { value: '1234' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123-4');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '1234' });
+
+    input.simulate('change', { target: { value: '+1 1' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 1');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '1' });
+ 
+    input.simulate('change', { target: { value: '+1 123a' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123-');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '123' });
+
+    input.simulate('change', { target: { value: '+1 123abc' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123-');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '123' });
+  });
+
+  it('should run formatter when user types in text input and ONLY formatter is passed', () => {
+    let savedApi;
+   
+    const formatter = ['+', '1', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="hello" formatter={formatter} />
+      </Form>
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: '1' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 1');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 1' });
+
+    input.simulate('change', { target: { value: '12' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 12');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 12' });
+    
+    input.simulate('change', { target: { value: '123' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 123' });
+
+    input.simulate('change', { target: { value: '1234' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123-4');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 123-4' });
+
+    input.simulate('change', { target: { value: '+1 1' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 1');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 1' });
+ 
+    input.simulate('change', { target: { value: '+1 123a' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123-');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 123-' });
+
+    input.simulate('change', { target: { value: '+1 123abc' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123-');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 123-' });
+  });
+
+  it('should run formatter on initial value', () => {
+    let savedApi;
+   
+    const formatter = ['+', '1', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="hello" formatter={formatter} initialValue="1231231234" />
+      </Form>
+    );
+    expect(wrapper.find('input').props().value).to.equal('+1 123-123-1234');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 123-123-1234' });
+
+  });
+
+  it('should run formatter and parser on initial value', () => {
+    let savedApi;
+   
+    const formatter = ['+', '1', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+
+    const parser = value => {
+      return value.replace('+1 ', '').replace(/-/g, '');
+    };
+
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="hello" formatter={formatter} parser={parser} initialValue="1231231234" />
+      </Form>
+    );
+    expect(wrapper.find('input').props().value).to.equal('+1 123-123-1234');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '1231231234' });
+
+  });
+
+  it('should run format and parse when user passes initial value and format and parse are passed', () => {
+    let savedApi;
+    const format = value => `$${value}`;
+    const parse = value => value.replace('$', '');
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="hello" format={format} parse={parse} initialValue="1234" />
       </Form>
     );
     expect(wrapper.find('input').props().value).to.equal('$1234');
@@ -247,7 +377,8 @@ describe('Text', () => {
               field="name"
               {...rest}
             />
-          );}}
+          );
+        }}
       </Form>
     );
     expect(wrapper.find('input').props().disabled).to.equal(false);
@@ -260,8 +391,8 @@ describe('Text', () => {
 
     const Changer = () => {
       const [type, setType] = useState('text');
-      const toggle = () => { 
-        setType( (prev) => prev === 'text' ? 'password' : 'text' );
+      const toggle = () => {
+        setType((prev) => prev === 'text' ? 'password' : 'text');
       };
       return (
         <div>
@@ -274,7 +405,7 @@ describe('Text', () => {
           <button onClick={toggle}>ClickMe</button>
         </div>
       );
-    }; 
+    };
 
     const wrapper = mount(
       <Changer />
@@ -293,13 +424,13 @@ describe('Text', () => {
 
     const Toggle = () => {
       const [show, setShow] = useState(true);
-      const toggle = () => setShow((prev)=>!prev); 
+      const toggle = () => setShow((prev) => !prev);
       return (
         <Form
           getApi={api => {
             savedApi = api;
           }}>
-          { show ? <Text field="greeting" keepState/> : null }
+          {show ? <Text field="greeting" keepState /> : null}
           <button type="button" onClick={toggle}>toggle</button>
         </Form>
       );
@@ -325,13 +456,13 @@ describe('Text', () => {
 
     const Toggle = () => {
       const [show, setShow] = useState(true);
-      const toggle = () => setShow((prev)=>!prev); 
+      const toggle = () => setShow((prev) => !prev);
       return (
         <Form
           getApi={api => {
             savedApi = api;
           }}>
-          { show ? <Text field="greeting"/> : null }
+          {show ? <Text field="greeting" /> : null}
           <button type="button" onClick={toggle}>toggle</button>
         </Form>
       );
@@ -356,13 +487,13 @@ describe('Text', () => {
 
     const Toggle = () => {
       const [show, setShow] = useState(true);
-      const toggle = () => setShow((prev)=>!prev); 
+      const toggle = () => setShow((prev) => !prev);
       return (
         <Form
           getApi={api => {
             savedApi = api;
           }}>
-          { show ? <Text field="greeting" keepState initialValue="foobar"/> : null }
+          {show ? <Text field="greeting" keepState initialValue="foobar" /> : null}
           <button type="button" onClick={toggle}>toggle</button>
         </Form>
       );
@@ -385,14 +516,14 @@ describe('Text', () => {
 
     const Toggle = () => {
       const [show, setShow] = useState(true);
-      const toggle = () => setShow((prev)=>!prev); 
+      const toggle = () => setShow((prev) => !prev);
       return (
         <Form
-          initialValues={{greeting: 'foobar'}}
+          initialValues={{ greeting: 'foobar' }}
           getApi={api => {
             savedApi = api;
           }}>
-          { show ? <Text field="greeting" keepState/> : null }
+          {show ? <Text field="greeting" keepState /> : null}
           <button type="button" onClick={toggle}>toggle</button>
         </Form>
       );

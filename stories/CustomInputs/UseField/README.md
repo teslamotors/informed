@@ -1,27 +1,22 @@
-## What if I want more control!? 
+# Custom Inputs
 
-**I got you!** Check out the example below:
+Sometimes the inputs `informed` provides are not good enough. So we decided to
+help you out with that! Informed also gives you access to an useField Hook.
 
-Here we use the hook `useField` instead of the HOC `asField`. This allows us to do things like,
-set a default validation function!
+## Custom Text Input
+
+Lets say you like `informed`'s text input but you want to show an error and turn
+it red when there is an error. You could achieve this with the following code.
 
 <!-- STORY -->
 
 <!-- IDFK Strange issue where i need this commnet or code formatting is messed up -->
 
 ```jsx
-import { Form, BasicText, asField } from 'informed';
+import { Form, useField } from 'informed';
 
-const validate = value => {
-  return !value || value.length < 5
-    ? 'Field must be at least five characters'
-    : undefined;
-};
-
-const ErrorText = (props) => {
-
-  const { fieldState, fieldApi, render, ref, userProps } = useField( { ...props, validate });
-  // ^^^^^^^^ THIS IS THE BIG DIFFERENCE 
+const ErrorText = props => {
+  const { fieldState, fieldApi, render, ref, userProps } = useField(props);
 
   const { value } = fieldState;
   const { setValue, setTouched } = fieldApi;
@@ -53,15 +48,16 @@ const ErrorText = (props) => {
   );
 };
 
+const validate = value => {
+  return !value || value.length < 5
+    ? 'Field must be at least five characters'
+    : undefined;
+};
+
 <Form id="custom-form">
   <label>
     First name:
-    <ErrorText
-      field="name"
-      validate={validate}
-      validateOnChange
-      validateOnBlur
-    />
+    <ErrorText field="name" validateOnChange validateOnBlur />
   </label>
   <button type="submit">Submit</button>
 </Form>;

@@ -22,6 +22,8 @@ declare module 'informed' {
     errors: { [key in keyof V]: FormError }
     asyncErrors: { [key in keyof V]: FormError }
     error: FormError
+    step: number
+    Current: any
   }
   export interface FormStateDerived {
     invalid: boolean
@@ -31,7 +33,7 @@ declare module 'informed' {
   }
   export interface FormState<V = FormValues>
     extends FormStateBasic<V>,
-      FormStateDerived {}
+    FormStateDerived { }
 
   export interface FormApi<V = FormValues> {
     submitForm: () => void
@@ -41,10 +43,15 @@ declare module 'informed' {
     getTouched: (name: string) => boolean
     setError: (name: string, error: FormError) => void
     getError: (name: string) => FormError
+    setFormError: (error: FormError) => void
     getState: () => FormState<V>
     reset: () => void
     setValues: (values: V) => void
     validate: () => void
+    back: (prevComponent: any) => void
+    next: (nextComponent: any) => void
+    setStep: (value: number) => void
+    setCurrent: (component: any) => void
   }
 
   export interface FormContext<V = FormValues> {
@@ -90,12 +97,14 @@ declare module 'informed' {
   export interface BaseFieldProps<V = FormValue, VS = FormValues>
     extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value'> {
     initialValue?: V
+    keepState?: boolean
     validate?: (value: V, values: VS) => FormError
     validateOnBlur?: boolean
     validateOnChange?: boolean
     validateOnMount?: boolean
     notify?: (keyof VS)[]
     maintainCursor?: boolean
+    allowEmptyString?: boolean
     mask?: (value: V) => V
     maskWithCursorOffset?: (value: V) => VOffset
     maskOnBlur?: boolean
@@ -111,12 +120,14 @@ declare module 'informed' {
    */
 
   export interface BasicFormProps<V = FormValues> {
+    allowEmptyStrings?: boolean
     onSubmit?: (values: V) => void
     preSubmit?: (values: V) => V
     initialValues?: V
     onChange?: (formState: FormState<V>) => void
     onValueChange?: (values: V) => void
     dontPreventDefault?: boolean
+    preventEnter?: boolean
     getApi?: (formApi: FormApi<V>) => void
     onSubmitFailure?: (errors: { [key in keyof V]: FormError }) => void
     validate?: (values: V) => FormError
@@ -136,7 +147,7 @@ declare module 'informed' {
     | ComponentFormProps<V>
     | RenderFormProps<V>
     | React.FormHTMLAttributes<HTMLFormElement>
-  export class Form<V = FormValues> extends React.Component<FormProps<V>> {}
+  export class Form<V = FormValues> extends React.Component<FormProps<V>> { }
 
   /*
    * FIELD ORGANIZING
@@ -145,7 +156,7 @@ declare module 'informed' {
   export interface ScopeProps {
     scope: string
   }
-  export class Scope extends React.Component<ScopeProps> {}
+  export class Scope extends React.Component<ScopeProps> { }
 
   export interface ArrayFieldProps {
     key?: React.Key
@@ -154,14 +165,14 @@ declare module 'informed' {
   }
   export interface ArrayFieldReturnPropParameters {
     add: () => void
-    addWithInitialValue: ( initialValue: any ) => void
+    addWithInitialValue: (initialValue: any) => void
     fields: Array<ArrayFieldProps>
   }
   export interface ArrayFieldProps {
     field: string
     children: (props: ArrayFieldReturnPropParameters) => React.ReactNode
   }
-  export class ArrayField extends React.Component<ArrayFieldProps, any> {}
+  export class ArrayField extends React.Component<ArrayFieldProps, any> { }
 
   /*
    * INPUTS
@@ -177,23 +188,23 @@ declare module 'informed' {
   export class Text<V = FormValue, VS = FormValues> extends React.Component<
     FieldProps<V, VS>,
     any
-  > {}
+    > { }
   export class TextArea<V = FormValue, VS = FormValues> extends React.Component<
     FieldProps<V, VS>,
     any
-  > {}
+    > { }
   export class RadioGroup<
     V = FormValue,
     VS = FormValues
-  > extends React.Component<FieldProps<V, VS>, any> {}
+    > extends React.Component<FieldProps<V, VS>, any> { }
   export class Radio<V = FormValue, VS = FormValues> extends React.Component<
     ChildFieldProps<V, VS>,
     any
-  > {}
+    > { }
   export class Checkbox<V = FormValue, VS = FormValues> extends React.Component<
     FieldProps<V, VS>,
     any
-  > {}
+    > { }
 
   export interface SelectFieldProps<V, VS> extends FieldProps<V, VS> {
     multiple?: boolean
@@ -201,11 +212,11 @@ declare module 'informed' {
   export class Select<V = FormValue, VS = FormValues> extends React.Component<
     SelectFieldProps<V, VS>,
     any
-  > {}
+    > { }
   export class Option<V = FormValue, VS = FormValues> extends React.Component<
     ChildFieldProps<V, VS>,
     any
-  > {}
+    > { }
 
   /*
    * BASIC INPUTS
@@ -213,26 +224,26 @@ declare module 'informed' {
 
   export interface BasicFieldProps<V, VS>
     extends BaseFieldProps<V, VS>,
-      Omit<FieldContext<V>, 'render' | 'ref' | 'userProps'> {
+    Omit<FieldContext<V>, 'render' | 'ref' | 'userProps'> {
     field?: string
   }
 
   export class BasicText<
     V = FormValue,
     VS = FormValues
-  > extends React.Component<BasicFieldProps<V, VS>, any> {}
+    > extends React.Component<BasicFieldProps<V, VS>, any> { }
   export class BasicRadio<
     V = FormValue,
     VS = FormValues
-  > extends React.Component<BasicFieldProps<V, VS>, any> {}
+    > extends React.Component<BasicFieldProps<V, VS>, any> { }
   export class BasicRadioGroup<
     V = FormValue,
     VS = FormValues
-  > extends React.Component<BasicFieldProps<V, VS>, any> {}
+    > extends React.Component<BasicFieldProps<V, VS>, any> { }
   export class BasicTextArea<
     V = FormValue,
     VS = FormValues
-  > extends React.Component<BasicFieldProps<V, VS>, any> {}
+    > extends React.Component<BasicFieldProps<V, VS>, any> { }
 
   export interface BasicSelectFieldProps<V, VS> extends BasicFieldProps<V, VS> {
     multiple?: boolean
@@ -240,11 +251,11 @@ declare module 'informed' {
   export class BasicSelect<
     V = FormValue,
     VS = FormValues
-  > extends React.Component<BasicSelectFieldProps<V, VS>, any> {}
+    > extends React.Component<BasicSelectFieldProps<V, VS>, any> { }
   export class BasicCheckbox<
     V = FormValue,
     VS = FormValues
-  > extends React.Component<BasicFieldProps<V, VS>, any> {}
+    > extends React.Component<BasicFieldProps<V, VS>, any> { }
 
   /*
    * HOCs
@@ -261,14 +272,14 @@ declare module 'informed' {
   export function withFieldApi<P, V = FormValue, VS = FormValues>(
     name: keyof VS,
   ): (
-    component: React.ComponentType<{ fieldApi: FieldApi<V> } & P>,
-  ) => React.ComponentType<P>
+      component: React.ComponentType<{ fieldApi: FieldApi<V> } & P>,
+    ) => React.ComponentType<P>
 
   export function withFieldState<P, V = FormValue, VS = FormValues>(
     name: keyof VS,
   ): (
-    component: React.ComponentType<{ fieldState: FieldState<V> } & P>,
-  ) => React.ComponentType<P>
+      component: React.ComponentType<{ fieldState: FieldState<V> } & P>,
+    ) => React.ComponentType<P>
 
   export interface RadioGroupApi<V> extends FieldApi<V> {
     onChange: (event: React.SyntheticEvent) => void

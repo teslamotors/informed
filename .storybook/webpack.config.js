@@ -16,20 +16,35 @@ module.exports = async ({ config, mode }) => {
     '@babel/preset-react'
   ];
 
-  config.module.rules[1] = {
-    test: /\.md$/,
-    use: [
-      {
-        loader: 'html-loader'
-      },
-      {
-        loader: 'markdown-loader',
-        options: {}
-      }
-    ],
-    include: path.resolve(__dirname, '../'),
-    exclude: /node_modules/
-  };
+  // config.module.rules[1] = {
+  //   test: /\.md$/,
+  //   use: [
+  //     {
+  //       loader: 'html-loader'
+  //     },
+  //     {
+  //       loader: 'markdown-loader',
+  //       options: {}
+  //     }
+  //   ],
+  //   include: path.resolve(__dirname, '../'),
+  //   exclude: /node_modules/
+  // };
+
+  // config.module.rules.unshift({
+  //   test: /\.md$/,
+  //   use: [
+  //     {
+  //       loader: 'html-loader'
+  //     },
+  //     {
+  //       loader: 'markdown-loader',
+  //       options: {}
+  //     }
+  //   ],
+  //   include: path.resolve(__dirname, '../'),
+  //   exclude: /node_modules/
+  // });
 
   // config.module.rules.push({
   //   test: /\.css$/,

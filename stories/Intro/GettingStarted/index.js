@@ -6,20 +6,19 @@ import { Form, Text } from '../../../src';
 import FormState from '../../utils/FormState';
 
 const validate = value => {
-  return !value || value.length < 5
-    ? 'Field must be at least five characters'
-    : undefined;
+  if (!value || value.length < 5)
+    return 'Field must be at least five characters';
 };
+
+const submit = values =>
+  window.alert(`Form successfully submitted with ${JSON.stringify(values)}`);
 
 const GettingStarted = () => (
   <div>
-    <Form id="intro-form">
+    <Form id="intro-form" onSubmit={submit}>
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, marginRight: '2rem' }}>
-          <label>
-            First name:
-            <Text field="name" validate={validate}/>
-          </label>
+          <Text field="name" label="First name" validate={validate} />
           <button type="submit">Submit</button>
         </div>
         <div
@@ -29,7 +28,7 @@ const GettingStarted = () => (
             display: 'flex',
             minWidth: '300px'
           }}>
-          <FormState errors/>
+          <FormState errors values />
         </div>
       </div>
     </Form>

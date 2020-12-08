@@ -22,7 +22,7 @@ const validate = value => {
     : undefined;
 };
 
-const ErrorText = asField(({ fieldState, ...props }) => (
+const ErrorText = ({ fieldState, ...props }) => (
   <React.Fragment>
     <BasicText
       fieldState={fieldState}
@@ -35,10 +35,12 @@ const ErrorText = asField(({ fieldState, ...props }) => (
   </React.Fragment>
 ));
 
+const ErrorTextField = asField(ErrorText);
+
 <Form>
   <label>
     First name:
-    <ErrorText
+    <ErrorTextField
       field="name"
       validate={validate}
       validateOnChange

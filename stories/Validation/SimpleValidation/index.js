@@ -7,9 +7,7 @@ import readme from './README.md';
 import { Form, Text } from '../../../src';
 
 const validate = value => {
-  return !value || value.length < 5
-    ? 'Field must be at least five characters'
-    : undefined;
+  if (!value || value.length < 5) return 'Field must be at least five characters';
 };
 
 class SimpleValidation extends Component {
@@ -20,10 +18,9 @@ class SimpleValidation extends Component {
           {({ formApi, formState }) => (
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
               <div style={{ flex: 1, marginRight: '2rem' }}>
-                <label>Color:<Text field="color" validate={validate}/></label>
-                <label>Food:<Text field="food" validate={validate}/></label>
-                <label>Car:<Text field="car" validate={validate}/></label>
-                <button type="submit">Submit</button>
+                <label>Color:<Text field="color" validate={validate} /></label>
+                <label>Food:<Text field="food" validate={validate} /></label>
+                <label>Car:<Text field="car" validate={validate} /></label>
                 <button type="submit">Submit</button>
               </div>
               <div style={{ flex: 2, minWidth: '300px' }}>

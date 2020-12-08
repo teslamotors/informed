@@ -15,29 +15,36 @@ To avoid excessive message passing, `informed` only notifies other fields of cha
 import { Form, Text } from 'informed';
 
 const basicValidation = value => {
-  return !value || value.length < 5 ? 'Password must be at least five characters' : undefined;
-}
+  return !value || value.length < 5
+    ? 'Password must be at least five characters'
+    : undefined;
+};
 
-const matchValidation = ( value, values ) => {
-  return values.password !== values.confirmPassword ? 'Passwords must match' : undefined;
-}
+const matchValidation = (password1, password2) => {
+  return password1 !== password2
+    ? 'Passwords must match'
+    : undefined;
+};
 
-const passwordValidation = ( value, values ) => {
-  return basicValidation(value) || matchValidation( value, values )
-}
+const passwordValidation = (password1, password2) => {
+  return basicValidation(password1) || matchValidation(password1, password2);
+};
+
+const validatePassword = (value, values) => passwordValidation( value, values.confirmPassword); 
+const validateConfim = (value, values) => passwordValidation( value, values.password); 
 
 <Form id="notify-validation-form">
   <Text
     field="password"
     id="notify-password"
-    validate={passwordValidation}
+    validate={validatePassword}
     validateOnChange
     notify={['confirmPassword']}/>
   <label htmlFor="notify-confirm-password">Confirm password:</label>
   <Text
     field="confirmPassword"
     id="notify-confirm-password"
-    validate={passwordValidation}
+    validate={validateConfim}
     validateOnChange
     notify={['password']}/>
   <button type="submit">

@@ -12,7 +12,7 @@ const validate = value => {
 
 const ErrorText = (props) => {
 
-  const { fieldState, fieldApi, render, ref, userProps } = useField( { ...props, validate });
+  const { fieldState, fieldApi, render, ref, userProps } = useField({ ...props, validate });
 
   const { value } = fieldState;
   const { setValue, setTouched } = fieldApi;
@@ -53,7 +53,6 @@ const FromScratch = () => (
             First name:
             <ErrorText
               field="name"
-              validate={validate}
               validateOnChange
               validateOnBlur
             />

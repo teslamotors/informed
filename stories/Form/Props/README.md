@@ -20,3 +20,4 @@ props are available and what they do.
 | validationSchema     | yup schema   |    A yup schema to perform validation |
 | allowEmptyStrings     | bool         | Enable empty strings in the form values ( by default when you backspace everything in a text field it will remove the value from the values )                                                                                                                                                             |
 | preventEnter     | bool         |    Prevents the enter key from submitting the form |
+| onReset | func | Function that gets called when form is reset.

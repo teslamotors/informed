@@ -557,7 +557,7 @@ class FormController extends EventEmitter {
     this.fieldsById.forEach(field => {
       field.fieldApi.reset({ preventUpdate: true });
     });
-
+    this.emit('reset');
     this.emit('change');
   }
 

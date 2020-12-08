@@ -18,6 +18,7 @@ const useForm = ({
   getApi,
   apiRef,
   onChange,
+  onReset,
   onSubmit,
   onValueChange,
   onSubmitFailure,
@@ -81,6 +82,8 @@ const useForm = ({
     () => {
       const onChangeHandler = () =>
         onChange && onChange(formController.getFormState());
+      const onResetHandler = () => 
+        onReset && onReset();
       const onSubmitHandler = () =>
         onSubmit && onSubmit(formController.getFormState().values);
       const onValueHandler = () =>
@@ -91,6 +94,7 @@ const useForm = ({
 
       // Register for events
       formController.on('change', onChangeHandler);
+      formController.on('reset', onResetHandler)
       formController.on('submit', onSubmitHandler);
       formController.on('value', onValueHandler);
       formController.on('failure', onFailureHandler);
@@ -98,12 +102,13 @@ const useForm = ({
       // Unregister events
       return () => {
         formController.removeListener('change', onChangeHandler);
+        formController.removeListener('reset', onResetHandler);
         formController.removeListener('submit', onSubmitHandler);
         formController.removeListener('value', onValueHandler);
         formController.removeListener('failure', onFailureHandler);
       };
     },
-    [onChange, onSubmit, onValueChange, onSubmitFailure]
+    [onChange, onReset, onSubmit, onValueChange, onSubmitFailure]
   );
 
   // Initialize code like constructor but not muhahah

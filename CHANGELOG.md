@@ -1,3 +1,13 @@
+## 3.26.0 (December 17, 2020)
+
+### Added
+
+- `swap` to array fields
+
+### Rafactored
+
+- Internal state management
+
 ## 3.25.0 (December 8, 2020)
 
 ### Added

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Debug from '../debug';
-import { debounce } from '../utils';
 import FormController from '../FormController';
 import FormProvider from '../components/FormProvider';
 import FormFields from '../components/FormFields';
@@ -82,8 +81,7 @@ const useForm = ({
     () => {
       const onChangeHandler = () =>
         onChange && onChange(formController.getFormState());
-      const onResetHandler = () => 
-        onReset && onReset();
+      const onResetHandler = () => onReset && onReset();
       const onSubmitHandler = () =>
         onSubmit && onSubmit(formController.getFormState().values);
       const onValueHandler = () =>
@@ -94,7 +92,7 @@ const useForm = ({
 
       // Register for events
       formController.on('change', onChangeHandler);
-      formController.on('reset', onResetHandler)
+      formController.on('reset', onResetHandler);
       formController.on('submit', onSubmitHandler);
       formController.on('value', onValueHandler);
       formController.on('failure', onFailureHandler);
@@ -114,8 +112,10 @@ const useForm = ({
   // Initialize code like constructor but not muhahah
   useState(() => {
     // Update the form state to trigger rerender!
-    const onChangeHandlerRerender = () =>
+    const onChangeHandlerRerender = () => {
+      logger('Setting form state');
       setFormState(formController.getFormState());
+    };
     // const debounced = debounce(onChangeHandlerRerender, 250);
     formController.on('change', onChangeHandlerRerender);
     // Give access to api outside

@@ -264,6 +264,7 @@ function useField(fieldProps = {}, userRef) {
   // Create then update refs to props
   const initialValueRef = useRef(initialValue);
   const fieldRef = useRef(field);
+  const prevFieldRef = useRef();
   initialValueRef.current = initialValue;
   fieldRef.current = field;
 
@@ -594,14 +595,17 @@ function useField(fieldProps = {}, userRef) {
   // We want to let the controller know of changes on this field when specific props change
   useEffect(
     () => {
+      const fullField = formApi.getFullField(field);
       if (initialRenerRef.current) {
         initialRenerRef.current = false;
       } else {
-        const fullField = formApi.getFullField(field);
         logger('Update', field, inMultistep);
         fieldObjectRef.current.field = fullField;
-        updater.update(fieldId, fieldObjectRef.current);
+        updater.update(fieldId, fieldObjectRef.current, prevFieldRef.current);
       }
+      return () => {
+        prevFieldRef.current = fullField;
+      };
     },
     [field]
   );

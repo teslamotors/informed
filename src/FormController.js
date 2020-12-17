@@ -2,7 +2,7 @@ import ObjectMap from './ObjectMap';
 import { EventEmitter } from 'events';
 import Debug from './debug';
 import defaultFieldMap from './fieldMap';
-import { validateYupSchema, validateAjvSchema, debounce } from './utils';
+import { validateYupSchema, validateAjvSchema } from './utils';
 
 const debug = Debug('informed:Controller' + '\t');
 
@@ -26,11 +26,11 @@ class FormController extends EventEmitter {
     const { ajv, schema, fieldMap } = options;
 
     // Debounced change
-    const change = () => {
-      this.rebuildState();
-      this.emit('change');
-    };
-    this.change = debounce(change, 250);
+    // const change = () => {
+    //   this.rebuildState();
+    //   this.emit('change');
+    // };
+    // this.change = debounce(change, 250);
 
     // Create new ajv instance if passed
     this.ajv = ajv ? new ajv({ allErrors: true }) : null;
@@ -141,7 +141,8 @@ class FormController extends EventEmitter {
     this.notify = this.notify.bind(this);
     this.validating = this.validating.bind(this);
     this.validated = this.validated.bind(this);
-    this.change = this.change.bind(this);
+    // this.change = this.change.bind(this);
+    // this.clear = this.clear.bind(this);
 
     // Updater will be used by fields to update and register
     this.updater = {
@@ -149,6 +150,7 @@ class FormController extends EventEmitter {
       deregister: this.deregister,
       getField: this.getField,
       update: this.update,
+      // clear: this.clear,
       fieldMap: this.fieldMap,
       setValue: (fieldId, value, emit = true) => {
         const field = this.fieldsById.get(fieldId);
@@ -422,38 +424,38 @@ class FormController extends EventEmitter {
     };
   }
 
-  rebuildState() {
-    debug('Generating form state');
+  // rebuildState() {
+  //   debug('Generating form state');
 
-    // Rebuild values, errors, and touched
-    const values = {};
-    const errors = {};
-    const touched = {};
+  //   // Rebuild values, errors, and touched
+  //   const values = {};
+  //   const errors = {};
+  //   const touched = {};
 
-    this.fieldsById.forEach(field => {
-      if (!field.shadow) {
-        // Get the values from the field
-        const value = field.fieldApi.getValue();
-        const error = field.fieldApi.getError();
-        const t = field.fieldApi.getTouched();
-        // Set the value
-        ObjectMap.set(values, field.field, value);
-        ObjectMap.set(errors, field.field, error);
-        ObjectMap.set(touched, field.field, t);
-        // console.log('SETTING', field.field);
-      }
-    });
+  //   this.fieldsById.forEach(field => {
+  //     if (!field.shadow) {
+  //       // Get the values from the field
+  //       const value = field.fieldApi.getValue();
+  //       const error = field.fieldApi.getError();
+  //       const t = field.fieldApi.getTouched();
+  //       // Set the value
+  //       ObjectMap.set(values, field.field, value);
+  //       ObjectMap.set(errors, field.field, error);
+  //       ObjectMap.set(touched, field.field, t);
+  //       // console.log('SETTING', field.field);
+  //     }
+  //   });
 
-    this.state = {
-      ...this.state,
-      values,
-      errors,
-      touched,
-      pristine: this.pristine(),
-      dirty: this.dirty(),
-      invalid: this.invalid()
-    };
-  }
+  //   this.state = {
+  //     ...this.state,
+  //     values,
+  //     errors,
+  //     touched,
+  //     pristine: this.pristine(),
+  //     dirty: this.dirty(),
+  //     invalid: this.invalid()
+  //   };
+  // }
 
   getFormApi() {
     return this.formApi;
@@ -930,9 +932,27 @@ class FormController extends EventEmitter {
     this.pulledOut[name] = true;
   }
 
-  update(id, field) {
+  update(id, field, oldName) {
     debug('Update', id, name, field.fieldState.value);
-    this.change();
+    // this.change();
+    // Update the error touched and values of this field
+    const value = field.fieldApi.getValue();
+    const error = field.fieldApi.getError();
+    const t = field.fieldApi.getTouched();
+
+    // Clear the old value out
+    if (oldName) {
+      ObjectMap.delete(this.state.values, oldName);
+      ObjectMap.delete(this.state.errors, oldName);
+      ObjectMap.delete(this.state.touched, oldName);
+    }
+
+    // Set the value
+    ObjectMap.set(this.state.values, field.field, value);
+    ObjectMap.set(this.state.errors, field.field, error);
+    ObjectMap.set(this.state.touched, field.field, t);
+
+    this.emit('change');
   }
 }
 

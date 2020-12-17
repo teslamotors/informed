@@ -2,8 +2,18 @@ import ObjectMap from './ObjectMap';
 import { EventEmitter } from 'events';
 import Debug from './debug';
 import defaultFieldMap from './fieldMap';
-import { validateYupSchema, validateAjvSchema } from './utils';
+import { validateYupSchema, validateAjvSchema, debounce } from './utils';
+
 const debug = Debug('informed:Controller' + '\t');
+
+const isExpected = (path, expectedRemovals) => {
+  const includedKey = Object.keys(expectedRemovals).find(key =>
+    path.includes(key)
+  );
+  if (!includedKey) return;
+  const start = path.slice(0, includedKey.length);
+  return start === includedKey;
+};
 
 const noop = () => {};
 class FormController extends EventEmitter {
@@ -14,6 +24,13 @@ class FormController extends EventEmitter {
     this.options = options;
 
     const { ajv, schema, fieldMap } = options;
+
+    // Debounced change
+    const change = () => {
+      this.rebuildState();
+      this.emit('change');
+    };
+    this.change = debounce(change, 250);
 
     // Create new ajv instance if passed
     this.ajv = ajv ? new ajv({ allErrors: true }) : null;
@@ -124,6 +141,7 @@ class FormController extends EventEmitter {
     this.notify = this.notify.bind(this);
     this.validating = this.validating.bind(this);
     this.validated = this.validated.bind(this);
+    this.change = this.change.bind(this);
 
     // Updater will be used by fields to update and register
     this.updater = {
@@ -395,9 +413,42 @@ class FormController extends EventEmitter {
    * @returns Form State
    */
   getFormState() {
-    debug('Generating form state');
+    debug('Returning form state');
     return {
       ...this.state,
+      pristine: this.pristine(),
+      dirty: this.dirty(),
+      invalid: this.invalid()
+    };
+  }
+
+  rebuildState() {
+    debug('Generating form state');
+
+    // Rebuild values, errors, and touched
+    const values = {};
+    const errors = {};
+    const touched = {};
+
+    this.fieldsById.forEach(field => {
+      if (!field.shadow) {
+        // Get the values from the field
+        const value = field.fieldApi.getValue();
+        const error = field.fieldApi.getError();
+        const t = field.fieldApi.getTouched();
+        // Set the value
+        ObjectMap.set(values, field.field, value);
+        ObjectMap.set(errors, field.field, error);
+        ObjectMap.set(touched, field.field, t);
+        // console.log('SETTING', field.field);
+      }
+    });
+
+    this.state = {
+      ...this.state,
+      values,
+      errors,
+      touched,
       pristine: this.pristine(),
       dirty: this.dirty(),
       invalid: this.invalid()
@@ -799,6 +850,9 @@ class FormController extends EventEmitter {
     // The field is off the screen
     delete this.onScreen[id];
 
+    // Example foo.bar.baz[3] --> foo.bar.baz[3].baz && foo.bar.baz[3].taz.raz[4].naz
+    const expectedRemoval = isExpected(name, this.expectedRemovals);
+
     // Example foo.bar.baz[3].baz >>>> foo.bar.baz[3]
     const magicValue = name.slice(
       0,
@@ -810,7 +864,7 @@ class FormController extends EventEmitter {
       // We are in a multistep or want to keep the state
       (field.keepState || field.inMultistep) &&
       // We are NOT expected to be removed
-      !this.expectedRemovals[magicValue]
+      !expectedRemoval
     ) {
       // TODO ?? Exception where the field is irrelivant AND keep state was not passed ??
       debug(`Saving field ${name}'s value`, field.fieldApi.getFieldState());
@@ -829,7 +883,7 @@ class FormController extends EventEmitter {
     // Remove if its an expected removal OR we dont have keep state
     if (
       // This field was expected to be removed
-      this.expectedRemovals[magicValue] ||
+      expectedRemoval ||
       // This field does not have keepstate and is NOT within a multistep
       (!field.keepState && !field.inMultistep) ||
       // If field is in multistep then we would always keep due to field.inMultistep
@@ -842,7 +896,7 @@ class FormController extends EventEmitter {
       debug('Removing field', name);
       this.fieldsById.delete(id);
       // Clean up state only if its not expected removal, otherwise we will just pull it out
-      if (!this.expectedRemovals[magicValue]) {
+      if (!expectedRemoval) {
         ObjectMap.delete(this.state.values, name);
         ObjectMap.delete(this.state.touched, name);
         ObjectMap.delete(this.state.errors, name);
@@ -854,8 +908,8 @@ class FormController extends EventEmitter {
         }
       }
 
-      // If we expected this removal the pullOut
-      if (this.expectedRemovals[magicValue] && this.pulledOut[magicValue]) {
+      // If we expected this removal then pullOut
+      if (expectedRemoval && this.pulledOut[magicValue]) {
         debug('Pulling out', name, 'with magic value', magicValue);
         ObjectMap.pullOut(this.state.values, magicValue);
         ObjectMap.pullOut(this.state.touched, magicValue);
@@ -878,7 +932,7 @@ class FormController extends EventEmitter {
 
   update(id, field) {
     debug('Update', id, name, field.fieldState.value);
-    this.emit('change');
+    this.change();
   }
 }
 

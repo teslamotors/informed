@@ -153,6 +153,7 @@ storiesOf('Form', module)
   .add('Props', Props)
   .add('Dynamic', DynamicFields)
   .add('Dependent Fields', FormatDependent)
+  .add('Dynamic Fields', Dynamic)
   .add('Big', Big);
 
 storiesOf('Inputs', module)

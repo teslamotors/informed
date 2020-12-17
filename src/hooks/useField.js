@@ -201,6 +201,9 @@ function useField(fieldProps = {}, userRef) {
   // Create ref to fieldApi
   const fieldApiRef = useRef();
 
+  // Create initial render ref
+  const initialRenerRef = useRef(true);
+
   // Create ref to fieldObject
   const fieldObjectRef = useRef();
 
@@ -591,41 +594,17 @@ function useField(fieldProps = {}, userRef) {
   // We want to let the controller know of changes on this field when specific props change
   useEffect(
     () => {
-      const fullField = formApi.getFullField(field);
-      logger('Update', field, inMultistep);
-
-      fieldObjectRef.current.field = fullField;
-      // fieldObjectRef.current.fieldId = fieldId;
-      // fieldObjectRef.current.fieldApi = fieldApi;
-      // fieldObjectRef.current.fieldState = fieldState;
-      // fieldObjectRef.current.notify = notify;
-      // fieldObjectRef.current.keepState = keepState;
-      // fieldObjectRef.current.inMultistep = inMultistep;
-      // fieldObjectRef.current.shadow = shadow;
-
-      updater.update(fieldId, fieldObjectRef.current);
+      if (initialRenerRef.current) {
+        initialRenerRef.current = false;
+      } else {
+        const fullField = formApi.getFullField(field);
+        logger('Update', field, inMultistep);
+        fieldObjectRef.current.field = fullField;
+        updater.update(fieldId, fieldObjectRef.current);
+      }
     },
-    // This is VERYYYY!! Important!
-    [
-      // validationFunc,
-      // validateOnChange,
-      // validateOnBlur,
-      // onValueChange,
-      field
-      // inMultistep
-    ]
+    [field]
   );
-
-  // Need to update when we become relevent again
-  // useEffect(
-  //   () => {
-  //     // console.log('WTF', field, keepState, fieldApi.getValue());
-  //     updater.setValue(fieldId, fieldApi.getValue());
-  //     updater.setError(fieldId, fieldApi.getError());
-  //     updater.setTouched(fieldId, fieldApi.getTouched());
-  //   },
-  //   [isRelevant]
-  // );
 
   // Maintain cursor position
   useLayoutEffect(

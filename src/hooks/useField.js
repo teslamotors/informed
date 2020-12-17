@@ -201,6 +201,12 @@ function useField(fieldProps = {}, userRef) {
   // Create ref to fieldApi
   const fieldApiRef = useRef();
 
+  // Create initial render ref
+  const initialRenerRef = useRef(true);
+
+  // Create ref to fieldObject
+  const fieldObjectRef = useRef();
+
   // If the form Controller was passed in then use that instead
   if (formController) {
     updater = formController.updater;
@@ -258,6 +264,7 @@ function useField(fieldProps = {}, userRef) {
   // Create then update refs to props
   const initialValueRef = useRef(initialValue);
   const fieldRef = useRef(field);
+  const prevFieldRef = useRef();
   initialValueRef.current = initialValue;
   fieldRef.current = field;
 
@@ -567,7 +574,7 @@ function useField(fieldProps = {}, userRef) {
   useLayoutEffect(() => {
     const fullField = formApi.getFullField(fieldRef.current);
     logger('Register', fieldId, fieldRef.current);
-    const fieldObj = {
+    fieldObjectRef.current = {
       field: fullField,
       fieldId,
       fieldApi,
@@ -577,7 +584,7 @@ function useField(fieldProps = {}, userRef) {
       inMultistep,
       shadow
     };
-    updater.register(fieldId, fieldObj);
+    updater.register(fieldId, fieldObjectRef.current);
     return () => {
       const fullField = formApi.getFullField(fieldRef.current);
       logger('Deregister', fieldId, fullField);
@@ -589,42 +596,19 @@ function useField(fieldProps = {}, userRef) {
   useEffect(
     () => {
       const fullField = formApi.getFullField(field);
-      logger('Update', field, inMultistep);
-
-      const fieldObj = {
-        field: fullField,
-        fieldId,
-        fieldApi,
-        fieldState,
-        notify,
-        keepState,
-        inMultistep,
-        shadow
+      if (initialRenerRef.current) {
+        initialRenerRef.current = false;
+      } else {
+        logger('Update', field, inMultistep);
+        fieldObjectRef.current.field = fullField;
+        updater.update(fieldId, fieldObjectRef.current, prevFieldRef.current);
+      }
+      return () => {
+        prevFieldRef.current = fullField;
       };
-
-      updater.update(fieldId, fieldObj);
     },
-    // This is VERYYYY!! Important!
-    [
-      validationFunc,
-      validateOnChange,
-      validateOnBlur,
-      onValueChange,
-      field,
-      inMultistep
-    ]
+    [field]
   );
-
-  // Need to update when we become relevent again
-  // useEffect(
-  //   () => {
-  //     // console.log('WTF', field, keepState, fieldApi.getValue());
-  //     updater.setValue(fieldId, fieldApi.getValue());
-  //     updater.setError(fieldId, fieldApi.getError());
-  //     updater.setTouched(fieldId, fieldApi.getTouched());
-  //   },
-  //   [isRelevant]
-  // );
 
   // Maintain cursor position
   useLayoutEffect(

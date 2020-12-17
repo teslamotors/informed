@@ -19,7 +19,31 @@ and then toggle again! You can see how the value persisted!
 
 ```jsx
 import React, { useState } from 'react';
-import { Form, Text } from 'informed';
+import { Form, Text, useFieldState } from 'informed';
+
+const JoesState = () => {
+  const fieldState = useFieldState('joe');
+  return (
+    <>
+      <strong>Joes State</strong>
+      <pre>
+        <code>{JSON.stringify(fieldState, null, 2)}</code>
+      </pre>
+    </>
+  );
+};
+
+const ElonsState = () => {
+  const fieldState = useFieldState('elon');
+  return (
+    <>
+      <strong>Elons State</strong>
+      <pre>
+        <code>{JSON.stringify(fieldState, null, 2)}</code>
+      </pre>
+    </>
+  );
+};
 
 const DynamicForm = () => {
   const [field1, setField1] = useState('foo');
@@ -76,15 +100,36 @@ const DynamicForm = () => {
           <Text field="disabled" disabled={disabled} />
         </label>
 
+        <label>
+          {field5}:<Text field={field5} />
+        </label>
+
+        <JoesState />
+        <br />
+        <ElonsState />
+
         <button type="submit">Submit</button>
       </Form>
-      <button onClick={toggle1}>Toggle Foo {'<->'} Bar</button>
+      <button type="button" onClick={toggle1}>
+        Toggle Foo {'<->'} Bar
+      </button>
       <br />
-      <button onClick={toggle2}>Toggle Baz {'<->'} Taz</button>
+      <button type="button" onClick={toggle2}>
+        Toggle Baz {'<->'} Taz
+      </button>
       <br />
-      <button onClick={toggle3}>Toggle Boo {'<->'} Far</button>
+      <button type="button" onClick={toggle3}>
+        Toggle Boo {'<->'} Far
+      </button>
       <br />
-      <button onClick={toggle5}>Toggle Joe {'<->'} Elon</button>
+      <button type="button" onClick={toggle4}>
+        Toggle Disabled
+      </button>
+      <br />
+
+      <button type="button" onClick={toggle5}>
+        Toggle Joe {'<->'} Elon
+      </button>
     </div>
   );
 };

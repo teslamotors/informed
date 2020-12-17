@@ -4,6 +4,7 @@ import DynamicArrays from './DynamicArrays';
 import NestedForm from './NestedForm';
 import AlternateSyntax from './AlternateSyntax';
 import HugeArrayForm from './HugeArrayForm';
+import Swap from './Swap';
 
 export {
   ArrayOfFields,
@@ -11,5 +12,6 @@ export {
   DynamicArrays,
   NestedForm,
   AlternateSyntax,
-  HugeArrayForm
+  HugeArrayForm,
+  Swap
 };

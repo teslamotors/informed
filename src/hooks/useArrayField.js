@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useContext, useRef } from 'react';
+import React, { useState, useMemo, useContext } from 'react';
 import useFormApi from './useFormApi';
 import useField from './useField';
 import useStateWithGetter from './useStateWithGetter';
@@ -118,6 +118,23 @@ const useArrayField = ({
     //formApi.setInitialValue(field, newInitialValues);
   };
 
+  const swap = (a, b) => {
+    // Swap the keys
+    const newKeys = [...keys];
+
+    if (keys[a] && keys[b]) {
+      newKeys[a] = keys[b];
+      newKeys[b] = keys[a];
+    } else {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `Attempted to swap ${a} with ${b} but one of them does not exist :(`
+      );
+    }
+
+    setKeys(newKeys);
+  };
+
   const add = () => {
     keys.push(uuidv4());
     setKeys([...keys]);
@@ -165,6 +182,7 @@ const useArrayField = ({
 
   const arrayFieldApi = {
     add,
+    swap,
     addWithInitialValue,
     reset
   };
@@ -214,6 +232,7 @@ const useArrayField = ({
   return {
     render,
     add,
+    swap,
     addWithInitialValue,
     fields,
     arrayFieldState,

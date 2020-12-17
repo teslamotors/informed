@@ -941,7 +941,10 @@ class FormController extends EventEmitter {
     const t = field.fieldApi.getTouched();
 
     // Clear the old value out
-    if (oldName) {
+    const oldField = this.fieldsByName.get(oldName);
+    // Only clear if we had an old name ( our name changed )
+    // %% the oldField is gone!
+    if (oldName && !oldField) {
       ObjectMap.delete(this.state.values, oldName);
       ObjectMap.delete(this.state.errors, oldName);
       ObjectMap.delete(this.state.touched, oldName);

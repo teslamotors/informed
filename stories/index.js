@@ -64,7 +64,8 @@ import {
   DynamicArrays,
   NestedForm,
   AlternateSyntax,
-  HugeArrayForm
+  HugeArrayForm,
+  Swap
 } from './Arrays';
 
 import {
@@ -173,6 +174,7 @@ storiesOf('Arrays', module)
   // .add('Array Of Scopes', ArrayOfScopes)
   .add('Dynamic Arrays', AlternateSyntax)
   .add('Nested Form', NestedForm)
+  .add('Swap', Swap)
   .add('Huge Array Form', HugeArrayForm);
 // .add('Alternate Syntax', AlternateSyntax);
 

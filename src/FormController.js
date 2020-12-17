@@ -32,7 +32,18 @@ class FormController extends EventEmitter {
     // Key => fieldName - example: "foo.bar[3].baz"
     // Val => fieldObj
     // Why? so the form can control the fields!
-    this.fieldsByName = new Map();
+    this.fieldsByName = {
+      get: name => {
+        let fieldByName;
+        // TODO speed this up maybe
+        this.fieldsById.forEach(value => {
+          if (value && value.field === name) {
+            fieldByName = value;
+          }
+        });
+        return fieldByName;
+      }
+    };
 
     // Map to store whos on the screen
     this.onScreen = {};
@@ -385,12 +396,8 @@ class FormController extends EventEmitter {
    */
   getFormState() {
     debug('Generating form state');
-    // console.log('GENERATING!!');
     return {
       ...this.state,
-      // values: this.getValues(),
-      // errors: this.getErrors(),
-      // touched: this.getAllTouched(),
       pristine: this.pristine(),
       dirty: this.dirty(),
       invalid: this.invalid()
@@ -475,6 +482,7 @@ class FormController extends EventEmitter {
     debug('Getting Field', name);
     const field = this.fieldsByName.get(name);
     if (!field) {
+      // eslint-disable-next-line no-console
       console.warn(`Attempting to get field ${name} but it does not exist`);
       // Prevent app from crashing
       return this.dummyField;
@@ -527,7 +535,7 @@ class FormController extends EventEmitter {
 
   screenValid() {
     // Return false if any of the fields on the screen are invalid
-    const error = Object.entries(this.onScreen).some(([name, field]) =>
+    const error = Object.entries(this.onScreen).some(([, field]) =>
       field.fieldApi.getError()
     );
     return !error;
@@ -742,12 +750,12 @@ class FormController extends EventEmitter {
     ) {
       debug('Already Registered', name);
       this.fieldsById.delete(alreadyRegistered);
-      this.fieldsByName.delete(name);
     } else if (
       //!this.expectedRemovals[magicValue] &&
       alreadyRegistered &&
       (!field.keepState || !field.inMultistep)
     ) {
+      // eslint-disable-next-line no-console
       console.warn(
         'Check to make sure you have not registered two fields with the fieldName',
         name
@@ -761,7 +769,6 @@ class FormController extends EventEmitter {
 
     // Always register the field
     this.fieldsById.set(id, field);
-    this.fieldsByName.set(name, field);
 
     // Always clear out expected removals when a reregistering array field comes in
     debug('clearing expected removal', magicValue);
@@ -834,7 +841,6 @@ class FormController extends EventEmitter {
       // Remove the field completley
       debug('Removing field', name);
       this.fieldsById.delete(id);
-      this.fieldsByName.delete(name);
       // Clean up state only if its not expected removal, otherwise we will just pull it out
       if (!this.expectedRemovals[magicValue]) {
         ObjectMap.delete(this.state.values, name);
@@ -871,23 +877,8 @@ class FormController extends EventEmitter {
   }
 
   update(id, field) {
-    const { field: name } = field;
     debug('Update', id, name, field.fieldState.value);
-    const prevName = this.fieldsById.get(id).field;
-    this.fieldsById.set(id, field);
-    this.fieldsByName.set(name, field);
-    // Only emit change if field name changed
-    if (prevName !== name) {
-      // Also remember to clear removals
-      // Example foo.bar.baz[3].baz >>>> foo.bar.baz[3]
-      const magicValue = name.slice(
-        0,
-        name.lastIndexOf('[') != -1 ? name.lastIndexOf(']') + 1 : name.length
-      );
-      debug('clearing expected removal', magicValue);
-      delete this.expectedRemovals[magicValue];
-      this.emit('change');
-    }
+    this.emit('change');
   }
 }
 

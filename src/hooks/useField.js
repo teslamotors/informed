@@ -201,6 +201,9 @@ function useField(fieldProps = {}, userRef) {
   // Create ref to fieldApi
   const fieldApiRef = useRef();
 
+  // Create ref to fieldObject
+  const fieldObjectRef = useRef();
+
   // If the form Controller was passed in then use that instead
   if (formController) {
     updater = formController.updater;
@@ -567,7 +570,7 @@ function useField(fieldProps = {}, userRef) {
   useLayoutEffect(() => {
     const fullField = formApi.getFullField(fieldRef.current);
     logger('Register', fieldId, fieldRef.current);
-    const fieldObj = {
+    fieldObjectRef.current = {
       field: fullField,
       fieldId,
       fieldApi,
@@ -577,7 +580,7 @@ function useField(fieldProps = {}, userRef) {
       inMultistep,
       shadow
     };
-    updater.register(fieldId, fieldObj);
+    updater.register(fieldId, fieldObjectRef.current);
     return () => {
       const fullField = formApi.getFullField(fieldRef.current);
       logger('Deregister', fieldId, fullField);
@@ -591,27 +594,25 @@ function useField(fieldProps = {}, userRef) {
       const fullField = formApi.getFullField(field);
       logger('Update', field, inMultistep);
 
-      const fieldObj = {
-        field: fullField,
-        fieldId,
-        fieldApi,
-        fieldState,
-        notify,
-        keepState,
-        inMultistep,
-        shadow
-      };
+      fieldObjectRef.current.field = fullField;
+      // fieldObjectRef.current.fieldId = fieldId;
+      // fieldObjectRef.current.fieldApi = fieldApi;
+      // fieldObjectRef.current.fieldState = fieldState;
+      // fieldObjectRef.current.notify = notify;
+      // fieldObjectRef.current.keepState = keepState;
+      // fieldObjectRef.current.inMultistep = inMultistep;
+      // fieldObjectRef.current.shadow = shadow;
 
-      updater.update(fieldId, fieldObj);
+      updater.update(fieldId, fieldObjectRef.current);
     },
     // This is VERYYYY!! Important!
     [
-      validationFunc,
-      validateOnChange,
-      validateOnBlur,
-      onValueChange,
-      field,
-      inMultistep
+      // validationFunc,
+      // validateOnChange,
+      // validateOnBlur,
+      // onValueChange,
+      field
+      // inMultistep
     ]
   );
 

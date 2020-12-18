@@ -1,3 +1,9 @@
+## 3.26.1 (December 18, 2020)
+
+### Fixed
+
+- bug with update function in form controller where it would pull instead of delete on swap
+
 ## 3.26.0 (December 17, 2020)
 
 ### Added

@@ -127,6 +127,77 @@ describe('ArrayField', () => {
     expect(savedApi.getState().values).to.deep.equal({});
   });
 
+  it('should swap correct fields when swap is clicked', () => {
+    let savedApi;
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <ArrayField field="siblings">
+          {({ add, swap }) => (
+            <>
+              <button type="button" onClick={add} id="add">
+                Add
+              </button>
+              <ArrayField.Items>
+                {({ field, index: i }) => (
+                  <>
+                    <label>
+                      Sibling {i}:<Text field={field} />
+                      <button
+                        type="button"
+                        onClick={() => swap(i, i + 1)}
+                        id="swap">
+                        Swap
+                      </button>
+                    </label>
+                  </>
+                )}
+              </ArrayField.Items>
+            </>
+          )}
+        </ArrayField>
+        <button type="submit">Submit</button>
+      </Form>
+    );
+    const add = wrapper.find('#add');
+    add.simulate('click');
+    let inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(1);
+    add.simulate('click');
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(2);
+    add.simulate('click');
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(3);
+    add.simulate('click');
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(4);
+    inputs.at(0).simulate('change', { target: { value: 'Jeff' } });
+    expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff'] });
+    inputs.at(1).simulate('change', { target: { value: 'Joe' } });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: ['Jeff', 'Joe']
+    });
+    inputs.at(2).simulate('change', { target: { value: 'Bob' } });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: ['Jeff', 'Joe', 'Bob']
+    });
+    inputs.at(3).simulate('change', { target: { value: 'Bill' } });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: ['Jeff', 'Joe', 'Bob', 'Bill']
+    });
+    let swap = wrapper.find('#swap').at(0);
+    swap.simulate('click');
+
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(4);
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: ['Joe', 'Jeff', 'Bob', 'Bill']
+    });
+  });
+
   it('should remove correct field when remove is clicked && keepState is passed', () => {
     let savedApi;
     let wrapper;
@@ -220,7 +291,6 @@ describe('ArrayField', () => {
         </Form>
       );
     });
-    const add = wrapper.find('#add');
     let inputs = wrapper.find('input');
     expect(inputs.length).to.equal(6);
     expect(savedApi.getState().values).to.deep.equal({
@@ -590,7 +660,7 @@ describe('ArrayField', () => {
           getApi={api => {
             savedApi = api;
           }}>
-          >{getComponent()}
+          {getComponent()}
         </Form>
       );
 
@@ -642,7 +712,7 @@ describe('ArrayField', () => {
           getApi={api => {
             savedApi = api;
           }}>
-          >{getComponent()}
+          {getComponent()}
         </Form>
       );
 
@@ -664,7 +734,7 @@ describe('ArrayField', () => {
           getApi={api => {
             savedApi = api;
           }}>
-          >{getComponent()}
+          {getComponent()}
         </Form>
       );
 
@@ -766,7 +836,7 @@ describe('ArrayField', () => {
             getApi={api => {
               savedApi = api;
             }}>
-            >{getComponent()}
+            {getComponent()}
           </Form>
         );
       });
@@ -819,7 +889,7 @@ describe('ArrayField', () => {
           getApi={api => {
             savedApi = api;
           }}>
-          >{getComponent()}
+          {getComponent()}
         </Form>
       );
 
@@ -841,7 +911,7 @@ describe('ArrayField', () => {
           getApi={api => {
             savedApi = api;
           }}>
-          >{getComponent()}
+          {getComponent()}
         </Form>
       );
 

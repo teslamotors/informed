@@ -933,7 +933,7 @@ class FormController extends EventEmitter {
   }
 
   update(id, field, oldName) {
-    debug('Update', id, name, field.fieldState.value);
+    debug('Update', id, field.field, oldName, field.fieldState.value);
     // this.change();
     // Update the error touched and values of this field
     const value = field.fieldApi.getValue();
@@ -945,9 +945,10 @@ class FormController extends EventEmitter {
     // Only clear if we had an old name ( our name changed )
     // %% the oldField is gone!
     if (oldName && !oldField) {
-      ObjectMap.delete(this.state.values, oldName);
-      ObjectMap.delete(this.state.errors, oldName);
-      ObjectMap.delete(this.state.touched, oldName);
+      // Setting nothing sets to undefined and does NOT pull out
+      ObjectMap.set(this.state.values, oldName);
+      ObjectMap.set(this.state.errors, oldName);
+      ObjectMap.set(this.state.touched, oldName);
     }
 
     // Set the value

@@ -119,6 +119,8 @@ const useArrayField = ({
   };
 
   const swap = (a, b) => {
+    logger('Swapping', `${field}[${a}] and ${field}[${b}]`);
+
     // Swap the keys
     const newKeys = [...keys];
 

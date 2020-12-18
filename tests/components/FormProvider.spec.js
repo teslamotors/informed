@@ -1,7 +1,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import sinon from 'sinon';
-import Enzyme, { mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { FormProvider, Text, Scope, useForm } from '../../src';
 
 describe('FormProvider', () => {
@@ -20,20 +20,20 @@ describe('FormProvider', () => {
     sandbox.restore();
   });
 
-  const checkFormState = state => {
-    const formState = {
-      values: {},
-      touched: {},
-      errors: {},
-      pristine: true,
-      dirty: false,
-      invalid: false,
-      submits: 0,
-      submitting: false,
-      validating: 0
-    };
-    expect(JSON.stringify(state)).to.deep.equal(JSON.stringify(formState));
-  };
+  // const checkFormState = state => {
+  //   const formState = {
+  //     values: {},
+  //     touched: {},
+  //     errors: {},
+  //     pristine: true,
+  //     dirty: false,
+  //     invalid: false,
+  //     submits: 0,
+  //     submitting: false,
+  //     validating: 0
+  //   };
+  //   expect(JSON.stringify(state)).to.deep.equal(JSON.stringify(formState));
+  // };
 
   const getState = state => {
     const defaultState = {
@@ -95,7 +95,7 @@ describe('FormProvider', () => {
     expect(wrapper.find(Text).length).to.equal(14);
   });
 
-  it.skip('should call onChange function when value changes', () => {
+  it('should call onChange function when value changes', () => {
     const spy = sandbox.spy();
     const wrapper = mount(
       <FormProvider onChange={spy}>
@@ -105,7 +105,7 @@ describe('FormProvider', () => {
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'hello' } });
     expect(spy.called).to.equal(true);
-    expect(spy.args[1][0].values).to.deep.equal({ greeting: 'hello' });
+    expect(spy.args[0][0].values).to.deep.equal({ greeting: 'hello' });
   });
 
   it('should call onValueChange function when value changes', () => {
@@ -412,20 +412,6 @@ describe('FormProvider', () => {
         <Text field="greeting" />
       </FormProvider>
     );
-    expect(api.getState().values).to.deep.equal({ greeting: 'hello' });
-  });
-
-  it.skip('setState should set the formState', () => {
-    let api;
-    const setApi = param => {
-      api = param;
-    };
-    mount(
-      <FormProvider getApi={setApi}>
-        <Text field="greeting" />
-      </FormProvider>
-    );
-    api.setState({ values: { greeting: 'hello' } });
     expect(api.getState().values).to.deep.equal({ greeting: 'hello' });
   });
 

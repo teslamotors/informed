@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { act } from 'react-dom/test-utils';
-import Enzyme, { mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { Form, Text, Scope } from '../../src';
 
 describe('Form', () => {
@@ -79,7 +79,7 @@ describe('Form', () => {
     expect(wrapper.find(Text).length).to.equal(14);
   });
 
-  it.skip('should call onChange function when value changes', () => {
+  it('should call onChange function when value changes', () => {
     const spy = sandbox.spy();
     let wrapper;
     act(() => {
@@ -95,7 +95,7 @@ describe('Form', () => {
     });
 
     expect(spy.called).to.equal(true);
-    expect(spy.args[1][0].values).to.deep.equal({ greeting: 'hello' });
+    expect(spy.args[0][0].values).to.deep.equal({ greeting: 'hello' });
   });
 
   it('does not apply unnecessary props to the form element', () => {
@@ -226,7 +226,7 @@ describe('Form', () => {
     const setApi = param => {
       api = param;
     };
-    const wrapper = mount(
+    mount(
       <Form onReset={spy} getApi={setApi}>
         <Text field="greeting" />
       </Form>
@@ -376,7 +376,7 @@ describe('Form', () => {
     expect(spy.args[0][0]).to.deep.equal({ greeting: 'hello' });
   });
 
-  it.skip('should update validateFields function when the validateFields prop changes', () => {
+  it('should update validateFields function when the validateFields prop changes', () => {
     const dummy1 = sandbox.spy();
     const dummy2 = sandbox.spy();
     const spy = sandbox.spy();
@@ -582,6 +582,7 @@ describe('Form', () => {
     expect(savedApi.getState().values).to.deep.equal({ hello: '1234' });
   });
 
+  // TODO verify this is depricated
   it.skip('setState should set the formState', () => {
     let api;
     const setApi = param => {
@@ -736,8 +737,7 @@ describe('Form', () => {
     );
   });
 
-  // TODO this is a bug and needs to be addressed!
-  it.skip('resetField should reset a field to its initial state via initialValue prop on form', () => {
+  it('resetField should reset a field to its initial state via initialValue prop on form', () => {
     let api;
     const setApi = param => {
       api = param;

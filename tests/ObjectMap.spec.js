@@ -1,3 +1,4 @@
+/* eslint-disable no-sparse-arrays */
 import ObjectMap from '../src/ObjectMap';
 import { expect } from 'chai';
 
@@ -44,7 +45,7 @@ describe('ObjectMap', () => {
       };
       const actual = ObjectMap.get(
         object,
-        "foo['bar'].baz[0].taz.bar[10][3].bar['0'].5"
+        'foo[\'bar\'].baz[0].taz.bar[10][3].bar[\'0\'].5'
       );
       expect(actual).to.equal(expected);
     });
@@ -83,7 +84,7 @@ describe('ObjectMap', () => {
       it('should set a nested value and initialize objects along the way with array object syntax', () => {
         const expected = { foo: { bar: { baz: 3 } } };
         const actual = {};
-        ObjectMap.set(actual, "foo['bar'].baz", 3);
+        ObjectMap.set(actual, 'foo[\'bar\'].baz', 3);
         expect(actual).to.deep.equal(expected);
       });
 
@@ -181,6 +182,18 @@ describe('ObjectMap', () => {
         ObjectMap.delete(actual, 'foo.bar.baz[0]');
         expect(actual).to.deep.equal({ foo: { bar: { baz: [3] } } });
         ObjectMap.delete(actual, 'foo.bar.baz[0]');
+        expect(actual).to.deep.equal({});
+      });
+    });
+
+    describe('pullOut', () => {
+      it('should shift values in array when pulling out', () => {
+        const actual = { foo: { bar: { baz: [1, 2, 3] } } };
+        ObjectMap.pullOut(actual, 'foo.bar.baz[0]');
+        expect(actual).to.deep.equal({ foo: { bar: { baz: [2, 3] } } });
+        ObjectMap.pullOut(actual, 'foo.bar.baz[0]');
+        expect(actual).to.deep.equal({ foo: { bar: { baz: [3] } } });
+        ObjectMap.pullOut(actual, 'foo.bar.baz[0]');
         expect(actual).to.deep.equal({});
       });
     });

@@ -1,3 +1,9 @@
+## 3.29.0 (February 2, 2020)
+
+### Added
+
+- Ability to pass `initialize` function for custom initialization of the initial value
+
 ## 3.28.0 (February 2, 2020)
 
 ### Exposed

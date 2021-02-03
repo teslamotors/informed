@@ -11,30 +11,39 @@ import React, { useRef } from 'react';
 import { Form, useField, useCursorPosition, utils } from 'informed';
 const { informedFormat } = utils;
 
-const FormattedObjectInput = props => {
-  const formatter = [
-    '+',
-    '1',
-    ' ',
-    /\d/,
-    /\d/,
-    /\d/,
-    '-',
-    /\d/,
-    /\d/,
-    /\d/,
-    '-',
-    /\d/,
-    /\d/,
-    /\d/,
-    /\d/
-  ];
+const formatter = [
+  '+',
+  '1',
+  ' ',
+  /\d/,
+  /\d/,
+  /\d/,
+  '-',
+  /\d/,
+  /\d/,
+  /\d/,
+  '-',
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/
+];
 
+const initialize = ({ a, b }) => {
+  return {
+    a: informedFormat(a, formatter).value,
+    b: informedFormat(b, formatter).value
+  };
+};
+
+const FormattedObjectInput = props => {
   const refA = useRef();
   const refB = useRef();
 
-  const { fieldState, fieldApi, render, userProps } = useField(props);
-
+  const { fieldState, fieldApi, render, userProps } = useField({
+    ...props,
+    initialize
+  });
   const { value } = fieldState;
   const { setValue, setTouched } = fieldApi;
   const { onChange, onBlur, ...rest } = userProps;

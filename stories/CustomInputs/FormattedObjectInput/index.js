@@ -6,29 +6,39 @@ import { Form, useField, useCursorPosition, utils } from '../../../src';
 
 const { informedFormat } = utils;
 
-const FormattedObjectInput = props => {
-  const formatter = [
-    '+',
-    '1',
-    ' ',
-    /\d/,
-    /\d/,
-    /\d/,
-    '-',
-    /\d/,
-    /\d/,
-    /\d/,
-    '-',
-    /\d/,
-    /\d/,
-    /\d/,
-    /\d/
-  ];
+const formatter = [
+  '+',
+  '1',
+  ' ',
+  /\d/,
+  /\d/,
+  /\d/,
+  '-',
+  /\d/,
+  /\d/,
+  /\d/,
+  '-',
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/
+];
 
+const initialize = ({ a, b }) => {
+  return {
+    a: informedFormat(a, formatter).value,
+    b: informedFormat(b, formatter).value
+  };
+};
+
+const FormattedObjectInput = props => {
   const refA = useRef();
   const refB = useRef();
 
-  const { fieldState, fieldApi, render, userProps } = useField(props);
+  const { fieldState, fieldApi, render, userProps } = useField({
+    ...props,
+    initialize
+  });
 
   const { value } = fieldState;
   const { setValue, setTouched } = fieldApi;
@@ -108,7 +118,13 @@ const Example = () => (
         <React.Fragment>
           <label>
             Double Phone
-            <FormattedObjectInput field="doublePhone" />
+            <FormattedObjectInput
+              field="doublePhone"
+              initialValue={{
+                a: '1231231234',
+                b: '4324324321'
+              }}
+            />
           </label>
           <button type="submit">Submit</button>
           <label>Values:</label>

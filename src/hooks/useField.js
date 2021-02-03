@@ -11,8 +11,12 @@ const logger = Debug('informed:useField' + '\t');
 
 // localStorage.debug = 'informed:.*' << HOW to enable debuging
 
-const initializeValue = (value, mask, formatter, parser) => {
+const initializeValue = (value, mask, formatter, parser, initialize) => {
   if (value != null) {
+    // Call users initialize if it was passed
+    if (initialize) {
+      return initialize(value);
+    }
     // Call mask if it was passed
     if (mask) {
       return mask(value);
@@ -182,6 +186,7 @@ function useField(fieldProps = {}, userRef) {
     relevant: userRelevant,
     required,
     keepStateIfRelevant,
+    initialize,
     ...userProps
   } = fieldProps;
 
@@ -245,7 +250,7 @@ function useField(fieldProps = {}, userRef) {
 
   // Initialize state
   const [value, setVal, getTheVal] = useStateWithGetter(
-    initializeValue(initVal, mask, formatter, parser)
+    initializeValue(initVal, mask, formatter, parser, initialize)
   );
 
   const [error, setErr, getErr] = useStateWithGetter(
@@ -493,7 +498,8 @@ function useField(fieldProps = {}, userRef) {
       initialValueRef.current || updater.getInitialValue(fieldRef.current),
       mask,
       formatter,
-      parser
+      parser,
+      initialize
     );
     // TODO support numbers
     setValue(initVal, null, { initial: true, preventUpdate });

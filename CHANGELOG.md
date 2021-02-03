@@ -1,3 +1,9 @@
+## 3.28.0 (February 2, 2020)
+
+### Exposed
+
+- Utils functions that can be used by end users
+
 ## 3.27.0 (December 18, 2020)
 
 ### Fixed

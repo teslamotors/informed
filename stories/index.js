@@ -87,6 +87,8 @@ import {
 import ConditionalSchema from './Schema/ConditionalSchema';
 import HugeSchema from './Schema/HugeSchema';
 import FormatDependent from './Form/FormatDependent';
+import FormattedObjectInput from './CustomInputs/FormattedObjectInput';
+import ObjectInput from './CustomInputs/ObjectInput';
 
 addDecorator(StoryWrapper);
 
@@ -167,7 +169,10 @@ storiesOf('Inputs', module)
   .add('Multi Select Input', MultiSelectInput)
   .add('Number Input', NumberInput);
 
-storiesOf('CustomInputs', module).add('Creating Custom Inputs', CustomInputs);
+storiesOf('CustomInputs', module)
+  .add('Creating Custom Inputs', CustomInputs)
+  .add('Creating Object Inputs', ObjectInput)
+  .add('Creating Formatted Object Inputs', FormattedObjectInput);
 
 storiesOf('Arrays', module)
   // .add('Array Of Fields', ArrayOfFields)

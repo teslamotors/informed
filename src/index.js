@@ -28,6 +28,7 @@ import useMultistepApi from './hooks/useMultistepApi';
 import useMultistepState from './hooks/useMultistepState';
 import useArrayFieldApi from './hooks/useArrayFieldApi';
 import useArrayFieldItemApi from './hooks/useArrayFieldItemApi';
+import useCursorPosition from './hooks/useCursorPosition';
 
 import Text from './components/form-fields/Text';
 import Radio from './components/form-fields/Radio';
@@ -43,6 +44,8 @@ import { BasicRadioGroup } from './components/form-fields/RadioGroup';
 import { BasicTextArea } from './components/form-fields/TextArea';
 import { BasicSelect } from './components/form-fields/Select';
 import { BasicCheckbox } from './components/form-fields/Checkbox';
+
+import * as utils from './utils';
 
 const Input = Text;
 
@@ -65,6 +68,7 @@ export {
   useMultistepApi,
   useArrayFieldApi,
   useArrayFieldItemApi,
+  useCursorPosition,
   Text,
   Input,
   Radio,
@@ -88,5 +92,6 @@ export {
   FormField,
   SchemaFields,
   FormFields,
-  FormComponents
+  FormComponents,
+  utils
 };

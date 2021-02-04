@@ -65,8 +65,13 @@ const FormattedObjectInput = props => {
       setCursorA(e.target.selectionStart);
     }
 
+    // Format the value
     const res = informedFormat(val, formatter);
+
+    // Set the curosor offset
     setCursorOffsetA(res.offset);
+
+    // update the "a" value
     newVal.a = res.value;
 
     setValue(newVal);
@@ -82,8 +87,13 @@ const FormattedObjectInput = props => {
       setCursorB(e.target.selectionStart);
     }
 
+    // Format the value
     const res = informedFormat(val, formatter);
+
+    // Set the curosor offset
     setCursorOffsetB(res.offset);
+
+    // update the "b" value
     newVal.b = res.value;
 
     setValue(newVal);

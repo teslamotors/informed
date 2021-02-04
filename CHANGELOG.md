@@ -1,3 +1,13 @@
+## 3.29.2 (February 4, 2020)
+
+### Fixed
+
+- Issue where carrot pos would be in the wrong place when formatting
+
+### Updated
+
+- `useField` hook to use the `useCarrotPosition` hook ( removed duplicate code )
+
 ## 3.29.1 (February 4, 2020)
 
 ### Added

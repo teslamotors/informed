@@ -32,7 +32,13 @@ const FormatParse = () => (
     <div>
       <label>
         Phone Number:
-        <Text field="phone" formatter={formatter} parser={parser} maintainCursor initialValue="1231231234"/>
+        <Text
+          field="phone"
+          formatter={formatter}
+          parser={parser}
+          maintainCursor
+          initialValue="1231231234"
+        />
       </label>
       <button type="submit">Submit</button>
       <FormState />

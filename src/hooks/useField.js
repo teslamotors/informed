@@ -7,6 +7,7 @@ import { validateYupField, uuidv4, informedFormat } from '../utils';
 import Debug from '../debug';
 import useLayoutEffect from './useIsomorphicLayoutEffect';
 import ObjectMap from '../ObjectMap';
+import useCursorPosition from './useCursorPosition';
 const logger = Debug('informed:useField' + '\t');
 
 // localStorage.debug = 'informed:.*' << HOW to enable debuging
@@ -254,11 +255,7 @@ function useField(fieldProps = {}, userRef) {
     validateOnMount ? validate(value) : undefined
   );
   const [touched, setTouch, getTouch] = useStateWithGetter(initTouched);
-  /* eslint-disable no-unused-vars */
-  const [cursor, setCursor, getCursor] = useStateWithGetter(0);
-  const [cursorOffset, setCursorOffset, getCursorOffset] = useStateWithGetter(
-    0
-  );
+
   const [maskedValue, setMaskedValue] = useState(() =>
     initializeMask(value, format, parse, formatter, parser)
   );
@@ -269,6 +266,18 @@ function useField(fieldProps = {}, userRef) {
   const prevFieldRef = useRef();
   initialValueRef.current = initialValue;
   fieldRef.current = field;
+
+  // Create ref to input
+  const internalRef = useRef(null);
+
+  const ref = React.useMemo(() => userRef || internalRef, []);
+
+  // Setup cursor position tracking
+  const { getCursor, setCursor, setCursorOffset } = useCursorPosition({
+    value: value,
+    inputRef: ref,
+    maintainCursor: !!maintainCursor
+  });
 
   // Default relevant function
   const relevantFunc = () => true;
@@ -578,10 +587,6 @@ function useField(fieldProps = {}, userRef) {
 
   logger('Render', formApi.getFullField(field), fieldState);
 
-  const internalRef = useRef(null);
-
-  const ref = React.useMemo(() => userRef || internalRef, []);
-
   // We want to register and deregister this field
   useLayoutEffect(() => {
     const fullField = formApi.getFullField(fieldRef.current);
@@ -623,13 +628,13 @@ function useField(fieldProps = {}, userRef) {
   );
 
   // Maintain cursor position
-  useLayoutEffect(
-    () => {
-      if (maintainCursor && ref.current != null && getCursor())
-        ref.current.selectionEnd = getCursor() + getCursorOffset();
-    },
-    [value]
-  );
+  // useLayoutEffect(
+  //   () => {
+  //     if (maintainCursor && ref.current != null && getCursor())
+  //       ref.current.selectionEnd = getCursor() + getCursorOffset();
+  //   },
+  //   [value]
+  // );
 
   // for debugging
   useLayoutEffect(() => {

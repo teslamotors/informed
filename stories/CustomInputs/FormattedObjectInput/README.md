@@ -121,5 +121,18 @@ const FormattedObjectInput = props => {
     <FormattedObjectInput field="doublePhone" />
   </label>
   <button type="submit">Submit</button>
+  <button type="button" onClick={() => formApi.reset()}>
+    Reset
+  </button>
+  <button
+    type="button"
+    onClick={() =>
+      formApi.setValue('doublePhone', {
+        a: '4324324321',
+        b: '1231231234'
+      })
+    }>
+    Set Value
+  </button>
 </Form>;
 ```

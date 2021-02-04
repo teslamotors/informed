@@ -70,7 +70,7 @@ const generateValidationFunction = (
 };
 
 const generateOnChange = ({ fieldType, setValue, onChange, multiple, ref }) => {
-  let setter = val => setValue(val);
+  let setter = e => setValue(e);
 
   if (
     fieldType === 'text' ||
@@ -99,11 +99,8 @@ const generateOnChange = ({ fieldType, setValue, onChange, multiple, ref }) => {
     };
   }
 
-  return val => {
-    setter(val);
-    if (onChange) {
-      onChange(val);
-    }
+  return e => {
+    setter(e);
   };
 };
 
@@ -346,8 +343,17 @@ function useField(fieldProps = {}, userRef) {
   };
 
   // ---- Define set value ----
-  const setValue = (val, e, options = {}) => {
+  const setValue = (v, e, options = {}) => {
+    let val = v;
+
     logger(`Setting ${field} to ${val}`);
+
+    // Set value may have been called externally
+    // NOT from an inputs change event ( onChange )
+    // Therefore, as a precausion, we call the initialize function to format it just in case
+    if (initialize) {
+      val = initialize(val);
+    }
 
     // Get the most up to date options
     const formOptions = formApi.getOptions();

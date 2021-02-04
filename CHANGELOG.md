@@ -1,3 +1,9 @@
+## 3.29.1 (February 4, 2020)
+
+### Added
+
+- Ability to call `setValue` function for custom formattedObject Inputs
+
 ## 3.29.0 (February 2, 2020)
 
 ### Added

@@ -89,6 +89,7 @@ import HugeSchema from './Schema/HugeSchema';
 import FormatDependent from './Form/FormatDependent';
 import FormattedObjectInput from './CustomInputs/FormattedObjectInput';
 import ObjectInput from './CustomInputs/ObjectInput';
+import NumberFormatter from './Formatting/NumberFormatter';
 
 addDecorator(StoryWrapper);
 
@@ -212,7 +213,8 @@ storiesOf('Debugging', module).add('Form State', FormState);
 
 storiesOf('Formatting', module)
   .add('Mask', Mask)
-  .add('Formatter', Formatter);
+  .add('Formatter', Formatter)
+  .add('Number Formatter', NumberFormatter);
 // .add('Mask With Cursor', MaskWithCursor)
 // .add('Mask With Cursor Offset', MaskWithCursorOffset)
 // .add('Format and Parse', FormatParse);

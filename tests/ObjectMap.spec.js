@@ -198,6 +198,23 @@ describe('ObjectMap', () => {
       });
     });
 
+    describe('has', () => {
+      it('should return true for values in an object', () => {
+	const object = { foo: { bar: { baz: [1, 2, 3] } } };
+
+	expect(ObjectMap.has(object, 'foo')).to.equal(true);
+	expect(ObjectMap.has(object, 'foo.bar')).to.equal(true);
+	expect(ObjectMap.has(object, 'foo.bar.baz')).to.equal(true);
+	expect(ObjectMap.has(object, 'foo.bar.baz[0]')).to.equal(true);
+      });
+
+      it('should return false for values not in an object', () => {
+	const object = { foo: {} };
+
+	expect(ObjectMap.has(object, 'foo.bar')).to.equal(false);
+      });
+    });
+
     it('should set value in very nested obejct', () => {
       const expected = 3;
       const object = {

@@ -47,7 +47,7 @@ const ldhas = (obj, path) => {
   const key = pathKey(path);
   // If we have parent path then get the object at that location
   // .. otherwise its the root object
-  const parentObj = pPath ? get(obj, pPath) : obj;
+  const parentObj = pPath ? ldget(obj, pPath) : obj;
   // If its [3] turn key into 3
   return !!(
     parentObj &&

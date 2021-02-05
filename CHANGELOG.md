@@ -1,3 +1,9 @@
+## 3.29.3 (February 5, 2020)
+
+### Fixed
+
+- Issue where ObjectMap `has` would reference wrong get funciton fixes #327
+
 ## 3.29.2 (February 4, 2020)
 
 ### Fixed

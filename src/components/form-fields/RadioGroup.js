@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { GroupContext } from '../../Context';
+import Radio from './Radio';
 
 import asField from '../../HOC/asField';
 
@@ -16,9 +17,17 @@ class RadioGroup extends Component {
   }
 
   render() {
+    const { options, children } = this.props;
+
     return (
       <GroupContext.Provider value={this.groupContext}>
-        {this.props.children}
+        {options
+          ? options.map(option => (
+              <label key={option.value}>
+                {option.label} <Radio value={option.value} />
+              </label>
+            ))
+          : children}
       </GroupContext.Provider>
     );
   }

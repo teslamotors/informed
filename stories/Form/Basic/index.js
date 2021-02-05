@@ -17,7 +17,7 @@ const Basic = () => (
           <button type="submit">Submit</button>
         </div>
         <div style={{ flex: 2, minWidth: '300px' }}>
-          <FormState />
+          <FormState values />
         </div>
       </div>
     </Form>

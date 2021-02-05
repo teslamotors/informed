@@ -23,8 +23,7 @@ describe('ArrayField', () => {
               </button>
               {fields.map(({ field, key, remove }, i) => (
                 <label key={key}>
-                  Sibling {i}:
-                  <Text field={field} />
+                  Sibling {i}:<Text field={field} />
                   <button type="button" onClick={remove}>
                     Remove
                   </button>
@@ -63,8 +62,7 @@ describe('ArrayField', () => {
               </button>
               {fields.map(({ field, key, remove }, i) => (
                 <label key={key}>
-                  Sibling {i}:
-                  <Text field={field} />
+                  Sibling {i}:<Text field={field} />
                   <button type="button" onClick={remove} id="remove">
                     Remove
                   </button>
@@ -92,21 +90,31 @@ describe('ArrayField', () => {
     inputs.at(0).simulate('change', { target: { value: 'Jeff' } });
     expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff'] });
     inputs.at(1).simulate('change', { target: { value: 'Joe' } });
-    expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff', 'Joe'] });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: ['Jeff', 'Joe']
+    });
     inputs.at(2).simulate('change', { target: { value: 'Bob' } });
-    expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff', 'Joe', 'Bob'] });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: ['Jeff', 'Joe', 'Bob']
+    });
     inputs.at(3).simulate('change', { target: { value: 'Bill' } });
-    expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff', 'Joe', 'Bob', 'Bill'] });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: ['Jeff', 'Joe', 'Bob', 'Bill']
+    });
     let remove = wrapper.find('#remove').at(1);
     remove.simulate('click');
     inputs = wrapper.find('input');
     expect(inputs.length).to.equal(3);
-    expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff', 'Bob', 'Bill'] });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: ['Jeff', 'Bob', 'Bill']
+    });
     remove = wrapper.find('#remove').at(0);
     remove.simulate('click');
     inputs = wrapper.find('input');
     expect(inputs.length).to.equal(2);
-    expect(savedApi.getState().values).to.deep.equal({ siblings: ['Bob', 'Bill'] });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: ['Bob', 'Bill']
+    });
     remove = wrapper.find('#remove').at(1);
     remove.simulate('click');
     inputs = wrapper.find('input');
@@ -119,11 +127,81 @@ describe('ArrayField', () => {
     expect(savedApi.getState().values).to.deep.equal({});
   });
 
+  it('should swap correct fields when swap is clicked', () => {
+    let savedApi;
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <ArrayField field="siblings">
+          {({ add, swap }) => (
+            <>
+              <button type="button" onClick={add} id="add">
+                Add
+              </button>
+              <ArrayField.Items>
+                {({ field, index: i }) => (
+                  <>
+                    <label>
+                      Sibling {i}:<Text field={field} />
+                      <button
+                        type="button"
+                        onClick={() => swap(i, i + 1)}
+                        id="swap">
+                        Swap
+                      </button>
+                    </label>
+                  </>
+                )}
+              </ArrayField.Items>
+            </>
+          )}
+        </ArrayField>
+        <button type="submit">Submit</button>
+      </Form>
+    );
+    const add = wrapper.find('#add');
+    add.simulate('click');
+    let inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(1);
+    add.simulate('click');
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(2);
+    add.simulate('click');
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(3);
+    add.simulate('click');
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(4);
+    inputs.at(0).simulate('change', { target: { value: 'Jeff' } });
+    expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff'] });
+    inputs.at(1).simulate('change', { target: { value: 'Joe' } });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: ['Jeff', 'Joe']
+    });
+    inputs.at(2).simulate('change', { target: { value: 'Bob' } });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: ['Jeff', 'Joe', 'Bob']
+    });
+    inputs.at(3).simulate('change', { target: { value: 'Bill' } });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: ['Jeff', 'Joe', 'Bob', 'Bill']
+    });
+    let swap = wrapper.find('#swap').at(0);
+    swap.simulate('click');
+
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(4);
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: ['Joe', 'Jeff', 'Bob', 'Bill']
+    });
+  });
+
   it('should remove correct field when remove is clicked && keepState is passed', () => {
     let savedApi;
     let wrapper;
     act(() => {
-
       wrapper = mount(
         <Form
           initialValues={{
@@ -140,8 +218,7 @@ describe('ArrayField', () => {
                 </button>
                 {fields.map(({ field, key, remove }, i) => (
                   <label key={key}>
-                    Sibling {i}:
-                    <Text field={field} keepState />
+                    Sibling {i}:<Text field={field} keepState />
                     <button type="button" onClick={remove} id="remove">
                       Remove
                     </button>
@@ -158,16 +235,22 @@ describe('ArrayField', () => {
     const add = wrapper.find('#add');
     let inputs = wrapper.find('input');
     expect(inputs.length).to.equal(3);
-    expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff', 'Joe', 'Bob'] });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: ['Jeff', 'Joe', 'Bob']
+    });
     let remove = wrapper.find('#remove').at(1);
     remove.simulate('click');
     inputs = wrapper.find('input');
     expect(inputs.length).to.equal(2);
-    expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff', 'Bob'] });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: ['Jeff', 'Bob']
+    });
     add.simulate('click');
     inputs = wrapper.find('input');
     expect(inputs.length).to.equal(3);
-    expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff', 'Bob'] });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: ['Jeff', 'Bob']
+    });
   });
 
   it('should remove correct field when remove is clicked && keepState is passed', () => {
@@ -177,7 +260,11 @@ describe('ArrayField', () => {
       wrapper = mount(
         <Form
           initialValues={{
-            siblings: [{ name: 'Jeff', age: '25' }, { name: 'Joe', age: '45' }, { name: 'Bob', age: '50' }]
+            siblings: [
+              { name: 'Jeff', age: '25' },
+              { name: 'Joe', age: '45' },
+              { name: 'Bob', age: '50' }
+            ]
           }}
           getApi={api => {
             savedApi = api;
@@ -190,8 +277,7 @@ describe('ArrayField', () => {
                 </button>
                 {fields.map(({ field, key, remove }, i) => (
                   <label key={key}>
-                    Sibling {i}:
-                    <Text field={`${field}.name`} keepState />
+                    Sibling {i}:<Text field={`${field}.name`} keepState />
                     <Text field={`${field}.age`} keepState />
                     <button type="button" onClick={remove} id="remove">
                       Remove
@@ -205,11 +291,14 @@ describe('ArrayField', () => {
         </Form>
       );
     });
-    const add = wrapper.find('#add');
     let inputs = wrapper.find('input');
     expect(inputs.length).to.equal(6);
     expect(savedApi.getState().values).to.deep.equal({
-      siblings: [{ name: 'Jeff', age: '25' }, { name: 'Joe', age: '45' }, { name: 'Bob', age: '50' }]
+      siblings: [
+        { name: 'Jeff', age: '25' },
+        { name: 'Joe', age: '45' },
+        { name: 'Bob', age: '50' }
+      ]
     });
     let remove = wrapper.find('#remove').at(1);
     remove.simulate('click');
@@ -229,7 +318,6 @@ describe('ArrayField', () => {
     let savedApi;
     let wrapper;
     act(() => {
-
       wrapper = mount(
         <Form
           initialValues={{
@@ -246,8 +334,7 @@ describe('ArrayField', () => {
                 </button>
                 {fields.map(({ field, key, remove }, i) => (
                   <label key={key}>
-                    Sibling {i}:
-                    <Text field={field} keepState />
+                    Sibling {i}:<Text field={field} keepState />
                     <button type="button" onClick={remove} id="remove">
                       Remove
                     </button>
@@ -263,23 +350,28 @@ describe('ArrayField', () => {
     const add = wrapper.find('#add');
     let inputs = wrapper.find('input');
     expect(inputs.length).to.equal(3);
-    expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff', 'Joe', 'Bob'] });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: ['Jeff', 'Joe', 'Bob']
+    });
     let remove = wrapper.find('#remove').at(1);
     remove.simulate('click');
     inputs = wrapper.find('input');
     expect(inputs.length).to.equal(2);
-    expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff', 'Bob'] });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: ['Jeff', 'Bob']
+    });
     add.simulate('click');
     inputs = wrapper.find('input');
     expect(inputs.length).to.equal(3);
-    expect(savedApi.getState().values).to.deep.equal({ siblings: ['Jeff', 'Bob'] });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: ['Jeff', 'Bob']
+    });
   });
 
   it('should remove correct fields << plural when remove is clicked && keepState is passed', () => {
     let savedApi;
     let wrapper;
     act(() => {
-
       wrapper = mount(
         <Form
           initialValues={{
@@ -296,8 +388,7 @@ describe('ArrayField', () => {
                 </button>
                 {fields.map(({ field, key, remove }, i) => (
                   <label key={key}>
-                    Sibling {i}:
-                    <Text field={`${field}.foo`} keepState />
+                    Sibling {i}:<Text field={`${field}.foo`} keepState />
                     <Text field={`${field}.bar`} keepState />
                     <button type="button" onClick={remove} id="remove">
                       Remove
@@ -314,16 +405,22 @@ describe('ArrayField', () => {
     const add = wrapper.find('#add');
     let inputs = wrapper.find('input');
     expect(inputs.length).to.equal(4);
-    expect(savedApi.getState().values).to.deep.equal({ siblings: [{ foo: 'Jeff', bar: 'Joe' }, { foo: 'Bob', bar: 'Bill' }] });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: [{ foo: 'Jeff', bar: 'Joe' }, { foo: 'Bob', bar: 'Bill' }]
+    });
     let remove = wrapper.find('#remove').at(1);
     remove.simulate('click');
     inputs = wrapper.find('input');
     expect(inputs.length).to.equal(2);
-    expect(savedApi.getState().values).to.deep.equal({ siblings: [{ foo: 'Jeff', bar: 'Joe' }] });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: [{ foo: 'Jeff', bar: 'Joe' }]
+    });
     add.simulate('click');
     inputs = wrapper.find('input');
     expect(inputs.length).to.equal(4);
-    expect(savedApi.getState().values).to.deep.equal({ siblings: [{ foo: 'Jeff', bar: 'Joe' }] });
+    expect(savedApi.getState().values).to.deep.equal({
+      siblings: [{ foo: 'Jeff', bar: 'Joe' }]
+    });
   });
 
   it('should update value when user types', () => {
@@ -341,8 +438,7 @@ describe('ArrayField', () => {
               </button>
               {fields.map(({ field, key, remove }, i) => (
                 <label htmlFor={i} key={key}>
-                  Sibling {i}:
-                  <Text field={field} id={i} />
+                  Sibling {i}:<Text field={field} id={i} />
                   <button type="button" onClick={remove}>
                     Remove
                   </button>
@@ -371,7 +467,7 @@ describe('ArrayField', () => {
           getApi={api => {
             savedApi = api;
           }}>
-          {show ?
+          {show ? (
             <ArrayField field="siblings" keepState>
               {({ add, fields }) => (
                 <>
@@ -380,8 +476,7 @@ describe('ArrayField', () => {
                   </button>
                   {fields.map(({ field, key, remove }, i) => (
                     <label htmlFor={i} key={key}>
-                      Sibling {i}:
-                      <Text field={field} id={i} keepState />
+                      Sibling {i}:<Text field={field} id={i} keepState />
                       <button type="button" onClick={remove}>
                         Remove
                       </button>
@@ -389,17 +484,22 @@ describe('ArrayField', () => {
                   ))}
                 </>
               )}
-            </ArrayField> : null
-          }
+            </ArrayField>
+          ) : null}
           <button type="submit">Submit</button>
-          <button type="button" id="showhide" onClick={() => { setShow((prev) => !prev); }}>Submit</button>
+          <button
+            type="button"
+            id="showhide"
+            onClick={() => {
+              setShow(prev => !prev);
+            }}>
+            Submit
+          </button>
         </Form>
       );
     };
 
-    const wrapper = mount(
-      <TestComp />
-    );
+    const wrapper = mount(<TestComp />);
 
     const add = wrapper.find('#add');
     add.simulate('click');
@@ -418,7 +518,6 @@ describe('ArrayField', () => {
   });
 
   it('should validate on submit with array level validation', () => {
-
     const validate = (values, length) => {
       if (length < 3) {
         return 'You must have at least three friends.';
@@ -426,7 +525,9 @@ describe('ArrayField', () => {
     };
 
     const validateLength = value => {
-      return !value || value.length < 5 ? 'Field must be at least five characters' : undefined;
+      return !value || value.length < 5
+        ? 'Field must be at least five characters'
+        : undefined;
     };
 
     let savedApi;
@@ -443,8 +544,7 @@ describe('ArrayField', () => {
               </button>
               {fields.map(({ field, key, remove }, i) => (
                 <label key={key}>
-                  Sibling {i}:
-                  <Text field={field} validate={validateLength} />
+                  Sibling {i}:<Text field={field} validate={validateLength} />
                   <button type="button" onClick={remove}>
                     Remove
                   </button>
@@ -459,7 +559,9 @@ describe('ArrayField', () => {
 
     const button = wrapper.find('button').at(1);
     button.simulate('submit');
-    expect(savedApi.getState().errors).to.eql({ siblings: 'You must have at least three friends.' });
+    expect(savedApi.getState().errors).to.eql({
+      siblings: 'You must have at least three friends.'
+    });
     const add = wrapper.find('#add');
     add.simulate('click');
     add.simulate('click');
@@ -470,7 +572,7 @@ describe('ArrayField', () => {
     inputs.at(2).simulate('change', { target: { value: 'asdh' } });
     button.simulate('submit');
     expect(savedApi.getState().errors).to.eql({
-      'siblings': [
+      siblings: [
         'Field must be at least five characters',
         'Field must be at least five characters',
         'Field must be at least five characters'
@@ -481,7 +583,6 @@ describe('ArrayField', () => {
     inputs.at(2).simulate('change', { target: { value: 'asdhj' } });
     button.simulate('submit');
     expect(savedApi.getState().errors).to.eql({});
-
   });
 
   describe('More ArrayField tests', () => {
@@ -500,15 +601,23 @@ describe('ArrayField', () => {
                 <button onClick={() => add()} type="button" id="add">
                   Add Sibling
                 </button>
-                <button onClick={() => addWithInitialValue({ name: 'test' })} type="button" id="add-preset">
+                <button
+                  onClick={() => addWithInitialValue({ name: 'test' })}
+                  type="button"
+                  id="add-preset">
                   Add-preset
                 </button>
                 {fields.map(({ field, key, remove, initialValue }) => (
                   <label key={key}>
                     <h5>{field}</h5>
-                    <Text field={`${field}.name`} initialValue={initialValue && initialValue.name} />
+                    <Text
+                      field={`${field}.name`}
+                      initialValue={initialValue && initialValue.name}
+                    />
                     <Text field={`${field}.age`} />
-                    <button className="remove" onClick={remove}>Remove</button>
+                    <button className="remove" onClick={remove}>
+                      Remove
+                    </button>
                   </label>
                 ))}
               </React.Fragment>
@@ -521,11 +630,7 @@ describe('ArrayField', () => {
 
     it('should add unigue fields when add is clicked', () => {
       const wrapper = mount(
-        <Form
-          initialValues={{ siblings: [] }}
-        >
-          {getComponent()}
-        </Form>
+        <Form initialValues={{ siblings: [] }}>{getComponent()}</Form>
       );
 
       let inputs = wrapper.find('input');
@@ -549,11 +654,12 @@ describe('ArrayField', () => {
 
       const wrapper = mount(
         <Form
-          initialValues={{ siblings: [{ name: 'test1' }, { name: 'test2' }, { name: 'test3' }] }}
+          initialValues={{
+            siblings: [{ name: 'test1' }, { name: 'test2' }, { name: 'test3' }]
+          }}
           getApi={api => {
             savedApi = api;
           }}>
-          >
           {getComponent()}
         </Form>
       );
@@ -566,13 +672,17 @@ describe('ArrayField', () => {
       remove.simulate('click');
       inputs = wrapper.find('input');
       expect(inputs.length).to.equal(4);
-      expect(savedApi.getState().values).to.deep.equal({ siblings: [{ name: 'Jeff' }, { name: 'test3' }] });
+      expect(savedApi.getState().values).to.deep.equal({
+        siblings: [{ name: 'Jeff' }, { name: 'test3' }]
+      });
 
       remove = wrapper.find('.remove').at(0);
       remove.simulate('click');
       inputs = wrapper.find('input');
       expect(inputs.length).to.equal(2);
-      expect(savedApi.getState().values).to.deep.equal({ siblings: [{ name: 'test3' }] });
+      expect(savedApi.getState().values).to.deep.equal({
+        siblings: [{ name: 'test3' }]
+      });
 
       remove = wrapper.find('.remove').at(0);
       remove.simulate('click');
@@ -584,9 +694,13 @@ describe('ArrayField', () => {
       add.simulate('click');
       inputs = wrapper.find('input');
       expect(inputs.length).to.equal(2);
-      expect(savedApi.getState().values).to.deep.equal({ siblings: [{ name: 'test' }] });
+      expect(savedApi.getState().values).to.deep.equal({
+        siblings: [{ name: 'test' }]
+      });
       inputs.at(0).simulate('change', { target: { value: 'test 2' } });
-      expect(savedApi.getState().values).to.deep.equal({ siblings: [{ name: 'test 2' }] });
+      expect(savedApi.getState().values).to.deep.equal({
+        siblings: [{ name: 'test 2' }]
+      });
     });
 
     it('should update value when user types', () => {
@@ -598,7 +712,6 @@ describe('ArrayField', () => {
           getApi={api => {
             savedApi = api;
           }}>
-          >
           {getComponent()}
         </Form>
       );
@@ -607,7 +720,9 @@ describe('ArrayField', () => {
       add.simulate('click');
       const inputs = wrapper.find('input');
       inputs.at(0).simulate('change', { target: { value: 'Jeff' } });
-      expect(savedApi.getState().values).to.deep.equal({ siblings: [{ name: 'Jeff' }] });
+      expect(savedApi.getState().values).to.deep.equal({
+        siblings: [{ name: 'Jeff' }]
+      });
     });
 
     it('should update value when set via formApi', () => {
@@ -619,7 +734,6 @@ describe('ArrayField', () => {
           getApi={api => {
             savedApi = api;
           }}>
-          >
           {getComponent()}
         </Form>
       );
@@ -628,13 +742,16 @@ describe('ArrayField', () => {
       add.simulate('click');
       const inputs = wrapper.find('input');
       inputs.at(0).simulate('change', { target: { value: 'Jeff' } });
-      expect(savedApi.getState().values).to.deep.equal({ siblings: [{ name: 'Jeff' }] });
+      expect(savedApi.getState().values).to.deep.equal({
+        siblings: [{ name: 'Jeff' }]
+      });
 
       savedApi.setValue('siblings[0].name', 'Test');
 
-      expect(savedApi.getState().values).to.deep.equal({ siblings: [{ name: 'Test' }] });
+      expect(savedApi.getState().values).to.deep.equal({
+        siblings: [{ name: 'Test' }]
+      });
     });
-
   });
 
   describe('Scoped ArrayField', () => {
@@ -653,15 +770,23 @@ describe('ArrayField', () => {
                 <button onClick={() => add()} type="button" id="add">
                   Add Sibling
                 </button>
-                <button onClick={() => addWithInitialValue({ name: 'test' })} type="button" id="add-preset">
+                <button
+                  onClick={() => addWithInitialValue({ name: 'test' })}
+                  type="button"
+                  id="add-preset">
                   Add-preset
                 </button>
                 {fields.map(({ field, key, remove, initialValue }) => (
                   <label key={key}>
                     <h5>{field}</h5>
-                    <Text field={`${field}.name`} initialValue={initialValue && initialValue.name} />
+                    <Text
+                      field={`${field}.name`}
+                      initialValue={initialValue && initialValue.name}
+                    />
                     <Text field={`${field}.age`} />
-                    <button className="remove" onClick={remove}>Remove</button>
+                    <button className="remove" onClick={remove}>
+                      Remove
+                    </button>
                   </label>
                 ))}
               </React.Fragment>
@@ -674,11 +799,7 @@ describe('ArrayField', () => {
 
     it('should add unigue fields when add is clicked', () => {
       const wrapper = mount(
-        <Form
-          initialValues={{ foo: { siblings: [] } }}
-        >
-          {getComponent()}
-        </Form>
+        <Form initialValues={{ foo: { siblings: [] } }}>{getComponent()}</Form>
       );
 
       let inputs = wrapper.find('input');
@@ -701,14 +822,20 @@ describe('ArrayField', () => {
       let savedApi;
       let wrapper;
       act(() => {
-
         wrapper = mount(
           <Form
-            initialValues={{ foo: { siblings: [{ name: 'test1' }, { name: 'test2' }, { name: 'test3' }] } }}
+            initialValues={{
+              foo: {
+                siblings: [
+                  { name: 'test1' },
+                  { name: 'test2' },
+                  { name: 'test3' }
+                ]
+              }
+            }}
             getApi={api => {
               savedApi = api;
             }}>
-            >
             {getComponent()}
           </Form>
         );
@@ -722,13 +849,17 @@ describe('ArrayField', () => {
       remove.simulate('click');
       inputs = wrapper.find('input');
       expect(inputs.length).to.equal(4);
-      expect(savedApi.getState().values).to.deep.equal({ foo: { siblings: [{ name: 'Jeff' }, { name: 'test3' }] } });
+      expect(savedApi.getState().values).to.deep.equal({
+        foo: { siblings: [{ name: 'Jeff' }, { name: 'test3' }] }
+      });
 
       remove = wrapper.find('.remove').at(0);
       remove.simulate('click');
       inputs = wrapper.find('input');
       expect(inputs.length).to.equal(2);
-      expect(savedApi.getState().values).to.deep.equal({ foo: { siblings: [{ name: 'test3' }] } });
+      expect(savedApi.getState().values).to.deep.equal({
+        foo: { siblings: [{ name: 'test3' }] }
+      });
 
       remove = wrapper.find('.remove').at(0);
       remove.simulate('click');
@@ -740,9 +871,13 @@ describe('ArrayField', () => {
       add.simulate('click');
       inputs = wrapper.find('input');
       expect(inputs.length).to.equal(2);
-      expect(savedApi.getState().values).to.deep.equal({ foo: { siblings: [{ name: 'test' }] } });
+      expect(savedApi.getState().values).to.deep.equal({
+        foo: { siblings: [{ name: 'test' }] }
+      });
       inputs.at(0).simulate('change', { target: { value: 'test 2' } });
-      expect(savedApi.getState().values).to.deep.equal({ foo: { siblings: [{ name: 'test 2' }] } });
+      expect(savedApi.getState().values).to.deep.equal({
+        foo: { siblings: [{ name: 'test 2' }] }
+      });
     });
 
     it('should update value when user types', () => {
@@ -754,7 +889,6 @@ describe('ArrayField', () => {
           getApi={api => {
             savedApi = api;
           }}>
-          >
           {getComponent()}
         </Form>
       );
@@ -763,7 +897,9 @@ describe('ArrayField', () => {
       add.simulate('click');
       const inputs = wrapper.find('input');
       inputs.at(0).simulate('change', { target: { value: 'Jeff' } });
-      expect(savedApi.getState().values).to.deep.equal({ foo: { siblings: [{ name: 'Jeff' }] } });
+      expect(savedApi.getState().values).to.deep.equal({
+        foo: { siblings: [{ name: 'Jeff' }] }
+      });
     });
 
     it('should update value when set via formApi', () => {
@@ -775,7 +911,6 @@ describe('ArrayField', () => {
           getApi={api => {
             savedApi = api;
           }}>
-          >
           {getComponent()}
         </Form>
       );
@@ -784,14 +919,15 @@ describe('ArrayField', () => {
       add.simulate('click');
       const inputs = wrapper.find('input');
       inputs.at(0).simulate('change', { target: { value: 'Jeff' } });
-      expect(savedApi.getState().values).to.deep.equal({ foo: { siblings: [{ name: 'Jeff' }] } });
+      expect(savedApi.getState().values).to.deep.equal({
+        foo: { siblings: [{ name: 'Jeff' }] }
+      });
 
       savedApi.setValue('foo.siblings[0].name', 'Test');
 
-      expect(savedApi.getState().values).to.deep.equal({ foo: { siblings: [{ name: 'Test' }] } });
+      expect(savedApi.getState().values).to.deep.equal({
+        foo: { siblings: [{ name: 'Test' }] }
+      });
     });
-
   });
-
-
 });

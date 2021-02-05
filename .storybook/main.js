@@ -1,4 +1,4 @@
 module.exports = {
-    stories: ['../stories/index.js'],
-    addons: ['storybook-readme'],
+  stories: ['../stories/index.js'],
+  addons: ['storybook-readme', 'storybook-dark-mode/register']
 };

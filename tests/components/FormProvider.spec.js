@@ -1,7 +1,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import sinon from 'sinon';
-import Enzyme, { mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { FormProvider, Text, Scope, useForm } from '../../src';
 
 describe('FormProvider', () => {
@@ -20,18 +20,20 @@ describe('FormProvider', () => {
     sandbox.restore();
   });
 
-  const checkFormState = state => {
-    const formState = {
-      values: {},
-      touched: {},
-      errors: {},
-      pristine: true,
-      dirty: false,
-      invalid: false,
-      submits: 0
-    };
-    expect(JSON.stringify(state)).to.deep.equal(JSON.stringify(formState));
-  };
+  // const checkFormState = state => {
+  //   const formState = {
+  //     values: {},
+  //     touched: {},
+  //     errors: {},
+  //     pristine: true,
+  //     dirty: false,
+  //     invalid: false,
+  //     submits: 0,
+  //     submitting: false,
+  //     validating: 0
+  //   };
+  //   expect(JSON.stringify(state)).to.deep.equal(JSON.stringify(formState));
+  // };
 
   const getState = state => {
     const defaultState = {
@@ -42,18 +44,15 @@ describe('FormProvider', () => {
       dirty: false,
       invalid: false,
       submits: 0,
-      step: 0
+      step: 0,
+      submitting: false,
+      validating: 0
     };
     return Object.assign({}, defaultState, state);
   };
 
   const TestForm = ({ children, ...props }) => {
-    const {
-      formApi,
-      formController,
-      formState,
-      userProps
-    } = useForm(props);
+    const { formApi, formController, formState, userProps } = useForm(props);
     return (
       <FormProvider
         formApi={formApi}
@@ -99,18 +98,22 @@ describe('FormProvider', () => {
   it('should call onChange function when value changes', () => {
     const spy = sandbox.spy();
     const wrapper = mount(
-      <FormProvider onChange={spy}><Text field="greeting" /></FormProvider>
+      <FormProvider onChange={spy}>
+        <Text field="greeting" />
+      </FormProvider>
     );
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'hello' } });
     expect(spy.called).to.equal(true);
-    expect(spy.args[1][0].values).to.deep.equal({ greeting: 'hello' });
+    expect(spy.args[0][0].values).to.deep.equal({ greeting: 'hello' });
   });
 
   it('should call onValueChange function when value changes', () => {
     const spy = sandbox.spy();
     const wrapper = mount(
-      <FormProvider onValueChange={spy}><Text field="greeting" /></FormProvider>
+      <FormProvider onValueChange={spy}>
+        <Text field="greeting" />
+      </FormProvider>
     );
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'hello' } });
@@ -138,9 +141,10 @@ describe('FormProvider', () => {
   it('should call reset function when reset button is clicked', () => {
     let savedApi;
     const wrapper = mount(
-      <TestForm getApi={api => {
-        savedApi = api;
-      }}>
+      <TestForm
+        getApi={api => {
+          savedApi = api;
+        }}>
         <Text field="greeting" />
         <button type="submit">Submit</button>
       </TestForm>
@@ -390,7 +394,11 @@ describe('FormProvider', () => {
     const setApi = param => {
       api = param;
     };
-    mount(<FormProvider getApi={setApi}><Text field="greeting" /></FormProvider>);
+    mount(
+      <FormProvider getApi={setApi}>
+        <Text field="greeting" />
+      </FormProvider>
+    );
     checkFormApi(api);
   });
 
@@ -404,16 +412,6 @@ describe('FormProvider', () => {
         <Text field="greeting" />
       </FormProvider>
     );
-    expect(api.getState().values).to.deep.equal({ greeting: 'hello' });
-  });
-
-  it.skip('setState should set the formState', () => {
-    let api;
-    const setApi = param => {
-      api = param;
-    };
-    mount(<FormProvider getApi={setApi}><Text field="greeting" /></FormProvider>);
-    api.setState({ values: { greeting: 'hello' } });
     expect(api.getState().values).to.deep.equal({ greeting: 'hello' });
   });
 
@@ -552,11 +550,13 @@ describe('FormProvider', () => {
       getState({ values: { greeting: 'hello' }, pristine: false, dirty: true })
     );
     api.reset();
-    expect(api.getState()).to.deep.equal(getState({
-      values: { greeting: 'ayyyoooooo' },
-      pristine: false,
-      dirty: true
-    }));
+    expect(api.getState()).to.deep.equal(
+      getState({
+        values: { greeting: 'ayyyoooooo' },
+        pristine: false,
+        dirty: true
+      })
+    );
   });
 
   it('reset should reset the form to its initial state via initialValue prop on form', () => {
@@ -577,11 +577,13 @@ describe('FormProvider', () => {
       getState({ values: { greeting: 'hello' }, pristine: false, dirty: true })
     );
     api.reset();
-    expect(api.getState()).to.deep.equal(getState({
-      values: { greeting: 'ayyyoooooo' },
-      pristine: false,
-      dirty: true
-    }));
+    expect(api.getState()).to.deep.equal(
+      getState({
+        values: { greeting: 'ayyyoooooo' },
+        pristine: false,
+        dirty: true
+      })
+    );
   });
 
   it('reset should reset the form to its initial state via initialValue prop on input with scope', () => {
@@ -597,19 +599,29 @@ describe('FormProvider', () => {
       </FormProvider>
     );
     expect(api.getState()).to.deep.equal(
-      getState({ values: { favorite: { color: 'red' } }, pristine: false, dirty: true })
+      getState({
+        values: { favorite: { color: 'red' } },
+        pristine: false,
+        dirty: true
+      })
     );
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'green' } });
     expect(api.getState()).to.deep.equal(
-      getState({ values: { favorite: { color: 'green' } }, pristine: false, dirty: true })
+      getState({
+        values: { favorite: { color: 'green' } },
+        pristine: false,
+        dirty: true
+      })
     );
     api.reset();
-    expect(api.getState()).to.deep.equal(getState({
-      values: { favorite: { color: 'red' } },
-      pristine: false,
-      dirty: true
-    }));
+    expect(api.getState()).to.deep.equal(
+      getState({
+        values: { favorite: { color: 'red' } },
+        pristine: false,
+        dirty: true
+      })
+    );
   });
 
   it('reset should reset the form to its initial state via initialValue prop on form with scope', () => {
@@ -618,26 +630,38 @@ describe('FormProvider', () => {
       api = param;
     };
     const wrapper = mount(
-      <FormProvider getApi={setApi} initialValues={{ favorite: { color: 'red' } }}>
+      <FormProvider
+        getApi={setApi}
+        initialValues={{ favorite: { color: 'red' } }}>
         <Scope scope="favorite">
           <Text field="color" />
         </Scope>
       </FormProvider>
     );
     expect(api.getState()).to.deep.equal(
-      getState({ values: { favorite: { color: 'red' } }, pristine: false, dirty: true })
+      getState({
+        values: { favorite: { color: 'red' } },
+        pristine: false,
+        dirty: true
+      })
     );
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'green' } });
     expect(api.getState()).to.deep.equal(
-      getState({ values: { favorite: { color: 'green' } }, pristine: false, dirty: true })
+      getState({
+        values: { favorite: { color: 'green' } },
+        pristine: false,
+        dirty: true
+      })
     );
     api.reset();
-    expect(api.getState()).to.deep.equal(getState({
-      values: { favorite: { color: 'red' } },
-      pristine: false,
-      dirty: true
-    }));
+    expect(api.getState()).to.deep.equal(
+      getState({
+        values: { favorite: { color: 'red' } },
+        pristine: false,
+        dirty: true
+      })
+    );
   });
 
   it('setValue should set a value', () => {
@@ -645,7 +669,11 @@ describe('FormProvider', () => {
     const setApi = param => {
       api = param;
     };
-    mount(<FormProvider getApi={setApi}><Text field="greeting" /></FormProvider>);
+    mount(
+      <FormProvider getApi={setApi}>
+        <Text field="greeting" />
+      </FormProvider>
+    );
     api.setValue('greeting', 'hello');
     expect(api.getState()).to.deep.equal(
       getState({ values: { greeting: 'hello' }, pristine: false, dirty: true })
@@ -666,7 +694,11 @@ describe('FormProvider', () => {
     );
     api.setValue('favorite.color', 'green');
     expect(api.getState()).to.deep.equal(
-      getState({ values: { favorite: { color: 'green' } }, pristine: false, dirty: true })
+      getState({
+        values: { favorite: { color: 'green' } },
+        pristine: false,
+        dirty: true
+      })
     );
   });
 
@@ -675,7 +707,11 @@ describe('FormProvider', () => {
     const setApi = param => {
       api = param;
     };
-    mount(<FormProvider getApi={setApi}><Text field="greeting" /></FormProvider>);
+    mount(
+      <FormProvider getApi={setApi}>
+        <Text field="greeting" />
+      </FormProvider>
+    );
     api.setError('greeting', 'error');
     expect(api.getState().errors).to.deep.equal({ greeting: 'error' });
   });
@@ -685,7 +721,11 @@ describe('FormProvider', () => {
     const setApi = param => {
       api = param;
     };
-    mount(<FormProvider getApi={setApi}><Text field="greeting" /></FormProvider>);
+    mount(
+      <FormProvider getApi={setApi}>
+        <Text field="greeting" />
+      </FormProvider>
+    );
     api.setError('greeting', 'error');
     expect(api.getState().invalid).to.equal(true);
   });
@@ -695,7 +735,11 @@ describe('FormProvider', () => {
     const setApi = param => {
       api = param;
     };
-    mount(<FormProvider getApi={setApi}><Text field="greeting" /></FormProvider>);
+    mount(
+      <FormProvider getApi={setApi}>
+        <Text field="greeting" />
+      </FormProvider>
+    );
     api.setError('greeting', 'error');
     // expect(api.getState().invalid).to.equal(true);
     // api.setError('greeting', undefined);

@@ -1,21 +1,30 @@
 import React, { useState, useEffect, useContext, useMemo, useRef } from 'react';
-import { FormRegisterContext } from '../Context';
+import { FormRegisterContext, MultistepStepContext } from '../Context';
 import useFormApi from './useFormApi';
 import useStateWithGetter from './useStateWithGetter';
-import { validateYupField, uuidv4 } from '../utils';
+import { validateYupField, uuidv4, informedFormat } from '../utils';
 
 import Debug from '../debug';
 import useLayoutEffect from './useIsomorphicLayoutEffect';
-import FormController from '../FormController';
+import ObjectMap from '../ObjectMap';
+import useCursorPosition from './useCursorPosition';
 const logger = Debug('informed:useField' + '\t');
 
 // localStorage.debug = 'informed:.*' << HOW to enable debuging
 
-const initializeValue = (value, mask) => {
+const initializeValue = (value, mask, formatter, parser, initialize) => {
   if (value != null) {
+    // Call users initialize if it was passed
+    if (initialize) {
+      return initialize(value);
+    }
     // Call mask if it was passed
     if (mask) {
       return mask(value);
+    }
+    if (formatter && !parser) {
+      const res = informedFormat(value, formatter);
+      return res.value;
     }
     return value;
   }
@@ -23,15 +32,26 @@ const initializeValue = (value, mask) => {
   return undefined;
 };
 
-const initializeMask = (value, format, parse) => {
+const initializeMask = (value, format, parse, formatter) => {
   // Call format and parse if they were passed
   if (format && parse) {
     return format(value);
   }
+
+  // Call formatter
+  if (formatter) {
+    const res = informedFormat(value, formatter);
+    return res.value;
+  }
+
   return value;
 };
 
-const generateValidationFunction = (validationFunc, validationSchema) => {
+const generateValidationFunction = (
+  validationFunc,
+  validationSchema,
+  { required }
+) => {
   // We dont want a validation function if there was nothing passed
   if (validationFunc || validationSchema) {
     return (val, values) => {
@@ -43,10 +63,15 @@ const generateValidationFunction = (validationFunc, validationSchema) => {
       }
     };
   }
+  if (required) {
+    return val => {
+      return validateRequired(val, required);
+    };
+  }
 };
 
 const generateOnChange = ({ fieldType, setValue, onChange, multiple, ref }) => {
-  let setter = val => setValue(val);
+  let setter = e => setValue(e);
 
   if (
     fieldType === 'text' ||
@@ -75,11 +100,8 @@ const generateOnChange = ({ fieldType, setValue, onChange, multiple, ref }) => {
     };
   }
 
-  return val => {
-    setter(val);
-    if (onChange) {
-      onChange(val);
-    }
+  return e => {
+    setter(e);
   };
 };
 
@@ -108,20 +130,43 @@ const generateValue = ({ fieldType, maskedValue, multiple, value }) => {
   }
 };
 
+const generateFieldType = fieldType => {
+  switch (fieldType) {
+    case 'text':
+      return fieldType;
+    case 'number':
+      return fieldType;
+    case 'checkbox':
+      return fieldType;
+    default:
+      return;
+  }
+};
+
+const validateRequired = (value, required) => {
+  if (required && (value == null || value === '')) {
+    return typeof required === 'string' ? required : 'This field is required';
+  }
+};
+
 function useField(fieldProps = {}, userRef) {
   // Pull props off of field props
   const {
     field,
     validate: validationFunc,
+    asyncValidate,
     validationSchema,
     mask,
     maskWithCursorOffset,
     format,
     parse,
+    formatter,
+    parser,
     initialValue,
     validateOnChange,
     validateOnBlur,
     validateOnMount,
+    asyncValidateOnBlur,
     maskOnBlur,
     allowEmptyString,
     onValueChange,
@@ -137,6 +182,9 @@ function useField(fieldProps = {}, userRef) {
     onBlur,
     formController,
     relevant: userRelevant,
+    required,
+    keepStateIfRelevant,
+    initialize,
     ...userProps
   } = fieldProps;
 
@@ -146,8 +194,21 @@ function useField(fieldProps = {}, userRef) {
   // Grab the form register context
   let updater = useContext(FormRegisterContext);
 
+  // Grab multistepContext
+  const multistepContext = useContext(MultistepStepContext);
+  const inMultistep = multistepContext || keepStateIfRelevant;
+
   // Grab the form api
   let formApi = useFormApi();
+
+  // Create ref to fieldApi
+  const fieldApiRef = useRef();
+
+  // Create initial render ref
+  const initialRenerRef = useRef(true);
+
+  // Create ref to fieldObject
+  const fieldObjectRef = useRef();
 
   // If the form Controller was passed in then use that instead
   if (formController) {
@@ -156,7 +217,11 @@ function useField(fieldProps = {}, userRef) {
   }
 
   // Generate validation function
-  const validate = generateValidationFunction(validationFunc, validationSchema);
+  const validate = generateValidationFunction(
+    validationFunc,
+    validationSchema,
+    { required }
+  );
 
   // Grab possible initial value from form
   const [formInitialValue] = useState(() => updater.getInitialValue(field));
@@ -169,7 +234,7 @@ function useField(fieldProps = {}, userRef) {
   let initTouched;
 
   // We do these checks because initial value could be false or zero!!
-  if (keepState && savedState) {
+  if ((keepState || inMultistep) && savedState) {
     logger(`Setting field ${name}'s kept state`, savedState);
     initVal = savedState.value;
     initTouched = savedState.touched;
@@ -183,25 +248,84 @@ function useField(fieldProps = {}, userRef) {
 
   // Initialize state
   const [value, setVal, getTheVal] = useStateWithGetter(
-    initializeValue(initVal, mask)
+    initializeValue(initVal, mask, formatter, parser, initialize)
   );
+
   const [error, setErr, getErr] = useStateWithGetter(
     validateOnMount ? validate(value) : undefined
   );
   const [touched, setTouch, getTouch] = useStateWithGetter(initTouched);
-  const [cursor, setCursor, getCursor] = useStateWithGetter(0);
-  const [cursorOffset, setCursorOffset, getCursorOffset] = useStateWithGetter(
-    0
-  );
-  const [maskedValue, setMaskedValue] = useState(
-    initializeMask(value, format, parse)
+
+  const [maskedValue, setMaskedValue] = useState(() =>
+    initializeMask(value, format, parse, formatter, parser)
   );
 
   // Create then update refs to props
   const initialValueRef = useRef(initialValue);
   const fieldRef = useRef(field);
+  const prevFieldRef = useRef();
   initialValueRef.current = initialValue;
   fieldRef.current = field;
+
+  // Create ref to input
+  const internalRef = useRef(null);
+
+  const ref = React.useMemo(() => userRef || internalRef, []);
+
+  // Setup cursor position tracking
+  const { getCursor, setCursor, setCursorOffset } = useCursorPosition({
+    value: value,
+    inputRef: ref,
+    maintainCursor: !!maintainCursor,
+  });
+
+  // Default relevant function
+  const relevantFunc = () => true;
+
+  const relevant = params => {
+    const rel = userRelevant || relevantFunc;
+    const ff = formApi.getFullField(fieldRef.current) || fieldRef.current;
+    const args = {
+      path: ff,
+      parentPath: ff.replace(/(.*)[.[].*/, '$1'),
+      get: (values, path) => ObjectMap.get(values, path),
+    };
+    if (multistepContext && multistepContext.relevant) {
+      return rel(params, args) && multistepContext.relevant(params, args);
+    }
+    return rel(params, args);
+  };
+
+  const [isRelevant, setIsRelevant, getIsRelevant] = useStateWithGetter(
+    relevant(formApi.getValues())
+  );
+
+  const multistepRelevant = params => {
+    if (multistepContext && multistepContext.relevant) {
+      return multistepContext.relevant(params);
+    }
+    return true;
+  };
+
+  const checkRelevant = () => {
+    const newRel = relevant(formApi.getValues());
+    const curRel = getIsRelevant();
+
+    if (newRel != curRel) {
+      setIsRelevant(newRel);
+    }
+    return newRel;
+  };
+
+  useEffect(
+    () => {
+      // Reset if we dont have keep state and relevance changed.
+      if (!isRelevant && !keepState) {
+        fieldApiRef.current.reset();
+      }
+    },
+    [isRelevant]
+  );
 
   // Special getter to support shadow fields
   const getVal = () => {
@@ -219,21 +343,26 @@ function useField(fieldProps = {}, userRef) {
         `Setting ${field}'s error to undefined as we are not at that step`
       );
       setErr(undefined);
-      if (!preventUpdate) {
-        updater.setError(field, undefined);
-      }
+      updater.setError(fieldId, undefined, !preventUpdate);
     } else {
       logger(`Setting ${field}'s error to ${val}`);
       setErr(val);
-      if (!preventUpdate) {
-        updater.setError(field, val);
-      }
+      updater.setError(fieldId, val, !preventUpdate);
     }
   };
 
   // ---- Define set value ----
-  const setValue = (val, e, options = {}) => {
+  const setValue = (v, e, options = {}) => {
+    let val = v;
+
     logger(`Setting ${field} to ${val}`);
+
+    // Set value may have been called externally
+    // NOT from an inputs change event ( onChange )
+    // Therefore, as a precausion, we call the initialize function to format it just in case
+    if (initialize) {
+      val = initialize(val);
+    }
 
     // Get the most up to date options
     const formOptions = formApi.getOptions();
@@ -284,6 +413,19 @@ function useField(fieldProps = {}, userRef) {
       maskedVal = format(val);
     }
 
+    // Call formatter and parser if passed
+    if (formatter) {
+      const res = informedFormat(val, formatter);
+      setCursorOffset(res.offset);
+      maskedVal = res.value;
+      val = maskedVal;
+    }
+
+    // // Only parse if parser was passed
+    if (parser) {
+      val = val != null ? parser(val) : val;
+    }
+
     // We only need to call validate if the user gave us one
     // and they want us to validate on change && its not the initial validation
     if (validate && validateOnChange && !options.initial) {
@@ -301,9 +443,7 @@ function useField(fieldProps = {}, userRef) {
     }
 
     // Call the updater
-    if (!options.preventUpdate) {
-      updater.setValue(field, val);
-    }
+    updater.setValue(fieldId, val, !options.preventUpdate);
   };
 
   // ---- Define set touched ----
@@ -315,6 +455,12 @@ function useField(fieldProps = {}, userRef) {
     if (validate && validateOnBlur && !reset && val) {
       logger(`Validating after blur ${field} ${getVal()}`);
       setError(validate(getVal(), formApi.getValues()));
+    }
+
+    // Same for async
+    if (asyncValidate && asyncValidateOnBlur && !reset && val) {
+      logger(`Validating async after blur ${field} ${getVal()}`);
+      asyncValidate(getVal(), formApi.getValues());
     }
 
     // Call mask if it was passed
@@ -332,9 +478,7 @@ function useField(fieldProps = {}, userRef) {
       }
 
       // Call the updater
-      if (!preventUpdate) {
-        updater.setValue(field, maskedVal);
-      }
+      updater.setValue(fieldId, maskedVal, !preventUpdate);
     }
 
     // Call maskWithCursorOffset if it was passed
@@ -355,23 +499,22 @@ function useField(fieldProps = {}, userRef) {
       }
 
       // Call the updater
-      if (!preventUpdate) {
-        updater.setValue(field, res.value);
-      }
+      updater.setValue(fieldId, res.value, !preventUpdate);
     }
 
     // Finally we set touched and call the updater
     setTouch(val);
-    if (!preventUpdate) {
-      updater.setTouched(field, val);
-    }
+    updater.setTouched(fieldId, val, !preventUpdate);
   };
 
   // ---- Define reset ----
   const reset = ({ preventUpdate } = {}) => {
     const initVal = initializeValue(
-      initialValueRef.current || updater.getInitialValue(field),
-      mask
+      initialValueRef.current || updater.getInitialValue(fieldRef.current),
+      mask,
+      formatter,
+      parser,
+      initialize
     );
     // TODO support numbers
     setValue(initVal, null, { initial: true, preventUpdate });
@@ -394,9 +537,14 @@ function useField(fieldProps = {}, userRef) {
     }
   };
 
-  /* ----------------- Field Api && State ----------------- */
+  const fieldAsyncValidate = values => {
+    if (asyncValidate) {
+      logger(`Field async validating ${field} ${getVal()}`);
+      asyncValidate(getVal(), values || formApi.getValues());
+    }
+  };
 
-  const relevantFunc = () => true;
+  /* ----------------- Field Api && State ----------------- */
 
   // Build the field api
   const fieldApi = {
@@ -405,15 +553,20 @@ function useField(fieldProps = {}, userRef) {
     setError,
     reset,
     validate: fieldValidate,
+    asyncValidate: fieldAsyncValidate,
     getValue: getVal,
     getTouched: getTouch,
     getError: getErr,
+    getIsRelevant: getIsRelevant,
     getFieldState: () => ({
       value: getVal(),
       touched: getTouch(),
     }),
-    relevant: userRelevant || relevantFunc,
+    relevant,
+    multistepRelevant,
+    checkRelevant,
   };
+  fieldApiRef.current = fieldApi;
 
   // Build the field state
   let fieldState = {
@@ -421,6 +574,7 @@ function useField(fieldProps = {}, userRef) {
     error,
     touched,
     maskedValue,
+    isRelevant,
   };
 
   // Create shadow state if this is a shadow field
@@ -431,42 +585,23 @@ function useField(fieldProps = {}, userRef) {
     };
   }
 
-  // Initial register needs to happen before render ( simulating constructor muhahahah )
-  useState(() => {
-    const fullField = formApi.getFullField(field);
-    logger('Initial Register', fieldId, fullField);
-    const fieldObj = {
-      field: fullField,
-      fieldId,
-      fieldApi,
-      fieldState,
-      notify,
-      keepState,
-      shadow,
-    };
-    updater.register(fieldId, fieldObj, true);
-  });
-
   logger('Render', formApi.getFullField(field), fieldState);
 
-  const internalRef = useRef(null);
-
-  const ref = React.useMemo(() => userRef || internalRef, []);
-
   // We want to register and deregister this field
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fullField = formApi.getFullField(fieldRef.current);
     logger('Register', fieldId, fieldRef.current);
-    const fieldObj = {
+    fieldObjectRef.current = {
       field: fullField,
       fieldId,
       fieldApi,
       fieldState,
       notify,
       keepState,
+      inMultistep,
       shadow,
     };
-    updater.register(fieldId, fieldObj);
+    updater.register(fieldId, fieldObjectRef.current);
     return () => {
       const fullField = formApi.getFullField(fieldRef.current);
       logger('Deregister', fieldId, fullField);
@@ -478,32 +613,29 @@ function useField(fieldProps = {}, userRef) {
   useEffect(
     () => {
       const fullField = formApi.getFullField(field);
-      logger('Update', field);
 
-      const fieldObj = {
-        field: fullField,
-        fieldId,
-        fieldApi,
-        fieldState,
-        notify,
-        keepState,
-        shadow,
+      if (initialRenerRef.current) {
+        initialRenerRef.current = false;
+      } else {
+        logger('Update', field, inMultistep);
+        fieldObjectRef.current.field = fullField;
+        updater.update(fieldId, fieldObjectRef.current, prevFieldRef.current);
+      }
+      return () => {
+        prevFieldRef.current = fullField;
       };
-
-      updater.update(fieldId, fieldObj);
     },
-    // This is VERYYYY!! Important!
-    [validationFunc, validateOnChange, validateOnBlur, onValueChange, field]
+    [field]
   );
 
   // Maintain cursor position
-  useLayoutEffect(
-    () => {
-      if (maintainCursor && ref.current != null && getCursor())
-        ref.current.selectionEnd = getCursor() + getCursorOffset();
-    },
-    [value]
-  );
+  // useLayoutEffect(
+  //   () => {
+  //     if (maintainCursor && ref.current != null && getCursor())
+  //       ref.current.selectionEnd = getCursor() + getCursorOffset();
+  //   },
+  //   [value]
+  // );
 
   // for debugging
   useLayoutEffect(() => {
@@ -525,7 +657,8 @@ function useField(fieldProps = {}, userRef) {
     ...Object.values(userProps),
   ];
 
-  const render = children => useMemo(() => children, [...shouldUpdate]);
+  const render = children =>
+    useMemo(() => (isRelevant ? children : null), [...shouldUpdate]);
 
   // Build some setub fields so users can easily intagrate without any hookup code
 
@@ -545,6 +678,8 @@ function useField(fieldProps = {}, userRef) {
     value,
   });
 
+  const type = generateFieldType(fieldType);
+
   return {
     fieldState,
     fieldApi,
@@ -555,6 +690,8 @@ function useField(fieldProps = {}, userRef) {
       multiple, // WE NEED TO PUT THESE BACK!!
       onChange, // WE NEED TO PUT THESE BACK!!
       onBlur, // WE NEED TO PUT THESE BACK!!
+      // required // WE NEED TO PUT THESE BACK!!
+      id: userProps.id || fieldId, // If user did not pass id we pass fields id
     },
     informed: {
       name,
@@ -563,6 +700,8 @@ function useField(fieldProps = {}, userRef) {
       onBlur: blurHandler,
       value: hookedValue,
       ref,
+      type,
+      id: userProps.id || fieldId, // If user did not pass id we pass fields id
       ...userProps,
     },
   };

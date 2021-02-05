@@ -3,6 +3,7 @@ import ObjectMap from '../ObjectMap';
 import useArrayField from '../hooks/useArrayField';
 import useFormApi from '../hooks/useFormApi';
 import useScopedApi from '../hooks/useScopedApi';
+import Relevant from './Relevant';
 import {
   ArrayFieldStateContext,
   ArrayFieldItemApiContext,
@@ -10,8 +11,36 @@ import {
   FormRegisterContext
 } from '../Context';
 
-const ArrayField = ({ children, ...props }) => {
-  const { render, arrayFieldState, arrayFieldApi, field } = useArrayField(props);
+const ArrayField = ({ relevant, field, ...props }) => {
+  // Need to get formApi to have consistant interface for relevant function
+  const formApi = useFormApi();
+
+  if (relevant) {
+    const ff = formApi.getFullField(field);
+    const args = {
+      path: ff,
+      parentPath: ff.replace(/(.*)[.[].*/, '$1'),
+      get: (values, path) => ObjectMap.get(values, path)
+    };
+
+    const when = ({ values }) => {
+      return relevant(values, args);
+    };
+
+    return (
+      <Relevant when={when}>
+        <ArrayFieldWrapper field={field} {...props} />
+      </Relevant>
+    );
+  } else {
+    return <ArrayFieldWrapper field={field} {...props} />;
+  }
+};
+
+const ArrayFieldWrapper = ({ children, ...props }) => {
+  const { render, arrayFieldState, arrayFieldApi, field } = useArrayField(
+    props
+  );
 
   if (typeof children === 'function') {
     return render(
@@ -21,7 +50,7 @@ const ArrayField = ({ children, ...props }) => {
         arrayFieldState,
         // Make it easier for user
         ...arrayFieldApi,
-        ...arrayFieldState,
+        ...arrayFieldState
       })
     );
   }
@@ -41,12 +70,12 @@ const ArrayFieldItem = ({
   const formApi = useFormApi();
 
   // A little trick I learned in nam to trigger rerender
-  const [state, setState] = useState(false);
+  const [state, setState] = useState(0);
 
   // Keep track of fields that belong to this array field
   const [fieldsById] = useState(new Map());
 
-  // Get this items field 
+  // Get this items field
   const { field } = arrayFieldItemState;
 
   // Create scoped api
@@ -72,12 +101,14 @@ const ArrayFieldItem = ({
         // Example foo.bar.baz[3].baz >>>> foo.bar.baz[3]
         const magicValue = fieldName.slice(
           0,
-          fieldName.lastIndexOf('[') != -1 ? fieldName.lastIndexOf(']') + 1 : fieldName.length
+          fieldName.lastIndexOf('[') != -1
+            ? fieldName.lastIndexOf(']') + 1
+            : fieldName.length
         );
 
         // This field updated so trigger rerender
-        if( magicValue === field ){
-          setState( prev => !prev );
+        if (magicValue === field) {
+          setState(Math.random());
         }
       };
 
@@ -91,7 +122,7 @@ const ArrayFieldItem = ({
     },
     [field]
   );
- 
+
   // Resets all fields in this item
   const reset = () => {
     fieldsById.forEach(fld => {
@@ -105,9 +136,9 @@ const ArrayFieldItem = ({
   // Wrap the updater to update array fields references
   const wrappedUpdator = {
     ...updater,
-    register: (id, fld, ...args) => {
+    register: (id, fld, initialRender) => {
       fieldsById.set(id, fld);
-      updater.register(id, fld, ...args);
+      updater.register(id, fld, initialRender);
     },
     deregister: (id, ...args) => {
       fieldsById.delete(id);
@@ -118,13 +149,13 @@ const ArrayFieldItem = ({
   const arrayFieldItemApiValue = {
     ...arrayFieldItemApi,
     ...scopedApi,
-    reset,
+    reset
   };
 
-  const arrayFieldItemStateValue = { 
+  const arrayFieldItemStateValue = {
     ...arrayFieldItemState,
     ...itemState
-  }
+  };
 
   if (typeof children === 'function') {
     return (

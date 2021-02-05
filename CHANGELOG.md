@@ -1,3 +1,237 @@
+## 3.29.2 (February 4, 2020)
+
+### Fixed
+
+- Issue where carrot pos would be in the wrong place when formatting
+
+### Updated
+
+- `useField` hook to use the `useCarrotPosition` hook ( removed duplicate code )
+
+## 3.29.1 (February 4, 2020)
+
+### Added
+
+- Ability to call `setValue` function for custom formattedObject Inputs
+
+## 3.29.0 (February 2, 2020)
+
+### Added
+
+- Ability to pass `initialize` function for custom initialization of the initial value
+
+## 3.28.0 (February 2, 2020)
+
+### Exposed
+
+- Utils functions that can be used by end users
+
+## 3.27.0 (December 18, 2020)
+
+### Fixed
+
+- bug with update function in form controller where it would pull instead of delete on swap
+
+## 3.26.0 (December 17, 2020)
+
+### Added
+
+- `swap` to array fields
+
+### Rafactored
+
+- Internal state management
+
+## 3.25.0 (December 8, 2020)
+
+### Added
+
+- `onReset` to form props
+
+## 3.24.4 (December 5, 2020)
+
+### Updated
+
+- README and needed to get it to npm ... again again
+
+## 3.24.3 (December 5, 2020)
+
+### Updated
+
+- README and needed to get it to npm ... again
+
+## 3.24.2 (November 24, 2020)
+
+### Updated
+
+- README and needed to get it to npm
+
+## 3.24.1 (November 23, 2020)
+
+### Fixed
+
+- Type issue ( missing allow empty string from props def )
+
+## 3.24.0 (November 19, 2020)
+
+### Fixed
+
+- Issue where Id was not getting passed to default select field
+
+## 3.23.0 (November 18, 2020)
+
+### Removed
+
+- LODASH!!!!! SEE YA LATER NEVER
+
+## 3.22.0 (November 17, 2020)
+
+### Added
+
+- Ability to pass relevant to array fields!!!
+
+## 3.21.2 (November 14, 2020)
+
+### Fixed
+
+- Bug with field level relevant
+
+### Updated
+
+- Form to always evaluate relevance, and not force the user to pass notify.
+
+## 3.21.1 (November 12, 2020)
+
+### Fixed
+
+- Isssue where state would not update after submit
+
+## 3.21.0 (November 12, 2020)
+
+### Added
+
+- Ability to add async validation functions to inputs
+
+## 3.20.0 (November 11, 2020)
+
+### Added
+
+- Ability to not pass keep state to multistep fields, and also added docs for conditional relevant nested array fields
+
+## 3.19.0 (November 10, 2020)
+
+### Added
+
+- Ability to hide or show fields based on relevant, and notify relevant fields
+
+## 3.18.3 (November 10, 2020)
+
+### Fixed
+
+- bug with resetting array field items
+
+## 3.18.2 (November 9, 2020)
+
+### Fixed
+
+- bug with duplicate fields
+
+## 3.18.1 (November 9, 2020)
+
+### Fixed
+
+- bug with keep state registering phantom fields
+
+## 3.18.0 (November 5, 2020)
+
+### Added
+
+- ability to create custom schema fields
+
+## 3.17.1 (November 3, 2020)
+
+### Fixed
+
+- useField was not adding id to label by default
+
+## 3.17.0 (November 3, 2020)
+
+### Added
+
+- Required attribute to input and automatic type generation for useField hook
+
+## 3.16.1 (November 2, 2020)
+
+### Fixed
+
+- Issue where informed props were not passed down to array fields in schema
+
+## 3.16.0 (November 1, 2020)
+
+### Added
+
+- Ability to have conditional schemas!!!!
+
+## 3.15.0 (October 28, 2020)
+
+### Added
+
+- Ability to add array fields in schema!!!!
+
+## 3.14.0 (October 27, 2020)
+
+### Added
+
+- Formatter and Parser !!!!!
+
+## 3.13.2 (October 27, 2020)
+
+### Fixed
+
+- Issue with strict mode double registering
+
+## 3.13.1 (October 23, 2020)
+
+### Fixed
+
+- Bug where inforemd would crash if schema was missing field that was in JSX ( returns null )
+
+## 3.13.0 (October 23, 2020)
+
+### Added
+
+- Ability to render schema fields in specific paces within JSX!!
+
+## 3.12.0 (October 22, 2020)
+
+### Added
+
+- Added AJV Schema shit!!!
+
+## 3.11.0 (October 21, 2020)
+
+### Added
+
+- Schema shit
+
+## 3.10.1 (October 18, 2020)
+
+### Fixed
+
+- Array fields because I stupidly broke them
+
+#### Added
+
+- Tests for multistep fields
+- Better multistep form syntax
+- Better multistep docs
+
+## 3.10.0 (September 29, 2020)
+
+### Updated
+
+- internals to modify state direct to improve performance!
+
 ## 3.9.0 (June 15, 2020)
 
 ### Updated

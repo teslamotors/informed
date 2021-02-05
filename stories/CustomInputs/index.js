@@ -7,10 +7,10 @@ import UseFieldHooked from './UseFieldHooked';
 
 const CreatingCustomInputs = () => (
   <div>
-    <Intro />
-    <br />
-    <FromScratch />
-    <br />
+    {/* <Intro /> */}
+    {/* <br /> */}
+    {/* <FromScratch /> */}
+    {/* <br /> */}
     <UseField />
     <br />
     <UseFieldHooked />

@@ -1,35 +1,338 @@
+:root {
+  --informed-font-size--10: 10px;
+  --informed-font-size--20: 12px;
+  --informed-font-size--30: 14px;
+  --informed-font-size--40: 17px;
+  --informed-font-size--50: 20px;
+  --informed-font-size--55: 23px;
+  --informed-font-size--60: 24px;
+  --informed-font-size--70: 28px;
+  --informed-font-size--75: 34px;
+  --informed-font-size--80: 40px;
+  --informed-height--pill: 40px;
+  --informed-line-height--10: 18px;
+  --informed-line-height--20: 20px;
+  --informed-line-height--30: 21px;
+  --informed-line-height--40: 23px;
+  --informed-line-height--50: 24px;
+  --informed-line-height--60: 28px;
+  --informed-line-height--70: 36px;
+  --informed-line-height--75: 45px;
+  --informed-line-height--80: 48px;
+}
+
+.body {
+  font-family: Helvetica, sans-serif;
+}
+
+a > img {
+  border-radius: 10px;
+}
+
+h1 {
+  letter-spacing: -0.6px;
+  font-size: var(--informed-font-size--80, 40px);
+  line-height: var(--informed-line-height--80, 48px);
+}
+
+h2 {
+  letter-spacing: -0.5px;
+  font-size: var(--informed-font-size--70, 28px);
+  line-height: var(--informed-line-height--70, 36px);
+}
+
+h3 {
+  letter-spacing: -0.6px;
+  font-size: var(--informed-font-size--60, 24px);
+  line-height: var(--informed-line-height--60, 28px);
+}
+
+h4 {
+  letter-spacing: -0.4px;
+  font-size: var(--informed-font-size--50, 20px);
+  line-height: var(--informed-line-height--60, 28px);
+}
+
+h5 {
+  font-size: var(--informed-font-size--40, 17px);
+  line-height: var(--informed-line-height--20, 20px);
+}
+
+h6 {
+  font-size: var(--informed-font-size--30, 14px);
+  line-height: var(--informed-line-height--30, 21px);
+}
+
 input {
   margin-bottom: 1rem;
+}
+
+input:not([type='checkbox']):not([type='radio']),
+textarea,
+select {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  display: block;
+  border-radius: 20px;
+  width: 100%;
+  padding: 10px 20px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  max-width: 400px;
+  background-color: #f4f4f4;
+}
+
+.radio-label {
   display: block;
 }
 
 textarea {
-  margin-bottom: 1rem;
-  display: block;
+  max-width: 100%;
 }
 
 select {
-  margin-bottom: 1rem;
-  display: block;
+  /* needed */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* SVG background image */
+  background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23000000%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E');
+  background-size: 0.6em;
+  background-position: calc(100% - 1.3em) center;
+  background-repeat: no-repeat;
+}
+
+.select:before {
+  content: '';
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #f00;
+}
+
+.select:after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  top: 3px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #333;
 }
 
 label {
-  text-align: left;
+  /* text-align: left; */
+  /* margin-left: 1rem; */
+  margin-bottom: 1rem;
+  display: block;
 }
 
 button {
   text-align: left;
+  display: inline-block;
+  height: var(--informed-height--pill);
+  border: 1px solid transparent;
+  border-radius: 20px;
+  padding: 5px 40px;
+  color: white;
+  background-color: #3e6ae1;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  margin-right: 1rem;
+}
+
+button[type='submit'] {
   display: block;
 }
 
 hr {
-    border: none !important;
-    height: 1px !important;
-    /* Set the hr color */
-    color: #333; /* old IE */
-    background-color: #333; /* Modern Browsers */
+  border: none !important;
+  height: 1px !important;
+  /* Set the hr color */
+  color: #333; /* old IE */
+  background-color: #333; /* Modern Browsers */
 }
 
 pre {
-  font-size:  1em !important;
+  font-size: 1em !important;
+}
+
+.markdown-body[class] {
+  font-size: inherit;
+  color: inherit;
+  border: inherit;
+}
+
+.markdown-body pre {
+  font-size: inherit;
+  color: inherit;
+  border: inherit;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.markdown-body[class] h1,
+.markdown-body[class] h2,
+.markdown-body[class] h3,
+.markdown-body[class] h4,
+.markdown-body[class] h5,
+.markdown-body[class] h6 {
+  border: inherit;
+  margin: inherit;
+  padding: inherit;
+}
+
+.markdown-body[class] h1[id] {
+  letter-spacing: -0.6px;
+  font-size: var(--informed-font-size--80, 40px);
+  line-height: var(--informed-line-height--80, 48px);
+  margin-top: 2rem;
+}
+
+.markdown-body[class] h2[id] {
+  letter-spacing: -0.5px;
+  font-size: var(--informed-font-size--70, 28px);
+  line-height: var(--informed-line-height--70, 36px);
+  margin-top: 2rem;
+}
+
+.markdown-body[class] h3[id] {
+  letter-spacing: -0.6px;
+  font-size: var(--informed-font-size--60, 24px);
+  line-height: var(--informed-line-height--60, 28px);
+  margin-top: 2rem;
+}
+
+.markdown-body[class] h4[id] {
+  letter-spacing: -0.4px;
+  font-size: var(--informed-font-size--50, 20px);
+  line-height: var(--informed-line-height--60, 28px);
+  margin-top: 2rem;
+}
+
+.markdown-body[class] h5[id] {
+  font-size: var(--informed-font-size--40, 17px);
+  line-height: var(--informed-line-height--20, 20px);
+  margin-top: 1rem;
+}
+
+.markdown-body[class] h6[id] {
+  font-size: var(--informed-font-size--30, 14px);
+  line-height: var(--informed-line-height--30, 21px);
+  margin-top: 1rem;
+}
+
+.markdown-body p {
+  margin: inherit;
+}
+
+.markdown-body[class] p {
+}
+
+.markdown-body[class] ul {
+}
+
+.markdown-body[class] ol {
+}
+
+.markdown-body a:active,
+.markdown-body a:hover {
+  text-decoration: none !important;
+}
+
+/* .markdown-body[class] table {
+  display: table;
+}
+
+.markdown-body thead {
+}
+
+.markdown-body tbody {
+}
+
+.markdown-body table thead tr:nth-child(1n),
+.markdown-body table tbody tr:nth-child(1n) {
+  background: inherit;
+  border: inherit;
+}
+
+.markdown-body table thead tr:nth-child(1n):first-child th {
+}
+
+.markdown-body thead tr th:nth-child(1n),
+.markdown-body tbody tr th:nth-child(1n) {
+  padding: inherit;
+  border: inherit;
+}
+
+.markdown-body[class] thead tr th:nth-child(1n),
+.markdown-body[class] tbody tr th:nth-child(1n) {
+}
+
+.markdown-body thead tr td:nth-child(1n),
+.markdown-body tbody tr td:nth-child(1n) {
+  padding: inherit;
+  border: inherit;
+}
+
+.markdown-body[class] thead tr td:nth-child(1n),
+.markdown-body[class] tbody tr td:nth-child(1n) {
+}
+
+.markdown-body[class] thead tr th:nth-child(1n):first-child,
+.markdown-body[class] tbody tr th:nth-child(1n):first-child,
+.markdown-body[class] thead tr td:nth-child(1n):first-child,
+.markdown-body[class] tbody tr td:nth-child(1n):first-child {
+  padding-left: 0;
+}
+
+.markdown-body[class] thead tr th:nth-child(1n):last-child,
+.markdown-body[class] tbody tr th:nth-child(1n):last-child,
+.markdown-body[class] thead tr td:nth-child(1n):last-child,
+.markdown-body[class] tbody tr td:nth-child(1n):last-child {
+  padding-right: 0;
+} */
+
+.informed-container {
+  padding: 4rem;
+}
+
+.informed-black {
+  background-color: rgb(13, 16, 17);
+  color: white !important;
+}
+
+.informed-black input:not([type='checkbox']):not([type='radio']),
+.informed-black select,
+.informed-black textarea {
+  background-color: #222222;
+  color: white;
+}
+
+.informed-black select {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Ctitle%3Edown-arrow%3C/title%3E%3Cg fill='%23000000'%3E%3Cpath d='M10.293,3.293,6,7.586,1.707,3.293A1,1,0,0,0,.293,4.707l5,5a1,1,0,0,0,1.414,0l5-5a1,1,0,1,0-1.414-1.414Z' fill='%23FFFFFF'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+  /* filter: invert(1); */
+}
+
+.informed-black .markdown-body[class] table {
+  background-color: #000;
+}
+
+.informed-black td {
+  background-color: #000;
+}
+
+.informed-black th {
+  background-color: #000;
+}
+
+.markdown-body > :first-child {
+  margin-top: 2rem !important;
 }

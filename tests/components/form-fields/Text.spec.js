@@ -28,10 +28,39 @@ describe('Text', () => {
     expect(savedApi.getState().values).to.deep.equal({ greeting: 'Hello!' });
   });
 
+  it('should update state when fieldname chanegs', () => {
+    let savedApi;
+
+    const Component = () => {
+      const [field, setField] = useState('foo');
+
+      return (
+        <Form
+          getApi={api => {
+            savedApi = api;
+          }}>
+          <Text field={field} />
+          <button type="button" onClick={() => setField('bar')}>
+            Change
+          </button>
+        </Form>
+      );
+    };
+
+    const wrapper = mount(<Component />);
+    let input = wrapper.find('input').at(0);
+    input.simulate('change', { target: { value: 'Hello!' } });
+    input = wrapper.find('input').at(0);
+    expect(input.props().value).to.equal('Hello!');
+    expect(savedApi.getState().values).to.deep.equal({ foo: 'Hello!' });
+    const button = wrapper.find('button');
+    button.simulate('click');
+    expect(input.props().value).to.equal('Hello!');
+    expect(savedApi.getState().values).to.deep.equal({ bar: 'Hello!' });
+  });
+
   it('should update value when user types and its not in the context of a form', () => {
-    const wrapper = mount(
-      <Text field="greeting" />
-    );
+    const wrapper = mount(<Text field="greeting" />);
     let input = wrapper.find('input').at(0);
     input.simulate('change', { target: { value: 'Hello!' } });
     input = wrapper.find('input').at(0);
@@ -80,7 +109,7 @@ describe('Text', () => {
 
   it('should expose the field name', () => {
     const wrapper = mount(
-      <Form getApi={() => { }}>
+      <Form getApi={() => {}}>
         <Text field="greeting" />
       </Form>
     );
@@ -115,7 +144,7 @@ describe('Text', () => {
 
   it('should set initial value and mask them when initial values are passed with mask function', () => {
     let savedApi;
-    const mask = (val) => `$${val}`;
+    const mask = val => `$${val}`;
     mount(
       <Form
         getApi={api => {
@@ -124,7 +153,9 @@ describe('Text', () => {
         <Text field="greeting" initialValue="foobarbaz" mask={mask} />
       </Form>
     );
-    expect(savedApi.getState().values).to.deep.equal({ greeting: '$foobarbaz' });
+    expect(savedApi.getState().values).to.deep.equal({
+      greeting: '$foobarbaz'
+    });
   });
 
   it('should run mask when user types in text input and mask is passed', () => {
@@ -199,6 +230,205 @@ describe('Text', () => {
     expect(wrapper.find('input').props().value).to.equal('$abc');
   });
 
+  it('should run formatter and parser when user types in text input and formatter and parser are passed', () => {
+    let savedApi;
+
+    const formatter = [
+      '+',
+      '1',
+      ' ',
+      /\d/,
+      /\d/,
+      /\d/,
+      '-',
+      /\d/,
+      /\d/,
+      /\d/,
+      '-',
+      /\d/,
+      /\d/,
+      /\d/,
+      /\d/
+    ];
+
+    const parser = value => {
+      return value.replace('+1 ', '').replace(/-/g, '');
+    };
+
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="hello" formatter={formatter} parser={parser} />
+      </Form>
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: '1' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 1');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '1' });
+
+    input.simulate('change', { target: { value: '12' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 12');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '12' });
+
+    input.simulate('change', { target: { value: '123' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '123' });
+
+    input.simulate('change', { target: { value: '1234' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123-4');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '1234' });
+
+    input.simulate('change', { target: { value: '+1 1' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 1');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '1' });
+
+    input.simulate('change', { target: { value: '+1 123a' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123-');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '123' });
+
+    input.simulate('change', { target: { value: '+1 123abc' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123-');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '123' });
+  });
+
+  it('should run formatter when user types in text input and ONLY formatter is passed', () => {
+    let savedApi;
+
+    const formatter = [
+      '+',
+      '1',
+      ' ',
+      /\d/,
+      /\d/,
+      /\d/,
+      '-',
+      /\d/,
+      /\d/,
+      /\d/,
+      '-',
+      /\d/,
+      /\d/,
+      /\d/,
+      /\d/
+    ];
+
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="hello" formatter={formatter} />
+      </Form>
+    );
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: '1' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 1');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 1' });
+
+    input.simulate('change', { target: { value: '12' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 12');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 12' });
+
+    input.simulate('change', { target: { value: '123' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 123' });
+
+    input.simulate('change', { target: { value: '1234' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123-4');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 123-4' });
+
+    input.simulate('change', { target: { value: '+1 1' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 1');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 1' });
+
+    input.simulate('change', { target: { value: '+1 123a' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123-');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 123-' });
+
+    input.simulate('change', { target: { value: '+1 123abc' } });
+    expect(wrapper.find('input').props().value).to.equal('+1 123-');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '+1 123-' });
+  });
+
+  it('should run formatter on initial value', () => {
+    let savedApi;
+
+    const formatter = [
+      '+',
+      '1',
+      ' ',
+      /\d/,
+      /\d/,
+      /\d/,
+      '-',
+      /\d/,
+      /\d/,
+      /\d/,
+      '-',
+      /\d/,
+      /\d/,
+      /\d/,
+      /\d/
+    ];
+
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="hello" formatter={formatter} initialValue="1231231234" />
+      </Form>
+    );
+    expect(wrapper.find('input').props().value).to.equal('+1 123-123-1234');
+    expect(savedApi.getState().values).to.deep.equal({
+      hello: '+1 123-123-1234'
+    });
+  });
+
+  it('should run formatter and parser on initial value', () => {
+    let savedApi;
+
+    const formatter = [
+      '+',
+      '1',
+      ' ',
+      /\d/,
+      /\d/,
+      /\d/,
+      '-',
+      /\d/,
+      /\d/,
+      /\d/,
+      '-',
+      /\d/,
+      /\d/,
+      /\d/,
+      /\d/
+    ];
+
+    const parser = value => {
+      return value.replace('+1 ', '').replace(/-/g, '');
+    };
+
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text
+          field="hello"
+          formatter={formatter}
+          parser={parser}
+          initialValue="1231231234"
+        />
+      </Form>
+    );
+    expect(wrapper.find('input').props().value).to.equal('+1 123-123-1234');
+    expect(savedApi.getState().values).to.deep.equal({ hello: '1231231234' });
+  });
+
   it('should run format and parse when user passes initial value and format and parse are passed', () => {
     let savedApi;
     const format = value => `$${value}`;
@@ -234,6 +464,7 @@ describe('Text', () => {
   it('other user props should update when they change', () => {
     const propsBefore = { disabled: false };
     const propsAfter = { disabled: true };
+    // eslint-disable-next-line no-unused-vars
     let api;
     const setApi = param => {
       api = param;
@@ -241,13 +472,9 @@ describe('Text', () => {
     const wrapper = mount(
       <Form getApi={setApi}>
         {({ formState }) => {
-          const rest = formState.values.name === 'Foo' ? propsAfter : propsBefore;
-          return (
-            <Text
-              field="name"
-              {...rest}
-            />
-          );
+          const rest =
+            formState.values.name === 'Foo' ? propsAfter : propsBefore;
+          return <Text field="name" {...rest} />;
         }}
       </Form>
     );
@@ -258,28 +485,22 @@ describe('Text', () => {
   });
 
   it('type should change when external change occurs', () => {
-
     const Changer = () => {
       const [type, setType] = useState('text');
       const toggle = () => {
-        setType((prev) => prev === 'text' ? 'password' : 'text');
+        setType(prev => (prev === 'text' ? 'password' : 'text'));
       };
       return (
         <div>
           <Form>
-            <Text
-              field="name"
-              type={type}
-            />
+            <Text field="name" type={type} />
           </Form>
           <button onClick={toggle}>ClickMe</button>
         </div>
       );
     };
 
-    const wrapper = mount(
-      <Changer />
-    );
+    const wrapper = mount(<Changer />);
     expect(wrapper.find('input').props().type).to.equal('text');
     let button = wrapper.find('button');
     button.simulate('click');
@@ -289,27 +510,25 @@ describe('Text', () => {
   });
 
   it('should keep state when in a form and toggled', () => {
-
     let savedApi;
 
     const Toggle = () => {
       const [show, setShow] = useState(true);
-      const toggle = () => setShow((prev) => !prev);
+      const toggle = () => setShow(prev => !prev);
       return (
         <Form
           getApi={api => {
             savedApi = api;
           }}>
           {show ? <Text field="greeting" keepState /> : null}
-          <button type="button" onClick={toggle}>toggle</button>
+          <button type="button" onClick={toggle}>
+            toggle
+          </button>
         </Form>
       );
     };
 
-
-    const wrapper = mount(
-      <Toggle />
-    );
+    const wrapper = mount(<Toggle />);
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'Hello!' } });
     expect(savedApi.getState().values).to.deep.equal({ greeting: 'Hello!' });
@@ -321,26 +540,25 @@ describe('Text', () => {
   });
 
   it('should NOT keep state when in a form and toggled with no keepState prop', () => {
-
     let savedApi;
 
     const Toggle = () => {
       const [show, setShow] = useState(true);
-      const toggle = () => setShow((prev) => !prev);
+      const toggle = () => setShow(prev => !prev);
       return (
         <Form
           getApi={api => {
             savedApi = api;
           }}>
           {show ? <Text field="greeting" /> : null}
-          <button type="button" onClick={toggle}>toggle</button>
+          <button type="button" onClick={toggle}>
+            toggle
+          </button>
         </Form>
       );
     };
 
-    const wrapper = mount(
-      <Toggle />
-    );
+    const wrapper = mount(<Toggle />);
     const input = wrapper.find('input');
     input.simulate('change', { target: { value: 'Hello!' } });
     expect(savedApi.getState().values).to.deep.equal({ greeting: 'Hello!' });
@@ -352,26 +570,27 @@ describe('Text', () => {
   });
 
   it('should set value to initial value if no value was added and keep state prop was passed when in a form and toggled', () => {
-
     let savedApi;
 
     const Toggle = () => {
       const [show, setShow] = useState(true);
-      const toggle = () => setShow((prev) => !prev);
+      const toggle = () => setShow(prev => !prev);
       return (
         <Form
           getApi={api => {
             savedApi = api;
           }}>
-          {show ? <Text field="greeting" keepState initialValue="foobar" /> : null}
-          <button type="button" onClick={toggle}>toggle</button>
+          {show ? (
+            <Text field="greeting" keepState initialValue="foobar" />
+          ) : null}
+          <button type="button" onClick={toggle}>
+            toggle
+          </button>
         </Form>
       );
     };
 
-    const wrapper = mount(
-      <Toggle />
-    );
+    const wrapper = mount(<Toggle />);
     expect(savedApi.getState().values).to.deep.equal({ greeting: 'foobar' });
     const button = wrapper.find('button');
     button.simulate('click');
@@ -381,12 +600,11 @@ describe('Text', () => {
   });
 
   it('should set value to initial form value if no value was added and keep state prop was passed when in a form and toggled', () => {
-
     let savedApi;
 
     const Toggle = () => {
       const [show, setShow] = useState(true);
-      const toggle = () => setShow((prev) => !prev);
+      const toggle = () => setShow(prev => !prev);
       return (
         <Form
           initialValues={{ greeting: 'foobar' }}
@@ -394,14 +612,14 @@ describe('Text', () => {
             savedApi = api;
           }}>
           {show ? <Text field="greeting" keepState /> : null}
-          <button type="button" onClick={toggle}>toggle</button>
+          <button type="button" onClick={toggle}>
+            toggle
+          </button>
         </Form>
       );
     };
 
-    const wrapper = mount(
-      <Toggle />
-    );
+    const wrapper = mount(<Toggle />);
     expect(savedApi.getState().values).to.deep.equal({ greeting: 'foobar' });
     const button = wrapper.find('button');
     button.simulate('click');
@@ -409,6 +627,4 @@ describe('Text', () => {
     button.simulate('click');
     expect(savedApi.getState().values).to.deep.equal({ greeting: 'foobar' });
   });
-
-
 });

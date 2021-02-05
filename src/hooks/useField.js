@@ -116,30 +116,30 @@ const generateOnBlur = ({ setTouched, onBlur }) => {
 
 const generateValue = ({ fieldType, maskedValue, multiple, value }) => {
   switch (fieldType) {
-  case 'text':
-  case 'number':
-    return !maskedValue && maskedValue !== 0 ? '' : maskedValue;
-  case 'textArea':
-    return !maskedValue ? '' : maskedValue;
-  case 'select':
-    return value || (multiple ? [] : '');
-  case 'checkbox':
-    return !!value;
-  default:
-    return value;
+    case 'text':
+    case 'number':
+      return !maskedValue && maskedValue !== 0 ? '' : maskedValue;
+    case 'textArea':
+      return !maskedValue ? '' : maskedValue;
+    case 'select':
+      return value || (multiple ? [] : '');
+    case 'checkbox':
+      return !!value;
+    default:
+      return value;
   }
 };
 
 const generateFieldType = fieldType => {
   switch (fieldType) {
-  case 'text':
-    return fieldType;
-  case 'number':
-    return fieldType;
-  case 'checkbox':
-    return fieldType;
-  default:
-    return;
+    case 'text':
+      return fieldType;
+    case 'number':
+      return fieldType;
+    case 'checkbox':
+      return fieldType;
+    default:
+      return;
   }
 };
 

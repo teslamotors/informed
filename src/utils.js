@@ -46,9 +46,9 @@ export const yupToFormError = yupError => {
   }
 };
 
-export const validateYupField = (schema, value) => {
+export const validateYupField = (schema, value, values) => {
   try {
-    schema.validateSync(value, { abortEarly: false });
+    schema.validateSync(value, { abortEarly: false, context: values });
   } catch (e) {
     return yupToFormError(e);
   }

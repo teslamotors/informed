@@ -56,7 +56,7 @@ const generateValidationFunction = (
   if (validationFunc || validationSchema) {
     return (val, values) => {
       if (validationSchema) {
-        return validateYupField(validationSchema, val);
+        return validateYupField(validationSchema, val, values);
       }
       if (validationFunc) {
         return validationFunc(val, values);

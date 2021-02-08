@@ -151,4 +151,14 @@ describe('asField', () => {
       expect(input.props()[attribute]).to.equal(value);
     });
   })
+
+  it(`should return an id attribute if one isn't provided`, () => {
+    const Field = asField(({ fieldState: _fs, fieldApi: _fa, ...props }) => (
+      <input {...props} />
+    ))
+    const wrapper = mount(<Field field="foo" />);
+    const input = wrapper.find('input');
+
+    expect(input.props().id).to.exist
+  });
 });

@@ -133,5 +133,22 @@ describe('asField', () => {
     expect(error.text()).to.equal('Field must be at least five characters');
   });
 
+  const htmlAttributeCases = [
+    {field: 'id', attribute: 'id', value: 'foo'},
+    {field: 'required', attribute: 'required', value: true},
+    {field: 'multiple', attribute: 'multiple', value: true}
+  ];
 
+  htmlAttributeCases.forEach(({field, attribute, value}) => {
+    it(`should preserve valid HTML attribute '${attribute}' passed in by user`, () => {
+      const props = {[attribute]: value}
+      const Field = asField(({ fieldState: _fs, fieldApi: _fa, ...props }) => (
+	<input {...props} />
+      ))
+      const wrapper = mount(<Field field={field} {...props}/>);
+      const input = wrapper.find('input');
+
+      expect(input.props()[attribute]).to.equal(value);
+    });
+  })
 });

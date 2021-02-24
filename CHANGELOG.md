@@ -1,3 +1,9 @@
+## 3.29.4 (February 24, 2020)
+
+### Updated
+
+- Peer deps to support react v 17
+
 ## 3.29.3 (February 5, 2020)
 
 ### Fixed

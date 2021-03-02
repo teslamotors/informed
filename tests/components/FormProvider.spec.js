@@ -553,8 +553,8 @@ describe('FormProvider', () => {
     expect(api.getState()).to.deep.equal(
       getState({
         values: { greeting: 'ayyyoooooo' },
-        pristine: false,
-        dirty: true
+        pristine: true,
+        dirty: false
       })
     );
   });
@@ -580,8 +580,8 @@ describe('FormProvider', () => {
     expect(api.getState()).to.deep.equal(
       getState({
         values: { greeting: 'ayyyoooooo' },
-        pristine: false,
-        dirty: true
+        pristine: true,
+        dirty: false
       })
     );
   });
@@ -601,8 +601,8 @@ describe('FormProvider', () => {
     expect(api.getState()).to.deep.equal(
       getState({
         values: { favorite: { color: 'red' } },
-        pristine: false,
-        dirty: true
+        pristine: true,
+        dirty: false
       })
     );
     const input = wrapper.find('input');
@@ -618,8 +618,8 @@ describe('FormProvider', () => {
     expect(api.getState()).to.deep.equal(
       getState({
         values: { favorite: { color: 'red' } },
-        pristine: false,
-        dirty: true
+        pristine: true,
+        dirty: false
       })
     );
   });
@@ -641,8 +641,8 @@ describe('FormProvider', () => {
     expect(api.getState()).to.deep.equal(
       getState({
         values: { favorite: { color: 'red' } },
-        pristine: false,
-        dirty: true
+        pristine: true,
+        dirty: false
       })
     );
     const input = wrapper.find('input');
@@ -658,8 +658,8 @@ describe('FormProvider', () => {
     expect(api.getState()).to.deep.equal(
       getState({
         values: { favorite: { color: 'red' } },
-        pristine: false,
-        dirty: true
+        pristine: true,
+        dirty: false
       })
     );
   });

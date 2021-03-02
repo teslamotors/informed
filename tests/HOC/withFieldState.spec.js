@@ -27,7 +27,9 @@ describe('withFieldState', () => {
     const input = wrapper.find('input').at(0);
     input.simulate('change', { target: { value: 'Hello!' } });
     const stuff = wrapper.find('Stuff');
-    expect(stuff.text()).to.equal('{"value":"Hello!"}');
+    expect(stuff.text()).to.equal(
+      '{"value":"Hello!","dirty":true,"pristine":false}'
+    );
   });
 
   it('should give access to the field state when inside of form Provider', () => {
@@ -40,7 +42,8 @@ describe('withFieldState', () => {
     const input = wrapper.find('input').at(0);
     input.simulate('change', { target: { value: 'Hello!' } });
     const stuff = wrapper.find('Stuff');
-    expect(stuff.text()).to.equal('{"value":"Hello!"}');
+    expect(stuff.text()).to.equal(
+      '{"value":"Hello!","dirty":true,"pristine":false}'
+    );
   });
-
 });

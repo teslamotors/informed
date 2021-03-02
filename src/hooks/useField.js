@@ -210,6 +210,18 @@ function useField(fieldProps = {}, userRef) {
   // Create ref to fieldObject
   const fieldObjectRef = useRef();
 
+  // Create ref for pristine and dirty
+  const valueTouched = useRef(false);
+
+  // Getters for value ref
+  const getPristine = () => {
+    return !valueTouched.current;
+  };
+
+  const getDirty = () => {
+    return valueTouched.current;
+  };
+
   // If the form Controller was passed in then use that instead
   if (formController) {
     updater = formController.updater;
@@ -354,6 +366,9 @@ function useField(fieldProps = {}, userRef) {
   // ---- Define set value ----
   const setValue = (v, e, options = {}) => {
     let val = v;
+
+    // This value has now been modified
+    valueTouched.current = true;
 
     logger(`Setting ${field} to ${val}`);
 
@@ -523,6 +538,9 @@ function useField(fieldProps = {}, userRef) {
       preventUpdate
     });
     setTouched(undefined, true, { preventUpdate });
+
+    // We are now at our initial state
+    valueTouched.current = false;
   };
 
   // ---- Define validate ----
@@ -558,9 +576,13 @@ function useField(fieldProps = {}, userRef) {
     getTouched: getTouch,
     getError: getErr,
     getIsRelevant: getIsRelevant,
+    getDirty,
+    getPristine,
     getFieldState: () => ({
       value: getVal(),
-      touched: getTouch()
+      touched: getTouch(),
+      dirty: getDirty(),
+      pristine: getPristine()
     }),
     relevant,
     multistepRelevant,
@@ -574,7 +596,9 @@ function useField(fieldProps = {}, userRef) {
     error,
     touched,
     maskedValue,
-    isRelevant
+    isRelevant,
+    dirty: valueTouched.current,
+    pristine: !valueTouched.current
   };
 
   // Create shadow state if this is a shadow field

@@ -98,7 +98,9 @@ class FormController extends EventEmitter {
         getTouched: noop,
         getError: noop,
         getFieldState: noop,
-        checkRelevant: noop
+        checkRelevant: noop,
+        getPristine: noop,
+        getDirty: noop
       }
     };
 
@@ -141,6 +143,8 @@ class FormController extends EventEmitter {
     this.notify = this.notify.bind(this);
     this.validating = this.validating.bind(this);
     this.validated = this.validated.bind(this);
+    this.getDirty = this.getDirty.bind(this);
+    this.getPristine = this.getPristine.bind(this);
     // this.change = this.change.bind(this);
     // this.clear = this.clear.bind(this);
 
@@ -298,7 +302,9 @@ class FormController extends EventEmitter {
       back: this.back,
       setCurrent: this.setCurrent,
       validated: this.validated,
-      validating: this.validating
+      validating: this.validating,
+      getDirty: this.getDirty,
+      getPristine: this.getPristine
     };
 
     this.on('value', field => {
@@ -484,6 +490,18 @@ class FormController extends EventEmitter {
     return error;
   }
 
+  getDirty(field) {
+    const dirty = this.getField(field).fieldApi.getDirty();
+    debug('Getting dirty for', field, dirty);
+    return dirty;
+  }
+
+  getPristine(field) {
+    const pristine = this.getField(field).fieldApi.getPristine();
+    debug('Getting pristine for', field, pristine);
+    return pristine;
+  }
+
   getValues() {
     debug('Gettings values');
     return this.state.values;
@@ -600,9 +618,18 @@ class FormController extends EventEmitter {
   }
 
   pristine() {
-    const touched = this.getAllTouched();
-    const values = this.getValues();
-    return ObjectMap.empty(touched) && ObjectMap.empty(values);
+    // We are pristine if all our fields are pristine
+    // const touched = this.getAllTouched();
+    // const values = this.getValues();
+    // return ObjectMap.empty(touched) && ObjectMap.empty(values);
+    let pristine = true;
+    this.fieldsById.forEach(field => {
+      if (!field.fieldApi.getPristine()) {
+        pristine = false;
+      }
+    });
+
+    return pristine;
   }
 
   dirty() {

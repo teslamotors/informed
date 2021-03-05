@@ -1,18 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { mount } from 'enzyme';
-import { act } from 'react-dom/test-utils';
-import {
-  Form,
-  Text,
-  Checkbox,
-  Multistep,
-  Relevant,
-  RadioGroup,
-  Radio
-} from '../../src';
-import { Test } from 'mocha';
+import { Form, Text, Checkbox, Relevant, Scope } from '../../src';
 
 describe('Relevant', () => {
   const sandbox = sinon.createSandbox();
@@ -462,6 +452,97 @@ describe('Relevant', () => {
       hasDog: true,
       dogAge: 10,
       dogName: 'TC'
+    });
+  });
+
+  it('relevant fields should keep state when keep state is passed even when in scope and fill values back after they reapear', () => {
+    const apiRef = {};
+
+    const wrapper = mount(
+      <Form apiRef={apiRef}>
+        <Scope scope="person">
+          <Checkbox field="hasDog" />
+          <Relevant
+            when={({ values }) =>
+              values && values.person && values.person.hasDog
+            }>
+            <Text field="dogName" keepState />
+            <Text field="dogAge" keepState />
+          </Relevant>
+        </Scope>
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    // Validate single input
+    let inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(1);
+    expect(inputs.at(0).props().name).to.equal('hasDog');
+
+    // Check the checkbox
+    inputs.at(0).simulate('change', { target: { checked: true } });
+
+    // Validate new inputs
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(3);
+    expect(inputs.at(0).props().name).to.equal('hasDog');
+    expect(inputs.at(1).props().name).to.equal('dogName');
+    expect(inputs.at(2).props().name).to.equal('dogAge');
+
+    // Validate state
+    expect(apiRef.current.getState().values).to.deep.equal({
+      person: {
+        hasDog: true
+      }
+    });
+
+    // Fill in dog fields
+    inputs.at(1).simulate('change', { target: { value: 'Leo' } });
+    inputs.at(2).simulate('change', { target: { value: 1 } });
+
+    // Validate state
+    expect(apiRef.current.getState().values).to.deep.equal({
+      person: {
+        hasDog: true,
+        dogAge: 1,
+        dogName: 'Leo'
+      }
+    });
+
+    // Un-Check the checkbox
+    inputs.at(0).simulate('change', { target: { checked: false } });
+
+    // Validate new inputs
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(1);
+    expect(inputs.at(0).props().name).to.equal('hasDog');
+
+    // Validate state
+    expect(apiRef.current.getState().values).to.deep.equal({
+      person: {
+        hasDog: false,
+        dogAge: 1,
+        dogName: 'Leo'
+      }
+    });
+
+    // Check box to true again
+    inputs.at(0).simulate('change', { target: { checked: true } });
+
+    // Validate new inputs
+    inputs = wrapper.find('input');
+    expect(inputs.length).to.equal(3);
+    expect(inputs.at(0).props().name).to.equal('hasDog');
+    expect(inputs.at(1).props().name).to.equal('dogName');
+    expect(inputs.at(2).props().name).to.equal('dogAge');
+
+    // Validate state
+    expect(apiRef.current.getState().values).to.deep.equal({
+      person: {
+        hasDog: true,
+        dogAge: 1,
+        dogName: 'Leo'
+      }
     });
   });
 });

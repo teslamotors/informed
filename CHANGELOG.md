@@ -1,3 +1,9 @@
+## 3.30.1 (March 5, 2021)
+
+### Fixed
+
+- Issue where keep state in scope was not working.
+
 ## 3.30.0 (March 2, 2021)
 
 ### Added

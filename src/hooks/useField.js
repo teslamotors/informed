@@ -239,7 +239,7 @@ function useField(fieldProps = {}, userRef) {
   const [formInitialValue] = useState(() => updater.getInitialValue(field));
 
   // We might have keep state so check for it!
-  const savedState = formApi.getSavedValue(field);
+  const savedState = updater.getSavedValue(field);
 
   // Create Initial Values
   let initVal;

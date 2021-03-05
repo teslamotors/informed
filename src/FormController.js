@@ -266,7 +266,8 @@ class FormController extends EventEmitter {
         }
       },
       expectRemoval: this.expectRemoval,
-      getInitialValue: this.getInitialValue
+      getInitialValue: this.getInitialValue,
+      getSavedValue: this.getSavedValue
     };
 
     // Define the formApi

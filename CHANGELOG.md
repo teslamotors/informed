@@ -1,3 +1,9 @@
+## 3.30.2 (March 15, 2021)
+
+### Refactored
+
+- To no longer use event emitter.
+
 ## 3.30.1 (March 5, 2021)
 
 ### Fixed

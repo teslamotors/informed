@@ -16,7 +16,8 @@ const buildFieldApi = (formApi, field) => {
     validate: () => formApi.validateField(field),
     exists: () => formApi.fieldExists(field),
     getDirty: () => formApi.getDirty(field),
-    getPristine: () => formApi.getPristine(field)
+    getPristine: () => formApi.getPristine(field),
+    getFieldState: () => formApi.getField(field).fieldApi.getFieldState()
   };
 };
 

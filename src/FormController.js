@@ -1,5 +1,4 @@
 import ObjectMap from './ObjectMap';
-import { EventEmitter } from 'events';
 import Debug from './debug';
 import defaultFieldMap from './fieldMap';
 import { validateYupSchema, validateAjvSchema } from './utils';
@@ -16,12 +15,12 @@ const isExpected = (path, expectedRemovals) => {
 };
 
 const noop = () => {};
-class FormController extends EventEmitter {
+class FormController {
   constructor(options = {}) {
-    // Dont forget to call super! :)
-    super();
-
     this.options = options;
+
+    // Initialize listeners
+    this.subscriptions = new Map();
 
     const { ajv, schema, fieldMap } = options;
 
@@ -145,6 +144,9 @@ class FormController extends EventEmitter {
     this.validated = this.validated.bind(this);
     this.getDirty = this.getDirty.bind(this);
     this.getPristine = this.getPristine.bind(this);
+    this.on = this.on.bind(this);
+    this.emit = this.emit.bind(this);
+    this.removeListener = this.removeListener.bind(this);
     // this.change = this.change.bind(this);
     // this.clear = this.clear.bind(this);
 
@@ -189,6 +191,7 @@ class FormController extends EventEmitter {
 
         if (emit) {
           this.emit('change');
+          this.emit('field', field.field);
           this.emit('value', field.field, value);
         }
       },
@@ -217,6 +220,7 @@ class FormController extends EventEmitter {
         }
         if (emit) {
           this.emit('change');
+          this.emit('field', field.field);
           //this.emit('touch', field.field, touch);
         }
       },
@@ -262,6 +266,7 @@ class FormController extends EventEmitter {
 
         if (emit) {
           this.emit('change');
+          this.emit('field', field.field);
           //this.emit('error', field.field, error);
         }
       },
@@ -305,7 +310,8 @@ class FormController extends EventEmitter {
       validated: this.validated,
       validating: this.validating,
       getDirty: this.getDirty,
-      getPristine: this.getPristine
+      getPristine: this.getPristine,
+      getField: this.getField
     };
 
     this.on('value', field => {
@@ -313,6 +319,33 @@ class FormController extends EventEmitter {
       delete this.state.error;
       this.notify(field);
     });
+  }
+
+  /* -------------------------------- Event Emitter ------------------------------ */
+
+  emit(event, ...args) {
+    // Grab the set based on the event
+    const listeners = this.subscriptions.get(event);
+    // Only call if we have listeners on that event ( null check )
+    if (listeners) {
+      listeners.forEach(listener => listener(...args));
+    }
+  }
+
+  on(event, listener) {
+    // Singleton check
+    if (!this.subscriptions.get(event)) {
+      this.subscriptions.set(event, new Set());
+    }
+    // Add listener
+    const listeners = this.subscriptions.get(event);
+    listeners.add(listener);
+  }
+
+  removeListener(event, listener) {
+    // Remove listener
+    const listeners = this.subscriptions.get(event);
+    listeners.delete(listener);
   }
 
   /* ---------------------------------- Setters ---------------------------------- */

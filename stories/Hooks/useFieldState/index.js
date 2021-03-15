@@ -4,21 +4,26 @@ import readme from './README.md';
 
 import { Form, Text, useFieldState } from '../../../src';
 
-const ComponentUsingFieldState = () => {
-  const fieldState = useFieldState('name');
+const ComponentUsingFieldState = ({ name }) => {
+  const fieldState = useFieldState(name);
   return (
-    <pre>
-      <code>{JSON.stringify(fieldState, null, 2)}</code>
-    </pre>
+    <>
+      <h5>Component using fieldState: {name}</h5>
+      Render: {Math.random()}
+      <pre>
+        <code>{JSON.stringify(fieldState, null, 2)}</code>
+      </pre>
+    </>
   );
 };
 
 const UseFieldState = () => (
   <Form>
-    <label>Name:<Text field="name"/></label>
+    <Text field="name" label="Name:" />
+    <Text field="age" label="Age:" type="number" />
     <button type="submit">Submit</button>
-    <h5>Component using fieldState:</h5>
-    <ComponentUsingFieldState />
+    <ComponentUsingFieldState name="name" />
+    <ComponentUsingFieldState name="age" />
   </Form>
 );
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext, useRef, useMemo } from 'react';
 import { FormRegisterContext, MultistepStepContext } from '../Context';
 import useFormApi from './useFormApi';
 import useStateWithGetter from './useStateWithGetter';
@@ -674,19 +674,19 @@ function useField(fieldProps = {}, userRef) {
   });
 
   // This is an awesome optimization!!
-  // const shouldUpdate = [
-  //   ...Object.values(fieldState),
-  //   ...Object.values(fieldProps),
-  //   ...Object.values(userProps)
-  // ];
+  const shouldUpdate = [
+    ...Object.values(fieldState),
+    ...Object.values(fieldProps),
+    ...Object.values(userProps)
+  ];
 
-  // const render = children =>
-  //   useMemo(() => (isRelevant ? children : null), [...shouldUpdate]);
+  const render = children =>
+    useMemo(() => (isRelevant ? children : null), [...shouldUpdate]);
 
-  const render = children => {
-    // console.log('RENDER', field);
-    return isRelevant ? children : null;
-  };
+  // const render = children => {
+  //   // console.log('RENDER', field);
+  //   return isRelevant ? children : null;
+  // };
 
   // Build some setub fields so users can easily intagrate without any hookup code
 

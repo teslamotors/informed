@@ -7,7 +7,8 @@ import dracula from 'prism-react-renderer/themes/dracula';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 
 const imports = {
-  informed: Informed
+  informed: Informed,
+  react: React
 };
 
 const scope = { imports };

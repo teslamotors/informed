@@ -1,3 +1,9 @@
+## 3.30.3 (April 2, 2021)
+
+### Added
+
+- memoized render back because I never should have removed it
+
 ## 3.30.2 (March 15, 2021)
 
 ### Refactored

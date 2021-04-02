@@ -24,13 +24,6 @@ class FormController {
 
     const { ajv, schema, fieldMap } = options;
 
-    // Debounced change
-    // const change = () => {
-    //   this.rebuildState();
-    //   this.emit('change');
-    // };
-    // this.change = debounce(change, 250);
-
     // Create new ajv instance if passed
     this.ajv = ajv ? new ajv({ allErrors: true }) : null;
     this.ajvValidate = ajv ? this.ajv.compile(schema) : null;
@@ -147,8 +140,6 @@ class FormController {
     this.on = this.on.bind(this);
     this.emit = this.emit.bind(this);
     this.removeListener = this.removeListener.bind(this);
-    // this.change = this.change.bind(this);
-    // this.clear = this.clear.bind(this);
 
     // Updater will be used by fields to update and register
     this.updater = {
@@ -156,7 +147,6 @@ class FormController {
       deregister: this.deregister,
       getField: this.getField,
       update: this.update,
-      // clear: this.clear,
       fieldMap: this.fieldMap,
       setValue: (fieldId, value, emit = true) => {
         const field = this.fieldsById.get(fieldId);
@@ -463,39 +453,6 @@ class FormController {
       invalid: this.invalid()
     };
   }
-
-  // rebuildState() {
-  //   debug('Generating form state');
-
-  //   // Rebuild values, errors, and touched
-  //   const values = {};
-  //   const errors = {};
-  //   const touched = {};
-
-  //   this.fieldsById.forEach(field => {
-  //     if (!field.shadow) {
-  //       // Get the values from the field
-  //       const value = field.fieldApi.getValue();
-  //       const error = field.fieldApi.getError();
-  //       const t = field.fieldApi.getTouched();
-  //       // Set the value
-  //       ObjectMap.set(values, field.field, value);
-  //       ObjectMap.set(errors, field.field, error);
-  //       ObjectMap.set(touched, field.field, t);
-  //       // console.log('SETTING', field.field);
-  //     }
-  //   });
-
-  //   this.state = {
-  //     ...this.state,
-  //     values,
-  //     errors,
-  //     touched,
-  //     pristine: this.pristine(),
-  //     dirty: this.dirty(),
-  //     invalid: this.invalid()
-  //   };
-  // }
 
   getFormApi() {
     return this.formApi;
@@ -995,7 +952,7 @@ class FormController {
 
   update(id, field, oldName) {
     debug('Update', id, field.field, oldName, field.fieldState.value);
-    // this.change();
+
     // Update the error touched and values of this field
     const value = field.fieldApi.getValue();
     const error = field.fieldApi.getError();

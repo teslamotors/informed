@@ -6,6 +6,7 @@ import RadioGroup from './components/form-fields/RadioGroup';
 import AddButton from './components/form-fields/AddButton';
 import RemoveButton from './components/form-fields/RemoveButton';
 import ArrayField from './components/form-fields/ArrayField';
+import Label from './components/Label';
 
 export default {
   select: Select,
@@ -15,5 +16,6 @@ export default {
   radio: RadioGroup,
   add: AddButton,
   remove: RemoveButton,
-  array: ArrayField
+  array: ArrayField,
+  label: Label
 };

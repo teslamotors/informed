@@ -100,6 +100,29 @@ export const debounce = (func, wait) => {
 };
 
 export const computeFieldFromProperty = (propertyName, property, prefix) => {
+  // Special case for relevant fields
+  // Example 'conditional:over21'
+  if (/conditional:.*/.test(propertyName)) {
+    return {
+      componentType: 'relevantFields',
+      // Example 'conditional:over21' ---> over21
+      relevant: propertyName.replace(/conditional:(.*)/, '$1')
+    };
+  }
+
+  // Special case for component fields
+  // Example 'component:marriedLabel'
+  if (/component:.*/.test(propertyName)) {
+    const { 'ui:control': uiControl, ...props } = property;
+
+    return {
+      componentType: uiControl,
+      // Not needed as this is not an informed field
+      field: undefined,
+      props
+    };
+  }
+
   const {
     'ui:control': uiControl,
     'informed:props': informedProps,
@@ -213,11 +236,14 @@ export const computeFieldsFromSchema = (schema, onlyValidateSchema, prefix) => {
 
     // Check for all of ( we have conditionals )
     if (allOf) {
-      fields.push({
-        componentType: 'conditionals',
-        // Each element of the "allOf" array is a conditional
-        allOf: allOf
-      });
+      // Only do this if the user did not chose to control location
+      if (!allOf[0].relevant) {
+        fields.push({
+          componentType: 'conditionals',
+          // Each element of the "allOf" array is a conditional
+          allOf: allOf
+        });
+      }
     }
 
     return fields;

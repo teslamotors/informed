@@ -12,6 +12,8 @@ import NestedSchema from './Schema/NestedSchema';
 import ArrayFieldSchema from './Schema/ArrayFieldSchema';
 import ArrayFieldSchemaRelevant from './Schema/ArrayFieldSchemaRelevant';
 import ArrayFieldSchemaNested from './Schema/ArrayFieldSchemaNested';
+import FormattedConditionalSchema from './Schema/FormattedConditionalSchema';
+import LocationControl from './Schema/LocationControl';
 import CustomSchema from './Schema/CustomSchema';
 import Complex from './Form/Complex';
 import Big from './Form/Big';
@@ -203,6 +205,8 @@ storiesOf('Schema', module)
   .add('Formatted Schema', FormattedSchema)
   .add('Array Field Schema', ArrayFieldSchema)
   .add('Conditional Schema', ConditionalSchema)
+  .add('Formatted Conditional Schema', FormattedConditionalSchema)
+  .add('Location Control', LocationControl)
   .add('Custom Schema', CustomSchema)
   .add('Nested Array Fields', ArrayFieldSchemaNested)
   .add('Relevant ArrayField Schema', ArrayFieldSchemaRelevant);

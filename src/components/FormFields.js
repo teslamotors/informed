@@ -1,7 +1,7 @@
 import React, { useMemo, useContext } from 'react';
 import { computeFieldsFromSchema } from '../utils';
 import ArrayField from './form-fields/ArrayField';
-import Relevant from './Relevant';
+import Relevant, { RelevantFields } from './Relevant';
 import Debug from '../debug';
 import { FormRegisterContext } from '../Context';
 
@@ -29,6 +29,7 @@ const FormFields = ({ schema, prefix, onlyValidateSchema }) => {
           properties,
           items,
           componentType,
+          relevant,
           uiBefore,
           uiAfter,
           allOf
@@ -38,6 +39,13 @@ const FormFields = ({ schema, prefix, onlyValidateSchema }) => {
 
         // console.log('WTF', schemaField);
         logger('Rendering Field', field, schemaField);
+
+        // For Relevant Fields
+        if (componentType === 'relevantFields') {
+          return (
+            <RelevantFields key={`ScheamField-${i}`} relevant={relevant} />
+          );
+        }
 
         // Scope for nested
         if (!Component && type === 'object' && properties) {

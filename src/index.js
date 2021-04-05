@@ -44,6 +44,7 @@ import { BasicRadioGroup } from './components/form-fields/RadioGroup';
 import { BasicTextArea } from './components/form-fields/TextArea';
 import { BasicSelect } from './components/form-fields/Select';
 import { BasicCheckbox } from './components/form-fields/Checkbox';
+import { RelevantFields } from './components/Relevant';
 
 import * as utils from './utils';
 
@@ -93,5 +94,6 @@ export {
   SchemaFields,
   FormFields,
   FormComponents,
+  RelevantFields,
   utils
 };

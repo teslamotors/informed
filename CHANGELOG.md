@@ -1,3 +1,9 @@
+## 3.31.0 (April 26, 2021)
+
+### Added
+
+- formatter functions `formatter = [()=>{}, ()=>{}]`
+
 ## 3.30.3 (April 2, 2021)
 
 ### Added

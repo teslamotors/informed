@@ -376,39 +376,45 @@ export const informedFormat = (value, frmtr) => {
       // Get the current value character
       const curChar = chars[vIndex];
 
-      // If type is string normal compare otherwise regex compare
-      const match =
-        typeof matcher === 'string'
-          ? matcher === curChar
-          : matcher.test(curChar);
+      // Special case for function
+      if (typeof matcher === 'function') {
+        formatted.push(matcher(curChar));
+        vIndex = vIndex + 1;
+      } else {
+        // If type is string normal compare otherwise regex compare
+        const match =
+          typeof matcher === 'string'
+            ? matcher === curChar
+            : matcher.test(curChar);
 
-      // If the current character of the value matches and matcher is a string
-      // "1" === "1"
-      if (match && typeof matcher === 'string') {
-        formatted.push(matcher);
-        //if( pastPrefix ){
-        vIndex = vIndex + 1;
-        //}
-      }
-      // If the current character does not match and matcher is a stirng
-      // "1" != "+"
-      else if (!match && typeof matcher === 'string') {
-        // Special check for 123a ---> dont want "+1 123-"
-        // Special check for 1234 ---> DO want "+1 123-4"
-        if (vIndex != chars.length) formatted.push(matcher);
-      }
-      // If the current character matches and the matcher is not a string
-      // /\d/.test("2")
-      else if (match && typeof matcher != 'string') {
-        formatted.push(curChar);
-        vIndex = vIndex + 1;
-      }
-      // If the current character does NOT match and the matecer is regex
-      // /\d/.test("a")
-      else if (!match && typeof matcher != 'string') {
-        // Throw out this value
-        vIndex = vIndex + 1;
-        i = i - 1;
+        // If the current character of the value matches and matcher is a string
+        // "1" === "1"
+        if (match && typeof matcher === 'string') {
+          formatted.push(matcher);
+          //if( pastPrefix ){
+          vIndex = vIndex + 1;
+          //}
+        }
+        // If the current character does not match and matcher is a stirng
+        // "1" != "+"
+        else if (!match && typeof matcher === 'string') {
+          // Special check for 123a ---> dont want "+1 123-"
+          // Special check for 1234 ---> DO want "+1 123-4"
+          if (vIndex != chars.length) formatted.push(matcher);
+        }
+        // If the current character matches and the matcher is not a string
+        // /\d/.test("2")
+        else if (match && typeof matcher != 'string') {
+          formatted.push(curChar);
+          vIndex = vIndex + 1;
+        }
+        // If the current character does NOT match and the matecer is regex
+        // /\d/.test("a")
+        else if (!match && typeof matcher != 'string') {
+          // Throw out this value
+          vIndex = vIndex + 1;
+          i = i - 1;
+        }
       }
     } else {
       // If mattcher is a string and we are at suffix keep going

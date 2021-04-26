@@ -40,6 +40,7 @@ import RickRoll from './Playground/RickRoll';
 import FormatParse from './Formatting/FormatParse';
 import Formatter from './Formatting/Formatter';
 import Mask from './Formatting/Mask';
+import FormatterFunctions from './Formatting/FormatterFunctions';
 // import MaskWithCursor from './Formatting/MaskWithCursor';
 import MaskWithCursorOffset from './Formatting/MaskWithCursorOffset';
 import UnnecessaryRendering from './Gotchas/UnnecessaryRendering';
@@ -212,7 +213,8 @@ storiesOf('Debugging', module).add('Form State', FormState);
 
 storiesOf('Formatting', module)
   .add('Mask', Mask)
-  .add('Formatter', Formatter);
+  .add('Formatter', Formatter)
+  .add('Formatter Functions', FormatterFunctions);
 // .add('Mask With Cursor', MaskWithCursor)
 // .add('Mask With Cursor Offset', MaskWithCursorOffset)
 // .add('Format and Parse', FormatParse);

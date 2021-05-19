@@ -6,8 +6,8 @@ import { MultistepStepContext } from '../Context';
 
 const useMultistepStep = ({ step, next, previous, relevant }) => {
   const { values } = useFormState();
-  const { current } = useMultistepState();
-  const { register, deregister } = useMultistepApi();
+  const { current, goal } = useMultistepState();
+  const { register, deregister, next: goToNext } = useMultistepApi();
 
   const isCurrent = step === current;
   const isRelevant = relevant ? relevant(values) : true;
@@ -43,6 +43,18 @@ const useMultistepStep = ({ step, next, previous, relevant }) => {
       };
     },
     [step]
+  );
+
+  useEffect(
+    () => {
+      // if we are NOT at the goal go to the next step
+      if (goal && isCurrent && goal !== step) {
+        // console.log('GOAL', goal, 'STEP', step, 'INDEX', getStep(step).index);
+        // console.log('GOING TO NEXT STEP');
+        goToNext();
+      }
+    },
+    [goal, isCurrent]
   );
 
   const render = children => {

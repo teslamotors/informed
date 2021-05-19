@@ -1,3 +1,9 @@
+## 3.32.0 (May 19, 2021)
+
+### Added
+
+- Ability to walk down a multistep with step selection.
+
 ## 3.31.0 (April 26, 2021)
 
 ### Added

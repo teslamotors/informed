@@ -1,3 +1,9 @@
+## 3.32.1 (May 21, 2021)
+
+### Fixed
+
+- Issue with layoutEffect in SSR
+
 ## 3.32.0 (May 19, 2021)
 
 ### Added

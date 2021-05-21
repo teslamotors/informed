@@ -19,7 +19,7 @@ const ComponentUsingFieldState = ({ name }) => {
 
 const UseFieldState = () => (
   <Form>
-    <Text field="name" label="Name:" />
+    <Text field="name" label="Name:" initialValue="Joe" />
     <Text field="age" label="Age:" type="number" />
     <button type="submit">Submit</button>
     <ComponentUsingFieldState name="name" />

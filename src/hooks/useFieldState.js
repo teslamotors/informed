@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 import useFieldApi from './useFieldApi';
 import useFormApi from './useFormApi';
 import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
@@ -25,9 +25,13 @@ function useFieldState(name) {
     };
   }, []);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     forceUpdate();
   }, []);
+
+  // useEffect(() => {
+  //   forceUpdate();
+  // }, []);
 
   return fieldApi.getFieldState();
 }

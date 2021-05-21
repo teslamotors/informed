@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import useLayoutEffect from './useIsomorphicLayoutEffect';
 import useStateWithGetter from './useStateWithGetter';
 
 const useCursorPosition = ({ value, inputRef, maintainCursor = true }) => {

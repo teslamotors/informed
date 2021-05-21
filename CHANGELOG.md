@@ -1,3 +1,9 @@
+## 3.33.0 (May 21, 2021)
+
+### Added
+
+- createIntlNumberFormatter
+
 ## 3.32.3 (May 21, 2021)
 
 ### Fixed

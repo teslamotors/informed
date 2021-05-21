@@ -792,6 +792,12 @@ class FormController {
     this.emit('change');
   }
 
+  mount() {
+    this.fieldsById.forEach(value => {
+      this.emit('field', value.field);
+    });
+  }
+
   /* ---------------- Updater Functions (used by fields) ---------------- */
 
   // ADDED initialRender parameter because of react 16.13.0 warning that does not like
@@ -860,6 +866,7 @@ class FormController {
     if (!initialRender) {
       this.emit('change');
     }
+    this.emit('field', name);
   }
 
   deregister(id) {

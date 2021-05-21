@@ -71,6 +71,10 @@ const useForm = ({
     [formControllerOptions]
   );
 
+  useLayoutEffect(() => {
+    formController.mount();
+  }, []);
+
   // Form state will be used to trigger rerenders
   const [formState, setFormState] = useState(() =>
     formController.getFormState()

@@ -33,7 +33,7 @@ function useFieldState(name) {
   //   forceUpdate();
   // }, []);
 
-  return fieldApi.getFieldState();
+  return fieldApi.getFieldState() || {};
 }
 
 export default useFieldState;

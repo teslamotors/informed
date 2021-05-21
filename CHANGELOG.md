@@ -1,3 +1,9 @@
+## 3.32.3 (May 21, 2021)
+
+### Fixed
+
+- Issue with useFieldState, now returns empty object by default
+
 ## 3.32.2 (May 21, 2021)
 
 ### Fixed

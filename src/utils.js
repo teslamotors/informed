@@ -290,16 +290,18 @@ const matchingIndex = (a, b) => {
   return mi;
 };
 
-export const informedFormat = (value, frmtr) => {
-  // console.log('Formatting', value);
+export const informedFormat = (val, frmtr) => {
+  // console.log('Formatting', val);
 
   // Null check
-  if (!value) {
+  if (!val) {
     return {
-      value,
+      val,
       offset: 0
     };
   }
+
+  const value = `${val}`;
 
   // Generate formatter array
   const formatter = getFormatter(frmtr, value);
@@ -376,39 +378,45 @@ export const informedFormat = (value, frmtr) => {
       // Get the current value character
       const curChar = chars[vIndex];
 
-      // If type is string normal compare otherwise regex compare
-      const match =
-        typeof matcher === 'string'
-          ? matcher === curChar
-          : matcher.test(curChar);
+      // Special case for function
+      if (typeof matcher === 'function') {
+        formatted.push(matcher(curChar));
+        vIndex = vIndex + 1;
+      } else {
+        // If type is string normal compare otherwise regex compare
+        const match =
+          typeof matcher === 'string'
+            ? matcher === curChar
+            : matcher.test(curChar);
 
-      // If the current character of the value matches and matcher is a string
-      // "1" === "1"
-      if (match && typeof matcher === 'string') {
-        formatted.push(matcher);
-        //if( pastPrefix ){
-        vIndex = vIndex + 1;
-        //}
-      }
-      // If the current character does not match and matcher is a stirng
-      // "1" != "+"
-      else if (!match && typeof matcher === 'string') {
-        // Special check for 123a ---> dont want "+1 123-"
-        // Special check for 1234 ---> DO want "+1 123-4"
-        if (vIndex != chars.length) formatted.push(matcher);
-      }
-      // If the current character matches and the matcher is not a string
-      // /\d/.test("2")
-      else if (match && typeof matcher != 'string') {
-        formatted.push(curChar);
-        vIndex = vIndex + 1;
-      }
-      // If the current character does NOT match and the matecer is regex
-      // /\d/.test("a")
-      else if (!match && typeof matcher != 'string') {
-        // Throw out this value
-        vIndex = vIndex + 1;
-        i = i - 1;
+        // If the current character of the value matches and matcher is a string
+        // "1" === "1"
+        if (match && typeof matcher === 'string') {
+          formatted.push(matcher);
+          //if( pastPrefix ){
+          vIndex = vIndex + 1;
+          //}
+        }
+        // If the current character does not match and matcher is a stirng
+        // "1" != "+"
+        else if (!match && typeof matcher === 'string') {
+          // Special check for 123a ---> dont want "+1 123-"
+          // Special check for 1234 ---> DO want "+1 123-4"
+          if (vIndex != chars.length) formatted.push(matcher);
+        }
+        // If the current character matches and the matcher is not a string
+        // /\d/.test("2")
+        else if (match && typeof matcher != 'string') {
+          formatted.push(curChar);
+          vIndex = vIndex + 1;
+        }
+        // If the current character does NOT match and the matecer is regex
+        // /\d/.test("a")
+        else if (!match && typeof matcher != 'string') {
+          // Throw out this value
+          vIndex = vIndex + 1;
+          i = i - 1;
+        }
       }
     } else {
       // If mattcher is a string and we are at suffix keep going
@@ -425,4 +433,139 @@ export const informedFormat = (value, frmtr) => {
     value: formatted.join(''),
     offset: value ? formatted.length - value.length : 0
   };
+};
+
+/* --------------------------------------- createIntlNumberFormatter --------------------------------------- */
+
+export const createIntlNumberFormatter = (locale, opts) => {
+  const numberFormatter = new Intl.NumberFormat(locale, opts);
+  const numberFormatterWithoutOpts = new Intl.NumberFormat(locale);
+  const decimalChar =
+    numberFormatterWithoutOpts
+      .formatToParts(0.1)
+      .find(({ type }) => type === 'decimal')?.value ?? '.';
+
+  function isRegexEqual(x, y) {
+    return (
+      x instanceof RegExp &&
+      y instanceof RegExp &&
+      x.source === y.source &&
+      x.global === y.global &&
+      x.ignoreCase === y.ignoreCase &&
+      x.multiline === y.multiline
+    );
+  }
+
+  function findLastIndex(arr, predicate) {
+    let l = arr.length;
+    // eslint-disable-next-line no-plusplus
+    while (l--) {
+      if (predicate(arr[l])) return l;
+    }
+    return -1;
+  }
+
+  function insert(arr, index, value) {
+    const nextArr = [...arr];
+
+    if (Array.isArray(value)) {
+      nextArr.splice(index, 0, ...value);
+    } else {
+      nextArr.splice(index, 0, value);
+    }
+
+    return nextArr;
+  }
+
+  function stripNonNumeric(str) {
+    return `${str}`.replace(/\D/g, '');
+  }
+
+  function toNumberString(str) {
+    return `${str}`
+      .split(decimalChar)
+      .map(splitStr => stripNonNumeric(splitStr))
+      .join('.');
+  }
+
+  function toFloat(str) {
+    if (typeof str === 'number') {
+      return str;
+    }
+
+    const float = parseFloat(toNumberString(str));
+
+    return !Number.isNaN(float) ? float : undefined;
+  }
+
+  function mask(value) {
+    // console.log('VAL', value);
+    const float = toNumberString(value);
+
+    if (!float) {
+      return [];
+    }
+
+    const fraction = `${float}`.split('.')[1];
+    const numberParts = numberFormatter.formatToParts(Number(float));
+
+    if (fraction === '0') {
+      numberParts.push(
+        { type: 'decimal', value: decimalChar },
+        { type: 'fraction', value: fraction }
+      );
+    }
+
+    let maskArray = numberParts.reduce((pv, { type, value: partValue }) => {
+      if (['decimal', 'fraction'].includes(type) && fraction == null) {
+        return pv;
+      }
+
+      if (['integer', 'fraction'].includes(type)) {
+        return [
+          ...pv,
+          ...partValue
+            .split('')
+            .filter(
+              (_, index) =>
+                type === 'fraction' ? index < fraction.length : true
+            )
+            .map(() => /\d/)
+        ];
+      }
+
+      if (type === 'currency') {
+        return [...pv, ...partValue.split('')];
+      }
+
+      return [...pv, partValue];
+    }, []);
+
+    let lastDigitIndex = findLastIndex(maskArray, maskChar => {
+      return isRegexEqual(maskChar, /\d/);
+    });
+
+    if (
+      maskArray.indexOf(decimalChar) === -1 &&
+      `${value}`.indexOf(decimalChar) !== -1
+    ) {
+      maskArray = insert(maskArray, lastDigitIndex + 1, [decimalChar, '[]']);
+      lastDigitIndex += 2; // we want to insert a new number after the decimal
+    }
+
+    const endOfMask = maskArray.slice(lastDigitIndex + 1).join('');
+    maskArray = [...maskArray.slice(0, lastDigitIndex + 1), endOfMask];
+
+    return maskArray;
+  }
+
+  const parser = value => {
+    if (value == null) {
+      return undefined;
+    }
+
+    return toFloat(value);
+  };
+
+  return { formatter: mask, parser };
 };

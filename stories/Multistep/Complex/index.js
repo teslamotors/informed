@@ -215,6 +215,12 @@ const Basic = () => {
   const [state, setState] = useState(0);
   const multistepApiRef = useRef();
 
+  // const initialValues = {
+  //   first: 'Joe',
+  //   allergic: true,
+  //   epipen: 'yes'
+  // };
+
   return (
     <div>
       {/* {state}

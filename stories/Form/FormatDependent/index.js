@@ -59,14 +59,17 @@ const options = {
 };
 
 const ProductSelect = () => {
-  const { value } = useFieldState('type');
+  const { value, dirty } = useFieldState('type');
   const { reset } = useFieldApi('product');
 
   const opts = options[value] || [];
 
   useEffect(
     () => {
-      reset();
+      if (dirty) {
+        // console.log('EFFECT', value);
+        reset();
+      }
     },
     [value]
   );

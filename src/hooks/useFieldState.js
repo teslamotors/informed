@@ -1,22 +1,39 @@
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
 import useFieldApi from './useFieldApi';
-import useFormState from './useFormState';
+import useFormApi from './useFormApi';
+import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
 
-const buildFieldState = (fieldApi) => {
-  return {
-    value: fieldApi.getValue(),
-    touched: fieldApi.getTouched(),
-    error: fieldApi.getError(),
-  };
-};
+function useFieldState(name) {
+  const fieldApi = useFieldApi(name);
+  const formApi = useFormApi();
 
-function useFieldState( field ) {
-  const fieldApi = useFieldApi(field);
-  // TODO find better way to get this to rerender
-  const formState = useFormState();
-  // The above is a temp hack
-  const fieldState = buildFieldState(fieldApi);
-  return fieldState;
+  const [, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
+
+  useIsomorphicLayoutEffect(() => {
+    const listener = target => {
+      if (target === name) {
+        forceUpdate();
+      }
+    };
+
+    formApi.emitter.on('field', listener);
+
+    return () => {
+      formApi.emitter.removeListener('field', listener);
+    };
+  }, []);
+
+  useIsomorphicLayoutEffect(() => {
+    forceUpdate();
+  }, []);
+
+  // useEffect(() => {
+  //   forceUpdate();
+  // }, []);
+
+  return fieldApi.getFieldState() || {};
 }
 
 export default useFieldState;

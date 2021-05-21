@@ -1,5 +1,4 @@
 import ObjectMap from './ObjectMap';
-import { EventEmitter } from 'events';
 import Debug from './debug';
 import defaultFieldMap from './fieldMap';
 import { validateYupSchema, validateAjvSchema } from './utils';
@@ -16,21 +15,14 @@ const isExpected = (path, expectedRemovals) => {
 };
 
 const noop = () => {};
-class FormController extends EventEmitter {
+class FormController {
   constructor(options = {}) {
-    // Dont forget to call super! :)
-    super();
-
     this.options = options;
 
-    const { ajv, schema, fieldMap } = options;
+    // Initialize listeners
+    this.subscriptions = new Map();
 
-    // Debounced change
-    // const change = () => {
-    //   this.rebuildState();
-    //   this.emit('change');
-    // };
-    // this.change = debounce(change, 250);
+    const { ajv, schema, fieldMap } = options;
 
     // Create new ajv instance if passed
     this.ajv = ajv ? new ajv({ allErrors: true }) : null;
@@ -98,7 +90,9 @@ class FormController extends EventEmitter {
         getTouched: noop,
         getError: noop,
         getFieldState: noop,
-        checkRelevant: noop
+        checkRelevant: noop,
+        getPristine: noop,
+        getDirty: noop
       }
     };
 
@@ -141,8 +135,11 @@ class FormController extends EventEmitter {
     this.notify = this.notify.bind(this);
     this.validating = this.validating.bind(this);
     this.validated = this.validated.bind(this);
-    // this.change = this.change.bind(this);
-    // this.clear = this.clear.bind(this);
+    this.getDirty = this.getDirty.bind(this);
+    this.getPristine = this.getPristine.bind(this);
+    this.on = this.on.bind(this);
+    this.emit = this.emit.bind(this);
+    this.removeListener = this.removeListener.bind(this);
 
     // Updater will be used by fields to update and register
     this.updater = {
@@ -150,7 +147,6 @@ class FormController extends EventEmitter {
       deregister: this.deregister,
       getField: this.getField,
       update: this.update,
-      // clear: this.clear,
       fieldMap: this.fieldMap,
       setValue: (fieldId, value, emit = true) => {
         const field = this.fieldsById.get(fieldId);
@@ -185,6 +181,7 @@ class FormController extends EventEmitter {
 
         if (emit) {
           this.emit('change');
+          this.emit('field', field.field);
           this.emit('value', field.field, value);
         }
       },
@@ -213,6 +210,7 @@ class FormController extends EventEmitter {
         }
         if (emit) {
           this.emit('change');
+          this.emit('field', field.field);
           //this.emit('touch', field.field, touch);
         }
       },
@@ -258,11 +256,13 @@ class FormController extends EventEmitter {
 
         if (emit) {
           this.emit('change');
+          this.emit('field', field.field);
           //this.emit('error', field.field, error);
         }
       },
       expectRemoval: this.expectRemoval,
-      getInitialValue: this.getInitialValue
+      getInitialValue: this.getInitialValue,
+      getSavedValue: this.getSavedValue
     };
 
     // Define the formApi
@@ -298,7 +298,10 @@ class FormController extends EventEmitter {
       back: this.back,
       setCurrent: this.setCurrent,
       validated: this.validated,
-      validating: this.validating
+      validating: this.validating,
+      getDirty: this.getDirty,
+      getPristine: this.getPristine,
+      getField: this.getField
     };
 
     this.on('value', field => {
@@ -306,6 +309,33 @@ class FormController extends EventEmitter {
       delete this.state.error;
       this.notify(field);
     });
+  }
+
+  /* -------------------------------- Event Emitter ------------------------------ */
+
+  emit(event, ...args) {
+    // Grab the set based on the event
+    const listeners = this.subscriptions.get(event);
+    // Only call if we have listeners on that event ( null check )
+    if (listeners) {
+      listeners.forEach(listener => listener(...args));
+    }
+  }
+
+  on(event, listener) {
+    // Singleton check
+    if (!this.subscriptions.get(event)) {
+      this.subscriptions.set(event, new Set());
+    }
+    // Add listener
+    const listeners = this.subscriptions.get(event);
+    listeners.add(listener);
+  }
+
+  removeListener(event, listener) {
+    // Remove listener
+    const listeners = this.subscriptions.get(event);
+    listeners.delete(listener);
   }
 
   /* ---------------------------------- Setters ---------------------------------- */
@@ -424,39 +454,6 @@ class FormController extends EventEmitter {
     };
   }
 
-  // rebuildState() {
-  //   debug('Generating form state');
-
-  //   // Rebuild values, errors, and touched
-  //   const values = {};
-  //   const errors = {};
-  //   const touched = {};
-
-  //   this.fieldsById.forEach(field => {
-  //     if (!field.shadow) {
-  //       // Get the values from the field
-  //       const value = field.fieldApi.getValue();
-  //       const error = field.fieldApi.getError();
-  //       const t = field.fieldApi.getTouched();
-  //       // Set the value
-  //       ObjectMap.set(values, field.field, value);
-  //       ObjectMap.set(errors, field.field, error);
-  //       ObjectMap.set(touched, field.field, t);
-  //       // console.log('SETTING', field.field);
-  //     }
-  //   });
-
-  //   this.state = {
-  //     ...this.state,
-  //     values,
-  //     errors,
-  //     touched,
-  //     pristine: this.pristine(),
-  //     dirty: this.dirty(),
-  //     invalid: this.invalid()
-  //   };
-  // }
-
   getFormApi() {
     return this.formApi;
   }
@@ -482,6 +479,18 @@ class FormController extends EventEmitter {
     const error = this.getField(field).fieldApi.getError();
     debug('Getting error for', field, error);
     return error;
+  }
+
+  getDirty(field) {
+    const dirty = this.getField(field).fieldApi.getDirty();
+    debug('Getting dirty for', field, dirty);
+    return dirty;
+  }
+
+  getPristine(field) {
+    const pristine = this.getField(field).fieldApi.getPristine();
+    debug('Getting pristine for', field, pristine);
+    return pristine;
   }
 
   getValues() {
@@ -600,9 +609,18 @@ class FormController extends EventEmitter {
   }
 
   pristine() {
-    const touched = this.getAllTouched();
-    const values = this.getValues();
-    return ObjectMap.empty(touched) && ObjectMap.empty(values);
+    // We are pristine if all our fields are pristine
+    // const touched = this.getAllTouched();
+    // const values = this.getValues();
+    // return ObjectMap.empty(touched) && ObjectMap.empty(values);
+    let pristine = true;
+    this.fieldsById.forEach(field => {
+      if (!field.fieldApi.getPristine()) {
+        pristine = false;
+      }
+    });
+
+    return pristine;
   }
 
   dirty() {
@@ -774,6 +792,12 @@ class FormController extends EventEmitter {
     this.emit('change');
   }
 
+  mount() {
+    this.fieldsById.forEach(value => {
+      this.emit('field', value.field);
+    });
+  }
+
   /* ---------------- Updater Functions (used by fields) ---------------- */
 
   // ADDED initialRender parameter because of react 16.13.0 warning that does not like
@@ -842,6 +866,7 @@ class FormController extends EventEmitter {
     if (!initialRender) {
       this.emit('change');
     }
+    this.emit('field', name);
   }
 
   deregister(id) {
@@ -934,7 +959,7 @@ class FormController extends EventEmitter {
 
   update(id, field, oldName) {
     debug('Update', id, field.field, oldName, field.fieldState.value);
-    // this.change();
+
     // Update the error touched and values of this field
     const value = field.fieldApi.getValue();
     const error = field.fieldApi.getError();

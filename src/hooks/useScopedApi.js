@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useMemo } from 'react';
 import useFormApi from './useFormApi';
 
@@ -8,19 +9,22 @@ const buildScopedFormApi = (scope, formApi) => {
     getTouched: field => formApi.getTouched(`${scope}.${field}`),
     getError: field => formApi.getError(`${scope}.${field}`),
     setValue: (field, value) => formApi.setValue(`${scope}.${field}`, value),
-    setTouched: (field, value) => formApi.setTouched(`${scope}.${field}`, value),
+    setTouched: (field, value) =>
+      formApi.setTouched(`${scope}.${field}`, value),
     setError: (field, value) => formApi.setError(`${scope}.${field}`, value),
     getInitialValue: field => formApi.getInitialValue(`${scope}.${field}`),
+    getSavedValue: field => formApi.getSavedValue(`${scope}.${field}`),
     getFullField: field => `${formApi.getFullField(scope)}.${field}`
   };
 };
 
-function useScopedApi( scope ) {
-
+function useScopedApi(scope) {
   const formApi = useFormApi();
 
   // VERY important to memoize the builder!
-  const scopedFormApi = useMemo(() => buildScopedFormApi(scope, formApi), [scope]);
+  const scopedFormApi = useMemo(() => buildScopedFormApi(scope, formApi), [
+    scope
+  ]);
 
   return scopedFormApi;
 }

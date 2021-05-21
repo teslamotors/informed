@@ -1,10 +1,70 @@
-## 3.29.3 (February 5, 2020)
+## 3.32.3 (May 21, 2021)
+
+### Fixed
+
+- Issue with useFieldState, now returns empty object by default
+
+## 3.32.2 (May 21, 2021)
+
+### Fixed
+
+- Issue with mounting useFieldStates
+
+## 3.32.1 (May 21, 2021)
+
+### Fixed
+
+- Issue with layoutEffect in SSR
+
+## 3.32.0 (May 19, 2021)
+
+### Added
+
+- Ability to walk down a multistep with step selection.
+
+## 3.31.0 (April 26, 2021)
+
+### Added
+
+- formatter functions `formatter = [()=>{}, ()=>{}]`
+
+## 3.30.3 (April 2, 2021)
+
+### Added
+
+- memoized render back because I never should have removed it
+
+## 3.30.2 (March 15, 2021)
+
+### Refactored
+
+- To no longer use event emitter.
+
+## 3.30.1 (March 5, 2021)
+
+### Fixed
+
+- Issue where keep state in scope was not working.
+
+## 3.30.0 (March 2, 2021)
+
+### Added
+
+- Pristine and Dirty to formFieldState
+
+## 3.29.4 (February 24, 2021)
+
+### Updated
+
+- Peer deps to support react v 17
+
+## 3.29.3 (February 5, 2021)
 
 ### Fixed
 
 - Issue where ObjectMap `has` would reference wrong get funciton fixes #327
 
-## 3.29.2 (February 4, 2020)
+## 3.29.2 (February 4, 2021)
 
 ### Fixed
 
@@ -14,19 +74,19 @@
 
 - `useField` hook to use the `useCarrotPosition` hook ( removed duplicate code )
 
-## 3.29.1 (February 4, 2020)
+## 3.29.1 (February 4, 2021)
 
 ### Added
 
 - Ability to call `setValue` function for custom formattedObject Inputs
 
-## 3.29.0 (February 2, 2020)
+## 3.29.0 (February 2, 2021)
 
 ### Added
 
 - Ability to pass `initialize` function for custom initialization of the initial value
 
-## 3.28.0 (February 2, 2020)
+## 3.28.0 (February 2, 2021)
 
 ### Exposed
 

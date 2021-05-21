@@ -1,6 +1,6 @@
 {
   "name": "informed",
-  "version": "3.29.3",
+  "version": "3.32.3",
   "description": "A lightweight framework and utility for building powerful forms in React applications",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
@@ -77,7 +77,7 @@
     "css-loader": "^1.0.0",
     "enzyme": "^3.4.1",
     "enzyme-adapter-react-16": "^1.9.1",
-    "eslint": "^5.3.0",
+    "eslint": "^7.26.0",
     "eslint-plugin-react": "^7.10.0",
     "highlight.js": "^9.15.6",
     "html-loader": "^0.5.5",
@@ -115,8 +115,8 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0"
   },
   "nyc": {
     "instrument": false,

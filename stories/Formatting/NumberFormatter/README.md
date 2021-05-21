@@ -3,41 +3,76 @@
 <!-- STORY -->
 
 ```jsx
-import { Form, Text } from 'informed';
+import { Form, Select, Text, utils, useFieldState } from 'informed';
 
-const formatter = [
-  '+',
-  '1',
-  ' ',
-  /\d/,
-  /\d/,
-  /\d/,
-  '-',
-  /\d/,
-  /\d/,
-  /\d/,
-  '-',
-  /\d/,
-  /\d/,
-  /\d/,
-  /\d/
+const localeOptions = [const localeOptions = [
+  { value: 'af-NA', label: 'Afrikaans (Namibia)' },
+  { value: 'af-ZA', label: 'Afrikaans (South Africa)' },
+  { value: 'af', label: 'Afrikaans' },
+  // ...rest, shortened for readability
 ];
 
-const parser = value => {
-  return value.replace('+1 ', '').replace(/-/g, '');
-};
+const currencyOptions = [
+  {
+    value: 'EUR',
+    label: 'EUR',
+  },
+  {
+    value: 'AED',
+    label: 'AED',
+  },
+  // ...rest, shortened for readability
+]
 
-<Form>
-  <label>
-    Phone Number:
+const FormattedField = () => {
+  const { value: locale } = useFieldState('locale');
+  const { value: currency } = useFieldState('currency');
+
+  // Generate mask from locale and currency
+  const { formatter, parser } = useMemo(
+    () => {
+      if (locale && currency) {
+        return utils.createIntlNumberFormatter(locale, {
+          style: 'currency',
+          currency
+        });
+      }
+      return {};
+    },
+    [currency, locale]
+  );
+
+  return (
     <Text
-      field="phone"
+      field="localeMask"
+      label="Locale Masked Field (EUR currency)"
       formatter={formatter}
       parser={parser}
-      maintainCursor
-      initialValue="1231231234"
+      formatterDependencies={[locale, currency]}
+      initialValue={3000}
     />
-  </label>
-  <button type="submit">Submit</button>
-</Form>;
+  );
+};
+
+const FormatParse = () => (
+  <Form>
+    <div>
+      <Select
+        label="Locale"
+        field="locale"
+        options={localeOptions}
+        initialValue="nl-NL"
+      />
+      <Select
+        label="Currency"
+        field="currency"
+        options={currencyOptions}
+        initialValue="EUR"
+      />
+      <FormattedField />
+      <button type="submit">Submit</button>
+      <FormState />
+    </div>
+  </Form>
+);
 ```

@@ -1,11 +1,10 @@
-import React, { useMemo, useContext } from 'react';
+// eslint-disable-next-line no-unused-vars
+import React, { useMemo } from 'react';
 import useFormApi from './useFormApi';
-import { FormRegisterContext } from '../Context';
 
 const buildFieldApi = (formApi, field) => {
-
-  return { 
-    // TODO refactor to use field api from updater.. need to make sure this 
+  return {
+    // TODO refactor to use field api from updater.. need to make sure this
     // will be stable
     getValue: () => formApi.getValue(field),
     setValue: value => formApi.setValue(field, value),
@@ -14,15 +13,18 @@ const buildFieldApi = (formApi, field) => {
     getError: () => formApi.getError(field),
     setError: value => formApi.setError(field, value),
     reset: () => formApi.resetField(field),
-    validate: () => formApi.validateField(field), 
-    exists: () => formApi.fieldExists(field)
+    validate: () => formApi.validateField(field),
+    exists: () => formApi.fieldExists(field),
+    getDirty: () => formApi.getDirty(field),
+    getPristine: () => formApi.getPristine(field),
+    getFieldState: () => formApi.getField(field).fieldApi.getFieldState()
   };
 };
 
-function useFieldApi( field ) {
+function useFieldApi(field) {
   const formApi = useFormApi();
 
-  const fieldApi = useMemo( () => buildFieldApi( formApi, field ), [field] );
+  const fieldApi = useMemo(() => buildFieldApi(formApi, field), [field]);
   return fieldApi;
 }
 

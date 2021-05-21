@@ -33,7 +33,8 @@ const buildScopedRegister = (scope, formRegister) => {
     getField,
     expectRemoval,
     getInitialValue,
-    fieldMap
+    fieldMap,
+    getSavedValue
   } = formRegister;
 
   return {
@@ -47,6 +48,7 @@ const buildScopedRegister = (scope, formRegister) => {
     expectRemoval: (field, ...args) =>
       expectRemoval(`${scope}.${field}`, ...args),
     getInitialValue: field => getInitialValue(`${scope}.${field}`),
+    getSavedValue: field => getSavedValue(`${scope}.${field}`),
     fieldMap
   };
 };

@@ -429,6 +429,38 @@ describe('Text', () => {
     expect(savedApi.getState().values).to.deep.equal({ hello: '1231231234' });
   });
 
+  it('should run formatter with functions', () => {
+    let savedApi;
+
+    const mask = value => value.toUpperCase();
+
+    const formatter = [
+      mask,
+      mask,
+      '-',
+      mask,
+      mask,
+      '-',
+      mask,
+      mask,
+      mask,
+      mask
+    ];
+
+    const wrapper = mount(
+      <Form
+        getApi={api => {
+          savedApi = api;
+        }}>
+        <Text field="hello" formatter={formatter} initialValue="abcdefg" />
+      </Form>
+    );
+    expect(wrapper.find('input').props().value).to.equal('AB-CD-EFG');
+    expect(savedApi.getState().values).to.deep.equal({
+      hello: 'AB-CD-EFG'
+    });
+  });
+
   it('should run format and parse when user passes initial value and format and parse are passed', () => {
     let savedApi;
     const format = value => `$${value}`;

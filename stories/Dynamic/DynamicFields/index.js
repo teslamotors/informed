@@ -9,7 +9,8 @@ import {
   RadioGroup,
   Radio,
   Relevant,
-  ArrayField
+  ArrayField,
+  Scope
 } from '../../../src';
 
 // const DynamicFields = () => (
@@ -38,11 +39,14 @@ import {
 //   </div>
 // );
 
+const initialValues = { person: { spouse: 'Shannon' } };
+
 const DynamicFields = () => (
   <div>
     <Form>
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, marginRight: '2rem' }}>
+          {/* <Scope scope="person"> */}
           <label>
             First name:
             <Text field="name" />
@@ -56,7 +60,7 @@ const DynamicFields = () => (
               No <Radio value="no" />
             </label>
           </RadioGroup>
-          <Relevant when={({ values }) => values.married === 'yes'}>
+          <Relevant when={({ values }) => values?.married === 'yes'}>
             <label>
               Spouse name:
               <Text field="spouse" />
@@ -96,6 +100,7 @@ const DynamicFields = () => (
             </ArrayField> */}
           </Relevant>
           <button type="submit">Submit</button>
+          {/* </Scope> */}
         </div>
         <div style={{ flex: 2, minWidth: '300px' }}>
           <FormState />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { MultistepApiContext, MultistepStateContext } from '../Context';
 import useFormApi from './useFormApi';
 import useStateWithGetter from './useStateWithGetter';
@@ -10,6 +10,9 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
   // Track our steps by name
   const [stepsByName] = useState(new Map());
 
+  // Track number of steps
+  const nSteps = useRef(0);
+
   // Define our state
   const [
     multistepState,
@@ -17,7 +20,8 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
     getMultistepState
   ] = useStateWithGetter({
     current: initialStep,
-    steps: []
+    steps: [],
+    goal: null
   });
 
   // Define our api
@@ -38,6 +42,10 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
       getCurrentStep,
       // Gets that step
       getStep: name => stepsByName.get(name),
+      // gets the current number of steps
+      getNumberOfSteps: () => {
+        return stepsByName.size;
+      },
       // Goes to next step
       next: () => {
         // Validate the entire form
@@ -77,19 +85,36 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
         }
       },
       // Goes to specified step
-      setCurrent: next => {
-        // Determine if it has a next
-        if (next) {
-          setMultistepState(prev => ({
-            ...prev,
-            current: next
-          }));
+      setCurrent: stp => {
+        if (stp) {
+          const goalIndex = stepsByName.get(stp).index;
+          // console.log(
+          //   'GOAL INDEX',
+          //   goalIndex,
+          //   'STPINDEX',
+          //   getCurrentStep().index
+          // );
+          if (goalIndex < getCurrentStep().index) {
+            setMultistepState(prev => ({
+              ...prev,
+              current: stp,
+              goal: null
+            }));
+          } else {
+            setMultistepState(prev => ({
+              ...prev,
+              // current: stp,
+              goal: stp
+            }));
+          }
         }
       },
       // Registers the step
       register: (name, step, initial) => {
-        stepsByName.set(name, step);
-        if (!initial) {
+        if (initial) {
+          nSteps.current = nSteps.current + 1;
+          stepsByName.set(name, { ...step, index: nSteps.current });
+        } else {
           setMultistepState(prev => ({
             ...prev,
             steps: Array.from(stepsByName.keys())
@@ -99,6 +124,7 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
       // Deregisters the step
       deregister: name => {
         stepsByName.delete(name);
+        nSteps.current = nSteps.current - 1;
         setMultistepState(prev => ({
           ...prev,
           steps: Array.from(stepsByName.keys())

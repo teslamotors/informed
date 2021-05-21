@@ -499,12 +499,11 @@ export const createIntlNumberFormatter = (locale, opts) => {
   }
 
   function mask(value) {
-    // console.log('VAL', value);
     const float = toNumberString(value);
 
-    if (!float) {
-      return [];
-    }
+    // if (!float) {
+    //   return [];
+    // }
 
     const fraction = `${float}`.split('.')[1];
     const numberParts = numberFormatter.formatToParts(Number(float));

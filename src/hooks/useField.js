@@ -8,6 +8,7 @@ import Debug from '../debug';
 import useLayoutEffect from './useIsomorphicLayoutEffect';
 import ObjectMap from '../ObjectMap';
 import useCursorPosition from './useCursorPosition';
+import useUpdateEffect from './useUpdateEffect';
 const logger = Debug('informed:useField' + '\t');
 
 // localStorage.debug = 'informed:.*' << HOW to enable debuging
@@ -273,6 +274,9 @@ function useField(fieldProps = {}, userRef) {
     initializeMask(value, format, parse, formatter, parser)
   );
 
+  const maskedValueRef = useRef();
+  maskedValueRef.current = maskedValue;
+
   // Create then update refs to props
   const initialValueRef = useRef(initialValue);
   const fieldRef = useRef(field);
@@ -462,9 +466,9 @@ function useField(fieldProps = {}, userRef) {
     updater.setValue(fieldId, val, !options.preventUpdate);
   };
 
-  useEffect(
+  useUpdateEffect(
     () => {
-      fieldApiRef.current.setValue(fieldApiRef.current.getValue() || '');
+      fieldApiRef.current.setValue(maskedValueRef.current);
     },
     [...formatterDependencies]
   );

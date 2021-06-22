@@ -168,6 +168,7 @@ function useField(fieldProps = {}, userRef) {
     validateOnBlur,
     validateOnMount,
     asyncValidateOnBlur,
+    asyncValidateOnMount,
     maskOnBlur,
     allowEmptyString,
     onValueChange,
@@ -342,6 +343,15 @@ function useField(fieldProps = {}, userRef) {
       }
     },
     [isRelevant]
+  );
+
+  useEffect(
+    () => {
+      if (asyncValidate && asyncValidateOnMount) {
+        asyncValidate(getVal(), formApi.getValues());
+      }
+    },
+    [asyncValidateOnMount, asyncValidate]
   );
 
   // Special getter to support shadow fields
@@ -550,6 +560,10 @@ function useField(fieldProps = {}, userRef) {
       preventUpdate
     });
     setTouched(undefined, true, { preventUpdate });
+
+    if (asyncValidateOnMount && asyncValidate) {
+      asyncValidate(getVal(), formApi.getValues());
+    }
 
     // We are now at our initial state
     valueTouched.current = false;

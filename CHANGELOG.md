@@ -1,3 +1,9 @@
+## 3.34.0 (June 22, 2021)
+
+### Added
+
+- ability to control when async validation occurs with props
+
 ## 3.33.0 (May 21, 2021)
 
 ### Added

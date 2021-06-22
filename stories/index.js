@@ -33,6 +33,7 @@ import FormLevelValidation from './Validation/FormLevelValidation';
 import AjvValidation from './Validation/AjvValidation';
 import AjvValidationNoRender from './Validation/AjvValidationNoRender';
 import AsyncValidation from './Validation/AsyncValidation';
+import AsyncValidationControl from './Validation/AsyncValidationControl';
 import FormatPlayground from './Playground/Format';
 import SchemaPlayground from './Playground/Schema';
 import RickRoll from './Playground/RickRoll';
@@ -197,7 +198,8 @@ storiesOf('Validation', module)
   .add('Field Level + Yup Validation', FieldLevelYupValidation)
   .add('JSON Schema Validation + Rendering', AjvValidation)
   .add('Only JSON Schema Validation', AjvValidationNoRender)
-  .add('Async Validation', AsyncValidation);
+  .add('Async Validation', AsyncValidation)
+  .add('Async Validation Control', AsyncValidationControl);
 
 storiesOf('Schema', module)
   .add('Schema', Schema)

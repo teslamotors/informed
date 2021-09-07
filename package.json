@@ -2,17 +2,23 @@
   "name": "informed",
   "version": "3.34.0",
   "description": "A lightweight framework and utility for building powerful forms in React applications",
-  "main": "dist/index.js",
+  "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "index.d.ts",
+  "type": "module",
   "files": [
     "dist/",
     "index.d.ts"
   ],
+  "exports": {
+    "import": "./dist/esm/index.js",
+    "require": "./dist/cjs/index.js"
+  },
   "scripts": {
     "start": "npm run storybook",
-    "build": "webpack --config ./config/webpack/webpack.dist.config.js && rollup --config",
+    "build": "rm -rf dist && rollup --config",
     "test": "mocha-webpack --opts tests/mocha-webpack.opts",
+    "test:jest": "jest",
     "test:watch": "npm run test -- --watch",
     "preversion": "npm run test:coverage",
     "version": "npm run build",
@@ -26,6 +32,10 @@
     "coveralls": "NODE_ENV=spec nyc npm test && nyc -x 'src/debug.js' report --reporter=text-lcov | coveralls",
     "test:coverage": "NODE_ENV=spec nyc -x 'src/debug.js' mocha-webpack --exit --opts tests/mocha-webpack.opts",
     "test:coverage-html": "NODE_ENV=spec nyc -x 'src/debug.js' --reporter=html mocha-webpack --exit --opts tests/mocha-webpack.opts && http-server coverage -o -p 8007"
+  },
+  "jest": {
+    "verbose": true,
+    "testRegex": "/__tests__/.*"
   },
   "repository": {
     "type": "git",
@@ -51,16 +61,19 @@
   ],
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.4.0",
+    "@babel/core": "^7.15.5",
     "@babel/plugin-proposal-class-properties": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-env": "^7.15.4",
     "@babel/preset-react": "^7.0.0",
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.10",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
     "@storybook/addon-options": "^5.3.13",
     "@storybook/addons": "^5.3.13",
     "@storybook/react": "^5.3.13",
     "@storybook/theming": "^5.3.13",
+    "@testing-library/react": "^12.0.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.2.0",
     "ajv": "^6.12.6",
     "ajv-errors": "^1.0.1",
@@ -83,6 +96,7 @@
     "html-loader": "^0.5.5",
     "husky": "^4.3.0",
     "istanbul-instrumenter-loader": "^3.0.1",
+    "jest": "^27.1.0",
     "jsdom": "^11.12.0",
     "lint-staged": "^10.5.1",
     "markdown-loader": "^3.0.0",
@@ -96,10 +110,7 @@
     "react-dom": "^17.0.1",
     "react-live": "^2.2.3",
     "react-prism": "^4.3.2",
-    "rollup": "^1.1.2",
-    "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-commonjs": "^9.2.0",
-    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup": "^2.56.3",
     "sass-loader": "^7.1.0",
     "sinon": "^6.1.5",
     "storybook-dark-mode": "^1.0.3",

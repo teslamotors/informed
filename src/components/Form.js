@@ -4,24 +4,14 @@ import useForm from '../hooks/useForm';
 
 const debug = Debug('informed:Form' + '\t\t');
 
-const Form = ({ 
-  children, 
-  render: renderProp,
-  component,
-  ...rest }) => {
-
+const Form = ({ children, render: renderProp, component, ...rest }) => {
   debug('Render FORM');
 
-  const { 
-    formApi, 
-    formController,
-    formState, 
-    render,
-    userProps
-  } = useForm(rest);
-    
-  const getContent = () => {
+  const { formApi, formController, formState, render, userProps } = useForm(
+    rest
+  );
 
+  const getContent = () => {
     const props = {
       formState,
       formApi
@@ -38,7 +28,7 @@ const Form = ({
     }
     return children;
   };
-  
+
   /* --- Render Content --- */
   return render(
     <form
@@ -47,9 +37,8 @@ const Form = ({
       onSubmit={formController.submitForm}
       onKeyDown={formController.keyDown}>
       {getContent()}
-    </form>  
+    </form>
   );
-  
 };
 
 export default Form;

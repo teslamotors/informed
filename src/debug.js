@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /**
  *
  * I stole most of this code from the debug lib
@@ -172,7 +173,9 @@ function loadBrowser() {
   }
 
   // If debug isn't set in LS, and we're in Electron, try to load $DEBUG
+  // eslint-disable-next-line no-undef
   if (!namespaces && typeof process !== 'undefined' && 'env' in process) {
+    // eslint-disable-next-line no-undef
     namespaces = process.env.DEBUG;
   }
 

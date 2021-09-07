@@ -8,7 +8,7 @@ import { Form, useField, BasicText } from '../../src';
 import { describe } from 'mocha';
 
 // prettier-ignore
-describe('withFieldState', () => {
+describe('useField', () => {
   const sandbox = sinon.createSandbox();
 
   beforeEach(() => {

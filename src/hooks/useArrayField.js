@@ -1,9 +1,9 @@
 import React, { useState, useMemo, useContext } from 'react';
-import useFormApi from './useFormApi';
-import useField from './useField';
-import useStateWithGetter from './useStateWithGetter';
-import Debug from '../debug';
-import useLayoutEffect from './useIsomorphicLayoutEffect';
+import { useFormApi } from './useFormApi';
+import { useField } from './useField';
+import { useStateWithGetter } from './useStateWithGetter';
+import { Debug } from '../debug';
+import { useIsomorphicLayoutEffect as useLayoutEffect } from './useIsomorphicLayoutEffect';
 import {
   FormRegisterContext,
   ArrayFieldApiContext,
@@ -11,11 +11,11 @@ import {
 } from '../Context';
 
 import { uuidv4 } from '../utils';
-import ObjectMap from '../ObjectMap';
+import { ObjectMap } from '../ObjectMap';
 
 const logger = Debug('informed:useArrayField' + '\t');
 
-const useArrayField = ({
+export const useArrayField = ({
   field,
   initialValue,
   validate,
@@ -242,5 +242,3 @@ const useArrayField = ({
     field
   };
 };
-
-export default useArrayField;

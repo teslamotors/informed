@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 // TODO figure out if this is bad?
 // https://github.com/facebook/react/issues/14543
@@ -22,4 +22,4 @@ function useStateWithGetter(initial) {
   return [state, set, get];
 }
 
-export default useStateWithGetter;
+export { useStateWithGetter };

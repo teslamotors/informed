@@ -20,5 +20,6 @@ module.exports = {
       preferBuiltins: true
     }),
     babel({ babelHelpers: 'bundled' })
-  ]
+  ],
+  preserveModules: true
 };

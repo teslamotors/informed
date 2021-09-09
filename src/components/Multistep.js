@@ -1,8 +1,7 @@
-import React from 'react';
-import useMultistep from '../hooks/useMultistep';
-import useMultistepStep from '../hooks/useMultistepStep';
+import { useMultistep } from '../hooks/useMultistep';
+import { useMultistepStep } from '../hooks/useMultistepStep';
 
-export default function Multistep({ children, ...props }) {
+export function Multistep({ children, ...props }) {
   const { render, ...context } = useMultistep(props);
 
   if (typeof children === 'function') {

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import useCursorPosition from '../../src/hooks/useCursorPosition';
+import { useCursorPosition } from '../../src';
 import { informedFormat } from '../../src/utils';
 import { expect } from 'chai';
 import sinon from 'sinon';

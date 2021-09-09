@@ -1,6 +1,6 @@
 import React from 'react';
-import useFormApi from '../hooks/useFormApi';
-import FormFields from './FormFields';
+import { useFormApi } from '../hooks/useFormApi';
+import { FormFields } from './FormFields';
 
 const SchemaFields = () => {
   const { getOptions } = useFormApi();
@@ -11,4 +11,4 @@ const SchemaFields = () => {
   return <FormFields schema={schema} />;
 };
 
-export default SchemaFields;
+export { SchemaFields };

@@ -1,7 +1,7 @@
 import React from 'react';
 import Code from './Code';
 
-import FormState from '../../src/components/FormState';
+import { FormState } from '../../src';
 
 // import { useFormState } from '../../src';
 

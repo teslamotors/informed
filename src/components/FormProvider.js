@@ -1,21 +1,24 @@
 import React from 'react';
-import { FormStateContext, FormApiContext, FormRegisterContext } from '../Context';
-import Debug from '../debug';
-import useForm from '../hooks/useForm';
+import {
+  FormStateContext,
+  FormApiContext,
+  FormRegisterContext
+} from '../Context';
+import { Debug } from '../debug';
+import { useForm } from '../hooks/useForm';
 
 const logger = Debug('informed:FormProvider' + '\t\t');
 
-const FormProvider = ({ 
-  children, 
-  formApi, 
+const FormProvider = ({
+  children,
+  formApi,
   formController,
-  formState, 
+  formState,
   ...rest
 }) => {
-
   logger('Render FormProvider');
 
-  if( formApi ){
+  if (formApi) {
     logger('Render FormProvider with given values');
     /* --- Create Provider with given values and render Content --- */
     return (
@@ -27,7 +30,7 @@ const FormProvider = ({
         </FormApiContext.Provider>
       </FormRegisterContext.Provider>
     );
-  } 
+  }
 
   logger('Render FormProvider with generated values');
   /* --- User did not pass values so create them --- */
@@ -42,7 +45,6 @@ const FormProvider = ({
       </FormApiContext.Provider>
     </FormRegisterContext.Provider>
   );
-  
 };
 
-export default FormProvider;
+export { FormProvider };

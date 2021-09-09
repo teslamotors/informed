@@ -4,8 +4,8 @@ import {
   FormStateContext,
   FormApiContext
 } from '../Context';
-import useFormApi from '../hooks/useFormApi';
-import useFormState from '../hooks/useFormState';
+import { useFormApi } from '../hooks/useFormApi';
+import { useFormState } from '../hooks/useFormState';
 
 const buildScopedFormApi = (scope, formApi) => {
   return {
@@ -78,4 +78,4 @@ const Scope = ({ scope, children }) => {
   );
 };
 
-export default Scope;
+export { Scope };

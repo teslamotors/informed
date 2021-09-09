@@ -1,6 +1,6 @@
 import React from 'react';
-import asField from '../../HOC/asField';
-import useLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
+import { asField } from '../../HOC/asField';
+import { useIsomorphicLayoutEffect as useLayoutEffect } from '../../hooks/useIsomorphicLayoutEffect';
 
 const TextArea = ({ fieldApi, fieldState, ...props }) => {
   const { maskedValue } = fieldState;
@@ -9,6 +9,7 @@ const TextArea = ({ fieldApi, fieldState, ...props }) => {
     onChange,
     onBlur,
     field,
+    // eslint-disable-next-line no-unused-vars
     initialValue,
     forwardedRef,
     debug,
@@ -55,4 +56,6 @@ const TextArea = ({ fieldApi, fieldState, ...props }) => {
 
 export { TextArea as BasicTextArea };
 
-export default asField(TextArea);
+const WrappedText = asField(TextArea);
+
+export { WrappedText as TextArea };

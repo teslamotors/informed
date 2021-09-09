@@ -1,5 +1,5 @@
-import useLayoutEffect from './useIsomorphicLayoutEffect';
-import useStateWithGetter from './useStateWithGetter';
+import { useIsomorphicLayoutEffect as useLayoutEffect } from './useIsomorphicLayoutEffect';
+import { useStateWithGetter } from './useStateWithGetter';
 
 const useCursorPosition = ({ value, inputRef, maintainCursor = true }) => {
   const [cursor, setCursor, getCursor] = useStateWithGetter(0);
@@ -33,4 +33,4 @@ const useCursorPosition = ({ value, inputRef, maintainCursor = true }) => {
   };
 };
 
-export default useCursorPosition;
+export { useCursorPosition };

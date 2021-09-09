@@ -8,4 +8,4 @@ const Option = ({ value, forwardedRef, children, ...rest }) => {
   );
 };
 
-export default Option;
+export { Option };

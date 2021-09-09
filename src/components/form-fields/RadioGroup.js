@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { GroupContext } from '../../Context';
-import Radio from './Radio';
+import { Radio } from './Radio';
 
-import asField from '../../HOC/asField';
+import { asField } from '../../HOC/asField';
 
 class RadioGroup extends Component {
   get groupContext() {
@@ -23,10 +23,10 @@ class RadioGroup extends Component {
       <GroupContext.Provider value={this.groupContext}>
         {options
           ? options.map(option => (
-              <label key={option.value}>
-                {option.label} <Radio value={option.value} />
-              </label>
-            ))
+            <label key={option.value}>
+              {option.label} <Radio value={option.value} />
+            </label>
+          ))
           : children}
       </GroupContext.Provider>
     );
@@ -35,4 +35,6 @@ class RadioGroup extends Component {
 
 export { RadioGroup as BasicRadioGroup };
 
-export default asField(RadioGroup);
+const WrappedRadioGroup = asField(RadioGroup);
+
+export { WrappedRadioGroup as RadioGroup };

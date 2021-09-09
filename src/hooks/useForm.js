@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import Debug from '../debug';
-import FormController from '../FormController';
-import FormProvider from '../components/FormProvider';
-import FormFields from '../components/FormFields';
-import useLayoutEffect from './useIsomorphicLayoutEffect';
+import { Debug } from '../debug';
+import { FormController } from '../FormController';
+import { FormProvider } from '../components/FormProvider';
+import { FormFields } from '../components/FormFields';
+import { useIsomorphicLayoutEffect as useLayoutEffect } from './useIsomorphicLayoutEffect';
 
 const logger = Debug('informed:useForm' + '\t\t');
 
@@ -157,4 +157,4 @@ const useForm = ({
   return { formApi, formState, formController, render, userProps };
 };
 
-export default useForm;
+export { useForm };

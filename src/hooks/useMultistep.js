@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { MultistepApiContext, MultistepStateContext } from '../Context';
-import useFormApi from './useFormApi';
-import useStateWithGetter from './useStateWithGetter';
+import { useFormApi } from './useFormApi';
+import { useStateWithGetter } from './useStateWithGetter';
 
 const useMultistep = ({ initialStep, multistepApiRef }) => {
   // Get the formApi
@@ -155,4 +155,4 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
   };
 };
 
-export default useMultistep;
+export { useMultistep };

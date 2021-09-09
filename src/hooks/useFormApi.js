@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { FormApiContext } from '../Context';
 
 function useFormApi() {
@@ -6,4 +6,4 @@ function useFormApi() {
   return formApi;
 }
 
-export default useFormApi;
+export { useFormApi };

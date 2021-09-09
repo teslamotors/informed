@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useMemo } from 'react';
-import useFormApi from './useFormApi';
+import { useMemo } from 'react';
+import { useFormApi } from './useFormApi';
 
 const buildScopedFormApi = (scope, formApi) => {
   return {
@@ -29,4 +29,4 @@ function useScopedApi(scope) {
   return scopedFormApi;
 }
 
-export default useScopedApi;
+export { useScopedApi };

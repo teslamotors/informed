@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useMemo } from 'react';
-import useFormApi from './useFormApi';
+import { useMemo } from 'react';
+import { useFormApi } from './useFormApi';
 
 const buildFieldApi = (formApi, field) => {
   return {
@@ -28,4 +28,4 @@ function useFieldApi(field) {
   return fieldApi;
 }
 
-export default useFieldApi;
+export { useFieldApi };

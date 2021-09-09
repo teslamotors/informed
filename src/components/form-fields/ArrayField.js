@@ -1,7 +1,7 @@
 import React from 'react';
-import InformedArrayField from '../ArrayField';
-import FormComponents from '../FormComponents';
-import FormFields from '../FormFields';
+import { ArrayField as InformedArrayField } from '../ArrayField';
+import { FormComponents } from '../FormComponents';
+import { FormFields } from '../FormFields';
 
 const ArrayField = ({ field, items, uiBefore, uiAfter, ...props }) => {
   return (
@@ -21,4 +21,4 @@ const ArrayField = ({ field, items, uiBefore, uiAfter, ...props }) => {
   );
 };
 
-export default ArrayField;
+export { ArrayField };

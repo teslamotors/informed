@@ -1,8 +1,8 @@
 import React, { useMemo, useContext } from 'react';
 import { computeFieldsFromSchema } from '../utils';
-import ArrayField from './form-fields/ArrayField';
-import Relevant from './Relevant';
-import Debug from '../debug';
+import { ArrayField } from './form-fields/ArrayField';
+import { Relevant } from './Relevant';
+import { Debug } from '../debug';
 import { FormRegisterContext } from '../Context';
 
 const logger = Debug('informed:FormFields' + '\t');
@@ -140,4 +140,4 @@ const FormFields = ({ schema, prefix, onlyValidateSchema }) => {
   return fields;
 };
 
-export default FormFields;
+export { FormFields };

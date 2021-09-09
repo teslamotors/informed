@@ -1,5 +1,4 @@
-import React from 'react';
-import useFormState from '../hooks/useFormState';
+import { useFormState } from '../hooks/useFormState';
 
 const Relevant = ({ when, children }) => {
   const formState = useFormState();
@@ -13,4 +12,4 @@ const Relevant = ({ when, children }) => {
   return null;
 };
 
-export default Relevant;
+export { Relevant };

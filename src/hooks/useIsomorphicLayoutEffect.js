@@ -11,4 +11,4 @@ const useIsomorphicLayoutEffect =
     ? useLayoutEffect
     : useEffect;
 
-export default useIsomorphicLayoutEffect;
+export { useIsomorphicLayoutEffect };

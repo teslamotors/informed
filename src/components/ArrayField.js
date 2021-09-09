@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
-import ObjectMap from '../ObjectMap';
-import useArrayField from '../hooks/useArrayField';
-import useFormApi from '../hooks/useFormApi';
-import useScopedApi from '../hooks/useScopedApi';
-import Relevant from './Relevant';
+import { ObjectMap } from '../ObjectMap';
+import { useArrayField } from '../hooks/useArrayField';
+import { useFormApi } from '../hooks/useFormApi';
+import { useScopedApi } from '../hooks/useScopedApi';
+import { Relevant } from './Relevant';
 import {
   ArrayFieldStateContext,
   ArrayFieldItemApiContext,
@@ -70,6 +70,7 @@ const ArrayFieldItem = ({
   const formApi = useFormApi();
 
   // A little trick I learned in nam to trigger rerender
+  // eslint-disable-next-line no-unused-vars
   const [state, setState] = useState(0);
 
   // Keep track of fields that belong to this array field
@@ -201,4 +202,4 @@ ArrayField.Items = ({ children }) => {
   });
 };
 
-export default ArrayField;
+export { ArrayField };

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import useMultistepState from './useMultistepState';
-import useFormState from './useFormState';
-import useMultistepApi from './useMultistepApi';
+import { useMultistepState } from './useMultistepState';
+import { useFormState } from './useFormState';
+import { useMultistepApi } from './useMultistepApi';
 import { MultistepStepContext } from '../Context';
 
 const useMultistepStep = ({ step, next, previous, relevant }) => {
@@ -78,4 +78,4 @@ const useMultistepStep = ({ step, next, previous, relevant }) => {
   };
 };
 
-export default useMultistepStep;
+export { useMultistepStep };

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
-import asField from '../../HOC/asField';
-import Debug from '../../debug';
-import useLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
+import { asField } from '../../HOC/asField';
+import { Debug } from '../../debug';
+import { useIsomorphicLayoutEffect as useLayoutEffect } from '../../hooks/useIsomorphicLayoutEffect';
 
 const logger = Debug('informed:Select' + '\t');
 
@@ -12,6 +12,7 @@ const Select = ({ fieldApi, fieldState, ...props }) => {
     onChange,
     onBlur,
     field,
+    // eslint-disable-next-line no-unused-vars
     initialValue,
     options,
     children,
@@ -68,13 +69,13 @@ const Select = ({ fieldApi, fieldState, ...props }) => {
         }}>
         {options
           ? options.map(option => (
-              <option
-                key={option.value}
-                value={option.value}
-                disabled={option.disabled}>
-                {option.label}
-              </option>
-            ))
+            <option
+              key={option.value}
+              value={option.value}
+              disabled={option.disabled}>
+              {option.label}
+            </option>
+          ))
           : children}
       </select>
     </>
@@ -83,4 +84,6 @@ const Select = ({ fieldApi, fieldState, ...props }) => {
 
 export { Select as BasicSelect };
 
-export default asField(Select);
+const WrappedSelect = asField(Select);
+
+export { WrappedSelect as Select };

@@ -1,5 +1,5 @@
 /* eslint-disable no-sparse-arrays */
-import ObjectMap from '../src/ObjectMap';
+import { ObjectMap } from '../src/ObjectMap';
 
 describe('ObjectMap', () => {
   describe('get', () => {

@@ -1,6 +1,6 @@
-import ObjectMap from './ObjectMap';
-import Debug from './debug';
-import defaultFieldMap from './fieldMap';
+import { ObjectMap } from './ObjectMap';
+import { Debug } from './debug';
+import { FieldMap as defaultFieldMap } from './fieldMap';
 import { validateYupSchema, validateAjvSchema } from './utils';
 
 const debug = Debug('informed:Controller' + '\t');
@@ -15,7 +15,7 @@ const isExpected = (path, expectedRemovals) => {
 };
 
 const noop = () => {};
-class FormController {
+export class FormController {
   constructor(options = {}) {
     this.options = options;
 
@@ -984,5 +984,3 @@ class FormController {
     this.emit('change');
   }
 }
-
-export default FormController;

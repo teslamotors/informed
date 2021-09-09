@@ -245,7 +245,7 @@ function browserLogger(prefix) {
   return createLogger(prefix, loadBrowser());
 }
 
-export default prefix => {
+export const Debug = prefix => {
   /**
    * Detect Electron renderer / nwjs process, which is node, but we should
    * treat as a browser.

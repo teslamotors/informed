@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import useFormApi from '../hooks/useFormApi';
+import { useFormApi } from '../hooks/useFormApi';
 import { computeFieldFromProperty, getSchemaPathFromJsonPath } from '../utils';
-import ObjectMap from '../ObjectMap';
+import { ObjectMap } from '../ObjectMap';
 import { FormRegisterContext } from '../Context';
 
 const FormField = ({ field }) => {
@@ -41,4 +41,4 @@ const FormField = ({ field }) => {
   return <Component field={field} {...props} />;
 };
 
-export default FormField;
+export { FormField };

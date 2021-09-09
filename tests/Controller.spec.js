@@ -1,4 +1,4 @@
-import Controller from '../src/FormController';
+import { FormController as Controller } from '../src/FormController';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
@@ -24,7 +24,6 @@ describe('Controller', () => {
   };
 
   describe('constructor', () => {
-    
     it('should initialize options when nothing is passed', () => {
       const controller = new Controller();
       expect(controller.options).to.deep.equal({});
@@ -32,9 +31,9 @@ describe('Controller', () => {
 
     it('should set options to options passed in', () => {
       const options = {
-        initialValues: { foo: 'bar'},
+        initialValues: { foo: 'bar' },
         dontPreventDefault: true,
-        validate: () => {},
+        validate: () => {}
       };
       const controller = new Controller(options);
       expect(controller.options).to.equal(options);
@@ -44,7 +43,5 @@ describe('Controller', () => {
       const controller = new Controller();
       checkApi(controller.getFormApi());
     });
-
   });
-
 });

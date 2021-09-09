@@ -1,5 +1,5 @@
 import React from 'react';
-import withRadioGroup from '../../HOC/withRadioGroup';
+import { withRadioGroup } from '../../HOC/withRadioGroup';
 
 const Radio = ({ radioGroupApi, radioGroupState, ...props }) => {
   const { value: groupValue } = radioGroupState;
@@ -14,6 +14,7 @@ const Radio = ({ radioGroupApi, radioGroupState, ...props }) => {
     onChange,
     onBlur,
     field,
+    // eslint-disable-next-line no-unused-vars
     initialValue,
     forwardedRef,
     ...rest
@@ -53,4 +54,6 @@ const Radio = ({ radioGroupApi, radioGroupState, ...props }) => {
 
 export { Radio as BasicRadio };
 
-export default withRadioGroup(Radio);
+const WrappedRadio = withRadioGroup(Radio);
+
+export { WrappedRadio as Radio };

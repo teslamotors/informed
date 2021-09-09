@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { FormStateContext } from '../Context';
 
 function useFormState() {
@@ -6,4 +6,4 @@ function useFormState() {
   return formState;
 }
 
-export default useFormState;
+export { useFormState };

@@ -1,7 +1,7 @@
 import React from 'react';
-import asField from '../../HOC/asField';
-import Debug from '../../debug';
-import useLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
+import { asField } from '../../HOC/asField';
+import { Debug } from '../../debug';
+import { useIsomorphicLayoutEffect as useLayoutEffect } from '../../hooks/useIsomorphicLayoutEffect';
 const logger = Debug('informed:Text' + '\t');
 
 const Text = ({ fieldApi, fieldState, ...props }) => {
@@ -11,10 +11,12 @@ const Text = ({ fieldApi, fieldState, ...props }) => {
     onChange,
     onBlur,
     field,
+    // eslint-disable-next-line no-unused-vars
     initialValue,
     forwardedRef,
     debug,
     label,
+    // eslint-disable-next-line no-unused-vars
     title,
     id,
     ...rest
@@ -60,4 +62,6 @@ const Text = ({ fieldApi, fieldState, ...props }) => {
 
 export { Text as BasicText };
 
-export default asField(Text);
+const WrappedText = asField(Text);
+
+export { WrappedText as Text };

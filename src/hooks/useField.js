@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext, useRef, useMemo } from 'react';
 import { FormRegisterContext, MultistepStepContext } from '../Context';
-import useFormApi from './useFormApi';
-import useStateWithGetter from './useStateWithGetter';
+import { useFormApi } from './useFormApi';
+import { useStateWithGetter } from './useStateWithGetter';
 import { validateYupField, uuidv4, informedFormat } from '../utils';
 
-import Debug from '../debug';
-import useLayoutEffect from './useIsomorphicLayoutEffect';
-import ObjectMap from '../ObjectMap';
-import useCursorPosition from './useCursorPosition';
-import useUpdateEffect from './useUpdateEffect';
+import { Debug } from '../debug';
+import { useIsomorphicLayoutEffect as useLayoutEffect } from './useIsomorphicLayoutEffect';
+import { ObjectMap } from '../ObjectMap';
+import { useCursorPosition } from './useCursorPosition';
+import { useUpdateEffect } from './useUpdateEffect';
 const logger = Debug('informed:useField' + '\t');
 
 // localStorage.debug = 'informed:.*' << HOW to enable debuging
@@ -761,4 +761,4 @@ function useField(fieldProps = {}, userRef) {
   };
 }
 
-export default useField;
+export { useField };

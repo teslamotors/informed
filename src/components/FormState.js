@@ -1,6 +1,6 @@
 import React from 'react';
 
-import useFormState from '../hooks/useFormState';
+import { useFormState } from '../hooks/useFormState';
 
 const FormState = props => {
   const formState = useFormState();
@@ -47,4 +47,4 @@ const FormState = props => {
   );
 };
 
-export default FormState;
+export { FormState };

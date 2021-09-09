@@ -15,4 +15,4 @@ const withRadioGroup = Component =>
     </GroupContext.Consumer>
   ));
 
-export default withRadioGroup;
+export { withRadioGroup };

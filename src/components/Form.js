@@ -1,10 +1,10 @@
 import React from 'react';
-import Debug from '../debug';
-import useForm from '../hooks/useForm';
+import { Debug } from '../debug';
+import { useForm } from '../hooks/useForm';
 
 const debug = Debug('informed:Form' + '\t\t');
 
-const Form = ({ children, render: renderProp, component, ...rest }) => {
+export const Form = ({ children, render: renderProp, component, ...rest }) => {
   debug('Render FORM');
 
   const { formApi, formController, formState, render, userProps } = useForm(
@@ -40,5 +40,3 @@ const Form = ({ children, render: renderProp, component, ...rest }) => {
     </form>
   );
 };
-
-export default Form;

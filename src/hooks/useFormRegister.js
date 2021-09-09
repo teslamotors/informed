@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { FormRegisterContext } from '../Context';
 
 function useFormRegister() {
@@ -6,4 +6,4 @@ function useFormRegister() {
   return context;
 }
 
-export default useFormRegister;
+export { useFormRegister };

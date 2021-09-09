@@ -1,4 +1,4 @@
-import ObjectMap from './ObjectMap';
+import { ObjectMap } from './ObjectMap';
 
 export const getChildDisplayName = WrappedComponent => {
   // fix for "memo" components

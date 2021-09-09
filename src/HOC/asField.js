@@ -1,5 +1,5 @@
 import React from 'react';
-import useField from '../hooks/useField';
+import { useField } from '../hooks/useField';
 import { getChildDisplayName } from '../utils';
 
 const asField = Component => {
@@ -27,4 +27,4 @@ const asField = Component => {
   return forwardRef;
 };
 
-export default asField;
+export { asField };

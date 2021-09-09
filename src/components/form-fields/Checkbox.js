@@ -1,5 +1,5 @@
 import React from 'react';
-import asField from '../../HOC/asField';
+import { asField } from '../../HOC/asField';
 
 const Checkbox = ({ fieldApi, fieldState, ...props }) => {
   const { value } = fieldState;
@@ -8,7 +8,9 @@ const Checkbox = ({ fieldApi, fieldState, ...props }) => {
     onChange,
     onBlur,
     field,
+    // eslint-disable-next-line no-unused-vars
     initialValue,
+    // eslint-disable-next-line no-unused-vars
     debug,
     forwardedRef,
     id,
@@ -45,4 +47,6 @@ const Checkbox = ({ fieldApi, fieldState, ...props }) => {
 
 export { Checkbox as BasicCheckbox };
 
-export default asField(Checkbox);
+const WrappedCheckbox = asField(Checkbox);
+
+export { WrappedCheckbox as Checkbox };

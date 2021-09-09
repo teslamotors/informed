@@ -1,4 +1,4 @@
-import Debug from './debug';
+import { Debug } from './debug';
 const debug = Debug('informed:ObjMap' + '\t');
 
 /* -------------------- toPath -------------------- */
@@ -151,7 +151,7 @@ const pathToArrayElem = path => {
   return Number.isInteger(+pathArray[pathArray.length - 1]);
 };
 
-class ObjectMap {
+export class ObjectMap {
   static empty(object) {
     return ldvalues(object).length === 0;
   }
@@ -237,7 +237,10 @@ class ObjectMap {
   }
 }
 
-function cleanup(obj, path, pull = true) {
+function cleanup(obj, path) {
+  // uncomment this to add third param back
+  //,pull = true) {
+
   // Base case no path left
   if (path.length === 0) {
     return;
@@ -261,5 +264,3 @@ function cleanup(obj, path, pull = true) {
   // Recur
   cleanup(obj, path.slice(0, path.length - 1));
 }
-
-export default ObjectMap;

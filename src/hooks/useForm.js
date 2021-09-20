@@ -1,160 +1,86 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Debug } from '../debug';
+import React, { useEffect, useState, useMemo } from 'react';
 import { FormController } from '../FormController';
-import { FormProvider } from '../components/FormProvider';
-import { FormFields } from '../components/FormFields';
-import { useIsomorphicLayoutEffect as useLayoutEffect } from './useIsomorphicLayoutEffect';
+import {
+  FormControllerContext,
+  FormApiContext,
+  FormStateContext
+} from '../Context';
 
-const logger = Debug('informed:useForm' + '\t\t');
-
-const useForm = ({
-  dontPreventDefault,
-  initialValues,
-  validate,
-  validateFields,
-  allowEmptyStrings,
-  preventEnter,
-  getApi,
-  apiRef,
-  onChange,
-  onReset,
+export const useForm = ({
   onSubmit,
-  onValueChange,
-  onSubmitFailure,
-  validationSchema,
-  schema,
-  ajv,
-  fieldMap,
-  onlyValidateSchema,
+  onReset,
+  initialValues,
+  formApiRef,
   ...userProps
 }) => {
-  logger('Render useForm');
-
-  // Generate form controller options
-  const formControllerOptions = useMemo(
-    () => ({
-      dontPreventDefault,
-      initialValues,
-      validate,
-      validateFields,
-      allowEmptyStrings,
-      preventEnter,
-      validationSchema,
-      schema,
-      ajv,
-      fieldMap
-    }),
-    [
-      dontPreventDefault,
-      initialValues,
-      validate,
-      validateFields,
-      allowEmptyStrings,
-      preventEnter,
-      validationSchema,
-      schema,
-      ajv,
-      fieldMap
-    ]
-  );
+  const formControllerOptions = {
+    initialValues
+  };
 
   // Create form controller
   const [formController] = useState(
     () => new FormController(formControllerOptions)
   );
 
-  // Update the options when they change
+  // Register for events
   useEffect(
     () => {
-      formController.setOptions(formControllerOptions);
-    },
-    [formControllerOptions]
-  );
+      const onResetHandler = () => onReset && onReset();
+      const onSubmitHandler = () =>
+        onSubmit && onSubmit(formController.getFormState().values);
 
-  useLayoutEffect(() => {
-    formController.mount();
-  }, []);
+      // Register for events
+      formController.on('reset', onResetHandler);
+      formController.on('submit', onSubmitHandler);
+
+      // Unregister events
+      return () => {
+        formController.removeListener('reset', onResetHandler);
+        formController.removeListener('submit', onSubmitHandler);
+      };
+    },
+    [onReset, onSubmit]
+  );
 
   // Form state will be used to trigger rerenders
   const [formState, setFormState] = useState(() =>
     formController.getFormState()
   );
 
-  // Register for events
-  useLayoutEffect(
-    () => {
-      const onChangeHandler = () =>
-        onChange && onChange(formController.getFormState());
-      const onResetHandler = () => onReset && onReset();
-      const onSubmitHandler = () =>
-        onSubmit && onSubmit(formController.getFormState().values);
-      const onValueHandler = () =>
-        onValueChange && onValueChange(formController.getFormState().values);
-      const onFailureHandler = () =>
-        onSubmitFailure &&
-        onSubmitFailure(formController.getFormState().errors);
-
-      // Register for events
-      formController.on('change', onChangeHandler);
-      formController.on('reset', onResetHandler);
-      formController.on('submit', onSubmitHandler);
-      formController.on('value', onValueHandler);
-      formController.on('failure', onFailureHandler);
-
-      // Unregister events
-      return () => {
-        formController.removeListener('change', onChangeHandler);
-        formController.removeListener('reset', onResetHandler);
-        formController.removeListener('submit', onSubmitHandler);
-        formController.removeListener('value', onValueHandler);
-        formController.removeListener('failure', onFailureHandler);
-      };
-    },
-    [onChange, onReset, onSubmit, onValueChange, onSubmitFailure]
-  );
-
-  // Initialize code like constructor but not muhahah
-  useState(() => {
-    // Update the form state to trigger rerender!
-    const onChangeHandlerRerender = () => {
-      logger('Setting form state');
-      setFormState(formController.getFormState());
+  // Register for events for ALL fields!
+  useEffect(() => {
+    const listener = () => {
+      setFormState({ ...formController.getFormState() });
     };
-    // const debounced = debounce(onChangeHandlerRerender, 250);
-    formController.on('change', onChangeHandlerRerender);
-    // Give access to api outside
-    if (getApi) {
-      getApi(formController.getFormApi());
-    }
-    if (apiRef) {
-      apiRef.current = formController.getFormApi();
-    }
-  });
 
-  // We dont want this to happen on every render so thats why useState is used here
-  const [formApi] = useState(() => formController.getFormApi());
+    formController.emitter.on('field', listener);
 
-  // TODO technically speaking this can be unsafe as there is circular dependency
-  // between form provider and useForm.. Its ok because anyone that in theory
-  // Uses a form provider and a use form hook themselves will never call the render
-  // function created here... that being said I will look into fixing that warning
-  // at some point :)
+    // Need initial state
+    setFormState({ ...formController.getFormState() });
+
+    return () => {
+      formController.emitter.removeListener('field', listener);
+    };
+  }, []);
+
+  // YES! this is important! Otherwise it would get a new formApi object every render
+  /// That would cause unessissarry re-renders! so do not remove useMemeo!
+  const formApi = useMemo(() => {
+    if (formApiRef) {
+      formApiRef.current = formController.getFormApi();
+    }
+    return formController.getFormApi();
+  }, []);
+
   const render = children => (
-    <FormProvider
-      formApi={formApi}
-      formState={formState}
-      formController={formController}>
-      <>
-        {!children ? (
-          <FormFields schema={schema} onlyValidateSchema={onlyValidateSchema} />
-        ) : (
-          children
-        )}
-      </>
-    </FormProvider>
+    <FormControllerContext.Provider value={formController}>
+      <FormApiContext.Provider value={formApi}>
+        <FormStateContext.Provider value={formState}>
+          {children}
+        </FormStateContext.Provider>
+      </FormApiContext.Provider>
+    </FormControllerContext.Provider>
   );
 
   return { formApi, formState, formController, render, userProps };
 };
-
-export { useForm };

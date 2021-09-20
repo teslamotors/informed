@@ -2,7 +2,7 @@ import React from 'react';
 import Code from '../../utils/Code';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import { Form, Text } from '../../../src';
+import { Form, Input } from '../../../src';
 import FormState from '../../utils/FormState';
 
 const validate = value => {
@@ -18,7 +18,7 @@ const GettingStarted = () => (
     <Form id="intro-form" onSubmit={submit}>
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, marginRight: '2rem' }}>
-          <Text field="name" label="First name" validate={validate} />
+          <Input name="name" label="First name" validate={validate} />
           <button type="submit">Submit</button>
         </div>
         <div

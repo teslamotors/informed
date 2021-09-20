@@ -1,13 +1,16 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import { Form, Text } from '../../../src';
+import { Form, Input } from '../../../src';
 
 const FormState = () => (
   <Form id="state-form">
     {({ formState }) => (
       <div>
-        <label>First name:<Text field="name"/></label>
+        <label>
+          First name:
+          <Input name="name" />
+        </label>
         <button type="submit">Submit</button>
         <label>Values:</label>
         <code>{JSON.stringify(formState.values, null, 2)}</code>

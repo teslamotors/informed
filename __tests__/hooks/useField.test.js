@@ -3,48 +3,57 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 // import useCursorPosition from '../../src/hooks/useCursorPosition';
 // import { informedFormat } from '../../src/utils';
-import { Form, useField, BasicText } from '../../src';
+import { useField, useForm } from '../../src';
 
 // prettier-ignore
 describe('useField', () => {
 
-  const validate = value => {
-    return !value || value.length < 5
-      ? 'Field must be at least five characters'
-      : undefined;
-  };
+  // const validate = value => {
+  //   return !value || value.length < 5
+  //     ? 'Field must be at least five characters'
+  //     : undefined;
+  // };
 
-  const BasicErrorText = props => {
-    const { fieldState, fieldApi, render, ref, userProps } = useField({
-      ...props,
-      validate
-    });
-
+  const Form = ({ children, ...rest }) => {
+    const { formController, render, userProps } = useForm(rest);
+  
     return render(
-      <React.Fragment>
-        <BasicText
-          fieldState={fieldState}
-          forwardedRef={ref}
-          fieldApi={fieldApi}
-          {...userProps}
-          style={fieldState.error ? { border: 'solid 1px red' } : null}
-        />
-        {fieldState.error ? (
-          <small style={{ color: 'red' }}>{fieldState.error}</small>
-        ) : null}
-      </React.Fragment>
+      <form {...userProps} onSubmit={formController.submitForm}>
+        {children}
+      </form>
     );
   };
+  
+  const Input = React.memo(({ label, ...props }) => {
+    const { render, userProps, ref, fieldState, fieldApi } = useField(props);
+    const { setValue, setTouched } = fieldApi;
+    const { maskedValue, error } = fieldState;
+    return render(
+      <label>
+        {label}
+        <input
+          ref={ref}
+          {...userProps}
+          value={!maskedValue && maskedValue !== 0 ? '' : maskedValue}
+          onChange={(e) => {
+            setValue(e.target.value, e);
+          }}
+          onBlur={() => {
+            setTouched(true);
+          }}
+          style={error ? { border: 'solid 1px red' } : null}
+        />
+      </label>
+    );
+  });
 
   it('should update value when user types', () => {
-    let savedApi;
+    const formApiRef = {};
 
     const { getByLabelText } = render(
       <Form
-        getApi={api => {
-          savedApi = api;
-        }}>
-        <BasicErrorText field="greeting" label="input1" />
+        formApiRef={formApiRef}>
+        <Input name="greeting" label="input1" />
       </Form>
     );
 
@@ -53,14 +62,14 @@ describe('useField', () => {
   
     expect(input).toHaveAttribute('value', 'Hi!');
     expect(input).toHaveValue('Hi!');
-    expect(savedApi.getState().values).toEqual({ greeting: 'Hi!' });
+    expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hi!' });
   });
 
   it('should update value when user types', () => {
 
     const { getByLabelText } = render(
       <Form>
-        <BasicErrorText field="greeting" label="input1" placeholder="Hello World"/>
+        <Input name="greeting" label="input1" placeholder="Hello World"/>
       </Form>
     );
 
@@ -72,7 +81,7 @@ describe('useField', () => {
   it('should show error message when validation error occurs', () => {
     const { getByLabelText, getByText }  = render(
       <Form>
-        <BasicErrorText label="input1" field="greeting" validateOnChange />
+        <Input name="greeting"  label="input1" validateOnChange />
       </Form>
     );
 

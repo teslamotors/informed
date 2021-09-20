@@ -1,111 +1,61 @@
-import React, { useState, useMemo, useContext } from 'react';
-import { useFormApi } from './useFormApi';
-import { useField } from './useField';
+import React, { useState, useContext, useRef, useEffect, useMemo } from 'react';
 import { useStateWithGetter } from './useStateWithGetter';
 import { Debug } from '../debug';
-import { useIsomorphicLayoutEffect as useLayoutEffect } from './useIsomorphicLayoutEffect';
 import {
-  FormRegisterContext,
   ArrayFieldApiContext,
-  ArrayFieldStateContext
+  ArrayFieldStateContext,
+  FormControllerContext
 } from '../Context';
 
 import { uuidv4 } from '../utils';
 import { ObjectMap } from '../ObjectMap';
+import { useFieldApi } from './useFieldApi';
 
 const logger = Debug('informed:useArrayField' + '\t');
 
 export const useArrayField = ({
-  field,
+  name,
   initialValue,
-  validate,
-  arrayFieldApiRef,
-  ...props
+  // validate,
+  arrayFieldApiRef
+  // ...props
 }) => {
-  // Reference to the form Api
-  const formApi = useFormApi();
-
-  // Keep track of fields that belong to this array field
-  const [fieldsById] = useState(new Map());
-
   // Grab the form register context
-  const updater = useContext(FormRegisterContext);
+  const formController = useContext(FormControllerContext);
 
-  // May be scoped so get full field name!!
-  const fullField = formApi.getFullField(field);
+  // Hook onto the field api
+  const fieldApi = useFieldApi(name);
 
-  const initialVals = updater.getInitialValue(field) || initialValue || [];
-
-  // TODO throw error if initial value and its not array
-
-  // If keep state was passed into the child inputs we need to maintain the length of
-  // keys, in order to do so we grab the value from informeds api
-
-  const keptValues =
-    formApi.getSavedValue(fullField) && formApi.getSavedValue(fullField).value;
+  // Map will store all fields by name
+  // Key => name
+  // Val => fieldMetaRef
+  // Why? so the array knows about all its field meta
+  const [fieldsMap] = useState(() => new Map());
 
   const [
     initialValues,
     setInitialValues,
     getInitialValues
-  ] = useStateWithGetter(keptValues || initialVals);
+  ] = useStateWithGetter(() => {
+    // If we already have value i.e "saved"
+    // use that ( it was not removed on purpose! )
+    if (formController.getValue(name)) {
+      return formController.getValue(name);
+    }
+    return initialValue || formController.getInitialValue(name) || [];
+  });
 
+  // TODO Need to use saved state to initialize ( after being re rendered )
   const initialKeys = initialValues ? initialValues.map(() => uuidv4()) : [];
 
-  const [keys, setKeys, getKeys] = useStateWithGetter(initialKeys);
-
-  const validateWithLength = useMemo(() => (value, values) => {
-    const length = getKeys() == null ? 0 : getKeys().length;
-    return validate ? validate(value, length, values) : undefined;
-  });
-
-  // Register shadow field
-  const { fieldApi } = useField({
-    field,
-    validate: validate ? validateWithLength : undefined,
-    shadow: true,
-    ...props
-  });
-
-  // Register for events
-  useLayoutEffect(
-    () => {
-      // Define event handler
-      const onChangeHandler = fieldName => {
-        // Dont do anythign if we updated
-        if (fieldName === fullField) {
-          return;
-        }
-
-        logger(`${fullField} changed`);
-
-        // determine if one of our array children triggered this change
-        if (RegExp(`${fullField}\\[[0-9]+\\]`).test(fieldName)) {
-          // If it was we need to call validate
-          fieldApi.validate();
-        }
-      };
-
-      // Register for events
-      formApi.emitter.on('value', onChangeHandler);
-
-      // Unregister events
-      return () => {
-        formApi.emitter.removeListener('value', onChangeHandler);
-      };
-    },
-    [field]
-  );
+  const [keys, setKeys] = useState(initialKeys);
 
   const remove = i => {
-    // Notify form to expect removal on this field
-    logger(
-      'EXPECTING REMOVAL OF',
-      `${field}[${i}] and ${field}[${keys.length - 1}]`
-    );
-    updater.expectRemoval(`${field}[${i}]`);
-    updater.expectRemoval(`${field}[${keys.length - 1}]`);
-
+    // Notify form to expect removal on the last field
+    formController.lockRemoval({
+      index: keys.length - 1,
+      name
+    });
     // Remove the key
     const newKeys = keys.slice(0, i).concat(keys.slice(i + 1, keys.length));
     setKeys(newKeys);
@@ -115,11 +65,15 @@ export const useArrayField = ({
       .slice(0, i)
       .concat(initVals.slice(i + 1, initVals.length));
     setInitialValues(newInitialValues);
-    //formApi.setInitialValue(field, newInitialValues);
+
+    // We need to manually do a pull from the form state
+    formController.pullOut(`${name}[${i}]`);
   };
 
   const swap = (a, b) => {
-    logger('Swapping', `${field}[${a}] and ${field}[${b}]`);
+    logger('Swapping', `${name}[${a}] and ${name}[${b}]`);
+
+    formController.swap(name, a, b);
 
     // Swap the keys
     const newKeys = [...keys];
@@ -152,14 +106,41 @@ export const useArrayField = ({
 
   const reset = () => {
     // When resetting we reset to the users initial value not the one tracked by this hook
-    const initVals = updater.getInitialValue(field) || initialValue || [];
+    const initVals = initialValue || formController.getInitialValue(name) || [];
     // Set our initial values back to what the user set at beginning
     setInitialValues(initVals);
     // Build a new set of keys because everything is new !!!
     const resetKeys = initVals ? initVals.map(() => uuidv4()) : [];
     // Finally set that shit !
     setKeys(resetKeys);
+    // Reset all children
+    fieldsMap.forEach(fieldMeta => {
+      fieldMeta.current.fieldApi.reset();
+    });
   };
+
+  // Create meta object
+  const meta = {
+    name,
+    initialValue,
+    fieldApi: {
+      ...fieldApi,
+      reset
+    }
+  };
+  const metaRef = useRef(meta);
+  metaRef.current = meta;
+
+  // Register as if its a field muahhahaha
+  useEffect(
+    () => {
+      formController.register(name, metaRef);
+      return () => {
+        formController.deregister(name);
+      };
+    },
+    [name]
+  );
 
   const fields = keys.map((key, i) => {
     const arrayFieldItemApi = {
@@ -169,16 +150,14 @@ export const useArrayField = ({
     const arrayFieldItemState = {
       initialValue: initialValues && initialValues[i],
       key,
-      field: `${field}[${i}]`,
-      index: i
+      name: `${name}[${i}]`,
+      index: i,
+      parent: name
     };
 
     return {
       arrayFieldItemApi,
-      arrayFieldItemState,
-      // Makes it easier for users
-      ...arrayFieldItemApi,
-      ...arrayFieldItemState
+      arrayFieldItemState
     };
   });
 
@@ -195,50 +174,47 @@ export const useArrayField = ({
 
   const arrayFieldState = {
     fields,
-    field
+    name
   };
 
   // Wrap the updater to update array fields references
-  const wrappedUpdator = {
-    ...updater,
-    register: (id, fld, ...args) => {
-      fieldsById.set(id, fld);
-      updater.register(id, fld, ...args);
-    },
-    deregister: (id, ...args) => {
-      fieldsById.delete(id);
-      updater.deregister(id, ...args);
-    },
-    getInitialValue: fieldName => {
-      // If we are getting initial value and its for this field return that
-      if (RegExp(`${fullField}\\[[0-9]+\\]`).test(fieldName)) {
-        const path = fieldName.replace(field, '');
-        const v = ObjectMap.get(getInitialValues(), path);
-        logger(`Resetting ${path} to ${v}`);
-        return v;
+  const wrappedController = useMemo(() => {
+    return {
+      ...formController,
+      register: (n, m) => {
+        fieldsMap.set(n, m);
+        formController.register(n, m);
+      },
+      deregister: (n, m) => {
+        fieldsMap.delete(n);
+        formController.deregister(n, m);
+      },
+      getInitialValue: fieldName => {
+        // If we are getting initial value and its for this field return that
+        if (RegExp(`${name}\\[[0-9]+\\]`).test(fieldName)) {
+          const path = fieldName.replace(name, '');
+          const v = ObjectMap.get(getInitialValues(), path);
+          logger(`Resetting ${path} to ${v}`);
+          return v;
+        }
+        return formController.getInitialValue(fieldName);
       }
-      return updater.getInitialValue(fieldName);
-    }
-  };
+    };
+  }, []);
 
   const render = children => (
-    <FormRegisterContext.Provider value={wrappedUpdator}>
+    <FormControllerContext.Provider value={wrappedController}>
       <ArrayFieldApiContext.Provider value={arrayFieldApi}>
         <ArrayFieldStateContext.Provider value={arrayFieldState}>
           {children}
         </ArrayFieldStateContext.Provider>
       </ArrayFieldApiContext.Provider>
-    </FormRegisterContext.Provider>
+    </FormControllerContext.Provider>
   );
 
   return {
     render,
-    add,
-    swap,
-    addWithInitialValue,
-    fields,
     arrayFieldState,
-    arrayFieldApi,
-    field
+    arrayFieldApi
   };
 };

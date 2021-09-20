@@ -1,14 +1,14 @@
-import { useEffect } from 'react';
+import { useIsomorphicLayoutEffect as useLayoutEffect } from './useIsomorphicLayoutEffect';
 import { useStateWithGetter } from './useStateWithGetter';
 
-const useCursorPosition = ({ value, inputRef, maintainCursor = false }) => {
+const useCursorPosition = ({ value, inputRef, maintainCursor = true }) => {
   const [cursor, setCursor, getCursor] = useStateWithGetter(0);
 
   const [cursorOffset, setCursorOffset, getCursorOffset] = useStateWithGetter(
     0
   );
 
-  useEffect(
+  useLayoutEffect(
     () => {
       if (inputRef.current != null && getCursor()) {
         // inputRef.current.selectionEnd = getCursor() + getCursorOffset();

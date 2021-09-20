@@ -1,81 +1,3 @@
-import { ObjectMap } from './ObjectMap';
-
-export const getChildDisplayName = WrappedComponent => {
-  // fix for "memo" components
-  if (WrappedComponent.type && WrappedComponent.type.name) {
-    return WrappedComponent.type.name;
-  }
-
-  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
-};
-
-export const yupToFormErrors = yupError => {
-  const errors = {};
-  if (yupError.inner) {
-    if (yupError.inner.length === 0) {
-      // console.log(yupError.path);
-      ObjectMap.set(errors, yupError.path, yupError.message);
-      return;
-    }
-    for (let err of yupError.inner) {
-      if (!ObjectMap.get(errors, err.path)) {
-        // console.log(errors, err.path, err.message);
-        ObjectMap.set(errors, err.path, err.message);
-      }
-    }
-  }
-  return errors;
-};
-
-export const validateYupSchema = (schema, values) => {
-  try {
-    schema.validateSync(values, { abortEarly: false });
-  } catch (e) {
-    const formErrors = yupToFormErrors(e);
-    return formErrors;
-  }
-};
-
-export const yupToFormError = yupError => {
-  if (yupError.inner) {
-    if (yupError.inner.length === 0) {
-      return;
-    }
-    const err = yupError.inner[0];
-    return err.message;
-  }
-};
-
-export const validateYupField = (schema, value) => {
-  try {
-    schema.validateSync(value, { abortEarly: false });
-  } catch (e) {
-    return yupToFormError(e);
-  }
-};
-
-export const validateAjvSchema = (validate, data) => {
-  validate(data);
-  const errors = {};
-  if (validate.errors) {
-    validate.errors.forEach(({ message, dataPath, keyword, params }) => {
-      let path = dataPath;
-
-      // Special case for required
-      if (keyword === 'required') {
-        path = `${path}.${params.missingProperty}`;
-      }
-
-      // Get rid of leading dot
-      path = path.replace('.', '');
-      // console.log('PATH', path, message);
-      // TODO get message from informed if present
-      ObjectMap.set(errors, path, message);
-    });
-  }
-  return errors;
-};
-
 // https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
 export const uuidv4 = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -85,159 +7,100 @@ export const uuidv4 = () => {
   });
 };
 
-export const debounce = (func, wait) => {
-  let timeout;
+export const getParentArrayPath = name => {
+  // Example foo.bar.baz[3].baz >>>> foo.bar.baz[3]
+  const parentArrayPath = name.slice(
+    0,
+    name.lastIndexOf('[') != -1 ? name.lastIndexOf(']') + 1 : name.length
+  );
 
-  return function executedFunction(...args) {
-    const later = () => {
-      clearTimeout(timeout);
-      func(...args);
+  return parentArrayPath;
+};
+
+export const isChild = (parent, child) => {
+  // Example1
+  // parent = "friends[1]"
+  // child = "friends[1].foo"
+  // child.slice(0, parent.length)
+  // ==> "friends[1]"
+  // "friends[1]" === "friends[1]"
+  // ==> true
+
+  // Example2
+  // parent = "friends[1].foo.friends[1]"
+  // child = "friends[1].foo"
+  // child.slice(0, parent.length)
+  // ==> "friends[1].foo"
+  // "friends[1].foo" === "friends[1]"
+  // ==> false
+
+  return child.slice(0, parent.length) === parent;
+};
+
+export const generateOnChange = ({
+  fieldType,
+  setValue,
+  onChange,
+  multiple,
+  ref
+}) => {
+  let setter = e => setValue(e);
+
+  if (
+    fieldType === 'text' ||
+    fieldType === 'textArea' ||
+    fieldType === 'number'
+  ) {
+    setter = e => setValue(e.target.value, e);
+  }
+
+  if (fieldType === 'select') {
+    setter = () => {
+      let selected = Array.from(ref.current)
+        .filter(option => option.selected)
+        .map(option => option.value);
+
+      setValue(multiple ? selected : selected[0] || '');
     };
+  }
 
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
+  if (fieldType === 'checkbox') {
+    setter = e => {
+      setValue(e.target.checked);
+      if (onChange) {
+        onChange(e);
+      }
+    };
+  }
+
+  return e => {
+    setter(e);
   };
 };
 
-export const computeFieldFromProperty = (propertyName, property, prefix) => {
-  const {
-    'ui:control': uiControl,
-    'informed:props': informedProps,
-    'input:props': inputProps,
-    'ui:before': uiBefore,
-    'ui:after': uiAfter,
-    oneOf,
-    items,
-    enum: schemaEnum,
-    title: label,
-    minimum: min,
-    maximum: max,
-    minLength,
-    maxLength,
-    pattern,
-    type,
-    properties: subProperties
-  } = property;
-
-  // Set Id if not passed
-  let id = uuidv4();
-  if (inputProps && inputProps.id) {
-    id = inputProps.id;
-  }
-
-  const field = {
-    componentType: uiControl,
-    field: prefix ? `${prefix}.${propertyName}` : propertyName,
-    type,
-    uiBefore,
-    uiAfter,
-    properties: type === 'object' ? subProperties : undefined,
-    items: type === 'array' ? items : undefined,
-    props: {
-      label: label,
-      id,
-      min,
-      max,
-      minLength,
-      maxLength,
-      pattern,
-      ...informedProps,
-      ...inputProps
+export const generateOnBlur = ({ setTouched, onBlur }) => {
+  return e => {
+    setTouched(true);
+    if (onBlur) {
+      onBlur(e);
     }
   };
-
-  if (oneOf) {
-    const options = property.oneOf.map(option => {
-      const { 'input:props': inputProps = {} } = option;
-      return {
-        value: option.const,
-        label: option.title,
-        ...inputProps
-      };
-    });
-    field.props.options = options;
-  }
-
-  if (schemaEnum) {
-    const options = property.enum.map(val => {
-      return {
-        value: val,
-        label: val
-      };
-    });
-    field.props.options = options;
-  }
-
-  if (items && items.oneOf) {
-    const options = items.oneOf.map(option => {
-      const { 'input:props': inputProps = {} } = option;
-      return {
-        value: option.const,
-        label: option.title,
-        ...inputProps
-      };
-    });
-    field.props.options = options;
-  }
-
-  return field;
 };
 
-export const computeFieldsFromSchema = (schema, onlyValidateSchema, prefix) => {
-  if (!schema || onlyValidateSchema) {
-    return [];
+export const generateValue = ({ fieldType, maskedValue, multiple, value }) => {
+  switch (fieldType) {
+    case 'text':
+    case 'number':
+      return !maskedValue && maskedValue !== 0 ? '' : maskedValue;
+    case 'textArea':
+      return !maskedValue ? '' : maskedValue;
+    case 'select':
+      return value || (multiple ? [] : '');
+    case 'checkbox':
+      return !!value;
+    default:
+      return value;
   }
-
-  // Grab properties and items off of schema
-  const { properties = {}, allOf, propertyOrder = [] } = schema;
-
-  if (Object.keys(properties).length > 0) {
-    // Attempt to generate fields from properties
-    const fields = Object.keys(properties)
-      .sort((a, b) => {
-        const aIndex = propertyOrder.indexOf(a);
-        const bIndex = propertyOrder.indexOf(b);
-
-        return (
-          (aIndex > -1 ? aIndex : propertyOrder.length + 1) -
-          (bIndex > -1 ? bIndex : propertyOrder.length + 1)
-        );
-      })
-      .map(propertyName => {
-        const property = properties[propertyName];
-
-        const field = computeFieldFromProperty(propertyName, property, prefix);
-
-        return field;
-      });
-
-    // Check for all of ( we have conditionals )
-    if (allOf) {
-      fields.push({
-        componentType: 'conditionals',
-        // Each element of the "allOf" array is a conditional
-        allOf: allOf
-      });
-    }
-
-    return fields;
-  }
-
-  return [];
-};
-
-// Examples
-// field = "name" ---> properties.name
-// field = "brother.name" ---> properties.brother.properties.name
-// field = "brother.siblings[1].friend.name" ---> properties.brother.properties.siblings.items[1].properties.friend.properties.name
-export const getSchemaPathFromJsonPath = jsonPath => {
-  // Convert
-  let schemaPath = jsonPath
-    .replace(/\./g, '.properties.')
-    .replace(/\[/g, '.itmes[');
-  // Add first properties
-  schemaPath = `properties.${schemaPath}`;
-  return schemaPath;
 };
 
 /* -------------------------- Formatter ----------------------------- */
@@ -433,138 +296,4 @@ export const informedFormat = (val, frmtr) => {
     value: formatted.join(''),
     offset: value ? formatted.length - value.length : 0
   };
-};
-
-/* --------------------------------------- createIntlNumberFormatter --------------------------------------- */
-
-export const createIntlNumberFormatter = (locale, opts) => {
-  const numberFormatter = new Intl.NumberFormat(locale, opts);
-  const numberFormatterWithoutOpts = new Intl.NumberFormat(locale);
-  const decimalChar =
-    numberFormatterWithoutOpts
-      .formatToParts(0.1)
-      .find(({ type }) => type === 'decimal')?.value ?? '.';
-
-  function isRegexEqual(x, y) {
-    return (
-      x instanceof RegExp &&
-      y instanceof RegExp &&
-      x.source === y.source &&
-      x.global === y.global &&
-      x.ignoreCase === y.ignoreCase &&
-      x.multiline === y.multiline
-    );
-  }
-
-  function findLastIndex(arr, predicate) {
-    let l = arr.length;
-    // eslint-disable-next-line no-plusplus
-    while (l--) {
-      if (predicate(arr[l])) return l;
-    }
-    return -1;
-  }
-
-  function insert(arr, index, value) {
-    const nextArr = [...arr];
-
-    if (Array.isArray(value)) {
-      nextArr.splice(index, 0, ...value);
-    } else {
-      nextArr.splice(index, 0, value);
-    }
-
-    return nextArr;
-  }
-
-  function stripNonNumeric(str) {
-    return `${str}`.replace(/\D/g, '');
-  }
-
-  function toNumberString(str) {
-    return `${str}`
-      .split(decimalChar)
-      .map(splitStr => stripNonNumeric(splitStr))
-      .join('.');
-  }
-
-  function toFloat(str) {
-    if (typeof str === 'number') {
-      return str;
-    }
-
-    const float = parseFloat(toNumberString(str));
-
-    return !Number.isNaN(float) ? float : undefined;
-  }
-
-  function mask(value) {
-    const float = toNumberString(value);
-
-    // if (!float) {
-    //   return [];
-    // }
-
-    const fraction = `${float}`.split('.')[1];
-    const numberParts = numberFormatter.formatToParts(Number(float));
-
-    if (fraction === '0') {
-      numberParts.push(
-        { type: 'decimal', value: decimalChar },
-        { type: 'fraction', value: fraction }
-      );
-    }
-
-    let maskArray = numberParts.reduce((pv, { type, value: partValue }) => {
-      if (['decimal', 'fraction'].includes(type) && fraction == null) {
-        return pv;
-      }
-
-      if (['integer', 'fraction'].includes(type)) {
-        return [
-          ...pv,
-          ...partValue
-            .split('')
-            .filter(
-              (_, index) =>
-                type === 'fraction' ? index < fraction.length : true
-            )
-            .map(() => /\d/)
-        ];
-      }
-
-      if (type === 'currency') {
-        return [...pv, ...partValue.split('')];
-      }
-
-      return [...pv, partValue];
-    }, []);
-
-    let lastDigitIndex = findLastIndex(maskArray, maskChar => {
-      return isRegexEqual(maskChar, /\d/);
-    });
-
-    if (
-      maskArray.indexOf(decimalChar) === -1 &&
-      `${value}`.indexOf(decimalChar) !== -1
-    ) {
-      maskArray = insert(maskArray, lastDigitIndex + 1, [decimalChar, '[]']);
-      lastDigitIndex += 2; // we want to insert a new number after the decimal
-    }
-
-    const endOfMask = maskArray.slice(lastDigitIndex + 1).join('');
-    maskArray = [...maskArray.slice(0, lastDigitIndex + 1), endOfMask];
-
-    return maskArray;
-  }
-
-  const parser = value => {
-    if (value == null) {
-      return undefined;
-    }
-
-    return toFloat(value);
-  };
-
-  return { formatter: mask, parser };
 };

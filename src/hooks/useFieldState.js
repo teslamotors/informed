@@ -1,39 +1,40 @@
-// eslint-disable-next-line no-unused-vars
-import React from 'react';
-import { useFieldApi } from './useFieldApi';
-import { useFormApi } from './useFormApi';
-import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
+import { useEffect } from 'react';
+import { useFormController } from './useFormController';
+import { useForceUpdate } from './useForceUpdate';
+import { isChild } from '../utils';
+import { Debug } from '../debug';
 
-function useFieldState(name) {
-  const fieldApi = useFieldApi(name);
-  const formApi = useFormApi();
+const debug = Debug('informed:useFieldState' + '\t');
 
-  const [, updateState] = React.useState();
-  const forceUpdate = React.useCallback(() => updateState({}), []);
+/* ----------------------- useFieldState ----------------------- */
+export const useFieldState = name => {
+  // Grab the form controller
+  const formController = useFormController();
 
-  useIsomorphicLayoutEffect(() => {
-    const listener = target => {
-      if (target === name) {
-        forceUpdate();
-      }
-    };
+  // Magic trick
+  const forceUpdate = useForceUpdate();
 
-    formApi.emitter.on('field', listener);
+  // Register for events on our field
+  useEffect(
+    () => {
+      const listener = target => {
+        if (target === name || isChild(name, target)) {
+          debug('Updating', name);
+          forceUpdate();
+        }
+      };
 
-    return () => {
-      formApi.emitter.removeListener('field', listener);
-    };
-  }, []);
+      formController.emitter.on('field', listener);
 
-  useIsomorphicLayoutEffect(() => {
-    forceUpdate();
-  }, []);
+      // When name changes we always force an update!
+      forceUpdate();
 
-  // useEffect(() => {
-  //   forceUpdate();
-  // }, []);
+      return () => {
+        formController.emitter.removeListener('field', listener);
+      };
+    },
+    [name]
+  );
 
-  return fieldApi.getFieldState() || {};
-}
-
-export { useFieldState };
+  return formController.getFieldState(name);
+};

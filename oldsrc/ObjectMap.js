@@ -1,12 +1,6 @@
 import { Debug } from './debug';
 const debug = Debug('informed:ObjMap' + '\t');
 
-/**
- *
- * A data structure to read and write to a JS object via
- * JSPAN ( Java Script Property Access Notation )
- */
-
 /* -------------------- toPath -------------------- */
 
 const ldtoPath = (path = '') => {
@@ -28,21 +22,6 @@ const ldget = (obj, path = '', defaultValue) => {
       obj
     );
   return result === undefined || result === obj ? defaultValue : result;
-};
-
-/* --------------------- swap --------------------- */
-const ldSwap = (arr, a, b) => {
-  if (arr[a] && arr[b]) {
-    const oldA = arr[a];
-    const oldB = arr[b];
-    arr[a] = oldB;
-    arr[b] = oldA;
-  } else {
-    // eslint-disable-next-line no-console
-    console.warn(
-      `Attempted to swap ${a} with ${b} but one of them does not exist :(`
-    );
-  }
 };
 
 /* --------------------- has --------------------- */
@@ -189,7 +168,7 @@ export class ObjectMap {
 
   static set(object, path, value) {
     if (value !== undefined) {
-      debug('Setting', path, value);
+      debug('SETTING', path, value);
       ldset(object, path, value);
     } else {
       // Setting things to undefined in informed is special!
@@ -255,19 +234,6 @@ export class ObjectMap {
       ldpullAt(arr, index);
     }
     cleanup(object, pathArray);
-  }
-
-  // Very important ;)
-  static swap(object, path, i, j) {
-    // Get the path to the array
-    console.log('Swaping out out:', path, i, j);
-    // Get the array
-    const arr = ldget(object, path);
-    console.log('Array', arr);
-    // Pull out of array
-    if (Array.isArray(arr)) {
-      ldSwap(arr, i, j);
-    }
   }
 }
 

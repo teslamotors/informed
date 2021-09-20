@@ -1,31 +1,26 @@
-// eslint-disable-next-line no-unused-vars
 import { useMemo } from 'react';
 import { useFormApi } from './useFormApi';
 
-const buildFieldApi = (formApi, field) => {
+/* ----------------------- useFieldApi ----------------------- */
+const buildFieldApi = (formApi, name) => {
   return {
-    // TODO refactor to use field api from updater.. need to make sure this
-    // will be stable
-    getValue: () => formApi.getValue(field),
-    setValue: value => formApi.setValue(field, value),
-    getTouched: () => formApi.getTouched(field),
-    setTouched: value => formApi.setTouched(field, value),
-    getError: () => formApi.getError(field),
-    setError: value => formApi.setError(field, value),
-    reset: () => formApi.resetField(field),
-    validate: () => formApi.validateField(field),
-    exists: () => formApi.fieldExists(field),
-    getDirty: () => formApi.getDirty(field),
-    getPristine: () => formApi.getPristine(field),
-    getFieldState: () => formApi.getField(field).fieldApi.getFieldState()
+    getValue: () => formApi.getValue(name),
+    setValue: (value, e) => formApi.setValue(name, value, e),
+    getTouched: () => formApi.getTouched(name),
+    setTouched: value => formApi.setTouched(name, value),
+    getError: () => formApi.getError(name),
+    setError: value => formApi.setError(name, value),
+    reset: () => formApi.resetField(name),
+    validate: () => formApi.validateField(name),
+    getDirty: () => formApi.getDirty(name),
+    getPristine: () => formApi.getPristine(name),
+    getMaskedValue: () => formApi.getMaskedValue(name)
   };
 };
 
-function useFieldApi(field) {
+export function useFieldApi(name) {
   const formApi = useFormApi();
 
-  const fieldApi = useMemo(() => buildFieldApi(formApi, field), [field]);
+  const fieldApi = useMemo(() => buildFieldApi(formApi, name), [name]);
   return fieldApi;
 }
-
-export { useFieldApi };

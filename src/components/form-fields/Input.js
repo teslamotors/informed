@@ -1,20 +1,20 @@
 import React from 'react';
 import { useField } from '../../hooks/useField';
 
-export const Checkbox = ({ label, ...props }) => {
-  const { render, userProps, fieldState, fieldApi } = useField(props);
+export const Input = React.memo(({ label, ...props }) => {
+  const { render, userProps, ref, fieldState, fieldApi } = useField(props);
   const { setValue, setTouched } = fieldApi;
-  const { value } = fieldState;
+  const { maskedValue } = fieldState;
   const { onBlur, onChange } = userProps;
   return render(
-    <>
-      {label ? <label htmlFor={userProps.id}> {label} </label> : null}
-
+    <label>
+      {label}
       <input
+        ref={ref}
         {...userProps}
-        checked={!!value}
+        value={!maskedValue && maskedValue !== 0 ? '' : maskedValue}
         onChange={e => {
-          setValue(e.target.checked);
+          setValue(e.target.value, e);
           if (onChange) {
             onChange(e);
           }
@@ -25,8 +25,7 @@ export const Checkbox = ({ label, ...props }) => {
             onBlur(e);
           }
         }}
-        type="checkbox"
       />
-    </>
+    </label>
   );
-};
+});

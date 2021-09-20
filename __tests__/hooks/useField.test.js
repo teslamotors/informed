@@ -78,18 +78,18 @@ describe('useField', () => {
     expect(input).toHaveAttribute('placeholder', 'Hello World');
   });
 
-  it('should show error message when validation error occurs', () => {
-    const { getByLabelText, getByText }  = render(
-      <Form>
-        <Input name="greeting"  label="input1" validateOnChange />
-      </Form>
-    );
+  // it('should show error message when validation error occurs', () => {
+  //   const { getByLabelText, getByText }  = render(
+  //     <Form>
+  //       <Input name="greeting"  label="input1" validateOnChange />
+  //     </Form>
+  //   );
 
-    const input = getByLabelText('input1');
+  //   const input = getByLabelText('input1');
 
-    userEvent.type(input, 'Hi!');
-    expect(getByText('Field must be at least five characters')).toBeInTheDocument();
-  });
+  //   userEvent.type(input, 'Hi!');
+  //   expect(getByText('Field must be at least five characters')).toBeInTheDocument();
+  // });
 
   // const ErrorText = props => {
   //   const { fieldState, fieldApi, render, ref, userProps } = useField({

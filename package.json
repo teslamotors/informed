@@ -146,7 +146,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "npm test:jest"
+      "pre-push": "npm run test:jest"
     }
   },
   "lint-staged": {

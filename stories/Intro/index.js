@@ -9,12 +9,12 @@ import CustomIntro from './CustomIntro';
 
 const Intro = () => (
   <div>
-    {/* <IntroComp />
+    <IntroComp />
     <CustomIntro />
     <GettingStarted />
     <FormState />
     <FormApi />
-    <UseForm /> */}
+    <UseForm />
     <WhatElse />
   </div>
 );

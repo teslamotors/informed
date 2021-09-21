@@ -2,7 +2,7 @@ import React from 'react';
 import readme from './README.md';
 import withDocs from '../../utils/withDocs';
 
-import { Form, Text } from '../../../src';
+import { Form, Input } from '../../../src';
 
 const validate = value => {
   return !value || value.length < 5
@@ -18,7 +18,10 @@ const FormState = () => (
   <Form id="form-state-form" validate={validateForm}>
     {({ formState }) => (
       <div>
-        <label>First name:<Text field="name" validate={validate} /></label>
+        <label>
+          First name:
+          <Input field="name" validate={validate} />
+        </label>
         <button type="submit">Submit</button>
         <label>Values:</label>
         <code>{JSON.stringify(formState.values)}</code>

@@ -47,14 +47,14 @@ const Complex = () => (
             Bio:
             <TextArea name="bio" />
           </label> */}
-          {/* <RadioGroup name="gender">
+          <RadioGroup name="gender">
             <label>
               Male: <Radio value="male" />
             </label>
             <label>
               Female: <Radio value="female" />
             </label>
-          </RadioGroup> */}
+          </RadioGroup>
           <label>
             Relationship status:
             <Select name="status">

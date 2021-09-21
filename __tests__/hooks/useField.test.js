@@ -472,4 +472,42 @@ describe('useField', () => {
     expect(formApiRef.current.getFormState().values).toEqual({ foo: 'Hello', bar: 'World!' });
   });
 
+  // * 1. Hide and show relevant field with relevant prop
+  // it('should hide and show relevant field with relevant prop', () => {
+  //   const formApiRef = {};
+
+  //   const { getByLabelText } = render(
+  //     <Form
+  //       formApiRef={formApiRef}>
+  //       <Input name="greeting" label="input1" />
+  //     </Form>
+  //   );
+
+  //   const input = getByLabelText('input1');
+  //   userEvent.type(input, 'Hi!');
+  
+  //   expect(input).toHaveAttribute('value', 'Hi!');
+  //   expect(input).toHaveValue('Hi!');
+  //   expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hi!' });
+  // });
+
+  // * 2. Hide and show relevant field with relevant prop and keep state
+  // * 3. Hide and show field wrapped in relevant
+  // * 4. Hide and show field wrapped in relevant with keep state
+  // * 5. Do 1 - 4 within a multistep step
+  // * 6. Multisteps should maintain state between stesps
+  // * 7. Reset should reset normal fields
+  // * 8. Reset should reset array fields
+  // * 9. Array field reset should reset array field
+  // * 10. Removing a field from an array field then adding a new one back should NOT use initial value
+  // * 11. Test 1 - 4 within an array field
+  // * 12. Removing a field from the end of an array field should maintain state
+  // * 13. 12 But also have 1-4 where relevance is true
+  // * 14. Do 12 and 13 but remove a field from the middle of the array instead of end
+  // * 15. Swap two fields within an array field
+  // * 16. Do 15 But also with 1-4 where relevance is true
+  // * 17. Perform validation
+  // * 18. Ability to control form from outside the form
+  // * 19. Ability to render a form without a `form`
+
 });

@@ -36,10 +36,7 @@ import { Form, Text } from 'informed';
 <Form id="form-api-form">
   {({ formApi }) => (
     <div>
-      <label>
-        First name:
-        <Text field="name" validate={validate} />
-      </label>
+      <Input name="name" label="First name:" />
       <button type="button" onClick={() => formApi.setValue('name', 'Joe')}>
         Set Name to "Joe"
       </button>

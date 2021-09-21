@@ -6,6 +6,8 @@ import { Input } from './Components/form-fields/Input';
 import { Checkbox } from './Components/form-fields/Checkbox';
 import { Select } from './Components/form-fields/Select';
 import { Option } from './Components/form-fields/Option';
+import { Radio } from './Components/form-fields/Radio';
+import { RadioGroup } from './Components/form-fields/RadioGroup';
 
 import { useForm } from './hooks/useForm';
 import { useField } from './hooks/useField';
@@ -35,5 +37,7 @@ export {
   Select,
   Option,
   Checkbox,
+  RadioGroup,
+  Radio,
   utils
 };

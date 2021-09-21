@@ -8,7 +8,7 @@ import DynamicArrays from '../../Arrays/DynamicArrays';
 
 const WhatElse = () => (
   <>
-    {/* <ComplexForm /> */}
+    <ComplexForm />
     <br />
     <DynamicArrays />
     <br />

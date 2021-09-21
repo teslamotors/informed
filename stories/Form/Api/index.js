@@ -2,15 +2,14 @@ import React from 'react';
 import readme from './README.md';
 import withDocs from '../../utils/withDocs';
 
-import { Form, Text, FormState } from '../../../src';
+import { Form, Input, FormState } from '../../../src';
 
 const FormApi = () => (
   <Form id="form-api-form">
     {({ formApi }) => (
       <div>
         {/* <FormState /> */}
-        <label htmlFor="form-state-name">First name:</label>
-        <Text field="name" id="form-api-name" />
+        <Input name="name" label="First name:" />
         <button type="button" onClick={() => formApi.setValue('name', 'Joe')}>
           Set Name to "Joe"
         </button>

@@ -32,7 +32,7 @@ const Form = ({ children, ...props }) => {
 // Step 2. Build your input components --------------------
 
 const Input = ({ label, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'text', ...props });
+  const { render, informed } = useField({ type: 'text', ...props });
 
   return render(
     <label>
@@ -43,7 +43,7 @@ const Input = ({ label, ...props }) => {
 };
 
 const Checkbox = ({ label, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'checkbox', ...props });
+  const { render, informed } = useField({ type: 'checkbox', ...props });
 
   return render(
     <label>
@@ -54,7 +54,7 @@ const Checkbox = ({ label, ...props }) => {
 };
 
 const Select = ({ label, children, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'select', ...props });
+  const { render, informed } = useField({ type: 'select', ...props });
 
   return render(
     <label>

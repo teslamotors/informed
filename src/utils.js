@@ -1,3 +1,5 @@
+import { ObjectMap } from './ObjectMap';
+
 // https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
 export const uuidv4 = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -100,6 +102,104 @@ export const generateValue = ({ fieldType, maskedValue, multiple, value }) => {
       return !!value;
     default:
       return value;
+  }
+};
+
+/* -------------------------- Error Utils ----------------------------- */
+
+export const yupToFormErrors = yupError => {
+  const errors = {};
+  if (yupError.inner) {
+    if (yupError.inner.length === 0) {
+      // console.log(yupError.path);
+      ObjectMap.set(errors, yupError.path, yupError.message);
+      return;
+    }
+    for (let err of yupError.inner) {
+      if (!ObjectMap.get(errors, err.path)) {
+        // console.log(errors, err.path, err.message);
+        ObjectMap.set(errors, err.path, err.message);
+      }
+    }
+  }
+  return errors;
+};
+
+export const validateYupSchema = (schema, values) => {
+  try {
+    schema.validateSync(values, { abortEarly: false });
+  } catch (e) {
+    const formErrors = yupToFormErrors(e);
+    return formErrors;
+  }
+};
+
+export const yupToFormError = yupError => {
+  if (yupError.inner) {
+    if (yupError.inner.length === 0) {
+      return;
+    }
+    const err = yupError.inner[0];
+    return err.message;
+  }
+};
+
+export const validateYupField = (schema, value) => {
+  try {
+    schema.validateSync(value, { abortEarly: false });
+  } catch (e) {
+    return yupToFormError(e);
+  }
+};
+
+export const validateAjvSchema = (validate, data) => {
+  validate(data);
+  const errors = {};
+  if (validate.errors) {
+    validate.errors.forEach(({ message, dataPath, keyword, params }) => {
+      let path = dataPath;
+
+      // Special case for required
+      if (keyword === 'required') {
+        path = `${path}.${params.missingProperty}`;
+      }
+
+      // Get rid of leading dot
+      path = path.replace('.', '');
+      // console.log('PATH', path, message);
+      // TODO get message from informed if present
+      ObjectMap.set(errors, path, message);
+    });
+  }
+  return errors;
+};
+
+export const validateRequired = (value, required) => {
+  if (required && (value == null || value === '')) {
+    return typeof required === 'string' ? required : 'This field is required';
+  }
+};
+
+export const generateValidationFunction = (
+  validationFunc,
+  validationSchema,
+  { required }
+) => {
+  // We dont want a validation function if there was nothing passed
+  if (validationFunc || validationSchema) {
+    return (val, values) => {
+      if (validationSchema) {
+        return validateYupField(validationSchema, val);
+      }
+      if (validationFunc) {
+        return validationFunc(val, values);
+      }
+    };
+  }
+  if (required) {
+    return val => {
+      return validateRequired(val, required);
+    };
   }
 };
 

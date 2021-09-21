@@ -227,7 +227,7 @@ export class ObjectMap {
 
     // Special case for arrays
     if (pathToArrayElem(path)) {
-      debug('ARRAY', path);
+      debug('ARRAY PATH', path);
       //ldunset(object, path);
       this.pullOut(object, path);
     } else {
@@ -237,6 +237,7 @@ export class ObjectMap {
     let pathArray = ldtoPath(path);
     pathArray = pathArray.slice(0, pathArray.length - 1);
     cleanup(object, pathArray);
+    debug('DELETED', path, object);
   }
 
   // Very important ;)
@@ -249,12 +250,30 @@ export class ObjectMap {
     debug('Pulling out:', pathArray, 'index', index);
     // Get the array
     const arr = ldget(object, pathArray);
-    debug('Array', arr);
+    debug('Array Before', arr);
     // Pull out of array
     if (Array.isArray(arr)) {
       ldpullAt(arr, index);
     }
+    debug('Array After', arr, object);
     cleanup(object, pathArray);
+  }
+
+  static purge(obj) {
+    let newObj = Array.isArray(obj) ? [] : {};
+    Object.keys(obj).forEach(key => {
+      // Its an object recur
+      if (typeof obj[key] === 'object') {
+        newObj[key] = ObjectMap.purge(obj[key]);
+        // If its empty after purge delete
+        if (Object.keys(newObj[key]).length === 0) {
+          delete newObj[key];
+        }
+      } else if (obj[key] !== undefined) {
+        newObj[key] = obj[key];
+      }
+    });
+    return newObj;
   }
 
   // Very important ;)

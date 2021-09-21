@@ -4,7 +4,7 @@ import { useForm } from '../hooks/useForm';
 
 const debug = Debug('informed:Form' + '\t\t');
 
-export const Form = ({ children, render: renderProp, component, ...rest }) => {
+export const Form = ({ children, ...rest }) => {
   debug('Render FORM');
 
   const { formApi, formController, formState, render, userProps } = useForm(
@@ -16,13 +16,6 @@ export const Form = ({ children, render: renderProp, component, ...rest }) => {
       formState,
       formApi
     };
-
-    if (component) {
-      return React.createElement(component, props, children);
-    }
-    if (renderProp) {
-      return renderProp(props);
-    }
     if (typeof children === 'function') {
       return children(props);
     }

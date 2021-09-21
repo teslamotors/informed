@@ -3,7 +3,8 @@ import React, {
   useRef,
   useLayoutEffect,
   useEffect,
-  useContext
+  useContext,
+  useMemo
 } from 'react';
 import { useFieldApi } from './useFieldApi';
 import { useRelevance } from './useRelevance';
@@ -15,7 +16,8 @@ import {
   uuidv4,
   generateOnBlur,
   generateOnChange,
-  generateValue
+  generateValue,
+  generateValidationFunction
 } from '../utils';
 import { Debug } from '../debug';
 
@@ -28,6 +30,8 @@ export const useField = ({
   name: userName,
   onBlur,
   onChange,
+  validate: validationFunc,
+  validationSchema,
   multiple,
   field,
   keepState,
@@ -36,9 +40,11 @@ export const useField = ({
   relevant,
   defaultValue,
   initialValue: userInitialValue,
+  autocomplete: userAutocomplete,
   formatter,
   parser,
   maintainCursor,
+  required,
   ...userProps
 }) => {
   // For backwards compatability
@@ -50,6 +56,9 @@ export const useField = ({
 
   // Grab the form controller
   const formController = useFormController();
+
+  // Get any options
+  const autocomplete = userAutocomplete ?? formController.options.autocomplete;
 
   // For getting initialValue
   const getInitialValue = () =>
@@ -87,6 +96,15 @@ export const useField = ({
     maintainCursor
   });
 
+  // Generate validation function
+  const validate = useMemo(
+    () =>
+      generateValidationFunction(validationFunc, validationSchema, {
+        required
+      }),
+    []
+  );
+
   // Create meta object
   const meta = {
     name,
@@ -98,7 +116,8 @@ export const useField = ({
     formatter,
     parser,
     setCursorOffset,
-    setCursor
+    setCursor,
+    validate
   };
   const metaRef = useRef(meta);
   metaRef.current = meta;
@@ -200,6 +219,7 @@ export const useField = ({
     onBlur,
     onChange,
     multiple,
+    autocomplete,
     ...userProps
   };
 

@@ -22,7 +22,7 @@ const Form = ({ children, ...props }) => {
 // Step 2. Build your input components --------------------
 
 const Input = ({ label, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'text', ...props });
+  const { render, informed } = useField({ type: 'text', ...props });
 
   return render(
     <label>
@@ -34,7 +34,7 @@ const Input = ({ label, ...props }) => {
 
 const ErrorInput = props => {
   const { render, informed, fieldState } = useField({
-    fieldType: 'text',
+    type: 'text',
     ...props
   });
 
@@ -52,7 +52,7 @@ const ErrorInput = props => {
 };
 
 const Checkbox = ({ label, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'checkbox', ...props });
+  const { render, informed } = useField({ type: 'checkbox', ...props });
 
   return render(
     <label>
@@ -63,7 +63,7 @@ const Checkbox = ({ label, ...props }) => {
 };
 
 const Select = ({ label, children, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'select', ...props });
+  const { render, informed } = useField({ type: 'select', ...props });
 
   return render(
     <label>
@@ -79,18 +79,18 @@ const onSubmit = data => console.log(data);
 
 const ExampleForm = () => (
   <Form onSubmit={onSubmit}>
-    <Input field="name" label="Name" placeholder="Elon" />
-    <ErrorInput field="age" type="number" label="Age" required="Age Required" />
-    <Input field="phone" label="Phone" formatter="+1 (###)-###-####" />
-    <Select field="car" label="Car" initialValue="ms">
+    <Input name="name" label="Name" placeholder="Elon" />
+    <ErrorInput name="age" type="number" label="Age" required="Age Required" />
+    <Input name="phone" label="Phone" formatter="+1 (###)-###-####" />
+    <Select name="car" label="Car" initialValue="ms">
       <option value="ms">Model S</option>
       <option value="m3">Model 3</option>
       <option value="mx">Model X</option>
       <option value="my">Model Y</option>
     </Select>
-    <Checkbox field="married" label="Married?" />
+    <Checkbox name="married" label="Married?" />
     <Relevant when={({ values }) => values.married}>
-      <Input field="spouse" label="Spouse" />
+      <Input name="spouse" label="Spouse" />
     </Relevant>
     <button type="submit">Submit</button>
     <FormState />

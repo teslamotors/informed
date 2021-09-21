@@ -105,6 +105,11 @@ export const useArrayField = ({
   };
 
   const reset = () => {
+    // First wipe the existing state
+    // Array fields are unique.. because reset will create new keys everything below gets wiped
+    // So, we can start by simply wiping out the state below here ( same thing we do at form level reset )
+    // ^^ By this I mean in form level reset we first wipe the form state :) so we can do same thing here!
+    formController.remove(name);
     // When resetting we reset to the users initial value not the one tracked by this hook
     const initVals = initialValue || formController.getInitialValue(name) || [];
     // Set our initial values back to what the user set at beginning
@@ -113,10 +118,6 @@ export const useArrayField = ({
     const resetKeys = initVals ? initVals.map(() => uuidv4()) : [];
     // Finally set that shit !
     setKeys(resetKeys);
-    // Reset all children
-    fieldsMap.forEach(fieldMeta => {
-      fieldMeta.current.fieldApi.reset();
-    });
   };
 
   // Create meta object

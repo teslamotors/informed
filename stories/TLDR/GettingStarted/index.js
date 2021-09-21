@@ -19,7 +19,7 @@ const Form = ({ children, ...rest }) => {
 // Step 2. Build your input components --------------------
 
 const Input = ({ label, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'text', ...props });
+  const { render, informed } = useField({ type: 'text', ...props });
 
   return render(
     <label>
@@ -30,7 +30,7 @@ const Input = ({ label, ...props }) => {
 };
 
 const Checkbox = ({ label, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'checkbox', ...props });
+  const { render, informed } = useField({ type: 'checkbox', ...props });
 
   return render(
     <label>
@@ -41,7 +41,7 @@ const Checkbox = ({ label, ...props }) => {
 };
 
 const Select = ({ label, children, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'select', ...props });
+  const { render, informed } = useField({ type: 'select', ...props });
 
   return render(
     <label>
@@ -54,7 +54,7 @@ const Select = ({ label, children, ...props }) => {
 const onSubmit = data => console.log(data);
 
 const GettingStarted = () => (
-  <Form onSubmit={onSubmit}>
+  <Form onSubmit={onSubmit} autocomplete="off">
     <div style={{ display: 'flex' }}>
       <div style={{ flex: '1' }}>
         <Input field="name" label="Name" placeholder="Elon" />

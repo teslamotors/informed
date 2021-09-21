@@ -14,93 +14,28 @@ formState section of these docs**
 <!-- STORY -->
 
 ```jsx
-import { Form, Text } from 'informed';
+import { Form, Input, useFormState } from 'informed';
 
-<Form>
-  {({ formState }) => (
-    <div>
-      <label>
-        First name:
-        <Text field="name" />
-      </label>
-      <button type="submit">Submit</button>
-      <label>Values:</label>
-      <code>{JSON.stringify(formState.values)}</code>
-      <label>Touched:</label>
-      <code>{JSON.stringify(formState.touched)}</code>
-    </div>
-  )}
-</Form>;
-```
-
-### What is this magic?
-
-Its not magic, its a Function As A Child, or otherwise known as [render props](https://reactjs.org/docs/render-props.html)
-
-There are a few ways you can get access to `Informed`s form state.
-
-1. By accessing the `formState` as a parameter to a child render function.
-
-```jsx
-<Form>
-  {({ formState }) => (
-    <div>
-      <Text field="hello" />
-      <button type="submit">Submit</button>
-      <label>Values:</label>
-      <code>{JSON.stringify(formState.values)}</code>
-      <label>Touched:</label>
-      <code>{JSON.stringify(formState.touched)}</code>
-    </div>
-  )}
-</Form>
-```
-
-<br/>
-2) By accessing the `formState` as a prop via a HOC ( High Order Component ).
-
-```jsx
-const FormState = withFormState(({ formState }) => (
-  <label>Values:</label>
-  <code>{JSON.stringify(formState.values)}</code>
-  <label>Touched:</label>
-  <code>{JSON.stringify(formState.touched)}</code>
-));
-
-<Form>
-  <div>
-    <Text field="hello" />
-    <button type="submit">Submit</button>
-    <FormState />
-  </div>
-</Form>
-```
-
-<br/>
-3) By accessing the `formState` via Hooks!
-
-```jsx
 const FormState = () => {
   const formState = useFormState();
+
   return (
-    <label>Values:</label>
-    <code>{JSON.stringify(formState.values)}</code>
-    <label>Touched:</label>
-    <code>{JSON.stringify(formState.touched)}</code>
+    <pre>
+      <code>{JSON.stringify(formState, null, 2)}</code>
+    </pre>
   );
 };
 
-<Form>
-  <div>
-    <Text field="hello" />
-    <button type="submit">Submit</button>
-    <FormState />
-  </div>
-</Form>
+const Example = () => {
+  return (
+    <Form>
+      <Input field="name" label="First Name" />
+      <button type="submit">Submit</button>
+      <FormState />
+    </Form>
+  );
+};
 ```
-
-<br/>
-So if you do need access to the form state, any of these methods will work.
 
 ### Ok so what if i need the state outside of the `<Form />` ??
 
@@ -140,3 +75,5 @@ const MyAwesomeForm = () => {
   );
 };
 ```
+
+<br />

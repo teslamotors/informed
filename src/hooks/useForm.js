@@ -10,11 +10,15 @@ export const useForm = ({
   onSubmit,
   onReset,
   initialValues,
+  validateFields,
+  autocomplete,
   formApiRef,
   ...userProps
 }) => {
   const formControllerOptions = {
-    initialValues
+    initialValues,
+    validateFields,
+    autocomplete
   };
 
   // Create form controller

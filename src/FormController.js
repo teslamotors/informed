@@ -1,6 +1,6 @@
 import { ObjectMap } from './ObjectMap';
 import { Debug } from './debug';
-import { informedFormat } from './utils';
+import { informedFormat, validateAjvSchema, validateYupField } from './utils';
 const debug = Debug('informed:FormController' + '\t');
 
 const initializeValue = (value, { formatter, parser, initialize }) => {
@@ -93,6 +93,7 @@ export class FormController {
     this.resetField = this.resetField.bind(this);
     this.getRemovalLocked = this.getRemovalLocked.bind(this);
     this.isRemovalLocked = this.isRemovalLocked.bind(this);
+    this.submitForm = this.submitForm.bind(this);
   }
 
   getValue(name) {
@@ -174,8 +175,6 @@ export class FormController {
     return ObjectMap.get(this.state.initialValues, name);
   }
 
-  validate() {}
-
   getDirty() {}
 
   getPristine() {}
@@ -213,10 +212,13 @@ export class FormController {
     debug('Remove', name);
 
     if (!this.removalLocked) {
-      debug('Delete', name);
+      debug('Delete Value', name);
       ObjectMap.delete(this.state.values, name);
+      debug('Delete Masked', name);
       ObjectMap.delete(this.state.maskedValues, name);
+      debug('Delete Touched', name);
       ObjectMap.delete(this.state.touched, name);
+      debug('Delete Errors', name);
       ObjectMap.delete(this.state.errors, name);
       this.emit('field', name);
     }
@@ -254,7 +256,7 @@ export class FormController {
   }
 
   initialize(name, meta) {
-    debug('Initialize', name);
+    debug('Initialize', name, this.state);
     // Initialize value if needed
     // If we already have value i.e "saved"
     // use that ( it was not removed on purpose! )
@@ -301,7 +303,24 @@ export class FormController {
     debug('Reset', name);
     // Get meta for field
     const meta = this.fieldsMap.get(name)?.current;
-    this.setValue(name, meta.getInitialValue());
+    console.log('Resetting', name, 'to');
+
+    const { formatter, parser, initialize } = meta.current;
+
+    const initialValue = initializeValue(meta.current.initialValue, {
+      formatter,
+      parser,
+      initialize
+    });
+    const initialMask = initializeMask(meta.current.initialValue, {
+      formatter
+    });
+
+    console.log('Resetting value', name, 'to', initialValue);
+    console.log('Resetting mask', name, 'to', initialMask);
+
+    this.setValue(name, initialValue);
+    this.setMaskedValue(name, initialMask);
   }
 
   lockRemoval(i) {
@@ -318,6 +337,75 @@ export class FormController {
 
   isRemovalLocked() {
     return this.removalLocked != null;
+  }
+
+  valid() {
+    const errors = this.state.errors;
+    return !!ObjectMap.empty(errors);
+  }
+
+  validate() {
+    debug('Validating all fields');
+
+    const values = this.values;
+    let errors = {};
+
+    // Validate schema if needed
+    if (this.options.validationSchema) {
+      const yupErrors = validateYupField(this.options.validationSchema, values);
+      errors = { ...errors, ...yupErrors };
+    }
+
+    // Validate AJV schema if needed
+    if (this.options.schema && this.options.ajv) {
+      const ajvErrors = validateAjvSchema(this.ajvValidate, values);
+      errors = { ...errors, ...ajvErrors };
+    }
+
+    // Call the forms field level validation
+    if (this.options.validateFields) {
+      const fieldErrors = this.options.validateFields(values);
+      errors = { ...errors, ...fieldErrors };
+      errors = ObjectMap.purge(errors);
+    }
+
+    // Itterate through and call validate on every field
+    this.fieldsMap.forEach(fieldMeta => {
+      const meta = fieldMeta.current;
+      const value = this.getValue(meta.name);
+      const error = meta.validate ? meta.validate(value, values) : undefined;
+      if (error) {
+        ObjectMap.set(errors, meta.name, error);
+      }
+    });
+
+    this.state.errors = errors;
+    this.emit('field', '_ALL_');
+  }
+
+  submitForm(e) {
+    this.state.submitting = true;
+
+    if (!this.options.dontPreventDefault && e) {
+      // Prevent default browser form submission
+      e.preventDefault(e);
+    }
+
+    // Validate the form
+    this.validate();
+
+    // Check validity and perform submission if valid
+    if (this.valid()) {
+      debug('Submit', this.state);
+      this.emit('submit');
+    } else {
+      debug('Submit', this.state);
+      this.emit('failure');
+    }
+
+    this.state.submitting = false;
+
+    this.emit('change');
   }
 
   /* -------------------------------- Event Emitter ------------------------------ */

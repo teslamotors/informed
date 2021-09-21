@@ -1,35 +1,14 @@
 import React from 'react';
-import withDocs from '../../utils/withDocs';
-import readme from './README.md';
-import { Form, Input, useFormApi } from '../../../src';
+import ApiRef from './ApiRef';
+import RenderProp from './RenderProp';
+import UseFormApi from './UseFormApi';
 
-const RandomSetterButton = () => {
-  const formApi = useFormApi();
-  return (
-    <button
-      type="button"
-      onClick={() =>
-        formApi.setValue(
-          'name',
-          Math.floor(Math.random() * Math.floor(Number.MAX_SAFE_INTEGER))
-        )
-      }>
-      Random
-    </button>
-  );
-};
-
-const FormApi = () => (
-  <Form id="state-form">
-    <div>
-      <label>
-        First name:
-        <Input name="name" />
-      </label>
-      <RandomSetterButton />
-      <button type="submit">Submit</button>
-    </div>
-  </Form>
+const Intro = () => (
+  <div>
+    <UseFormApi />
+    <RenderProp />
+    <ApiRef />
+  </div>
 );
 
-export default withDocs(readme, FormApi);
+export default Intro;

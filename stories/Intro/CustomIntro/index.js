@@ -86,7 +86,7 @@ const Select = ({ label, children, ...props }) => {
 const onSubmit = data => console.log(data);
 
 const GettingStarted = () => (
-  <Form onSubmit={onSubmit}>
+  <Form onSubmit={onSubmit} autocomplete="off">
     <div style={{ display: 'flex' }}>
       <div style={{ flex: '1' }}>
         <Input field="name" label="Name" placeholder="Elon" />

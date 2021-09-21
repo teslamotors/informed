@@ -38,7 +38,8 @@ const UseForm = () => {
               flex: 2,
               flexDirection: 'column',
               display: 'flex',
-              minWidth: '300px'
+              minWidth: '300px',
+              marginLeft: '2rem'
             }}>
             <pre>
               <code>{JSON.stringify(formState, null, 2)}</code>

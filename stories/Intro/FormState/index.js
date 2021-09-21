@@ -1,24 +1,26 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import { Form, Input } from '../../../src';
+import { Form, Input, useFormState } from '../../../src';
 
-const FormState = () => (
-  <Form id="state-form">
-    {({ formState }) => (
-      <div>
-        <label>
-          First name:
-          <Input name="name" />
-        </label>
-        <button type="submit">Submit</button>
-        <label>Values:</label>
-        <code>{JSON.stringify(formState.values, null, 2)}</code>
-        <label>Touched:</label>
-        <code>{JSON.stringify(formState.touched, null, 2)}</code>
-      </div>
-    )}
-  </Form>
-);
+const FormState = () => {
+  const formState = useFormState();
 
-export default withDocs(readme, FormState);
+  return (
+    <pre>
+      <code>{JSON.stringify(formState, null, 2)}</code>
+    </pre>
+  );
+};
+
+const Example = () => {
+  return (
+    <Form>
+      <Input field="name" label="First Name" />
+      <button type="submit">Submit</button>
+      <FormState />
+    </Form>
+  );
+};
+
+export default withDocs(readme, Example);

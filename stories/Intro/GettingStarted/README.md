@@ -9,7 +9,7 @@ snippet, and then you can read about what the heck is going on.
 <!-- STORY -->
 
 ```jsx
-import { Form, Text } from 'informed';
+import { Form, Input } from 'informed';
 
 const validate = value => {
   if (!value || value.length < 5)
@@ -20,7 +20,7 @@ const submit = values =>
   window.alert(`Form successfully submitted with ${JSON.stringify(values)}`);
 
 <Form onSubmit={submit}>
-  <Text field="name" label="First name" validate={validate} />
+  <Input name="name" label="First name" validate={validate} />
   <button type="submit">Submit</button>
 </Form>;
 ```
@@ -31,7 +31,7 @@ const submit = values =>
 
 Its actually pretty simple!
 
-`Informed` takes care of managing form state so you don't have to! Basically
+Informed takes care of managing form state so you don't have to! Basically
 it hooks up the native `onChange`, `onBlur`, and `onSubmit` functions and keeps track of
 all sorts of stuff based on those changes. This example uses the `<Text>` and `<Form>` components
 from informed, but under the hood they are literally just `<input>` and `<form>` dom elements.

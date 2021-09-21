@@ -15,7 +15,7 @@ const submit = values =>
 
 const GettingStarted = () => (
   <div>
-    <Form id="intro-form" onSubmit={submit}>
+    <Form id="intro-form" onSubmit={submit} autocomplete="off">
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, marginRight: '2rem' }}>
           <Input name="name" label="First name" validate={validate} />
@@ -26,7 +26,8 @@ const GettingStarted = () => (
             flex: 2,
             flexDirection: 'column',
             display: 'flex',
-            minWidth: '300px'
+            minWidth: '300px',
+            marginLeft: '3rem'
           }}>
           <FormState errors values />
         </div>

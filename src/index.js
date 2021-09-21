@@ -5,6 +5,7 @@ import { Form } from './Components/Form';
 import { Input } from './Components/form-fields/Input';
 import { Checkbox } from './Components/form-fields/Checkbox';
 import { Select } from './Components/form-fields/Select';
+import { Option } from './Components/form-fields/Option';
 
 import { useForm } from './hooks/useForm';
 import { useField } from './hooks/useField';
@@ -32,6 +33,7 @@ export {
   Form,
   Input,
   Select,
+  Option,
   Checkbox,
   utils
 };

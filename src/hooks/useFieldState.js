@@ -18,7 +18,7 @@ export const useFieldState = name => {
   useEffect(
     () => {
       const listener = target => {
-        if (target === name || isChild(name, target)) {
+        if (target === '_ALL_' || target === name || isChild(name, target)) {
           debug('Updating', name);
           forceUpdate();
         }

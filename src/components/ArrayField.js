@@ -116,7 +116,7 @@ const ArrayFieldItem = ({
       <FormControllerContext.Provider value={wrappedController}>
         <ArrayFieldItemApiContext.Provider value={arrayFieldItemApi}>
           <ArrayFieldItemStateContext.Provider value={arrayFieldStateValue}>
-            {/* <h3>{arrayFieldItemState.key}</h3> */}
+            <h3>{arrayFieldItemState.key}</h3>
             {memoizedChildren}
           </ArrayFieldItemStateContext.Provider>
         </ArrayFieldItemApiContext.Provider>

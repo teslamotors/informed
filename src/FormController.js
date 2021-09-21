@@ -277,6 +277,9 @@ export class FormController {
         formatter
       });
 
+      console.log('Initializing value', name, 'to', initialValue);
+      console.log('Initializing mask', name, 'to', initialMask);
+
       this.setValue(name, initialValue);
       this.setMaskedValue(name, initialMask);
     }

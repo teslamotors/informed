@@ -230,6 +230,7 @@ export class FormController {
     ObjectMap.swap(this.state.maskedValues, name, a, b);
     ObjectMap.swap(this.state.touched, name, a, b);
     ObjectMap.swap(this.state.errors, name, a, b);
+    // DO NOT emit event here we want to delay it on purpose because otherwise relevance will trigger with bad state
     // this.emit("field", name);
   }
 
@@ -239,6 +240,7 @@ export class FormController {
     ObjectMap.delete(this.state.maskedValues, name);
     ObjectMap.delete(this.state.touched, name);
     ObjectMap.delete(this.state.errors, name);
+    // DO NOT emit event here we want to delay it on purpose because otherwise relevance will trigger with bad state
     // this.emit("field", name);
   }
 

@@ -11,7 +11,8 @@ import {
   Relevant,
   ArrayField,
   useFormApi,
-  useFieldState
+  useFieldState,
+  FormStateAccess
 } from '../../../src';
 
 const initialValues = {
@@ -115,7 +116,16 @@ const FeatureTester = () => {
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>
             <Reset />
-            <button type="submit">Submit</button>
+            <FormStateAccess>
+              {({ submitted }) => (
+                <>
+                  <button type="submit">
+                    Submit {submitted ? '( Been Submitted )' : ''}
+                  </button>
+                </>
+              )}
+            </FormStateAccess>
+
             {/* ----------------------------------------------------------- */}
             <hr />
             <h3>Masking Test</h3>

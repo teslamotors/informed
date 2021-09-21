@@ -55,6 +55,7 @@ export class FormController {
     this.state = {
       pristine: true,
       dirty: false,
+      submitted: false,
       invalid: false,
       values: {},
       errors: {},
@@ -304,6 +305,7 @@ export class FormController {
     this.state = {
       pristine: true,
       dirty: false,
+      submitted: false,
       invalid: false,
       values: {},
       errors: {},
@@ -365,7 +367,7 @@ export class FormController {
   validate() {
     debug('Validating all fields');
 
-    const values = this.values;
+    const values = this.state.values;
     let errors = {};
 
     // Validate schema if needed
@@ -402,7 +404,8 @@ export class FormController {
   }
 
   submitForm(e) {
-    this.state.submitting = true;
+    // this.state.submitting = true;
+    this.state.submitted = true;
 
     if (!this.options.dontPreventDefault && e) {
       // Prevent default browser form submission

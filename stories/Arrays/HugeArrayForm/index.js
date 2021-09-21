@@ -2,14 +2,27 @@ import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 import FormState from '../../utils/FormState';
-import { Form, Text, ArrayField } from '../../../src';
+import { Form, Input, ArrayField, useFieldState, Relevant } from '../../../src';
 
-const friends = Array.from(Array(50)).map(e => {
-  return { name: 'Joe', age: 26 };
+const friends = Array.from(Array(66)).map(e => {
+  return { name: 'Joe', age: 26, f: 'foo' };
 });
 
 const initialValues = {
   friends
+};
+
+const FieldState = ({ name }) => {
+  const nameState = useFieldState(name);
+  return (
+    <>
+      <h5>Component using nameState: {name}</h5>
+      Render: {Math.random()}
+      <pre>
+        <code>{JSON.stringify(nameState, null, 2)}</code>
+      </pre>
+    </>
+  );
 };
 
 const NestedForm = () => (
@@ -20,7 +33,7 @@ const NestedForm = () => (
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, marginRight: '2rem' }}>
           <button type="submit">Submit</button>
-          <ArrayField field="friends">
+          <ArrayField name="friends">
             {({ add, addWithInitialValue, reset }) => {
               return (
                 <React.Fragment>
@@ -49,34 +62,46 @@ const NestedForm = () => (
                   <ArrayField.Items>
                     {({
                       remove,
-                      field,
+                      name,
                       reset,
                       initialValue,
                       values,
                       setValue
                     }) => (
                       <label>
-                        <h5>{field}</h5>
-                        <Text
-                          field={`${field}.name`}
+                        <h5>{name}</h5>
+                        <FieldState name={name} />
+                        <Input
+                          name={`${name}.name`}
                           initialValue={initialValue && initialValue.name}
                         />
-                        <Text field={`${field}.age`} />
-                        <Text field={`${field}.a`} />
-                        <Text field={`${field}.b`} />
-                        <Text field={`${field}.c`} />
-                        <Text field={`${field}.d`} />
-                        <Text field={`${field}.e`} />
-                        <Text field={`${field}.f`} />
-                        <Text field={`${field}.g`} />
-                        <Text field={`${field}.h`} />
-                        <Text field={`${field}.i`} />
-                        <Text field={`${field}.j`} />
-                        <Text field={`${field}.k`} />
-                        <Text field={`${field}.l`} />
-                        <Text field={`${field}.m`} />
+                        <Input name={`${name}.age`} />
+                        <Input name={`${name}.a`} />
+                        <Input name={`${name}.b`} />
+                        <Input name={`${name}.c`} />
+                        <Input name={`${name}.d`} />
+                        <Input name={`${name}.e`} />
+                        <Input name={`${name}.f`} />
+                        <Input
+                          name={`${name}.g`}
+                          relevant={(state, api) => api.getValue(`${name}.f`)}
+                        />
+                        <Relevant
+                          when={(state, api) => api.getValue(`${name}.f`)}>
+                          <Input name={`${name}.h`} />
+                          <Input name={`${name}.i`} />
+                          <Input name={`${name}.j`} />
+                          <Input name={`${name}.k`} />
+                          <Input name={`${name}.l`} />
+                          <Input name={`${name}.m`} />
+                        </Relevant>
 
-                        <button type="button" onClick={reset}>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            console.log('HERE');
+                            reset();
+                          }}>
                           Reset
                         </button>
                         <button

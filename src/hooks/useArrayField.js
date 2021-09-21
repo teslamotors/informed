@@ -189,29 +189,32 @@ export const useArrayField = ({
   };
 
   // Wrap the updater to update array fields references
-  const wrappedController = useMemo(() => {
-    return {
-      ...formController,
-      register: (n, m) => {
-        fieldsMap.set(n, m);
-        formController.register(n, m);
-      },
-      deregister: (n, m) => {
-        fieldsMap.delete(n);
-        formController.deregister(n, m);
-      },
-      getInitialValue: fieldName => {
-        // If we are getting initial value and its for this field return that
-        if (RegExp(`${name}\\[[0-9]+\\]`).test(fieldName)) {
-          const path = fieldName.replace(name, '');
-          const v = ObjectMap.get(getInitialValues(), path);
-          logger(`Resetting ${path} to ${v}`);
-          return v;
+  const wrappedController = useMemo(
+    () => {
+      return {
+        ...formController,
+        register: (n, m) => {
+          fieldsMap.set(n, m);
+          formController.register(n, m);
+        },
+        deregister: (n, m) => {
+          fieldsMap.delete(n);
+          formController.deregister(n, m);
+        },
+        getInitialValue: fieldName => {
+          // If we are getting initial value and its for this field return that
+          if (RegExp(`${name}\\[[0-9]+\\]`).test(fieldName)) {
+            const path = fieldName.replace(name, '');
+            const v = ObjectMap.get(getInitialValues(), path);
+            logger(`Resetting ${path} to ${v}`);
+            return v;
+          }
+          return formController.getInitialValue(fieldName);
         }
-        return formController.getInitialValue(fieldName);
-      }
-    };
-  }, []);
+      };
+    },
+    [name]
+  );
 
   const render = children => (
     <FormControllerContext.Provider value={wrappedController}>

@@ -15,7 +15,7 @@ import Dynamic from './Form/Dynamic';
 // import ArrayFieldSchemaNested from './Schema/ArrayFieldSchemaNested';
 // import CustomSchema from './Schema/CustomSchema';
 import Complex from './Form/Complex';
-// import Big from './Form/Big';
+import Big from './Form/Big';
 import State from './Form/State';
 // import FormState from './Debugging/FormState';
 import Props from './Form/Props';
@@ -61,15 +61,15 @@ import DynamicFields from './Dynamic/DynamicFields';
 //   Intro as InputIntro
 // } from './Inputs';
 
-// import {
-//   ArrayOfFields,
-//   ArrayOfScopes,
-//   DynamicArrays,
-//   NestedForm,
-//   AlternateSyntax,
-//   HugeArrayForm,
-//   Swap
-// } from './Arrays';
+import {
+  // ArrayOfFields,
+  // ArrayOfScopes,
+  // DynamicArrays,
+  // NestedForm,
+  // AlternateSyntax,
+  HugeArrayForm
+  // Swap
+} from './Arrays';
 
 // import {
 //   WithFormApi,
@@ -159,10 +159,10 @@ storiesOf('Form', module)
   // .add('State', State)
   .add('Api', Api)
   .add('Props', Props)
-  .add('Dynamic', DynamicFields);
-//   .add('Dependent Fields', FormatDependent)
-//   .add('Dynamic Fields', Dynamic)
-//   .add('Big', Big);
+  .add('Dynamic', DynamicFields)
+  //   .add('Dependent Fields', FormatDependent)
+  //   .add('Dynamic Fields', Dynamic)
+  .add('Big', Big);
 
 // storiesOf('Inputs', module)
 //   .add('Intro', InputIntro)
@@ -179,14 +179,15 @@ storiesOf('Form', module)
 //   .add('Creating Object Inputs', ObjectInput)
 //   .add('Creating Formatted Object Inputs', FormattedObjectInput);
 
-// storiesOf('Arrays', module)
-//   // .add('Array Of Fields', ArrayOfFields)
-//   // .add('Array Of Scopes', ArrayOfScopes)
-//   .add('Dynamic Arrays', AlternateSyntax)
-//   .add('Nested Form', NestedForm)
-//   .add('Swap', Swap)
-//   .add('Huge Array Form', HugeArrayForm);
-// // .add('Alternate Syntax', AlternateSyntax);
+storiesOf('Arrays', module)
+  // .add('Array Of Fields', ArrayOfFields)
+  // .add('Array Of Scopes', ArrayOfScopes)
+  // THE ABOVER WWAS ALREDAY COMMENTED OUT
+  // .add('Dynamic Arrays', AlternateSyntax)
+  // .add('Nested Form', NestedForm)
+  // .add('Swap', Swap)
+  .add('Huge Array Form', HugeArrayForm);
+// .add('Alternate Syntax', AlternateSyntax);
 
 // storiesOf('Validation', module)
 //   .add('Simple Validation', SimpleValidation)

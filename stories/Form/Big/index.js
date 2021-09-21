@@ -2,7 +2,7 @@ import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 
-import { Form, Text, useFormApi, FormState } from '../../../src';
+import { Form, Input, useFormApi, FormState } from '../../../src';
 
 const MyButton = () => {
   const formApi = useFormApi();
@@ -22,7 +22,7 @@ const Big = () => (
           <>
             <label key={`big-${i}`}>
               First name:
-              <Text field={`field-${i}`} />
+              <Input name={`field-${i}`} />
             </label>
           </>
         ))}

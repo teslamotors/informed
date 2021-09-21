@@ -237,7 +237,7 @@ export class ObjectMap {
     let pathArray = ldtoPath(path);
     pathArray = pathArray.slice(0, pathArray.length - 1);
     cleanup(object, pathArray);
-    debug('DELETED', path, object);
+    debug('DELETED', path);
   }
 
   // Very important ;)
@@ -255,7 +255,7 @@ export class ObjectMap {
     if (Array.isArray(arr)) {
       ldpullAt(arr, index);
     }
-    debug('Array After', arr, object);
+    debug('Array After', arr);
     cleanup(object, pathArray);
   }
 

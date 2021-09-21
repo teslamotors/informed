@@ -122,17 +122,6 @@ export const useField = ({
   const metaRef = useRef(meta);
   metaRef.current = meta;
 
-  useLayoutEffect(() => {
-    if (debug && ref && ref.current) {
-      ref.current.style.background = 'orange';
-      setTimeout(() => {
-        if (ref.current) {
-          ref.current.style.background = 'white';
-        }
-      }, 300);
-    }
-  });
-
   // Register
   useEffect(
     () => {
@@ -171,6 +160,8 @@ export const useField = ({
       // The info may have changed, grab it from the ref
       const metaInfo = metaRef.current;
 
+      logger('CLEANUP REMOVING', metaInfo.name);
+
       // Always keep it if this is passed
       if (metaInfo.keepState) {
         keepIt = true;
@@ -190,6 +181,17 @@ export const useField = ({
       }
     };
   }, []);
+
+  useLayoutEffect(() => {
+    if (debug && ref && ref.current) {
+      ref.current.style.background = 'orange';
+      setTimeout(() => {
+        if (ref.current) {
+          ref.current.style.background = 'grey';
+        }
+      }, 300);
+    }
+  });
 
   const render = children => (isRelevant ? children : null);
 
@@ -219,7 +221,7 @@ export const useField = ({
     onBlur,
     onChange,
     multiple,
-    autocomplete,
+    autoComplete: autocomplete,
     ...userProps
   };
 

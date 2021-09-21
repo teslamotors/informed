@@ -59,38 +59,44 @@ const ArrayFieldItem = ({
   // Register for child field updates
   const subState = useFieldState(arrayFieldItemState.name);
 
-  const wrappedController = useMemo(() => {
-    return {
-      ...formController,
-      register: (n, m) => {
-        fieldsMap.set(n, m);
-        formController.register(n, m);
-      },
-      deregister: (n, m) => {
-        fieldsMap.delete(n);
-        formController.deregister(n, m);
-        // When the very last field from the array is removed unlock
-        const lockedUntil = formController.getRemovalLocked();
-        // console.log(
-        //   "SIZE",
-        //   fieldsMap.size,
-        //   "INDEX",
-        //   arrayFieldItemState.index,
-        //   "LOCKEDUNTIL",
-        //   lockedUntil
-        // );
-        if (
-          fieldsMap.size === 0 &&
-          lockedUntil != null &&
-          lockedUntil.index === arrayFieldItemState.index &&
-          lockedUntil.name === arrayFieldItemState.parent
-        ) {
-          debug('UNLOCKING');
-          formController.unlockRemoval();
+  // Need to memoize to prevent re renders
+  const wrappedController = useMemo(
+    () => {
+      return {
+        ...formController,
+        register: (n, m) => {
+          fieldsMap.set(n, m);
+          formController.register(n, m);
+        },
+        deregister: (n, m) => {
+          fieldsMap.delete(n);
+          formController.deregister(n, m);
+          // When the very last field from the array is removed unlock
+          const lockedUntil = formController.getRemovalLocked();
+          debug(
+            'DEREGISTER',
+            'SIZE',
+            fieldsMap.size,
+            'INDEX',
+            arrayFieldItemState.index,
+            'LOCKEDUNTIL',
+            lockedUntil
+          );
+          if (
+            fieldsMap.size === 0 && // <<< We are the last field in this item
+            lockedUntil != null &&
+            lockedUntil.index === arrayFieldItemState.index &&
+            lockedUntil.name === arrayFieldItemState.parent
+          ) {
+            debug('UNLOCKING');
+            formController.unlockRemoval();
+          }
         }
-      }
-    };
-  }, []);
+      };
+    },
+    // WHATEVER YOU DO... DONT REMOVE THIS... need updated controller when index changes
+    [arrayFieldItemState.index]
+  );
 
   const arrayFieldStateValue = {
     ...arrayFieldItemState,
@@ -101,7 +107,7 @@ const ArrayFieldItem = ({
 
   const memoizedChildren = useMemo(
     () => {
-      console.log('Calling');
+      debug('Rendering');
       return children({
         ...arrayFieldItemApi,
         name: arrayFieldItemState.name,
@@ -116,7 +122,7 @@ const ArrayFieldItem = ({
       <FormControllerContext.Provider value={wrappedController}>
         <ArrayFieldItemApiContext.Provider value={arrayFieldItemApi}>
           <ArrayFieldItemStateContext.Provider value={arrayFieldStateValue}>
-            <h3>{arrayFieldItemState.key}</h3>
+            {/* <h3>{arrayFieldItemState.key}</h3> */}
             {memoizedChildren}
           </ArrayFieldItemStateContext.Provider>
         </ArrayFieldItemApiContext.Provider>

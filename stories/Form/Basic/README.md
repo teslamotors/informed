@@ -3,13 +3,10 @@
 <!-- STORY -->
 
 ```jsx
-import { Form, Text } from 'informed';
+import { Form, Input } from 'informed';
 
 <Form>
-  <label>
-    First name:
-    <Text field="name"/>
-  </label>
+  <Input field="name" label="First name:" />
   <button type="submit">Submit</button>
-</Form>
+</Form>;
 ```

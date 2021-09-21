@@ -277,8 +277,8 @@ export class FormController {
         formatter
       });
 
-      console.log('Initializing value', name, 'to', initialValue);
-      console.log('Initializing mask', name, 'to', initialMask);
+      debug(`Initializing value ${name} to ${initialValue}`, initialValue);
+      debug(`Initializing mask ${name} to ${initialValue}`, initialMask);
 
       this.setValue(name, initialValue);
       this.setMaskedValue(name, initialMask);
@@ -303,30 +303,30 @@ export class FormController {
   }
 
   resetField(name) {
-    debug('Reset', name);
+    debug('Resetting', name);
     // Get meta for field
     const meta = this.fieldsMap.get(name)?.current;
-    console.log('Resetting', name, 'to');
 
-    const { formatter, parser, initialize } = meta.current;
+    const { formatter, parser, initialize } = meta;
 
-    const initialValue = initializeValue(meta.current.initialValue, {
+    const initialValue = initializeValue(meta.initialValue, {
       formatter,
       parser,
       initialize
     });
-    const initialMask = initializeMask(meta.current.initialValue, {
+    const initialMask = initializeMask(meta.initialValue, {
       formatter
     });
 
-    console.log('Resetting value', name, 'to', initialValue);
-    console.log('Resetting mask', name, 'to', initialMask);
+    debug(`Resetting value ${name} to ${initialValue}`, initialValue);
+    debug(`Resetting mask ${name} to ${initialValue}`, initialMask);
 
     this.setValue(name, initialValue);
     this.setMaskedValue(name, initialMask);
   }
 
   lockRemoval(i) {
+    debug('LOCKREMOVAL', i);
     this.removalLocked = i;
   }
 

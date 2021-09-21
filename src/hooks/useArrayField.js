@@ -48,16 +48,19 @@ export const useArrayField = ({
   // TODO Need to use saved state to initialize ( after being re rendered )
   const initialKeys = initialValues ? initialValues.map(() => uuidv4()) : [];
 
-  const [keys, setKeys] = useState(initialKeys);
+  const [keys, setKeys, getKeys] = useStateWithGetter(initialKeys);
 
   const remove = i => {
+    // Always get ref to latest keys
+    const ks = getKeys();
+
     // Notify form to expect removal on the last field
     formController.lockRemoval({
-      index: keys.length - 1,
+      index: ks.length - 1,
       name
     });
     // Remove the key
-    const newKeys = keys.slice(0, i).concat(keys.slice(i + 1, keys.length));
+    const newKeys = ks.slice(0, i).concat(ks.slice(i + 1, ks.length));
     setKeys(newKeys);
     // Remove the initial value ( user wanted to get rid of that input )
     const initVals = getInitialValues();
@@ -75,12 +78,15 @@ export const useArrayField = ({
 
     formController.swap(name, a, b);
 
-    // Swap the keys
-    const newKeys = [...keys];
+    // Always get ref to latest keys
+    const ks = getKeys();
 
-    if (keys[a] && keys[b]) {
-      newKeys[a] = keys[b];
-      newKeys[b] = keys[a];
+    // Swap the keys
+    const newKeys = [...ks];
+
+    if (ks[a] && ks[b]) {
+      newKeys[a] = ks[b];
+      newKeys[b] = ks[a];
     } else {
       // eslint-disable-next-line no-console
       console.warn(
@@ -92,15 +98,17 @@ export const useArrayField = ({
   };
 
   const add = () => {
-    keys.push(uuidv4());
-    setKeys([...keys]);
+    const ks = getKeys();
+    ks.push(uuidv4());
+    setKeys([...ks]);
   };
 
   const addWithInitialValue = initialValue => {
-    keys.push(uuidv4());
-    setKeys([...keys]);
+    const ks = getKeys();
+    ks.push(uuidv4());
+    setKeys([...ks]);
     const newInitialValues = [...getInitialValues()];
-    newInitialValues[keys.length - 1] = initialValue;
+    newInitialValues[ks.length - 1] = initialValue;
     setInitialValues(newInitialValues);
   };
 
@@ -162,12 +170,14 @@ export const useArrayField = ({
     };
   });
 
-  const arrayFieldApi = {
-    add,
-    swap,
-    addWithInitialValue,
-    reset
-  };
+  const arrayFieldApi = useMemo(() => {
+    return {
+      add,
+      swap,
+      addWithInitialValue,
+      reset
+    };
+  }, []);
 
   if (arrayFieldApiRef) {
     arrayFieldApiRef.current = arrayFieldApi;

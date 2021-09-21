@@ -3,14 +3,32 @@ import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 import FormState from '../../utils/FormState';
 
-import { Form, Input, ArrayField } from '../../../src';
+import { Form, Input, ArrayField, useFormApi } from '../../../src';
+
+const Reset = () => {
+  const formApi = useFormApi();
+  return (
+    <button type="button" onClick={formApi.reset}>
+      Reset Form
+    </button>
+  );
+};
 
 const DynamicArraysContent = () => {
   return (
     <div>
+      {/* <Form
+        initialValues={{
+          siblings: [
+            { name: 'foo', last: 'a' },
+            { name: 'bar', last: 'b' },
+            { name: 'baz', last: 'c' }
+          ]
+        }}> */}
       <Form initialValues={{ siblings: ['foo', 'bar', 'baz'] }}>
         <div style={{ display: 'flex' }}>
           <div style={{ flex: 1, marginRight: '1rem' }}>
+            <Reset />
             <h5>You:</h5>
             <label>
               Your Name: <Input name="name" />
@@ -29,6 +47,8 @@ const DynamicArraysContent = () => {
                     {({ remove, name }) => (
                       <>
                         <Input label="Name" name={name} />
+                        {/* <Input label="Name" name={`${name}.name`} />
+                        <Input label="Name" name={`${name}.last`} /> */}
                         <button type="button" onClick={remove}>
                           Remove
                         </button>
@@ -40,7 +60,7 @@ const DynamicArraysContent = () => {
             </ArrayField>
             <button type="submit">Submit</button>
           </div>
-          <div style={{ flex: 2 }}>
+          <div style={{ flex: 2, marginLeft: '3rem' }}>
             <FormState values />
           </div>
         </div>

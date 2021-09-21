@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-// import useCursorPosition from '../../src/hooks/useCursorPosition';
-// import { informedFormat } from '../../src/utils';
-import { useField, useForm } from '../../src';
+import { Form, Input } from '../../jest/components';
 
 // prettier-ignore
 describe('useField', () => {
@@ -13,34 +11,6 @@ describe('useField', () => {
       ? 'Field must be at least five characters'
       : undefined;
   };
-
-  const Form = ({ children, ...rest }) => {
-    const { formController, render, userProps } = useForm(rest);
-  
-    return render(
-      <form {...userProps} onSubmit={formController.submitForm}>
-        {children}
-      </form>
-    );
-  };
-  
-  const Input = React.memo(({ label, ...props }) => {
-    const { render, informed, ref, fieldState } = useField({ type: 'text', ...props });
-    const { error } = fieldState;
-    return render(
-      <label>
-        {label}
-        <input
-          ref={ref}
-          {...informed}
-          style={error ? { border: 'solid 1px red' } : null}
-        />
-        {error ? (
-          <small style={{ color: 'red' }}>{fieldState.error}</small>
-        ) : null}
-      </label>
-    );
-  });
 
   it('should update value when user types', () => {
     const formApiRef = {};

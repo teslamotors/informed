@@ -39,6 +39,9 @@
     "testEnvironment": "jsdom",
     "setupFilesAfterEnv": [
       "./jest.setup.js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js"
     ]
   },
   "repository": {

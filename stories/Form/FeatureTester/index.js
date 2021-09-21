@@ -125,7 +125,6 @@ const FeatureTester = () => {
                 </>
               )}
             </FormStateAccess>
-
             {/* ----------------------------------------------------------- */}
             <hr />
             <h3>Masking Test</h3>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { render } from '@testing-library/react';
+import React, { useState } from 'react';
+import { render, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 // import useCursorPosition from '../../src/hooks/useCursorPosition';
 // import { informedFormat } from '../../src/utils';
@@ -8,11 +8,11 @@ import { useField, useForm } from '../../src';
 // prettier-ignore
 describe('useField', () => {
 
-  // const validate = value => {
-  //   return !value || value.length < 5
-  //     ? 'Field must be at least five characters'
-  //     : undefined;
-  // };
+  const validate = value => {
+    return !value || value.length < 5
+      ? 'Field must be at least five characters'
+      : undefined;
+  };
 
   const Form = ({ children, ...rest }) => {
     const { formController, render, userProps } = useForm(rest);
@@ -25,24 +25,19 @@ describe('useField', () => {
   };
   
   const Input = React.memo(({ label, ...props }) => {
-    const { render, userProps, ref, fieldState, fieldApi } = useField(props);
-    const { setValue, setTouched } = fieldApi;
-    const { maskedValue, error } = fieldState;
+    const { render, informed, ref, fieldState } = useField({ type: 'text', ...props });
+    const { error } = fieldState;
     return render(
       <label>
         {label}
         <input
           ref={ref}
-          {...userProps}
-          value={!maskedValue && maskedValue !== 0 ? '' : maskedValue}
-          onChange={(e) => {
-            setValue(e.target.value, e);
-          }}
-          onBlur={() => {
-            setTouched(true);
-          }}
+          {...informed}
           style={error ? { border: 'solid 1px red' } : null}
         />
+        {error ? (
+          <small style={{ color: 'red' }}>{fieldState.error}</small>
+        ) : null}
       </label>
     );
   });
@@ -65,7 +60,7 @@ describe('useField', () => {
     expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hi!' });
   });
 
-  it('should update value when user types', () => {
+  it('placeholder should end up on input', () => {
 
     const { getByLabelText } = render(
       <Form>
@@ -78,280 +73,403 @@ describe('useField', () => {
     expect(input).toHaveAttribute('placeholder', 'Hello World');
   });
 
-  // it('should show error message when validation error occurs', () => {
-  //   const { getByLabelText, getByText }  = render(
-  //     <Form>
-  //       <Input name="greeting"  label="input1" validateOnChange />
-  //     </Form>
-  //   );
+  it('id should end up on input', () => {
 
-  //   const input = getByLabelText('input1');
+    const { getByLabelText } = render(
+      <Form>
+        <Input name="greeting" label="input1" id="1234567"/>
+      </Form>
+    );
 
-  //   userEvent.type(input, 'Hi!');
-  //   expect(getByText('Field must be at least five characters')).toBeInTheDocument();
-  // });
+    const input = getByLabelText('input1');
 
-  // const ErrorText = props => {
-  //   const { fieldState, fieldApi, render, ref, userProps } = useField({
-  //     ...props,
-  //     validate
-  //   });
+    expect(input).toHaveAttribute('id', '1234567');
+  });
 
-  //   const { value } = fieldState;
-  //   const { setValue, setTouched } = fieldApi;
-  //   const { onChange, onBlur, ...rest } = userProps;
-  //   return render(
-  //     <React.Fragment>
-  //       <input
-  //         {...rest}
-  //         ref={ref}
-  //         value={!value && value !== 0 ? '' : value}
-  //         onChange={e => {
-  //           setValue(e.target.value);
-  //           if (onChange) {
-  //             onChange(e);
-  //           }
-  //         }}
-  //         onBlur={e => {
-  //           setTouched();
-  //           if (onBlur) {
-  //             onBlur(e);
-  //           }
-  //         }}
-  //         style={fieldState.error ? { border: 'solid 1px red' } : null}
-  //       />
-  //       {fieldState.error ? (
-  //         <small style={{ color: 'red' }}>{fieldState.error}</small>
-  //       ) : null}
-  //     </React.Fragment>
-  //   );
-  // };
+  it('should show error message when validation error occurs', () => {
+    const { getByLabelText, getByText }  = render(
+      <Form>
+        <Input name="greeting"  label="input1" validateOnChange validate={validate} />
+      </Form>
+    );
 
-  // it('should update value when user types', () => {
-  //   let savedApi;
-  //   const wrapper = mount(
-  //     <Form
-  //       getApi={api => {
-  //         savedApi = api;
-  //       }}>
-  //       <ErrorText field="greeting" />
-  //     </Form>
-  //   );
-  //   let input = wrapper.find('input');
-  //   input.simulate('change', { target: { value: 'Hi!' } });
-  //   input = wrapper.find('input');
-  //   expect(input.props().value).to.equal('Hi!');
-  //   expect(savedApi.getState().values).to.deep.equal({ greeting: 'Hi!' });
-  // });
+    const input = getByLabelText('input1');
 
-  // it('should show error message when validation error occurs', () => {
-  //   const wrapper = mount(
-  //     <Form>
-  //       <ErrorText field="greeting" validateOnChange />
-  //     </Form>
-  //   );
-  //   const input = wrapper.find('input');
-  //   input.simulate('change', { target: { value: 'Hi!' } });
-  //   const error = wrapper.find('small');
-  //   expect(error.text()).to.equal('Field must be at least five characters');
-  // });
+    userEvent.type(input, 'Hi!');
+    expect(getByText('Field must be at least five characters')).toBeInTheDocument();
+  });
 
-  // /* ------------------------------ Object Value ------------------------------ */
+  it('should update value when user types in number input', () => {
+    const formApiRef = {};
 
-  // describe('ObjectInput', () => {
-  //   const ObjectInput = props => {
-  //     const { fieldState, fieldApi, render, userProps } = useField(props);
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input type="number" name="age" label="input1" />
+      </Form>
+    );
 
-  //     const { value } = fieldState;
-  //     const { setValue, setTouched } = fieldApi;
-  //     const { ...rest } = userProps;
+    const input = getByLabelText('input1');
+    userEvent.type(input, '27');
+  
+    expect(input).toHaveValue(27);
+    expect(formApiRef.current.getFormState().values).toEqual({ age: 27 });
+  });
 
-  //     const v = value || {};
+  it('should call onChange that was passed', () => {
 
-  //     const aChange = e => {
-  //       const newVal = { ...v };
+    const onChange = jest.fn();
 
-  //       newVal.a = e.target.value;
+    const { getByLabelText } = render(
+      <Form>
+        <Input name="greeting" label="input1" onChange={onChange} />
+      </Form>
+    );
 
-  //       setValue(newVal);
-  //     };
+    const input = getByLabelText('input1');
+    userEvent.type(input, 'Hi!');
+  
+    expect(onChange).toHaveBeenCalled();
+  });
 
-  //     const bChange = e => {
-  //       const newVal = { ...v };
+  it('should call onBlur that was passed', () => {
 
-  //       newVal.b = e.target.value;
+    const onBlur = jest.fn();
 
-  //       setValue(newVal);
-  //     };
+    const { getByLabelText } = render(
+      <Form>
+        <Input name="greeting1" label="input1" onBlur={onBlur} />
+        <Input name="greeting2" label="input2" />
+      </Form>
+    );
 
-  //     const { a, b } = v;
+    const input1 = getByLabelText('input1');
+    const input2 = getByLabelText('input2');
+    input1.focus();
+    input2.focus();
+  
+    expect(onBlur).toHaveBeenCalled();
+  });
 
-  //     return render(
-  //       <React.Fragment>
-  //         <input
-  //           {...rest}
-  //           value={a ? a : ''}
-  //           onChange={aChange}
-  //           onBlur={() => setTouched}
-  //         />
-  //         <input
-  //           {...rest}
-  //           value={b ? b : ''}
-  //           onChange={bChange}
-  //           onBlur={() => setTouched()}
-  //         />
-  //       </React.Fragment>
-  //     );
-  //   };
+  it('should set the initial value', () => {
+    const formApiRef = {};
 
-  //   it('should update value when user types', () => {
-  //     let savedApi;
-  //     const wrapper = mount(
-  //       <Form
-  //         getApi={api => {
-  //           savedApi = api;
-  //         }}>
-  //         <ObjectInput field="greeting" />
-  //       </Form>
-  //     );
-  //     let input1 = wrapper.find('input').at(0);
-  //     input1.simulate('change', { target: { value: 'Hi!' } });
-  //     input1 = wrapper.find('input').at(0);
-  //     expect(input1.props().value).to.equal('Hi!');
-  //     expect(savedApi.getState().values).to.deep.equal({
-  //       greeting: { a: 'Hi!' }
-  //     });
-  //     let input2 = wrapper.find('input').at(1);
-  //     input2.simulate('change', { target: { value: 'World!' } });
-  //     input2 = wrapper.find('input').at(1);
-  //     expect(input2.props().value).to.equal('World!');
-  //     expect(savedApi.getState().values).to.deep.equal({
-  //       greeting: { a: 'Hi!', b: 'World!' }
-  //     });
-  //   });
-  // });
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="greeting" label="input1" initialValue="Hello" />
+      </Form>
+    );
 
-  // describe('FormattedObjectInput', () => {
-  //   const FormattedObjectInput = props => {
-  //     const formatter = [
-  //       '+',
-  //       '1',
-  //       ' ',
-  //       /\d/,
-  //       /\d/,
-  //       /\d/,
-  //       '-',
-  //       /\d/,
-  //       /\d/,
-  //       /\d/,
-  //       '-',
-  //       /\d/,
-  //       /\d/,
-  //       /\d/,
-  //       /\d/
-  //     ];
+    const input = getByLabelText('input1');
+  
+    expect(input).toHaveAttribute('value', 'Hello');
+    expect(input).toHaveValue('Hello');
+    expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hello' });
+  });
 
-  //     const refA = useRef();
-  //     const refB = useRef();
+  it('should run formatter and parser when user types', () => {
+    const formApiRef = {};
 
-  //     const { fieldState, fieldApi, render, userProps } = useField(props);
+    const formatter = [
+      '+',
+      '1',
+      ' ',
+      /\d/,
+      /\d/,
+      /\d/,
+      '-',
+      /\d/,
+      /\d/,
+      /\d/,
+      '-',
+      /\d/,
+      /\d/,
+      /\d/,
+      /\d/
+    ];
+  
+    const parser = value => {
+      return value.replace('+1 ', '').replace(/-/g, '');
+    };
 
-  //     const { value } = fieldState;
-  //     const { setValue, setTouched } = fieldApi;
-  //     const { ...rest } = userProps;
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="phone" label="input1" formatter={formatter} parser={parser} />
+      </Form>
+    );
 
-  //     const v = value || {};
+    const input = getByLabelText('input1');
 
-  //     const {
-  //       setCursorOffset: setCursorOffsetA,
-  //       setCursor: setCursorA
-  //     } = useCursorPosition({ value: v.a, inputRef: refA });
-  //     const {
-  //       setCursorOffset: setCursorOffsetB,
-  //       setCursor: setCursorB
-  //     } = useCursorPosition({ value: v.b, inputRef: refB });
+    userEvent.type(input, '1');  
+    expect(input).toHaveValue('+1 1');
+    expect(formApiRef.current.getFormState().values).toEqual({ phone: '1' });
 
-  //     const aChange = e => {
-  //       const newVal = { ...v };
+    userEvent.type(input, '2');  
+    expect(input).toHaveValue('+1 12');
+    expect(formApiRef.current.getFormState().values).toEqual({ phone: '12' });
 
-  //       const val = e.target.value;
+    userEvent.type(input, '3');  
+    expect(input).toHaveValue('+1 123');
+    expect(formApiRef.current.getFormState().values).toEqual({ phone: '123' });
 
-  //       // Remember Cursor position!
-  //       if (e && e.target && e.target.selectionStart) {
-  //         setCursorA(e.target.selectionStart);
-  //       }
+    userEvent.type(input, '4');  
+    expect(input).toHaveValue('+1 123-4');
+    expect(formApiRef.current.getFormState().values).toEqual({ phone: '1234' });
+  });
 
-  //       const res = informedFormat(val, formatter);
-  //       setCursorOffsetA(res.offset);
-  //       newVal.a = res.value;
+  it('should run formatter and parser when user types +1 1', () => {
+    const formApiRef = {};
 
-  //       setValue(newVal);
-  //     };
+    const formatter = '+1 ###-###-####';
+  
+    const parser = value => {
+      return value.replace('+1 ', '').replace(/-/g, '');
+    };
 
-  //     const bChange = e => {
-  //       const newVal = { ...v };
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="phone" label="input1" formatter={formatter} parser={parser} />
+      </Form>
+    );
 
-  //       const val = e.target.value;
+    const input = getByLabelText('input1');
 
-  //       // Remember Cursor position!
-  //       if (e && e.target && e.target.selectionStart) {
-  //         setCursorB(e.target.selectionStart);
-  //       }
+    userEvent.type(input, '+1 1');  
+    expect(input).toHaveValue('+1 1');
+    expect(formApiRef.current.getFormState().values).toEqual({ phone: '1' });
+  });
 
-  //       const res = informedFormat(val, formatter);
-  //       setCursorOffsetB(res.offset);
-  //       newVal.b = res.value;
+  it('should run formatter and parser when user types "+1 123a"', () => {
+    const formApiRef = {};
 
-  //       setValue(newVal);
-  //     };
+    const formatter = '+1 ###-###-####';
+  
+    const parser = value => {
+      return value.replace('+1 ', '').replace(/-/g, '');
+    };
 
-  //     const { a, b } = v;
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="phone" label="input1" formatter={formatter} parser={parser} />
+      </Form>
+    );
 
-  //     return render(
-  //       <React.Fragment>
-  //         <input
-  //           {...rest}
-  //           ref={refA}
-  //           value={a ? a : ''}
-  //           onChange={aChange}
-  //           onBlur={() => setTouched}
-  //         />
-  //         <input
-  //           {...rest}
-  //           ref={refB}
-  //           value={b ? b : ''}
-  //           onChange={bChange}
-  //           onBlur={() => setTouched()}
-  //         />
-  //       </React.Fragment>
-  //     );
-  //   };
+    const input = getByLabelText('input1');
 
-  //   it('should format the specified value', () => {
-  //     let savedApi;
+    userEvent.type(input, '+1 123a');  
+    expect(input).toHaveValue('+1 123-');
+    expect(formApiRef.current.getFormState().values).toEqual({ phone: '123' });
+  });
 
-  //     const wrapper = mount(
-  //       <Form
-  //         getApi={api => {
-  //           savedApi = api;
-  //         }}>
-  //         <FormattedObjectInput field="greeting" />
-  //       </Form>
-  //     );
-  //     let input1 = wrapper.find('input').at(0);
-  //     input1.simulate('change', { target: { value: '2345678912' } });
-  //     input1 = wrapper.find('input').at(0);
-  //     expect(input1.props().value).to.equal('+1 234-567-8912');
-  //     expect(savedApi.getState().values).to.deep.equal({
-  //       greeting: { a: '+1 234-567-8912' }
-  //     });
-  //     let input2 = wrapper.find('input').at(1);
-  //     input2.simulate('change', { target: { value: '2345678913' } });
-  //     input2 = wrapper.find('input').at(1);
-  //     expect(input2.props().value).to.equal('+1 234-567-8913');
-  //     expect(savedApi.getState().values).to.deep.equal({
-  //       greeting: { a: '+1 234-567-8912', b: '+1 234-567-8913' }
-  //     });
-  //   });
-  // });
+  it('should run formatter and parser when user types "+1 123abc"', () => {
+    const formApiRef = {};
+
+    const formatter = '+1 ###-###-####';
+  
+    const parser = value => {
+      return value.replace('+1 ', '').replace(/-/g, '');
+    };
+
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="phone" label="input1" formatter={formatter} parser={parser} />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+
+    userEvent.type(input, '+1 123abc');  
+    expect(input).toHaveValue('+1 123-');
+    expect(formApiRef.current.getFormState().values).toEqual({ phone: '123' });
+  });
+
+  it('should run formatter when user types and only formatter is passed', () => {
+    const formApiRef = {};
+
+    const formatter = '+1 ###-###-####';
+
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="phone" label="input1" formatter={formatter} />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+
+    userEvent.type(input, '1');  
+    expect(input).toHaveValue('+1 1');
+    expect(formApiRef.current.getFormState().values).toEqual({ phone: '+1 1' });
+
+    userEvent.type(input, '2');  
+    expect(input).toHaveValue('+1 12');
+    expect(formApiRef.current.getFormState().values).toEqual({ phone: '+1 12' });
+
+    userEvent.type(input, '3');  
+    expect(input).toHaveValue('+1 123');
+    expect(formApiRef.current.getFormState().values).toEqual({ phone: '+1 123' });
+
+    userEvent.type(input, '4');  
+    expect(input).toHaveValue('+1 123-4');
+    expect(formApiRef.current.getFormState().values).toEqual({ phone: '+1 123-4' });
+  });
+
+  it('should run formatter on initial value', () => {
+    const formApiRef = {};
+
+    const formatter = '+1 ###-###-####';
+
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="phone" label="input1" formatter={formatter} initialValue="1231231234" />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+
+    expect(input).toHaveValue('+1 123-123-1234');
+    expect(formApiRef.current.getFormState().values).toEqual({ phone: '+1 123-123-1234' });
+  });
+
+  it('should run formatter and parser on initial value', () => {
+    const formApiRef = {};
+
+    const parser = value => {
+      return value.replace('+1 ', '').replace(/-/g, '');
+    };
+
+    const formatter = '+1 ###-###-####';
+
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="phone" label="input1" formatter={formatter} parser={parser} initialValue="1231231234" />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+
+    expect(input).toHaveValue('+1 123-123-1234');
+    expect(formApiRef.current.getFormState().values).toEqual({ phone: '1231231234' });
+  });
+
+  it('should run formatter with functions', () => {
+    const formApiRef = {};
+
+    const mask = value => value.toUpperCase();
+
+    const formatter = [
+      mask,
+      mask,
+      '-',
+      mask,
+      mask,
+      '-',
+      mask,
+      mask,
+      mask,
+      mask
+    ];
+
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="phone" label="input1" formatter={formatter} initialValue="abcdefg" />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+
+    expect(input).toHaveValue('AB-CD-EFG');
+    expect(formApiRef.current.getFormState().values).toEqual({ phone: 'AB-CD-EFG' });
+  });
+
+  it('should update props when they change', () => {
+    const formApiRef = {};
+
+    const Component = () => {
+      const [props, setProps] = useState({ placeholder: 'Hello', disabled: true });
+
+      return (
+        <Form formApiRef={formApiRef}>
+          <Input name="foo" label="input1" {...props}/>
+          <button type="button" onClick={() => setProps({
+            placeholder: 'World', disabled: false
+          })}>
+            Change
+          </button>
+        </Form>
+      );
+    };
+
+    const { getByLabelText, getByText } = render(
+      <Component />
+    );
+
+    const input = getByLabelText('input1');
+  
+    expect(input).toHaveAttribute('name', 'foo');
+    expect(input).toHaveAttribute('placeholder', 'Hello');
+    expect(input).toHaveAttribute('disabled');
+
+    const button = getByText('Change');
+    fireEvent.click(button);
+
+    expect(input).toHaveAttribute('name', 'foo');
+    expect(input).toHaveAttribute('placeholder', 'World');
+    expect(input).not.toHaveAttribute('disabled');
+
+  });
+
+
+  it('should update state when field name changes', () => {
+    const formApiRef = {};
+
+    const Component = () => {
+      const [field, setField] = useState('foo');
+
+      return (
+        <Form formApiRef={formApiRef}>
+          <Input name={field} label="input1" />
+          <button type="button" onClick={() => setField('bar')}>
+            Change
+          </button>
+        </Form>
+      );
+    };
+
+    const { getByLabelText, getByText } = render(
+      <Component />
+    );
+
+    const input = getByLabelText('input1');
+    userEvent.type(input, 'Hello');
+  
+    expect(input).toHaveAttribute('value', 'Hello');
+    expect(input).toHaveAttribute('name', 'foo');
+    expect(input).toHaveValue('Hello');
+    expect(formApiRef.current.getFormState().values).toEqual({ foo: 'Hello' });
+
+    const button = getByText('Change');
+    fireEvent.click(button);
+
+    expect(input).toHaveAttribute('value', '');
+    expect(input).toHaveAttribute('name', 'bar');
+    expect(input).toHaveValue('');
+    expect(formApiRef.current.getFormState().values).toEqual({ foo: 'Hello' });
+
+    userEvent.type(input, 'World!');
+
+    expect(input).toHaveAttribute('value', 'World!');
+    expect(input).toHaveAttribute('name', 'bar');
+    expect(input).toHaveValue('World!');
+    expect(formApiRef.current.getFormState().values).toEqual({ foo: 'Hello', bar: 'World!' });
+  });
+
 });

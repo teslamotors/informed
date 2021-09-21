@@ -53,7 +53,12 @@ export const generateOnChange = ({
     fieldType === 'textArea' ||
     fieldType === 'number'
   ) {
-    setter = e => setValue(e.target.value, e);
+    setter = e => {
+      setValue(e.target.value, e);
+      if (onChange) {
+        onChange(e);
+      }
+    };
   }
 
   if (fieldType === 'select') {

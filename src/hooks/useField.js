@@ -45,6 +45,7 @@ export const useField = ({
   parser,
   maintainCursor,
   required,
+  validateOnChange,
   ...userProps
 }) => {
   // For backwards compatability
@@ -117,7 +118,8 @@ export const useField = ({
     parser,
     setCursorOffset,
     setCursor,
-    validate
+    validate,
+    validateOnChange
   };
   const metaRef = useRef(meta);
   metaRef.current = meta;

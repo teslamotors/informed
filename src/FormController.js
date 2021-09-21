@@ -148,6 +148,19 @@ export class FormController {
       debug(`Setting ${name}'s maskedValue to ${maskedVal}`);
       ObjectMap.set(this.state.maskedValues, name, maskedVal);
     }
+
+    // We only need to call validate if the user gave us one
+    // and they want us to validate on change
+    if (meta.validate && meta.validateOnChange) {
+      const val = ObjectMap.get(this.state.values, name);
+      debug(`Validating after change ${name} ${val}`);
+      ObjectMap.set(
+        this.state.errors,
+        name,
+        meta.validate(val, this.state.values)
+      );
+    }
+
     this.emit('field', name);
   }
 

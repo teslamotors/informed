@@ -33,7 +33,7 @@ export const Input = React.memo(({ label, ...props }) => {
 });
 
 export const Checkbox = ({ label, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'checkbox', ...props });
+  const { render, informed } = useField({ type: 'checkbox', ...props });
 
   return render(
     <label>

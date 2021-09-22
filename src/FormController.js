@@ -430,7 +430,6 @@ export class FormController {
 
   submitForm(e) {
     // this.state.submitting = true;
-    this.state.submitted = true;
 
     if (!this.options.dontPreventDefault && e) {
       // Prevent default browser form submission
@@ -443,9 +442,10 @@ export class FormController {
     // Check validity and perform submission if valid
     if (this.valid()) {
       debug('Submit', this.state);
+      this.state.submitted = true;
       this.emit('submit');
     } else {
-      debug('Submit', this.state);
+      debug('Fail', this.state);
       this.emit('failure');
     }
 

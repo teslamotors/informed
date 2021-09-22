@@ -162,6 +162,7 @@ const ldpullAt = (obj, path = '') => {
 
 /* --------------------- values --------------------- */
 
+// eslint-disable-next-line no-unused-vars
 const ldvalues = (obj = {}) => {
   const props = Object.keys(obj);
   return props.map(key => obj[key]);
@@ -174,7 +175,9 @@ const pathToArrayElem = path => {
 
 export class ObjectMap {
   static empty(object) {
-    return ldvalues(object).length === 0;
+    // return ldvalues(object).length === 0;
+    for (let i in object) return false;
+    return true;
   }
 
   static get(object, path) {

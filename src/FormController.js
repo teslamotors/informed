@@ -57,6 +57,7 @@ export class FormController {
       dirty: false,
       submitted: false,
       invalid: false,
+      valid: true,
       values: {},
       errors: {},
       touched: {},
@@ -161,6 +162,12 @@ export class FormController {
         meta.validate(val, this.state.values)
       );
     }
+
+    // Always remember to update pristine and valid here
+    this.state.pristine = false;
+    this.state.dirty = !this.state.pristine;
+    this.state.valid = ObjectMap.empty(this.state.errors);
+    this.state.invalid = !this.state.valid;
 
     this.emit('field', name);
   }
@@ -293,11 +300,16 @@ export class FormController {
         formatter
       });
 
-      debug(`Initializing value ${name} to ${initialValue}`, initialValue);
-      debug(`Initializing mask ${name} to ${initialValue}`, initialMask);
+      // this.setValue(name, initialValue);
+      // this.setMaskedValue(name, initialMask);
 
-      this.setValue(name, initialValue);
-      this.setMaskedValue(name, initialMask);
+      debug(`Initializing ${name}'s value to ${initialValue}`);
+      ObjectMap.set(this.state.values, name, initialValue);
+
+      debug(`Initializing ${name}'s maskedValue to ${initialMask}`);
+      ObjectMap.set(this.state.maskedValues, name, initialMask);
+
+      this.emit('field', name);
     }
   }
 
@@ -307,6 +319,7 @@ export class FormController {
       dirty: false,
       submitted: false,
       invalid: false,
+      valid: true,
       values: {},
       errors: {},
       touched: {},
@@ -335,11 +348,16 @@ export class FormController {
       formatter
     });
 
-    debug(`Resetting value ${name} to ${initialValue}`, initialValue);
-    debug(`Resetting mask ${name} to ${initialValue}`, initialMask);
+    // this.setValue(name, initialValue);
+    // this.setMaskedValue(name, initialMask);
 
-    this.setValue(name, initialValue);
-    this.setMaskedValue(name, initialMask);
+    debug(`Resetting ${name}'s value to ${initialValue}`);
+    ObjectMap.set(this.state.values, name, initialValue);
+
+    debug(`Resetting ${name}'s maskedValue to ${initialMask}`);
+    ObjectMap.set(this.state.maskedValues, name, initialMask);
+
+    this.emit('field', name);
   }
 
   lockRemoval(i) {
@@ -399,7 +417,14 @@ export class FormController {
       }
     });
 
+    // Update the errors
     this.state.errors = errors;
+
+    // Remember to update valid
+    this.state.valid = ObjectMap.empty(this.state.errors);
+    this.state.invalid = !this.state.valid;
+
+    // Let everyone know!
     this.emit('field', '_ALL_');
   }
 
@@ -424,7 +449,7 @@ export class FormController {
       this.emit('failure');
     }
 
-    this.state.submitting = false;
+    // this.state.submitting = false;
 
     this.emit('change');
   }

@@ -5,7 +5,10 @@ export const Form = ({ children, ...rest }) => {
   const { formController, render, userProps } = useForm(rest);
 
   return render(
-    <form {...userProps} onSubmit={formController.submitForm}>
+    <form
+      {...userProps}
+      onReset={formController.reset}
+      onSubmit={formController.submitForm}>
       {children}
     </form>
   );

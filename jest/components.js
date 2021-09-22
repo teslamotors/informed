@@ -38,7 +38,7 @@ export const Checkbox = ({ label, ...props }) => {
   return render(
     <label>
       {label}
-      <input {...informed} />
+      <input {...informed} checked={informed.value} />
     </label>
   );
 };

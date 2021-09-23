@@ -329,6 +329,52 @@ describe('useField', () => {
     expect(formApiRef.current.getFormState().values).toEqual({ phone: '1231231234' });
   });
 
+  it('should run formatter on initial values', () => {
+    const formApiRef = {};
+
+    const formatter = '+1 ###-###-####';
+
+    const { getByLabelText } = render(
+      <Form
+        initialValues={{
+          phone: '1231231234'
+        }}
+        formApiRef={formApiRef}>
+        <Input name="phone" label="input1" formatter={formatter} />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+
+    expect(input).toHaveValue('+1 123-123-1234');
+    expect(formApiRef.current.getFormState().values).toEqual({ phone: '+1 123-123-1234' });
+  });
+
+  it('should run formatter and parser on initial values', () => {
+    const formApiRef = {};
+
+    const parser = value => {
+      return value.replace('+1 ', '').replace(/-/g, '');
+    };
+
+    const formatter = '+1 ###-###-####';
+
+    const { getByLabelText } = render(
+      <Form
+        initialValues={{
+          phone: '1231231234'
+        }}
+        formApiRef={formApiRef}>
+        <Input name="phone" label="input1" formatter={formatter} parser={parser} />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+
+    expect(input).toHaveValue('+1 123-123-1234');
+    expect(formApiRef.current.getFormState().values).toEqual({ phone: '1231231234' });
+  });
+
   it('should run formatter with functions', () => {
     const formApiRef = {};
 
@@ -394,6 +440,43 @@ describe('useField', () => {
     expect(input).toHaveAttribute('name', 'foo');
     expect(input).toHaveAttribute('placeholder', 'World');
     expect(input).not.toHaveAttribute('disabled');
+
+  });
+
+
+  it('should update formatter when it changes', () => {
+    const formApiRef = {};
+
+    const Component = () => {
+      const [formatter, setFormatter] = useState('###-###-###-###');
+
+      return (
+        <Form formApiRef={formApiRef} >
+          <Input 
+            name="foo" 
+            label="input1" 
+            initialValue="123123456456" 
+            formatterDependencies={[formatter]} 
+            formatter={formatter}/>
+          <button type="button" onClick={() => setFormatter('######-######')}>
+            Change
+          </button>
+        </Form>
+      );
+    };
+
+    const { getByLabelText, getByText } = render(
+      <Component />
+    );
+
+    const input = getByLabelText('input1');
+  
+    expect(input).toHaveValue('123-123-456-456');
+
+    const button = getByText('Change');
+    fireEvent.click(button);
+
+    expect(input).toHaveValue('123123-456456');
 
   });
 

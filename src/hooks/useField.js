@@ -20,6 +20,7 @@ import {
   generateValidationFunction
 } from '../utils';
 import { Debug } from '../debug';
+import { useUpdateEffect } from '../hooks/useUpdateEffect';
 
 const logger = Debug('informed:useField' + '\t');
 
@@ -46,6 +47,7 @@ export const useField = ({
   maintainCursor,
   required,
   validateOnChange,
+  formatterDependencies = [],
   ...userProps
 }) => {
   // For backwards compatability
@@ -183,6 +185,16 @@ export const useField = ({
       }
     };
   }, []);
+
+  useUpdateEffect(
+    () => {
+      formController.setValue(
+        metaRef.current.name,
+        formController.getValue(metaRef.current.name)
+      );
+    },
+    [...formatterDependencies]
+  );
 
   useLayoutEffect(() => {
     if (debug && ref && ref.current) {

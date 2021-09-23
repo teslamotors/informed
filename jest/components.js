@@ -14,21 +14,39 @@ export const Form = ({ children, ...rest }) => {
   );
 };
 
+// 1. showErrorIfError  --> error
+// 2. showErrorIfTouched --> error && touched ( Default )
+// 3. showErrorIfDirty --> error && dirty
+
+// 1. validateOnMount
+// 2. validateOnBlur ( Default )
+// 3. validateOnChange
+// 4. validateOnSubmit
+
+// validateOn: 'blur'
+// change // change-change
+// change-blur
+// change-submit
+// blur // blur-blur
+// blur-onSubmit
+// onSubmit // onSubmit-onSubmit
+// validateOnMount: false | true | 'sync'
+
 export const Input = React.memo(({ label, ...props }) => {
   const { render, informed, ref, fieldState } = useField({
     type: 'text',
     ...props
   });
-  const { error } = fieldState;
+  const { showError } = fieldState;
   return render(
     <label>
       {label}
       <input
         ref={ref}
         {...informed}
-        style={error ? { border: 'solid 1px red' } : null}
+        style={showError ? { border: 'solid 1px red' } : null}
       />
-      {error ? (
+      {showError ? (
         <small style={{ color: 'red' }}>{fieldState.error}</small>
       ) : null}
     </label>

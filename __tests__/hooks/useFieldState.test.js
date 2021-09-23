@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form, Input } from '../../jest/components';
 import { useFieldState } from '../../src';
@@ -28,11 +28,11 @@ const getState = state => {
 // prettier-ignore
 describe('useFieldState', () => {
 
-  // const validate = value => {
-  //   return !value || value.length < 5
-  //     ? 'Field must be at least five characters'
-  //     : undefined;
-  // };
+  const validate = value => {
+    return !value || value.length < 5
+      ? 'Field must be at least five characters'
+      : undefined;
+  };
 
   it('should update state when user types', () => {
     const formApiRef = {};
@@ -63,16 +63,20 @@ describe('useFieldState', () => {
     expect(states[0].textContent).toBe(getState({
       value: 'J',
       maskedValue: 'J',
+      touched: false,
       pristine: false,
       dirty: true,
       valid: true, 
-      invalid: false
+      invalid: false,
+      showError: false,
     }));
     expect(states[1].textContent).toBe(getState({
+      touched: false,
       pristine: true,
       dirty: false,
       valid: true, 
-      invalid: false
+      invalid: false,
+      showError: false,
     }));
 
     userEvent.type(first, 'oe');
@@ -82,16 +86,20 @@ describe('useFieldState', () => {
     expect(states[0].textContent).toBe(getState({
       value: 'Joe',
       maskedValue: 'Joe',
+      touched: false,
       pristine: false,
       dirty: true,
       valid: true, 
-      invalid: false
+      invalid: false,
+      showError: false,
     }));
     expect(states[1].textContent).toBe(getState({
+      touched: false,
       pristine: true,
       dirty: false,
       valid: true, 
-      invalid: false
+      invalid: false,
+      showError: false,
     }));
 
     // NOTE: when user starts typing in this field it will blur first field and cause a re-render!
@@ -106,15 +114,18 @@ describe('useFieldState', () => {
       pristine: false,
       dirty: true,
       valid: true, 
-      invalid: false
+      invalid: false,
+      showError: false,
     }));
     expect(states[1].textContent).toBe(getState({
       value: 'Puzz',
       maskedValue: 'Puzz',
+      touched: false,
       pristine: false,
       dirty: true,
       valid: true, 
-      invalid: false
+      invalid: false,
+      showError: false,
     }));
 
   });
@@ -141,18 +152,22 @@ describe('useFieldState', () => {
     expect(states[0].textContent).toBe(getState({
       value: 'Joe',
       maskedValue: 'Joe',
+      touched: false,
       pristine: true,
       dirty: false,
       valid: true, 
-      invalid: false
+      invalid: false,
+      showError: false,
     }));
     expect(states[1].textContent).toBe(getState({
       value: 'Puzzo',
       maskedValue: 'Puzzo',
+      touched: false,
       pristine: true,
       dirty: false,
       valid: true, 
-      invalid: false
+      invalid: false,
+      showError: false,
     }));
 
   });
@@ -168,7 +183,7 @@ describe('useFieldState', () => {
       <Form
         initialValues={initialValues}
         formApiRef={formApiRef}>
-        <Input name="first" label="First Name" />
+        <Input name="first" label="First Name" validateOn="change" />
         <Input name="last" label="Last Name" />
         <ComponentUsingFieldState name="first" />
         <ComponentUsingFieldState name="last" />
@@ -184,18 +199,266 @@ describe('useFieldState', () => {
     expect(states[0].textContent).toBe(getState({
       value: 'Joe',
       maskedValue: 'Joe',
+      touched: false,
       pristine: true, 
       dirty: false,
       valid: true, 
-      invalid: false
+      invalid: false,
+      showError: false,
     }));
     expect(states[1].textContent).toBe(getState({
       value: 'Puzzo',
       maskedValue: 'Puzzo',
+      touched: false,
       pristine: true, 
       dirty: false,
       valid: true, 
-      invalid: false
+      invalid: false,
+      showError: false,
+    }));
+
+  });
+
+  it('should correctly update state when user submits --> types --> submits with defaultBehavior', () => {
+    const formApiRef = {};
+
+    const { getByLabelText, queryAllByTestId, getByText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="first" label="First Name" initialValue="Joe" validate={validate}/>
+        <Input name="last" label="Last Name" validate={validate} required />
+        <ComponentUsingFieldState name="first" />
+        <ComponentUsingFieldState name="last" />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const renders = queryAllByTestId('renders');
+    const states = queryAllByTestId('state');
+    const submit = getByText('Submit');
+
+    expect(renders[0].textContent).toBe('Rendered: 2');
+    expect(renders[1].textContent).toBe('Rendered: 2');
+
+    const last = getByLabelText('Last Name');
+
+    // Before submit -------------------------------------
+
+    expect(renders[0].textContent).toBe('Rendered: 2');
+    expect(renders[1].textContent).toBe('Rendered: 2');
+    expect(states[0].textContent).toBe(getState({
+      value: 'Joe',
+      maskedValue: 'Joe',
+      touched: false,
+      pristine: true,
+      dirty: false,
+      valid: true, 
+      invalid: false,
+      showError: false,
+    }));
+    expect(states[1].textContent).toBe(getState({
+      touched: false,
+      pristine: true,
+      dirty: false,
+      valid: true, 
+      invalid: false,
+      showError: false,
+    }));
+
+    fireEvent.click(submit);
+
+    // After submit -------------------------------------
+
+    expect(renders[0].textContent).toBe('Rendered: 3');
+    expect(renders[1].textContent).toBe('Rendered: 3');
+
+    expect(states[0].textContent).toBe(getState({
+      value: 'Joe',
+      maskedValue: 'Joe',
+      touched: true,
+      error: 'Field must be at least five characters',
+      pristine: true,
+      dirty: false,
+      valid: false, 
+      invalid: true,
+      showError: true,
+    }));
+
+    expect(states[1].textContent).toBe(getState({
+      touched: true,
+      error: 'This field is required',
+      pristine: true,
+      dirty: false,
+      valid: false, 
+      invalid: true,
+      showError: true,
+    }));
+
+    userEvent.type(last, 'P');
+
+    // After second field has some input -------------------------------------
+
+    expect(renders[0].textContent).toBe('Rendered: 3');
+    expect(renders[1].textContent).toBe('Rendered: 4');
+    expect(states[0].textContent).toBe(getState({
+      value: 'Joe',
+      maskedValue: 'Joe',
+      touched: true,
+      error: 'Field must be at least five characters',
+      pristine: true,
+      dirty: false,
+      valid: false, 
+      invalid: true,
+      showError: true,
+    }));
+
+    expect(states[1].textContent).toBe(getState({
+      value: 'P',
+      maskedValue: 'P',
+      touched: true,
+      error: 'This field is required', // Note because by default only validate on blur
+      pristine: false,
+      dirty: true,
+      valid: false, 
+      invalid: true,
+      showError: true,
+    }));
+
+    fireEvent.click(submit);
+
+    // After SECOND submit -------------------------------------
+
+    expect(renders[0].textContent).toBe('Rendered: 4');
+    expect(renders[1].textContent).toBe('Rendered: 5');
+    expect(states[0].textContent).toBe(getState({
+      value: 'Joe',
+      maskedValue: 'Joe',
+      touched: true,
+      error: 'Field must be at least five characters',
+      pristine: true,
+      dirty: false,
+      valid: false, 
+      invalid: true,
+      showError: true,
+    }));
+
+    expect(states[1].textContent).toBe(getState({
+      value: 'P',
+      maskedValue: 'P',
+      touched: true,
+      error: 'Field must be at least five characters',
+      pristine: false,
+      dirty: true,
+      valid: false, 
+      invalid: true,
+      showError: true,
+    }));
+
+  });
+
+  it('should correctly update state when user submits --> types --> submits with validateOnChange passed to inputs', () => {
+    const formApiRef = {};
+
+    const { getByLabelText, queryAllByTestId, getByText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="first" label="First Name" validateOn="change" initialValue="Joe" validate={validate}/>
+        <Input name="last" label="Last Name" validateOn="change" validate={validate} required/>
+        <ComponentUsingFieldState name="first" />
+        <ComponentUsingFieldState name="last" />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const renders = queryAllByTestId('renders');
+    const states = queryAllByTestId('state');
+    const submit = getByText('Submit');
+
+    expect(renders[0].textContent).toBe('Rendered: 2');
+    expect(renders[1].textContent).toBe('Rendered: 2');
+
+    const last = getByLabelText('Last Name');
+
+    // Before submit -------------------------------------
+
+    expect(renders[0].textContent).toBe('Rendered: 2');
+    expect(renders[1].textContent).toBe('Rendered: 2');
+    expect(states[0].textContent).toBe(getState({
+      value: 'Joe',
+      maskedValue: 'Joe',
+      touched: false,
+      pristine: true,
+      dirty: false,
+      valid: true, 
+      invalid: false,
+      showError: false,
+    }));
+    expect(states[1].textContent).toBe(getState({
+      touched: false,
+      pristine: true,
+      dirty: false,
+      valid: true, 
+      invalid: false,
+      showError: false,
+    }));
+
+    fireEvent.click(submit);
+
+    // After submit -------------------------------------
+
+    expect(renders[0].textContent).toBe('Rendered: 3');
+    expect(renders[1].textContent).toBe('Rendered: 3');
+
+    expect(states[0].textContent).toBe(getState({
+      value: 'Joe',
+      maskedValue: 'Joe',
+      touched: true,
+      error: 'Field must be at least five characters',
+      pristine: true,
+      dirty: false,
+      valid: false, 
+      invalid: true,
+      showError: true,
+    }));
+
+    expect(states[1].textContent).toBe(getState({
+      touched: true,
+      error: 'This field is required',
+      pristine: true,
+      dirty: false,
+      valid: false, 
+      invalid: true,
+      showError: true,
+    }));
+
+    userEvent.type(last, 'P');
+
+    // After second field has some input -------------------------------------
+
+    expect(renders[0].textContent).toBe('Rendered: 3');
+    expect(renders[1].textContent).toBe('Rendered: 4');
+    expect(states[0].textContent).toBe(getState({
+      value: 'Joe',
+      maskedValue: 'Joe',
+      touched: true,
+      error: 'Field must be at least five characters',
+      pristine: true,
+      dirty: false,
+      valid: false, 
+      invalid: true,
+      showError: true,
+    }));
+
+    expect(states[1].textContent).toBe(getState({
+      value: 'P',
+      maskedValue: 'P',
+      touched: true,
+      error: 'Field must be at least five characters', // Changed because validateOnChange
+      pristine: false,
+      dirty: true,
+      valid: false, 
+      invalid: true,
+      showError: true,
     }));
 
   });

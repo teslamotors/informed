@@ -120,6 +120,9 @@ describe('useForm', () => {
       maskedValues: {
         greeting: 'Hi!'
       },
+      touched: {
+        greeting: true
+      }
     }));
 
   });
@@ -288,7 +291,7 @@ describe('useForm', () => {
     const { getByLabelText } = render(
       <Form
         formApiRef={formApiRef}>
-        <Input name="greeting" label="input1" validateOnChange validate={validate}/>
+        <Input name="greeting" label="input1" validateOn="change" validate={validate}/>
         <button type="submit">Submit</button>
       </Form>
     );
@@ -357,6 +360,9 @@ describe('useForm', () => {
       errors: {
         greeting: 'Field must be at least five characters',
       },
+      touched: {
+        greeting: true
+      }
     }));
 
   });
@@ -398,6 +404,9 @@ describe('useForm', () => {
       errors: {
         greeting: 'Field must be at least five characters',
       },
+      touched: {
+        greeting: true,
+      }
     }));
 
   });

@@ -154,7 +154,7 @@ export class FormController {
 
     // We only need to call validate if the user gave us one
     // and they want us to validate on change
-    if (meta.validate && meta.validateOnChange) {
+    if (meta.validate && meta.validateOn.includes('change')) {
       const val = ObjectMap.get(this.state.values, name);
       debug(`Validating after change ${name} ${val}`);
       ObjectMap.set(
@@ -180,6 +180,23 @@ export class FormController {
   setTouched(name, value) {
     debug(`Setting ${name}'s touched to ${value}`);
     ObjectMap.set(this.state.touched, name, value);
+    const meta = this.fieldsMap.get(name)?.current;
+
+    // We only need to call validate if the user gave us one
+    // and they want us to validate on blur
+    // Example validateOn = "change-blur" ==> false
+    // Example validateOn = "blur-submit" ==> true
+    // Example validateOn = "blur" ==> true
+    if (meta.validate && meta.validateOn.split('-')[0] === 'blur') {
+      const val = ObjectMap.get(this.state.values, name);
+      debug(`Validating after change ${name} ${val}`);
+      ObjectMap.set(
+        this.state.errors,
+        name,
+        meta.validate(val, this.state.values)
+      );
+    }
+
     this.emit('field', name);
   }
 
@@ -244,17 +261,33 @@ export class FormController {
   }
 
   getFieldState(name) {
+    // Get meta for field
+    const meta = this.fieldsMap.get(name)?.current;
+    const error = this.getError(name);
     const pristine = this.getPristine(name);
     const valid = this.getValid(name);
+    const touched = !!this.getTouched(name);
+    const dirty = !pristine;
+
+    let showError = false;
+    if (meta && meta.showErrorIfError) {
+      showError = error !== undefined;
+    } else if (meta && meta.showErrorIfDirty) {
+      showError = error !== undefined && dirty;
+    } else {
+      showError = error !== undefined && touched;
+    }
+
     return {
       value: this.getValue(name),
       maskedValue: this.getMaskedValue(name),
-      touched: this.getTouched(name),
+      touched,
       error: this.getError(name),
       pristine,
-      dirty: !pristine,
+      dirty,
       valid,
-      invalid: !valid
+      invalid: !valid,
+      showError
     };
   }
 
@@ -329,8 +362,16 @@ export class FormController {
         formatter
       });
 
-      // this.setValue(name, initialValue);
-      // this.setMaskedValue(name, initialMask);
+      // Might need to set initial error
+      if (meta.current.validate && meta.current.validateOnMount) {
+        const val = ObjectMap.get(this.state.values, name);
+        debug(`Validating on mount ${name} ${val}`);
+        ObjectMap.set(
+          this.state.errors,
+          name,
+          meta.current.validate(val, this.state.values)
+        );
+      }
 
       debug(`Initializing ${name}'s value to ${initialValue}`);
       ObjectMap.set(this.state.values, name, initialValue);
@@ -376,9 +417,6 @@ export class FormController {
     const initialMask = initializeMask(meta.initialValue, {
       formatter
     });
-
-    // this.setValue(name, initialValue);
-    // this.setMaskedValue(name, initialMask);
 
     debug(`Resetting ${name}'s value to ${initialValue}`);
     ObjectMap.set(this.state.values, name, initialValue);
@@ -467,6 +505,11 @@ export class FormController {
 
     // Validate the form
     this.validate();
+
+    // Touch all the fields
+    this.fieldsMap.forEach(fieldMeta => {
+      fieldMeta.current.fieldApi.setTouched(true);
+    });
 
     // Check validity and perform submission if valid
     if (this.valid()) {

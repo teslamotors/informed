@@ -56,19 +56,6 @@ describe('useField', () => {
     expect(input).toHaveAttribute('id', '1234567');
   });
 
-  it('should show error message when validation error occurs', () => {
-    const { getByLabelText, getByText }  = render(
-      <Form>
-        <Input name="greeting"  label="input1" validateOnChange validate={validate} />
-      </Form>
-    );
-
-    const input = getByLabelText('input1');
-
-    userEvent.type(input, 'Hi!');
-    expect(getByText('Field must be at least five characters')).toBeInTheDocument();
-  });
-
   it('should update value when user types in number input', () => {
     const formApiRef = {};
 
@@ -525,42 +512,230 @@ describe('useField', () => {
     expect(formApiRef.current.getFormState().values).toEqual({ foo: 'Hello', bar: 'World!' });
   });
 
-  // * 1. Hide and show relevant field with relevant prop
-  // it('should hide and show relevant field with relevant prop', () => {
-  //   const formApiRef = {};
+  /* ----------------------------------- Error Tests ----------------------------------- */
 
-  //   const { getByLabelText } = render(
-  //     <Form
-  //       formApiRef={formApiRef}>
-  //       <Input name="greeting" label="input1" />
-  //     </Form>
-  //   );
+  it('should show error message when blurred by default', () => {
+    const { getByLabelText, getByText }  = render(
+      <Form>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          validate={validate} />
+        <Input 
+          name="greeting2"  
+          label="input2"/>
+      </Form>
+    );
 
-  //   const input = getByLabelText('input1');
-  //   userEvent.type(input, 'Hi!');
-  
-  //   expect(input).toHaveAttribute('value', 'Hi!');
-  //   expect(input).toHaveValue('Hi!');
-  //   expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hi!' });
-  // });
+    const input1 = getByLabelText('input1');
+    const input2 = getByLabelText('input2');
 
-  // * 2. Hide and show relevant field with relevant prop and keep state
-  // * 3. Hide and show field wrapped in relevant
-  // * 4. Hide and show field wrapped in relevant with keep state
-  // * 5. Do 1 - 4 within a multistep step
-  // * 6. Multisteps should maintain state between stesps
-  // * 7. Reset should reset normal fields
-  // * 8. Reset should reset array fields
-  // * 9. Array field reset should reset array field
-  // * 10. Removing a field from an array field then adding a new one back should NOT use initial value
-  // * 11. Test 1 - 4 within an array field
-  // * 12. Removing a field from the end of an array field should maintain state
-  // * 13. 12 But also have 1-4 where relevance is true
-  // * 14. Do 12 and 13 but remove a field from the middle of the array instead of end
-  // * 15. Swap two fields within an array field
-  // * 16. Do 15 But also with 1-4 where relevance is true
-  // * 17. Perform validation
-  // * 18. Ability to control form from outside the form
-  // * 19. Ability to render a form without a `form`
+    userEvent.type(input1, 'Hi!');
+    input2.focus();
+
+    expect(getByText('Field must be at least five characters')).toBeInTheDocument();
+  });
+
+  it('should show error message when submitted by default', () => {
+    const { getByText }  = render(
+      <Form>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          initialValue="Hi!"
+          validate={validate} />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const submit = getByText('Submit');
+
+    fireEvent.click(submit);
+
+    expect(getByText('Field must be at least five characters')).toBeInTheDocument();
+  });
+
+  it('should NOT show error message when blurred and form validateOn="submit"', () => {
+
+    const formApiRef = {};
+
+    const { getByLabelText, queryByText }  = render(
+      <Form validateOn="submit" formApiRef={formApiRef}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          validate={validate} />
+        <Input 
+          name="greeting2"  
+          label="input2"/>
+      </Form>
+    );
+
+    const input1 = getByLabelText('input1');
+    const input2 = getByLabelText('input2');
+
+    userEvent.type(input1, 'Hi!');
+    input2.focus();
+
+    expect(formApiRef.current.getFormState().errors).toEqual({});
+
+    expect(queryByText('Field must be at least five characters')).not.toBeInTheDocument();
+  });
+
+  it('should show error message when blurred and form validateOn="submit" when submitted', () => {
+
+    const formApiRef = {};
+
+    const { getByLabelText, queryByText, getByText }  = render(
+      <Form validateOn="submit" formApiRef={formApiRef}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          validate={validate} />
+        <Input 
+          name="greeting2"  
+          label="input2"/>
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const input1 = getByLabelText('input1');
+    const input2 = getByLabelText('input2');
+
+    userEvent.type(input1, 'Hi!');
+    input2.focus();
+
+    const submit = getByText('Submit');
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'Field must be at least five characters' });
+
+    expect(queryByText('Field must be at least five characters')).toBeInTheDocument();
+  });
+
+  it('should NOT show error message when rendered with validateOnMount at field', () => {
+
+    const formApiRef = {};
+
+    const { queryByText }  = render(
+      <Form formApiRef={formApiRef}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          initialValue="Hi!"
+          validateOnMount
+          validate={validate} />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'Field must be at least five characters' });
+
+    expect(queryByText('Field must be at least five characters')).not.toBeInTheDocument();
+  });
+
+  it('should show error message when rendered with validateOnMount at field', () => {
+
+    const formApiRef = {};
+
+    const { queryByText }  = render(
+      <Form formApiRef={formApiRef}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          initialValue="Hi!"
+          showErrorIfError
+          validateOnMount
+          validate={validate} />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'Field must be at least five characters' });
+
+    expect(queryByText('Field must be at least five characters')).toBeInTheDocument();
+  });
+
+  it('should NOT show error message when rendered with validateOnMount at form', () => {
+
+    const formApiRef = {};
+
+    const { queryByText }  = render(
+      <Form formApiRef={formApiRef} validateOnMount>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          initialValue="Hi!"
+          validate={validate} />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'Field must be at least five characters' });
+
+    expect(queryByText('Field must be at least five characters')).not.toBeInTheDocument();
+  });
+
+  it('should show error message when rendered with validateOnMount at field', () => {
+
+    const formApiRef = {};
+
+    const { queryByText }  = render(
+      <Form formApiRef={formApiRef} validateOnMount>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          initialValue="Hi!"
+          showErrorIfError
+          validate={validate} />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'Field must be at least five characters' });
+
+    expect(queryByText('Field must be at least five characters')).toBeInTheDocument();
+  });
+
+  it('should NOT show error message when validateOn="change" and its only been changed', () => {
+    const formApiRef = {};
+
+    const { getByLabelText, queryByText }  = render(
+      <Form formApiRef={formApiRef} >
+        <Input 
+          name="greeting"  
+          label="input1" 
+          validateOn="change" 
+          validate={validate} />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+
+    userEvent.type(input, 'Hi!');
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'Field must be at least five characters' });
+
+    expect(queryByText('Field must be at least five characters')).not.toBeInTheDocument();
+  });
+
+  it('should show error message when validateOn="change" + showErrorIfDirty', () => {
+    const { getByLabelText, getByText }  = render(
+      <Form>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          validateOn="change"
+          showErrorIfDirty 
+          validate={validate} />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+
+    userEvent.type(input, 'Hi!');
+    expect(getByText('Field must be at least five characters')).toBeInTheDocument();
+  });
 
 });

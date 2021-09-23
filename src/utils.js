@@ -189,23 +189,23 @@ export const generateValidationFunction = (
   validationFunc,
   validationSchema,
   { required }
-) => {
-  // We dont want a validation function if there was nothing passed
-  if (validationFunc || validationSchema) {
-    return (val, values) => {
-      if (validationSchema) {
-        return validateYupField(validationSchema, val);
-      }
-      if (validationFunc) {
-        return validationFunc(val, values);
-      }
-    };
-  }
+) => (val, values) => {
+  let error;
+
   if (required) {
-    return val => {
-      return validateRequired(val, required);
-    };
+    error = validateRequired(val, required);
+    if (error !== undefined) return error;
   }
+  if (validationSchema) {
+    error = validateYupField(validationSchema, val);
+    if (error !== undefined) return error;
+  }
+  if (validationFunc) {
+    error = validationFunc(val, values);
+    if (error !== undefined) return error;
+  }
+
+  return error;
 };
 
 /* -------------------------- Formatter ----------------------------- */

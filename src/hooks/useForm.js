@@ -12,13 +12,22 @@ export const useForm = ({
   initialValues,
   validateFields,
   autocomplete,
+  showErrorIfError,
+  showErrorIfDirty,
+  validateOn,
+  validateOnMount,
   formApiRef,
   ...userProps
 }) => {
   const formControllerOptions = {
     initialValues,
     validateFields,
-    autocomplete
+    autocomplete,
+    showErrorIfError,
+    // showErrorIfTouched << wanted to call out that we specifically dont want this because its default
+    showErrorIfDirty,
+    validateOn,
+    validateOnMount
   };
 
   // Create form controller

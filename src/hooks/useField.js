@@ -42,11 +42,15 @@ export const useField = ({
   defaultValue,
   initialValue: userInitialValue,
   autocomplete: userAutocomplete,
+  showErrorIfError: userShowErrorIfError,
+  showErrorIfTouched: userShowErrorIfTouched,
+  showErrorIfDirty: userShowErrorIfDirty,
   formatter,
   parser,
   maintainCursor,
   required,
-  validateOnChange,
+  validateOnMount: userValidateOnMount,
+  validateOn: userValidateOn,
   formatterDependencies = [],
   ...userProps
 }) => {
@@ -62,6 +66,15 @@ export const useField = ({
 
   // Get any options
   const autocomplete = userAutocomplete ?? formController.options.autocomplete;
+  const showErrorIfError =
+    userShowErrorIfError ?? formController.options.showErrorIfError;
+  const showErrorIfTouched =
+    userShowErrorIfTouched ?? formController.options.showErrorIfTouched;
+  const showErrorIfDirty =
+    userShowErrorIfDirty ?? formController.options.showErrorIfDirty;
+  const validateOnMount =
+    userValidateOnMount ?? formController.options.validateOnMount;
+  const validateOn = userValidateOn ?? formController.options.validateOn;
 
   // For getting initialValue
   const getInitialValue = () =>
@@ -121,7 +134,11 @@ export const useField = ({
     setCursorOffset,
     setCursor,
     validate,
-    validateOnChange
+    validateOn: validateOn ?? 'blur',
+    validateOnMount,
+    showErrorIfError,
+    showErrorIfTouched,
+    showErrorIfDirty
   };
   const metaRef = useRef(meta);
   metaRef.current = meta;

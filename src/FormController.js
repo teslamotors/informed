@@ -81,6 +81,7 @@ export class FormController {
     this.getFormState = this.getFormState.bind(this);
     this.getFormApi = this.getFormApi.bind(this);
     this.getFieldState = this.getFieldState.bind(this);
+    this.getValid = this.getValid.bind(this);
     this.on = this.on.bind(this);
     this.emit = this.emit.bind(this);
     this.removeListener = this.removeListener.bind(this);
@@ -196,9 +197,29 @@ export class FormController {
     return ObjectMap.get(this.state.initialValues, name);
   }
 
-  getDirty() {}
+  getPristine(name) {
+    // Field might not be registered yet so don't try and check if we are not registered
+    if (this.fieldsMap.get(name)) {
+      // Current value for this field
+      const val = this.getValue(name);
 
-  getPristine() {}
+      // What was the initial value for this field
+      const init = this.fieldsMap.get(name).current.getInitialValue();
+
+      // We are pristine if
+      return init === val;
+    }
+    return undefined;
+  }
+
+  getDirty(name) {
+    return !this.getPristine(name);
+  }
+
+  getValid(name) {
+    // Valid when we have no error
+    return ObjectMap.get(this.state.errors, name) === undefined;
+  }
 
   getFormState() {
     return this.state;
@@ -216,16 +237,24 @@ export class FormController {
       setError: this.setError,
       resetField: this.resetField,
       reset: this.reset,
-      getFormState: this.getFormState
+      getFormState: this.getFormState,
+      getPristine: this.getPristine,
+      getDirty: this.getDirty
     };
   }
 
   getFieldState(name) {
+    const pristine = this.getPristine(name);
+    const valid = this.getValid(name);
     return {
       value: this.getValue(name),
+      maskedValue: this.getMaskedValue(name),
       touched: this.getTouched(name),
       error: this.getError(name),
-      maskedValue: this.getMaskedValue(name)
+      pristine,
+      dirty: !pristine,
+      valid,
+      invalid: !valid
     };
   }
 

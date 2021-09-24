@@ -4,7 +4,7 @@ import withDocs from '../../utils/withDocs';
 import Modal from '../../utils/Modal';
 import readme from './README.md';
 
-import { Form, Text, Scope } from '../../../src';
+import { Form, Input, Debug } from '../../../src';
 
 const validate = username => {
   return !username || username.trim() === ''
@@ -12,43 +12,38 @@ const validate = username => {
     : null;
 };
 
+const asyncValidate = username => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // Simulate username check
+      if (['joe', 'tanner', 'billy', 'bob'].includes(username)) {
+        return resolve('That username is taken');
+      }
+      // Simulate request faulure
+      if (username === 'reject') {
+        return reject(new Error('Unable to validate username.'));
+      }
+      return resolve();
+    }, 2000);
+  });
+};
+
 const AsyncValidation = () => {
-  const apiRef = useRef();
-
-  const asyncValidate = username =>
-    new Promise((resolve, reject) => {
-      apiRef.current.validating();
-      setTimeout(() => {
-        // Simulate username check
-        if (['joe', 'tanner', 'billy', 'bob'].includes(username)) {
-          apiRef.current.validated('username', 'That username is taken');
-          return resolve();
-        }
-        // Simulate request faulure
-        if (username === 'reject') {
-          apiRef.current.validated('username', 'Unable to validate username.');
-          return reject();
-        }
-        // Sumulate username success check
-        apiRef.current.validated('username');
-        return resolve();
-      }, 2000);
-    });
-
   return (
     <div>
-      <Form apiRef={apiRef} onSubmit={values => console.log(values)}>
+      <Form onSubmit={values => console.log('Submitted', values)}>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>
-            <Text
+            <Input
               field="username"
               label="Username"
+              autocomplete="off"
               validate={validate}
               asyncValidate={asyncValidate}
             />
             <button type="submit">Submit</button>
           </div>
-          <div style={{ flex: 2, minWidth: '300px' }}>
+          <div style={{ flex: 2, minWidth: '300px', marginLeft: '3rem' }}>
             <Debug />
           </div>
         </div>

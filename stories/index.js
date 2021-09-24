@@ -33,7 +33,7 @@ import Api from './Form/Api';
 // import FormLevelValidation from './Validation/FormLevelValidation';
 // import AjvValidation from './Validation/AjvValidation';
 // import AjvValidationNoRender from './Validation/AjvValidationNoRender';
-// import AsyncValidation from './Validation/AsyncValidation';
+import AsyncValidation from './Validation/AsyncValidation';
 // import AsyncValidationControl from './Validation/AsyncValidationControl';
 // import FormatPlayground from './Playground/Format';
 // import SchemaPlayground from './Playground/Schema';
@@ -189,20 +189,20 @@ storiesOf('Arrays', module)
   .add('Huge Array Form', HugeArrayForm);
 // .add('Alternate Syntax', AlternateSyntax);
 
-// storiesOf('Validation', module)
-//   .add('Simple Validation', SimpleValidation)
-//   .add('Complex Validation', ComplexValidation)
-//   .add('Validation Control', ValidationControl)
-//   .add('Form Level Validation', FormLevelValidation)
-//   .add('Notifications', Notifications)
-//   .add('Array Field Validation', ArrayFieldValidation)
-//   .add('Complex Array Field Validation', ComplexArrayFieldValidation)
-//   .add('Yup Validation', YupValidation)
-//   .add('Field Level + Yup Validation', FieldLevelYupValidation)
-//   .add('JSON Schema Validation + Rendering', AjvValidation)
-//   .add('Only JSON Schema Validation', AjvValidationNoRender)
-//   .add('Async Validation', AsyncValidation)
-//   .add('Async Validation Control', AsyncValidationControl);
+storiesOf('Validation', module)
+  // .add('Simple Validation', SimpleValidation)
+  // .add('Complex Validation', ComplexValidation)
+  // .add('Validation Control', ValidationControl)
+  // .add('Form Level Validation', FormLevelValidation)
+  // .add('Notifications', Notifications)
+  // .add('Array Field Validation', ArrayFieldValidation)
+  // .add('Complex Array Field Validation', ComplexArrayFieldValidation)
+  // .add('Yup Validation', YupValidation)
+  // .add('Field Level + Yup Validation', FieldLevelYupValidation)
+  // .add('JSON Schema Validation + Rendering', AjvValidation)
+  // .add('Only JSON Schema Validation', AjvValidationNoRender)
+  .add('Async Validation', AsyncValidation);
+// .add('Async Validation Control', AsyncValidationControl);
 
 // storiesOf('Schema', module)
 //   .add('Schema', Schema)

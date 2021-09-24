@@ -11,6 +11,8 @@ const getState = state => {
     submitted: false,
     valid: true,
     invalid: false,
+    submitting: false,
+    validating: 0,
     values: {},
     maskedValues: {},
     errors: {},

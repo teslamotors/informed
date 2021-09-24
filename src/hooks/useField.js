@@ -32,6 +32,7 @@ export const useField = ({
   onBlur,
   onChange,
   validate: validationFunc,
+  asyncValidate,
   validationSchema,
   multiple,
   field,
@@ -138,7 +139,8 @@ export const useField = ({
     validateOnMount,
     showErrorIfError,
     showErrorIfTouched,
-    showErrorIfDirty
+    showErrorIfDirty,
+    asyncValidate
   };
   const metaRef = useRef(meta);
   metaRef.current = meta;

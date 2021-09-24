@@ -58,6 +58,8 @@ export class FormController {
       submitted: false,
       invalid: false,
       valid: true,
+      submitting: false,
+      validating: 0,
       values: {},
       errors: {},
       touched: {},
@@ -98,6 +100,8 @@ export class FormController {
     this.isRemovalLocked = this.isRemovalLocked.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.keyDown = this.keyDown.bind(this);
+    this.validateAsync = this.validateAsync.bind(this);
+    this.validated = this.validated.bind(this);
   }
 
   getValue(name) {
@@ -165,9 +169,24 @@ export class FormController {
       );
     }
 
+    // We only need to call asyncValidate if
+    // 1. the user gave us one
+    // 2. they want us to validate on change
+    // 3. We don't have a sync error
+    // Example validateOn = "change-blur" ==> false
+    // Example validateOn = "blur-submit" ==> false
+    // Example validateOn = "blur" ==> false
+    // Example validateOn = "change-change" ==> true
+    if (meta.asyncValidate && meta.validateOn.split('-')[1] === 'change') {
+      // Get error to determine if we even want to validateAsync
+      if (this.getError(name) === undefined) this.validateAsync(name);
+    }
+
     // Always remember to update pristine and valid here
     this.state.pristine = false;
     this.state.dirty = !this.state.pristine;
+
+    // Remember to update valid
     this.state.valid = ObjectMap.empty(this.state.errors);
     this.state.invalid = !this.state.valid;
 
@@ -197,6 +216,22 @@ export class FormController {
         meta.validate(val, this.state.values)
       );
     }
+
+    // We only need to call asyncValidate if
+    // 1. the user gave us one
+    // 2. they want us to validate on blur
+    // 3. We don't have a sync error
+    // Example validateOn = "change-blur" ==> true
+    // Example validateOn = "blur-submit" ==> false
+    // Example validateOn = "blur" ==> false
+    // Example validateOn = "change-change" ==> false
+    if (meta.asyncValidate && meta.validateOn.split('-')[1] === 'blur') {
+      // Get error to determine if we even want to validateAsync
+      if (this.getError(name) === undefined) this.validateAsync(name);
+    }
+
+    this.state.valid = ObjectMap.empty(this.state.errors);
+    this.state.invalid = !this.state.valid;
 
     this.emit('field', name);
   }
@@ -374,13 +409,84 @@ export class FormController {
         );
       }
 
+      // validateOnMount="sync" DONT validateOnMount={true} DO
+      if (meta.current.asyncValidate && meta.current.validateOnMount === true) {
+        // Get error to determine if we even want to validateAsync
+        if (this.getError(name) === undefined) this.validateAsync(name);
+      }
+
       debug(`Initializing ${name}'s value to ${initialValue}`);
       ObjectMap.set(this.state.values, name, initialValue);
 
       debug(`Initializing ${name}'s maskedValue to ${initialMask}`);
       ObjectMap.set(this.state.maskedValues, name, initialMask);
 
+      // Check if the form is valid
+      this.state.valid = ObjectMap.empty(this.state.errors);
+      this.state.invalid = !this.state.valid;
+
       this.emit('field', name);
+    }
+  }
+
+  validated(name, res) {
+    debug(
+      `Setting ${name}'s error to ${res} with ${
+        this.state.validating
+      } validations left`
+    );
+    ObjectMap.set(this.state.errors, name, res);
+
+    // Remember to update valid
+    this.state.valid = ObjectMap.empty(this.state.errors);
+    this.state.invalid = !this.state.valid;
+
+    // If we are not still validating, and we were submitting, then submit form
+    // If we are async validating then dont submit yet
+    if (this.state.validating > 0) {
+      debug(
+        `Still validating ${this.state.validating} others so just update state.`
+      );
+      this.emit('field', name);
+      return;
+    }
+
+    // If we were submitting
+    if (this.state.submitting) {
+      // Check validity and perform submission if valid
+      if (this.valid()) {
+        debug('Submit', this.state);
+        this.emit('field', name);
+        this.emit('submit');
+      } else {
+        debug('Submit', this.state);
+        this.emit('field', name);
+        this.emit('failure');
+      }
+      this.state.submitting = false;
+    }
+  }
+
+  validateAsync(name) {
+    debug('VALIDATING ASYNC', name);
+    // Get meta for field
+    const meta = this.fieldsMap.get(name)?.current;
+
+    // Get the value
+    const value = this.getValue(name);
+
+    if (meta && meta.asyncValidate) {
+      this.state.validating = this.state.validating + 1;
+      meta
+        .asyncValidate(value, this.state.values)
+        .then(res => {
+          this.state.validating = this.state.validating - 1;
+          this.validated(name, res);
+        })
+        .catch(err => {
+          this.state.validating = this.state.validating - 1;
+          this.validated(name, err.message);
+        });
     }
   }
 
@@ -391,6 +497,8 @@ export class FormController {
       submitted: false,
       invalid: false,
       valid: true,
+      submitting: false,
+      validating: 0,
       values: {},
       errors: {},
       touched: {},
@@ -506,8 +614,19 @@ export class FormController {
     this.emit('field', '_ALL_');
   }
 
+  asyncValidate() {
+    debug('Async Validating all fields');
+
+    // Itterate through and call validate on every field
+    this.fieldsMap.forEach(meta => {
+      const { name } = meta.current;
+      // Get error to determine if we even want to validateAsync
+      if (this.getError(name) === undefined) this.validateAsync(name);
+    });
+  }
+
   submitForm(e) {
-    // this.state.submitting = true;
+    this.state.submitting = true;
 
     if (!this.options.dontPreventDefault && e) {
       // Prevent default browser form submission
@@ -518,12 +637,21 @@ export class FormController {
     this.validate();
 
     // Touch all the fields
-    this.fieldsMap.forEach(fieldMeta => {
-      fieldMeta.current.fieldApi.setTouched(true);
+    // TODO maybe do this all at once !?
+    this.fieldsMap.forEach(meta => {
+      debug(`Submit - setting ${meta.current.name}'s touched to true`);
+      ObjectMap.set(this.state.touched, meta.current.name, true);
     });
 
+    // Let everyone know!
+    this.emit('field', '_ALL_');
+
+    // Trigger all async validations
+    this.asyncValidate();
+
     // Check validity and perform submission if valid
-    if (this.valid()) {
+    // Only submit if we are valid and we are NOT currently async validating
+    if (this.valid() && this.state.validating === 0) {
       debug('Submit', this.state);
       this.state.submitted = true;
       this.emit('submit');
@@ -532,7 +660,10 @@ export class FormController {
       this.emit('failure');
     }
 
-    // this.state.submitting = false;
+    // Only set to false if we are not async validating
+    if (this.state.validating === 0) {
+      this.state.submitting = false;
+    }
 
     this.emit('field');
   }

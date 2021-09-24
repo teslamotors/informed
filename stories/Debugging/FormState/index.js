@@ -2,7 +2,7 @@ import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 
-import { Form, Text, FormState } from '../../../src';
+import { Form, Text, Debug } from '../../../src';
 
 const FormStateExample = () => (
   <Form>
@@ -12,7 +12,7 @@ const FormStateExample = () => (
         <Text field="name" />
       </label>
       <button type="submit">Submit</button>
-      <FormState />
+      <Debug />
     </div>
   </Form>
 );

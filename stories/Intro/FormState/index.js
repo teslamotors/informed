@@ -1,7 +1,7 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import { Form, Input, useFormState } from '../../../src';
+import { Form, Input, useFormState, Debug } from '../../../src';
 
 const FormState = () => {
   const formState = useFormState();
@@ -18,7 +18,7 @@ const Example = () => {
     <Form>
       <Input field="name" label="First Name" />
       <button type="submit">Submit</button>
-      <FormState />
+      <Debug />
     </Form>
   );
 };

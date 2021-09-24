@@ -93,7 +93,7 @@ const ExampleForm = () => (
       <Input name="spouse" label="Spouse" />
     </Relevant>
     <button type="submit">Submit</button>
-    <FormState />
+    <Debug />
   </Form>
 );
 ```

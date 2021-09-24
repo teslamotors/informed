@@ -49,7 +49,7 @@ const Schema = () => (
       <FormField field="age" />
     </Scope>
     <button type="submit">Submit</button>
-    <FormState />
+    <Debug />
   </Form>
 );
 ```

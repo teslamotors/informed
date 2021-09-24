@@ -1,10 +1,9 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 import Ajv from 'ajv';
 
-import { Form, SchemaFields } from '../../../src';
+import { Form, SchemaFields, Debug } from '../../../src';
 
 const initialValue = [
   {
@@ -103,7 +102,7 @@ const Schema = () => (
         <button type="submit">Submit</button>
       </div>
       <div style={{ flex: '1' }}>
-        <FormState errors values />
+        <Debug errors values />
       </div>
     </div>
   </Form>

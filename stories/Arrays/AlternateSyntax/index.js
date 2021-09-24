@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 
-import { Form, Text, ArrayField } from '../../../src';
+import { Form, Text, ArrayField, Debug } from '../../../src';
 
 const ArrayFieldExample = () => (
   <Form initialValues={{ siblings: ['foo', 'bar', 'baz'] }}>
@@ -40,7 +39,7 @@ const ArrayFieldExample = () => (
         <button type="submit">Submit</button>
       </div>
       <div style={{ flex: 2 }}>
-        <FormState values />
+        <Debug values />
       </div>
     </div>
   </Form>

@@ -14,10 +14,9 @@ invalid is derived from the errors attribute and therefore cannot be set directl
 | touched   | `{name:true}`      | `{}`          | NO      | Key value pair where key is the form field and value is true or undefined ( touched or untouched ). Submitting form will cause all fields to be touched.                                           |
 | errors    | `{name:'Invalid'}` | `{}`          | NO      | Key value pair where key is the form field and value is the error associated with that field. If a validate function is provided to an input, then when it is called this object will be modified. |
 | invalid   | `true`             | `false`       | YES     | Boolean that is true when form is invalid. A form is invalid when any of its inputs fails its validation function ( if there are errors ).                                                         |
+| valid     | `true`             | `true`        | YES     | Opposite of invalid                                                                                                                                                                                |
 | pristine  | `true`             | `true`        | YES     | Boolean that is true when form is pristine. A form is pristine when no values have changed                                                                                                         |
 | dirty     | `true`             | `false`       | YES     | Boolean that is true when pristine is false                                                                                                                                                        |
-| submits   | `1`                | `0`           | YES     | Number of times the form was submitted. ( Successful or Unsuccessful )                                                                                                                             |
-| error     | `Invalid form`     | undefined     | NO      | Result of the form level validation function                                                                                                                                                       |
 
 **"Ok so informed takes care of state so I dont have to.. but how do i get my hands
 on this state??**
@@ -30,7 +29,7 @@ the values that are changing.
 <!-- STORY -->
 
 ```jsx
-import { Form, Text } from 'informed';
+import { Form, Input, FormState } from 'informed';
 
 const validate = value => {
   return !value || value.length < 5
@@ -43,31 +42,19 @@ const validateForm = values => {
 };
 
 <Form validate={validateForm}>
-  {({ formState }) => (
-    <div>
-      <label>
-        First name:
-        <Text field="name" validate={validate} />
-      </label>
-      <button type="submit">Submit</button>
-      <label>Values:</label>
-      <code>{JSON.stringify(formState.values)}</code>
-      <label>Touched:</label>
-      <code>{JSON.stringify(formState.touched)}</code>
-      <label>Errors:</label>
-      <code>{JSON.stringify(formState.errors)}</code>
-      <label>Invalid:</label>
-      <code>{JSON.stringify(formState.invalid)}</code>
-      <label>Pristine:</label>
-      <code>{JSON.stringify(formState.pristine)}</code>
-      <label>Dirty:</label>
-      <code>{JSON.stringify(formState.dirty)}</code>
-      <label>Submits:</label>
-      <code>{JSON.stringify(formState.submits)}</code>
-      <label>Error:</label>
-      <code>{JSON.stringify(formState.error)}</code>
-    </div>
-  )}
+  <label>
+    First name:
+    <Input name="name" validate={validate} />
+  </label>
+  <button type="submit">Submit</button>
+  <label>State:</label>
+  <FormState>
+    {formState => (
+      <pre>
+        <code>{JSON.stringify(formState, null, 2)}</code>
+      </pre>
+    )}
+  </FormState>
 </Form>;
 ```
 
@@ -75,83 +62,31 @@ const validateForm = values => {
 
 Its not magic, its a Function As A Child, or otherwise known as [render props](https://reactjs.org/docs/render-props.html)
 
-There are five ways you can get access to `Informed`s form state.
+There are a few ways you can get access to `Informed`s form state.
 
-1. By accessing the `formState` as a parameter to a child render function.
+1. By accessing the `formState` as a parameter to a child render function via `FormStateAccess`.
 
 ```jsx
-<Form>
-  {({ formState }) => (
-    <div>
-      <Text field="hello" />
-      <button type="submit">Submit</button>
-      <label>Values:</label>
-      <code>{JSON.stringify(formState.values)}</code>
-      <label>Touched:</label>
-      <code>{JSON.stringify(formState.touched)}</code>
-    </div>
-  )}
+<Form validate={validateForm}>
+  <label>
+    First name:
+    <Input name="name" validate={validate} />
+  </label>
+  <button type="submit">Submit</button>
+  <label>State:</label>
+  <FormState>
+    {formState => (
+      <pre>
+        <code>{JSON.stringify(formState, null, 2)}</code>
+      </pre>
+    )}
+  </FormState>
 </Form>
 ```
 
 <br/>
-2) By accessing the `formState` as a parameter to a render prop.
-
-```jsx
-<Form
-  render={({ formState }) => (
-    <div>
-      <Text field="hello" />
-      <button type="submit">Submit</button>
-      <label>Values:</label>
-      <code>{JSON.stringify(formState.values)}</code>
-      <label>Touched:</label>
-      <code>{JSON.stringify(formState.touched)}</code>
-    </div>
-  )}
-/>
-```
-
+2) By accessing the `formState` via Hooks!
 <br/>
-3) By accessing the `formState` as a prop to a component prop.
-
-```jsx
-const FormContent = ({ formState }) => (
-  <div>
-    <Text field="hello" />
-    <button type="submit">Submit</button>
-    <label>Values:</label>
-    <code>{JSON.stringify(formState.values)}</code>
-    <label>Touched:</label>
-    <code>{JSON.stringify(formState.touched)}</code>
-  </div>
-);
-
-<Form component={FormContent} />;
-```
-
-<br/>
-4) By accessing the `formState` as a prop via a HOC ( High Order Component ).
-
-```jsx
-const FormState = withFormState(({ formState }) => (
-  <label>Values:</label>
-  <code>{JSON.stringify(formState.values)}</code>
-  <label>Touched:</label>
-  <code>{JSON.stringify(formState.touched)}</code>
-));
-
-<Form>
-  <div>
-    <Text field="hello" />
-    <button type="submit">Submit</button>
-    <FormState />
-  </div>
-</Form>
-```
-
-<br/>
-5) By accessing the `formState` via Hooks!
 
 ```jsx
 const FormState = () => {
@@ -168,8 +103,25 @@ const FormState = () => {
   <div>
     <Text field="hello" />
     <button type="submit">Submit</button>
-    <FormState />
+    <Debug />
   </div>
+</Form>
+```
+
+3. By accessing the `formState` as a parameter to a child render function.
+
+```jsx
+<Form>
+  {({ formState }) => (
+    <div>
+      <Text field="hello" />
+      <button type="submit">Submit</button>
+      <label>Values:</label>
+      <code>{JSON.stringify(formState.values)}</code>
+      <label>Touched:</label>
+      <code>{JSON.stringify(formState.touched)}</code>
+    </div>
+  )}
 </Form>
 ```
 
@@ -182,6 +134,8 @@ Don't fret! This is also very simple. You have two options:
 
 1. Use the Forms `onChange` prop.
 
+  <br/>
+
 ```jsx
 <Form onChange={formState => console.log(formState)}>
   <Text field="hello" />
@@ -190,23 +144,24 @@ Don't fret! This is also very simple. You have two options:
 ```
 
   <br/>
-  2) Use the Forms `apiRef` prop, and then use the apis `getState` function.
+  2. Use the Forms `formApiRef` prop, and then use the apis `getState` function.
+  <br/>
 
 ```jsx
 import React, { useRef } from 'react';
-import { Form, Text } from 'informed';
+import { Form, Input } from 'informed';
 
 const MyAwesomeForm = () => {
-  const apiRef = useRef();
+  const formApiRef = useRef();
 
   const handleClick = () => {
-    console.log(apiRef.current.getState());
+    console.log(formApiRef.current.getState());
   };
 
   return (
     <div>
-      <Form apiRef={apiRef}>
-        <Text field="hello" />
+      <Form formApiRef={formApiRef}>
+        <Input name="hello" />
         <button type="submit">Submit</button>
       </Form>
       <button onClick={handleClick}>Print Form State</button>

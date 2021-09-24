@@ -1,7 +1,6 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 
 import { Form, Text } from '../../../src';
 
@@ -41,7 +40,7 @@ const FormatParse = () => (
         />
       </label>
       <button type="submit">Submit</button>
-      <FormState />
+      <Debug />
     </div>
   </Form>
 );

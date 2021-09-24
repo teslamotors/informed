@@ -1,19 +1,11 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
-import FormState from '../../utils/FormState';
 import readme from './README.md';
 
 import { Text, useForm } from '../../../src';
 
-const CustomForm = ({ 
-  children, 
-  ...rest }) => {
-
-  const { 
-    formController,
-    render,
-    userProps
-  } = useForm(rest);
+const CustomForm = ({ children, ...rest }) => {
+  const { formController, render, userProps, Debug } = useForm(rest);
 
   /* --- Render Content --- */
   return render(
@@ -23,7 +15,7 @@ const CustomForm = ({
       onSubmit={formController.submitForm}
       onKeyDown={formController.keyDown}>
       {children}
-    </form>  
+    </form>
   );
 };
 
@@ -32,13 +24,13 @@ const UseFormExample = () => (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <div style={{ flex: 1, marginRight: '2rem' }}>
         <label>
-            First name:
-          <Text field="name"/>
+          First name:
+          <Text field="name" />
         </label>
         <button type="submit">Submit</button>
       </div>
       <div style={{ flex: 2, minWidth: '300px' }}>
-        <FormState />
+        <Debug />
       </div>
     </div>
   </CustomForm>

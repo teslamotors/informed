@@ -1,9 +1,8 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 
-import { Form, Text, ArrayField } from '../../../src';
+import { Form, Text, ArrayField, Debug } from '../../../src';
 
 const validate = (values, length) => {
   if (length < 3) {
@@ -12,11 +11,12 @@ const validate = (values, length) => {
 };
 
 const validateLength = value => {
-  return !value || value.length < 5 ? 'Field must be at least five characters' : undefined;
+  return !value || value.length < 5
+    ? 'Field must be at least five characters'
+    : undefined;
 };
 
 const DynamicArraysContent = () => {
-
   return (
     <div>
       <Form>
@@ -43,7 +43,7 @@ const DynamicArraysContent = () => {
             <button type="submit">Submit</button>
           </div>
           <div style={{ flex: 2, minWidth: '300px' }}>
-            <FormState errors />
+            <Debug errors />
           </div>
         </div>
       </Form>
@@ -51,8 +51,6 @@ const DynamicArraysContent = () => {
   );
 };
 
-const DynamicArrays = () => (
-  <DynamicArraysContent />
-);
+const DynamicArrays = () => <DynamicArraysContent />;
 
 export default withDocs(readme, DynamicArrays);

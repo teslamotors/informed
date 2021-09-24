@@ -28,7 +28,7 @@ See for yourself.
 By default it comes with native dom inputs that are controlled by informed.
 
 ```jsx
-import { Form, Input, Select, Checkbox, Relevant, FormState } from 'informed';
+import { Form, Input, Select, Checkbox, Relevant, Debug } from 'informed';
 
 const onSubmit = data => console.log(data);
 
@@ -48,7 +48,7 @@ const ExampleForm = () => (
       <Input field="spouse" label="Spouse" />
     </Relevant>
     <button type="submit">Submit</button>
-    <FormState />
+    <Debug />
   </Form>
 );
 ```

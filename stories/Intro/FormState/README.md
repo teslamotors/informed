@@ -14,7 +14,7 @@ formState section of these docs**
 <!-- STORY -->
 
 ```jsx
-import { Form, Input, useFormState } from 'informed';
+import { Form, Input, useFormState, Debug } from 'informed';
 
 const FormState = () => {
   const formState = useFormState();
@@ -31,7 +31,7 @@ const Example = () => {
     <Form>
       <Input field="name" label="First Name" />
       <button type="submit">Submit</button>
-      <FormState />
+      <Debug />
     </Form>
   );
 };

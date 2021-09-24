@@ -1,8 +1,14 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
-import { Form, Input, ArrayField, useFieldState, Relevant } from '../../../src';
+import {
+  Form,
+  Input,
+  ArrayField,
+  useFieldState,
+  Relevant,
+  Debug
+} from '../../../src';
 
 const friends = Array.from(Array(66)).map(e => {
   return { name: 'Joe', age: 26, f: 'foo' };
@@ -121,7 +127,7 @@ const NestedForm = () => (
           </ArrayField>
         </div>
         <div style={{ flex: 2, minWidth: '300px' }}>
-          <FormState />
+          <Debug />
         </div>
       </div>
     </Form>

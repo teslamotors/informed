@@ -11,7 +11,7 @@ import {
   Checkbox,
   Select,
   Option,
-  FormState
+  Debug
 } from '../../../src';
 
 const Complex = () => (
@@ -43,10 +43,10 @@ const Complex = () => (
             Friend 3:
             <Input name="friends[2]" />
           </label>
-          {/* <label>
+          <label>
             Bio:
             <TextArea name="bio" />
-          </label> */}
+          </label>
           <RadioGroup name="gender">
             <label>
               Male: <Radio value="male" />
@@ -86,7 +86,7 @@ const Complex = () => (
           <button type="submit">Submit</button>
         </div>
         <div style={{ flex: 2, minWidth: '300px', marginLeft: '3rem' }}>
-          <FormState />
+          <Debug />
         </div>
       </div>
     </Form>

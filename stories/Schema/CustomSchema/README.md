@@ -14,7 +14,7 @@ import {
   FormComponents,
   FormFields,
   Relevant,
-  FormState
+  Debug
 } from 'informed';
 
 // Step 1. Build your form component ---------------------
@@ -210,7 +210,7 @@ const Schema = () => (
   <Form schema={schema} fieldMap={fieldMap}>
     <SchemaFields />
     <button type="submit">Submit</button>
-    <FormState />
+    <Debug />
   </Form>
 );
 ```

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 
 import { Form, Input, useFieldState } from '../../../src';
 
@@ -119,7 +118,7 @@ const DynamicContent = () => {
           </div>
         </div>
 
-        <FormState />
+        <Debug />
       </Form>
     </div>
   );

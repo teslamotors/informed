@@ -1,9 +1,8 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 
-import { Form, ArrayField, Text, Select, Option } from '../../../src';
+import { Form, ArrayField, Text, Select, Option, Debug } from '../../../src';
 
 const basicValidation = value => {
   return !value || value.length < 5 ? 'Minimum 5 char' : undefined;
@@ -142,7 +141,7 @@ const ComplexArrayValidationContent = () => {
             <button type="submit">Submit</button>
           </div>
           <div style={{ flex: 2, minWidth: '300px' }}>
-            <FormState errors values />
+            <Debug errors values />
           </div>
         </div>
       </Form>

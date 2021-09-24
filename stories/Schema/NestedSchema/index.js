@@ -1,9 +1,8 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 
-import { Form, SchemaFields } from '../../../src';
+import { Form, SchemaFields, Debug } from '../../../src';
 
 const schema = {
   type: 'object',
@@ -38,7 +37,7 @@ const Schema = () => (
   <Form schema={schema}>
     <SchemaFields />
     <button type="submit">Submit</button>
-    <FormState />
+    <Debug />
   </Form>
 );
 

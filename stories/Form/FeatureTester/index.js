@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 import { MultistepStepContext } from '../../../src/Context';
 
 import {
@@ -12,7 +11,8 @@ import {
   ArrayField,
   useFormApi,
   useFieldState,
-  FormStateAccess
+  FormState,
+  Debug
 } from '../../../src';
 
 const initialValues = {
@@ -107,16 +107,31 @@ const FieldState = ({ name }) => {
 const FeatureTester = () => {
   const [step, setStep] = useState(1);
 
+  const onReset = state => {
+    console.log('RESET', state);
+  };
+
+  const onChange = state => {
+    console.log('Change', state);
+  };
+
+  const onSubmitFailure = state => {
+    console.log('FAILURE', state);
+  };
+
   return (
     <div>
       <Form
+        onSubmit={onSubmit}
+        // onChange={onChange}
+        onReset={onReset}
+        onSubmitFailure={onSubmitFailure}
         initialValues={initialValues}
-        validateFields={validateFields}
-        onSubmit={onSubmit}>
+        validateFields={validateFields}>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>
             <Reset />
-            <FormStateAccess>
+            <FormState>
               {({ submitted }) => (
                 <>
                   <button type="submit">
@@ -124,7 +139,7 @@ const FeatureTester = () => {
                   </button>
                 </>
               )}
-            </FormStateAccess>
+            </FormState>
             {/* ----------------------------------------------------------- */}
             <hr />
             <h3>Masking Test</h3>
@@ -362,7 +377,7 @@ const FeatureTester = () => {
             </ArrayField>
           </div>
           <div style={{ flex: 2, minWidth: '300px', marginLeft: '3rem' }}>
-            <FormState values />
+            <Debug />
           </div>
         </div>
       </Form>

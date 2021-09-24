@@ -7,7 +7,7 @@ const FormApi = () => (
   <Form>
     {({ formApi }) => (
       <div>
-        <Input name="name" />
+        <Input name="name" label="First Name:" />
         <button
           type="button"
           onClick={() =>

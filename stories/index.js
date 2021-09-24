@@ -154,14 +154,14 @@ storiesOf('Introduction', module)
 
 storiesOf('Form', module)
   .add('Basic', Basic)
-  .add('Features', FeatureTester)
-  .add('Complex', Complex)
-  // .add('State', State)
+  .add('State', State)
   .add('Api', Api)
   .add('Props', Props)
   .add('Dynamic', DynamicFields)
   //   .add('Dependent Fields', FormatDependent)
   //   .add('Dynamic Fields', Dynamic)
+  .add('Features', FeatureTester)
+  .add('Complex', Complex)
   .add('Big', Big);
 
 // storiesOf('Inputs', module)

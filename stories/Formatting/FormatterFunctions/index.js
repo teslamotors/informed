@@ -1,9 +1,8 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 
-import { Form, Text } from '../../../src';
+import { Form, Text, Debug } from '../../../src';
 
 const mask = value => value.toUpperCase();
 
@@ -22,7 +21,7 @@ const FormatParse = () => (
         />
       </label>
       <button type="submit">Submit</button>
-      <FormState />
+      <Debug />
     </div>
   </Form>
 );

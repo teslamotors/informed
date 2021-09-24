@@ -2,8 +2,7 @@ import React from 'react';
 import Code from '../../utils/Code';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import { Form, Input } from '../../../src';
-import FormState from '../../utils/FormState';
+import { Form, Input, Debug } from '../../../src';
 
 const validate = value => {
   if (!value || value.length < 5)
@@ -29,7 +28,7 @@ const GettingStarted = () => (
             minWidth: '300px',
             marginLeft: '3rem'
           }}>
-          <FormState errors values />
+          <Debug errors values />
         </div>
       </div>
     </Form>

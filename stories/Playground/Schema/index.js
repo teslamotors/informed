@@ -14,7 +14,7 @@ const imports = {
 const scope = { imports };
 
 let code = `
-const { Form, SchemaFields, FormState } = imports['informed'];
+const { Form, SchemaFields, Debug } = imports['informed'];
 
 const onSubmit = (values) => {
   window.alert(JSON.stringify(values));
@@ -71,7 +71,7 @@ const Component = () => {
     <Form schema={schema} onSubmit={onSubmit}>
       <SchemaFields />
       <button type="submit">Submit</button>
-      <FormState />
+      <Debug />
     </Form>
   );
 };

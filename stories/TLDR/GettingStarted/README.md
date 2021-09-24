@@ -15,7 +15,7 @@ npm install --save informed
 ```
 
 ```jsx
-import { useForm, useField, Relevant, FormState } from 'informed';
+import { useForm, useField, Relevant, Debug } from 'informed';
 
 // Step 1. Build your form component ---------------------
 
@@ -84,7 +84,7 @@ const ExampleForm = () => (
       <Input field="spouse" label="Spouse" />
     </Relevant>
     <button type="submit">Submit</button>
-    <FormState />
+    <Debug />
   </Form>
 );
 ```

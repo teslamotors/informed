@@ -7,7 +7,7 @@ You can pass a JSON schema to the form but manually render the fields. ( Validat
 <!-- STORY -->
 
 ```jsx
-import { Form, SchemaFields } from 'informed';
+import { Form, SchemaFields, Debug } from 'informed';
 import Ajv from 'ajv';
 
 const schema = {
@@ -41,7 +41,7 @@ const Schema = () => (
     <Text field="name" label="First name:" />
     <Text field="age" label="Age:" type="number" />
     <Text field="friend" label="Friend:" />
-    <FormState errors values />
+    <Debug errors values />
   </Form>
 );
 ```

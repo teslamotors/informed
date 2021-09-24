@@ -18,7 +18,15 @@ export const useFieldState = name => {
   useEffect(
     () => {
       const listener = target => {
-        if (target === '_ALL_' || target === name || isChild(name, target)) {
+        // either
+        // 1. All fields are supposed to update
+        // 2. This is a specific registration "foo" === "foo"
+        // 3. This field is a child of registration "friends[0].name" is a child of name="friends[0]"
+        if (
+          target === '_ALL_' ||
+          target === name ||
+          (target && isChild(name, target))
+        ) {
           debug('Updating', name);
           forceUpdate();
         }

@@ -1,9 +1,8 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 
-import { Form, Text, useFormApi, useFormState } from '../../../src';
+import { Form, Text, useFormApi, useFormState, Debug } from '../../../src';
 
 const validate = value => {
   return !value || value.length < 5
@@ -74,7 +73,7 @@ const Basic = () => (
           <Step />
         </div>
         <div style={{ flex: 2, minWidth: '300px' }}>
-          <FormState errors values />
+          <Debug errors values />
         </div>
       </div>
     </Form>

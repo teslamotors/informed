@@ -1,10 +1,9 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 import Ajv from 'ajv';
 
-import { Form, SchemaFields } from '../../../src';
+import { Form, SchemaFields, Debug } from '../../../src';
 
 const schema = {
   type: 'object',
@@ -103,7 +102,7 @@ const Schema = () => (
     onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
     <SchemaFields />
     <button type="submit">Submit</button>
-    <FormState errors values />
+    <Debug errors values />
   </Form>
 );
 

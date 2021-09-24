@@ -3,7 +3,7 @@ import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 import Code from '../../utils/Code';
 
-import { Form, Select, Option, useFormState } from '../../../src';
+import { Form, Select, Option, useFormState, Debug } from '../../../src';
 
 const FormState = () => {
   const formState = useFormState();
@@ -50,7 +50,7 @@ const MultiSelectInput = () => {
         <button type="submit">Submit</button>
         {/* <button type="reset">Reset</button>
         <button type="toggle" type="button" onClick={toggle}>Toggle</button> */}
-        <FormState />
+        <Debug />
         {/* {JSON.stringify(initialValue)} */}
       </div>
     </Form>

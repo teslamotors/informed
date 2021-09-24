@@ -3,7 +3,6 @@ import Code from '../../utils/Code';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 import { Input, useForm } from '../../../src';
-import FormState from '../../utils/FormState';
 
 const validate = value => {
   if (!value || value.length < 5)

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 
-import { Form, Input, ArrayField, useFormApi } from '../../../src';
+import { Form, Input, Debug, ArrayField, useFormApi } from '../../../src';
 
 const Reset = () => {
   const formApi = useFormApi();
@@ -61,7 +60,7 @@ const DynamicArraysContent = () => {
             <button type="submit">Submit</button>
           </div>
           <div style={{ flex: 2, marginLeft: '3rem' }}>
-            <FormState values />
+            <Debug values />
           </div>
         </div>
       </Form>

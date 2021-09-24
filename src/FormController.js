@@ -97,6 +97,7 @@ export class FormController {
     this.getRemovalLocked = this.getRemovalLocked.bind(this);
     this.isRemovalLocked = this.isRemovalLocked.bind(this);
     this.submitForm = this.submitForm.bind(this);
+    this.keyDown = this.keyDown.bind(this);
   }
 
   getValue(name) {
@@ -400,6 +401,8 @@ export class FormController {
     this.fieldsMap.forEach(fieldMeta => {
       fieldMeta.current.fieldApi.reset();
     });
+
+    this.emit('reset');
   }
 
   resetField(name) {
@@ -447,6 +450,14 @@ export class FormController {
   valid() {
     const errors = this.state.errors;
     return !!ObjectMap.empty(errors);
+  }
+
+  keyDown(e) {
+    // If preventEnter then return
+    if (e.keyCode == 13 && this.options.preventEnter) {
+      e.preventDefault(e);
+      return false;
+    }
   }
 
   validate() {
@@ -523,7 +534,7 @@ export class FormController {
 
     // this.state.submitting = false;
 
-    this.emit('change');
+    this.emit('field');
   }
 
   /* -------------------------------- Event Emitter ------------------------------ */

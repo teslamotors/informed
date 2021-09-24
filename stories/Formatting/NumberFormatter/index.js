@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 
-import { Form, Select, Text, utils, useFieldState } from '../../../src';
+import { Form, Select, Text, utils, useFieldState, Debug } from '../../../src';
 
 const localeOptions = [
   { value: 'af-NA', label: 'Afrikaans (Namibia)' },
@@ -1119,7 +1118,7 @@ const FormatParse = () => (
       />
       <FormattedField />
       <button type="submit">Submit</button>
-      <FormState />
+      <Debug />
     </div>
   </Form>
 );

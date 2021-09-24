@@ -3,7 +3,7 @@ import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 import Code from '../../utils/Code';
 
-import { Form, Text, useFormState } from '../../../src';
+import { Form, Text, useFormState, Debug } from '../../../src';
 
 const FormState = () => {
   const formState = useFormState();
@@ -22,7 +22,7 @@ const Number = () => (
         <Text field="age" type="number" />
       </label>
       <button type="submit">Submit</button>
-      <FormState />
+      <Debug />
     </div>
   </Form>
 );

@@ -10,7 +10,7 @@ import {
   FormComponents,
   FormFields,
   SchemaFields,
-  FormState
+  Debug
 } from '../../../src';
 
 // Step 1. Build your form component ---------------------
@@ -206,7 +206,7 @@ const Schema = () => (
   <Form schema={schema} fieldMap={fieldMap}>
     <SchemaFields />
     <button type="submit">Submit</button>
-    <FormState />
+    <Debug />
   </Form>
 );
 

@@ -5,7 +5,7 @@
 <!-- STORY -->
 
 ```jsx
-import { Form, SchemaFields, FormState } from 'informed';
+import { Form, SchemaFields, Debug } from 'informed';
 
 const schema = {
   type: 'object',
@@ -95,7 +95,7 @@ const Schema = () => (
   <Form schema={schema}>
     <SchemaFields />
     <button type="submit">Submit</button>
-    <FormState />
+    <Debug />
   </Form>
 );
 ```

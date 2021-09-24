@@ -10,7 +10,7 @@ import {
   RadioGroup,
   Radio,
   Select,
-  FormState,
+  Debug,
   useFieldState,
   useFieldApi
 } from 'informed';
@@ -94,7 +94,7 @@ const DependentFields = () => (
     <CarOrTruck />
     <ProductSelect />
     <button type="submit">Submit</button>
-    <FormState values />
+    <Debug values />
   </Form>
 );
 ```

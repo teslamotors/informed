@@ -4,7 +4,7 @@ import withDocs from '../../utils/withDocs';
 import Modal from '../../utils/Modal';
 import readme from './README.md';
 
-import { Form, Text, Scope, FormState } from '../../../src';
+import { Form, Text, Scope, Debug } from '../../../src';
 
 const validate = username => {
   return !username || username.trim() === ''
@@ -72,7 +72,7 @@ const AsyncValidation = () => {
             </button>
           </div>
           <div style={{ flex: 2, minWidth: '300px' }}>
-            <FormState />
+            <Debug />
           </div>
         </div>
       </Form>

@@ -3,10 +3,15 @@
 <!-- STORY -->
 
 ```jsx
-import { Form, Input } from 'informed';
+import { Form, Input, Debug } from 'informed';
 
-<Form>
+const onSubmit = values => {
+  window.alert(JSON.stringify(values, null, 2));
+};
+
+<Form onSubmit={onSubmit}>
   <Input field="name" label="First name:" />
   <button type="submit">Submit</button>
+  <Debug values />
 </Form>;
 ```

@@ -9,6 +9,8 @@ import {
 export const useForm = ({
   onSubmit,
   onReset,
+  onChange,
+  onSubmitFailure,
   initialValues,
   validateFields,
   autocomplete,
@@ -17,6 +19,12 @@ export const useForm = ({
   validateOn,
   validateOnMount,
   formApiRef,
+  dontPreventDefault,
+  validationSchema,
+  allowEmptyStrings,
+  preventEnter,
+  schema,
+  ajv,
   ...userProps
 }) => {
   const formControllerOptions = {
@@ -27,7 +35,14 @@ export const useForm = ({
     // showErrorIfTouched << wanted to call out that we specifically dont want this because its default
     showErrorIfDirty,
     validateOn,
-    validateOnMount
+    validateOnMount,
+    // NEW STUFF
+    dontPreventDefault,
+    validationSchema,
+    allowEmptyStrings,
+    preventEnter,
+    schema,
+    ajv
   };
 
   // Create form controller
@@ -38,21 +53,31 @@ export const useForm = ({
   // Register for events
   useEffect(
     () => {
-      const onResetHandler = () => onReset && onReset();
+      const onChangeHandler = () =>
+        onChange && onChange(formController.getFormState());
+      const onResetHandler = () =>
+        onReset && onReset(formController.getFormState());
       const onSubmitHandler = () =>
         onSubmit && onSubmit(formController.getFormState().values);
+      const onFailureHandler = () =>
+        onSubmitFailure &&
+        onSubmitFailure(formController.getFormState().errors);
 
       // Register for events
+      formController.on('field', onChangeHandler);
       formController.on('reset', onResetHandler);
       formController.on('submit', onSubmitHandler);
+      formController.on('failure', onFailureHandler);
 
       // Unregister events
       return () => {
+        formController.removeListener('field', onChangeHandler);
         formController.removeListener('reset', onResetHandler);
         formController.removeListener('submit', onSubmitHandler);
+        formController.removeListener('failure', onFailureHandler);
       };
     },
-    [onReset, onSubmit]
+    [onChange, onReset, onSubmit, onSubmitFailure]
   );
 
   // Form state will be used to trigger rerenders

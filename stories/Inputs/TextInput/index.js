@@ -1,7 +1,6 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 import Code from '../../utils/Code';
 
 import { Form, Text } from '../../../src';

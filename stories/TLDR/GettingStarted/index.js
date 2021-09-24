@@ -2,7 +2,7 @@ import React from 'react';
 import Code from '../../utils/Code';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import { useField, useForm, Relevant, FormState } from '../../../src';
+import { useField, useForm, Relevant, Debug } from '../../../src';
 
 // Step 1. Build your form component ---------------------
 
@@ -73,7 +73,7 @@ const GettingStarted = () => (
         <button type="submit">Submit</button>
       </div>
       <div style={{ flex: '1' }}>
-        <FormState />
+        <Debug />
       </div>
     </div>
   </Form>

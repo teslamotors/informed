@@ -1,11 +1,8 @@
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
 import { useFormState } from '../hooks/useFormState';
 
-export const FormState = () => {
+export const FormState = ({ children }) => {
   const formState = useFormState();
-  return (
-    <pre>
-      <code>{JSON.stringify(formState, null, 2)}</code>
-    </pre>
-  );
+  return children(formState);
 };

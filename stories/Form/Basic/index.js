@@ -1,20 +1,23 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 
-import { Form, Input } from '../../../src';
+import { Form, Input, Debug } from '../../../src';
+
+const onSubmit = values => {
+  window.alert(JSON.stringify(values, null, 2));
+};
 
 const Basic = () => (
   <div>
-    <Form id="basic-form">
+    <Form onSubmit={onSubmit} autocomplete="off">
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, marginRight: '2rem' }}>
-          <Input field="name" label="First name:" />
+          <Input name="name" label="First name:" />
           <button type="submit">Submit</button>
         </div>
         <div style={{ flex: 2, minWidth: '300px', marginLeft: '3rem' }}>
-          <FormState values />
+          <Debug values />
         </div>
       </div>
     </Form>

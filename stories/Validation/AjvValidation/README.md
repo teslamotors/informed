@@ -7,7 +7,7 @@ You can pass a JSON schema to the form to both build and validate the form!
 <!-- STORY -->
 
 ```jsx
-import { Form, SchemaFields } from 'informed';
+import { Form, SchemaFields, Debug } from 'informed';
 import Ajv from 'ajv';
 
 const schema = {
@@ -107,7 +107,7 @@ const Schema = () => (
     onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
     <SchemaFields />
     <button type="submit">Submit</button>
-    <FormState errors values />
+    <Debug errors values />
   </Form>
 );
 ```

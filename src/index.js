@@ -1,5 +1,5 @@
 import { ArrayField } from './Components/ArrayField';
-import { FormState } from './Components/FormState';
+import { Debug } from './Components/Debug';
 import { Relevant } from './Components/Relevant';
 import { Form } from './Components/Form';
 import { Input } from './Components/form-fields/Input';
@@ -8,7 +8,9 @@ import { Select } from './Components/form-fields/Select';
 import { Option } from './Components/form-fields/Option';
 import { Radio } from './Components/form-fields/Radio';
 import { RadioGroup } from './Components/form-fields/RadioGroup';
-import { FormStateAccess } from './Components/FormStateAccess';
+import { TextArea } from './Components/form-fields/TextArea';
+
+import { FormState } from './Components/FormState';
 
 import { useForm } from './hooks/useForm';
 import { useField } from './hooks/useField';
@@ -31,7 +33,7 @@ export {
   useCursorPosition,
   ArrayField,
   useArrayField,
-  FormState,
+  Debug,
   Relevant,
   Form,
   Input,
@@ -40,6 +42,7 @@ export {
   Checkbox,
   RadioGroup,
   Radio,
+  TextArea,
   utils,
-  FormStateAccess
+  FormState
 };

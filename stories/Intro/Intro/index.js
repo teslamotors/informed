@@ -2,14 +2,7 @@ import React from 'react';
 import Code from '../../utils/Code';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import {
-  Form,
-  Input,
-  Select,
-  Checkbox,
-  Relevant,
-  FormState
-} from '../../../src';
+import { Form, Input, Select, Checkbox, Relevant, Debug } from '../../../src';
 
 const onSubmit = data => console.log(data);
 
@@ -35,7 +28,7 @@ const GettingStarted = () => (
         <button type="submit">Submit</button>
       </div>
       <div style={{ flex: '1' }}>
-        <FormState />
+        <Debug />
       </div>
     </div>
   </Form>

@@ -6,7 +6,7 @@ You can also get access to `Informed`s form api via render a function as a child
 <Form>
   {({ formApi }) => (
     <div>
-      <Text field="hello" />
+      <Input name="name" label="First Name:" />
       <button
         type="button"
         onClick={() =>

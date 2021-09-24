@@ -1,7 +1,6 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 
 import {
   Form,
@@ -13,7 +12,8 @@ import {
   ArrayField,
   Checkbox,
   RadioGroup,
-  Radio
+  Radio,
+  Debug
 } from '../../../src';
 
 const validate = value =>
@@ -192,7 +192,7 @@ const Basic = () => (
           <Buttons />
         </div>
         <div style={{ flex: 2, minWidth: '300px' }}>
-          <FormState errors values />
+          <Debug errors values />
         </div>
       </div>
     </Form>

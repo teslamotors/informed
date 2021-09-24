@@ -14,7 +14,7 @@ const imports = {
 const scope = { imports };
 
 let code = `
-const { Form, Text, Select, RadioGroup, Radio, FormState } = imports['informed'];
+const { Form, Text, Select, RadioGroup, Radio, Debug } = imports['informed'];
 
 const onSubmit = (values) => {
   window.alert(JSON.stringify(values));
@@ -41,7 +41,7 @@ const Component = () => {
       <button type="submit">
         Submit
       </button>
-      <FormState/>
+      <Debug/>
     </Form>
   );
 };

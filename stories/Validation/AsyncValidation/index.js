@@ -9,7 +9,7 @@ import { Form, Input, Debug } from '../../../src';
 const validate = username => {
   return !username || username.trim() === ''
     ? 'Username is a required field'
-    : null;
+    : undefined;
 };
 
 const asyncValidate = username => {
@@ -38,6 +38,7 @@ const AsyncValidation = () => {
               field="username"
               label="Username"
               autocomplete="off"
+              // validateOn="blur-blur"
               validate={validate}
               asyncValidate={asyncValidate}
             />

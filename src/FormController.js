@@ -159,6 +159,12 @@ export class FormController {
 
     // We only need to call validate if the user gave us one
     // and they want us to validate on change
+    // Example validateOn = "change" ("change-change")==> true
+    // Example validateOn = "blur" ("blur-blur") ==> false
+    // Example validateOn = "submit" ("submit-submit")==> false
+    // Example validateOn = "change-blur" ==> true
+    // Example validateOn = "change-submit" ==> true
+    // Example validateOn = "blur-submit" ==> false
     if (meta.validate && meta.validateOn.includes('change')) {
       const val = ObjectMap.get(this.state.values, name);
       debug(`Validating after change ${name} ${val}`);
@@ -173,11 +179,13 @@ export class FormController {
     // 1. the user gave us one
     // 2. they want us to validate on change
     // 3. We don't have a sync error
+    // Example validateOn = "change" ("change-change")==> true
+    // Example validateOn = "blur" ("blur-blur") ==> false
+    // Example validateOn = "submit" ("submit-submit")==> false
     // Example validateOn = "change-blur" ==> false
+    // Example validateOn = "change-submit" ==> false
     // Example validateOn = "blur-submit" ==> false
-    // Example validateOn = "blur" ==> false
-    // Example validateOn = "change-change" ==> true
-    if (meta.asyncValidate && meta.validateOn.split('-')[1] === 'change') {
+    if (meta.asyncValidate && meta.validateOn === 'change') {
       // Get error to determine if we even want to validateAsync
       if (this.getError(name) === undefined) this.validateAsync(name);
     }
@@ -204,9 +212,12 @@ export class FormController {
 
     // We only need to call validate if the user gave us one
     // and they want us to validate on blur
+    // Example validateOn = "change" ("change-change")==> false
+    // Example validateOn = "blur" ("blur-blur") ==> true
+    // Example validateOn = "submit" ("submit-submit")==> false
     // Example validateOn = "change-blur" ==> false
+    // Example validateOn = "change-submit" ==> false
     // Example validateOn = "blur-submit" ==> true
-    // Example validateOn = "blur" ==> true
     if (meta.validate && meta.validateOn.split('-')[0] === 'blur') {
       const val = ObjectMap.get(this.state.values, name);
       debug(`Validating after change ${name} ${val}`);
@@ -221,13 +232,20 @@ export class FormController {
     // 1. the user gave us one
     // 2. they want us to validate on blur
     // 3. We don't have a sync error
+    // Example validateOn = "change" ("change-change")==> false
+    // Example validateOn = "blur" ("blur-blur") ==> true
+    // Example validateOn = "submit" ("submit-submit")==> false
     // Example validateOn = "change-blur" ==> true
+    // Example validateOn = "change-submit" ==> false
     // Example validateOn = "blur-submit" ==> false
-    // Example validateOn = "blur" ==> false
-    // Example validateOn = "change-change" ==> false
-    if (meta.asyncValidate && meta.validateOn.split('-')[1] === 'blur') {
+    if (
+      meta.asyncValidate &&
+      (meta.validateOn === 'blur' || meta.validateOn.split('-')[1] === 'blur')
+    ) {
       // Get error to determine if we even want to validateAsync
-      if (this.getError(name) === undefined) this.validateAsync(name);
+      if (this.getError(name) === undefined) {
+        this.validateAsync(name);
+      }
     }
 
     this.state.valid = ObjectMap.empty(this.state.errors);
@@ -465,6 +483,9 @@ export class FormController {
       }
       this.state.submitting = false;
     }
+
+    // Always update
+    this.emit('field', name);
   }
 
   validateAsync(name) {

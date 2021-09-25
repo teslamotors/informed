@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form, Input } from '../../jest/components';
 
@@ -106,6 +106,209 @@ describe('useField', () => {
     input2.focus();
   
     expect(onBlur).toHaveBeenCalled();
+  });
+
+  it('should call validate that was passed on blur', () => {
+
+    const validate = jest.fn();
+
+    const { getByLabelText } = render(
+      <Form>
+        <Input 
+          name="greeting1" 
+          label="input1" 
+          initialValue="Hello"
+          validate={validate} />
+        <Input name="greeting2" label="input2" />
+      </Form>
+    );
+
+    const input1 = getByLabelText('input1');
+    const input2 = getByLabelText('input2');
+    input1.focus();
+    input2.focus();
+  
+    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'});
+  });
+
+  it('should NOT call validate that was passed on blur when validateOn="submit" at field level', () => {
+
+    const validate = jest.fn();
+
+    const { getByLabelText } = render(
+      <Form>
+        <Input 
+          name="greeting1" 
+          label="input1" 
+          initialValue="Hello"
+          validateOn="submit"
+          validate={validate} />
+        <Input name="greeting2" label="input2" />
+      </Form>
+    );
+
+    const input1 = getByLabelText('input1');
+    const input2 = getByLabelText('input2');
+    input1.focus();
+    input2.focus();
+  
+    expect(validate).not.toBeCalledWith('Hello', {greeting1: 'Hello'});
+  });
+
+  it('should NOT call validate that was passed on blur when validateOn="submit" at form level', () => {
+
+    const validate = jest.fn();
+
+    const { getByLabelText } = render(
+      <Form validateOn="submit">
+        <Input 
+          name="greeting1" 
+          label="input1" 
+          initialValue="Hello"
+          validate={validate} />
+        <Input name="greeting2" label="input2" />
+      </Form>
+    );
+
+    const input1 = getByLabelText('input1');
+    const input2 = getByLabelText('input2');
+    input1.focus();
+    input2.focus();
+  
+    expect(validate).not.toBeCalledWith('Hello', {greeting1: 'Hello'});
+  });
+
+  it('should call validate that was passed on blur when validateOn="change" at field level', () => {
+
+    const validate = jest.fn();
+
+    const { getByLabelText } = render(
+      <Form>
+        <Input 
+          name="greeting1" 
+          label="input1" 
+          validateOn="change"
+          initialValue="Hello"
+          validate={validate} />
+        <Input name="greeting2" label="input2" />
+      </Form>
+    );
+
+    const input1 = getByLabelText('input1');
+    const input2 = getByLabelText('input2');
+    input1.focus();
+    input2.focus();
+  
+    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'});
+  });
+
+  it('should call validate that was passed on blur when validateOn="change" at form level', () => {
+
+    const validate = jest.fn();
+
+    const { getByLabelText } = render(
+      <Form validateOn="change">
+        <Input 
+          name="greeting1" 
+          label="input1" 
+          initialValue="Hello"
+          validate={validate} />
+        <Input name="greeting2" label="input2" />
+      </Form>
+    );
+
+    const input1 = getByLabelText('input1');
+    const input2 = getByLabelText('input2');
+    input1.focus();
+    input2.focus();
+  
+    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'});
+  });
+
+
+  // TODO maybe need ? 
+  // const getAsyncValidate = (done) => {
+  //   return  username => {
+  //     return new Promise((resolve, reject) => {
+  //       setTimeout(() => {
+  //         // Simulate username check
+  //         if (['joe', 'tanner', 'billy', 'bob'].includes(username)) {
+  //           resolve('That username is taken');
+  //           done();
+  //           return;
+  //         }
+  //         // Simulate request faulure
+  //         if (username === 'reject') {
+  //           reject(new Error('Unable to validate username.'));
+  //           done();
+  //           return;
+  //         }
+  //         console.log('HERE');
+  //         resolve();
+  //         done();
+  //         return;
+  //       }, 2000);
+  //     });
+  //   };
+  // };
+
+  it('should call validateAsync that was passed on blur', async () => {
+
+    const validate = jest.fn();
+    const asyncValidate = jest.fn().mockResolvedValue();
+
+    const { getByLabelText } = render(
+      <Form>
+        <Input 
+          name="greeting1" 
+          label="input1" 
+          initialValue="Hello"
+          asyncValidate={asyncValidate}
+          validate={validate} />
+        <Input name="greeting2" label="input2" />
+      </Form>
+    );
+
+    const input1 = getByLabelText('input1');
+    const input2 = getByLabelText('input2');
+    input1.focus();
+    input2.focus();
+    
+
+    await waitFor(() => expect(asyncValidate).toHaveBeenCalledTimes(1));
+  
+    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'});
+    expect(asyncValidate).toBeCalledWith('Hello', {greeting1: 'Hello'});
+  });
+
+  it('should call validateAsync that was passed on blur when validateOn="change"', async () => {
+
+    const validate = jest.fn();
+    const asyncValidate = jest.fn().mockResolvedValue();
+
+    const { getByLabelText } = render(
+      <Form>
+        <Input 
+          name="greeting1" 
+          label="input1" 
+          initialValue="Hello"
+          validateOn="change"
+          asyncValidate={asyncValidate}
+          validate={validate} />
+        <Input name="greeting2" label="input2" />
+      </Form>
+    );
+
+    const input1 = getByLabelText('input1');
+    const input2 = getByLabelText('input2');
+    input1.focus();
+    input2.focus();
+    
+
+    await waitFor(() => expect(asyncValidate).toHaveBeenCalledTimes(1));
+  
+    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'});
+    expect(asyncValidate).toBeCalledWith('Hello', {greeting1: 'Hello'});
   });
 
   it('should set the initial value', () => {

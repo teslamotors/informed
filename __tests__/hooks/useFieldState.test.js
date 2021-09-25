@@ -356,7 +356,7 @@ describe('useFieldState', () => {
 
   });
 
-  it('should correctly update state when user submits --> types --> submits with validateOnChange passed to inputs', () => {
+  it('should correctly update state when user submits --> types --> submits with validateOn="change" passed to inputs', () => {
     const formApiRef = {};
 
     const { getByLabelText, queryAllByTestId, getByText } = render(

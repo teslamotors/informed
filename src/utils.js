@@ -19,6 +19,35 @@ export const getParentArrayPath = name => {
   return parentArrayPath;
 };
 
+export function debounceByName(func, timeout = 300) {
+  let timers = {};
+  return (...args) => {
+    const name = args[0];
+    clearTimeout(timers[name]);
+    // console.log('CLEARING', name);
+    timers[name] = setTimeout(() => {
+      // console.log('APPLYING', name);
+      func.apply(this, args);
+    }, timeout);
+  };
+}
+
+export function debounce(func, timeout = 300) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+}
+
+// Example debounce
+// function saveInput(){
+//   console.log('Saving data');
+// }
+// const processChange = debounce(() => saveInput());
+
 export const isChild = (parent, child) => {
   // Example1
   // parent = "friends[1]"

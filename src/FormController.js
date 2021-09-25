@@ -1,6 +1,12 @@
 import { ObjectMap } from './ObjectMap';
 import { Debug } from './debug';
-import { informedFormat, validateAjvSchema, validateYupField } from './utils';
+import {
+  debounceByName,
+  informedFormat,
+  uuidv4,
+  validateAjvSchema,
+  validateYupField
+} from './utils';
 const debug = Debug('informed:FormController' + '\t');
 
 const initializeValue = (value, { formatter, parser, initialize }) => {
@@ -47,6 +53,12 @@ export class FormController {
     // Val => fieldMetaRef
     // Why? so the form knows about field meta
     this.fieldsMap = new Map();
+
+    // Map will store current validation request
+    // Key => name
+    // Val => uuid
+    // Why? So we know if validation request is stale or not
+    this.validationRequests = new Map();
 
     // For array fields lol
     this.removalLocked = undefined;
@@ -102,6 +114,7 @@ export class FormController {
     this.keyDown = this.keyDown.bind(this);
     this.validateAsync = this.validateAsync.bind(this);
     this.validated = this.validated.bind(this);
+    this.debouncedValidateAsync = debounceByName(this.validateAsync);
   }
 
   getValue(name) {
@@ -187,7 +200,7 @@ export class FormController {
     // Example validateOn = "blur-submit" ==> false
     if (meta.asyncValidate && meta.validateOn === 'change') {
       // Get error to determine if we even want to validateAsync
-      if (this.getError(name) === undefined) this.validateAsync(name);
+      if (this.getError(name) === undefined) this.debouncedValidateAsync(name);
     }
 
     // Always remember to update pristine and valid here
@@ -498,15 +511,30 @@ export class FormController {
 
     if (meta && meta.asyncValidate) {
       this.state.validating = this.state.validating + 1;
+      const uuid = uuidv4();
+      debug('REQUEST', uuid);
+      this.validationRequests.set(name, uuid);
       meta
         .asyncValidate(value, this.state.values)
         .then(res => {
           this.state.validating = this.state.validating - 1;
-          this.validated(name, res);
+          const stale = this.validationRequests.get(name) !== uuid;
+          if (!stale) {
+            debug('FINISH', uuid);
+            this.validated(name, res);
+          } else {
+            debug('STALE THEN', uuid);
+          }
         })
         .catch(err => {
           this.state.validating = this.state.validating - 1;
-          this.validated(name, err.message);
+          const stale = this.validationRequests.get(name) !== uuid;
+          if (!stale) {
+            debug('FINISH', uuid);
+            this.validated(name, err.message);
+          } else {
+            debug('STALE CATCH', uuid);
+          }
         });
     }
   }

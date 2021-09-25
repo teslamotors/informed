@@ -38,7 +38,7 @@ const AsyncValidation = () => {
               field="username"
               label="Username"
               autocomplete="off"
-              // validateOn="blur-blur"
+              // validateOn="change"
               validate={validate}
               asyncValidate={asyncValidate}
             />

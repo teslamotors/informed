@@ -311,6 +311,66 @@ describe('useField', () => {
     expect(asyncValidate).toBeCalledWith('Hello', {greeting1: 'Hello'});
   });
 
+  it('should NOT call validateAsync that was passed on blur when validateOn="submit"', async () => {
+
+    const validate = jest.fn();
+    const asyncValidate = jest.fn().mockResolvedValue();
+
+    const { getByLabelText } = render(
+      <Form>
+        <Input 
+          name="greeting1" 
+          label="input1" 
+          initialValue="Hello"
+          validateOn="submit"
+          asyncValidate={asyncValidate}
+          validate={validate} />
+        <Input name="greeting2" label="input2" />
+      </Form>
+    );
+
+    const input1 = getByLabelText('input1');
+    const input2 = getByLabelText('input2');
+    input1.focus();
+    input2.focus();
+    
+
+    await waitFor(() => expect(asyncValidate).toHaveBeenCalledTimes(0));
+  
+    expect(validate).not.toBeCalledWith('Hello', {greeting1: 'Hello'});
+    expect(asyncValidate).not.toBeCalledWith('Hello', {greeting1: 'Hello'});
+  });
+
+  it('should NOT call validateAsync that was passed on blur when validateOn="change-submit"', async () => {
+
+    const validate = jest.fn();
+    const asyncValidate = jest.fn().mockResolvedValue();
+
+    const { getByLabelText } = render(
+      <Form>
+        <Input 
+          name="greeting1" 
+          label="input1" 
+          initialValue="Hello"
+          validateOn="change-submit"
+          asyncValidate={asyncValidate}
+          validate={validate} />
+        <Input name="greeting2" label="input2" />
+      </Form>
+    );
+
+    const input1 = getByLabelText('input1');
+    const input2 = getByLabelText('input2');
+    input1.focus();
+    input2.focus();
+    
+
+    await waitFor(() => expect(asyncValidate).toHaveBeenCalledTimes(0));
+  
+    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'});
+    expect(asyncValidate).not.toBeCalledWith('Hello', {greeting1: 'Hello'});
+  });
+
   it('should set the initial value', () => {
     const formApiRef = {};
 
@@ -838,7 +898,7 @@ describe('useField', () => {
     expect(queryByText('Field must be at least five characters')).not.toBeInTheDocument();
   });
 
-  it('should show error message when rendered with validateOnMount at field', () => {
+  it('should show error message when rendered with validateOnMount and showErrorIfError at field', () => {
 
     const formApiRef = {};
 
@@ -880,7 +940,7 @@ describe('useField', () => {
     expect(queryByText('Field must be at least five characters')).not.toBeInTheDocument();
   });
 
-  it('should show error message when rendered with validateOnMount at field', () => {
+  it('should show error message when rendered with validateOnMount at form and showErrorIfError at field', () => {
 
     const formApiRef = {};
 
@@ -891,6 +951,26 @@ describe('useField', () => {
           label="input1" 
           initialValue="Hi!"
           showErrorIfError
+          validate={validate} />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'Field must be at least five characters' });
+
+    expect(queryByText('Field must be at least five characters')).toBeInTheDocument();
+  });
+
+  it('should show error message when rendered with validateOnMount at form and showErrorIfError at form', () => {
+
+    const formApiRef = {};
+
+    const { queryByText }  = render(
+      <Form formApiRef={formApiRef} validateOnMount showErrorIfError>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          initialValue="Hi!"
           validate={validate} />
         <button type="submit">Submit</button>
       </Form>
@@ -923,7 +1003,7 @@ describe('useField', () => {
     expect(queryByText('Field must be at least five characters')).not.toBeInTheDocument();
   });
 
-  it('should show error message when validateOn="change" + showErrorIfDirty', () => {
+  it('should show error message when validateOn="change" + showErrorIfDirty at field', () => {
     const { getByLabelText, getByText }  = render(
       <Form>
         <Input 
@@ -931,6 +1011,22 @@ describe('useField', () => {
           label="input1" 
           validateOn="change"
           showErrorIfDirty 
+          validate={validate} />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+
+    userEvent.type(input, 'Hi!');
+    expect(getByText('Field must be at least five characters')).toBeInTheDocument();
+  });
+
+  it('should show error message when validateOn="change" + showErrorIfDirty at form', () => {
+    const { getByLabelText, getByText }  = render(
+      <Form validateOn="change" showErrorIfDirty >
+        <Input 
+          name="greeting"  
+          label="input1" 
           validate={validate} />
       </Form>
     );

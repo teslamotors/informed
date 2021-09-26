@@ -54,9 +54,10 @@ const HugeArrayForm = () => {
                     <Text name="f" />
                     <Input
                       name="g"
-                      relevant={(state, api) => api.getValue(`${name}.f`)}
+                      relevant={({ formApi }) => formApi.getValue(`${name}.f`)}
                     />
-                    <Relevant when={(state, api) => api.getValue(`${name}.f`)}>
+                    <Relevant
+                      when={({ formApi }) => formApi.getValue(`${name}.f`)}>
                       <Input name="h" />
                       <Input name="i" />
                       <Input name="j" />

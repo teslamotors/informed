@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
+import { ScopeContext } from '../Context';
 import { useFormController } from './useFormController';
 import { useStateWithGetter } from './useStateWithGetter';
 
@@ -7,9 +8,16 @@ export const useRelevance = ({ name, relevant = () => true }) => {
   // Grab the form controller
   const formController = useFormController();
 
+  // Get scope
+  const scope = useContext(ScopeContext);
+
   // Relevant state
   const [isRelevant, setIsRelevant, getIsRelevant] = useStateWithGetter(() =>
-    relevant(formController.getFormState(), formController.getFormApi())
+    relevant({
+      formState: formController.getFormState(),
+      formApi: formController.getFormApi(),
+      scope
+    })
   );
 
   // Register for events on our field
@@ -18,10 +26,11 @@ export const useRelevance = ({ name, relevant = () => true }) => {
       // console.log("UPDATED", name);
       // When we have a field update we always check
       const listener = () => {
-        const rel = relevant(
-          formController.getFormState(),
-          formController.getFormApi()
-        );
+        const rel = relevant({
+          formState: formController.getFormState(),
+          formApi: formController.getFormApi(),
+          scope
+        });
         // Only update if we changed
         if (getIsRelevant() != rel) {
           // console.log("UPDATING", name, rel);
@@ -33,7 +42,11 @@ export const useRelevance = ({ name, relevant = () => true }) => {
 
       // When name changes we always check if relevant
       setIsRelevant(
-        relevant(formController.getFormState(), formController.getFormApi())
+        relevant({
+          formState: formController.getFormState(),
+          formApi: formController.getFormApi(),
+          scope
+        })
       );
 
       return () => {

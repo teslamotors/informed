@@ -19,7 +19,7 @@ import { Form, Text, RadioGroup, Radio, Relevant } from 'informed';
       No <Radio value="no" />
     </label>
   </RadioGroup>
-  <Relevant when={({ values }) => values.married === 'yes'}>
+  <Relevant when={({ formState }) => formState.values?.married === 'yes'}>
     <Input name="spouse" label="Spouse name:" />
   </Relevant>
   <button type="submit">Submit</button>

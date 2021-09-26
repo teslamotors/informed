@@ -89,14 +89,18 @@ const RelevantArrayfield = ({ formApiRef, initialValues }) => {
                   <Input label="Foo" name="foo" initialValue={`foo-${name}`} />
                   <Checkbox label="Show Info?" name="showInfo" />
                   <Relevant
-                    when={(_state, api) => api.getValue(`${name}.showInfo`)}>
+                    when={({ formApi }) =>
+                      formApi.getValue(`${name}.showInfo`)
+                    }>
                     <Input type="number" label="Age" name="age" />
                     <Input label="Favorite Color" name="color" keepState />
                   </Relevant>
                   <Input
                     label="Favorite Food"
                     name="food"
-                    relevant={(_state, api) => api.getValue(`${name}.showInfo`)}
+                    relevant={({ formApi }) =>
+                      formApi.getValue(`${name}.showInfo`)
+                    }
                   />
                   <button type="button" onClick={remove}>
                     Remove

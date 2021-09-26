@@ -192,7 +192,7 @@ const FeatureTester = () => {
             <hr />
             <h3>Relevant Test</h3>
             <Checkbox label="Show Info?" name="showInfo" debug />
-            <Relevant when={({ values }) => values.showInfo}>
+            <Relevant when={({ formState }) => formState.values.showInfo}>
               <Input type="number" label="Age" name="age" debug />
               <Input label="Favorite Color" name="color" keepState debug />
             </Relevant>
@@ -200,14 +200,14 @@ const FeatureTester = () => {
               label="Favorite Food"
               name="food"
               debug
-              relevant={({ values }) => values.showInfo}
+              relevant={({ formState }) => formState.values.showInfo}
             />
             <Input
               label="Favorite Animal"
               name="animal"
               keepState
               debug
-              relevant={({ values }) => values.showInfo}
+              relevant={({ formState }) => formState.values.showInfo}
             />
             {/* ----------------------------------------------------------- */}
             <hr />
@@ -222,7 +222,8 @@ const FeatureTester = () => {
               {step === 1 ? (
                 <>
                   <Checkbox label="Show Info?" name="multi.showInfo" debug />
-                  <Relevant when={({ values }) => values.multi?.showInfo}>
+                  <Relevant
+                    when={({ formState }) => formState.values.multi?.showInfo}>
                     <Input
                       type="number"
                       label="Age []"
@@ -240,14 +241,18 @@ const FeatureTester = () => {
                     label="Favorite Food []"
                     name="multi.food"
                     debug
-                    relevant={({ values }) => values.multi?.showInfo}
+                    relevant={({ formState }) =>
+                      formState.values.multi?.showInfo
+                    }
                   />
                   <Input
                     label="Favorite Animal [keepState]"
                     name="multi.animal"
                     keepState
                     debug
-                    relevant={({ values }) => values.multi?.showInfo}
+                    relevant={({ formState }) =>
+                      formState.values.multi?.showInfo
+                    }
                   />
                 </>
               ) : null}
@@ -275,7 +280,7 @@ const FeatureTester = () => {
             <h5>Friends:</h5>
             <ArrayField
               name="friends"
-              relevant={({ values }) => values.showFriends}>
+              relevant={({ formState }) => formState.values.showFriends}>
               {({ add, addWithInitialValue, swap, reset }) => (
                 <>
                   <button
@@ -334,8 +339,8 @@ const FeatureTester = () => {
                         />
                         <Checkbox label="Show Info?" name="showInfo" debug />
                         <Relevant
-                          when={(state, api) =>
-                            api.getValue(`${name}.showInfo`)
+                          when={({ formApi }) =>
+                            formApi.getValue(`${name}.showInfo`)
                           }>
                           <Input type="number" label="Age" name="age" debug />
                           <Input
@@ -349,8 +354,8 @@ const FeatureTester = () => {
                           label="Favorite Food"
                           name="food"
                           debug
-                          relevant={(state, api) =>
-                            api.getValue(`${name}.showInfo`)
+                          relevant={({ formApi }) =>
+                            formApi.getValue(`${name}.showInfo`)
                           }
                         />
                         <FieldState name={name} />

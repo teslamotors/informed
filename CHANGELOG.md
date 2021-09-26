@@ -1,3 +1,13 @@
+## 4.0 !!!!
+
+### Breaking changes
+
+#### Relevance
+
+```
+when={({formState, formApi, scope}) => {...} }
+```
+
 ## 3.34.0 (June 22, 2021)
 
 ### Added

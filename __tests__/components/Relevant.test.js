@@ -16,7 +16,7 @@ describe('Relevant', () => {
         formApiRef={formApiRef}>
         <Checkbox label="Show Info?" name="showInfo" />
         <Relevant
-          when={(state) => state.values.showInfo}>
+          when={({formState}) => formState.values.showInfo}>
           <Input type="number" label="Age" name="age" />
           <Input
             label="Favorite Color"
@@ -27,7 +27,7 @@ describe('Relevant', () => {
         <Input
           label="Favorite Food"
           name={`${name}.food`}
-          relevant={(state) => state.values.showInfo}
+          relevant={({ formState }) => formState.values.showInfo}
         />
       </Form>
     );

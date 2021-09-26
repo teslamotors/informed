@@ -57,7 +57,8 @@ const DynamicFields = () => (
               No <Radio value="no" />
             </label>
           </RadioGroup>
-          <Relevant when={({ values }) => values?.married === 'yes'}>
+          <Relevant
+            when={({ formState }) => formState.values?.married === 'yes'}>
             <Input name="spouse" label="Spouse name:" />
 
             {/* <h5>Siblings:</h5>
@@ -96,7 +97,7 @@ const DynamicFields = () => (
           <button type="submit">Submit</button>
           {/* </Scope> */}
         </div>
-        <div style={{ flex: 2, minWidth: '300px' }}>
+        <div style={{ flex: 2, minWidth: '300px', marginLeft: '3rem' }}>
           <Debug />
         </div>
       </div>

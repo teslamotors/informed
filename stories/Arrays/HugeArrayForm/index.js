@@ -90,10 +90,12 @@ const NestedForm = () => (
                         <Input name="f" />
                         <Input
                           name="g"
-                          relevant={(state, api) => api.getValue(`${name}.f`)}
+                          relevant={({ formApi }) =>
+                            formApi.getValue(`${name}.f`)
+                          }
                         />
                         <Relevant
-                          when={(state, api) => api.getValue(`${name}.f`)}>
+                          when={({ formApi }) => formApi.getValue(`${name}.f`)}>
                           <Input name="h" />
                           <Input name="i" />
                           <Input name="j" />
@@ -125,7 +127,7 @@ const NestedForm = () => (
             }}
           </ArrayField>
         </div>
-        <div style={{ flex: 2, minWidth: '300px' }}>
+        <div style={{ flex: 2, minWidth: '300px', marginLeft: '3rem' }}>
           <Debug />
         </div>
       </div>

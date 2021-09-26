@@ -22,7 +22,7 @@ const GettingStarted = () => (
         <label>
           Married: <Checkbox field="married" />
         </label>
-        <Relevant when={({ values }) => values.married}>
+        <Relevant when={({ formState }) => formState.values.married}>
           <Input field="spouse" label="Spouse" />
         </Relevant>
         <button type="submit">Submit</button>

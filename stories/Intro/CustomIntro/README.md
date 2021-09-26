@@ -89,7 +89,7 @@ const ExampleForm = () => (
       <option value="my">Model Y</option>
     </Select>
     <Checkbox name="married" label="Married?" />
-    <Relevant when={({ values }) => values.married}>
+    <Relevant when={({ formState }) => formState.values.married}>
       <Input name="spouse" label="Spouse" />
     </Relevant>
     <button type="submit">Submit</button>

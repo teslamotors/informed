@@ -9,12 +9,13 @@ export const uuidv4 = () => {
   });
 };
 
-export const getParentArrayPath = name => {
-  // Example foo.bar.baz[3].baz >>>> foo.bar.baz[3]
-  const parentArrayPath = name.slice(
-    0,
-    name.lastIndexOf('[') != -1 ? name.lastIndexOf(']') + 1 : name.length
-  );
+export const getParentPath = name => {
+  // Example friends >>>> friends
+  // Example father.name >>>> father
+  // Example friends[0] >>>> friends
+  // Example friends[0].father.name >>>> friends[0].father
+  // Example friends[0].father.siblings[1].name >>>> friends[0].father.siblings[1]
+  const parentArrayPath = name.replace(/(.*)[.[].*/, '$1');
 
   return parentArrayPath;
 };

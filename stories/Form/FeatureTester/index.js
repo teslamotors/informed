@@ -315,48 +315,39 @@ const FeatureTester = () => {
                         <h5>{name}</h5>
                         <Input
                           label="First [ keepState ]"
-                          name={`${name}.first`}
+                          name="first"
                           keepState
                           debug
                         />
                         <Input
                           label="Last [ keepState ]"
-                          name={`${name}.last`}
+                          name="last"
                           debug
                           keepState
                           initialValue={`bob-${name}`}
                         />
                         <Input
                           label="Foo [ ]"
-                          name={`${name}.foo`}
+                          name="foo"
                           debug
                           initialValue={`foo-${name}`}
                         />
-                        <Checkbox
-                          label="Show Info?"
-                          name={`${name}.showInfo`}
-                          debug
-                        />
+                        <Checkbox label="Show Info?" name="showInfo" debug />
                         <Relevant
                           when={(state, api) =>
                             api.getValue(`${name}.showInfo`)
                           }>
-                          <Input
-                            type="number"
-                            label="Age"
-                            name={`${name}.age`}
-                            debug
-                          />
+                          <Input type="number" label="Age" name="age" debug />
                           <Input
                             label="Favorite Color"
-                            name={`${name}.color`}
+                            name="color"
                             keepState
                             debug
                           />
                         </Relevant>
                         <Input
                           label="Favorite Food"
-                          name={`${name}.food`}
+                          name="food"
                           debug
                           relevant={(state, api) =>
                             api.getValue(`${name}.showInfo`)

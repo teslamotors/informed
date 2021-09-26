@@ -3,11 +3,15 @@ import { useFormController } from './useFormController';
 import { useForceUpdate } from './useForceUpdate';
 import { isChild } from '../utils';
 import { Debug } from '../debug';
+import { useScope } from './useScope';
 
 const debug = Debug('informed:useFieldState' + '\t');
 
 /* ----------------------- useFieldState ----------------------- */
-export const useFieldState = name => {
+export const useFieldState = (n, scoped = true) => {
+  // Create name
+  const name = scoped ? useScope(n) : n;
+
   // Grab the form controller
   const formController = useFormController();
 

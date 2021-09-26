@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useFormApi } from './useFormApi';
+import { useScope } from './useScope';
 
 /* ----------------------- useFieldApi ----------------------- */
 const buildFieldApi = (formApi, name) => {
@@ -18,8 +19,9 @@ const buildFieldApi = (formApi, name) => {
   };
 };
 
-export function useFieldApi(name) {
+export function useFieldApi(n, scoped = true) {
   const formApi = useFormApi();
+  const name = scoped ? useScope(n) : n;
 
   const fieldApi = useMemo(() => buildFieldApi(formApi, name), [name]);
   return fieldApi;

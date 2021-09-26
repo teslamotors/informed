@@ -48,11 +48,11 @@ const ObjectArrayfield = ({ formApiRef, initialValues }) => {
               Reset Siblings
             </button>
             <ArrayField.Items>
-              {({ remove, name, key }) => (
+              {({ remove, key }) => (
                 <>
                   <span data-testid="key">{key}</span>
-                  <Input label="First" name={`${name}.first`} />
-                  <Input label="Last" name={`${name}.last`} />
+                  <Input label="First" name="first" />
+                  <Input label="Last" name="last" />
 
                   <button type="button" onClick={remove}>
                     Remove
@@ -84,26 +84,18 @@ const RelevantArrayfield = ({ formApiRef, initialValues }) => {
               {({ remove, name, key }) => (
                 <>
                   <span data-testid="key">{key}</span>
-                  <Input label="First" name={`${name}.first`} keepState />
-                  <Input label="Last" name={`${name}.last`} />
-                  <Input
-                    label="Foo"
-                    name={`${name}.foo`}
-                    initialValue={`foo-${name}`}
-                  />
-                  <Checkbox label="Show Info?" name={`${name}.showInfo`} />
+                  <Input label="First" name="first" keepState />
+                  <Input label="Last" name="last" />
+                  <Input label="Foo" name="foo" initialValue={`foo-${name}`} />
+                  <Checkbox label="Show Info?" name="showInfo" />
                   <Relevant
                     when={(_state, api) => api.getValue(`${name}.showInfo`)}>
-                    <Input type="number" label="Age" name={`${name}.age`} />
-                    <Input
-                      label="Favorite Color"
-                      name={`${name}.color`}
-                      keepState
-                    />
+                    <Input type="number" label="Age" name="age" />
+                    <Input label="Favorite Color" name="color" keepState />
                   </Relevant>
                   <Input
                     label="Favorite Food"
-                    name={`${name}.food`}
+                    name="food"
                     relevant={(_state, api) => api.getValue(`${name}.showInfo`)}
                   />
                   <button type="button" onClick={remove}>

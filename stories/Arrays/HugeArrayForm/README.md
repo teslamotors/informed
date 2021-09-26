@@ -1,7 +1,7 @@
 # Huge Array form
 
 ```jsx
-import { Form, Text, ArrayField } from 'informed';
+import { Form, Input, ArrayField, Relevant } from 'informed';
 
 const friends = Array.from(Array(50)).map(e => {
   return { name: 'Joe', age: 26 };
@@ -33,32 +33,37 @@ const HugeArrayForm = () => {
                 Add
               </button>
               <ArrayField.Items>
-                {({ remove, field, reset, initialValue, values, setValue }) => (
+                {({ remove, name, reset, initialValue, values, setValue }) => (
                   <label>
                     <h5>{field}</h5>
                     <Text
-                      field={`${field}.name`}
+                      name="name"
                       initialValue={initialValue && initialValue.name}
                     />
-                    <Text field={`${field}.age`} />
+                    <Text name="age" />
                     <Text
-                        field={`${field}.name`}
-                        initialValue={initialValue && initialValue.name}
-                      />
-                    <Text field={`${field}.age`} />
-                    <Text field={`${field}.a`} />
-                    <Text field={`${field}.b`} />
-                    <Text field={`${field}.c`} />
-                    <Text field={`${field}.d`} />
-                    <Text field={`${field}.e`} />
-                    <Text field={`${field}.f`} />
-                    <Text field={`${field}.g`} />
-                    <Text field={`${field}.h`} />
-                    <Text field={`${field}.i`} />
-                    <Text field={`${field}.j`} />
-                    <Text field={`${field}.k`} />
-                    <Text field={`${field}.l`} />
-                    <Text field={`${field}.m`} />
+                      name="name"
+                      initialValue={initialValue && initialValue.name}
+                    />
+                    <Text name="age" />
+                    <Text name="a" />
+                    <Text name="b" />
+                    <Text name="c" />
+                    <Text name="d" />
+                    <Text name="e" />
+                    <Text name="f" />
+                    <Input
+                      name="g"
+                      relevant={(state, api) => api.getValue(`${name}.f`)}
+                    />
+                    <Relevant when={(state, api) => api.getValue(`${name}.f`)}>
+                      <Input name="h" />
+                      <Input name="i" />
+                      <Input name="j" />
+                      <Input name="k" />
+                      <Input name="l" />
+                      <Input name="m" />
+                    </Relevant>
                     <button type="button" onClick={reset}>
                       Reset
                     </button>

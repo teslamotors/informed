@@ -21,6 +21,7 @@ import {
 } from '../utils';
 import { Debug } from '../debug';
 import { useUpdateEffect } from '../hooks/useUpdateEffect';
+import { useScope } from './useScope';
 
 const logger = Debug('informed:useField' + '\t');
 
@@ -56,7 +57,10 @@ export const useField = ({
   ...userProps
 }) => {
   // For backwards compatability
-  const name = userName ?? field;
+  const n = userName ?? field;
+
+  // Because it could be scoped
+  const name = useScope(n);
 
   if (!name) {
     console.warn('name is a required prop!!!!');
@@ -85,10 +89,12 @@ export const useField = ({
   const [initialValue] = useState(() => getInitialValue());
 
   // Hook onto the field state
-  const fieldState = useFieldState(name);
+  // Note: we already scoped above so we pass false here
+  const fieldState = useFieldState(name, false);
 
   // Hook onto the field api
-  const fieldApi = useFieldApi(name);
+  // Note: we already scoped above so we pass false here
+  const fieldApi = useFieldApi(name, false);
 
   // For multistep
   const inMultistep = useContext(MultistepStepContext);

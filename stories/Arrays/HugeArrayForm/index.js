@@ -78,34 +78,33 @@ const NestedForm = () => (
                         <h5>{name}</h5>
                         <FieldState name={name} />
                         <Input
-                          name={`${name}.name`}
+                          name="name"
                           initialValue={initialValue && initialValue.name}
                         />
-                        <Input name={`${name}.age`} />
-                        <Input name={`${name}.a`} />
-                        <Input name={`${name}.b`} />
-                        <Input name={`${name}.c`} />
-                        <Input name={`${name}.d`} />
-                        <Input name={`${name}.e`} />
-                        <Input name={`${name}.f`} />
+                        <Input name="age" />
+                        <Input name="a" />
+                        <Input name="b" />
+                        <Input name="c" />
+                        <Input name="d" />
+                        <Input name="e" />
+                        <Input name="f" />
                         <Input
-                          name={`${name}.g`}
+                          name="g"
                           relevant={(state, api) => api.getValue(`${name}.f`)}
                         />
                         <Relevant
                           when={(state, api) => api.getValue(`${name}.f`)}>
-                          <Input name={`${name}.h`} />
-                          <Input name={`${name}.i`} />
-                          <Input name={`${name}.j`} />
-                          <Input name={`${name}.k`} />
-                          <Input name={`${name}.l`} />
-                          <Input name={`${name}.m`} />
+                          <Input name="h" />
+                          <Input name="i" />
+                          <Input name="j" />
+                          <Input name="k" />
+                          <Input name="l" />
+                          <Input name="m" />
                         </Relevant>
 
                         <button
                           type="button"
                           onClick={() => {
-                            console.log('HERE');
                             reset();
                           }}>
                           Reset

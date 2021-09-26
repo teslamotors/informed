@@ -10,16 +10,20 @@ import {
 import { uuidv4 } from '../utils';
 import { ObjectMap } from '../ObjectMap';
 import { useFieldApi } from './useFieldApi';
+import { useScope } from './useScope';
 
 const logger = Debug('informed:useArrayField' + '\t');
 
 export const useArrayField = ({
-  name,
+  name: userName,
   initialValue,
   // validate,
   arrayFieldApiRef
   // ...props
 }) => {
+  // Name might be scoped
+  const name = useScope(userName);
+
   // Grab the form register context
   const formController = useContext(FormControllerContext);
 

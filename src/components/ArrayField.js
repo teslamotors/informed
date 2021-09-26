@@ -5,7 +5,8 @@ import {
   ArrayFieldStateContext,
   ArrayFieldItemApiContext,
   ArrayFieldItemStateContext,
-  FormControllerContext
+  FormControllerContext,
+  ScopeContext
 } from '../Context';
 import { useFormController } from '../hooks/useFormController';
 import { useFieldState } from '../hooks/useFieldState';
@@ -122,8 +123,10 @@ const ArrayFieldItem = ({
       <FormControllerContext.Provider value={wrappedController}>
         <ArrayFieldItemApiContext.Provider value={arrayFieldItemApi}>
           <ArrayFieldItemStateContext.Provider value={arrayFieldStateValue}>
-            {/* <h3>{arrayFieldItemState.key}</h3> */}
-            {memoizedChildren}
+            <ScopeContext.Provider value={arrayFieldItemState.name}>
+              {/* <h3>{arrayFieldItemState.key}</h3> */}
+              {memoizedChildren}
+            </ScopeContext.Provider>
           </ArrayFieldItemStateContext.Provider>
         </ArrayFieldItemApiContext.Provider>
       </FormControllerContext.Provider>
@@ -134,7 +137,9 @@ const ArrayFieldItem = ({
     <FormControllerContext.Provider value={wrappedController}>
       <ArrayFieldItemApiContext.Provider value={arrayFieldItemApi}>
         <ArrayFieldItemStateContext.Provider value={arrayFieldItemState}>
-          {children}
+          <ScopeContext.Provider value={arrayFieldItemState.name}>
+            {children}
+          </ScopeContext.Provider>
         </ArrayFieldItemStateContext.Provider>
       </ArrayFieldItemApiContext.Provider>
     </FormControllerContext.Provider>

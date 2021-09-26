@@ -11,3 +11,4 @@ export const ArrayFieldItemApiContext = React.createContext();
 export const ArrayFieldItemStateContext = React.createContext();
 export const RelevanceContext = React.createContext();
 export const RadioGroupContext = React.createContext();
+export const ScopeContext = React.createContext();

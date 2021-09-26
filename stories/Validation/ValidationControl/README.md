@@ -1,8 +1,20 @@
 # Validation Control
 
-By default fields will only validate when the submit button is clicked. To get
-more granular validation ( onBlur && onChange ), simply pass in validateOnChange
-or validateOnBlur or even both!
+By default fields will only validate on blur. To get
+more granular validation, simply pass in `validateOn` props.
+
+See table below for mapping:
+
+<br />
+
+| validateOn    | derived       | change       | blur         | submit       | default |
+| ------------- | ------------- | ------------ | ------------ | ------------ | ------- |
+| change        | change-change | sync + async | sync + async | sync + async |         |
+| blur          | blur-blur     | x            | sync + async | sync + async | x       |
+| change-blur   | change-blur   | sync         | sync + async | sync + async |         |
+| change-submit | change-submit | sync         | sync         | sync + async |         |
+| blur-submit   | submit-submit | x            | sync         | sync + async |         |
+| submit        | submit-submit | x            | x            | sync + async |         |
 
 <!-- STORY -->
 
@@ -14,22 +26,19 @@ const validate = value => {
     return 'Field must be at least five characters';
 };
 
-<Form id="validate-control-form">
-  <label htmlFor="validate-color">Color:</label>
-  <small>Validate on blur</small>
-  <Text field="color" id="validate-color" validateOnBlur validate={validate} />
-  <label htmlFor="validate-food">Food:</label>
-  <small>Validate on change</small>
-  <Text field="food" id="validate-food" validateOnChange validate={validate} />
-  <label htmlFor="validate-car">Car:</label>
-  <small>Validate on blur and change</small>
-  <Text
-    field="car"
-    id="validate-car"
-    validateOnBlur
-    validateOnChange
-    validate={validate}
-  />
-  <button type="submit">Submit</button>
-</Form>;
+const asyncValidate = username => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // Simulate username check
+      if (['joe', 'tanner', 'billy', 'bob'].includes(username)) {
+        return resolve('That username is taken');
+      }
+      // Simulate request faulure
+      if (username === 'reject') {
+        return reject(new Error('Unable to validate username.'));
+      }
+      return resolve();
+    }, 2000);
+  });
+};
 ```

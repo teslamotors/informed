@@ -56,8 +56,17 @@ export class FormController {
 
     // Map will store current validation request
     // Key => name
-    // Val => uuid
+    // Val => {uuid, value}
     // Why? So we know if validation request is stale or not
+    // We ALSO need to store value because of edge case:
+    //
+    // Assume sync validation "Must be at least 5 characters" and some async validation that takes 2 seconds
+    // 1. User types ddddd ( 5 inputs so we pass sync validation )
+    // 2. Because there is no sync validation async will trigger to validate username
+    // 3. While that occurs, user starts to Backspace the ddddd
+    // 4. The second user backspaces, sync has error so async never "re-occurs"
+    // 5. the sync request made on step 2 completes
+    // 6. It wipes out sync error
     this.validationRequests = new Map();
 
     // For array fields lol
@@ -518,27 +527,41 @@ export class FormController {
       this.state.validating = this.state.validating + 1;
       const uuid = uuidv4();
       debug('REQUEST', uuid);
-      this.validationRequests.set(name, uuid);
+      this.validationRequests.set(name, { uuid, value });
       meta
         .asyncValidate(value, this.state.values)
         .then(res => {
           this.state.validating = this.state.validating - 1;
-          const stale = this.validationRequests.get(name) !== uuid;
-          if (!stale) {
+          const stale = this.validationRequests.get(name).uuid !== uuid;
+          const invalid =
+            this.validationRequests.get(name).value !== this.getValue(name);
+          if (!stale && !invalid) {
             debug('FINISH', uuid);
             this.validated(name, res);
           } else {
-            debug('STALE THEN', uuid);
+            debug(
+              `${stale ? 'STALE' : 'INVALID'} THEN`,
+              uuid,
+              value,
+              this.getValue(name)
+            );
           }
         })
         .catch(err => {
           this.state.validating = this.state.validating - 1;
-          const stale = this.validationRequests.get(name) !== uuid;
-          if (!stale) {
+          const stale = this.validationRequests.get(name).uuid !== uuid;
+          const invalid =
+            this.validationRequests.get(name).value !== this.getValue(name);
+          if (!stale && !invalid) {
             debug('FINISH', uuid);
             this.validated(name, err.message);
           } else {
-            debug('STALE CATCH', uuid);
+            debug(
+              `${stale ? 'STALE' : 'INVALID'} THEN`,
+              uuid,
+              value,
+              this.getValue(name)
+            );
           }
         });
     }

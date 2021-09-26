@@ -26,7 +26,7 @@ import Api from './Form/Api';
 // import YupValidation from './Validation/YupValidation';
 // import FieldLevelYupValidation from './Validation/FieldLevelYupValidation';
 // import ComplexValidation from './Validation/ComplexValidation';
-// import ValidationControl from './Validation/ValidationControl';
+import ValidationControl from './Validation/ValidationControl';
 // import ArrayFieldValidation from './Validation/ArrayFieldValidation';
 // import ComplexArrayFieldValidation from './Validation/ComplexArrayFieldValidation';
 // import Notifications from './Validation/Notifications';
@@ -192,7 +192,7 @@ storiesOf('Arrays', module)
 storiesOf('Validation', module)
   // .add('Simple Validation', SimpleValidation)
   // .add('Complex Validation', ComplexValidation)
-  // .add('Validation Control', ValidationControl)
+  .add('Validation Control', ValidationControl)
   // .add('Form Level Validation', FormLevelValidation)
   // .add('Notifications', Notifications)
   // .add('Array Field Validation', ArrayFieldValidation)

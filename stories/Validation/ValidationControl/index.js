@@ -3,10 +3,27 @@ import Code from '../../utils/Code';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 
-import { Form, Text } from '../../../src';
+import { Form, Input, Debug } from '../../../src';
 
 const validate = value => {
-  if(!value || value.length < 5) return 'Field must be at least five characters';
+  if (!value || value.length < 5)
+    return 'Field must be at least five characters';
+};
+
+const asyncValidate = username => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // Simulate username check
+      if (['joseph', 'tanner', 'billy', 'bobby'].includes(username)) {
+        return resolve('That username is taken');
+      }
+      // Simulate request faulure
+      if (username === 'reject') {
+        return reject(new Error('Unable to validate username.'));
+      }
+      return resolve();
+    }, 2000);
+  });
 };
 
 const ValidationControl = () => (
@@ -15,46 +32,37 @@ const ValidationControl = () => (
       {({ formApi, formState }) => (
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>
-            <label htmlFor="validate-color">Color:</label>
-            <small>Validate on blur</small>
-            <Text
-              field="color"
-              id="validate-color"
-              validateOnBlur
+            <h4>validateOn="blur" ( default )</h4>
+            <Input
+              name="username1"
+              label="Username"
+              required
               validate={validate}
+              asyncValidate={asyncValidate}
             />
-            <label htmlFor="validate-food">Food:</label>
-            <small>Validate on change</small>
-            <Text
-              field="food"
-              id="validate-food"
-              validateOnChange
+            <h4>validateOn="change"</h4>
+            <Input
+              name="username2"
+              label="Username"
+              validateOn="change"
+              required
               validate={validate}
+              asyncValidate={asyncValidate}
             />
-            <label htmlFor="validate-car">Car:</label>
-            <small>Validate on blur and change</small>
-            <Text
-              field="car"
-              id="validate-car"
+            <h4>validateOn="change-blur"</h4>
+            <Input
+              name="username3"
+              label="Username"
               validateOnBlur
-              validateOnChange
+              validateOn="change-blur"
+              required
               validate={validate}
+              asyncValidate={asyncValidate}
             />
             <button type="submit">Submit</button>
           </div>
-          <div style={{ flex: 2, minWidth: '300px' }}>
-            <label>Values:</label>
-            <Code language="language-js">
-              {JSON.stringify(formState.values, null, 2)}
-            </Code>
-            <label>Errors:</label>
-            <Code language="language-js">
-              {JSON.stringify(formState.errors, null, 2)}
-            </Code>
-            <label>Invalid:</label>
-            <Code language="language-js">
-              {JSON.stringify(formState.invalid, null, 2)}
-            </Code>
+          <div style={{ flex: 2, minWidth: '300px', marginLeft: '3rem' }}>
+            <Debug values errors invalid />
           </div>
         </div>
       )}

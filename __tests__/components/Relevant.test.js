@@ -26,7 +26,7 @@ describe('Relevant', () => {
         </Relevant>
         <Input
           label="Favorite Food"
-          name={`${name}.food`}
+          name="food"
           relevant={({ formState }) => formState.values.showInfo}
         />
       </Form>

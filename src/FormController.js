@@ -350,6 +350,7 @@ export class FormController {
     const valid = this.getValid(name);
     const touched = !!this.getTouched(name);
     const dirty = !pristine;
+    const validating = !!this.validationRequests.get(name);
 
     let showError = false;
     if (meta && meta.showErrorIfError) {
@@ -360,6 +361,9 @@ export class FormController {
       showError = error !== undefined && touched;
     }
 
+    // $relevant
+    // $focused
+
     return {
       value: this.getValue(name),
       maskedValue: this.getMaskedValue(name),
@@ -369,7 +373,8 @@ export class FormController {
       dirty,
       valid,
       invalid: !valid,
-      showError
+      showError,
+      validating
     };
   }
 
@@ -487,6 +492,9 @@ export class FormController {
     this.state.valid = ObjectMap.empty(this.state.errors);
     this.state.invalid = !this.state.valid;
 
+    // Clear out validating
+    this.validationRequests.delete(name);
+
     // If we are not still validating, and we were submitting, then submit form
     // If we are async validating then dont submit yet
     if (this.state.validating > 0) {
@@ -529,6 +537,10 @@ export class FormController {
       const uuid = uuidv4();
       debug('REQUEST', uuid);
       this.validationRequests.set(name, { uuid, value });
+
+      // Because we may have been debounced need to update field here
+      this.emit('field', name);
+
       meta
         .asyncValidate(value, this.state.values)
         .then(res => {

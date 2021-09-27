@@ -63,6 +63,8 @@ const ExampleForm = () => {
         asyncValidate={asyncValidate}
       />
       <button type="submit">Submit</button>
+      <Debug />
+      <DebugField name="username" />
     </Form>
   );
 };

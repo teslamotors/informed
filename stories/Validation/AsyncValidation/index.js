@@ -4,7 +4,7 @@ import withDocs from '../../utils/withDocs';
 import Modal from '../../utils/Modal';
 import readme from './README.md';
 
-import { Form, Input, Debug } from '../../../src';
+import { Form, Input, Debug, DebugField } from '../../../src';
 
 const validate = username => {
   return !username || username.trim() === ''
@@ -33,19 +33,24 @@ const AsyncValidation = () => {
     <div>
       <Form onSubmit={values => console.log('Submitted', values)}>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          <div style={{ flex: 1, marginRight: '2rem' }}>
+          <div style={{ flex: 2, marginRight: '2rem' }}>
             <Input
               name="username"
               label="Username"
               autocomplete="off"
-              // validateOn="change"
+              validateOn="change"
               validate={validate}
               asyncValidate={asyncValidate}
             />
             <button type="submit">Submit</button>
           </div>
-          <div style={{ flex: 2, minWidth: '300px', marginLeft: '3rem' }}>
+          <div style={{ flex: 2, minWidth: '150px', marginLeft: '3rem' }}>
+            <h5>Form State:</h5>
             <Debug />
+          </div>
+          <div style={{ flex: 2, minWidth: '150px', marginLeft: '3rem' }}>
+            <h5>Field State:</h5>
+            <DebugField name="username" />
           </div>
         </div>
       </Form>

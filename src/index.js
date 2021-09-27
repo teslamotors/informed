@@ -1,5 +1,6 @@
 import { ArrayField } from './Components/ArrayField';
 import { Debug } from './Components/Debug';
+import { DebugField } from './Components/DebugField';
 import { Relevant } from './Components/Relevant';
 import { Scope } from './Components/Scope';
 import { Form } from './Components/Form';
@@ -35,6 +36,7 @@ export {
   ArrayField,
   useArrayField,
   Debug,
+  DebugField,
   Relevant,
   Form,
   Input,

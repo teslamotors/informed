@@ -69,6 +69,7 @@ describe('useFieldState', () => {
       valid: true, 
       invalid: false,
       showError: false,
+      validating: false,
     }));
     expect(states[1].textContent).toBe(getState({
       touched: false,
@@ -77,6 +78,7 @@ describe('useFieldState', () => {
       valid: true, 
       invalid: false,
       showError: false,
+      validating: false,
     }));
 
     userEvent.type(first, 'oe');
@@ -92,6 +94,7 @@ describe('useFieldState', () => {
       valid: true, 
       invalid: false,
       showError: false,
+      validating: false,
     }));
     expect(states[1].textContent).toBe(getState({
       touched: false,
@@ -100,6 +103,7 @@ describe('useFieldState', () => {
       valid: true, 
       invalid: false,
       showError: false,
+      validating: false,
     }));
 
     // NOTE: when user starts typing in this field it will blur first field and cause a re-render!
@@ -116,6 +120,7 @@ describe('useFieldState', () => {
       valid: true, 
       invalid: false,
       showError: false,
+      validating: false,
     }));
     expect(states[1].textContent).toBe(getState({
       value: 'Puzz',
@@ -126,6 +131,7 @@ describe('useFieldState', () => {
       valid: true, 
       invalid: false,
       showError: false,
+      validating: false,
     }));
 
   });
@@ -158,6 +164,7 @@ describe('useFieldState', () => {
       valid: true, 
       invalid: false,
       showError: false,
+      validating: false,
     }));
     expect(states[1].textContent).toBe(getState({
       value: 'Puzzo',
@@ -168,6 +175,7 @@ describe('useFieldState', () => {
       valid: true, 
       invalid: false,
       showError: false,
+      validating: false,
     }));
 
   });
@@ -205,6 +213,7 @@ describe('useFieldState', () => {
       valid: true, 
       invalid: false,
       showError: false,
+      validating: false,
     }));
     expect(states[1].textContent).toBe(getState({
       value: 'Puzzo',
@@ -215,6 +224,7 @@ describe('useFieldState', () => {
       valid: true, 
       invalid: false,
       showError: false,
+      validating: false,
     }));
 
   });
@@ -255,6 +265,7 @@ describe('useFieldState', () => {
       valid: true, 
       invalid: false,
       showError: false,
+      validating: false,
     }));
     expect(states[1].textContent).toBe(getState({
       touched: false,
@@ -263,6 +274,7 @@ describe('useFieldState', () => {
       valid: true, 
       invalid: false,
       showError: false,
+      validating: false,
     }));
 
     fireEvent.click(submit);
@@ -282,6 +294,7 @@ describe('useFieldState', () => {
       valid: false, 
       invalid: true,
       showError: true,
+      validating: false,
     }));
 
     expect(states[1].textContent).toBe(getState({
@@ -292,6 +305,7 @@ describe('useFieldState', () => {
       valid: false, 
       invalid: true,
       showError: true,
+      validating: false,
     }));
 
     userEvent.type(last, 'P');
@@ -310,6 +324,7 @@ describe('useFieldState', () => {
       valid: false, 
       invalid: true,
       showError: true,
+      validating: false,
     }));
 
     expect(states[1].textContent).toBe(getState({
@@ -322,6 +337,7 @@ describe('useFieldState', () => {
       valid: false, 
       invalid: true,
       showError: true,
+      validating: false,
     }));
 
     fireEvent.click(submit);
@@ -340,6 +356,7 @@ describe('useFieldState', () => {
       valid: false, 
       invalid: true,
       showError: true,
+      validating: false,
     }));
 
     expect(states[1].textContent).toBe(getState({
@@ -352,6 +369,7 @@ describe('useFieldState', () => {
       valid: false, 
       invalid: true,
       showError: true,
+      validating: false,
     }));
 
   });
@@ -392,6 +410,7 @@ describe('useFieldState', () => {
       valid: true, 
       invalid: false,
       showError: false,
+      validating: false,
     }));
     expect(states[1].textContent).toBe(getState({
       touched: false,
@@ -400,6 +419,7 @@ describe('useFieldState', () => {
       valid: true, 
       invalid: false,
       showError: false,
+      validating: false,
     }));
 
     fireEvent.click(submit);
@@ -419,6 +439,7 @@ describe('useFieldState', () => {
       valid: false, 
       invalid: true,
       showError: true,
+      validating: false,
     }));
 
     expect(states[1].textContent).toBe(getState({
@@ -429,6 +450,7 @@ describe('useFieldState', () => {
       valid: false, 
       invalid: true,
       showError: true,
+      validating: false,
     }));
 
     userEvent.type(last, 'P');
@@ -447,6 +469,7 @@ describe('useFieldState', () => {
       valid: false, 
       invalid: true,
       showError: true,
+      validating: false,
     }));
 
     expect(states[1].textContent).toBe(getState({
@@ -459,6 +482,7 @@ describe('useFieldState', () => {
       valid: false, 
       invalid: true,
       showError: true,
+      validating: false,
     }));
 
   });

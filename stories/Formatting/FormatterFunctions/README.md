@@ -5,22 +5,20 @@ You can achive highly custom fomatting by passing a function to each location in
 <!-- STORY -->
 
 ```jsx
-import { Form, Text } from 'informed';
+import { Form, Input } from 'informed';
 
 const mask = value => value.toUpperCase();
 
 const formatter = [mask, mask, '-', mask, mask, '-', mask, mask, mask, mask];
 
 <Form>
-  <label>
-    Phone Number:
-    <Text
-      field="phone"
-      formatter={formatter}
-      maintainCursor
-      initialValue="abcdefg"
-    />
-  </label>
+  <Input
+    field="uppercase"
+    label="Uppercase"
+    formatter={formatter}
+    initialValue="abcdefg"
+  />
   <button type="submit">Submit</button>
+  <Debug values maskedValues />
 </Form>;
 ```

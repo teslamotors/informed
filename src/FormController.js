@@ -114,6 +114,7 @@ export class FormController {
     this.deregister = this.deregister.bind(this);
     this.getInitialValue = this.getInitialValue.bind(this);
     this.initialize = this.initialize.bind(this);
+    this.reformat = this.reformat.bind(this);
     this.lockRemoval = this.lockRemoval.bind(this);
     this.unlockRemoval = this.unlockRemoval.bind(this);
     this.resetField = this.resetField.bind(this);
@@ -611,6 +612,34 @@ export class FormController {
 
     debug(`Resetting ${name}'s maskedValue to ${initialMask}`);
     ObjectMap.set(this.state.maskedValues, name, initialMask);
+
+    this.emit('field', name);
+  }
+
+  reformat(name) {
+    debug('Reformatting', name);
+    // Get meta for field
+    const meta = this.fieldsMap.get(name)?.current;
+
+    // Get current value
+    const currentValue = ObjectMap.get(this.state.values, name);
+
+    const { formatter, parser, initialize } = meta;
+
+    const newValue = initializeValue(currentValue, {
+      formatter,
+      parser,
+      initialize
+    });
+    const newMaskedValue = initializeMask(currentValue, {
+      formatter
+    });
+
+    debug(`Reformatting ${name}'s value to ${newValue}`);
+    ObjectMap.set(this.state.values, name, newValue);
+
+    debug(`Reformatting ${name}'s maskedValue to ${newMaskedValue}`);
+    ObjectMap.set(this.state.maskedValues, name, newMaskedValue);
 
     this.emit('field', name);
   }

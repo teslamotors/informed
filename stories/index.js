@@ -17,12 +17,12 @@ import Dynamic from './Form/Dynamic';
 import Complex from './Form/Complex';
 import Big from './Form/Big';
 import State from './Form/State';
-// import FormState from './Debugging/FormState';
+import Debug from './Debugging/Debug';
 import Props from './Form/Props';
 import Api from './Form/Api';
 // import BasicMultistep from './Multistep/Basic';
 // import ComplexMultistep from './Multistep/Complex';
-// import SimpleValidation from './Validation/SimpleValidation';
+import SimpleValidation from './Validation/SimpleValidation';
 // import YupValidation from './Validation/YupValidation';
 // import FieldLevelYupValidation from './Validation/FieldLevelYupValidation';
 // import ComplexValidation from './Validation/ComplexValidation';
@@ -40,9 +40,9 @@ import AsyncValidation from './Validation/AsyncValidation';
 // import RickRoll from './Playground/RickRoll';
 
 // import FormatParse from './Formatting/FormatParse';
-// import Formatter from './Formatting/Formatter';
+import Formatter from './Formatting/Formatter';
 // import Mask from './Formatting/Mask';
-// import FormatterFunctions from './Formatting/FormatterFunctions';
+import FormatterFunctions from './Formatting/FormatterFunctions';
 // // import MaskWithCursor from './Formatting/MaskWithCursor';
 // import MaskWithCursorOffset from './Formatting/MaskWithCursorOffset';
 // import UnnecessaryRendering from './Gotchas/UnnecessaryRendering';
@@ -92,7 +92,7 @@ import {
 // import FormatDependent from './Form/FormatDependent';
 // import FormattedObjectInput from './CustomInputs/FormattedObjectInput';
 // import ObjectInput from './CustomInputs/ObjectInput';
-// import NumberFormatter from './Formatting/NumberFormatter';
+import NumberFormatter from './Formatting/NumberFormatter';
 
 addDecorator(StoryWrapper);
 
@@ -190,7 +190,7 @@ storiesOf('Arrays', module)
 // .add('Alternate Syntax', AlternateSyntax);
 
 storiesOf('Validation', module)
-  // .add('Simple Validation', SimpleValidation)
+  .add('Simple Validation', SimpleValidation)
   // .add('Complex Validation', ComplexValidation)
   .add('Validation Control', ValidationControl)
   // .add('Form Level Validation', FormLevelValidation)
@@ -215,13 +215,13 @@ storiesOf('Validation', module)
 //   .add('Relevant ArrayField Schema', ArrayFieldSchemaRelevant);
 // // .add('Huge Schema', HugeSchema);
 
-// storiesOf('Debugging', module).add('Form State', FormState);
+storiesOf('Debugging', module).add('Debug', Debug);
 
-// storiesOf('Formatting', module)
-//   .add('Mask', Mask)
-//   .add('Formatter', Formatter)
-//   .add('Number Formatter', NumberFormatter)
-//   .add('Formatter Functions', FormatterFunctions);
+storiesOf('Formatting', module)
+  //   .add('Mask', Mask)
+  .add('Formatter', Formatter)
+  .add('Number Formatter', NumberFormatter)
+  .add('Formatter Functions', FormatterFunctions);
 // // .add('Mask With Cursor', MaskWithCursor)
 // // .add('Mask With Cursor Offset', MaskWithCursorOffset)
 // // .add('Format and Parse', FormatParse);

@@ -28,9 +28,9 @@ const validate = value => {
 }
 
 <Form>
-  <label>Color:<Text field="color" validate={validate}/></label>
-  <label>Food:<Text field="food" validate={validate}/></label>
-  <label>Car:<Text field="car" validate={validate}/></label>
+  <Input name="color" label="Color:" validate={validate} />
+  <Input name="food" label="Food:" validate={validate} />
+  <Input name="car" label="Car:" validate={validate} />
   <button type="submit">Submit</button>
 </Form>
 ```

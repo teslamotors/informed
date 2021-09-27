@@ -29,7 +29,7 @@ const FormState = () => {
 const Example = () => {
   return (
     <Form>
-      <Input field="name" label="First Name" />
+      <Input name="name" label="First Name" />
       <button type="submit">Submit</button>
       <Debug />
     </Form>
@@ -45,7 +45,7 @@ Don't fret! This is also very simple. You have two options:
 
 ```jsx
 <Form onChange={formState => console.log(formState)}>
-  <Text field="hello" />
+  <Input name="hello" />
   <button type="submit">Submit</button>
 </Form>
 ```
@@ -55,7 +55,7 @@ Don't fret! This is also very simple. You have two options:
 
 ```jsx
 import React, { useRef } from 'react';
-import { Form, Text } from 'informed';
+import { Form, Input } from 'informed';
 
 const MyAwesomeForm = () => {
   const apiRef = useRef();
@@ -67,7 +67,7 @@ const MyAwesomeForm = () => {
   return (
     <div>
       <Form apiRef={apiRef}>
-        <Text field="hello" />
+        <Input name="hello" />
         <button type="submit">Submit</button>
       </Form>
       <button onClick={handleClick}>Print Form State</button>

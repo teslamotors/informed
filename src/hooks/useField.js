@@ -49,7 +49,7 @@ export const useField = ({
   showErrorIfDirty: userShowErrorIfDirty,
   formatter,
   parser,
-  maintainCursor,
+  maintainCursor: userMaintainCursor,
   required,
   validateOnMount: userValidateOnMount,
   validateOn: userValidateOn,
@@ -65,6 +65,9 @@ export const useField = ({
   if (!name) {
     console.warn('name is a required prop!!!!');
   }
+
+  // Default to maintain cursor whenever formatter is passed
+  const maintainCursor = userMaintainCursor ?? !!formatter;
 
   // Grab the form controller
   const formController = useFormController();
@@ -213,10 +216,7 @@ export const useField = ({
 
   useUpdateEffect(
     () => {
-      formController.setValue(
-        metaRef.current.name,
-        formController.getValue(metaRef.current.name)
-      );
+      formController.reformat(metaRef.current.name);
     },
     [...formatterDependencies]
   );

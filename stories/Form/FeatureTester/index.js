@@ -124,6 +124,7 @@ const FeatureTester = () => {
       <Form
         onSubmit={onSubmit}
         // onChange={onChange}
+        autocomplete="off"
         onReset={onReset}
         onSubmitFailure={onSubmitFailure}
         initialValues={initialValues}

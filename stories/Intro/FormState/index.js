@@ -16,7 +16,7 @@ const FormState = () => {
 const Example = () => {
   return (
     <Form>
-      <Input field="name" label="First Name" />
+      <Input name="name" label="First Name" />
       <button type="submit">Submit</button>
       <Debug />
     </Form>

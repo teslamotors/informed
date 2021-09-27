@@ -6,13 +6,10 @@ This can easily be achived by rendering a Debug component within the `<Form>`
 <!-- STORY -->
 
 ```jsx
-import { Form, Text, Debug } from 'informed';
+import { Form, Input, Debug } from 'informed';
 
 <Form>
-  <label>
-    First name:
-    <Text field="name" />
-  </label>
+  <Input name="name" label="Name:" />
   <button type="submit">Submit</button>
   <Debug />
 </Form>;

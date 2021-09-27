@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 
-import { Form, Select, Text, utils, useFieldState, Debug } from '../../../src';
+import { Form, Select, Input, utils, useFieldState, Debug } from '../../../src';
 
 const localeOptions = [
   { value: 'af-NA', label: 'Afrikaans (Namibia)' },
@@ -1090,7 +1090,7 @@ const FormattedField = () => {
   );
 
   return (
-    <Text
+    <Input
       field="localeMask"
       label="Locale Masked Field (EUR currency)"
       formatter={formatter}

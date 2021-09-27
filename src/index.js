@@ -1,6 +1,7 @@
 import { ArrayField } from './Components/ArrayField';
 import { Debug } from './Components/Debug';
 import { Relevant } from './Components/Relevant';
+import { Scope } from './Components/Scope';
 import { Form } from './Components/Form';
 import { Input } from './Components/form-fields/Input';
 import { Checkbox } from './Components/form-fields/Checkbox';
@@ -44,5 +45,6 @@ export {
   Radio,
   TextArea,
   utils,
-  FormState
+  FormState,
+  Scope
 };

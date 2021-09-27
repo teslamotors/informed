@@ -35,7 +35,7 @@ const AsyncValidation = () => {
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>
             <Input
-              field="username"
+              name="username"
               label="Username"
               autocomplete="off"
               // validateOn="change"

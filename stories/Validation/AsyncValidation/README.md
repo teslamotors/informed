@@ -1,12 +1,10 @@
 # Async Validation
 
-** Note: This is in beta and is subject to change! **
-
 Async validation can be achieved by passing an asyncValidation function to the input.
 Below is an example form that has validation functions. The synchronous function defined
 will return an error when the input is empty, and nothing otherwise. The second asynchronous
 function defined will, after two seconds, resolve an error or nothing depending on what is typed.
-We pass these validation functions to the username input and validation will **occur on submission**.
+We pass these validation functions to the username input and validation will **occur on blur by default**.
 
 **Try clicking the submit button WITH AN EMPTY FIELD! and see what happens:**
 
@@ -32,7 +30,7 @@ The form did NOT submit!! Why? Because asynchronous validation failed.
 The form did not submit because the "apicall" to validate failed.
 
 ```jsx
-import { Form, Text } from 'informed';
+import { Form, Input } from 'informed';
 
 const validate = username =>
   !username || username.trim() === ''
@@ -58,8 +56,8 @@ const asyncValidate = username => {
 const ExampleForm = () => {
   return (
     <Form onSubmit={values => console.log(values)}>
-      <Text
-        field="username"
+      <Input
+        name="username"
         label="Username"
         validate={validate}
         asyncValidate={asyncValidate}
@@ -68,26 +66,4 @@ const ExampleForm = () => {
     </Form>
   );
 };
-```
-
-## On Blur
-
-Hey this is cool but i want to validate on blur!
-
-**Well Turns out.. you can!! wooooo!**
-
-```jsx
-//...
-
-<Form id="async-form">
-  <label htmlFor="async-username">Username:</label>
-  <Text
-    field="username"
-    id="async-username"
-    validate={validate}
-    asyncValidate={asyncValidate}
-    asyncValidateOnBlur
-  />
-  <button type="submit">Submit</button>
-</Form>
 ```

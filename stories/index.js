@@ -25,7 +25,7 @@ import Api from './Form/Api';
 import SimpleValidation from './Validation/SimpleValidation';
 // import YupValidation from './Validation/YupValidation';
 // import FieldLevelYupValidation from './Validation/FieldLevelYupValidation';
-// import ComplexValidation from './Validation/ComplexValidation';
+import ComplexValidation from './Validation/ComplexValidation';
 import ValidationControl from './Validation/ValidationControl';
 // import ArrayFieldValidation from './Validation/ArrayFieldValidation';
 // import ComplexArrayFieldValidation from './Validation/ComplexArrayFieldValidation';
@@ -37,7 +37,7 @@ import AsyncValidation from './Validation/AsyncValidation';
 // import AsyncValidationControl from './Validation/AsyncValidationControl';
 // import FormatPlayground from './Playground/Format';
 // import SchemaPlayground from './Playground/Schema';
-// import RickRoll from './Playground/RickRoll';
+import RickRoll from './Playground/RickRoll';
 
 // import FormatParse from './Formatting/FormatParse';
 import Formatter from './Formatting/Formatter';
@@ -191,17 +191,17 @@ storiesOf('Arrays', module)
 
 storiesOf('Validation', module)
   .add('Simple Validation', SimpleValidation)
-  // .add('Complex Validation', ComplexValidation)
-  .add('Validation Control', ValidationControl)
-  // .add('Form Level Validation', FormLevelValidation)
-  // .add('Notifications', Notifications)
-  // .add('Array Field Validation', ArrayFieldValidation)
-  // .add('Complex Array Field Validation', ComplexArrayFieldValidation)
-  // .add('Yup Validation', YupValidation)
-  // .add('Field Level + Yup Validation', FieldLevelYupValidation)
-  // .add('JSON Schema Validation + Rendering', AjvValidation)
-  // .add('Only JSON Schema Validation', AjvValidationNoRender)
-  .add('Async Validation', AsyncValidation);
+  .add('Async Validation', AsyncValidation)
+  .add('Complex Validation', ComplexValidation)
+  .add('Validation Control', ValidationControl);
+// .add('Form Level Validation', FormLevelValidation)
+// .add('Notifications', Notifications)
+// .add('Array Field Validation', ArrayFieldValidation)
+// .add('Complex Array Field Validation', ComplexArrayFieldValidation)
+// .add('Yup Validation', YupValidation)
+// .add('Field Level + Yup Validation', FieldLevelYupValidation)
+// .add('JSON Schema Validation + Rendering', AjvValidation)
+// .add('Only JSON Schema Validation', AjvValidationNoRender)
 // .add('Async Validation Control', AsyncValidationControl);
 
 // storiesOf('Schema', module)
@@ -235,12 +235,6 @@ storiesOf('Formatting', module)
 //   .add('useForm', UseForm)
 //   .add('useField', UseField);
 
-// storiesOf('High Order Components', module)
-//   .add('withFormApi', WithFormApi)
-//   .add('withFormState', WithFormState)
-//   .add('withFieldApi', WithFieldApi)
-//   .add('withFieldState', WithFieldState);
-
 // storiesOf('Multistep Forms', module).add('Dynamic Multistep', ComplexMultistep);
 
 // storiesOf('Gotchas', module)
@@ -256,4 +250,4 @@ storiesOf('Formatting', module)
 //   .add('Format Example', FormatPlayground)
 //   .add('Schema Example', SchemaPlayground);
 
-// storiesOf('Cool Examples', module).add('Cool Example', RickRoll);
+storiesOf('Cool Examples', module).add('Cool Example', RickRoll);

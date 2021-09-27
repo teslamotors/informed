@@ -4,7 +4,7 @@ import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 import Modal from '../../utils/Modal';
 
-import { Form, Text, Scope } from '../../../src';
+import { Form, Input, Scope, Debug } from '../../../src';
 
 const basicValidation = value => {
   return !value || value.length < 5
@@ -28,69 +28,48 @@ class ComplexValidation extends React.Component {
   render() {
     return (
       <div>
-        <Form onSubmit={() => this.modal.open()} id="complex-validation-form">
-          {({ formApi, formState }) => (
-            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-              <div style={{ flex: 1, marginRight: '2rem' }}>
-                <label htmlFor="complex-name">First name:</label>
-                <Text
-                  field="name"
-                  id="complex-name"
+        <Form
+          onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            <div style={{ flex: 1, marginRight: '2rem' }}>
+              <Input
+                name="name"
+                label="First name:"
+                validate={basicValidation}
+              />
+              <Scope scope="favorite">
+                <Input
+                  name="color"
+                  label="Favorite color:"
                   validate={basicValidation}
                 />
-                <Scope scope="favorite">
-                  <label htmlFor="complex-color">Favorite color:</label>
-                  <Text
-                    field="color"
-                    id="complex-color"
-                    validate={basicValidation}
-                  />
-                  <label htmlFor="complex-food">Favorite food:</label>
-                  <Text
-                    field="food"
-                    id="complex-food"
-                    validate={basicValidation}
-                  />
-                </Scope>
-                <label htmlFor="complex-friend-0">Friend 1:</label>
-                <Text
-                  field="friends[0]"
-                  id="complex-friend-0"
-                  validate={friendValidation}
+                <Input
+                  name="food"
+                  label="Favorite food:"
+                  validate={basicValidation}
                 />
-                <label htmlFor="complex-friend-1">Friend 2:</label>
-                <Text
-                  field="friends[1]"
-                  id="complex-friend-1"
-                  validate={friendValidation}
-                />
-                <label htmlFor="complex-friend-2">Friend 3:</label>
-                <Text
-                  field="friends[2]"
-                  id="complex-friend-2"
-                  validate={friendValidation}
-                />
-                <button type="submit">Submit</button>
-              </div>
-              <div style={{ flex: 2, minWidth: '300px' }}>
-                <label>Values:</label>
-                <Code language="language-js">
-                  {JSON.stringify(formState.values, null, 2)}
-                </Code>
-                <label>Errors:</label>
-                <Code language="language-js">
-                  {JSON.stringify(formState.errors, null, 2)}
-                </Code>
-                <label>Invalid:</label>
-                <Code language="language-js">
-                  {JSON.stringify(formState.invalid, null, 2)}
-                </Code>
-              </div>
-              <Modal getControl={model => (this.modal = model)}>
-                <strong>Form Successfully Submitted!</strong>
-              </Modal>
+              </Scope>
+              <Input
+                name="friends[0]"
+                label="Friend 1:"
+                validate={friendValidation}
+              />
+              <Input
+                name="friends[1]"
+                label="Friend 2:"
+                validate={friendValidation}
+              />
+              <Input
+                name="friends[2]"
+                label="Friend 3:"
+                validate={friendValidation}
+              />
+              <button type="submit">Submit</button>
             </div>
-          )}
+            <div style={{ flex: 2, minWidth: '300px', marginLeft: '3rem' }}>
+              <Debug values errors invalid valid />
+            </div>
+          </div>
         </Form>
       </div>
     );

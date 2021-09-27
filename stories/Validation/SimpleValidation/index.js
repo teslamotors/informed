@@ -15,7 +15,8 @@ class SimpleValidation extends Component {
   render() {
     return (
       <div>
-        <Form onSubmit={() => this.modal.open()} id="validate-form">
+        <Form
+          onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             <div style={{ flex: 1, marginRight: '2rem' }}>
               <Input name="color" label="Color:" validate={validate} />
@@ -26,9 +27,6 @@ class SimpleValidation extends Component {
             <div style={{ flex: 2, minWidth: '300px', marginLeft: '3rem' }}>
               <Debug values errors invalid valid />
             </div>
-            <Modal getControl={model => (this.modal = model)}>
-              <strong>Form Successfully Submitted!</strong>
-            </Modal>
           </div>
         </Form>
       </div>

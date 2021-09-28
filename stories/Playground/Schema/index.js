@@ -27,7 +27,7 @@ const schema = {
       type: 'string',
       title: 'First Name',
       'ui:control': 'input',
-      'input:props': {
+      'ui:props': {
         placeholder: 'Elon'
       }
     },
@@ -39,7 +39,7 @@ const schema = {
         {
           const: '',
           title: '- Select -',
-          'input:props': {
+          'ui:props': {
             disabled: true
           }
         },
@@ -59,7 +59,7 @@ const schema = {
         { const: 'my', title: 'Model Y' }
       ],
       default: null,
-      'informed:props': {
+      'ui:props': {
         initialValue: 'm3'
       }
     },

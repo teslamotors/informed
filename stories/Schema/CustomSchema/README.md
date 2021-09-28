@@ -169,7 +169,7 @@ const schema = {
         { const: 'mx', title: 'Model X' },
         { const: 'my', title: 'Model Y' }
       ],
-      'informed:props': {
+      'ui:props': {
         initialValue: 'm3'
       }
     },
@@ -178,7 +178,7 @@ const schema = {
       minItems: 2,
       'ui:control': 'array',
       'ui:before': [{ 'ui:control': 'add' }],
-      'informed:props': {
+      'ui:props': {
         initialValue
       },
       items: {
@@ -196,7 +196,7 @@ const schema = {
             title: 'Sibling age',
             minimum: 0,
             'ui:control': 'input',
-            'input:props': {
+            'ui:props': {
               type: 'number'
             }
           }

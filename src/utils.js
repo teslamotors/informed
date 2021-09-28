@@ -586,8 +586,7 @@ export const getSchemaPathFromJsonPath = jsonPath => {
 export const computeFieldFromProperty = (propertyName, property, prefix) => {
   const {
     'ui:control': uiControl,
-    'informed:props': informedProps,
-    'input:props': inputProps,
+    'ui:props': inputProps,
     'ui:before': uiBefore,
     'ui:after': uiAfter,
     oneOf,
@@ -617,6 +616,7 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
     uiAfter,
     properties: type === 'object' ? subProperties : undefined,
     items: type === 'array' ? items : undefined,
+    propertyName,
     props: {
       label: label,
       id,
@@ -625,14 +625,15 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
       minLength,
       maxLength,
       pattern,
-      ...informedProps,
       ...inputProps
     }
   };
 
+  // console.log('NAME', propertyName, inputProps);
+
   if (oneOf) {
     const options = property.oneOf.map(option => {
-      const { 'input:props': inputProps = {} } = option;
+      const { 'ui:props': inputProps = {} } = option;
       return {
         value: option.const,
         label: option.title,
@@ -654,7 +655,7 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
 
   if (items && items.oneOf) {
     const options = items.oneOf.map(option => {
-      const { 'input:props': inputProps = {} } = option;
+      const { 'ui:props': inputProps = {} } = option;
       return {
         value: option.const,
         label: option.title,
@@ -697,10 +698,75 @@ export const computeFieldsFromSchema = (schema, onlyValidateSchema, prefix) => {
 
     // Check for all of ( we have conditionals )
     if (allOf) {
+      // We have two cases
+
+      // Case #1 - Conditional Fields
+      // {
+      //   if: {
+      //     properties: {
+      //       married: { const: 'yes' }
+      //     },
+      //     required: ['married']
+      //   },
+      //   then: {
+      //     properties: {
+      //       spouse: {
+      //         type: 'string',
+      //         title: 'Spouse name',
+      //         'ui:control': 'input'
+      //       }
+      //     }
+      //   }
+      // }
+
+      // Case #2 - Conditional Properties
+      // {
+      //   if: { properties: { type: { const: 'car' } }, required: ['type'] },
+      //   then: {
+      //     properties: {
+      //       product: {
+      //         oneOf: [
+      //           { const: '', title: '- Select -' },
+      //           { const: 'modelS', title: 'Model S' },
+      //           { const: 'modelX', title: 'Model X' },
+      //           { const: 'model3', title: 'Model 3' }
+      //         ]
+      //       }
+      //     }
+      //   }
+      // },
+
+      // Go through all of and mark the property as "relevant" or "merge"
+      const markedAllOf = allOf.map(cond => {
+        // Go through each property in the then block and mark
+        const markedCond = { ...cond };
+        const relevantProperties = {};
+        const mergeProperties = {};
+        Object.keys(markedCond.then.properties).forEach(propertyName => {
+          const prop = markedCond.then.properties[propertyName];
+          // Check to see if the key
+          // Example key="spouse"
+          // Is already in the fields list
+          // If it is NOT, then this is a relevant field
+          if (!fields.find(f => f.propertyName === propertyName)) {
+            relevantProperties[propertyName] = prop;
+          } else {
+            mergeProperties[propertyName] = prop;
+          }
+        });
+
+        // Set marked properties on the then
+        markedCond.then.relevantProperties = relevantProperties;
+        markedCond.then.mergeProperties = mergeProperties;
+
+        // Return the marked condition
+        return markedCond;
+      });
+
       fields.push({
         componentType: 'conditionals',
         // Each element of the "allOf" array is a conditional
-        allOf: allOf
+        allOf: markedAllOf
       });
     }
 

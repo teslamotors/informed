@@ -30,7 +30,7 @@ const schema = {
       minItems: 2,
       'ui:control': 'array',
       'ui:before': [{ 'ui:control': 'add' }],
-      'informed:props': {
+      'ui:props': {
         initialValue
       },
       items: {
@@ -48,7 +48,7 @@ const schema = {
             title: 'Sibling age',
             minimum: 0,
             'ui:control': 'input',
-            'input:props': {
+            'ui:props': {
               type: 'number'
             }
           },
@@ -57,7 +57,7 @@ const schema = {
             title: 'Are you married?',
             enum: ['yes', 'no'],
             'ui:control': 'radio'
-            // 'informed:props': {
+            // 'ui:props': {
             //   notify: ['spouse']
             // }
           },
@@ -65,7 +65,7 @@ const schema = {
             type: 'string',
             title: 'Spouse name',
             'ui:control': 'input',
-            'informed:props': {
+            'ui:props': {
               relevant: ({ scope, formApi }) => {
                 const married = formApi.getValue(`${scope}.married`);
                 return married === 'yes';

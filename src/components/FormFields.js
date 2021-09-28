@@ -85,7 +85,9 @@ const FormFields = ({ schema, prefix, onlyValidateSchema }) => {
 
         // For conditionals
         if (componentType === 'conditionals') {
-          return allOf.map(conditional => {
+          console.log('ALL OF ', allOf);
+
+          return allOf.map((conditional, j) => {
             // Example then ( its a subschema )
             // then: {
             //   properties: {
@@ -96,7 +98,9 @@ const FormFields = ({ schema, prefix, onlyValidateSchema }) => {
             //     }
             //   }
             // }
-            const subSchema = conditional.then;
+            const subSchema = {
+              properties: conditional.then.relevantProperties
+            };
 
             // Turn the if into a when function for informed
             // Example if condition
@@ -117,8 +121,9 @@ const FormFields = ({ schema, prefix, onlyValidateSchema }) => {
             };
 
             return (
-              <Relevant key={`ScheamField-${i}`} when={when}>
+              <Relevant key={`Conditional-ScheamField-${j}`} when={when}>
                 <FormFields schema={subSchema} />
+                {/* <MergeProperties /> */}
               </Relevant>
             );
           });

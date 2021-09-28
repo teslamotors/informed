@@ -33,7 +33,7 @@ const schema = {
       minItems: 2,
       'ui:control': 'array',
       'ui:before': [{ 'ui:control': 'add' }],
-      'informed:props': {
+      'ui:props': {
         initialValue,
         relevant: values => {
           const { name } = values;
@@ -51,7 +51,7 @@ const schema = {
             type: 'string',
             title: 'Sibling name',
             'ui:control': 'input',
-            'informed:props': {
+            'ui:props': {
               keepState: true
             }
           },
@@ -60,10 +60,10 @@ const schema = {
             title: 'Sibling age',
             minimum: 0,
             'ui:control': 'input',
-            'input:props': {
+            'ui:props': {
               type: 'number'
             },
-            'informed:props': {
+            'ui:props': {
               keepState: true
             }
           },
@@ -72,7 +72,7 @@ const schema = {
             title: 'Are you married?',
             enum: ['yes', 'no'],
             'ui:control': 'radio',
-            'informed:props': {
+            'ui:props': {
               keepState: true
             }
           },
@@ -80,7 +80,7 @@ const schema = {
             type: 'string',
             title: 'Spouse name',
             'ui:control': 'input',
-            'informed:props': {
+            'ui:props': {
               relevant: (values, { parentPath, get }) => {
                 const married = get(values, `${parentPath}.married`);
                 return married === 'yes';

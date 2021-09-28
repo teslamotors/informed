@@ -43,7 +43,7 @@ const schema = {
       minItems: 2,
       'ui:control': 'array',
       'ui:before': [{ 'ui:control': 'add' }],
-      'informed:props': {
+      'ui:props': {
         initialValue
       },
       items: {
@@ -66,7 +66,7 @@ const schema = {
             type: 'string',
             title: 'Spouse name',
             'ui:control': 'input',
-            'informed:props': {
+            'ui:props': {
               relevant: (values, { parentPath, get }) => {
                 const married = get(values, `${parentPath}.married`);
                 return married === 'yes';
@@ -98,7 +98,7 @@ const schema = {
                   type: 'string',
                   title: 'Spouse',
                   'ui:control': 'input',
-                  'informed:props': {
+                  'ui:props': {
                     relevant: (values, { parentPath, get }) => {
                       const married = get(values, `${parentPath}.married`);
                       return married === 'yes';

@@ -29,7 +29,7 @@ const schema = {
           type: 'number',
           title: 'Brother age',
           'ui:control': 'input',
-          'input:props': {
+          'ui:props': {
             type: 'number'
           }
         }

@@ -30,7 +30,7 @@ const schema = {
       title: 'Age',
       minimum: 0,
       'ui:control': 'input',
-      'input:props': {
+      'ui:props': {
         type: 'number'
       }
     },
@@ -53,7 +53,7 @@ const schema = {
         {
           const: '',
           title: '- Select -',
-          'input:props': {
+          'ui:props': {
             disabled: true
           }
         },
@@ -72,7 +72,7 @@ const schema = {
         { const: 'mx', title: 'Model X' },
         { const: 'my', title: 'Model Y' }
       ],
-      'informed:props': {
+      'ui:props': {
         initialValue: 'm3'
       }
     },
@@ -81,7 +81,7 @@ const schema = {
       title: 'Cars',
       minItems: 3,
       'ui:control': 'select',
-      'input:props': {
+      'ui:props': {
         multiple: true,
         style: { height: '100px', width: '200px' }
       },
@@ -93,7 +93,7 @@ const schema = {
           { const: 'jeep', title: 'Jeep' }
         ]
       },
-      'informed:props': {
+      'ui:props': {
         initialValue: ['jeep', 'tesla']
       }
     }

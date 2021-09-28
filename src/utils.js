@@ -217,7 +217,7 @@ export const validateRequired = (value, required) => {
 
 export const generateValidationFunction = (
   validationFunc,
-  validationSchema,
+  yupSchema,
   { required }
 ) => (val, values) => {
   let error;
@@ -226,8 +226,8 @@ export const generateValidationFunction = (
     error = validateRequired(val, required);
     if (error !== undefined) return error;
   }
-  if (validationSchema) {
-    error = validateYupField(validationSchema, val);
+  if (yupSchema) {
+    error = validateYupField(yupSchema, val);
     if (error !== undefined) return error;
   }
   if (validationFunc) {
@@ -565,4 +565,147 @@ export const createIntlNumberFormatter = (locale, opts) => {
   };
 
   return { formatter: mask, parser };
+};
+
+/* --------------------------------------- Schema Shit --------------------------------------- */
+
+// Examples
+// field = "name" ---> properties.name
+// field = "brother.name" ---> properties.brother.properties.name
+// field = "brother.siblings[1].friend.name" ---> properties.brother.properties.siblings.items[1].properties.friend.properties.name
+export const getSchemaPathFromJsonPath = jsonPath => {
+  // Convert
+  let schemaPath = jsonPath
+    .replace(/\./g, '.properties.')
+    .replace(/\[/g, '.itmes[');
+  // Add first properties
+  schemaPath = `properties.${schemaPath}`;
+  return schemaPath;
+};
+
+export const computeFieldFromProperty = (propertyName, property, prefix) => {
+  const {
+    'ui:control': uiControl,
+    'informed:props': informedProps,
+    'input:props': inputProps,
+    'ui:before': uiBefore,
+    'ui:after': uiAfter,
+    oneOf,
+    items,
+    enum: schemaEnum,
+    title: label,
+    minimum: min,
+    maximum: max,
+    minLength,
+    maxLength,
+    pattern,
+    type,
+    properties: subProperties
+  } = property;
+
+  // Set Id if not passed
+  let id = uuidv4();
+  if (inputProps && inputProps.id) {
+    id = inputProps.id;
+  }
+
+  const field = {
+    componentType: uiControl,
+    name: prefix ? `${prefix}.${propertyName}` : propertyName,
+    type,
+    uiBefore,
+    uiAfter,
+    properties: type === 'object' ? subProperties : undefined,
+    items: type === 'array' ? items : undefined,
+    props: {
+      label: label,
+      id,
+      min,
+      max,
+      minLength,
+      maxLength,
+      pattern,
+      ...informedProps,
+      ...inputProps
+    }
+  };
+
+  if (oneOf) {
+    const options = property.oneOf.map(option => {
+      const { 'input:props': inputProps = {} } = option;
+      return {
+        value: option.const,
+        label: option.title,
+        ...inputProps
+      };
+    });
+    field.props.options = options;
+  }
+
+  if (schemaEnum) {
+    const options = property.enum.map(val => {
+      return {
+        value: val,
+        label: val
+      };
+    });
+    field.props.options = options;
+  }
+
+  if (items && items.oneOf) {
+    const options = items.oneOf.map(option => {
+      const { 'input:props': inputProps = {} } = option;
+      return {
+        value: option.const,
+        label: option.title,
+        ...inputProps
+      };
+    });
+    field.props.options = options;
+  }
+
+  return field;
+};
+
+export const computeFieldsFromSchema = (schema, onlyValidateSchema, prefix) => {
+  if (!schema || onlyValidateSchema) {
+    return [];
+  }
+
+  // Grab properties and items off of schema
+  const { properties = {}, allOf, propertyOrder = [] } = schema;
+
+  if (Object.keys(properties).length > 0) {
+    // Attempt to generate fields from properties
+    const fields = Object.keys(properties)
+      .sort((a, b) => {
+        const aIndex = propertyOrder.indexOf(a);
+        const bIndex = propertyOrder.indexOf(b);
+
+        return (
+          (aIndex > -1 ? aIndex : propertyOrder.length + 1) -
+          (bIndex > -1 ? bIndex : propertyOrder.length + 1)
+        );
+      })
+      .map(propertyName => {
+        const property = properties[propertyName];
+
+        const field = computeFieldFromProperty(propertyName, property, prefix);
+
+        return field;
+      });
+
+    // Check for all of ( we have conditionals )
+    if (allOf) {
+      fields.push({
+        componentType: 'conditionals',
+        // Each element of the "allOf" array is a conditional
+        allOf: allOf
+      });
+    }
+
+    return fields;
+  }
+
+  return [];
 };

@@ -34,7 +34,7 @@ export const useField = ({
   onChange,
   validate: validationFunc,
   asyncValidate,
-  validationSchema,
+  yupSchema,
   multiple,
   field,
   keepState,
@@ -125,7 +125,7 @@ export const useField = ({
   // Generate validation function
   const validate = useMemo(
     () =>
-      generateValidationFunction(validationFunc, validationSchema, {
+      generateValidationFunction(validationFunc, yupSchema, {
         required
       }),
     []
@@ -144,6 +144,7 @@ export const useField = ({
     setCursorOffset,
     setCursor,
     validate,
+    yupSchema,
     validateOn: validateOn ?? 'blur',
     validateOnMount,
     showErrorIfError,

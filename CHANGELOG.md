@@ -8,6 +8,12 @@
 when={({formState, formApi, scope}) => {...} }
 ```
 
+#### yupSchema
+
+```
+validationSchema ---> is now yupSchema
+```
+
 ## 3.34.0 (June 22, 2021)
 
 ### Added

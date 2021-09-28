@@ -66,8 +66,8 @@ const schema = {
             title: 'Spouse name',
             'ui:control': 'input',
             'informed:props': {
-              relevant: (values, { parentPath, get }) => {
-                const married = get(values, `${parentPath}.married`);
+              relevant: ({ scope, formApi }) => {
+                const married = formApi.getValue(`${scope}.married`);
                 return married === 'yes';
               }
             }

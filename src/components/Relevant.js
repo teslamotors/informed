@@ -1,15 +1,14 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useContext } from 'react';
 import { useFormState } from '../hooks/useFormState';
 import { useFormApi } from '../hooks/useFormApi';
 import { RelevanceContext, ScopeContext } from '../Context';
 import { useFormController } from '../hooks/useFormController';
-import { useScope } from '../hooks/useScope';
 
 export const Relevant = ({ when, children }) => {
   const formState = useFormState();
   const formApi = useFormApi();
   const formController = useFormController();
-  const scope = useScope(ScopeContext);
+  const scope = useContext(ScopeContext);
 
   const isRelevant = when({
     formState,

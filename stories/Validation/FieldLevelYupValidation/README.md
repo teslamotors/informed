@@ -6,14 +6,14 @@ Validation via yup can be achieved at the field level by passing a validationSch
 
 <!-- STORY -->
 
-What just happened? When you clicked on the submit button informed triggered validate on the yup schema. 
+What just happened? When you clicked on the submit button informed triggered validate on the yup schema.
 Then it triggered validation at the field level. How cool is that!
 
 <!-- IDFK Strange issue where i need this commnet or code formatting is messed up -->
 
 ```jsx
 import { Form, Text } from 'informed';
-import * as Yup from 'yup'; 
+import * as Yup from 'yup';
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -22,7 +22,7 @@ const SignupSchema = Yup.object().shape({
     .required('Required'),
   email: Yup.string()
     .email('Invalid email')
-    .required('Required'),
+    .required('Required')
 });
 
 const lastNameSchema = Yup.string()
@@ -30,10 +30,19 @@ const lastNameSchema = Yup.string()
   .max(50, 'Last Name Too Long!')
   .required('Last Name Required');
 
-<Form validationSchema={SignupSchema}>
-  <label>First Name:<Text field="firstName" /></label>
-  <label>Last Name:<Text field="lastName" validationSchema={lastNameSchema}/></label>
-  <label>Email:<Text field="email" /></label>
+<Form yupSchema={SignupSchema}>
+  <label>
+    First Name:
+    <Text field="firstName" />
+  </label>
+  <label>
+    Last Name:
+    <Text field="lastName" validationSchema={lastNameSchema} />
+  </label>
+  <label>
+    Email:
+    <Text field="email" />
+  </label>
   <button type="submit">Submit</button>
-</Form>
+</Form>;
 ```

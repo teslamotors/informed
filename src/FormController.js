@@ -1,11 +1,13 @@
 import { ObjectMap } from './ObjectMap';
 import { Debug } from './debug';
+import { FieldMap as defaultFieldMap } from './fieldMap';
 import {
   debounceByName,
   informedFormat,
   uuidv4,
   validateAjvSchema,
-  validateYupField
+  validateYupField,
+  validateYupSchema
 } from './utils';
 const debug = Debug('informed:FormController' + '\t');
 
@@ -44,6 +46,16 @@ export class FormController {
 
     // Initialize listeners
     this.subscriptions = new Map();
+
+    // Get schema stuff off of options
+    const { ajv, schema, fieldMap } = options;
+
+    // Create new ajv instance if passed
+    this.ajv = ajv ? new ajv({ allErrors: true }) : null;
+    this.ajvValidate = ajv ? this.ajv.compile(schema) : null;
+
+    // Add field map ( defaults to our field map )
+    this.fieldMap = fieldMap || defaultFieldMap;
 
     // This is the emitter lol
     this.emitter = this;
@@ -125,6 +137,11 @@ export class FormController {
     this.validateAsync = this.validateAsync.bind(this);
     this.validated = this.validated.bind(this);
     this.debouncedValidateAsync = debounceByName(this.validateAsync);
+    this.getOptions = this.getOptions.bind(this);
+  }
+
+  getOptions() {
+    return this.options;
   }
 
   getValue(name) {
@@ -196,6 +213,19 @@ export class FormController {
         name,
         meta.validate(val, this.state.values)
       );
+    }
+    // Same thing but for YUP schema
+    if (meta.yupSchema && meta.validateOn.includes('change')) {
+      // Only call if we dont already have error
+      if (this.getError(name) === undefined) {
+        const val = ObjectMap.get(this.state.values, name);
+        debug(`Validating YUP after change ${name} ${val}`);
+        ObjectMap.set(
+          this.state.errors,
+          name,
+          validateYupField(meta.yupSchema, val)
+        );
+      }
     }
 
     // We only need to call asyncValidate if
@@ -693,8 +723,8 @@ export class FormController {
     let errors = {};
 
     // Validate schema if needed
-    if (this.options.validationSchema) {
-      const yupErrors = validateYupField(this.options.validationSchema, values);
+    if (this.options.yupSchema) {
+      const yupErrors = validateYupSchema(this.options.yupSchema, values);
       errors = { ...errors, ...yupErrors };
     }
 

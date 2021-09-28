@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { FormController } from '../FormController';
+import { FormFields } from '../Components/FormFields';
 import {
   FormControllerContext,
   FormApiContext,
@@ -20,11 +21,12 @@ export const useForm = ({
   validateOnMount,
   formApiRef,
   dontPreventDefault,
-  validationSchema,
+  yupSchema,
   allowEmptyStrings,
   preventEnter,
   schema,
   ajv,
+  onlyValidateSchema,
   ...userProps
 }) => {
   const formControllerOptions = {
@@ -38,7 +40,7 @@ export const useForm = ({
     validateOnMount,
     // NEW STUFF
     dontPreventDefault,
-    validationSchema,
+    yupSchema,
     allowEmptyStrings,
     preventEnter,
     schema,
@@ -114,7 +116,14 @@ export const useForm = ({
     <FormControllerContext.Provider value={formController}>
       <FormApiContext.Provider value={formApi}>
         <FormStateContext.Provider value={formState}>
-          {children}
+          {!children ? (
+            <FormFields
+              schema={schema}
+              onlyValidateSchema={onlyValidateSchema}
+            />
+          ) : (
+            children
+          )}
         </FormStateContext.Provider>
       </FormApiContext.Provider>
     </FormControllerContext.Provider>

@@ -15,7 +15,7 @@ click the submit button again and see what happens:**
 
 ```jsx
 import { Form, Text } from 'informed';
-import * as Yup from 'yup'; 
+import * as Yup from 'yup';
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -28,13 +28,15 @@ const SignupSchema = Yup.object().shape({
     .required('Required'),
   email: Yup.string()
     .email('Invalid email')
-    .required('Required'),
+    .required('Required')
 });
 
-<Form validationSchema={SignupSchema}>
-  <label>First Name:<Text field="firstName" /></label>
-  <label>Last Name:<Text field="lastName" /></label>
-  <label>Email:<Text field="email" /></label>
+<Form
+  yupSchema={SignupSchema}
+  onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
+  ><Input name="firstName" label="First Name:" />
+  <Input name="lastName" label="Last Name:" />
+  <Input name="email" label="Email:" />
   <button type="submit">Submit</button>
-</Form>
+</Form>;
 ```

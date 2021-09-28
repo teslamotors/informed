@@ -11,6 +11,10 @@ import { Option } from './Components/form-fields/Option';
 import { Radio } from './Components/form-fields/Radio';
 import { RadioGroup } from './Components/form-fields/RadioGroup';
 import { TextArea } from './Components/form-fields/TextArea';
+import { SchemaFields } from './Components/SchemaFields';
+import { FormField } from './Components/FormField';
+import { FormComponents } from './Components/FormComponents';
+import { FormFields } from './Components/FormFields';
 
 import { FormState } from './Components/FormState';
 
@@ -22,6 +26,8 @@ import { useFormApi } from './hooks/useFormApi';
 import { useFormState } from './hooks/useFormState';
 import { useArrayField } from './hooks/useArrayField';
 import { useCursorPosition } from './hooks/useCursorPosition';
+import { useArrayFieldApi } from './hooks/useArrayFieldApi';
+import { useArrayFieldItemApi } from './hooks/useArrayFieldItemApi';
 
 import * as utils from './utils';
 
@@ -33,6 +39,8 @@ export {
   useFormApi,
   useFormState,
   useCursorPosition,
+  useArrayFieldApi,
+  useArrayFieldItemApi,
   ArrayField,
   useArrayField,
   Debug,
@@ -48,5 +56,9 @@ export {
   TextArea,
   utils,
   FormState,
-  Scope
+  Scope,
+  SchemaFields,
+  FormField,
+  FormComponents,
+  FormFields
 };

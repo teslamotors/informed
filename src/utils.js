@@ -599,7 +599,8 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
     maxLength,
     pattern,
     type,
-    properties: subProperties
+    properties: subProperties,
+    allOf
   } = property;
 
   // Set Id if not passed
@@ -615,6 +616,7 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
     uiBefore,
     uiAfter,
     properties: type === 'object' ? subProperties : undefined,
+    allOf: type === 'object' ? allOf : undefined,
     items: type === 'array' ? items : undefined,
     propertyName,
     props: {
@@ -780,6 +782,44 @@ export const computeFieldsFromSchemaOld = (
   return [];
 };
 
+// We have two cases
+
+// Case #1 - Conditional Fields
+// {
+//   if: {
+//     properties: {
+//       married: { const: 'yes' }
+//     },
+//     required: ['married']
+//   },
+//   then: {
+//     properties: {
+//       spouse: {
+//         type: 'string',
+//         title: 'Spouse name',
+//         'ui:control': 'input'
+//       }
+//     }
+//   }
+// }
+
+// Case #2 - Conditional Properties
+// {
+//   if: { properties: { type: { const: 'car' } }, required: ['type'] },
+//   then: {
+//     properties: {
+//       product: {
+//         oneOf: [
+//           { const: '', title: '- Select -' },
+//           { const: 'modelS', title: 'Model S' },
+//           { const: 'modelX', title: 'Model X' },
+//           { const: 'model3', title: 'Model 3' }
+//         ]
+//       }
+//     }
+//   }
+// },
+
 export const computeFieldsFromSchema = (schema, onlyValidateSchema) => {
   if (!schema || onlyValidateSchema) {
     return [];
@@ -794,77 +834,18 @@ export const computeFieldsFromSchema = (schema, onlyValidateSchema) => {
       return propertyName;
     });
 
-    let markedAllOf = [];
+    let conditions = [];
 
     // Check for all of ( we have conditionals )
     if (allOf) {
-      // We have two cases
-
-      // Case #1 - Conditional Fields
-      // {
-      //   if: {
-      //     properties: {
-      //       married: { const: 'yes' }
-      //     },
-      //     required: ['married']
-      //   },
-      //   then: {
-      //     properties: {
-      //       spouse: {
-      //         type: 'string',
-      //         title: 'Spouse name',
-      //         'ui:control': 'input'
-      //       }
-      //     }
-      //   }
-      // }
-
-      // Case #2 - Conditional Properties
-      // {
-      //   if: { properties: { type: { const: 'car' } }, required: ['type'] },
-      //   then: {
-      //     properties: {
-      //       product: {
-      //         oneOf: [
-      //           { const: '', title: '- Select -' },
-      //           { const: 'modelS', title: 'Model S' },
-      //           { const: 'modelX', title: 'Model X' },
-      //           { const: 'model3', title: 'Model 3' }
-      //         ]
-      //       }
-      //     }
-      //   }
-      // },
-
-      // Go through all of and mark the property as "relevant" or "merge"
-      markedAllOf = allOf.map(cond => {
-        // Go through each property in the then block and mark
-        const markedCond = { ...cond };
-        const relevantProperties = {};
-        const mergeProperties = {};
-        Object.keys(markedCond.then.properties).forEach(propertyName => {
-          const prop = markedCond.then.properties[propertyName];
-          // Check to see if the key
-          // Example key="spouse"
-          // Is already in the fields list
-          // If it is NOT, then this is a relevant field
-          if (!fields.find(f => f.propertyName === propertyName)) {
-            relevantProperties[propertyName] = prop;
-          } else {
-            mergeProperties[propertyName] = prop;
-          }
-        });
-
-        // Set marked properties on the then
-        markedCond.then.relevantProperties = relevantProperties;
-        markedCond.then.mergeProperties = mergeProperties;
-
-        // Return the marked condition
-        return markedCond;
+      allOf.forEach(item => {
+        if (item.if) {
+          conditions.push(item);
+        }
       });
     }
 
-    return { fieldNames: fields, allOf: markedAllOf };
+    return { properties: fields, conditions };
   }
 
   return [];

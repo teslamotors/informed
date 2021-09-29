@@ -8,23 +8,34 @@ import { Relevant } from './Relevant';
 const FormFields = ({ schema, onlyValidateSchema }) => {
   const fields = useMemo(
     () => {
-      const { fieldNames, allOf } = computeFieldsFromSchema(
+      const { properties, conditions } = computeFieldsFromSchema(
         schema,
         onlyValidateSchema
       );
 
-      let mappedFields = fieldNames.map((name, i) => {
-        return (
+      let mappedProperties = properties.map((name, i) => {
+        if (name.includes('ui:')) {
+          // ui:foobar ---> foobar
+          return {
+            $id: name.split('ui:')[1]
+          };
+        }
+
+        const Component = (
           <FormField
             name={name}
             schema={schema}
             key={`schema-field-${name}-${i}`}
           />
         );
+
+        return {
+          Component
+        };
       });
 
       // For conditionals
-      const mappedConditionals = allOf.map((conditional, j) => {
+      const mappedConditionals = conditions.map((conditional, j) => {
         // Example then ( its a subschema )
         // then: {
         //   properties: {
@@ -35,9 +46,8 @@ const FormFields = ({ schema, onlyValidateSchema }) => {
         //     }
         //   }
         // }
-        const subSchema = {
-          properties: conditional.then.relevantProperties
-        };
+        const subSchema = conditional.then;
+        const $id = conditional.$id;
 
         // Turn the if into a when function for informed
         // Example if condition
@@ -48,23 +58,57 @@ const FormFields = ({ schema, onlyValidateSchema }) => {
         //   required: ['married']
         // },
         const { properties: conditions } = conditional.if;
-        const when = ({ formState: { values } }) => {
+        const when = ({ formApi, scope }) => {
           // Example key "married, Example condition: "{ const: 'yes' }"
           return Object.keys(conditions).every(key => {
             const condition = conditions[key];
             // values.married === 'yes'
-            return values[key] === condition.const;
+            return (
+              formApi.getValue(scope ? `${scope}.${key}` : key) ===
+              condition.const
+            );
           });
         };
 
-        return (
+        const Component = (
           <Relevant key={`Conditional-ScheamField-${j}`} when={when}>
             <FormFields schema={subSchema} />
           </Relevant>
         );
+
+        return {
+          Component,
+          $id
+        };
       });
 
-      mappedFields = [...mappedFields, ...mappedConditionals];
+      const mappedFields = [];
+
+      // Iterate through the mapped properties
+      mappedProperties.forEach(({ $id, Component }) => {
+        if (Component) {
+          mappedFields.push(Component);
+        } else if ($id) {
+          // Grab the id from the mapped conditionals
+          const conditional = mappedConditionals.find(c => c.$id === $id);
+          if (conditional) {
+            mappedFields.push(conditional.Component);
+            // Make sure to take it off so we dont render it twice ( defaults at the end )
+            const index = mappedConditionals.findIndex(c => c.$id === $id);
+            mappedConditionals.splice(index, 1);
+          } else {
+            console.log('MappedConditionals', mappedConditionals);
+            throw new Error(`Unable to find mapping for ${$id}`);
+          }
+        } else {
+          throw new Error('Found property with no ID or component...');
+        }
+      });
+
+      // Add whatever is left at the end
+      mappedConditionals.forEach(({ Component }) => {
+        mappedFields.push(Component);
+      });
 
       return mappedFields;
     },

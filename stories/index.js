@@ -88,6 +88,7 @@ import {
 //   UseField
 // } from './Hooks';
 import ConditionalSchema from './Schema/ConditionalSchema';
+import ConditionalSchemaControl from './Schema/ConditionalSchemaControl';
 import ConditionalOptions from './Schema/ConditionalOptions';
 // import HugeSchema from './Schema/HugeSchema';
 // import FormatDependent from './Form/FormatDependent';
@@ -211,6 +212,7 @@ storiesOf('Schema', module)
   .add('Formatted Schema', FormattedSchema)
   .add('Array Field Schema', ArrayFieldSchema)
   .add('Conditional Schema', ConditionalSchema)
+  .add('Conditional Schema Control', ConditionalSchemaControl)
   .add('Conditional Options', ConditionalOptions)
   .add('Custom Schema', CustomSchema);
 //   .add('Nested Array Fields', ArrayFieldSchemaNested)

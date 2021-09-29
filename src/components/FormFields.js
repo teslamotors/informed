@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useFormController } from '../hooks/useFormController';
 import { computeFieldsFromSchema } from '../utils';
 import { FormField } from './FormField';
 import { Relevant } from './Relevant';
@@ -6,9 +7,13 @@ import { Relevant } from './Relevant';
 // const logger = Debug('informed:FormFields' + '\t');
 
 const FormFields = ({ schema, onlyValidateSchema }) => {
+  const { getOptions } = useFormController();
+
+  const { components: componentsMap } = getOptions();
+
   const fields = useMemo(
     () => {
-      const { properties, conditions } = computeFieldsFromSchema(
+      const { properties, conditions, components } = computeFieldsFromSchema(
         schema,
         onlyValidateSchema
       );
@@ -32,6 +37,23 @@ const FormFields = ({ schema, onlyValidateSchema }) => {
         return {
           Component
         };
+      });
+
+      const mappedComponents = components.map(component => {
+        console.log('WTF', component);
+        if (component['ui:control']) {
+          const RenderedComponent = componentsMap[component['ui:control']];
+          const Component = (
+            <RenderedComponent>
+              <FormFields schema={component} />
+            </RenderedComponent>
+          );
+
+          return {
+            Component,
+            $id: component.$id
+          };
+        }
       });
 
       // For conditionals
@@ -91,11 +113,14 @@ const FormFields = ({ schema, onlyValidateSchema }) => {
         } else if ($id) {
           // Grab the id from the mapped conditionals
           const conditional = mappedConditionals.find(c => c.$id === $id);
+          const component = mappedComponents.find(c => c.$id === $id);
           if (conditional) {
             mappedFields.push(conditional.Component);
             // Make sure to take it off so we dont render it twice ( defaults at the end )
             const index = mappedConditionals.findIndex(c => c.$id === $id);
             mappedConditionals.splice(index, 1);
+          } else if (component) {
+            mappedFields.push(component.Component);
           } else {
             console.log('MappedConditionals', mappedConditionals);
             throw new Error(`Unable to find mapping for ${$id}`);

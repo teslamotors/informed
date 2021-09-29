@@ -27,6 +27,7 @@ export const useForm = ({
   schema,
   ajv,
   onlyValidateSchema,
+  components,
   ...userProps
 }) => {
   const formControllerOptions = {
@@ -44,7 +45,8 @@ export const useForm = ({
     allowEmptyStrings,
     preventEnter,
     schema,
-    ajv
+    ajv,
+    components
   };
 
   // Create form controller

@@ -835,17 +835,20 @@ export const computeFieldsFromSchema = (schema, onlyValidateSchema) => {
     });
 
     let conditions = [];
+    let components = [];
 
     // Check for all of ( we have conditionals )
     if (allOf) {
       allOf.forEach(item => {
         if (item.if) {
           conditions.push(item);
+        } else {
+          components.push(item);
         }
       });
     }
 
-    return { properties: fields, conditions };
+    return { properties: fields, conditions, components };
   }
 
   return [];

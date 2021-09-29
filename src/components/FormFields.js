@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useFormController } from '../hooks/useFormController';
-import { computeFieldsFromSchema } from '../utils';
+import { checkCondition, computeFieldsFromSchema } from '../utils';
 import { FormField } from './FormField';
 import { Relevant } from './Relevant';
 
@@ -85,14 +85,16 @@ const FormFields = ({ schema, onlyValidateSchema }) => {
         const { properties: conditions } = conditional.if;
         const when = ({ formApi, scope }) => {
           // Example key "married, Example condition: "{ const: 'yes' }"
-          return Object.keys(conditions).every(key => {
-            const condition = conditions[key];
-            // values.married === 'yes'
-            return (
-              formApi.getValue(scope ? `${scope}.${key}` : key) ===
-              condition.const
-            );
-          });
+          return Object.entries(conditions).every(
+            ([propertyName, condition]) => {
+              return checkCondition(
+                condition,
+                formApi.getValue(
+                  scope ? `${scope}.${propertyName}` : propertyName
+                )
+              );
+            }
+          );
         };
 
         const Component = (

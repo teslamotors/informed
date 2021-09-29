@@ -43,7 +43,9 @@ const schema = {
         {
           $id: 'idrink',
           if: {
-            properties: { age: { const: '21' } },
+            properties: {
+              age: { minimum: 21, maximum: 30 }
+            },
             required: ['age']
           },
           then: {
@@ -62,7 +64,7 @@ const schema = {
               {
                 $id: 'favoriteDrink',
                 if: {
-                  properties: { doDrink: { const: true } }
+                  properties: { doDrink: { not: false } }
                 },
                 then: {
                   properties: {

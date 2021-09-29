@@ -670,156 +670,6 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
   return field;
 };
 
-export const computeFieldsFromSchemaOld = (
-  schema,
-  onlyValidateSchema,
-  prefix
-) => {
-  if (!schema || onlyValidateSchema) {
-    return [];
-  }
-
-  // Grab properties and items off of schema
-  const { properties = {}, allOf, propertyOrder = [] } = schema;
-
-  if (Object.keys(properties).length > 0) {
-    // Attempt to generate fields from properties
-    const fields = Object.keys(properties)
-      .sort((a, b) => {
-        const aIndex = propertyOrder.indexOf(a);
-        const bIndex = propertyOrder.indexOf(b);
-
-        return (
-          (aIndex > -1 ? aIndex : propertyOrder.length + 1) -
-          (bIndex > -1 ? bIndex : propertyOrder.length + 1)
-        );
-      })
-      .map(propertyName => {
-        const property = properties[propertyName];
-
-        const field = computeFieldFromProperty(propertyName, property, prefix);
-
-        return field;
-      });
-
-    // Check for all of ( we have conditionals )
-    if (allOf) {
-      // We have two cases
-
-      // Case #1 - Conditional Fields
-      // {
-      //   if: {
-      //     properties: {
-      //       married: { const: 'yes' }
-      //     },
-      //     required: ['married']
-      //   },
-      //   then: {
-      //     properties: {
-      //       spouse: {
-      //         type: 'string',
-      //         title: 'Spouse name',
-      //         'ui:control': 'input'
-      //       }
-      //     }
-      //   }
-      // }
-
-      // Case #2 - Conditional Properties
-      // {
-      //   if: { properties: { type: { const: 'car' } }, required: ['type'] },
-      //   then: {
-      //     properties: {
-      //       product: {
-      //         oneOf: [
-      //           { const: '', title: '- Select -' },
-      //           { const: 'modelS', title: 'Model S' },
-      //           { const: 'modelX', title: 'Model X' },
-      //           { const: 'model3', title: 'Model 3' }
-      //         ]
-      //       }
-      //     }
-      //   }
-      // },
-
-      // Go through all of and mark the property as "relevant" or "merge"
-      const markedAllOf = allOf.map(cond => {
-        // Go through each property in the then block and mark
-        const markedCond = { ...cond };
-        const relevantProperties = {};
-        const mergeProperties = {};
-        Object.keys(markedCond.then.properties).forEach(propertyName => {
-          const prop = markedCond.then.properties[propertyName];
-          // Check to see if the key
-          // Example key="spouse"
-          // Is already in the fields list
-          // If it is NOT, then this is a relevant field
-          if (!fields.find(f => f.propertyName === propertyName)) {
-            relevantProperties[propertyName] = prop;
-          } else {
-            mergeProperties[propertyName] = prop;
-          }
-        });
-
-        // Set marked properties on the then
-        markedCond.then.relevantProperties = relevantProperties;
-        markedCond.then.mergeProperties = mergeProperties;
-
-        // Return the marked condition
-        return markedCond;
-      });
-
-      fields.push({
-        componentType: 'conditionals',
-        // Each element of the "allOf" array is a conditional
-        allOf: markedAllOf
-      });
-    }
-
-    return fields;
-  }
-
-  return [];
-};
-
-// We have two cases
-
-// Case #1 - Conditional Fields
-// {
-//   if: {
-//     properties: {
-//       married: { const: 'yes' }
-//     },
-//     required: ['married']
-//   },
-//   then: {
-//     properties: {
-//       spouse: {
-//         type: 'string',
-//         title: 'Spouse name',
-//         'ui:control': 'input'
-//       }
-//     }
-//   }
-// }
-
-// Case #2 - Conditional Properties
-// {
-//   if: { properties: { type: { const: 'car' } }, required: ['type'] },
-//   then: {
-//     properties: {
-//       product: {
-//         oneOf: [
-//           { const: '', title: '- Select -' },
-//           { const: 'modelS', title: 'Model S' },
-//           { const: 'modelX', title: 'Model X' },
-//           { const: 'model3', title: 'Model 3' }
-//         ]
-//       }
-//     }
-//   }
-// },
-
 export const computeFieldsFromSchema = (schema, onlyValidateSchema) => {
   if (!schema || onlyValidateSchema) {
     return [];
@@ -853,3 +703,36 @@ export const computeFieldsFromSchema = (schema, onlyValidateSchema) => {
 
   return [];
 };
+
+export function checkCondition(condition, propertyValue) {
+  // if (!isPlainObject(condition)) {
+  //   return false;
+  // }
+
+  return Object.entries(condition).every(([keyword, value]) => {
+    switch (keyword) {
+      case 'const':
+        return propertyValue === value;
+      case 'minimum':
+        return propertyValue >= value;
+      case 'exclusiveMinimum':
+        return propertyValue > value;
+      case 'maximum':
+        return propertyValue <= value;
+      case 'exclusiveMaximum':
+        return propertyValue < value;
+      case 'enum':
+        return Array.isArray(value) ? value.includes(propertyValue) : false;
+      case 'pattern':
+        return new RegExp(value).test(propertyValue);
+      // case 'properties':
+      //   // eslint-disable-next-line no-use-before-define
+      //   return checkProperties(value, values, propertyPath);
+      case 'not':
+        return propertyValue !== value;
+      default:
+        // not supported keywords return false
+        return false;
+    }
+  });
+}

@@ -90,6 +90,7 @@ import {
 import ConditionalSchema from './Schema/ConditionalSchema';
 import ConditionalSchemaControl from './Schema/ConditionalSchemaControl';
 import ConditionalOptions from './Schema/ConditionalOptions';
+import SchemaComponents from './Schema/SchemaComponents';
 // import HugeSchema from './Schema/HugeSchema';
 // import FormatDependent from './Form/FormatDependent';
 // import FormattedObjectInput from './CustomInputs/FormattedObjectInput';
@@ -214,7 +215,8 @@ storiesOf('Schema', module)
   .add('Conditional Schema', ConditionalSchema)
   .add('Conditional Schema Control', ConditionalSchemaControl)
   .add('Conditional Options', ConditionalOptions)
-  .add('Custom Schema', CustomSchema);
+  .add('Custom Schema', CustomSchema)
+  .add('Schema Components', SchemaComponents);
 //   .add('Nested Array Fields', ArrayFieldSchemaNested)
 //   .add('Relevant ArrayField Schema', ArrayFieldSchemaRelevant);
 // // .add('Huge Schema', HugeSchema);

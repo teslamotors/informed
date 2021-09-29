@@ -60,7 +60,10 @@ const FormField = ({ name, schema }) => {
     uiAfter
   } = schemaField;
 
-  const Component = fieldMap[componentType];
+  // Component is either on field map or components list passed in
+  const Component =
+    fieldMap[componentType] ??
+    (options.components ? options.components[componentType] : null);
 
   // console.log('WTF', schemaField);
   logger('Rendering Field', name, schemaField);
@@ -70,6 +73,17 @@ const FormField = ({ name, schema }) => {
     return (
       <ScopeContext.Provider value={name}>
         <FormFields schema={schemaField} />
+      </ScopeContext.Provider>
+    );
+  }
+
+  // Just component
+  if (Component && type === 'object' && properties) {
+    return (
+      <ScopeContext.Provider value={name}>
+        <Component>
+          <FormFields schema={schemaField} />
+        </Component>
       </ScopeContext.Provider>
     );
   }

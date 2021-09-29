@@ -19,16 +19,9 @@ const schema = {
       enum: ['yes', 'no'],
       'ui:control': 'radio'
     }
-    // 'ui:spouce': {},
-    // lastName: {
-    //   type: 'string',
-    //   title: 'Last name',
-    //   'ui:control': 'input'
-    // }
   },
   allOf: [
     {
-      // $id: 'spouce',
       if: {
         properties: {
           married: { const: 'yes' }

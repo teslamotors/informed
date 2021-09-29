@@ -25,17 +25,16 @@ const schema = {
       title: 'First name',
       'ui:control': 'input'
     },
+    // 'ui:component:add': { 'ui:control': 'add' },
     siblings: {
       type: 'array',
       minItems: 2,
       'ui:control': 'array',
-      'ui:before': [{ 'ui:control': 'add' }],
       'ui:props': {
         initialValue
       },
       items: {
         type: 'object',
-        'ui:after': [{ 'ui:control': 'remove' }],
         required: ['name', 'age'],
         properties: {
           name: {
@@ -71,7 +70,8 @@ const schema = {
                 return married === 'yes';
               }
             }
-          }
+          },
+          'ui:component:remove': { 'ui:control': 'remove' }
         }
       }
     }

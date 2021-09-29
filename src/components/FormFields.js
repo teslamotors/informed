@@ -19,8 +19,11 @@ const FormFields = ({ schema, onlyValidateSchema }) => {
       );
 
       let mappedProperties = properties.map((name, i) => {
-        if (name.includes('ui:')) {
-          // ui:foobar ---> foobar
+        // Not for
+        // ui:component:id ---> foobar
+        // Only for
+        // ui:foobar ---> foobar
+        if (name.includes('ui:') && name.split(':').length !== 3) {
           return {
             $id: name.split('ui:')[1]
           };
@@ -40,7 +43,7 @@ const FormFields = ({ schema, onlyValidateSchema }) => {
       });
 
       const mappedComponents = components.map(component => {
-        console.log('WTF', component);
+        // console.log('WTF', component);
         if (component['ui:control']) {
           const RenderedComponent = componentsMap[component['ui:control']];
           const Component = (

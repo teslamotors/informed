@@ -4,9 +4,9 @@ import { ArrayField as InformedArrayField } from '../ArrayField';
 import { FormFields } from '../FormFields';
 
 // const ArrayField = ({ field, items, uiBefore, uiAfter, ...props }) => {
-const ArrayField = ({ field, items, ...props }) => {
+const ArrayField = ({ name, items, ...props }) => {
   return (
-    <InformedArrayField field={field} {...props}>
+    <InformedArrayField name={name} {...props}>
       {/* <FormComponents components={uiBefore} /> */}
       <InformedArrayField.Items>
         {() => (

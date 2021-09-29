@@ -191,4 +191,147 @@ describe('Schema', () => {
     expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'});
   });
 
+  it('should render a form with all types of fields', () => {
+
+    const schema = {
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string',
+          title: 'First name',
+          'ui:control': 'input'
+        },
+        age: {
+          type: 'number',
+          title: 'Age',
+          'ui:control': 'input',
+          'ui:props': {
+            type: 'number'
+          }
+        },
+        bio: {
+          type: 'string',
+          title: 'Bio',
+          'ui:control': 'textarea'
+        },
+        authorize: {
+          type: 'string',
+          title: 'Authorize',
+          'ui:control': 'checkbox'
+        },
+        color: {
+          type: 'string',
+          title: 'Color',
+          'ui:control': 'select',
+          oneOf: [
+            {
+              const: '',
+              title: '- Select -',
+              'ui:props': {
+                disabled: true
+              }
+            },
+            { const: 'red', title: 'Red' },
+            { const: 'black', title: 'Black' },
+            { const: 'white', title: 'White' }
+          ]
+        },
+        model: {
+          type: 'string',
+          title: 'Model',
+          'ui:control': 'radio',
+          oneOf: [
+            { const: 'ms', title: 'Model S' },
+            { const: 'm3', title: 'Model 3' },
+            { const: 'mx', title: 'Model X' },
+            { const: 'my', title: 'Model Y' }
+          ],
+          default: null
+        },
+        cars: {
+          type: 'array',
+          title: 'Cars',
+          'ui:control': 'select',
+          'ui:props': {
+            multiple: true
+          },
+          items: {
+            oneOf: [
+              { const: 'tesla', title: 'Tesla' },
+              { const: 'volvo', title: 'Volvo' },
+              { const: 'audi', title: 'Audi' },
+              { const: 'jeep', title: 'Jeep' }
+            ]
+          }
+        }
+      }
+    };
+  
+    const { getByLabelText, getByText, queryAllByRole } = render(
+      <Form schema={schema}>
+        <SchemaFields />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const name = getByLabelText('First name');
+    expect(name).toHaveAttribute('name', 'name');
+
+    const age = getByLabelText('Age');
+    expect(age).toHaveAttribute('name', 'age');
+    expect(age).toHaveAttribute('type', 'number');
+
+    const bio = getByLabelText('Bio');
+    expect(bio).toHaveAttribute('name', 'bio');
+
+    const authorize = getByLabelText('Authorize');
+    expect(authorize).toHaveAttribute('name', 'authorize');
+
+    // Color Field
+
+    const color = getByLabelText('Color');
+    expect(color).toHaveAttribute('name', 'color');
+
+    const colorOption1 = getByText('- Select -');
+    const red = getByText('Red');
+    const black = getByText('Black');
+    const white = getByText('White');
+    
+    expect(colorOption1).toHaveAttribute('value', '');
+    expect(red).toHaveAttribute('value', 'red');
+    expect(black).toHaveAttribute('value', 'black');
+    expect(white).toHaveAttribute('value', 'white');
+
+    // Model Field
+
+    const options = queryAllByRole('radio');
+    expect(options.length).toEqual(4);
+
+    expect(options[0]).toHaveAttribute('value', 'ms');
+    expect(options[1]).toHaveAttribute('value', 'm3');
+    expect(options[2]).toHaveAttribute('value', 'mx');
+    expect(options[3]).toHaveAttribute('value', 'my');
+
+    // Car Field
+
+    const cars = getByLabelText('Cars');
+    expect(cars).toHaveAttribute('name', 'cars');
+
+    const carsOption1 = getByText('- Select -');
+    const tesla = getByText('Tesla');
+    const volvo = getByText('Volvo');
+    const audi = getByText('Audi');
+    const jeep = getByText('Jeep');
+    
+    expect(carsOption1).toHaveAttribute('value', '');
+    expect(tesla).toHaveAttribute('value', 'tesla');
+    expect(volvo).toHaveAttribute('value', 'volvo');
+    expect(audi).toHaveAttribute('value', 'audi');
+    expect(jeep).toHaveAttribute('value', 'jeep');
+
+    // expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hello' });
+  
+  });
+
+
 });

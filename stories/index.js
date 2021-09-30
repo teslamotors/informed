@@ -68,6 +68,7 @@ import {
   NestedFields,
   ArrayFieldItem,
   AlternateSyntax,
+  DependentFieldsInArray,
   HugeArrayForm
   // Swap
 } from './Arrays';
@@ -190,6 +191,7 @@ storiesOf('Arrays', module)
   .add('Array Field', NestedFields)
   .add('Flat Array Field', AlternateSyntax)
   .add('Array Field Item', ArrayFieldItem)
+  .add('Dependent Fields', DependentFieldsInArray)
   // .add('Swap', Swap)
   .add('Huge Array Form', HugeArrayForm);
 // .add('Alternate Syntax', AlternateSyntax);

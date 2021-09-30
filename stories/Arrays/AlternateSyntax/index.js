@@ -2,18 +2,16 @@ import React, { useState } from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 
-import { Form, Text, ArrayField, Debug } from '../../../src';
+import { Form, Input, ArrayField, Debug } from '../../../src';
 
 const ArrayFieldExample = () => (
   <Form initialValues={{ siblings: ['foo', 'bar', 'baz'] }}>
     <div style={{ display: 'flex' }}>
       <div style={{ flex: 1, marginRight: '1rem' }}>
         <h5>You:</h5>
-        <label>
-          Your Name: <Text field="name" />
-        </label>
+        <Input name="name" label="Your Name:" />
         <h5>Siblings:</h5>
-        <ArrayField field="siblings">
+        <ArrayField name="siblings">
           {({ add, reset }) => (
             <>
               <button type="button" onClick={add}>
@@ -23,13 +21,13 @@ const ArrayFieldExample = () => (
                 Reset Siblings
               </button>
               <ArrayField.Items>
-                {({ remove, field, index }) => (
-                  <label>
-                    Sibling {index}:<Text field={field} />
+                {({ remove, name, index }) => (
+                  <>
+                    <Input name={name} label={`Sibling ${index}:`} />
                     <button type="button" onClick={remove}>
                       Remove
                     </button>
-                  </label>
+                  </>
                 )}
               </ArrayField.Items>
             </>
@@ -38,7 +36,7 @@ const ArrayFieldExample = () => (
         <br />
         <button type="submit">Submit</button>
       </div>
-      <div style={{ flex: 2 }}>
+      <div style={{ flex: 2, marginLeft: '3rem' }}>
         <Debug values />
       </div>
     </div>

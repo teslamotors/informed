@@ -62,11 +62,11 @@ import DynamicFields from './Dynamic/DynamicFields';
 // } from './Inputs';
 
 import {
-  // ArrayOfFields,
-  // ArrayOfScopes,
+  ArrayOfFields,
+  ArrayOfScopes,
   // DynamicArrays,
-  // NestedForm,
-  // AlternateSyntax,
+  NestedForm,
+  AlternateSyntax,
   HugeArrayForm
   // Swap
 } from './Arrays';
@@ -186,8 +186,8 @@ storiesOf('Arrays', module)
   // .add('Array Of Fields', ArrayOfFields)
   // .add('Array Of Scopes', ArrayOfScopes)
   // THE ABOVER WWAS ALREDAY COMMENTED OUT
-  // .add('Dynamic Arrays', AlternateSyntax)
-  // .add('Nested Form', NestedForm)
+  .add('Dynamic Arrays', AlternateSyntax)
+  .add('Nested Form', NestedForm)
   // .add('Swap', Swap)
   .add('Huge Array Form', HugeArrayForm);
 // .add('Alternate Syntax', AlternateSyntax);

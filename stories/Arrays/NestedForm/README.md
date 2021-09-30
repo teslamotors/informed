@@ -3,7 +3,7 @@
 <!-- STORY -->
 
 ```jsx
-import { Form, Text, ArrayField } from 'informed';
+import { Form, Input, ArrayField } from 'informed';
 
 const initialValues = {
   friends: [
@@ -16,6 +16,15 @@ const initialValues = {
       age: '20'
     }
   ]
+};
+
+const FieldState = () => {
+  const { values } = useArrayFieldItemState();
+  return (
+    <pre>
+      <code>{JSON.stringify(values, null, 2)}</code>
+    </pre>
+  );
 };
 
 const NestedForm = () => {
@@ -56,11 +65,11 @@ const NestedForm = () => {
               </button>
 
               <ArrayField.Items>
-                {({ remove, field, reset, values, setValue }) => (
+                {({ remove, name, reset, values, setValue }) => (
                   <label>
-                    <h5>{field}</h5>
-                    <Text field={`${field}.name`} />
-                    <Text field={`${field}.age`} />
+                    <h5>{name}</h5>
+                    <Input name="name" label="Name" required />
+                    <Input name="age" label="Age" type="number" />
                     <button type="button" onClick={reset}>
                       Reset
                     </button>
@@ -72,9 +81,7 @@ const NestedForm = () => {
                       onClick={() => setValue('name', 'Elon')}>
                       Set Name to "Elon"
                     </button>
-                    <pre>
-                      <code>{JSON.stringify(values, null, 2)}</code>
-                    </pre>
+                    <FieldState />
                   </label>
                 )}
               </ArrayField.Items>

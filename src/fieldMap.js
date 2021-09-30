@@ -8,6 +8,9 @@ import { RemoveButton } from './Components/form-fields/RemoveButton';
 import { ArrayField } from './Components/form-fields/ArrayField';
 
 export const FieldMap = {
+  string: Input,
+  number: Input,
+  boolean: Checkbox,
   select: Select,
   input: Input,
   textarea: TextArea,

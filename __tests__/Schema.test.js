@@ -333,5 +333,80 @@ describe('Schema', () => {
   
   });
 
+  it('should render a form with all types of fields without ui:control', () => {
+
+    const schema = {
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string',
+          title: 'First name',
+        },
+        age: {
+          type: 'number',
+          title: 'Age',
+          'ui:props': {
+            type: 'number'
+          }
+        },
+        authorize: {
+          type: 'boolean',
+          title: 'Authorize',
+        },
+        color: {
+          type: 'string',
+          title: 'Color',
+          oneOf: [
+            {
+              const: '',
+              title: '- Select -',
+              'ui:props': {
+                disabled: true
+              }
+            },
+            { const: 'red', title: 'Red' },
+            { const: 'black', title: 'Black' },
+            { const: 'white', title: 'White' }
+          ]
+        },
+      }
+    };
+  
+    const { getByLabelText, getByText } = render(
+      <Form schema={schema}>
+        <SchemaFields />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const name = getByLabelText('First name');
+    expect(name).toHaveAttribute('name', 'name');
+
+    const age = getByLabelText('Age');
+    expect(age).toHaveAttribute('name', 'age');
+    expect(age).toHaveAttribute('type', 'number');
+
+    const authorize = getByLabelText('Authorize');
+    expect(authorize).toHaveAttribute('name', 'authorize');
+
+    // Color Field
+
+    const color = getByLabelText('Color');
+    expect(color).toHaveAttribute('name', 'color');
+
+    const colorOption1 = getByText('- Select -');
+    const red = getByText('Red');
+    const black = getByText('Black');
+    const white = getByText('White');
+    
+    expect(colorOption1).toHaveAttribute('value', '');
+    expect(red).toHaveAttribute('value', 'red');
+    expect(black).toHaveAttribute('value', 'black');
+    expect(white).toHaveAttribute('value', 'white');
+
+  });
+
+  
+
 
 });

@@ -14,6 +14,127 @@ when={({formState, formApi, scope}) => {...} }
 validationSchema ---> is now yupSchema
 ```
 
+#### Array Fields
+
+##### Renamed `field` to `name`
+
+```js
+<ArrayField.Items>
+  {({ remove, field }) => (
+    <>
+      <Input name={field} />
+      <button type="button" onClick={remove}>
+        Remove
+      </button>
+    </>
+  )}
+</ArrayField.Items>
+```
+
+Is Now
+
+```js
+<ArrayField.Items>
+  {({ remove, name }) => (
+    <>
+      <Input name={name} />
+      <button type="button" onClick={remove}>
+        Remove
+      </button>
+    </>
+  )}
+</ArrayField.Items>
+```
+
+##### No more array field path prefixing
+
+Old:
+
+```js
+<ArrayField.Items>
+  {({ remove, field }) => (
+    <>
+      <Input name={`${field}.name`} />
+      <Input name={`${field}.age`} />
+      <button type="button" onClick={remove}>
+        Remove
+      </button>
+    </>
+  )}
+</ArrayField.Items>
+```
+
+New:
+
+```js
+<ArrayField.Items>
+  {({ remove }) => (
+    <>
+      <Input name="name" />
+      <Input name="age" />
+      <button type="button" onClick={remove}>
+        Remove
+      </button>
+    </>
+  )}
+</ArrayField.Items>
+```
+
+##### No more values in array field render prop
+
+Old:
+
+```js
+// Some component you need to use state of array field item
+const FieldState = ({ values }) => {
+  return (
+    <pre>
+      <code>{JSON.stringify(values, null, 2)}</code>
+    </pre>
+  );
+};
+
+<ArrayField.Items>
+  {({ remove, values }) => (
+    <>
+      <Input name="name" />
+      <Input name="age" />
+      <FieldState values={values} />
+      <button type="button" onClick={remove}>
+        Remove
+      </button>
+    </>
+  )}
+</ArrayField.Items>;
+```
+
+New:
+
+```js
+// Some component you need to use state of array field item
+const FieldState = () => {
+  const { values } = useArrayFieldItemState();
+  return (
+    <pre>
+      <code>{JSON.stringify(values, null, 2)}</code>
+    </pre>
+  );
+};
+
+<ArrayField.Items>
+  {({ remove }) => (
+    <>
+      <Input name="name" />
+      <Input name="age" />
+      <FieldState />
+      <button type="button" onClick={remove}>
+        Remove
+      </button>
+    </>
+  )}
+</ArrayField.Items>;
+```
+
 ## 3.34.0 (June 22, 2021)
 
 ### Added

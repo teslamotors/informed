@@ -28,6 +28,7 @@ import { useArrayField } from './hooks/useArrayField';
 import { useCursorPosition } from './hooks/useCursorPosition';
 import { useArrayFieldApi } from './hooks/useArrayFieldApi';
 import { useArrayFieldItemApi } from './hooks/useArrayFieldItemApi';
+import { useArrayFieldItemState } from './hooks/useArrayFieldItemState';
 
 import * as utils from './utils';
 
@@ -41,6 +42,7 @@ export {
   useCursorPosition,
   useArrayFieldApi,
   useArrayFieldItemApi,
+  useArrayFieldItemState,
   ArrayField,
   useArrayField,
   Debug,

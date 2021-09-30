@@ -610,7 +610,7 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
   }
 
   const field = {
-    componentType: uiControl,
+    componentType: uiControl ?? (oneOf && 'select') ?? type,
     name: prefix ? `${prefix}.${propertyName}` : propertyName,
     type,
     uiBefore,

@@ -655,6 +655,16 @@ export class FormController {
     debug(`Resetting ${name}'s maskedValue to ${initialMask}`);
     ObjectMap.set(this.state.maskedValues, name, initialMask);
 
+    debug(`Resetting ${name}'s error`);
+    ObjectMap.delete(this.state.errors, name);
+
+    debug(`Resetting ${name}'s touched`);
+    ObjectMap.delete(this.state.touched, name);
+
+    // Check if the form is valid
+    this.state.valid = ObjectMap.empty(this.state.errors);
+    this.state.invalid = !this.state.valid;
+
     this.emit('field', name);
   }
 

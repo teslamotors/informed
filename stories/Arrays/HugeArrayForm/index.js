@@ -66,14 +66,7 @@ const NestedForm = () => (
                   </button>
 
                   <ArrayField.Items>
-                    {({
-                      remove,
-                      name,
-                      reset,
-                      initialValue,
-                      values,
-                      setValue
-                    }) => (
+                    {({ remove, name, reset, initialValue, setValue }) => (
                       <label>
                         <h5>{name}</h5>
                         <FieldState name={name} />

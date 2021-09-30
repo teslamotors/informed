@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState, useCallback } from 'react';
 import { Relevant } from './Relevant';
 import { useArrayField } from '../hooks/useArrayField';
 import {
@@ -11,6 +11,7 @@ import {
 import { useFormController } from '../hooks/useFormController';
 import { useFieldState } from '../hooks/useFieldState';
 import { Debug } from '../debug';
+import { useScopedApi } from '../hooks/useScopedApi';
 
 const debug = Debug('informed:ArrayField' + '\t');
 
@@ -60,6 +61,9 @@ const ArrayFieldItem = ({
   // Register for child field updates
   const subState = useFieldState(arrayFieldItemState.name);
 
+  // Get scoped api for item api
+  const itemApi = useScopedApi(arrayFieldItemState.name);
+
   // Need to memoize to prevent re renders
   const wrappedController = useMemo(
     () => {
@@ -99,6 +103,15 @@ const ArrayFieldItem = ({
     [arrayFieldItemState.index]
   );
 
+  const reset = useCallback(
+    () => {
+      fieldsMap.forEach(fieldMeta => {
+        fieldMeta.current.fieldApi.reset();
+      });
+    },
+    [arrayFieldItemState.name, arrayFieldItemState.index]
+  );
+
   const arrayFieldStateValue = {
     ...arrayFieldItemState,
     values: subState.value,
@@ -106,11 +119,22 @@ const ArrayFieldItem = ({
     touched: subState.touched
   };
 
+  const arrayFieldItemApiValue = useMemo(
+    () => {
+      return {
+        ...arrayFieldItemApi,
+        ...itemApi,
+        reset
+      };
+    },
+    [arrayFieldItemState.name, arrayFieldItemState.index]
+  );
+
   const memoizedChildren = useMemo(
     () => {
       debug('Rendering');
       return children({
-        ...arrayFieldItemApi,
+        ...arrayFieldItemApiValue,
         name: arrayFieldItemState.name,
         index: arrayFieldItemState.index
       });
@@ -121,7 +145,7 @@ const ArrayFieldItem = ({
   if (typeof children === 'function') {
     return (
       <FormControllerContext.Provider value={wrappedController}>
-        <ArrayFieldItemApiContext.Provider value={arrayFieldItemApi}>
+        <ArrayFieldItemApiContext.Provider value={arrayFieldItemApiValue}>
           <ArrayFieldItemStateContext.Provider value={arrayFieldStateValue}>
             <ScopeContext.Provider value={arrayFieldItemState.name}>
               {/* <h3>{arrayFieldItemState.key}</h3> */}

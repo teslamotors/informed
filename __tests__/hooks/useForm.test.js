@@ -17,7 +17,8 @@ const getState = state => {
     maskedValues: {},
     errors: {},
     touched: {},
-    initialValues: {}
+    initialValues: {},
+    dirt: {}
   };
   return Object.assign({}, defaultState, state);
 };
@@ -59,6 +60,9 @@ describe('useForm', () => {
       },
       maskedValues: {
         greeting: 'Hi!'
+      },
+      dirt: {
+        greeting: true
       },
     }));
   });
@@ -124,7 +128,10 @@ describe('useForm', () => {
       },
       touched: {
         greeting: true
-      }
+      },
+      dirt: {
+        greeting: true
+      },
     }));
 
   });
@@ -153,6 +160,9 @@ describe('useForm', () => {
       },
       maskedValues: {
         greeting: 'Hi!'
+      },
+      dirt: {
+        greeting: true
       },
     }));
 
@@ -196,6 +206,9 @@ describe('useForm', () => {
       },
       maskedValues: {
         greeting: 'Hello World'
+      },
+      dirt: {
+        greeting: true
       },
     }));
 
@@ -258,6 +271,9 @@ describe('useForm', () => {
       maskedValues: {
         greeting: 'Hello World'
       },
+      dirt: {
+        greeting: true
+      },
       initialValues
     }));
 
@@ -313,6 +329,9 @@ describe('useForm', () => {
       maskedValues: {
         greeting: 'Hi!'
       },
+      dirt: {
+        greeting: true
+      },
       errors: {
         greeting: 'Field must be at least five characters',
       },
@@ -363,6 +382,9 @@ describe('useForm', () => {
         greeting: 'Field must be at least five characters',
       },
       touched: {
+        greeting: true
+      },
+      dirt: {
         greeting: true
       }
     }));

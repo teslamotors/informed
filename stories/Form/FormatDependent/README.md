@@ -15,24 +15,13 @@ import {
   useFieldApi
 } from 'informed';
 
-const CarOrTruck = () => {
-  return (
-    <>
-      <label>Would you like a car or truck?</label>
-      <RadioGroup field="type" label="Would you like a car or truck?">
-        <label>
-          Car <Radio value="car" />
-        </label>
-        <label>
-          Truck <Radio value="truck" />
-        </label>
-      </RadioGroup>
-    </>
-  );
-};
-
 const options = {
   car: [
+    {
+      value: '',
+      label: '- Select -',
+      disabled: true
+    },
     {
       value: 'modelS',
       label: 'Model S'
@@ -52,6 +41,11 @@ const options = {
   ],
   truck: [
     {
+      value: '',
+      label: '- Select -',
+      disabled: true
+    },
+    {
       value: 'semi',
       label: 'Semi Truck'
     },
@@ -62,15 +56,27 @@ const options = {
   ]
 };
 
+const CarOrTruck = () => {
+  return (
+    <>
+      <label>Would you like a car or truck?</label>
+      <RadioGroup name="type" initialValue="car">
+        <Radio value="car" label="Car" />
+        <Radio value="truck" label="Truck" />
+      </RadioGroup>
+    </>
+  );
+};
+
 const ProductSelect = () => {
-  const { value } = useFieldState('type');
+  const { value, dirty } = useFieldState('type');
   const { reset } = useFieldApi('product');
 
-  const opts = options[value] || [];
+  const opts = useMemo(() => options[value] || [], [value]);
 
   useEffect(
     () => {
-      reset();
+      if (dirty) reset();
     },
     [value]
   );
@@ -95,6 +101,8 @@ const DependentFields = () => (
     <ProductSelect />
     <button type="submit">Submit</button>
     <Debug values />
+    <DebugField name="type" value dirty />
+    <DebugField name="product" value dirty />
   </Form>
 );
 ```

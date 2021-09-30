@@ -93,7 +93,7 @@ import ConditionalSchemaControl from './Schema/ConditionalSchemaControl';
 import ConditionalOptions from './Schema/ConditionalOptions';
 import SchemaComponents from './Schema/SchemaComponents';
 // import HugeSchema from './Schema/HugeSchema';
-// import FormatDependent from './Form/FormatDependent';
+import FormatDependent from './Form/FormatDependent';
 // import FormattedObjectInput from './CustomInputs/FormattedObjectInput';
 // import ObjectInput from './CustomInputs/ObjectInput';
 import NumberFormatter from './Formatting/NumberFormatter';
@@ -162,7 +162,7 @@ storiesOf('Form', module)
   .add('Api', Api)
   .add('Props', Props)
   .add('Dynamic', DynamicFields)
-  //   .add('Dependent Fields', FormatDependent)
+  .add('Dependent Fields', FormatDependent)
   //   .add('Dynamic Fields', Dynamic)
   .add('Features', FeatureTester)
   .add('Complex', Complex)

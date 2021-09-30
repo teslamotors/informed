@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 import {
@@ -8,20 +8,17 @@ import {
   Select,
   Debug,
   useFieldState,
-  useFieldApi
+  useFieldApi,
+  DebugField
 } from '../../../src';
 
 const CarOrTruck = () => {
   return (
     <>
       <label>Would you like a car or truck?</label>
-      <RadioGroup field="type" label="Would you like a car or truck?">
-        <label>
-          Car <Radio value="car" />
-        </label>
-        <label>
-          Truck <Radio value="truck" />
-        </label>
+      <RadioGroup name="type" initialValue="car">
+        <Radio value="car" label="Car" />
+        <Radio value="truck" label="Truck" />
       </RadioGroup>
     </>
   );
@@ -29,6 +26,11 @@ const CarOrTruck = () => {
 
 const options = {
   car: [
+    {
+      value: '',
+      label: '- Select -',
+      disabled: true
+    },
     {
       value: 'modelS',
       label: 'Model S'
@@ -48,6 +50,11 @@ const options = {
   ],
   truck: [
     {
+      value: '',
+      label: '- Select -',
+      disabled: true
+    },
+    {
       value: 'semi',
       label: 'Semi Truck'
     },
@@ -62,29 +69,17 @@ const ProductSelect = () => {
   const { value, dirty } = useFieldState('type');
   const { reset } = useFieldApi('product');
 
-  const opts = options[value] || [];
+  const opts = useMemo(() => options[value] || [], [value]);
 
   useEffect(
     () => {
-      if (dirty) {
-        // console.log('EFFECT', value);
-        reset();
-      }
+      if (dirty) reset();
     },
     [value]
   );
 
   return (
-    <Select field="product" label="Product" disabled={!value}>
-      <option value="" disabled>
-        - Select -
-      </option>
-      {opts.map(option => (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </Select>
+    <Select field="product" label="Product" disabled={!value} options={opts} />
   );
 };
 
@@ -93,7 +88,20 @@ const DependentFields = () => (
     <CarOrTruck />
     <ProductSelect />
     <button type="submit">Submit</button>
-    <Debug values />
+    <div style={{ display: 'flex' }}>
+      <div style={{ flex: 1 }}>
+        <h5>Form State:</h5>
+        <Debug values />
+      </div>
+      <div style={{ flex: 1, marginLeft: '2rem' }}>
+        <h5>Type State:</h5>
+        <DebugField name="type" value dirty />
+      </div>
+      <div style={{ flex: 1, marginLeft: '2rem' }}>
+        <h5>Product State:</h5>
+        <DebugField name="product" value dirty />
+      </div>
+    </div>
   </Form>
 );
 

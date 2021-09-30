@@ -97,6 +97,7 @@ export class FormController {
       errors: {},
       touched: {},
       maskedValues: {},
+      dirt: {},
       initialValues: this.options.initialValues || {}
     };
 
@@ -246,6 +247,7 @@ export class FormController {
     // Always remember to update pristine and valid here
     this.state.pristine = false;
     this.state.dirty = !this.state.pristine;
+    ObjectMap.set(this.state.dirt, name, true);
 
     // Remember to update valid
     this.state.valid = ObjectMap.empty(this.state.errors);
@@ -326,23 +328,28 @@ export class FormController {
     return ObjectMap.get(this.state.initialValues, name);
   }
 
-  getPristine(name) {
-    // Field might not be registered yet so don't try and check if we are not registered
-    if (this.fieldsMap.get(name)) {
-      // Current value for this field
-      const val = this.getValue(name);
+  // getPristine(name) {
+  //   // Field might not be registered yet so don't try and check if we are not registered
+  //   if (this.fieldsMap.get(name)) {
+  //     // Current value for this field
+  //     const val = this.getValue(name);
 
-      // What was the initial value for this field
-      const init = this.fieldsMap.get(name).current.getInitialValue();
+  //     // What was the initial value for this field
+  //     const init = this.fieldsMap.get(name).current.getInitialValue();
 
-      // We are pristine if
-      return init === val;
-    }
-    return undefined;
-  }
+  //     // We are pristine if
+  //     return init === val;
+  //   }
+  //   // Always need to return true here because field is not registered
+  //   return true;
+  // }
 
   getDirty(name) {
-    return !this.getPristine(name);
+    return !!ObjectMap.get(this.state.dirt, name);
+  }
+
+  getPristine(name) {
+    return !this.getDirty(name);
   }
 
   getValid(name) {
@@ -376,10 +383,10 @@ export class FormController {
     // Get meta for field
     const meta = this.fieldsMap.get(name)?.current;
     const error = this.getError(name);
-    const pristine = this.getPristine(name);
+    const dirty = this.getDirty(name);
     const valid = this.getValid(name);
     const touched = !!this.getTouched(name);
-    const dirty = !pristine;
+    const pristine = !dirty;
     const validating = !!this.validationRequests.get(name);
 
     let showError = false;
@@ -420,6 +427,8 @@ export class FormController {
       ObjectMap.delete(this.state.touched, name);
       debug('Delete Errors', name);
       ObjectMap.delete(this.state.errors, name);
+      debug('Delete Dirt', name);
+      ObjectMap.delete(this.state.dirt, name);
       this.emit('field', name);
     }
   }
@@ -430,6 +439,7 @@ export class FormController {
     ObjectMap.swap(this.state.maskedValues, name, a, b);
     ObjectMap.swap(this.state.touched, name, a, b);
     ObjectMap.swap(this.state.errors, name, a, b);
+    ObjectMap.swap(this.state.dirt, name, a, b);
     // DO NOT emit event here we want to delay it on purpose because otherwise relevance will trigger with bad state
     // this.emit("field", name);
   }
@@ -440,6 +450,7 @@ export class FormController {
     ObjectMap.delete(this.state.maskedValues, name);
     ObjectMap.delete(this.state.touched, name);
     ObjectMap.delete(this.state.errors, name);
+    ObjectMap.delete(this.state.dirt, name);
     // DO NOT emit event here we want to delay it on purpose because otherwise relevance will trigger with bad state
     // this.emit("field", name);
   }
@@ -623,6 +634,7 @@ export class FormController {
       errors: {},
       touched: {},
       maskedValues: {},
+      dirt: {},
       initialValues: this.options.initialValues || {}
     };
 
@@ -660,6 +672,9 @@ export class FormController {
 
     debug(`Resetting ${name}'s touched`);
     ObjectMap.delete(this.state.touched, name);
+
+    debug(`Resetting ${name}'s dirt`);
+    ObjectMap.delete(this.state.dirt, name);
 
     // Check if the form is valid
     this.state.valid = ObjectMap.empty(this.state.errors);

@@ -12,13 +12,10 @@ const ArrayFieldExample = () => (
         <Input name="name" label="Your Name:" />
         <h5>Siblings:</h5>
         <ArrayField name="siblings">
-          {({ add, reset }) => (
+          {({ add }) => (
             <>
               <button type="button" onClick={add}>
                 Add Sibling
-              </button>
-              <button onClick={reset} type="button">
-                Reset Siblings
               </button>
               <ArrayField.Items>
                 {({ remove, name, index }) => (

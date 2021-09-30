@@ -247,6 +247,14 @@ pre {
   text-decoration: none !important;
 }
 
+.markdown-body[class] table {
+  display: table;
+}
+
+.markdown-body[class] table strong {
+  color: red;
+}
+
 /* .markdown-body[class] table {
   display: table;
 }

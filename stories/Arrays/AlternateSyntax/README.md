@@ -1,6 +1,6 @@
-# Dynamic Array of fields
+# Flat Arrays
 
-Fields can also be associated with a dynamic array. Here is an example where you can add many siblings!
+You can create flat arrays where the value is not an object.
 
 <!-- STORY -->
 
@@ -14,13 +14,10 @@ const DynamicArrays = () => {
       <Input name="name" label="Your Name:" />
       <h5>Siblings:</h5>
       <ArrayField name="siblings">
-        {({ add, reset }) => (
+        {({ add }) => (
           <>
             <button type="button" onClick={add}>
               Add Sibling
-            </button>
-            <button onClick={reset} type="button">
-              Reset Siblings
             </button>
             <ArrayField.Items>
               {({ remove, name, index }) => (

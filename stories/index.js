@@ -65,7 +65,8 @@ import {
   ArrayOfFields,
   ArrayOfScopes,
   // DynamicArrays,
-  NestedForm,
+  NestedFields,
+  ArrayFieldItem,
   AlternateSyntax,
   HugeArrayForm
   // Swap
@@ -186,8 +187,9 @@ storiesOf('Arrays', module)
   // .add('Array Of Fields', ArrayOfFields)
   // .add('Array Of Scopes', ArrayOfScopes)
   // THE ABOVER WWAS ALREDAY COMMENTED OUT
-  .add('Dynamic Arrays', AlternateSyntax)
-  .add('Nested Form', NestedForm)
+  .add('Array Field', NestedFields)
+  .add('Flat Array Field', AlternateSyntax)
+  .add('Array Field Item', ArrayFieldItem)
   // .add('Swap', Swap)
   .add('Huge Array Form', HugeArrayForm);
 // .add('Alternate Syntax', AlternateSyntax);

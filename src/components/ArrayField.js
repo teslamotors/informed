@@ -115,7 +115,7 @@ const ArrayFieldItem = ({
   const arrayFieldStateValue = {
     ...arrayFieldItemState,
     values: subState.value,
-    errors: subState.errors,
+    errors: subState.error,
     touched: subState.touched
   };
 

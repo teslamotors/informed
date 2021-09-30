@@ -31,10 +31,10 @@ const initialValues = {
 // };
 
 const FieldState = () => {
-  const { values } = useArrayFieldItemState();
+  const state = useArrayFieldItemState();
   return (
     <pre>
-      <code>{JSON.stringify(values, null, 2)}</code>
+      <code>{JSON.stringify(state, null, 2)}</code>
     </pre>
   );
 };
@@ -96,7 +96,7 @@ const NestedForm = () => (
                       </button> */}
 
                   <ArrayField.Items>
-                    {({ remove, name, reset, setValue }) => (
+                    {({ remove, name, reset, resetField, setValue }) => (
                       <label>
                         <h5>{name}</h5>
                         <Input name="name" label="Name" required />
@@ -122,6 +122,11 @@ const NestedForm = () => (
                           type="button"
                           onClick={() => setValue('name', 'Elon')}>
                           Set Name to "Elon"
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => resetField('name')}>
+                          Reset Name
                         </button>
                         <button type="button" onClick={remove}>
                           Remove

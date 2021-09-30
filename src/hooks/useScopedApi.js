@@ -11,7 +11,7 @@ const buildScopedFormApi = (scope, formApi) => {
       formApi.setTouched(`${scope}.${field}`, value),
     getError: field => formApi.getError(`${scope}.${field}`),
     setError: (field, value) => formApi.setError(`${scope}.${field}`, value),
-    // reset: field => formApi.reset(`${scope}.${field}`), // Specifically did NOT add this as it would clobber array fields reset
+    resetField: field => formApi.resetField(`${scope}.${field}`),
     validate: field => formApi.validate(`${scope}.${field}`),
     getDirty: field => formApi.getDirty(`${scope}.${field}`),
     getPristine: field => formApi.getPristine(`${scope}.${field}`),

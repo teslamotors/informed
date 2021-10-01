@@ -3,35 +3,42 @@ import Code from '../../utils/Code';
 import withDocs from '../../utils/withDocs';
 import readme from './WithField.md';
 
-import { Form, Text, withFieldState, Scope } from '../../../src';
+import { Form, Input, Scope, Debug, useFieldState } from '../../../src';
 
-const FieldInfo = ({ fieldState }) => <code>{fieldState.value}</code>;
+const ScopedFieldState = ({ name }) => {
+  const { value } = useFieldState(name);
+  return (
+    <pre>
+      <code>{JSON.stringify(value, null, 2)}</code>
+    </pre>
+  );
+};
 
-const WithFavoriteColorInfo = withFieldState('favorite.color')(FieldInfo);
-const WithColorInfo = withFieldState('color')(FieldInfo);
+const UnScopedFieldState = ({ name }) => {
+  const { value } = useFieldState(name, false); // << Note the false here
+  return (
+    <pre>
+      <code>{JSON.stringify(value, null, 2)}</code>
+    </pre>
+  );
+};
 
-const WithField = () => (
+const ScopeGotcha = () => (
   <div>
-    <Form id="gotcha-form-2">
-      {({ formApi, formState }) => (
-        <div>
-          <Scope scope="favorite">
-            <Text field="color" />
-            <div>
-              favorite.color: <WithFavoriteColorInfo />
-            </div>
-            <div>
-              color: <WithColorInfo />
-            </div>
-          </Scope>
-          <label>Values:</label>
-          <Code language="language-js">
-            {JSON.stringify(formState.values, null, 2)}
-          </Code>
-        </div>
-      )}
+    <Form>
+      <Scope scope="favorite">
+        <Input field="color" />
+        <h5>favorite.color: ( scoped )</h5>
+        <ScopedFieldState name="favorite.color" />
+        <h5>color: ( scoped )</h5>
+        <ScopedFieldState name="color" />
+        <h5>favorite.color: ( un-scoped )</h5>
+        <UnScopedFieldState name="favorite.color" />
+      </Scope>
+      <h5>Form State</h5>
+      <Debug values />
     </Form>
   </div>
 );
 
-export default withDocs(readme, WithField);
+export default withDocs(readme, ScopeGotcha);

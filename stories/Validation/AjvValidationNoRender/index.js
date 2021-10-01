@@ -3,7 +3,7 @@ import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 import Ajv from 'ajv';
 
-import { Form, Text, Debug } from '../../../src';
+import { Form, Input, Debug } from '../../../src';
 
 const schema = {
   type: 'object',
@@ -32,10 +32,10 @@ const Schema = () => (
     ajv={Ajv}
     onlyValidateSchema
     onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
+    <Input name="name" label="First name:" />
+    <Input name="age" label="Age:" type="number" />
+    <Input name="friend" label="Friend:" />
     <button type="submit">Submit</button>
-    <Text field="name" label="First name:" />
-    <Text field="age" label="Age:" type="number" />
-    <Text field="friend" label="Friend:" />
     <Debug errors values />
   </Form>
 );

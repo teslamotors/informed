@@ -31,8 +31,8 @@ import ValidationControl from './Validation/ValidationControl';
 // import ComplexArrayFieldValidation from './Validation/ComplexArrayFieldValidation';
 // import Notifications from './Validation/Notifications';
 // import FormLevelValidation from './Validation/FormLevelValidation';
-// import AjvValidation from './Validation/AjvValidation';
-// import AjvValidationNoRender from './Validation/AjvValidationNoRender';
+import AjvValidation from './Validation/AjvValidation';
+import AjvValidationNoRender from './Validation/AjvValidationNoRender';
 import AsyncValidation from './Validation/AsyncValidation';
 // import AsyncValidationControl from './Validation/AsyncValidationControl';
 // import FormatPlayground from './Playground/Format';
@@ -46,20 +46,20 @@ import FormatterFunctions from './Formatting/FormatterFunctions';
 // // import MaskWithCursor from './Formatting/MaskWithCursor';
 // import MaskWithCursorOffset from './Formatting/MaskWithCursorOffset';
 // import UnnecessaryRendering from './Gotchas/UnnecessaryRendering';
-// import Scope from './Gotchas/Scope';
+import Scope from './Gotchas/Scope';
 // import Optimization from './Gotchas/Optimization';
 import DynamicFields from './Dynamic/DynamicFields';
 // import CustomInputs from './CustomInputs';
-// import {
-//   TextInput,
-//   NumberInput,
-//   TextAreaInput,
-//   RadioInput,
-//   CheckboxInput,
-//   SelectInput,
-//   MultiSelectInput,
-//   Intro as InputIntro
-// } from './Inputs';
+import {
+  TextInput,
+  NumberInput,
+  TextAreaInput,
+  RadioInput,
+  CheckboxInput,
+  SelectInput,
+  MultiSelectInput,
+  Intro as InputIntro
+} from './Inputs';
 
 import {
   ArrayOfFields,
@@ -169,15 +169,15 @@ storiesOf('Form', module)
   .add('Complex', Complex)
   .add('Big', Big);
 
-// storiesOf('Inputs', module)
-//   .add('Intro', InputIntro)
-//   .add('Text', TextInput)
-//   .add('Text Area', TextAreaInput)
-//   .add('Radio Input', RadioInput)
-//   .add('Checkbox Input', CheckboxInput)
-//   .add('Select Input', SelectInput)
-//   .add('Multi Select Input', MultiSelectInput)
-//   .add('Number Input', NumberInput);
+storiesOf('Inputs', module)
+  .add('Intro', InputIntro)
+  .add('Input', TextInput)
+  .add('Text Area', TextAreaInput)
+  .add('Radio Input', RadioInput)
+  .add('Checkbox Input', CheckboxInput)
+  .add('Select Input', SelectInput)
+  .add('Multi Select Input', MultiSelectInput)
+  .add('Number Input', NumberInput);
 
 // storiesOf('CustomInputs', module)
 //   .add('Creating Custom Inputs', CustomInputs)
@@ -206,9 +206,9 @@ storiesOf('Validation', module)
   // .add('Array Field Validation', ArrayFieldValidation)
   // .add('Complex Array Field Validation', ComplexArrayFieldValidation)
   .add('Yup Validation', YupValidation)
-  .add('Field Level + Yup Validation', FieldLevelYupValidation);
-// .add('JSON Schema Validation + Rendering', AjvValidation)
-// .add('Only JSON Schema Validation', AjvValidationNoRender)
+  .add('Field Level + Yup Validation', FieldLevelYupValidation)
+  .add('JSON Schema Validation + Rendering', AjvValidation)
+  .add('Only JSON Schema Validation', AjvValidationNoRender);
 // .add('Async Validation Control', AsyncValidationControl);
 
 storiesOf('Schema', module)
@@ -247,10 +247,10 @@ storiesOf('Formatting', module)
 
 // storiesOf('Multistep Forms', module).add('Dynamic Multistep', ComplexMultistep);
 
-// storiesOf('Gotchas', module)
-//   .add('Unnecessary Rendering', UnnecessaryRendering)
-//   .add('Optimization', Optimization)
-//   .add('Scope', Scope);
+storiesOf('Gotchas', module)
+  //   .add('Unnecessary Rendering', UnnecessaryRendering)
+  //   .add('Optimization', Optimization)
+  .add('Scope', Scope);
 
 // storiesOf('Dynamic Forms', module)
 //   .add('Dynamic Fields', DynamicFields)

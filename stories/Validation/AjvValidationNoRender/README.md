@@ -2,12 +2,10 @@
 
 You can pass a JSON schema to the form but manually render the fields. ( Validation Only )
 
-** Note: This is in beta and is subject to change! **
-
 <!-- STORY -->
 
 ```jsx
-import { Form, SchemaFields, Debug } from 'informed';
+import { Form, Input, Debug } from 'informed';
 import Ajv from 'ajv';
 
 const schema = {
@@ -38,9 +36,9 @@ const Schema = () => (
     onlyValidateSchema
     onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
     <button type="submit">Submit</button>
-    <Text field="name" label="First name:" />
-    <Text field="age" label="Age:" type="number" />
-    <Text field="friend" label="Friend:" />
+    <Input name="name" label="First name:" />
+    <Input name="age" label="Age:" type="number" />
+    <Input name="friend" label="Friend:" />
     <Debug errors values />
   </Form>
 );

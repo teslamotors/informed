@@ -3,48 +3,76 @@
 Scope is a very useful tool for simplifying your code but you can easily make
 mistakes when using it.
 
-## WithField:
+## useFieldState:
 
-Below is an example where you could misuse the `withFieldState` high order
-component.
+Below is an example where you could misuse the `useFieldState`.
 
-**
-Type into the field and Note how the text next to `color:` gets upated while nothing
-changes next to `favorite.color:`
-**
+Type into the field and Note how the text below to `color:` gets updated while nothing changes next to `favorite.color:`
 
 <!-- STORY -->
 
-**
 Why? Lets take a look at the code below:
-**
 
 <!-- IDFK Strange issue where i need this commnet or code formatting is messed up -->
 
 ```jsx
-import { Form, Text, Scope, withFieldState } from 'informed';
+import { Form, Text, Scope, useFieldState } from 'informed';
 
-const FieldInfo = ({ fieldState }) => <code>{fieldState.value}</code>;
+const ScopedFieldState = ({ name }) => {
+  const { value } = useFieldState(name);
+  return (
+    <pre>
+      <code>{JSON.stringify(value, null, 2)}</code>
+    </pre>
+  );
+};
 
-const WithFavoriteColorInfo = withFieldState('favorite.color')(FieldInfo);
-const WithColorInfo = withFieldState('color')(FieldInfo);
+const UnScopedFieldState = ({ name }) => {
+  const { value } = useFieldState(name, false); // << Note the false here
+  return (
+    <pre>
+      <code>{JSON.stringify(value, null, 2)}</code>
+    </pre>
+  );
+};
 
-<Form id="gotcha-form-2">
-  <Scope scope="favorite">
-    <Text field="color" />
-    <div>
-      favorite.color: <WithFavoriteColorInfo />
-    </div>
-    <div>
-      color: <WithColorInfo />
-    </div>
-  </Scope>
-</Form>;
+const ScopeGotcha = () => (
+  <div>
+    <Form>
+      <Scope scope="favorite">
+        <Input field="color" />
+        <h5>favorite.color: ( scoped )</h5>
+        <ScopedFieldState name="favorite.color" />
+        <h5>color: ( scoped )</h5>
+        <ScopedFieldState name="color" />
+        <h5>favorite.color: ( un-scoped )</h5>
+        <UnScopedFieldState name="favorite.color" />
+      </Scope>
+      <h5>Form State</h5>
+      <Debug values />
+    </Form>
+  </div>
+);
 ```
 
 <br/>
-Remember that the result of high order components is affected just like `Text`
-fields. In other words when you write `<Text field="color" />` within a
-`<Scope scope="favorite" />` the result in the values is `favorite.color`.
-Putting a component that is wrapped with `withFieldState` or `withFieldApi` is
-affected in the exact same way!
+
+Remember that the result of the `useField` hooks is affected just like `Input` fields. In other words when you write:
+
+```jsx
+<Input name="color" />
+```
+
+<br/>
+
+Within A:
+
+```jsx
+<Scope scope="favorite" />
+```
+
+<br/>
+
+The result in the values is `favorite.color`. Putting a component that uses `useFieldState` or `useFieldApi` is affected in the exact same way!
+
+To opt out of this. Pass `false` as a second parameter.

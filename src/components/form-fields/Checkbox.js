@@ -7,9 +7,8 @@ export const Checkbox = ({ label, ...props }) => {
   const { value } = fieldState;
   const { onBlur, onChange } = userProps;
   return render(
-    <>
-      {label ? <label htmlFor={userProps.id}> {label} </label> : null}
-
+    <label>
+      {label}
       <input
         {...userProps}
         checked={!!value}
@@ -27,6 +26,6 @@ export const Checkbox = ({ label, ...props }) => {
         }}
         type="checkbox"
       />
-    </>
+    </label>
   );
 };

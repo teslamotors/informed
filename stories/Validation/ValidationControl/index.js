@@ -53,8 +53,34 @@ const ValidationControl = () => (
             <Input
               name="username3"
               label="Username"
-              validateOnBlur
               validateOn="change-blur"
+              required
+              validate={validate}
+              asyncValidate={asyncValidate}
+            />
+            <h4>validateOn="change-submit"</h4>
+            <Input
+              name="username4"
+              label="Username"
+              validateOn="change-submit"
+              required
+              validate={validate}
+              asyncValidate={asyncValidate}
+            />
+            <h4>validateOn="blur-submit"</h4>
+            <Input
+              name="username5"
+              label="Username"
+              validateOn="blur-submit"
+              required
+              validate={validate}
+              asyncValidate={asyncValidate}
+            />
+            <h4>validateOn="submit"</h4>
+            <Input
+              name="username6"
+              label="Username"
+              validateOn="submit"
               required
               validate={validate}
               asyncValidate={asyncValidate}
@@ -62,7 +88,7 @@ const ValidationControl = () => (
             <button type="submit">Submit</button>
           </div>
           <div style={{ flex: 2, minWidth: '300px', marginLeft: '3rem' }}>
-            <Debug values errors invalid />
+            <Debug values errors invalid validating />
           </div>
         </div>
       )}

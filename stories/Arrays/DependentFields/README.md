@@ -102,7 +102,7 @@ const initialValues = {
 
 const DynamicArrays = () => {
   return (
-    <Form initialValues={{ siblings: ['foo', 'bar', 'baz'] }}>
+    <Form initialValues={initialValues}>
       <h5>You:</h5>
       <Input name="name" label="Your Name:" />
       <h5>Friends:</h5>

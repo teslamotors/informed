@@ -19,7 +19,7 @@ See table below for mapping:
 <!-- STORY -->
 
 ```jsx
-import { Form, Text } from 'informed';
+import { Form, Input } from 'informed';
 
 const validate = value => {
   if (!value || value.length < 5)
@@ -30,7 +30,7 @@ const asyncValidate = username => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       // Simulate username check
-      if (['joe', 'tanner', 'billy', 'bob'].includes(username)) {
+      if (['joseph', 'tanner', 'billy', 'bobby'].includes(username)) {
         return resolve('That username is taken');
       }
       // Simulate request faulure
@@ -41,4 +41,66 @@ const asyncValidate = username => {
     }, 2000);
   });
 };
+
+const ValidationControl = () => (
+  <div>
+    <Form id="validate-control-form">
+      <h4>validateOn="blur" ( default )</h4>
+      <Input
+        name="username1"
+        label="Username"
+        required
+        validate={validate}
+        asyncValidate={asyncValidate}
+      />
+      <h4>validateOn="change"</h4>
+      <Input
+        name="username2"
+        label="Username"
+        validateOn="change"
+        required
+        validate={validate}
+        asyncValidate={asyncValidate}
+      />
+      <h4>validateOn="change-blur"</h4>
+      <Input
+        name="username3"
+        label="Username"
+        validateOn="change-blur"
+        required
+        validate={validate}
+        asyncValidate={asyncValidate}
+      />
+      <h4>validateOn="change-submit"</h4>
+      <Input
+        name="username4"
+        label="Username"
+        validateOn="change-submit"
+        required
+        validate={validate}
+        asyncValidate={asyncValidate}
+      />
+      <h4>validateOn="blur-submit"</h4>
+      <Input
+        name="username5"
+        label="Username"
+        validateOn="blur-submit"
+        required
+        validate={validate}
+        asyncValidate={asyncValidate}
+      />
+      <h4>validateOn="submit"</h4>
+      <Input
+        name="username6"
+        label="Username"
+        validateOn="submit"
+        required
+        validate={validate}
+        asyncValidate={asyncValidate}
+      />
+      <button type="submit">Submit</button>
+      <Debug values errors invalid validating />
+    </Form>
+  </div>
+);
 ```

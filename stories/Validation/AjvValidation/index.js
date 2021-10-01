@@ -78,7 +78,8 @@ const schema = {
       'ui:control': 'select',
       'ui:props': {
         multiple: true,
-        style: { height: '100px', width: '200px' }
+        style: { height: '100px', width: '200px' },
+        initialValue: ['jeep', 'tesla']
       },
       items: {
         oneOf: [
@@ -87,9 +88,6 @@ const schema = {
           { const: 'audi', title: 'Audi' },
           { const: 'jeep', title: 'Jeep' }
         ]
-      },
-      'ui:props': {
-        initialValue: ['jeep', 'tesla']
       }
     }
   }

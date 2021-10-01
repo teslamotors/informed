@@ -3,12 +3,11 @@
 <!-- STORY -->
 
 ```jsx
-import { Form, Select, Option } from 'informed';
+import { Form, Select, Option, Debug } from 'informed';
 
-<Form>
-  <label>
-    Relationship status:
-    <Select field="status">
+const SelectInput = () => (
+  <Form>
+    <Select name="status" label="Relationship status:">
       <Option value="" disabled>
         Select One...
       </Option>
@@ -16,7 +15,8 @@ import { Form, Select, Option } from 'informed';
       <Option value="relationship">Relationship</Option>
       <Option value="complicated">Complicated</Option>
     </Select>
-  </label>
-  <button type="submit">Submit</button>
-</Form>;
+    <button type="submit">Submit</button>
+    <Debug values />
+  </Form>
+);
 ```

@@ -3,13 +3,13 @@
 <!-- STORY -->
 
 ```jsx
-import { Form, Text } from 'informed';
+import { Form, Input, Debug } from 'informed';
 
-<Form>
-  <label>
-    Age:
-    <Text field="age" type="number" />
-  </label>
-  <button type="submit">Submit</button>
-</Form>;
+const Number = () => (
+  <Form>
+    <Input name="age" type="number" label="Age:" />
+    <button type="submit">Submit</button>
+    <Debug values />
+  </Form>
+);
 ```

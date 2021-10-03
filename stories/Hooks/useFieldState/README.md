@@ -5,7 +5,7 @@ The `useFieldState` hook will allow you to gain access to a fields state. Note h
 <!-- STORY -->
 
 ```jsx
-import { Form, Text, useFieldState } from 'informed';
+import { Form, Input, useFieldState } from 'informed';
 
 const ComponentUsingFieldState = ({ name }) => {
   const fieldState = useFieldState(name);
@@ -21,8 +21,8 @@ const ComponentUsingFieldState = ({ name }) => {
 };
 
 <Form>
-  <Text field="name" label="Name:" />
-  <Text field="age" label="Age:" type="number" />
+  <Input name="name" label="Name:" initialValue="Joe" />
+  <Input field="age" label="Age:" type="number" />
   <button type="submit">Submit</button>
   <ComponentUsingFieldState name="name" />
   <ComponentUsingFieldState name="age" />

@@ -17,10 +17,9 @@ const ComponentUsingFormState = () => {
 };
 
 <Form>
-  <label>Name:<Text field="name" /></label>
+  <Input name="name" label="Name:" />
   <button type="submit">Submit</button>
   <h5>Component using formState:</h5>
   <ComponentUsingFormState />
-</Form>
-
+</Form>;
 ```

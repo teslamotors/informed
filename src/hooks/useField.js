@@ -54,6 +54,7 @@ export const useField = ({
   validateOnMount: userValidateOnMount,
   validateOn: userValidateOn,
   formatterDependencies = [],
+  formController: userFormController,
   ...userProps
 }) => {
   // For backwards compatability
@@ -70,7 +71,7 @@ export const useField = ({
   const maintainCursor = userMaintainCursor ?? !!formatter;
 
   // Grab the form controller
-  const formController = useFormController();
+  const formController = userFormController ?? useFormController();
 
   // Get any options
   const autocomplete = userAutocomplete ?? formController.options.autocomplete;

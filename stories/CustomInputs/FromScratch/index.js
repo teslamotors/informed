@@ -2,7 +2,7 @@ import React from 'react';
 import Code from '../../utils/Code';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import { Form, asField } from '../../../src';
+import { Form, useField } from '../../../src';
 
 const validate = value => {
   return !value || value.length < 5
@@ -10,11 +10,15 @@ const validate = value => {
     : undefined;
 };
 
-const ErrorText = asField(({ fieldState, fieldApi, ...props }) => {
+export const ErrorText = React.memo(({ label, ...props }) => {
+  const { render, fieldState, fieldApi } = useField({
+    type: 'text',
+    ...props
+  });
   const { value } = fieldState;
   const { setValue, setTouched } = fieldApi;
   const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props;
-  return (
+  return render(
     <React.Fragment>
       <input
         {...rest}

@@ -5,13 +5,14 @@ Because of this design, you can add your very own custom inputs! Below is an exa
 <!-- STORY -->
 
 ```jsx
-import { Form, asField } from 'informed';
+import { Form, useField } from 'informed';
 
-const Slider = asField(({ fieldState, fieldApi, ...props }) => {
+const Slider = React.memo(props => {
+  const { render, fieldState, fieldApi } = useField({ ...props });
   const { value } = fieldState;
   const { setValue, setTouched } = fieldApi;
   const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props;
-  return (
+  return render(
     <input
       {...rest}
       type="range"

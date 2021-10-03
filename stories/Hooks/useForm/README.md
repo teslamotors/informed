@@ -5,17 +5,10 @@ The `useForm` hook will allow you create your own form components.
 <!-- STORY -->
 
 ```jsx
-import { Text, useForm } from 'informed';
+import { Input, useForm } from 'informed';
 
-const CustomForm = ({ 
-  children, 
-  ...rest }) => {
-
-  const { 
-    formController,
-    render,
-    userProps
-  } = useForm(rest);
+const CustomForm = ({ children, ...rest }) => {
+  const { formController, render, userProps } = useForm(rest);
 
   /* --- DONT FORGET TO CALL THE RENDER METHOD FROM THE HOOK! --- */
   return render(
@@ -25,15 +18,15 @@ const CustomForm = ({
       onSubmit={formController.submitForm}
       onKeyDown={formController.keyDown}>
       {children}
-    </form>  
+    </form>
   );
 };
 
-<CustomForm>
-  <label>
-    First name:
-    <Text field="name"/>
-  </label>
-  <button type="submit">Submit</button>
-</CustomForm>
+const UseFormExample = () => (
+  <CustomForm>
+    <Input field="name" name="First name:" />
+    <button type="submit">Submit</button>
+    <Debug />
+  </CustomForm>
+);
 ```

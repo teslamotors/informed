@@ -2,13 +2,14 @@ import React from 'react';
 import Code from '../../utils/Code';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import { Form, asField } from '../../../src';
+import { Form, useField } from '../../../src';
 
-const Slider = asField(({ fieldState, fieldApi, ...props }) => {
+const Slider = React.memo(props => {
+  const { render, fieldState, fieldApi } = useField({ ...props });
   const { value } = fieldState;
   const { setValue, setTouched } = fieldApi;
   const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props;
-  return (
+  return render(
     <input
       {...rest}
       type="range"

@@ -49,7 +49,7 @@ import FormatterFunctions from './Formatting/FormatterFunctions';
 import Scope from './Gotchas/Scope';
 // import Optimization from './Gotchas/Optimization';
 import DynamicFields from './Dynamic/DynamicFields';
-// import CustomInputs from './CustomInputs';
+import CustomInputs from './CustomInputs';
 import {
   TextInput,
   NumberInput,
@@ -80,23 +80,22 @@ import {
 //   WithFieldState
 // } from './HOC';
 
-// import {
-//   UseFormApi,
-//   UseFormState,
-//   UseFieldApi,
-//   UseFieldState,
-//   UseArrayField,
-//   UseForm,
-//   UseField
-// } from './Hooks';
+import {
+  UseFormApi,
+  UseFormState,
+  UseFieldApi,
+  UseFieldState,
+  UseForm,
+  UseField
+} from './Hooks';
 import ConditionalSchema from './Schema/ConditionalSchema';
 import ConditionalSchemaControl from './Schema/ConditionalSchemaControl';
 import ConditionalOptions from './Schema/ConditionalOptions';
 import SchemaComponents from './Schema/SchemaComponents';
 // import HugeSchema from './Schema/HugeSchema';
 import FormatDependent from './Form/FormatDependent';
-// import FormattedObjectInput from './CustomInputs/FormattedObjectInput';
-// import ObjectInput from './CustomInputs/ObjectInput';
+import FormattedObjectInput from './CustomInputs/FormattedObjectInput';
+import ObjectInput from './CustomInputs/ObjectInput';
 import NumberFormatter from './Formatting/NumberFormatter';
 
 addDecorator(StoryWrapper);
@@ -164,7 +163,6 @@ storiesOf('Form', module)
   .add('Props', Props)
   .add('Dynamic', DynamicFields)
   .add('Dependent Fields', FormatDependent)
-  //   .add('Dynamic Fields', Dynamic)
   .add('Features', FeatureTester)
   .add('Complex', Complex)
   .add('Big', Big);
@@ -179,10 +177,10 @@ storiesOf('Inputs', module)
   .add('Multi Select Input', MultiSelectInput)
   .add('Number Input', NumberInput);
 
-// storiesOf('CustomInputs', module)
-//   .add('Creating Custom Inputs', CustomInputs)
-//   .add('Creating Object Inputs', ObjectInput)
-//   .add('Creating Formatted Object Inputs', FormattedObjectInput);
+storiesOf('CustomInputs', module)
+  .add('Creating Custom Inputs', CustomInputs)
+  .add('Creating Object Inputs', ObjectInput)
+  .add('Creating Formatted Object Inputs', FormattedObjectInput);
 
 storiesOf('Arrays', module)
   // .add('Array Of Fields', ArrayOfFields)
@@ -194,7 +192,6 @@ storiesOf('Arrays', module)
   .add('Dependent Fields', DependentFieldsInArray)
   // .add('Swap', Swap)
   .add('Huge Array Form', HugeArrayForm);
-// .add('Alternate Syntax', AlternateSyntax);
 
 storiesOf('Validation', module)
   .add('Simple Validation', SimpleValidation)
@@ -236,14 +233,13 @@ storiesOf('Formatting', module)
 // // .add('Mask With Cursor Offset', MaskWithCursorOffset)
 // // .add('Format and Parse', FormatParse);
 
-// storiesOf('Hooks!', module)
-//   .add('useFormApi', UseFormApi)
-//   .add('useFormState', UseFormState)
-//   .add('useFieldApi', UseFieldApi)
-//   .add('useFieldState', UseFieldState)
-//   .add('useArrayField', UseArrayField)
-//   .add('useForm', UseForm)
-//   .add('useField', UseField);
+storiesOf('Hooks!', module)
+  .add('useFormApi', UseFormApi)
+  .add('useFormState', UseFormState)
+  .add('useFieldApi', UseFieldApi)
+  .add('useFieldState', UseFieldState)
+  .add('useForm', UseForm)
+  .add('useField', UseField);
 
 // storiesOf('Multistep Forms', module).add('Dynamic Multistep', ComplexMultistep);
 

@@ -21,7 +21,7 @@ import Debug from './Debugging/Debug';
 import Props from './Form/Props';
 import Api from './Form/Api';
 // import BasicMultistep from './Multistep/Basic';
-// import ComplexMultistep from './Multistep/Complex';
+import ComplexMultistep from './Multistep/Complex';
 import SimpleValidation from './Validation/SimpleValidation';
 import YupValidation from './Validation/YupValidation';
 import FieldLevelYupValidation from './Validation/FieldLevelYupValidation';
@@ -241,7 +241,7 @@ storiesOf('Hooks!', module)
   .add('useForm', UseForm)
   .add('useField', UseField);
 
-// storiesOf('Multistep Forms', module).add('Dynamic Multistep', ComplexMultistep);
+storiesOf('Multistep Forms', module).add('Dynamic Multistep', ComplexMultistep);
 
 storiesOf('Gotchas', module)
   //   .add('Unnecessary Rendering', UnnecessaryRendering)

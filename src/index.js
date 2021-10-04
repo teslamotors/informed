@@ -15,6 +15,7 @@ import { SchemaFields } from './Components/SchemaFields';
 import { FormField } from './Components/FormField';
 import { FormComponents } from './Components/FormComponents';
 import { FormFields } from './Components/FormFields';
+import { Multistep } from './Components/Multistep';
 
 import { FormState } from './Components/FormState';
 
@@ -29,6 +30,8 @@ import { useCursorPosition } from './hooks/useCursorPosition';
 import { useArrayFieldApi } from './hooks/useArrayFieldApi';
 import { useArrayFieldItemApi } from './hooks/useArrayFieldItemApi';
 import { useArrayFieldItemState } from './hooks/useArrayFieldItemState';
+import { useMultistepApi } from './hooks/useMultistepApi';
+import { useMultistepState } from './hooks/useMultistepState';
 
 import * as utils from './utils';
 
@@ -43,6 +46,8 @@ export {
   useArrayFieldApi,
   useArrayFieldItemApi,
   useArrayFieldItemState,
+  useMultistepApi,
+  useMultistepState,
   ArrayField,
   useArrayField,
   Debug,
@@ -62,5 +67,6 @@ export {
   SchemaFields,
   FormField,
   FormComponents,
-  FormFields
+  FormFields,
+  Multistep
 };

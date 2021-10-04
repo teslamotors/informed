@@ -44,11 +44,9 @@ import {
 const Info = () => {
   const { next } = useMultistepApi();
   return (
-    <Multistep.Step step="info" next="allergies">
-      <label>
-        Please enter your first name:
-        <Input name="first" required />
-      </label>
+    <Multistep.Step step="info">
+      <Input name="first" label="First Name" required />
+      <Input name="last" label="First Name" required />
       <button type="button" onClick={next}>
         Next
       </button>
@@ -60,11 +58,9 @@ const Allergic = () => {
   const { next, previous } = useMultistepApi();
   return (
     <Multistep.Step step="allergies">
-      <Checkbox
-        name="allergic"
-        required
-        label="Are you allergic to peanut butter?:"
-      />
+      <h5>Are you allergic to any of the following?</h5>
+      <Checkbox name="peanuts" label="Peanut butter?:" />
+      <Checkbox name="shellfish" label="Shellfish:" />
       <button type="button" onClick={next}>
         Next
       </button>
@@ -78,11 +74,14 @@ const Allergic = () => {
 const EpiPen = () => {
   const { next, previous } = useMultistepApi();
 
-  // Only relevant if the person is allergic
-  const relevant = ({ formState }) => formState.values.allergies?.allergic;
+  // Only relevant if the person is allergic to something
+  const relevant = ({ formState }) => {
+    const { allergies } = formState.values;
+    return allergies && Object.values(allergies).some(a => !!a);
+  };
 
   return (
-    <Multistep.Step step="pen" relevant={relevant}>
+    <Multistep.Step step="treatment" relevant={relevant}>
       <label>
         Do you have an epipen?:
         <RadioGroup name="epipen" required>
@@ -104,17 +103,9 @@ const Color = () => {
   const { next, previous } = useMultistepApi();
 
   return (
-    <Multistep.Step
-      step="color"
-      next="dog"
-      previous={values => (values.allergic ? 'epipen' : 'allergies')}>
-      <label>
-        <Input
-          name="color"
-          required
-          label="Please enter your favorite color:"
-        />
-      </label>
+    <Multistep.Step step="favorite">
+      <Input name="color" label="Favorite Color:" required />
+      <Input name="food" label="Favorite Food:" required />
       <button type="button" onClick={next}>
         Next
       </button>
@@ -130,19 +121,17 @@ const Dog = () => {
   const { previous } = useMultistepApi();
 
   return (
-    <Multistep.Step step="dog" previous="color">
-      <label>
-        Do you have a dog? <Checkbox name="hasDog" />
-      </label>
-      <Relevant when={({ values }) => values.hasDog}>
-        <label>
-          Whats your dogs name?:
-          <Input
-            name="dogName"
-            required
-            relevant={({ formState }) => formState.values.hasDog}
-          />
-        </label>
+    <Multistep.Step step="pets" previous="color">
+      <Checkbox name="hasDog" label="Do you have a dog?" />
+      <Relevant
+        when={({ formApi, scope }) => formApi.getValue(`${scope}.hasDog`)}>
+        <Input
+          name="dogName"
+          label="Whats your dogs name?"
+          required
+          relevant={({ formApi, scope }) => formApi.getValue(`${scope}.hasDog`)}
+          // relevant={({ formState }) => formState.values.hasDog}
+        />
       </Relevant>
       <button type="button" onClick={previous}>
         Previous
@@ -198,13 +187,13 @@ const Basic = () => {
         Click Me
       </button> */}
 
-      <Form id="basic-form">
+      <Form autocomplete="off">
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>
             <Multistep initialStep="info" multistepApiRef={multistepApiRef}>
               <div
                 style={{
-                  border: 'solid 1px',
+                  // border: 'solid 1px',
                   padding: '10px',
                   marginBottom: '10px'
                 }}>
@@ -217,7 +206,7 @@ const Basic = () => {
               <Buttons />
             </Multistep>
           </div>
-          <div style={{ flex: 2, minWidth: '300px' }}>
+          <div style={{ flex: 2, minWidth: '300px', marginLeft: '3rem' }}>
             <Debug errors values />
           </div>
         </div>

@@ -9,7 +9,7 @@ import { useFormController } from './useFormController';
 
 const useMultistep = ({ initialStep, multistepApiRef }) => {
   // Get the formApi
-  const { getFormState } = useFormController();
+  const { validate, getFormState } = useFormController();
   const formApi = useFormApi();
 
   // Get scope for relevance
@@ -104,12 +104,16 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
       // Get the next step
       const nextStep = getNexStep();
       if (nextStep) {
-        // Update the current step
-        currentStep.current = nextStep;
-        // Update the state
-        setState(prev => {
-          return { ...prev, current: nextStep };
-        });
+        // Validate the form
+        validate();
+        if (getFormState().valid) {
+          // Update the current step
+          currentStep.current = nextStep;
+          // Update the state
+          setState(prev => {
+            return { ...prev, current: nextStep };
+          });
+        }
       }
     };
 

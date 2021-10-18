@@ -11,8 +11,8 @@ const logger = Debug('informed:useMultistepStep' + '\t');
 
 const useMultistepStep = ({ step, relevant, keepState }) => {
   const formController = useFormController();
-  const { current } = useMultistepState();
-  const { register } = useMultistepApi();
+  const { current, goal } = useMultistepState();
+  const { register, next, metGoal } = useMultistepApi();
 
   const active = step === current;
 
@@ -37,6 +37,22 @@ const useMultistepStep = ({ step, relevant, keepState }) => {
       }
     },
     [isRelevant]
+  );
+
+  useEffect(
+    () => {
+      // if we are NOT at the goal go to the next step
+      if (goal && active && goal !== step) {
+        logger('GOAL', goal, 'STEP', step);
+        logger('GOING TO NEXT STEP');
+        next();
+      }
+      // If we have met our goal clear it
+      if (goal && active && goal === step) {
+        metGoal();
+      }
+    },
+    [goal, active]
   );
 
   const render = children => {

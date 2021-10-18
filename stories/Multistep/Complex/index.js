@@ -152,13 +152,13 @@ const Buttons = () => {
       <button type="button" onClick={() => setCurrent('allergies')}>
         Jump2 Allergic
       </button>
-      <button type="button" onClick={() => setCurrent('epipen')}>
+      <button type="button" onClick={() => setCurrent('treatment')}>
         Jump2 EpiPen
       </button>
-      <button type="button" onClick={() => setCurrent('color')}>
+      <button type="button" onClick={() => setCurrent('favorite')}>
         Jump2 Color
       </button>
-      <button type="button" onClick={() => setCurrent('dog')}>
+      <button type="button" onClick={() => setCurrent('pets')}>
         Jump2 Dog
       </button>
     </div>
@@ -187,10 +187,26 @@ const Basic = () => {
         Click Me
       </button> */}
 
-      <Form autocomplete="off">
+      <Form
+        autocomplete="off"
+        initialValues={{
+          info: {
+            first: 'Joe',
+            last: 'Puzzo'
+          },
+          allergies: {
+            peanuts: false
+          },
+          treatment: {
+            epipen: 'yes'
+          }
+        }}>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>
-            <Multistep initialStep="info" multistepApiRef={multistepApiRef}>
+            {/* initialStep="info" */}
+            <Multistep
+              // initialStep="allergies"
+              multistepApiRef={multistepApiRef}>
               <div
                 style={{
                   // border: 'solid 1px',
@@ -207,7 +223,7 @@ const Basic = () => {
             </Multistep>
           </div>
           <div style={{ flex: 2, minWidth: '300px', marginLeft: '3rem' }}>
-            <Debug errors values />
+            <Debug errors values initialValues />
           </div>
         </div>
       </Form>

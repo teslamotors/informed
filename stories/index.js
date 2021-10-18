@@ -11,8 +11,8 @@ import Schema from './Schema/Intro';
 import FormattedSchema from './Schema/FormattedSchema';
 import NestedSchema from './Schema/NestedSchema';
 import ArrayFieldSchema from './Schema/ArrayFieldSchema';
-// import ArrayFieldSchemaRelevant from './Schema/ArrayFieldSchemaRelevant';
-// import ArrayFieldSchemaNested from './Schema/ArrayFieldSchemaNested';
+import ArrayFieldSchemaRelevant from './Schema/ArrayFieldSchemaRelevant';
+import ArrayFieldSchemaNested from './Schema/ArrayFieldSchemaNested';
 import CustomSchema from './Schema/CustomSchema';
 import Complex from './Form/Complex';
 import Big from './Form/Big';
@@ -217,10 +217,10 @@ storiesOf('Schema', module)
   .add('Conditional Schema Control', ConditionalSchemaControl)
   .add('Conditional Options', ConditionalOptions)
   .add('Custom Schema', CustomSchema)
-  .add('Schema Components', SchemaComponents);
-//   .add('Nested Array Fields', ArrayFieldSchemaNested)
-//   .add('Relevant ArrayField Schema', ArrayFieldSchemaRelevant);
-// // .add('Huge Schema', HugeSchema);
+  .add('Schema Components', SchemaComponents)
+  .add('Nested Array Fields', ArrayFieldSchemaNested)
+  .add('Relevant ArrayField Schema', ArrayFieldSchemaRelevant);
+// .add('Huge Schema', HugeSchema);
 
 storiesOf('Debugging', module).add('Debug', Debug);
 
@@ -248,9 +248,9 @@ storiesOf('Gotchas', module)
   //   .add('Optimization', Optimization)
   .add('Scope', Scope);
 
-// storiesOf('Dynamic Forms', module)
-//   .add('Dynamic Fields', DynamicFields)
-//   .add('Dynamic Rendering', Dynamic);
+storiesOf('Dynamic Forms', module)
+  .add('Dynamic Fields', DynamicFields)
+  .add('Dynamic Rendering', Dynamic);
 
 // storiesOf('Playground', module)
 //   .add('Format Example', FormatPlayground)

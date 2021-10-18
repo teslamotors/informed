@@ -8,11 +8,11 @@ import { Form, SchemaFields, Debug } from '../../../src';
 const initialValue = [
   {
     name: 'Joe',
-    age: '26'
+    age: 26
   },
   {
     name: 'Elon',
-    age: '49'
+    age: 49
   }
 ];
 
@@ -32,18 +32,16 @@ const schema = {
       'ui:before': [{ 'ui:control': 'add' }],
       'ui:props': {
         initialValue,
-        relevant: values => {
-          const { name } = values;
+        relevant: ({ formState }) => {
+          const { name } = formState.values;
           return !name || name.length < 10;
-        },
-        keepState: true
+        }
       },
       items: {
         type: 'object',
-        'ui:after': [{ 'ui:control': 'remove' }],
         required: ['name', 'age'],
-
         properties: {
+          'ui:component:remove': { 'ui:control': 'remove' },
           name: {
             type: 'string',
             title: 'Sibling name',
@@ -58,10 +56,8 @@ const schema = {
             minimum: 0,
             'ui:control': 'input',
             'ui:props': {
+              keepState: true,
               type: 'number'
-            },
-            'ui:props': {
-              keepState: true
             }
           },
           married: {
@@ -78,8 +74,8 @@ const schema = {
             title: 'Spouse name',
             'ui:control': 'input',
             'ui:props': {
-              relevant: (values, { parentPath, get }) => {
-                const married = get(values, `${parentPath}.married`);
+              relevant: ({ scope, formApi }) => {
+                const married = formApi.getValue(`${scope}.married`);
                 return married === 'yes';
               },
               keepStateIfRelevant: true

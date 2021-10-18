@@ -3,7 +3,7 @@ import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 import Ajv from 'ajv';
 
-import { Form, SchemaFields } from '../../../src';
+import { Form, SchemaFields, Debug } from '../../../src';
 
 const initialValue = [
   {
@@ -45,9 +45,9 @@ const schema = {
       },
       items: {
         type: 'object',
-        'ui:after': [{ 'ui:control': 'remove' }],
         required: ['name', 'age'],
         properties: {
+          'ui:component:remove': { 'ui:control': 'remove' },
           name: {
             type: 'string',
             title: 'Sibling name',
@@ -67,8 +67,8 @@ const schema = {
             title: 'Spouse name',
             'ui:control': 'input',
             'ui:props': {
-              relevant: (values, { parentPath, get }) => {
-                const married = get(values, `${parentPath}.married`);
+              relevant: ({ scope, formApi }) => {
+                const married = formApi.getValue(`${scope}.married`);
                 return married === 'yes';
               }
             }
@@ -77,12 +77,12 @@ const schema = {
             type: 'array',
             minItems: 2,
             'ui:control': 'array',
-            'ui:before': [{ 'ui:control': 'add' }],
             items: {
               type: 'object',
               'ui:after': [{ 'ui:control': 'remove' }],
               required: ['name', 'age'],
               properties: {
+                'ui:component:remove': { 'ui:control': 'remove' },
                 name: {
                   type: 'string',
                   title: 'Friends name',
@@ -102,8 +102,8 @@ const schema = {
                   title: 'Spouse',
                   'ui:control': 'input',
                   'ui:props': {
-                    relevant: (values, { parentPath, get }) => {
-                      const married = get(values, `${parentPath}.married`);
+                    relevant: ({ scope, formApi }) => {
+                      const married = formApi.getValue(`${scope}.married`);
                       return married === 'yes';
                     },
                     keepState: true

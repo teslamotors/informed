@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 
-import { Form, Input, useFieldState } from '../../../src';
+import { Form, Input, Debug, useFieldState } from '../../../src';
 
 const JoesState = () => {
   const fieldState = useFieldState('joe');

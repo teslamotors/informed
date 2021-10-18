@@ -38,6 +38,7 @@ export const useField = ({
   multiple,
   field,
   keepState,
+  keepStateIfRelevant,
   debug,
   inputRef,
   relevant,
@@ -138,6 +139,7 @@ export const useField = ({
     type,
     initialValue,
     keepState,
+    keepStateIfRelevant,
     fieldApi,
     getInitialValue,
     formatter,
@@ -204,6 +206,10 @@ export const useField = ({
       // want to keep if we are irrelivant
       else if (relevantContext && !relevantContext.relevant()) {
         keepIt = false;
+      }
+      // If we make it here we must be relevant so check keepStateIfRelevant
+      else if (keepStateIfRelevant) {
+        keepIt = true;
       }
       // If its a multistep then we also want to keep it
       else if (inMultistep) {

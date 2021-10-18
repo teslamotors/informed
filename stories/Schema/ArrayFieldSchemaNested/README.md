@@ -1,4 +1,4 @@
-# Array Field in Schema !!!
+# Double Nested Array Fields
 
 ** Note: This is in beta and is subject to change! **
 
@@ -42,15 +42,14 @@ const schema = {
       type: 'array',
       minItems: 2,
       'ui:control': 'array',
-      'ui:before': [{ 'ui:control': 'add' }],
       'ui:props': {
         initialValue
       },
       items: {
         type: 'object',
-        'ui:after': [{ 'ui:control': 'remove' }],
         required: ['name', 'age'],
         properties: {
+          'ui:after': [{ 'ui:control': 'remove' }],
           name: {
             type: 'string',
             title: 'Sibling name',
@@ -67,8 +66,8 @@ const schema = {
             title: 'Spouse name',
             'ui:control': 'input',
             'ui:props': {
-              relevant: (values, { parentPath, get }) => {
-                const married = get(values, `${parentPath}.married`);
+              relevant: ({ scope, formApi }) => {
+                const married = formApi.getValue(`${scope}.married`);
                 return married === 'yes';
               }
             }
@@ -99,8 +98,8 @@ const schema = {
                   title: 'Spouse',
                   'ui:control': 'input',
                   'ui:props': {
-                    relevant: (values, { parentPath, get }) => {
-                      const married = get(values, `${parentPath}.married`);
+                    relevant: ({ scope, formApi }) => {
+                      const married = formApi.getValue(`${scope}.married`);
                       return married === 'yes';
                     },
                     keepState: true
@@ -117,7 +116,6 @@ const schema = {
 
 const Schema = () => (
   <Form
-    ajv={Ajv}
     schema={schema}
     onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
     <SchemaFields />

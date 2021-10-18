@@ -19,7 +19,7 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
   const nSteps = useRef(0);
 
   // Track current step
-  const currentStep = useRef(initialStep);
+  const currentStep = useRef();
 
   // Track array of steps
   const [steps] = useState(() => []);
@@ -29,8 +29,8 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
 
   // Form state will be used to trigger rerenders
   const [multistepState, setState] = useState({
-    current: initialStep,
-    steps: []
+    steps: [],
+    goal: null
   });
 
   // YES! this is important! Otherwise it would get a new api object every render
@@ -46,9 +46,32 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
       stepsMap.set(name, stepMeta);
       // Inc number of steps
       nSteps.current = nSteps.current + 1;
+      // Determine if we have initial goal and it just registered
+      let initialGoal = null;
+      let startingStep = null;
+
+      // There is no initial step so we start at first one
+      if (!initialStep) {
+        startingStep = steps[0].name;
+      }
+      // Otherwise we wait until our initial step has registered and then set our goal!
+      else if (initialStep && name === initialStep) {
+        initialGoal = initialStep;
+        startingStep = steps[0].name;
+      }
+      // console.log('WTF', name, initialGoal, startingStep);
       // Update the state
       setState(prev => {
-        return { ...prev, steps };
+        if (!prev.current && startingStep) {
+          // Update the current step
+          currentStep.current = startingStep;
+        }
+        return {
+          ...prev,
+          steps,
+          goal: prev.goal || initialGoal,
+          current: prev.current || startingStep
+        };
       });
     };
 
@@ -131,13 +154,45 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
       }
     };
 
+    const setCurrent = step => {
+      // Get current step meta
+      const goalIndex = stepsMap.get(step).index;
+      const currIndex = stepsMap.get(currentStep.current).index;
+
+      // If the goal is behind then just go straight there
+      if (goalIndex < currIndex) {
+        // Update the current step
+        currentStep.current = step;
+        // Update the state
+        setState(prev => {
+          return { ...prev, current: step };
+        });
+      }
+      // If the goal is ahead then start walking! ;)
+      else {
+        // Update the state
+        setState(prev => {
+          return { ...prev, goal: step };
+        });
+      }
+    };
+
+    const metGoal = () => {
+      // Update the state
+      setState(prev => {
+        return { ...prev, goal: null };
+      });
+    };
+
     // ---------- Define the api ----------
     const api = {
       register,
       next,
       previous,
       getNexStep,
-      getPreviousStep
+      getPreviousStep,
+      setCurrent,
+      metGoal
     };
 
     // Set the ref

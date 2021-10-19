@@ -9,7 +9,12 @@ import { useFormController } from './useFormController';
 
 const useMultistep = ({ initialStep, multistepApiRef }) => {
   // Get the formApi
-  const { validate, asyncValidate, getFormState } = useFormController();
+  const {
+    validate,
+    asyncValidate,
+    getFormState,
+    getFieldState
+  } = useFormController();
   const formApi = useFormApi();
 
   // Get scope for relevance
@@ -124,16 +129,41 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
     };
 
     // Helper function for next
-    const proceed = nextStep => {
-      // Update the current step
-      currentStep.current = nextStep;
-      // Update the state
-      setState(prev => {
-        return { ...prev, current: nextStep };
-      });
+    const proceed = (nextStep, cb) => {
+      // Get the multistep state values
+      if (cb && typeof cb === 'function') {
+        const fieldState = getFieldState(currentStep.current);
+
+        // Simply making value --> values because it makes more sense in this context
+        const subState = {
+          ...fieldState,
+          values: fieldState.value,
+          errors: fieldState.error
+        };
+
+        cb(subState)
+          .then(() => {
+            // Update the current step
+            currentStep.current = nextStep;
+            // Update the state
+            setState(prev => {
+              return { ...prev, current: nextStep };
+            });
+          })
+          .catch(() => {
+            // TODO mayyybe do something here ??
+          });
+      } else {
+        // Update the current step
+        currentStep.current = nextStep;
+        // Update the state
+        setState(prev => {
+          return { ...prev, current: nextStep };
+        });
+      }
     };
 
-    const next = () => {
+    const next = cb => {
       // Get the next step
       const nextStep = getNexStep();
       if (nextStep) {
@@ -141,10 +171,10 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
         validate();
         // Async validate the form
         // We pass in a callback to proceed if we succeed async validation!
-        asyncValidate(() => proceed(nextStep));
+        asyncValidate(() => proceed(nextStep, cb));
         // Only proceed if we are valid and we are NOT currently async validating
         if (getFormState().valid && getFormState().validating === 0) {
-          proceed(nextStep);
+          proceed(nextStep, cb);
         }
       }
     };

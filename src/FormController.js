@@ -112,6 +112,7 @@ export class FormController {
     this.setError = this.setError.bind(this);
     this.reset = this.reset.bind(this);
     this.validate = this.validate.bind(this);
+    this.asyncValidate = this.asyncValidate.bind(this);
     this.getDirty = this.getDirty.bind(this);
     this.getPristine = this.getPristine.bind(this);
     this.getFormState = this.getFormState.bind(this);

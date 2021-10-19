@@ -41,12 +41,51 @@ import {
  *                 ^
  **/
 
+const asyncValidate = username => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // Simulate username check
+      if (['joe', 'tanner', 'billy', 'bob'].includes(username)) {
+        return resolve('That username is taken');
+      }
+      // Simulate request faulure
+      if (username === 'reject') {
+        return reject(new Error('Unable to validate username.'));
+      }
+      return resolve();
+    }, 2000);
+  });
+};
+
+const doSomething = ({ values }) => {
+  const { first } = values;
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // Simulate username check
+      if (['joe', 'tanner', 'billy', 'bob'].includes(first)) {
+        return reject('That username is taken');
+      }
+      // Simulate request faulure
+      if (first === 'reject') {
+        return reject(new Error('Unable to validate username.'));
+      }
+      return resolve();
+    }, 2000);
+  });
+};
+
 const Info = () => {
   const { next } = useMultistepApi();
   return (
     <Multistep.Step step="info">
-      <Input name="first" label="First Name" required />
+      <Input
+        name="first"
+        label="First Name"
+        required
+        // asyncValidate={asyncValidate}
+      />
       <Input name="last" label="First Name" required />
+      {/* <button type="button" onClick={() => next(doSomething)}> */}
       <button type="button" onClick={next}>
         Next
       </button>

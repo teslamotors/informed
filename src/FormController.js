@@ -328,22 +328,6 @@ export class FormController {
     return ObjectMap.get(this.state.initialValues, name);
   }
 
-  // getPristine(name) {
-  //   // Field might not be registered yet so don't try and check if we are not registered
-  //   if (this.fieldsMap.get(name)) {
-  //     // Current value for this field
-  //     const val = this.getValue(name);
-
-  //     // What was the initial value for this field
-  //     const init = this.fieldsMap.get(name).current.getInitialValue();
-
-  //     // We are pristine if
-  //     return init === val;
-  //   }
-  //   // Always need to return true here because field is not registered
-  //   return true;
-  // }
-
   getDirty(name) {
     return !!ObjectMap.get(this.state.dirt, name);
   }
@@ -559,6 +543,14 @@ export class FormController {
         this.emit('failure');
       }
       this.state.submitting = false;
+    }
+
+    // If we had done function
+    if (this.done) {
+      // Call done only if valid
+      if (this.valid()) this.done();
+      // Then always clear
+      this.done = undefined;
     }
 
     // Always update
@@ -787,8 +779,9 @@ export class FormController {
     this.emit('field', '_ALL_');
   }
 
-  asyncValidate() {
+  asyncValidate(done) {
     debug('Async Validating all fields');
+    this.done = done;
 
     // Itterate through and call validate on every field
     this.fieldsMap.forEach(meta => {

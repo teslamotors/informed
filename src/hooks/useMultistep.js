@@ -9,7 +9,7 @@ import { useFormController } from './useFormController';
 
 const useMultistep = ({ initialStep, multistepApiRef }) => {
   // Get the formApi
-  const { validate, getFormState } = useFormController();
+  const { validate, asyncValidate, getFormState } = useFormController();
   const formApi = useFormApi();
 
   // Get scope for relevance
@@ -123,19 +123,28 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
       return undefined;
     };
 
+    // Helper function for next
+    const proceed = nextStep => {
+      // Update the current step
+      currentStep.current = nextStep;
+      // Update the state
+      setState(prev => {
+        return { ...prev, current: nextStep };
+      });
+    };
+
     const next = () => {
       // Get the next step
       const nextStep = getNexStep();
       if (nextStep) {
         // Validate the form
         validate();
-        if (getFormState().valid) {
-          // Update the current step
-          currentStep.current = nextStep;
-          // Update the state
-          setState(prev => {
-            return { ...prev, current: nextStep };
-          });
+        // Async validate the form
+        // We pass in a callback to proceed if we succeed async validation!
+        asyncValidate(() => proceed(nextStep));
+        // Only proceed if we are valid and we are NOT currently async validating
+        if (getFormState().valid && getFormState().validating === 0) {
+          proceed(nextStep);
         }
       }
     };

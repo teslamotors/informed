@@ -9,6 +9,9 @@ const buildScopedFormApi = (scope, formApi) => {
     getTouched: field => formApi.getTouched(`${scope}.${field}`),
     setTouched: (field, value) =>
       formApi.setTouched(`${scope}.${field}`, value),
+    getFocused: field => formApi.getFocused(`${scope}.${field}`),
+    setFocused: (field, value) =>
+      formApi.setFocused(`${scope}.${field}`, value),
     getError: field => formApi.getError(`${scope}.${field}`),
     setError: (field, value) => formApi.setError(`${scope}.${field}`, value),
     resetField: field => formApi.resetField(`${scope}.${field}`),

@@ -1,11 +1,21 @@
 import React from 'react';
 import { useField } from '../../hooks/useField';
 
-export const Select = ({ label, options, children, ...props }) => {
+export const Select = props => {
   const { render, userProps, fieldState, fieldApi } = useField(props);
   const { setValue, setTouched } = fieldApi;
-  const { value } = fieldState;
-  const { id, onBlur, onChange, multiple, ref } = userProps;
+  const { value, showError, error } = fieldState;
+  const {
+    id,
+    onBlur,
+    onChange,
+    multiple,
+    ref,
+    label,
+    options,
+    children,
+    ...rest
+  } = userProps;
 
   const handleChange = e => {
     let selected = Array.from(ref.current)
@@ -23,8 +33,13 @@ export const Select = ({ label, options, children, ...props }) => {
     <>
       {label ? <label htmlFor={id}> {label} </label> : null}
       <select
-        {...userProps}
+        {...rest}
+        id={id}
+        multiple={multiple}
+        ref={ref}
         value={value || (multiple ? [] : '')}
+        aria-invalid={!!showError}
+        aria-describedby={`${id}-error`}
         onChange={handleChange}
         onBlur={e => {
           setTouched(true);
@@ -43,6 +58,11 @@ export const Select = ({ label, options, children, ...props }) => {
           ))
           : children}
       </select>
+      {showError ? (
+        <small role="alert" id={`${id}-error`}>
+          {error}
+        </small>
+      ) : null}
     </>
   );
 };

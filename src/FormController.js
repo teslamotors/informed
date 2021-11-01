@@ -98,6 +98,7 @@ export class FormController {
       touched: {},
       maskedValues: {},
       dirt: {},
+      focused: {},
       initialValues: this.options.initialValues || {}
     };
 
@@ -108,6 +109,8 @@ export class FormController {
     this.setMaskedValue = this.setMaskedValue.bind(this);
     this.getTouched = this.getTouched.bind(this);
     this.setTouched = this.setTouched.bind(this);
+    this.getFocused = this.getFocused.bind(this);
+    this.setFocused = this.setFocused.bind(this);
     this.getError = this.getError.bind(this);
     this.setError = this.setError.bind(this);
     this.reset = this.reset.bind(this);
@@ -254,6 +257,35 @@ export class FormController {
     this.state.valid = ObjectMap.empty(this.state.errors);
     this.state.invalid = !this.state.valid;
 
+    // Call users onChange if it exists
+    if (meta.onChange) {
+      const fieldState = this.getFieldState(name);
+      meta.onChange(fieldState, e);
+    }
+
+    this.emit('field', name);
+  }
+
+  getFocused(name) {
+    return ObjectMap.get(this.state.focused, name);
+  }
+
+  setFocused(name, value, e) {
+    debug(`Setting ${name}'s focused to ${value}`);
+
+    // Get meta for field
+    const meta = this.fieldsMap.get(name)?.current;
+
+    // Update the state
+    ObjectMap.set(this.state.focused, name, value);
+
+    // Call users onFoucs if it exists
+    if (meta.onFocus) {
+      const fieldState = this.getFieldState(name);
+      meta.onFocus(fieldState, e);
+    }
+
+    // emit field update
     this.emit('field', name);
   }
 
@@ -261,10 +293,14 @@ export class FormController {
     return ObjectMap.get(this.state.touched, name);
   }
 
-  setTouched(name, value) {
+  setTouched(name, value, e) {
     debug(`Setting ${name}'s touched to ${value}`);
-    ObjectMap.set(this.state.touched, name, value);
+
+    // Get meta for field
     const meta = this.fieldsMap.get(name)?.current;
+
+    // Update the state
+    ObjectMap.set(this.state.touched, name, value);
 
     // We only need to call validate if the user gave us one
     // and they want us to validate on blur
@@ -312,6 +348,12 @@ export class FormController {
     this.state.valid = ObjectMap.empty(this.state.errors);
     this.state.invalid = !this.state.valid;
 
+    // Call users onBlur if it exists
+    if (meta.onBlur) {
+      const fieldState = this.getFieldState(name);
+      meta.onBlur(fieldState, e);
+    }
+
     this.emit('field', name);
   }
 
@@ -356,6 +398,8 @@ export class FormController {
       setTouched: this.setTouched,
       getError: this.getError,
       setError: this.setError,
+      getFocused: this.getFocused,
+      setFocused: this.setFocused,
       resetField: this.resetField,
       reset: this.reset,
       getFormState: this.getFormState,
@@ -368,6 +412,7 @@ export class FormController {
     // Get meta for field
     const meta = this.fieldsMap.get(name)?.current;
     const error = this.getError(name);
+    const focused = !!this.getFocused(name);
     const dirty = this.getDirty(name);
     const valid = this.getValid(name);
     const touched = !!this.getTouched(name);
@@ -396,7 +441,8 @@ export class FormController {
       valid,
       invalid: !valid,
       showError,
-      validating
+      validating,
+      focused
     };
   }
 
@@ -414,6 +460,8 @@ export class FormController {
       ObjectMap.delete(this.state.errors, name);
       debug('Delete Dirt', name);
       ObjectMap.delete(this.state.dirt, name);
+      debug('Delete Focused', name);
+      ObjectMap.delete(this.state.focused, name);
       this.emit('field', name);
     }
   }
@@ -425,6 +473,7 @@ export class FormController {
     ObjectMap.swap(this.state.touched, name, a, b);
     ObjectMap.swap(this.state.errors, name, a, b);
     ObjectMap.swap(this.state.dirt, name, a, b);
+    ObjectMap.swap(this.state.focused, name, a, b);
     // DO NOT emit event here we want to delay it on purpose because otherwise relevance will trigger with bad state
     // this.emit("field", name);
   }
@@ -436,6 +485,7 @@ export class FormController {
     ObjectMap.delete(this.state.touched, name);
     ObjectMap.delete(this.state.errors, name);
     ObjectMap.delete(this.state.dirt, name);
+    ObjectMap.delete(this.state.focused, name);
     // DO NOT emit event here we want to delay it on purpose because otherwise relevance will trigger with bad state
     // this.emit("field", name);
   }
@@ -628,6 +678,7 @@ export class FormController {
       touched: {},
       maskedValues: {},
       dirt: {},
+      focused: {},
       initialValues: this.options.initialValues || {}
     };
 

@@ -58,7 +58,7 @@ describe('useFieldState', () => {
 
     userEvent.type(first, 'J');
 
-    expect(renders[0].textContent).toBe('Rendered: 3');
+    expect(renders[0].textContent).toBe('Rendered: 4');
     expect(renders[1].textContent).toBe('Rendered: 2');
     expect(states[0].textContent).toBe(getState({
       value: 'J',
@@ -70,6 +70,7 @@ describe('useFieldState', () => {
       invalid: false,
       showError: false,
       validating: false,
+      focused: true,
     }));
     expect(states[1].textContent).toBe(getState({
       touched: false,
@@ -79,11 +80,12 @@ describe('useFieldState', () => {
       invalid: false,
       showError: false,
       validating: false,
+      focused: false,
     }));
 
     userEvent.type(first, 'oe');
 
-    expect(renders[0].textContent).toBe('Rendered: 5');
+    expect(renders[0].textContent).toBe('Rendered: 6');
     expect(renders[1].textContent).toBe('Rendered: 2');
     expect(states[0].textContent).toBe(getState({
       value: 'Joe',
@@ -95,6 +97,7 @@ describe('useFieldState', () => {
       invalid: false,
       showError: false,
       validating: false,
+      focused: true,
     }));
     expect(states[1].textContent).toBe(getState({
       touched: false,
@@ -104,13 +107,14 @@ describe('useFieldState', () => {
       invalid: false,
       showError: false,
       validating: false,
+      focused: false,
     }));
 
     // NOTE: when user starts typing in this field it will blur first field and cause a re-render!
     userEvent.type(last, 'Puzz');
 
-    expect(renders[0].textContent).toBe('Rendered: 6');
-    expect(renders[1].textContent).toBe('Rendered: 6');
+    expect(renders[0].textContent).toBe('Rendered: 7');
+    expect(renders[1].textContent).toBe('Rendered: 7');
     expect(states[0].textContent).toBe(getState({
       value: 'Joe',
       maskedValue: 'Joe',
@@ -121,6 +125,7 @@ describe('useFieldState', () => {
       invalid: false,
       showError: false,
       validating: false,
+      focused: true,
     }));
     expect(states[1].textContent).toBe(getState({
       value: 'Puzz',
@@ -132,6 +137,7 @@ describe('useFieldState', () => {
       invalid: false,
       showError: false,
       validating: false,
+      focused: true,
     }));
 
   });
@@ -165,6 +171,7 @@ describe('useFieldState', () => {
       invalid: false,
       showError: false,
       validating: false,
+      focused: false,
     }));
     expect(states[1].textContent).toBe(getState({
       value: 'Puzzo',
@@ -176,6 +183,7 @@ describe('useFieldState', () => {
       invalid: false,
       showError: false,
       validating: false,
+      focused: false,
     }));
 
   });
@@ -214,6 +222,7 @@ describe('useFieldState', () => {
       invalid: false,
       showError: false,
       validating: false,
+      focused: false,
     }));
     expect(states[1].textContent).toBe(getState({
       value: 'Puzzo',
@@ -225,6 +234,7 @@ describe('useFieldState', () => {
       invalid: false,
       showError: false,
       validating: false,
+      focused: false,
     }));
 
   });
@@ -266,6 +276,7 @@ describe('useFieldState', () => {
       invalid: false,
       showError: false,
       validating: false,
+      focused: false,
     }));
     expect(states[1].textContent).toBe(getState({
       touched: false,
@@ -275,6 +286,7 @@ describe('useFieldState', () => {
       invalid: false,
       showError: false,
       validating: false,
+      focused: false,
     }));
 
     fireEvent.click(submit);
@@ -295,6 +307,7 @@ describe('useFieldState', () => {
       invalid: true,
       showError: true,
       validating: false,
+      focused: false,
     }));
 
     expect(states[1].textContent).toBe(getState({
@@ -306,6 +319,7 @@ describe('useFieldState', () => {
       invalid: true,
       showError: true,
       validating: false,
+      focused: false,
     }));
 
     userEvent.type(last, 'P');
@@ -313,7 +327,7 @@ describe('useFieldState', () => {
     // After second field has some input -------------------------------------
 
     expect(renders[0].textContent).toBe('Rendered: 3');
-    expect(renders[1].textContent).toBe('Rendered: 4');
+    expect(renders[1].textContent).toBe('Rendered: 5');
     expect(states[0].textContent).toBe(getState({
       value: 'Joe',
       maskedValue: 'Joe',
@@ -325,6 +339,7 @@ describe('useFieldState', () => {
       invalid: true,
       showError: true,
       validating: false,
+      focused: false,
     }));
 
     expect(states[1].textContent).toBe(getState({
@@ -338,6 +353,7 @@ describe('useFieldState', () => {
       invalid: true,
       showError: true,
       validating: false,
+      focused: true,
     }));
 
     fireEvent.click(submit);
@@ -345,7 +361,7 @@ describe('useFieldState', () => {
     // After SECOND submit -------------------------------------
 
     expect(renders[0].textContent).toBe('Rendered: 4');
-    expect(renders[1].textContent).toBe('Rendered: 5');
+    expect(renders[1].textContent).toBe('Rendered: 6');
     expect(states[0].textContent).toBe(getState({
       value: 'Joe',
       maskedValue: 'Joe',
@@ -357,6 +373,7 @@ describe('useFieldState', () => {
       invalid: true,
       showError: true,
       validating: false,
+      focused: false,
     }));
 
     expect(states[1].textContent).toBe(getState({
@@ -370,6 +387,7 @@ describe('useFieldState', () => {
       invalid: true,
       showError: true,
       validating: false,
+      focused: true,
     }));
 
   });
@@ -411,6 +429,7 @@ describe('useFieldState', () => {
       invalid: false,
       showError: false,
       validating: false,
+      focused: false,
     }));
     expect(states[1].textContent).toBe(getState({
       touched: false,
@@ -420,6 +439,7 @@ describe('useFieldState', () => {
       invalid: false,
       showError: false,
       validating: false,
+      focused: false,
     }));
 
     fireEvent.click(submit);
@@ -440,6 +460,7 @@ describe('useFieldState', () => {
       invalid: true,
       showError: true,
       validating: false,
+      focused: false,
     }));
 
     expect(states[1].textContent).toBe(getState({
@@ -451,6 +472,7 @@ describe('useFieldState', () => {
       invalid: true,
       showError: true,
       validating: false,
+      focused: false,
     }));
 
     userEvent.type(last, 'P');
@@ -458,7 +480,7 @@ describe('useFieldState', () => {
     // After second field has some input -------------------------------------
 
     expect(renders[0].textContent).toBe('Rendered: 3');
-    expect(renders[1].textContent).toBe('Rendered: 4');
+    expect(renders[1].textContent).toBe('Rendered: 5');
     expect(states[0].textContent).toBe(getState({
       value: 'Joe',
       maskedValue: 'Joe',
@@ -470,6 +492,7 @@ describe('useFieldState', () => {
       invalid: true,
       showError: true,
       validating: false,
+      focused: false,
     }));
 
     expect(states[1].textContent).toBe(getState({
@@ -483,6 +506,7 @@ describe('useFieldState', () => {
       invalid: true,
       showError: true,
       validating: false,
+      focused: true,
     }));
 
   });

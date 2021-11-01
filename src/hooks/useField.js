@@ -16,6 +16,7 @@ import {
   uuidv4,
   generateOnBlur,
   generateOnChange,
+  generateOnFocus,
   generateValue,
   generateValidationFunction
 } from '../utils';
@@ -32,6 +33,7 @@ export const useField = ({
   name: userName,
   onBlur,
   onChange,
+  onFocus,
   validate: validationFunc,
   asyncValidate,
   yupSchema,
@@ -137,6 +139,9 @@ export const useField = ({
   const meta = {
     name,
     type,
+    onBlur,
+    onChange,
+    onFocus,
     initialValue,
     keepState,
     keepStateIfRelevant,
@@ -245,13 +250,14 @@ export const useField = ({
   const changeHandler = generateOnChange({
     fieldType: type,
     setValue: fieldApi.setValue,
-    onChange,
     multiple,
     ref
   });
   const blurHandler = generateOnBlur({
-    setTouched: fieldApi.setTouched,
-    onBlur
+    setTouched: fieldApi.setTouched
+  });
+  const focusHandler = generateOnFocus({
+    setFocused: fieldApi.setFocused
   });
   const hookedValue = generateValue({
     fieldType: type,
@@ -265,8 +271,6 @@ export const useField = ({
     name,
     ref,
     type,
-    onBlur,
-    onChange,
     multiple,
     autoComplete: autocomplete,
     ...userProps
@@ -280,6 +284,7 @@ export const useField = ({
       ...recombinedUserProps,
       onChange: changeHandler,
       onBlur: blurHandler,
+      onFocus: focusHandler,
       value: hookedValue
     },
     ref,

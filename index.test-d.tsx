@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm, useField } from '../src';
+import { useFormApi, useForm, useField } from '.';
 
 export const Form = props => {
   const { formController, render, userProps } = useForm(props);
@@ -13,16 +13,16 @@ export const Form = props => {
   );
 };
 
-export const Input = React.memo(props => {
+const Input = React.memo(props => {
   const { render, informed, ref, fieldState, userProps } = useField({
     type: 'text',
     ...props
   });
+  const { label, id } = userProps;
   const { showError } = fieldState;
-  const { label } = userProps;
   return render(
-    <label>
-      {label}
+    <>
+      {label ? <label htmlFor={id}>label</label> : null}
       <input
         ref={ref}
         {...informed}
@@ -31,17 +31,24 @@ export const Input = React.memo(props => {
       {showError ? (
         <small style={{ color: 'red' }}>{fieldState.error}</small>
       ) : null}
-    </label>
+    </>
   );
 });
 
-export const Checkbox = ({ label, ...props }) => {
-  const { render, informed } = useField({ type: 'checkbox', ...props });
+/* ------------------------- useFormApi ------------------------- */
 
-  return render(
-    <label>
-      {label}
-      <input {...informed} checked={informed.value} />
-    </label>
+const ComponentUsingFormApi = () => {
+  const formApi = useFormApi();
+  return (
+    <button type="button" onClick={() => formApi.setValue('name', 1)}>
+      Random
+    </button>
   );
 };
+
+const UseFormApi = () => (
+  <Form>
+    <Input name="name" label="Name:" />
+    <ComponentUsingFormApi />
+  </Form>
+);

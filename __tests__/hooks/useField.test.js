@@ -105,7 +105,19 @@ describe('useField', () => {
     input1.focus();
     input2.focus();
   
-    expect(onBlur).toHaveBeenCalled();
+    expect(onBlur).toHaveBeenCalledWith({
+      value: undefined,
+      maskedValue: undefined,
+      error: undefined,
+      touched: true,
+      pristine: true,
+      dirty: false,
+      valid: true, 
+      invalid: false,
+      showError: false,
+      validating: false,
+      focused: true,
+    }, expect.anything());
   });
 
   it('should call validate that was passed on blur', () => {

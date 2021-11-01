@@ -42,9 +42,9 @@ const ErrorInput = props => {
     <>
       <input
         {...informed}
-        style={fieldState.error ? { border: 'solid 1px red' } : null}
+        style={fieldState.showError ? { border: 'solid 1px red' } : null}
       />
-      {fieldState.error ? (
+      {fieldState.showError ? (
         <small style={{ color: 'red' }}>{fieldState.error}</small>
       ) : null}
     </>

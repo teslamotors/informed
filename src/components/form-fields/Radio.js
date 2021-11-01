@@ -11,13 +11,14 @@ export const Radio = ({ label, value, onChange, onBlur, ...props }) => {
 
   const { setValue, setTouched } = radioGroupApi;
 
-  const { value: groupValue } = radioGroupState;
+  const { value: groupValue, showError } = radioGroupState;
 
   return (
     <label>
       {label}
       <input
         {...props}
+        aria-invalid={!!showError}
         value={value}
         checked={groupValue === value}
         onChange={e => {

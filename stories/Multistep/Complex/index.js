@@ -262,7 +262,7 @@ const Basic = () => {
             </Multistep>
           </div>
           <div style={{ flex: 2, minWidth: '300px', marginLeft: '3rem' }}>
-            <Debug errors values initialValues />
+            <Debug />
           </div>
         </div>
       </Form>

@@ -16,6 +16,7 @@ const getState = state => {
     values: {},
     maskedValues: {},
     errors: {},
+    focused: {},
     touched: {},
     initialValues: {},
     dirt: {}
@@ -64,6 +65,9 @@ describe('useForm', () => {
       dirt: {
         greeting: true
       },
+      focused: {
+        greeting: true,
+      },
     }));
   });
 
@@ -87,6 +91,10 @@ describe('useForm', () => {
     expect(formApiRef.current.getFormState()).toEqual(getState({
       touched: {
         greeting1: true
+      },
+      focused: {
+        greeting1: true,
+        greeting2: true
       },
     }));
   
@@ -132,6 +140,9 @@ describe('useForm', () => {
       dirt: {
         greeting: true
       },
+      focused: {
+        greeting: true
+      },
     }));
 
   });
@@ -162,6 +173,9 @@ describe('useForm', () => {
         greeting: 'Hi!'
       },
       dirt: {
+        greeting: true
+      },
+      focused: {
         greeting: true
       },
     }));
@@ -210,6 +224,9 @@ describe('useForm', () => {
       dirt: {
         greeting: true
       },
+      focused: {
+        greeting: true
+      },
     }));
 
     act(()=>{
@@ -226,6 +243,9 @@ describe('useForm', () => {
       },
       maskedValues: {
         greeting: 'Hello'
+      },
+      focused: {
+        greeting: true
       },
     }));   
 
@@ -274,6 +294,9 @@ describe('useForm', () => {
       dirt: {
         greeting: true
       },
+      focused: {
+        greeting: true,
+      },
       initialValues
     }));
 
@@ -292,7 +315,10 @@ describe('useForm', () => {
       maskedValues: {
         greeting: 'Hello'
       },
-      initialValues
+      initialValues,
+      focused: {
+        greeting: true
+      },
     }));   
 
   });
@@ -334,6 +360,9 @@ describe('useForm', () => {
       },
       errors: {
         greeting: 'Field must be at least five characters',
+      },
+      focused: {
+        greeting: true
       },
     }));
 
@@ -382,6 +411,9 @@ describe('useForm', () => {
         greeting: 'Field must be at least five characters',
       },
       touched: {
+        greeting: true
+      },
+      focused: {
         greeting: true
       },
       dirt: {

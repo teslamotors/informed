@@ -1,10 +1,11 @@
+/* eslint-disable indent */
 import React from 'react';
 import { RadioGroupContext } from '../../Context';
 import { useField } from '../../hooks/useField';
 import { Radio } from './Radio';
 
-export const RadioGroup = ({ options, children, ...props }) => {
-  const { fieldApi, fieldState } = useField(props);
+export const RadioGroup = props => {
+  const { fieldApi, fieldState, userProps } = useField(props);
 
   const groupContext = {
     radioGroupApi: fieldApi,
@@ -12,15 +13,26 @@ export const RadioGroup = ({ options, children, ...props }) => {
     ...props
   };
 
+  const { label, id, options, children } = userProps;
+  const { showError, error } = fieldState;
+
   return (
     <RadioGroupContext.Provider value={groupContext}>
-      {options
-        ? options.map(option => (
-          <label key={option.value}>
-            {option.label} <Radio value={option.value} />
-          </label>
-        ))
-        : children}
+      <fieldset aria-describedby={`${id}-error`}>
+        {label ? <legend>{label}</legend> : null}
+        {options
+          ? options.map(option => (
+              <label key={option.value}>
+                {option.label} <Radio value={option.value} />
+              </label>
+            ))
+          : children}
+        {showError ? (
+          <small role="alert" id={`${id}-error`}>
+            {error}
+          </small>
+        ) : null}
+      </fieldset>
     </RadioGroupContext.Provider>
   );
 };

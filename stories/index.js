@@ -23,6 +23,7 @@ import Api from './Form/Api';
 // import BasicMultistep from './Multistep/Basic';
 import ComplexMultistep from './Multistep/Complex';
 import SimpleValidation from './Validation/SimpleValidation';
+import Required from './Validation/Required';
 import YupValidation from './Validation/YupValidation';
 import FieldLevelYupValidation from './Validation/FieldLevelYupValidation';
 import ComplexValidation from './Validation/ComplexValidation';
@@ -198,6 +199,7 @@ storiesOf('Validation', module)
   .add('Async Validation', AsyncValidation)
   .add('Complex Validation', ComplexValidation)
   .add('Validation Control', ValidationControl)
+  .add('Required', Required)
   // .add('Form Level Validation', FormLevelValidation)
   // .add('Notifications', Notifications)
   // .add('Array Field Validation', ArrayFieldValidation)

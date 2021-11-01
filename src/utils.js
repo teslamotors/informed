@@ -69,13 +69,7 @@ export const isChild = (parent, child) => {
   return child.slice(0, parent.length) === parent;
 };
 
-export const generateOnChange = ({
-  fieldType,
-  setValue,
-  onChange,
-  multiple,
-  ref
-}) => {
+export const generateOnChange = ({ fieldType, setValue, multiple, ref }) => {
   let setter = e => setValue(e);
 
   if (
@@ -85,28 +79,22 @@ export const generateOnChange = ({
   ) {
     setter = e => {
       setValue(e.target.value, e);
-      if (onChange) {
-        onChange(e);
-      }
     };
   }
 
   if (fieldType === 'select') {
-    setter = () => {
+    setter = e => {
       let selected = Array.from(ref.current)
         .filter(option => option.selected)
         .map(option => option.value);
 
-      setValue(multiple ? selected : selected[0] || '');
+      setValue(multiple ? selected : selected[0] || '', e);
     };
   }
 
   if (fieldType === 'checkbox') {
     setter = e => {
-      setValue(e.target.checked);
-      if (onChange) {
-        onChange(e);
-      }
+      setValue(e.target.checked, e);
     };
   }
 
@@ -115,12 +103,15 @@ export const generateOnChange = ({
   };
 };
 
-export const generateOnBlur = ({ setTouched, onBlur }) => {
+export const generateOnBlur = ({ setTouched }) => {
   return e => {
-    setTouched(true);
-    if (onBlur) {
-      onBlur(e);
-    }
+    setTouched(true, e);
+  };
+};
+
+export const generateOnFocus = ({ setFocused }) => {
+  return e => {
+    setFocused(true, e);
   };
 };
 

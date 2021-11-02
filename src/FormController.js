@@ -525,6 +525,12 @@ export class FormController {
         formatter
       });
 
+      debug(`Initializing ${name}'s value to ${initialValue}`);
+      ObjectMap.set(this.state.values, name, initialValue);
+
+      debug(`Initializing ${name}'s maskedValue to ${initialMask}`);
+      ObjectMap.set(this.state.maskedValues, name, initialMask);
+
       // Might need to set initial error
       if (meta.current.validate && meta.current.validateOnMount) {
         const val = ObjectMap.get(this.state.values, name);
@@ -541,12 +547,6 @@ export class FormController {
         // Get error to determine if we even want to validateAsync
         if (this.getError(name) === undefined) this.validateAsync(name);
       }
-
-      debug(`Initializing ${name}'s value to ${initialValue}`);
-      ObjectMap.set(this.state.values, name, initialValue);
-
-      debug(`Initializing ${name}'s maskedValue to ${initialMask}`);
-      ObjectMap.set(this.state.maskedValues, name, initialMask);
 
       // Check if the form is valid
       this.state.valid = ObjectMap.empty(this.state.errors);

@@ -86,7 +86,20 @@ describe('useField', () => {
     const input = getByLabelText('input1');
     userEvent.type(input, 'Hi!');
   
-    expect(onChange).toHaveBeenCalled();
+    expect(onChange).toHaveBeenCalledWith({
+      value: 'Hi!',
+      maskedValue: 'Hi!',
+      error: undefined,
+      touched: false,
+      pristine: false,
+      dirty: true,
+      valid: true, 
+      invalid: false,
+      showError: false,
+      validating: false,
+      focused: true,
+    }, expect.anything());
+
   });
 
   it('should call onBlur that was passed', () => {
@@ -110,6 +123,34 @@ describe('useField', () => {
       maskedValue: undefined,
       error: undefined,
       touched: true,
+      pristine: true,
+      dirty: false,
+      valid: true, 
+      invalid: false,
+      showError: false,
+      validating: false,
+      focused: true,
+    }, expect.anything());
+  });
+
+  it('should call onFocus that was passed', () => {
+
+    const onFocus = jest.fn();
+
+    const { getByLabelText } = render(
+      <Form>
+        <Input name="greeting1" label="input1" onFocus={onFocus} />
+      </Form>
+    );
+
+    const input1 = getByLabelText('input1');
+    input1.focus();
+  
+    expect(onFocus).toHaveBeenCalledWith({
+      value: undefined,
+      maskedValue: undefined,
+      error: undefined,
+      touched: false,
       pristine: true,
       dirty: false,
       valid: true, 
@@ -930,6 +971,20 @@ describe('useField', () => {
     expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'Field must be at least five characters' });
 
     expect(queryByText('Field must be at least five characters')).toBeInTheDocument();
+  });
+
+  it('should call validate with initial value when validateOnMount is passed', () => {
+
+    const validateSpy = jest.fn();
+
+    render(
+      <Form initialValues={{greeting: 'Hello!'}}>
+        <Input name="greeting" label="input1" validate={validateSpy} validateOnMount/>
+      </Form>
+    );
+  
+    expect(validateSpy).toHaveBeenCalledWith('Hello!', {greeting: 'Hello!'});
+
   });
 
   it('should NOT show error message when rendered with validateOnMount at form', () => {

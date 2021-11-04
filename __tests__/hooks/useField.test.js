@@ -1001,7 +1001,7 @@ describe('useField', () => {
 
   });
 
-  it.only('should call validate with sibling initial value when validateOnMount is passed', () => {
+  it('should call validate with sibling initial value when validateOnMount is passed', () => {
 
     // const validateSpy = jest.fn();
     const validateSpy = (v, vs) => console.log('WTF', v, vs); 

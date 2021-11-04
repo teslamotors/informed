@@ -73,6 +73,7 @@ const FormFields = ({ schema, onlyValidateSchema }) => {
         // }
         const subSchema = conditional.then;
         const $id = conditional.$id;
+        // const thenProps = conditional.thenProps;
 
         // Turn the if into a when function for informed
         // Example if condition

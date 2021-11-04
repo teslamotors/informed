@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { ScopeContext } from '../Context';
 
-/* ----------------------- useFormState ----------------------- */
+/* ----------------------- useScope ----------------------- */
 export function useScope(name) {
   const scope = useContext(ScopeContext);
 

@@ -143,6 +143,7 @@ export class FormController {
     this.validated = this.validated.bind(this);
     this.debouncedValidateAsync = debounceByName(this.validateAsync);
     this.getOptions = this.getOptions.bind(this);
+    this.validateField = this.validateField.bind(this);
   }
 
   getOptions() {
@@ -262,6 +263,46 @@ export class FormController {
       const fieldState = this.getFieldState(name);
       meta.onChange(fieldState, e);
     }
+
+    // Normal field event
+    this.emit('field', name);
+
+    // Special event when fields value changes
+    this.emit('field-value', name);
+  }
+
+  validateField(name) {
+    // Get meta for field
+    const meta = this.fieldsMap.get(name)?.current;
+
+    if (meta.validate) {
+      const val = ObjectMap.get(this.state.values, name);
+      debug(`Validating field ${name} via validateField with value ${val}`);
+      ObjectMap.set(
+        this.state.errors,
+        name,
+        meta.validate(val, this.state.values)
+      );
+    }
+    // Same thing but for YUP schema
+    if (meta.yupSchema) {
+      // Only call if we dont already have error
+      if (this.getError(name) === undefined) {
+        const val = ObjectMap.get(this.state.values, name);
+        debug(`Validating YUP field via validateField ${name} ${val}`);
+        ObjectMap.set(
+          this.state.errors,
+          name,
+          validateYupField(meta.yupSchema, val)
+        );
+      }
+    }
+
+    // TODO maybe do async validation here !?!?!?!
+
+    // Remember to update valid
+    this.state.valid = ObjectMap.empty(this.state.errors);
+    this.state.invalid = !this.state.valid;
 
     this.emit('field', name);
   }
@@ -404,7 +445,8 @@ export class FormController {
       reset: this.reset,
       getFormState: this.getFormState,
       getPristine: this.getPristine,
-      getDirty: this.getDirty
+      getDirty: this.getDirty,
+      validateField: this.validateField
     };
   }
 
@@ -463,6 +505,8 @@ export class FormController {
       debug('Delete Focused', name);
       ObjectMap.delete(this.state.focused, name);
       this.emit('field', name);
+      // Special event when fields value changes
+      this.emit('field-value', name);
     }
   }
 
@@ -534,7 +578,7 @@ export class FormController {
       // Might need to set initial error
       if (meta.current.validate && meta.current.validateOnMount) {
         const val = ObjectMap.get(this.state.values, name);
-        debug(`Validating on mount ${name} ${val}`);
+        debug(`Validating on mount ${name} ${val}`, this.state);
         ObjectMap.set(
           this.state.errors,
           name,
@@ -553,6 +597,9 @@ export class FormController {
       this.state.invalid = !this.state.valid;
 
       this.emit('field', name);
+
+      // Special event when fields value changes ( this if first time so its technically a change to initial value)
+      this.emit('field-value', name);
     }
   }
 
@@ -725,6 +772,9 @@ export class FormController {
     this.state.invalid = !this.state.valid;
 
     this.emit('field', name);
+
+    // Special event when fields value changes ( its a reset so it changes )
+    this.emit('field-value', name);
   }
 
   reformat(name) {
@@ -753,6 +803,9 @@ export class FormController {
     ObjectMap.set(this.state.maskedValues, name, newMaskedValue);
 
     this.emit('field', name);
+
+    // Special event when fields value changes
+    this.emit('field-value', name);
   }
 
   lockRemoval(i) {

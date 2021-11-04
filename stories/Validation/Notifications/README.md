@@ -1,18 +1,16 @@
 # Complex Validation
 
-Sometimes when validating you may need to notify other fields about your changes.
+Sometimes when validating you may need to revalidate when a sibling field changes.
 A great example of this is when you have a password and confirm password field,
 and when one changes you want the other to validate as well. To achieve this, `informed`
-allows you to pass notify to an input with an array of fields to notify.
-
-To avoid excessive message passing, `informed` only notifies other fields of changes as part of the validation process. If you'd like to control when validation (and thus, notification) occur, you can make use of the  `validateOnChange` and `validateOnBlur` props.
+allows you to pass validateWhen to an input with an array of field names that will re-trigger validation on the field.
 
 **The form below is an example of this scenario:**
 
 <!-- STORY -->
 
 ```jsx
-import { Form, Text } from 'informed';
+import { Form, Input } from 'informed';
 
 const basicValidation = value => {
   return !value || value.length < 5
@@ -21,34 +19,34 @@ const basicValidation = value => {
 };
 
 const matchValidation = (password1, password2) => {
-  return password1 !== password2
-    ? 'Passwords must match'
-    : undefined;
+  return password1 !== password2 ? 'Passwords must match' : undefined;
 };
 
 const passwordValidation = (password1, password2) => {
   return basicValidation(password1) || matchValidation(password1, password2);
 };
 
-const validatePassword = (value, values) => passwordValidation( value, values.confirmPassword); 
-const validateConfim = (value, values) => passwordValidation( value, values.password); 
+const validatePassword = (value, values) =>
+  passwordValidation(value, values.confirmPassword);
+const validateConfim = (value, values) =>
+  passwordValidation(value, values.password);
 
 <Form id="notify-validation-form">
-  <Text
-    field="password"
+  <Input
+    name="password"
     id="notify-password"
     validate={validatePassword}
     validateOnChange
-    notify={['confirmPassword']}/>
+    validateWhen={['confirmPassword']}
+  />
   <label htmlFor="notify-confirm-password">Confirm password:</label>
-  <Text
-    field="confirmPassword"
+  <Input
+    name="confirmPassword"
     id="notify-confirm-password"
     validate={validateConfim}
     validateOnChange
-    notify={['password']}/>
-  <button type="submit">
-    Submit
-  </button>
-</Form>
+    validateWhen={['password']}
+  />
+  <button type="submit">Submit</button>
+</Form>;
 ```

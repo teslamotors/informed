@@ -30,7 +30,7 @@ import ComplexValidation from './Validation/ComplexValidation';
 import ValidationControl from './Validation/ValidationControl';
 // import ArrayFieldValidation from './Validation/ArrayFieldValidation';
 // import ComplexArrayFieldValidation from './Validation/ComplexArrayFieldValidation';
-// import Notifications from './Validation/Notifications';
+import Notifications from './Validation/Notifications';
 // import FormLevelValidation from './Validation/FormLevelValidation';
 import AjvValidation from './Validation/AjvValidation';
 import AjvValidationNoRender from './Validation/AjvValidationNoRender';
@@ -201,7 +201,7 @@ storiesOf('Validation', module)
   .add('Validation Control', ValidationControl)
   .add('Required', Required)
   // .add('Form Level Validation', FormLevelValidation)
-  // .add('Notifications', Notifications)
+  .add('Notifications', Notifications)
   // .add('Array Field Validation', ArrayFieldValidation)
   // .add('Complex Array Field Validation', ComplexArrayFieldValidation)
   .add('Yup Validation', YupValidation)

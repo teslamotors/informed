@@ -973,7 +973,7 @@ describe('useField', () => {
     expect(queryByText('Field must be at least five characters')).toBeInTheDocument();
   });
 
-  it('should call validate with initial value when validateOnMount is passed', () => {
+  it('should call validate with initial values when validateOnMount is passed', () => {
 
     const validateSpy = jest.fn();
 
@@ -984,6 +984,36 @@ describe('useField', () => {
     );
   
     expect(validateSpy).toHaveBeenCalledWith('Hello!', {greeting: 'Hello!'});
+
+  });
+
+  it('should call validate with initial value when validateOnMount is passed', () => {
+
+    const validateSpy = jest.fn();
+
+    render(
+      <Form>
+        <Input name="greeting" label="input1" initialValue="Hello!" validate={validateSpy} validateOnMount/>
+      </Form>
+    );
+  
+    expect(validateSpy).toHaveBeenCalledWith('Hello!', {greeting: 'Hello!'});
+
+  });
+
+  it.only('should call validate with sibling initial value when validateOnMount is passed', () => {
+
+    // const validateSpy = jest.fn();
+    const validateSpy = (v, vs) => console.log('WTF', v, vs); 
+
+    render(
+      <Form>
+        <Input name="greeting1" label="input1" initialValue="Hello" validate={validateSpy} validateOnMount validateWhen={['greeting2']}/>
+        <Input name="greeting2" label="input1" initialValue="World" validateOnMount/>
+      </Form>
+    );
+  
+    // expect(validateSpy).toHaveBeenCalledWith('Hello', { greeting1: 'Hello', greeting2: 'World' });
 
   });
 

@@ -23,6 +23,7 @@ import {
 import { Debug } from '../debug';
 import { useUpdateEffect } from '../hooks/useUpdateEffect';
 import { useScope } from './useScope';
+import { useFieldSubscription } from './useFieldSubscription';
 
 const logger = Debug('informed:useField' + '\t');
 
@@ -56,6 +57,7 @@ export const useField = ({
   required,
   validateOnMount: userValidateOnMount,
   validateOn: userValidateOn,
+  validateWhen = [],
   formatterDependencies = [],
   formController: userFormController,
   ...userProps
@@ -155,6 +157,7 @@ export const useField = ({
     yupSchema,
     validateOn: validateOn ?? 'blur',
     validateOnMount,
+    validateWhen,
     showErrorIfError,
     showErrorIfTouched,
     showErrorIfDirty,
@@ -233,6 +236,11 @@ export const useField = ({
     },
     [...formatterDependencies]
   );
+
+  useFieldSubscription('field-value', validateWhen, target => {
+    logger(`revalidating for ${metaRef.current.name} because of ${target}`);
+    formController.validateField(metaRef.current.name);
+  });
 
   useLayoutEffect(() => {
     if (debug && ref && ref.current) {

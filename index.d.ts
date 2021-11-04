@@ -100,6 +100,7 @@ export type FieldProps<UserProps> = {
     | 'change-submit'
     | 'blur-submit'
     | 'submit';
+  validateWhen?: string[];
   validateOnMount?: boolean;
   keepState?: boolean;
   keepStateIfRelevant?: boolean;

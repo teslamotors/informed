@@ -6,6 +6,7 @@ import { useScope } from '../hooks/useScope';
 import { Debug } from '../debug';
 import { FormFields } from './FormFields';
 import { ScopeContext } from '../Context';
+// import { useForceUpdate } from '../hooks/useForceUpdate';
 const logger = Debug('informed:FormField' + '\t');
 
 const FormField = ({ name, schema }) => {
@@ -15,8 +16,11 @@ const FormField = ({ name, schema }) => {
   // Name might be scoped
   const fullName = useScope(name);
 
-  // Grap the schema
+  // Grab the schema
   const options = getOptions();
+
+  // Magic trick
+  // const forceUpdate = useForceUpdate();
 
   // IF schema was passed its a sub schema and we lookup via name otherwise we look at whole schema
   const lookupName = schema ? name : fullName;
@@ -51,7 +55,7 @@ const FormField = ({ name, schema }) => {
   ]);
 
   const {
-    props,
+    props: schemaProps,
     type,
     properties,
     items,
@@ -59,6 +63,31 @@ const FormField = ({ name, schema }) => {
     uiBefore,
     uiAfter
   } = schemaField;
+
+  // Register for events on our field
+  // useEffect(
+  //   () => {
+  //     const listener = target => {
+  //       if (target === name) {
+  //         forceUpdate();
+  //       }
+  //     };
+
+  //     emitter.on('relevant', listener);
+
+  //     // When name changes we always force an update!
+  //     forceUpdate();
+
+  //     return () => {
+  //       emitter.removeListener('relevant', listener);
+  //     };
+  //   },
+  //   [name]
+  // );
+
+  const props = useMemo(() => {
+    return { ...schemaProps };
+  }, []);
 
   // Component is either on field map or components list passed in
   const Component =

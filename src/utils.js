@@ -663,7 +663,7 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
 
 export const computeFieldsFromSchema = (schema, onlyValidateSchema) => {
   if (!schema || onlyValidateSchema) {
-    return [];
+    return { properties: [], conditions: [], components: [] };
   }
 
   // Grab properties and items off of schema
@@ -682,7 +682,20 @@ export const computeFieldsFromSchema = (schema, onlyValidateSchema) => {
     if (allOf) {
       allOf.forEach(item => {
         if (item.if) {
-          conditions.push(item);
+          // Determine if the "then" properties are new or already in fields
+          const newItem = { ...item };
+          newItem.then = { properties: {} };
+          newItem.thenProps = {};
+          Object.keys(item.then.properties).forEach(name => {
+            if (!fields.includes(name)) {
+              // This is a completley new field!
+              newItem.then.properties.name = item.then.properties[name];
+            } else {
+              // This field has been spotted above, and therefore is just new properties based on conditional
+              newItem.thenProps.name = item.then.properties[name];
+            }
+          });
+          conditions.push(newItem);
         } else {
           components.push(item);
         }
@@ -692,7 +705,7 @@ export const computeFieldsFromSchema = (schema, onlyValidateSchema) => {
     return { properties: fields, conditions, components };
   }
 
-  return [];
+  return { properties: [], conditions: [], components: [] };
 };
 
 export function checkCondition(condition, propertyValue) {

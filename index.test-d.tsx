@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useFormApi, useForm, useField, FieldState } from '.';
 import {expectType} from 'tsd';
 
@@ -65,26 +65,44 @@ const UseFormApi = () => (
 
 /* ------------------------- inputProps ------------------------- */
 
-const InputProps = () => (
-  <Form>
-    <Input 
-      // Informed Prop
-      name="name" 
-      // Custom Props
-      label="Name:" 
-      // Input Props
-      disabled
-      autoComplete="off"
-      // More informed props
-      onChange={(fieldState)=>{
-        expectType<FieldState>(fieldState)
-      }}
-      onBlur={(fieldState)=>{
-        expectType<FieldState>(fieldState)
-      }}
-      onFocus={(fieldState)=>{
-        expectType<FieldState>(fieldState)
-      }}/>
-    <ComponentUsingFormApi />
-  </Form>
-);
+const InputProps = () => {
+  const ref = useRef();
+  return (
+    <Form>
+      <Input 
+        // Informed Prop
+        name="name" 
+        defaultValue="Foo"
+        initialValue="Bar"
+        relevant={({ formState }) => formState.values.allowed }
+        validate={(val, values) => val === 'Foo' || values.name === 'Bar' ? 'Ahh!!' : undefined}
+        validateOn="change"
+        validateOnMount
+        keepState
+        keepStateIfRelevant
+        maintainCursor
+        allowEmptyString
+        inputRef={ref}
+        showErrorIfError
+        showErrorIfTouched
+        showErrorIfDirty
+        // Custom Props
+        label="Name:" 
+        // Input Props
+        disabled
+        autoComplete="off"
+        type="number"
+        // More informed props
+        onChange={(fieldState)=>{
+          expectType<FieldState>(fieldState)
+        }}
+        onBlur={(fieldState)=>{
+          expectType<FieldState>(fieldState)
+        }}
+        onFocus={(fieldState)=>{
+          expectType<FieldState>(fieldState)
+        }}/>
+      <ComponentUsingFormApi />
+    </Form>
+  );
+}

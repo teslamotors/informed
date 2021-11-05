@@ -1003,17 +1003,22 @@ describe('useField', () => {
 
   it('should call validate with sibling initial value when validateOnMount is passed', () => {
 
-    // const validateSpy = jest.fn();
-    const validateSpy = (v, vs) => console.log('WTF', v, vs); 
+    let value = null;
+    let values = null;
+    const validateSpy = (v, vs) =>  {
+      value = v;
+      values = JSON.stringify(vs);
+    };
 
     render(
       <Form>
-        <Input name="greeting1" label="input1" initialValue="Hello" validate={validateSpy} validateOnMount validateWhen={['greeting2']}/>
+        <Input name="greeting1" label="input1" initialValue="Hello" validate={validateSpy} validateOnMount validateWhen={['greeting2']} />
         <Input name="greeting2" label="input1" initialValue="World" validateOnMount/>
       </Form>
     );
   
-    // expect(validateSpy).toHaveBeenCalledWith('Hello', { greeting1: 'Hello', greeting2: 'World' });
+    expect(value).toEqual('Hello');
+    expect(values).toEqual(JSON.stringify({ greeting1: 'Hello', greeting2: 'World' }));
 
   });
 

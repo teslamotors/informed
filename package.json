@@ -18,7 +18,7 @@
     "build": "rm -rf dist && rollup --config",
     "test": "mocha-webpack --opts tests/mocha-webpack.opts",
     "test:jest": "jest",
-    "test:jest:watch": "DEBUG='informed:.*' jest --watch",
+    "test:jest:watch": "jest --watch",
     "test:watch": "npm run test -- --watch",
     "test:ts": "npx tsd",
     "preversion": "npm run test:coverage",

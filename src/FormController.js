@@ -677,6 +677,14 @@ export class FormController {
         .then(res => {
           this.state.validating = this.state.validating - 1;
           const stale = this.validationRequests.get(name).uuid !== uuid;
+
+          // What in the hell is invalid and why do I need it??
+          // 1. User types ddddd ( 5 inputs so we pass sync validation )
+          // 2. Because there is no sync validation async will trigger to validate username
+          // 3. While that occurs, user starts to Backspace the ddddd
+          // 4. The second user backspaces, sync has error so async never "re-occurs"
+          // 5. the sync request made on step 2 completes
+          // 6. It wipes out sync error
           const invalid =
             this.validationRequests.get(name).value !== this.getValue(name);
           if (!stale && !invalid) {

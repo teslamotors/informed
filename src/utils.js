@@ -689,10 +689,10 @@ export const computeFieldsFromSchema = (schema, onlyValidateSchema) => {
           Object.keys(item.then.properties).forEach(name => {
             if (!fields.includes(name)) {
               // This is a completley new field!
-              newItem.then.properties.name = item.then.properties[name];
+              newItem.then.properties[name] = item.then.properties[name];
             } else {
               // This field has been spotted above, and therefore is just new properties based on conditional
-              newItem.thenProps.name = item.then.properties[name];
+              newItem.thenProps[name] = item.then.properties[name];
             }
           });
           conditions.push(newItem);

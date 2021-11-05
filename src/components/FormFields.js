@@ -3,6 +3,7 @@ import { useFormController } from '../hooks/useFormController';
 import { checkCondition, computeFieldsFromSchema } from '../utils';
 import { FormField } from './FormField';
 import { Relevant } from './Relevant';
+import { UpdateFields } from './UpdateFields';
 
 // const logger = Debug('informed:FormFields' + '\t');
 
@@ -73,7 +74,7 @@ const FormFields = ({ schema, onlyValidateSchema }) => {
         // }
         const subSchema = conditional.then;
         const $id = conditional.$id;
-        // const thenProps = conditional.thenProps;
+        const thenProps = conditional.thenProps;
 
         // Turn the if into a when function for informed
         // Example if condition
@@ -100,7 +101,8 @@ const FormFields = ({ schema, onlyValidateSchema }) => {
 
         const Component = (
           <Relevant key={`Conditional-ScheamField-${j}`} when={when}>
-            <FormFields schema={subSchema} />
+            {subSchema ? <FormFields schema={subSchema} /> : null}
+            {thenProps ? <UpdateFields schema={thenProps} /> : null}
           </Relevant>
         );
 

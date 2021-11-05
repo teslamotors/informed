@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import { computeFieldFromProperty, getSchemaPathFromJsonPath } from '../utils';
 import { ObjectMap } from '../ObjectMap';
 import { useFormController } from '../hooks/useFormController';
@@ -11,7 +11,7 @@ const logger = Debug('informed:FormField' + '\t');
 
 const FormField = ({ name, schema }) => {
   // Get the field map off the forms context
-  const { fieldMap, getOptions } = useFormController();
+  const { fieldMap, getOptions, emitter } = useFormController();
 
   // Name might be scoped
   const fullName = useScope(name);
@@ -19,8 +19,8 @@ const FormField = ({ name, schema }) => {
   // Grab the schema
   const options = getOptions();
 
-  // Magic trick
-  // const forceUpdate = useForceUpdate();
+  // For conditional props
+  const [condProp, setCondProp] = useState({});
 
   // IF schema was passed its a sub schema and we lookup via name otherwise we look at whole schema
   const lookupName = schema ? name : fullName;
@@ -65,29 +65,58 @@ const FormField = ({ name, schema }) => {
   } = schemaField;
 
   // Register for events on our field
-  // useEffect(
-  //   () => {
-  //     const listener = target => {
-  //       if (target === name) {
-  //         forceUpdate();
-  //       }
-  //     };
+  useEffect(
+    () => {
+      const updater = (target, property) => {
+        // Example
+        // target="foo"
+        // property =
+        // {
+        //     oneOf: [
+        //       { const: '', title: '- Select -' },
+        //       { const: 'modelS', title: 'Model S' },
+        //       { const: 'modelX', title: 'Model X' },
+        //       { const: 'model3', title: 'Model 3' }
+        //     ]
+        //   }
 
-  //     emitter.on('relevant', listener);
+        if (target === name) {
+          logger('Updating field props for', target);
+          setCondProp(computeFieldFromProperty(name, property));
+        }
+      };
 
-  //     // When name changes we always force an update!
-  //     forceUpdate();
+      const remover = target => {
+        if (target === name) {
+          setCondProp({});
+        }
+      };
 
-  //     return () => {
-  //       emitter.removeListener('relevant', listener);
-  //     };
-  //   },
-  //   [name]
-  // );
+      emitter.on('update-combine', updater);
+      emitter.on('update-remove', remover);
 
-  const props = useMemo(() => {
-    return { ...schemaProps };
-  }, []);
+      return () => {
+        emitter.removeListener('update-combine', updater);
+        emitter.removeListener('update-remove', remover);
+      };
+    },
+    [name]
+  );
+
+  // Combine any conditional props with the schema props
+  const props = useMemo(
+    () => {
+      // Pull new props off of cond property
+      const condProps = condProp.props;
+
+      // Lay those on top of existing ones
+      const newProps = { ...schemaProps, ...condProps };
+
+      logger(`New Props for ${name}`, condProps);
+      return newProps;
+    },
+    [condProp]
+  );
 
   // Component is either on field map or components list passed in
   const Component =

@@ -15,7 +15,9 @@ const schema = {
         { const: 'car', title: 'Car' },
         { const: 'truck', title: 'Truck' }
       ],
-      default: 'car'
+      'ui:props': {
+        initialValue: 'car'
+      }
     },
     product: {
       type: 'string',
@@ -49,6 +51,9 @@ const schema = {
               { const: 'semi', title: 'Semi Truck' },
               { const: 'cyber', title: 'Cyber Truck' }
             ]
+            // 'ui:props': {
+            //   disabled: true
+            // }
           }
         }
       }

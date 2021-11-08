@@ -10,15 +10,19 @@ const schema = {
   properties: {
     type: {
       type: 'string',
+      'ui:control': 'select',
       title: 'Would you like a car or truck?',
       oneOf: [
         { const: 'car', title: 'Car' },
         { const: 'truck', title: 'Truck' }
       ],
-      default: 'car'
+      'ui:props': {
+        initialValue: 'car'
+      }
     },
     product: {
       type: 'string',
+      'ui:control': 'select',
       title: 'Product'
     }
   },

@@ -2,6 +2,12 @@
 
 ### Breaking changes
 
+#### informed:props ( schema )
+
+```
+informed:props is now ui:props when using schema based forms
+```
+
 #### Relevance
 
 ```

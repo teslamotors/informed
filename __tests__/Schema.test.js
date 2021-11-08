@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form } from '../jest/components';
 import { SchemaFields } from '../src';
@@ -406,7 +406,227 @@ describe('Schema', () => {
 
   });
 
-  
+  it('should conditionally render fields based on relevant prop', () => {
+    const formApiRef = {};
 
+    const schema = {
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string',
+          title: 'First name',
+          'ui:control': 'input'
+        },
+        married: {
+          type: 'string',
+          title: 'Are you married?',
+          enum: ['yes', 'no'],
+          'ui:control': 'radio'
+        },
+        spouse: {
+          type: 'string',
+          title: 'Spouse name',
+          'ui:control': 'input',
+          'ui:props': {
+            relevant: ({ formState }) => {
+              return formState.values.married === 'yes';
+            },
+            keepState: true
+          }
+        }
+      }
+    };
+
+    const { queryAllByRole, queryByLabelText } = render(
+      <Form schema={schema} formApiRef={formApiRef} >
+        <SchemaFields />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    let spouse = queryByLabelText('Spouse name');
+
+    // Field should NOT be there yet
+    expect(spouse).toBeNull();
+
+    const options = queryAllByRole('radio');
+    expect(options.length).toEqual(2);
+
+    expect(options[0]).toHaveAttribute('value', 'yes');
+    expect(options[1]).toHaveAttribute('value', 'no');
+
+    // Toggle on  -------------------------------------------
+    fireEvent.click(options[0]);
+
+    // Validate everything is there
+    spouse = queryByLabelText('Spouse name');
+    expect(spouse).not.toBeNull();
+    userEvent.type(spouse, 'Hope');
+  
+    expect(spouse).toHaveValue('Hope');
+    expect(formApiRef.current.getFormState().values).toEqual({ married: 'yes', spouse: 'Hope' });
+  });
+
+  it('should conditionally render fields based on schema if conditions', () => {
+    const formApiRef = {};
+
+    const schema = {
+      type: 'object',
+      required: ['name'],
+      properties: {
+        name: {
+          type: 'string',
+          title: 'First name',
+          'ui:control': 'input'
+        },
+        married: {
+          type: 'string',
+          title: 'Are you married?',
+          enum: ['yes', 'no'],
+          'ui:control': 'radio'
+        }
+      },
+      allOf: [
+        {
+          if: {
+            properties: {
+              married: { const: 'yes' }
+            },
+            required: ['married']
+          },
+          then: {
+            properties: {
+              spouse: {
+                type: 'string',
+                title: 'Spouse name',
+                'ui:control': 'input'
+              }
+            }
+          }
+        }
+      ]
+    };
+
+    const { queryAllByRole, queryByLabelText } = render(
+      <Form schema={schema} formApiRef={formApiRef} >
+        <SchemaFields />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    let spouse = queryByLabelText('Spouse name');
+
+    // Field should NOT be there yet
+    expect(spouse).toBeNull();
+
+    const options = queryAllByRole('radio');
+    expect(options.length).toEqual(2);
+
+    expect(options[0]).toHaveAttribute('value', 'yes');
+    expect(options[1]).toHaveAttribute('value', 'no');
+
+    // Toggle on  -------------------------------------------
+    fireEvent.click(options[0]);
+
+    // Validate everything is there
+    spouse = queryByLabelText('Spouse name');
+    expect(spouse).not.toBeNull();
+    userEvent.type(spouse, 'Hope');
+  
+    expect(spouse).toHaveValue('Hope');
+    expect(formApiRef.current.getFormState().values).toEqual({ married: 'yes', spouse: 'Hope' });
+  });
+
+  it('should conditionally render options based on schema if conditions', () => {
+    const formApiRef = {};
+
+    const schema = {
+      type: 'object',
+      properties: {
+        type: {
+          type: 'string',
+          'ui:control': 'select',
+          title: 'Would you like a car or truck?',
+          oneOf: [
+            { const: 'car', title: 'Car' },
+            { const: 'truck', title: 'Truck' }
+          ],
+          'ui:props': {
+            initialValue: 'car',
+            'data-testid': 'select'
+          }
+        },
+        product: {
+          type: 'string',
+          'ui:control': 'select',
+          title: 'Product'
+        }
+      },
+      allOf: [
+        {
+          if: { properties: { type: { const: 'car' } }, required: ['type'] },
+          then: {
+            properties: {
+              product: {
+                oneOf: [
+                  { const: '', title: '- Select -' },
+                  { const: 'modelS', title: 'Model S' },
+                  { const: 'modelX', title: 'Model X' },
+                  { const: 'model3', title: 'Model 3' }
+                ]
+              }
+            }
+          }
+        },
+        {
+          if: { properties: { type: { const: 'truck' } }, required: ['type'] },
+          then: {
+            properties: {
+              product: {
+                oneOf: [
+                  { const: '', title: '- Select -' },
+                  { const: 'semi', title: 'Semi Truck' },
+                  { const: 'cyber', title: 'Cyber Truck' }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    };
+
+    const { getByText, getByTestId } = render(
+      <Form schema={schema} formApiRef={formApiRef} >
+        <SchemaFields />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const carOrTruck = getByTestId('select');
+
+    let productOption1 = getByText('- Select -');
+    let productOption2 = getByText('Model S');
+    let productOption3 = getByText('Model X');
+    let productOption4 = getByText('Model 3');
+
+    expect(productOption1).toHaveAttribute('value', '');
+    expect(productOption2).toHaveAttribute('value', 'modelS');
+    expect(productOption3).toHaveAttribute('value', 'modelX');
+    expect(productOption4).toHaveAttribute('value', 'model3');
+
+    expect(formApiRef.current.getFormState().values).toEqual({ type: 'car' });
+
+    // Select Truck 
+    fireEvent.change(carOrTruck, { target: { value: 'truck' } });
+
+    expect(formApiRef.current.getFormState().values).toEqual({ type: 'truck' });
+
+    productOption1 = getByText('- Select -');
+  
+    productOption1 = getByText('- Select -');
+    productOption2 = getByText('Semi Truck');
+    productOption3 = getByText('Cyber Truck');
+
+  });
 
 });

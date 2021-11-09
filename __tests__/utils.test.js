@@ -147,6 +147,15 @@ describe('Utils', () => {
       const { value } = informedFormat({ a: '1234', b: '1' }, {a: fmtr, b: fmtr });
       expect(value).toEqual({ a: '+1 123-4', b: '+1 1' });
     });
+
+    it('"abcdefg" ----> "AB-CD-EFGH" with function formatter', () => {
+      const mask = value => value.toUpperCase();
+
+      const formatter = [mask, mask, '-', mask, mask, '-', mask, mask, mask, mask];
+
+      const { value } = informedFormat('abcdefgh', formatter);
+      expect(value).toEqual('AB-CD-EFGH');
+    });
     
   });
 });

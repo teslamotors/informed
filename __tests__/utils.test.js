@@ -136,6 +136,17 @@ describe('Utils', () => {
       const { value } = informedFormat('3000', '$#,###.00&');
       expect(value).toEqual('$3,000.00&');
     });
+
+    it('{}  ----> {}', () => {
+      const { value } = informedFormat({}, {a: fmtr, b: fmtr });
+      expect(value).toEqual({});
+    });
+
+
+    it('{ a: "1234", b: "1" }  ----> { a: "+1 123-4", b: "+1 1" }', () => {
+      const { value } = informedFormat({ a: '1234', b: '1' }, {a: fmtr, b: fmtr });
+      expect(value).toEqual({ a: '+1 123-4', b: '+1 1' });
+    });
     
   });
 });

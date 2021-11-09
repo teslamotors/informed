@@ -35,6 +35,7 @@ const schema = {
       'ui:props': {
         initialValue
       },
+      'ui:before': [{ 'ui:control': 'add' }],
       items: {
         type: 'object',
         required: ['name', 'age'],

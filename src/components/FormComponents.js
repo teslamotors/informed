@@ -8,9 +8,9 @@ const FormComponents = ({ components }) => {
   if (!components) return null;
 
   return components.map((comp, i) => {
-    const { 'ui:control': componentType } = comp;
+    const { 'ui:control': componentType, 'ui:props': props } = comp;
     const Component = fieldMap[componentType];
-    return <Component key={`ui-comp-${i}`} />;
+    return <Component key={`ui-comp-${i}`} {...props} />;
   });
 };
 

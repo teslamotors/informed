@@ -42,6 +42,9 @@ const schema = {
       type: 'array',
       minItems: 2,
       'ui:control': 'array',
+      'ui:before': [
+        { 'ui:control': 'add', 'ui:props': { text: 'Add Sibling' } }
+      ],
       'ui:props': {
         initialValue
       },
@@ -49,10 +52,18 @@ const schema = {
         type: 'object',
         required: ['name', 'age'],
         properties: {
-          'ui:after': [{ 'ui:control': 'remove' }],
+          'ui:component:remove': {
+            'ui:control': 'remove',
+            'ui:props': { text: 'Remove Sibling' }
+          },
           name: {
             type: 'string',
             title: 'Sibling name',
+            'ui:control': 'input'
+          },
+          age: {
+            type: 'number',
+            title: 'Sibling age',
             'ui:control': 'input'
           },
           married: {
@@ -76,12 +87,17 @@ const schema = {
             type: 'array',
             minItems: 2,
             'ui:control': 'array',
-            'ui:before': [{ 'ui:control': 'add' }],
+            'ui:before': [
+              { 'ui:control': 'add', 'ui:props': { text: 'Add Friend' } }
+            ],
             items: {
               type: 'object',
-              'ui:after': [{ 'ui:control': 'remove' }],
-              required: ['name', 'age'],
+              required: ['name'],
               properties: {
+                'ui:component:remove': {
+                  'ui:control': 'remove',
+                  'ui:props': { text: 'Remove Friend' }
+                },
                 name: {
                   type: 'string',
                   title: 'Friends name',

@@ -60,6 +60,7 @@ export const useField = ({
   validateWhen = [],
   formatterDependencies = [],
   formController: userFormController,
+  initialize,
   ...userProps
 }) => {
   // For backwards compatability
@@ -161,7 +162,8 @@ export const useField = ({
     showErrorIfError,
     showErrorIfTouched,
     showErrorIfDirty,
-    asyncValidate
+    asyncValidate,
+    initialize
   };
   const metaRef = useRef(meta);
   metaRef.current = meta;

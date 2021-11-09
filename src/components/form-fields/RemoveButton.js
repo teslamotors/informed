@@ -1,7 +1,7 @@
 import React from 'react';
 import { useArrayFieldItemApi } from '../../hooks/useArrayFieldItemApi';
 
-const RemoveButton = () => {
+const RemoveButton = ({ text }) => {
   const { remove } = useArrayFieldItemApi();
 
   return (
@@ -10,7 +10,7 @@ const RemoveButton = () => {
         remove();
       }}
       type="button">
-      Remove
+      {text ? text : 'Remove'}
     </button>
   );
 };

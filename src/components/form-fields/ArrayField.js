@@ -1,13 +1,13 @@
 import React from 'react';
 import { ArrayField as InformedArrayField } from '../ArrayField';
-// import { FormComponents } from '../FormComponents';
+import { FormComponents } from '../FormComponents';
 import { FormFields } from '../FormFields';
 
-// const ArrayField = ({ field, items, uiBefore, uiAfter, ...props }) => {
-const ArrayField = ({ name, items, ...props }) => {
+const ArrayField = ({ name, items, uiBefore, uiAfter, ...props }) => {
+  // const ArrayField = ({ name, items, ...props }) => {
   return (
     <InformedArrayField name={name} {...props}>
-      {/* <FormComponents components={uiBefore} /> */}
+      <FormComponents components={uiBefore} />
       <InformedArrayField.Items>
         {() => (
           <React.Fragment>
@@ -17,7 +17,7 @@ const ArrayField = ({ name, items, ...props }) => {
           </React.Fragment>
         )}
       </InformedArrayField.Items>
-      {/* <FormComponents components={uiAfter} /> */}
+      <FormComponents components={uiAfter} />
     </InformedArrayField>
   );
 };

@@ -25,7 +25,6 @@ const schema = {
       title: 'First name',
       'ui:control': 'input'
     },
-    // 'ui:component:add': { 'ui:control': 'add' },
     siblings: {
       type: 'array',
       minItems: 2,
@@ -33,6 +32,7 @@ const schema = {
       'ui:props': {
         initialValue
       },
+      'ui:before': [{ 'ui:control': 'add' }],
       items: {
         type: 'object',
         required: ['name', 'age'],

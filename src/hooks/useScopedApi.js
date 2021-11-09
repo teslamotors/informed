@@ -5,7 +5,8 @@ import { useFormApi } from './useFormApi';
 const buildScopedFormApi = (scope, formApi) => {
   return {
     getValue: field => formApi.getValue(`${scope}.${field}`),
-    setValue: (field, value) => formApi.setValue(`${scope}.${field}`, value),
+    setValue: (field, value, e, key) =>
+      formApi.setValue(`${scope}.${field}`, value, e, key),
     getTouched: field => formApi.getTouched(`${scope}.${field}`),
     setTouched: (field, value) =>
       formApi.setTouched(`${scope}.${field}`, value),

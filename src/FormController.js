@@ -4,6 +4,7 @@ import { FieldMap as defaultFieldMap } from './fieldMap';
 import {
   debounceByName,
   informedFormat,
+  informedParse,
   uuidv4,
   validateAjvSchema,
   validateYupField,
@@ -14,7 +15,7 @@ const debug = Debug('informed:FormController' + '\t');
 const initializeValue = (value, { formatter, parser, initialize }) => {
   if (value != null) {
     // Call users initialize if it was passed
-    if (initialize) {
+    if (initialize && !parser) {
       return initialize(value);
     }
     if (formatter && !parser) {
@@ -27,7 +28,10 @@ const initializeValue = (value, { formatter, parser, initialize }) => {
   return undefined;
 };
 
-const initializeMask = (value, { formatter }) => {
+const initializeMask = (value, { formatter, initialize }) => {
+  if (initialize) {
+    return initialize(value);
+  }
   // Call formatter
   if (formatter) {
     const res = informedFormat(value, formatter);
@@ -162,13 +166,13 @@ export class FormController {
     return ObjectMap.set(this.state.maskedValues, name, value);
   }
 
-  setValue(name, value, e) {
+  setValue(name, value, e, key) {
     // Get meta for field
     const meta = this.fieldsMap.get(name)?.current;
 
     // Remember Cursor position!
     if (e && e.target && e.target.selectionStart) {
-      meta.setCursor(e.target.selectionStart);
+      meta.setCursor(e.target.selectionStart, key);
     }
 
     if (value === '') {
@@ -186,14 +190,14 @@ export class FormController {
       // Call formatter and parser if passed
       if (meta.formatter) {
         const res = informedFormat(val, meta.formatter);
-        meta.setCursorOffset(res.offset);
+        meta.setCursorOffset(res.offset, key);
         maskedVal = res.value;
         val = maskedVal;
       }
 
       // // Only parse if parser was passed
       if (meta.parser) {
-        val = val != null ? meta.parser(val) : val;
+        val = val != null ? informedParse(val, meta.parser) : val;
       }
 
       debug(`Setting ${name}'s value to ${val}`);
@@ -566,7 +570,8 @@ export class FormController {
         initialize
       });
       const initialMask = initializeMask(meta.current.initialValue, {
-        formatter
+        formatter,
+        initialize
       });
 
       debug(`Initializing ${name}'s value to ${initialValue}`);
@@ -757,7 +762,8 @@ export class FormController {
       initialize
     });
     const initialMask = initializeMask(meta.initialValue, {
-      formatter
+      formatter,
+      initialize
     });
 
     debug(`Resetting ${name}'s value to ${initialValue}`);

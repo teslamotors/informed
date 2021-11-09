@@ -44,6 +44,7 @@ export const useField = ({
   keepStateIfRelevant,
   debug,
   inputRef,
+  inputRefs,
   relevant,
   defaultValue,
   initialValue: userInitialValue,
@@ -126,7 +127,8 @@ export const useField = ({
   const { setCursor, setCursorOffset } = useCursorPosition({
     value: fieldState.value,
     inputRef: ref,
-    maintainCursor
+    maintainCursor,
+    inputRefs
   });
 
   // Generate validation function

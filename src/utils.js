@@ -279,13 +279,59 @@ const matchingIndex = (a, b) => {
   return mi;
 };
 
+export const informedParse = (val, parser) => {
+  // Our parser is an object! so we must parse for each key
+  // Example:
+  //
+  // formatter: {
+  //   a: formatter,
+  //   b: formatter
+  // }
+  if (typeof parser === 'object' && !Array.isArray(parser)) {
+    const parsedVal = {};
+    Object.keys(val).forEach(key => {
+      // parser['foo'] = val['foo']
+      const value = parser[key](val[key]);
+      parsedVal[key] = value;
+    });
+    return parsedVal;
+  }
+  // Simply pass along if its a flat formatter
+  return parser(val);
+};
+
 export const informedFormat = (val, frmtr) => {
+  // Our formatter is an object! so we must format for each key
+  // Example:
+  //
+  // formatter: {
+  //   a: formatter,
+  //   b: formatter
+  // }
+  if (typeof frmtr === 'object' && !Array.isArray(frmtr)) {
+    const formattedVal = {};
+    const formattedOffset = {};
+    Object.keys(val).forEach(key => {
+      const { value, offset } = informedFormatter(val[key], frmtr[key]);
+      formattedVal[key] = value;
+      formattedOffset[key] = offset;
+    });
+    return {
+      value: formattedVal,
+      offset: formattedOffset
+    };
+  }
+  // Simply pass along if its a flat formatter
+  return informedFormatter(val, frmtr);
+};
+
+export const informedFormatter = (val, frmtr) => {
   // console.log('Formatting', val);
 
   // Null check
   if (!val) {
     return {
-      val,
+      value: val,
       offset: 0
     };
   }

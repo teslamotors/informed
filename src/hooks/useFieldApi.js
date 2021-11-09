@@ -6,7 +6,7 @@ import { useScope } from './useScope';
 const buildFieldApi = (formApi, name) => {
   return {
     getValue: () => formApi.getValue(name),
-    setValue: (value, e) => formApi.setValue(name, value, e),
+    setValue: (value, e, key) => formApi.setValue(name, value, e, key),
     getTouched: () => formApi.getTouched(name),
     setTouched: (value, e) => formApi.setTouched(name, value, e),
     getError: () => formApi.getError(name),

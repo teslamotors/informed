@@ -635,6 +635,7 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
     minLength,
     maxLength,
     pattern,
+    required,
     type,
     properties: subProperties,
     allOf
@@ -656,6 +657,7 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
     allOf: type === 'object' ? allOf : undefined,
     items: type === 'array' ? items : undefined,
     propertyName,
+    required,
     props: {
       label: label,
       id,

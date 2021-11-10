@@ -110,6 +110,11 @@ export type FieldProps<UserProps> = {
   showErrorIfError?: boolean;
   showErrorIfTouched?: boolean;
   showErrorIfDirty?: boolean;
+  formatter:
+    | Array<string, RegExp, Function>
+    | string
+    | Object
+    | ((value: unknown) => Array<string, RegExp, Function>);
 } & Omit<
   UserProps,
   'onChange' | 'onBlur' | 'onFocus' | 'value' | 'defaultValue'

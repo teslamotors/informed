@@ -30,11 +30,16 @@ const FormFields = ({ schema, onlyValidateSchema }) => {
           };
         }
 
+        // Need to get required off schema
+        const required =
+          schema.required && schema.required.includes(name) ? true : undefined;
+
         const Component = (
           <FormField
             name={name}
             schema={schema}
             key={`schema-field-${name}-${i}`}
+            required={required}
           />
         );
 

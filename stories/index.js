@@ -28,6 +28,8 @@ import YupValidation from './Validation/YupValidation';
 import FieldLevelYupValidation from './Validation/FieldLevelYupValidation';
 import ComplexValidation from './Validation/ComplexValidation';
 import ValidationControl from './Validation/ValidationControl';
+import ValidationMessages from './Validation/ValidationMessages';
+
 // import ArrayFieldValidation from './Validation/ArrayFieldValidation';
 // import ComplexArrayFieldValidation from './Validation/ComplexArrayFieldValidation';
 import Notifications from './Validation/Notifications';
@@ -200,6 +202,7 @@ storiesOf('Validation', module)
   .add('Complex Validation', ComplexValidation)
   .add('Validation Control', ValidationControl)
   .add('Required', Required)
+  .add('Validation Messages', ValidationMessages)
   // .add('Form Level Validation', FormLevelValidation)
   .add('Notifications', Notifications)
   // .add('Array Field Validation', ArrayFieldValidation)

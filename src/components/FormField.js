@@ -9,7 +9,7 @@ import { ScopeContext } from '../Context';
 // import { useForceUpdate } from '../hooks/useForceUpdate';
 const logger = Debug('informed:FormField' + '\t');
 
-const FormField = ({ name, schema }) => {
+const FormField = ({ name, schema, required }) => {
   // Get the field map off the forms context
   const { fieldMap, getOptions, emitter } = useFormController();
 
@@ -110,7 +110,7 @@ const FormField = ({ name, schema }) => {
       const condProps = condProp.props;
 
       // Lay those on top of existing ones
-      const newProps = { ...schemaProps, ...condProps };
+      const newProps = { ...schemaProps, ...condProps, required };
 
       logger(`New Props for ${name}`, condProps);
       return newProps;

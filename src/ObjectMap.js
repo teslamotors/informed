@@ -91,7 +91,13 @@ const ldset = (obj, path = '', val) => {
         return res[key];
       }
       // Initialize to new array or object if needed
-      if (res[key] === undefined) {
+      // OLD CODE: if (res[key] === undefined) {
+      // Note I left comment above because it used to be undefined check
+      // I had to change it to object in case someone tried to set
+      // a value on an existing non object type
+      // Example ldSet({ foo: 'HelloWorld' }, 'foo.bar', 'Hello World')
+      // ==> { foo: { bar: 'HelloWorld' } }
+      if (typeof res[key] !== 'object') {
         if (Number.isInteger(+arr[i + 1])) {
           res[key] = [];
         } else {

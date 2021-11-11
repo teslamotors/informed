@@ -1,4 +1,4 @@
-# Schema With NO AJV
+# Schema With AJV
 
 <!-- STORY -->
 

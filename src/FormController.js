@@ -56,6 +56,10 @@ export class FormController {
 
     // Create new ajv instance if passed
     this.ajv = ajv ? new ajv({ allErrors: true }) : null;
+    // TODO this fucks with json pointer stuff
+    // if (ajvErrors) {
+    //   ajvErrors(this.ajv);
+    // }
     this.ajvValidate = ajv ? this.ajv.compile(schema) : null;
 
     // Add field map ( defaults to our field map )

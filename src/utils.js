@@ -206,15 +206,73 @@ export const validateRequired = (value, required) => {
   }
 };
 
+export const validateMax = (value, max) => {
+  if (max != null && value > max) {
+    return `This field should NOT be more than ${max}`;
+  }
+
+  return undefined;
+};
+
+export const validateMin = (value, min) => {
+  if (min != null && value < min) {
+    return `This field should NOT be less than ${min}`;
+  }
+
+  return undefined;
+};
+
+export const validateMaxLength = (value, maxLength) => {
+  if (maxLength != null && value?.length > maxLength) {
+    return `This field should NOT be more than ${maxLength} characters`;
+  }
+  return undefined;
+};
+
+export const validateMinLength = (value, minLength) => {
+  if (minLength != null && value?.length < minLength) {
+    return `This field should NOT be shorter than ${minLength} characters`;
+  }
+  return undefined;
+};
+
+const validatePattern = (value, pattern) => {
+  if (pattern != null && !new RegExp(pattern).test(value) && value) {
+    return `This field should match pattern "${pattern}";`;
+  }
+
+  return undefined;
+};
+
 export const generateValidationFunction = (
   validationFunc,
   yupSchema,
-  { required }
+  { required, minimum, maximum, minLength, maxLength, pattern }
 ) => (val, values) => {
   let error;
 
   if (required) {
     error = validateRequired(val, required);
+    if (error !== undefined) return error;
+  }
+  if (minimum) {
+    error = validateMin(val, minimum);
+    if (error !== undefined) return error;
+  }
+  if (maximum) {
+    error = validateMax(val, maximum);
+    if (error !== undefined) return error;
+  }
+  if (minLength) {
+    error = validateMinLength(val, minLength);
+    if (error !== undefined) return error;
+  }
+  if (maxLength) {
+    error = validateMaxLength(val, maxLength);
+    if (error !== undefined) return error;
+  }
+  if (pattern) {
+    error = validatePattern(val, pattern);
     if (error !== undefined) return error;
   }
   if (yupSchema) {

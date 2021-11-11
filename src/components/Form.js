@@ -26,6 +26,7 @@ export const Form = ({ children, ...rest }) => {
   return render(
     <form
       {...userProps}
+      noValidate
       onReset={formController.reset}
       onSubmit={formController.submitForm}
       onKeyDown={formController.keyDown}>

@@ -1,10 +1,10 @@
-# Schema With NO AJV
-
-<!-- STORY -->
-
-```jsx
-import { Form, SchemaFields, Debug } from 'informed';
+import React from 'react';
+import withDocs from '../../../utils/withDocs';
+import readme from './README.md';
 import Ajv from 'ajv';
+import ajvErrors from 'ajv-errors';
+
+import { Form, SchemaFields, Debug } from '../../../../src';
 
 const schema = {
   type: 'object',
@@ -68,10 +68,12 @@ const Schema = () => (
   <Form
     schema={schema}
     ajv={Ajv}
+    ajvErrors={ajvErrors}
     onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
     <SchemaFields />
     <button type="submit">Submit</button>
     <Debug errors values />
   </Form>
 );
-```
+
+export default withDocs(readme, Schema);

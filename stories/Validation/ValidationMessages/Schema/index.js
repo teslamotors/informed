@@ -1,7 +1,6 @@
 import React from 'react';
 import withDocs from '../../../utils/withDocs';
 import readme from './README.md';
-import Ajv from 'ajv';
 
 import { Form, SchemaFields, Debug } from '../../../../src';
 
@@ -66,7 +65,6 @@ const schema = {
 const Schema = () => (
   <Form
     schema={schema}
-    ajv={Ajv}
     onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
     <SchemaFields />
     <button type="submit">Submit</button>

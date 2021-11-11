@@ -26,6 +26,7 @@ export const useForm = ({
   preventEnter,
   schema,
   ajv,
+  ajvErrors,
   onlyValidateSchema,
   components,
   ...userProps
@@ -46,6 +47,7 @@ export const useForm = ({
     preventEnter,
     schema,
     ajv,
+    ajvErrors,
     components
   };
 

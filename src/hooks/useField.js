@@ -56,6 +56,11 @@ export const useField = ({
   parser,
   maintainCursor: userMaintainCursor,
   required,
+  minimum,
+  maximum,
+  minLength,
+  maxLength,
+  pattern,
   validateOnMount: userValidateOnMount,
   validateOn: userValidateOn,
   validateWhen = [],
@@ -135,7 +140,12 @@ export const useField = ({
   const validate = useMemo(
     () =>
       generateValidationFunction(validationFunc, yupSchema, {
-        required
+        required,
+        minimum,
+        maximum,
+        minLength,
+        maxLength,
+        pattern
       }),
     []
   );
@@ -285,6 +295,12 @@ export const useField = ({
     type,
     multiple,
     autoComplete: autocomplete,
+    required,
+    min: minimum,
+    max: maximum,
+    minLength,
+    maxLength,
+    pattern,
     ...userProps
   };
 

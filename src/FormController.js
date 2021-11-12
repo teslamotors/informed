@@ -1008,6 +1008,8 @@ export class FormController {
         }
       }
     }
+
+    // TODO Next we check the errorMessage option if it was passed explicitly
   }
 
   submitForm(e) {

@@ -67,6 +67,7 @@ export const useField = ({
   formatterDependencies = [],
   formController: userFormController,
   initialize,
+  errorMessage,
   ...userProps
 }) => {
   // For backwards compatability
@@ -176,7 +177,8 @@ export const useField = ({
     showErrorIfTouched,
     showErrorIfDirty,
     asyncValidate,
-    initialize
+    initialize,
+    errorMessage
   };
   const metaRef = useRef(meta);
   metaRef.current = meta;

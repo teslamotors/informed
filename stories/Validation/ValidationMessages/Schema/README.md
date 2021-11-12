@@ -1,10 +1,9 @@
-# Schema With NO AJV
+# Schema Error Messages
 
 <!-- STORY -->
 
 ```jsx
 import { Form, SchemaFields, Debug } from 'informed';
-import Ajv from 'ajv';
 
 const schema = {
   type: 'object',
@@ -30,11 +29,11 @@ const schema = {
       type: 'object',
       required: ['name', 'age', 'height', 'sameError'],
       errorMessage: {
-        _: 'brothers name default error message',
-        required: 'brothers name is required',
-        minLength: 'brothers name must be longer',
-        maxLength: 'brothers name must be shorter',
-        pattern: 'brother name match the pattern'
+        _: 'brothers field default error message',
+        required: 'brothers field is required',
+        minLength: 'brothers field must be longer',
+        maxLength: 'brothers field must be shorter',
+        pattern: 'brother field match the pattern'
       },
       properties: {
         name: {
@@ -86,7 +85,6 @@ const schema = {
 const Schema = () => (
   <Form
     schema={schema}
-    ajv={Ajv}
     onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
     <SchemaFields />
     <button type="submit">Submit</button>

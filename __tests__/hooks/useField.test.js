@@ -1139,4 +1139,368 @@ describe('useField', () => {
     expect(getByText('Field must be at least five characters')).toBeInTheDocument();
   });
 
+  it('should show correct default required error message', () => {
+
+    const formApiRef = {};
+
+    const { getByText }  = render(
+      <Form formApiRef={formApiRef}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          required />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const submit = getByText('Submit');
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'This field is required' });
+    expect(getByText('This field is required')).toBeInTheDocument();
+  });
+
+  it('should show correct required error message when string is passed', () => {
+
+    const formApiRef = {};
+
+    const { getByText }  = render(
+      <Form formApiRef={formApiRef}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          required="MUST ENTER!" />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const submit = getByText('Submit');
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'MUST ENTER!' });
+    expect(getByText('MUST ENTER!')).toBeInTheDocument();
+  });
+
+  it('should show correct required error message when errorMessage object is passed', () => {
+
+    const formApiRef = {};
+
+    const { getByText }  = render(
+      <Form formApiRef={formApiRef}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          required
+          errorMessage={{
+            required: 'MUST ENTER!'
+          }}/>
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const submit = getByText('Submit');
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'MUST ENTER!' });
+    expect(getByText('MUST ENTER!')).toBeInTheDocument();
+  });
+
+  it('should show correct required error message when errorMessage object is passed to form', () => {
+
+    const formApiRef = {};
+
+    const { getByText }  = render(
+      <Form formApiRef={formApiRef} errorMessage={{
+        required: 'MUST ENTER!'
+      }}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          required />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const submit = getByText('Submit');
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'MUST ENTER!' });
+    expect(getByText('MUST ENTER!')).toBeInTheDocument();
+  });
+
+  it('should show correct required error message when errorMessage string is passed', () => {
+
+    const formApiRef = {};
+
+    const { getByText }  = render(
+      <Form formApiRef={formApiRef}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          required
+          errorMessage="MUST ENTER!"/>
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const submit = getByText('Submit');
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'MUST ENTER!' });
+    expect(getByText('MUST ENTER!')).toBeInTheDocument();
+  });
+
+  it('should show correct default pattern error message', () => {
+
+    const formApiRef = {};
+
+    const { getByText }  = render(
+      <Form formApiRef={formApiRef}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          initialValue="foobar"
+          pattern="^[0-9]{4}[a-zA-Z]{2}$" />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const submit = getByText('Submit');
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'This field should match pattern "^[0-9]{4}[a-zA-Z]{2}$";' });
+    expect(getByText('This field should match pattern "^[0-9]{4}[a-zA-Z]{2}$";')).toBeInTheDocument();
+  });
+
+  it('should show correct default pattern error message when errorMessage object is passed', () => {
+
+    const formApiRef = {};
+
+    const { getByText }  = render(
+      <Form formApiRef={formApiRef}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          initialValue="foobar"
+          pattern="^[0-9]{4}[a-zA-Z]{2}$"  
+          errorMessage={{
+            pattern: 'Please enter the required pattern'
+          }}/>
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const submit = getByText('Submit');
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'Please enter the required pattern' });
+    expect(getByText('Please enter the required pattern')).toBeInTheDocument();
+  });
+
+  it('should show correct default maxLength error message', () => {
+
+    const formApiRef = {};
+
+    const { getByText }  = render(
+      <Form formApiRef={formApiRef}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          initialValue="foobar"
+          maxLength={4} />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const submit = getByText('Submit');
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'This field should NOT be more than 4 characters' });
+    expect(getByText('This field should NOT be more than 4 characters')).toBeInTheDocument();
+  });
+
+  it('should show correct default maxLength error message when errorMessage object is passed', () => {
+
+    const formApiRef = {};
+
+    const { getByText }  = render(
+      <Form formApiRef={formApiRef}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          initialValue="foobar"
+          maxLength={4} 
+          errorMessage={{
+            maxLength: 'This field is not long enough'
+          }}/>
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const submit = getByText('Submit');
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'This field is not long enough' });
+    expect(getByText('This field is not long enough')).toBeInTheDocument();
+  });
+
+  it('should show correct default minLength error message', () => {
+
+    const formApiRef = {};
+
+    const { getByText }  = render(
+      <Form formApiRef={formApiRef}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          initialValue="fo"
+          minLength={4} />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const submit = getByText('Submit');
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'This field should NOT be shorter than 4 characters' });
+    expect(getByText('This field should NOT be shorter than 4 characters')).toBeInTheDocument();
+  });
+
+  it('should show correct default minLength error message when errorMessage object is passed', () => {
+
+    const formApiRef = {};
+
+    const { getByText }  = render(
+      <Form formApiRef={formApiRef}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          initialValue="fo"
+          minLength={4}
+          errorMessage={{
+            minLength: 'This field is to short'
+          }}/>
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const submit = getByText('Submit');
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'This field is to short' });
+    expect(getByText('This field is to short')).toBeInTheDocument();
+  });
+
+  it('should show correct default maximum error message', () => {
+
+    const formApiRef = {};
+
+    const { getByText }  = render(
+      <Form formApiRef={formApiRef}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          initialValue={5}
+          type="number"
+          maximum={4} />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const submit = getByText('Submit');
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'This field should NOT be more than 4' });
+    expect(getByText('This field should NOT be more than 4')).toBeInTheDocument();
+  });
+
+  it('should show correct default maximum error message when errorMessage object is passed', () => {
+
+    const formApiRef = {};
+
+    const { getByText }  = render(
+      <Form formApiRef={formApiRef}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          initialValue={5}
+          maximum={4}
+          errorMessage={{
+            maximum: 'This field is to big'
+          }}/>
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const submit = getByText('Submit');
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'This field is to big' });
+    expect(getByText('This field is to big')).toBeInTheDocument();
+  });
+
+  it('should show correct default minimum error message', () => {
+
+    const formApiRef = {};
+
+    const { getByText }  = render(
+      <Form formApiRef={formApiRef}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          initialValue={2}
+          type="number"
+          minimum={4} />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const submit = getByText('Submit');
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'This field should NOT be less than 4' });
+    expect(getByText('This field should NOT be less than 4')).toBeInTheDocument();
+  });
+
+  it('should show correct default minimum error message when errorMessage object is passed', () => {
+
+    const formApiRef = {};
+
+    const { getByText }  = render(
+      <Form formApiRef={formApiRef}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          initialValue={2}
+          minimum={4}
+          errorMessage={{
+            minimum: 'This field is to small'
+          }}/>
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const submit = getByText('Submit');
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'This field is to small' });
+    expect(getByText('This field is to small')).toBeInTheDocument();
+  });
+
+
 });

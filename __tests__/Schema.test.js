@@ -629,4 +629,122 @@ describe('Schema', () => {
 
   });
 
+  it('should update error messages according to schema error message', () => {
+    const formApiRef = {};
+
+    const schema = {
+      type: 'object',
+      required: ['name', 'brother'],
+      errorMessage: {
+        required: 'You def need this field!',
+        maximum: 'must be smaller than that!'
+      },
+      properties: {
+        name: {
+          type: 'string',
+          title: 'First name',
+          'ui:control': 'input',
+        },
+        brother: {
+          type: 'object',
+          required: ['name', 'age', 'height', 'sameError', 'weight'],
+          errorMessage: {
+            required: 'brothers field is required',
+          },
+          properties: {
+            name: {
+              type: 'string',
+              title: 'Brother name',
+              'ui:control': 'input'
+            },
+            age: {
+              type: 'number',
+              title: 'Brother age',
+              'ui:control': 'input',
+              'ui:props': {
+                type: 'number'
+              },
+              errorMessage: {
+                required: 'brothers age is required',
+              }
+            },
+            height: {
+              type: 'string',
+              title: 'Brother height',
+              'ui:control': 'input',
+              'ui:props': {
+                type: 'number'
+              },
+              maximum: 8
+            },
+            sameError: {
+              type: 'string',
+              title: 'Same error',
+              'ui:control': 'input',
+              errorMessage: 'Ahhh!!!!!!'
+            },
+            weight: {
+              type: 'string',
+              title: 'Brother weight',
+              'ui:control': 'input',
+              'ui:props': {
+                type: 'number'
+              },
+              minimum: 80
+            },
+          }
+        }
+      }
+    };
+
+    const { getByLabelText, getByText } = render(
+      <Form schema={schema} formApiRef={formApiRef} >
+        <SchemaFields />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    // Submit the form to trigger validation
+
+    const submit = getByText('Submit');
+    fireEvent.click(submit);
+
+    // const name = getByLabelText('First name');
+    // const brotherName = getByLabelText('Brother name');
+    // const brotherAge = getByLabelText('Brother age');
+    const brotherHeight = getByLabelText('Brother height');
+    // const sameError = getByLabelText('Same error');
+    const brotherWeight = getByLabelText('Brother weight');
+
+    expect(formApiRef.current.getFormState().errors).toEqual({
+      name: 'You def need this field!',
+      brother: {
+        name: 'brothers field is required',
+        age: 'brothers age is required',
+        height: 'brothers field is required',
+        sameError: 'Ahhh!!!!!!',
+        weight: 'brothers field is required'
+      }
+    });
+
+    // Trigger other validations
+    userEvent.type(brotherHeight, '9');
+    userEvent.type(brotherWeight, '70');
+    
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({
+      name: 'You def need this field!',
+      brother: {
+        name: 'brothers field is required',
+        age: 'brothers age is required',
+        height: 'must be smaller than that!',
+        sameError: 'Ahhh!!!!!!',
+        weight: 'This field should NOT be less than 80'
+      }
+    });
+
+  
+  });
+
 });

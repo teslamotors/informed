@@ -231,6 +231,7 @@ export class FormController {
       );
     }
     // Same thing but for YUP schema
+    // I dont think we need this anymore as its done by the generate function ..... TODO maybe remove
     if (meta.yupSchema && meta.validateOn.includes('change')) {
       // Only call if we dont already have error
       if (this.getError(name) === undefined) {
@@ -1009,7 +1010,31 @@ export class FormController {
       }
     }
 
-    // TODO Next we check the errorMessage option if it was passed explicitly
+    // Next we check the errorMessage option if it was passed explicitly to an input
+    const meta = this.fieldsMap.get(name)?.current;
+
+    if (meta && meta.errorMessage) {
+      const message =
+        typeof meta.errorMessage === 'string'
+          ? meta.errorMessage
+          : meta.errorMessage[key];
+      // Only return a message if we had one... maybe we don't have that defined at field level!
+      if (message) {
+        return message;
+      }
+    }
+
+    // Finally we check the forms errorMessage prop
+    if (this.options.errorMessage) {
+      const message =
+        typeof this.options.errorMessage === 'string'
+          ? this.options.errorMessage
+          : this.options.errorMessage[key];
+      // Only return a message if we had one... maybe we don't have that defined at field level!
+      if (message) {
+        return message;
+      }
+    }
   }
 
   submitForm(e) {

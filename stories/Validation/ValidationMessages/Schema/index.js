@@ -28,11 +28,11 @@ const schema = {
       type: 'object',
       required: ['name', 'age', 'height', 'sameError'],
       errorMessage: {
-        _: 'brothers name default error message',
-        required: 'brothers name is required',
-        minLength: 'brothers name must be longer',
-        maxLength: 'brothers name must be shorter',
-        pattern: 'brother name match the pattern'
+        _: 'brothers field default error message',
+        required: 'brothers field is required',
+        minLength: 'brothers field must be longer',
+        maxLength: 'brothers field must be shorter',
+        pattern: 'brother field match the pattern'
       },
       properties: {
         name: {

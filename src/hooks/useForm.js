@@ -29,6 +29,7 @@ export const useForm = ({
   ajvErrors,
   onlyValidateSchema,
   components,
+  errorMessage,
   ...userProps
 }) => {
   const formControllerOptions = {
@@ -48,7 +49,8 @@ export const useForm = ({
     schema,
     ajv,
     ajvErrors,
-    components
+    components,
+    errorMessage
   };
 
   // Create form controller

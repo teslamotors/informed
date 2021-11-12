@@ -8,7 +8,8 @@ import {
   uuidv4,
   validateAjvSchema,
   validateYupField,
-  validateYupSchema
+  validateYupSchema,
+  getSchemaPathFromJsonPath
 } from './utils';
 const debug = Debug('informed:FormController' + '\t');
 
@@ -152,6 +153,7 @@ export class FormController {
     this.debouncedValidateAsync = debounceByName(this.validateAsync);
     this.getOptions = this.getOptions.bind(this);
     this.validateField = this.validateField.bind(this);
+    this.getErrorMessage = this.getErrorMessage.bind(this);
   }
 
   getOptions() {
@@ -912,6 +914,100 @@ export class FormController {
       // Get error to determine if we even want to validateAsync
       if (this.getError(name) === undefined) this.validateAsync(name);
     });
+  }
+
+  getErrorMessage(key, n) {
+    debug(`Getting ${key} error message for ${n} Validating all fields`);
+
+    let name = n;
+
+    if (this.options.schema) {
+      debug('We have schema so looking in there for error message');
+
+      // Try to grab message from schema first
+      // Example schema
+      // const schema = {
+      //   errorMessage: {
+      //     minLength: 'name must be longer',
+      //     maxLength: 'must be shorter'
+      //   },
+      //   properties: {
+      //     name: {
+      //       minLength: 6, // This will get 'name must be longer' message
+      //     },
+      //     brother: {
+      //       errorMessage: {
+      //         minLength: 'brothers name must be longer',
+      //       },
+      //       properties: {
+      //         name: {
+      //           minLength: 6, // This will get 'brothers name must be longer'
+      //         },
+      //         age: {
+      //           minLength: 6,
+      //           errorMessage: {
+      //             minLength: 'brothers age must be longer', // This will get 'brothers age must be longer'
+      //           }
+      //         },
+      //         test: {
+      //           maxLength: 6, // This will get 'must be shorter'
+      //         },
+      //       }
+      //     }
+      //   }
+      // };
+      // How are we going to get this? start at the property and drill up
+      // First we go down to the fields location in the schema
+      // Example
+      // Start
+      // name = brother.siblings[1].friend.name
+      // path = properties.brother.properties.siblings.items.properties.friend.properties.name
+      // Iteration 1
+      // next = brother.siblings[1].friend
+      // nextPath = properties.brother.properties.siblings.items.properties.friend
+      // Iteration 2
+      // next = brother.siblings[1]
+      // nextPath = properties.brother.properties.siblings.items
+      // Iteration 3
+      // next = brother
+      // nextPath = properties.brother
+      // Iteration 4
+      // next = ''
+      // nextPath = ''
+      // Done ---------------
+      while (name !== '') {
+        debug(`Looking for message at ${name}`);
+        const path = getSchemaPathFromJsonPath(name);
+        const property = ObjectMap.get(this.options.schema, path);
+        // If the property has an error message use that
+        if (property.errorMessage) {
+          const message =
+            typeof property.errorMessage === 'string'
+              ? property.errorMessage
+              : property.errorMessage[key];
+          // Only return a message if we had one... maybe we don't have that defined at field level!
+          if (message) {
+            return message;
+          }
+        }
+        debug(`Did not find message in schema for ${path}`, property);
+        // If we get here we did not find the error message so keep going up
+        name = name.substring(0, name.lastIndexOf('.'));
+      }
+
+      // Last but not least check schema
+      const property = this.options.schema;
+      if (property.errorMessage) {
+        const message =
+          typeof property.errorMessage === 'string'
+            ? property.errorMessage
+            : property.errorMessage[key];
+        // Only return a message if we had one... maybe we don't have that defined at field level!
+        if (message) {
+          return message;
+        }
+      }
+    }
   }
 
   submitForm(e) {

@@ -12,7 +12,8 @@ const schema = {
     required: 'name is required',
     minLength: 'name must be longer',
     maxLength: 'name must be shorter',
-    pattern: 'name match the pattern'
+    pattern: 'name match the pattern',
+    maximum: 'must be smaller than that!'
   },
   properties: {
     name: {
@@ -25,7 +26,7 @@ const schema = {
     },
     brother: {
       type: 'object',
-      required: ['name', 'age'],
+      required: ['name', 'age', 'height', 'sameError'],
       errorMessage: {
         _: 'brothers name default error message',
         required: 'brothers name is required',
@@ -56,6 +57,24 @@ const schema = {
             maxLength: 'brothers age must be shorter',
             pattern: 'brother age match the pattern'
           }
+        },
+        height: {
+          type: 'string',
+          title: 'Brother Height',
+          'ui:control': 'input',
+          'ui:props': {
+            type: 'number'
+          },
+          maximum: 8
+        },
+        sameError: {
+          type: 'string',
+          title: 'Same Error',
+          'ui:control': 'input',
+          minLength: 6,
+          maxLength: 6,
+          pattern: '^[0-9]{4}[a-zA-Z]{2}$',
+          errorMessage: 'Ahhh!!!!!!'
         }
       }
     }

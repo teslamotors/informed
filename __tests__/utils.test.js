@@ -1,4 +1,8 @@
-import { informedFormat, getParentPath } from '../src/utils';
+import {
+  informedFormat,
+  getParentPath,
+  getSchemaPathFromJsonPath
+} from '../src/utils';
 
 // prettier-ignore
 describe('Utils', () => {
@@ -36,6 +40,24 @@ describe('Utils', () => {
       expect(value).toEqual('friends[0].father.siblings[1]');
     });
 
+  });
+
+  describe('getSchemaPathFromJsonPath', () => {
+    it('brother.siblings[1].friend.name ----> properties.brother.properties.siblings.items.properties.friend.properties.name', () => {
+      expect(getSchemaPathFromJsonPath('brother.siblings[1].friend.name')).toEqual('properties.brother.properties.siblings.items.properties.friend.properties.name');
+    });
+
+    it('brother.siblings[1].friend ----> properties.brother.properties.siblings.items.properties.friend', () => {
+      expect(getSchemaPathFromJsonPath('brother.siblings[1].friend')).toEqual('properties.brother.properties.siblings.items.properties.friend');
+    });
+
+    it('brother.siblings[1] ----> properties.brother.properties.siblings.items', () => {
+      expect(getSchemaPathFromJsonPath('brother.siblings[1]')).toEqual('properties.brother.properties.siblings.items');
+    });
+
+    it('brother ----> properties.brother', () => {
+      expect(getSchemaPathFromJsonPath('brother')).toEqual('properties.brother');
+    });
   });
  
   describe('informedFormat', () => {

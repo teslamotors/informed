@@ -200,45 +200,60 @@ export const validateAjvSchema = (validate, data) => {
   return errors;
 };
 
-export const validateRequired = (value, required) => {
+export const validateRequired = (value, required, getErrorMessage) => {
   if (required && (value == null || value === '')) {
-    return typeof required === 'string' ? required : 'This field is required';
+    return typeof required === 'string'
+      ? required
+      : getErrorMessage('required') || 'This field is required';
   }
 };
 
-export const validateMax = (value, max) => {
+export const validateMax = (value, max, getErrorMessage) => {
   if (max != null && value > max) {
-    return `This field should NOT be more than ${max}`;
+    return (
+      getErrorMessage('maximum') || `This field should NOT be more than ${max}`
+    );
   }
 
   return undefined;
 };
 
-export const validateMin = (value, min) => {
+export const validateMin = (value, min, getErrorMessage) => {
   if (min != null && value < min) {
-    return `This field should NOT be less than ${min}`;
+    return (
+      getErrorMessage('minimum') || `This field should NOT be less than ${min}`
+    );
   }
 
   return undefined;
 };
 
-export const validateMaxLength = (value, maxLength) => {
+export const validateMaxLength = (value, maxLength, getErrorMessage) => {
   if (maxLength != null && value?.length > maxLength) {
-    return `This field should NOT be more than ${maxLength} characters`;
+    return (
+      getErrorMessage('maxLength') ||
+      `This field should NOT be more than ${maxLength} characters`
+    );
   }
   return undefined;
 };
 
-export const validateMinLength = (value, minLength) => {
+export const validateMinLength = (value, minLength, getErrorMessage) => {
   if (minLength != null && value?.length < minLength) {
-    return `This field should NOT be shorter than ${minLength} characters`;
+    return (
+      getErrorMessage('minLength') ||
+      `This field should NOT be shorter than ${minLength} characters`
+    );
   }
   return undefined;
 };
 
-const validatePattern = (value, pattern) => {
+const validatePattern = (value, pattern, getErrorMessage) => {
   if (pattern != null && !new RegExp(pattern).test(value) && value) {
-    return `This field should match pattern "${pattern}";`;
+    return (
+      getErrorMessage('pattern') ||
+      `This field should match pattern "${pattern}";`
+    );
   }
 
   return undefined;
@@ -247,32 +262,32 @@ const validatePattern = (value, pattern) => {
 export const generateValidationFunction = (
   validationFunc,
   yupSchema,
-  { required, minimum, maximum, minLength, maxLength, pattern }
+  { required, minimum, maximum, minLength, maxLength, pattern, getErrorMessage }
 ) => (val, values) => {
   let error;
 
   if (required) {
-    error = validateRequired(val, required);
+    error = validateRequired(val, required, getErrorMessage);
     if (error !== undefined) return error;
   }
   if (minimum) {
-    error = validateMin(val, minimum);
+    error = validateMin(val, minimum, getErrorMessage);
     if (error !== undefined) return error;
   }
   if (maximum) {
-    error = validateMax(val, maximum);
+    error = validateMax(val, maximum, getErrorMessage);
     if (error !== undefined) return error;
   }
   if (minLength) {
-    error = validateMinLength(val, minLength);
+    error = validateMinLength(val, minLength, getErrorMessage);
     if (error !== undefined) return error;
   }
   if (maxLength) {
-    error = validateMaxLength(val, maxLength);
+    error = validateMaxLength(val, maxLength, getErrorMessage);
     if (error !== undefined) return error;
   }
   if (pattern) {
-    error = validatePattern(val, pattern);
+    error = validatePattern(val, pattern, getErrorMessage);
     if (error !== undefined) return error;
   }
   if (yupSchema) {
@@ -688,8 +703,8 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
     items,
     enum: schemaEnum,
     title: label,
-    minimum: min,
-    maximum: max,
+    minimum,
+    maximum,
     minLength,
     maxLength,
     pattern,
@@ -719,8 +734,8 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
     props: {
       label: label,
       id,
-      min,
-      max,
+      minimum,
+      maximum,
       minLength,
       maxLength,
       pattern,

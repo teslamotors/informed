@@ -145,7 +145,8 @@ export const useField = ({
         maximum,
         minLength,
         maxLength,
-        pattern
+        pattern,
+        getErrorMessage: key => formController.getErrorMessage(key, name)
       }),
     []
   );

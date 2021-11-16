@@ -35,22 +35,6 @@ export type FormApi = {
   getDirty: () => boolean;
 };
 
-export type FormProps<UserProps> = {
-  onSubmit?: (values: Record<string, unknown>) => void;
-  onSubmitFailure?: (errors: Record<string, unknown>) => void;
-  initialValues?: Record<string, unknown>;
-  validateFields?: (values: Record<string, unknown>) => Record<string, unknown>;
-  onBlur(event: React.SyntheticEvent): void;
-  onChange(event: React.SyntheticEvent): void;
-  onFocus(event: React.SyntheticEvent): void;
-  dontPreventDefault?: boolean;
-  allowEmptyStrings?: boolean;
-  preventEnter?: boolean;
-  validationSchema?: any;
-  schema?: any;
-  ajv?: any;
-} & UserProps;
-
 export type FieldState = {
   value: unknown;
   maskedValue: unknown;
@@ -81,6 +65,36 @@ export type FieldApi = {
   getMaskedValue: () => unknown;
 };
 
+export type InformedProps<UserProps> = {
+  onSubmit?: (values: Record<string, unknown>) => void;
+  onReset?: (formState: FormState) => void;
+  onChange?: (formState: FormState) => void;
+  onSubmitFailure?: (errors: Record<string, unknown>) => void;
+  initialValues?: Record<string, unknown>;
+  validateFields?: Function;
+  showErrorIfError?: boolean;
+  showErrorIfDirty?: boolean;
+  validateOn?:
+    | 'change'
+    | 'blur'
+    | 'change-blur'
+    | 'change-submit'
+    | 'blur-submit'
+    | 'submit';
+  validateOnMount?: boolean;
+  formApiRef?: React.MutableRefObject<any>;
+  dontPreventDefault?: boolean;
+  yupSchema?: any;
+  allowEmptyStrings?: boolean;
+  preventEnter?: boolean;
+  schema?: any;
+  ajv?: any;
+  ajvErrors?: any;
+  onlyValidateSchema?: boolean;
+  components?: any;
+  errorMessage?: Record<string, unknown>;
+} & Omit<UserProps, 'onSubmit' | 'onReset' | 'onChange' | 'onSubmitFailure'>;
+
 export type FieldProps<UserProps> = {
   name: string;
   type?: string;
@@ -88,7 +102,11 @@ export type FieldProps<UserProps> = {
   defaultValue?: unknown;
   validate?: (value: unknown, values: Record<string, unknown>) => unknown;
   relevant?: (
-    { formState: FormState, formApi: FormApi, scope: string }
+    {
+      formState,
+      formApi,
+      scope
+    }: { formState: FormState; formApi: FormApi; scope: string }
   ) => boolean;
   onChange?: (fieldState: FieldState, event: React.SyntheticEvent) => void;
   onBlur?: (fieldState: FieldState, event: React.SyntheticEvent) => void;
@@ -110,11 +128,11 @@ export type FieldProps<UserProps> = {
   showErrorIfError?: boolean;
   showErrorIfTouched?: boolean;
   showErrorIfDirty?: boolean;
-  formatter:
-    | Array<string, RegExp, Function>
+  formatter?:
+    | Array<string | RegExp | Function>
     | string
     | Object
-    | ((value: unknown) => Array<string, RegExp, Function>);
+    | ((value: unknown) => Array<string | RegExp | Function>);
 } & Omit<
   UserProps,
   'onChange' | 'onBlur' | 'onFocus' | 'value' | 'defaultValue'
@@ -151,7 +169,7 @@ export type FormController = {
   getInitialValue: (name: string) => unknown;
   initialize: (name: string, meta: any) => void;
   reformat: (name: string) => void;
-  lockRemoval: ({ index: number, name: string }) => void;
+  lockRemoval: ({ index, name }: { index: number; name: string }) => void;
   unlockRemoval: () => void;
   getRemovalLocked: () => { index: number; name: string };
   isRemovalLocked: () => boolean;
@@ -168,7 +186,7 @@ export function useFormApi(): FormApi;
 export function useFormState(): FormState;
 
 export function useForm<UserProps>(
-  formProps: FormProps<UserProps>
+  formProps: InformedProps<UserProps>
 ): {
   formState: FormState;
   formApi: FormApi;

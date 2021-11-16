@@ -2,9 +2,11 @@ import React, { useRef } from 'react';
 import { useFormApi, useForm, useField, FieldState } from '.';
 import {expectType} from 'tsd';
 
-import { FieldProps } from '.';
+import { FieldProps, InformedProps, FormState } from '.';
 
-export const Form = props => {
+type FormProps = React.FormHTMLAttributes<HTMLFormElement>;
+
+export const Form = (props: InformedProps<FormProps>) => {
   const { formController, render, userProps } = useForm(props);
 
   return render(
@@ -30,16 +32,17 @@ const Input = React.memo((props: FieldProps<InputProps>) => {
   );
   const { label, id } = userProps;
   const { showError } = fieldState;
+  const error = fieldState.error as string;
   return render(
     <>
       {label ? <label htmlFor={id}>label</label> : null}
       <input
         ref={ref}
         {...informed}
-        style={showError ? { border: 'solid 1px red' } : null}
+        style={showError ? { border: 'solid 1px red' } : undefined}
       />
       {showError ? (
-        <small style={{ color: 'red' }}>{fieldState.error}</small>
+        <small style={{ color: 'red' }}>{error}</small>
       ) : null}
     </>
   );
@@ -50,13 +53,52 @@ const Input = React.memo((props: FieldProps<InputProps>) => {
 const ComponentUsingFormApi = () => {
   const formApi = useFormApi();
   return (
-    <button type="button" onClick={() => formApi.setValue('name', 1)}>
-      Random
-    </button>
+    <>
+      <button type="button" onClick={() => formApi.setValue('name', 1)}>
+        Set Value
+      </button>
+      <button type="button" onClick={() => {
+
+        formApi.setValue('name', 1)
+        const value = formApi.getValue('name')
+        expectType<unknown>(value);
+
+        formApi.setMaskedValue('name', 1)
+        const maskedValue = formApi.getMaskedValue('name');
+        expectType<unknown>(maskedValue);
+
+        formApi.setTouched('name', true)
+        const touched = formApi.getTouched('name');
+        expectType<unknown>(touched);
+
+        formApi.setError('name', 'Ahhh!!!')
+        const error = formApi.getTouched('name');
+        expectType<unknown>(error);
+
+        formApi.getFocused('name')
+        const focused = formApi.getFocused('name');
+        expectType<unknown>(focused);
+
+        formApi.resetField('name');
+
+        formApi.reset();
+
+        const formState = formApi.getFormState();
+        expectType<FormState>(formState);
+
+        const pristine = formApi.getPristine();
+        expectType<boolean>(pristine);
+
+        const dirty = formApi.getDirty();
+        expectType<boolean>(dirty);
+      }}>
+        Do It All
+      </button>
+    </>
   );
 };
 
-const UseFormApi = () => (
+const UseFormApiTest = () => (
   <Form>
     <Input name="name" label="Name:" />
     <ComponentUsingFormApi />
@@ -65,7 +107,7 @@ const UseFormApi = () => (
 
 /* ------------------------- inputProps ------------------------- */
 
-const InputProps = () => {
+const InputPropsTest = () => {
   const ref = useRef();
   return (
     <Form>
@@ -74,7 +116,7 @@ const InputProps = () => {
         name="name" 
         defaultValue="Foo"
         initialValue="Bar"
-        relevant={({ formState }) => formState.values.allowed }
+        relevant={({ formState }) => !!formState.values.allowed }
         validate={(val, values) => val === 'Foo' || values.name === 'Bar' ? 'Ahh!!' : undefined}
         validateOn="change"
         validateOnMount
@@ -86,6 +128,7 @@ const InputProps = () => {
         showErrorIfError
         showErrorIfTouched
         showErrorIfDirty
+        formatter="###-###"
         // Custom Props
         label="Name:" 
         // Input Props
@@ -102,6 +145,10 @@ const InputProps = () => {
         onFocus={(fieldState)=>{
           expectType<FieldState>(fieldState)
         }}/>
+      <Input 
+        name="formatterFunction" 
+        label="Formatter Function" 
+        formatter={(value)=>{ return ['A', /\d/, 'B'] }}/>
       <ComponentUsingFormApi />
     </Form>
   );

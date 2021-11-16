@@ -10,6 +10,8 @@ informed:props is now ui:props when using schema based forms
 
 #### Relevance
 
+The when function for relevance now has this signature
+
 ```
 when={({formState, formApi, scope}) => {...} }
 ```
@@ -140,6 +142,45 @@ const FieldState = () => {
   )}
 </ArrayField.Items>;
 ```
+
+#### Validation
+
+Validation is now controlled via validateOn="validationString"
+
+By default fields will only validate on blur. To get
+more granular validation, simply pass in `validateOn` props.
+
+See table below for mapping:
+
+<br />
+
+| validateOn    | derived       | change       | blur         | submit       | default |
+| ------------- | ------------- | ------------ | ------------ | ------------ | ------- |
+| change        | change-change | sync + async | sync + async | sync + async |         |
+| blur          | blur-blur     | x            | sync + async | sync + async | x       |
+| change-blur   | change-blur   | sync         | sync + async | sync + async |         |
+| change-submit | change-submit | sync         | sync         | sync + async |         |
+| blur-submit   | submit-submit | x            | sync         | sync + async |         |
+| submit        | submit-submit | x            | x            | sync + async |         |
+
+<br />
+
+Validation is controlled via the `validateOn` prop, but in order to control when it shows,
+use the `showErrorIfError` and `showErrorIfDirty` props. **This is because sometimes you may want the form to be invalid but not show the error to the user yet ( default is `showErrorIfTouched` )**
+
+| prop               | description                                                                                                  | default |
+| ------------------ | ------------------------------------------------------------------------------------------------------------ | ------- |
+| showErrorIfError   | will set `showError` for that field to true whenever there is an error (typically used with validateOnMount) |         |
+| showErrorIfTouched | will set `showError` for that field to true whenever there is an error and the field is touched              | x       |
+| showErrorIfDirty   | will set `showError` for that field to true whenever there is an error and the field is dirty                |         |
+
+<br />
+
+Finally we have a use case for validating right away ( on mount )
+
+| prop            | description                     | default |
+| --------------- | ------------------------------- | ------- |
+| validateOnMount | will trigger validation onMount | false   |
 
 ## 3.34.0 (June 22, 2021)
 

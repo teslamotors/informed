@@ -16,6 +16,25 @@ See table below for mapping:
 | blur-submit   | submit-submit | x            | sync         | sync + async |         |
 | submit        | submit-submit | x            | x            | sync + async |         |
 
+<br />
+
+Validation is controlled via the `validateOn` prop, but in order to control when it shows,
+use the `showErrorIfError` and `showErrorIfDirty` props. **This is because sometimes you may want the form to be invalid but not show the error to the user yet ( default is `showErrorIfTouched` )**
+
+| prop               | description                                                                                                  | default |
+| ------------------ | ------------------------------------------------------------------------------------------------------------ | ------- |
+| showErrorIfError   | will set `showError` for that field to true whenever there is an error (typically used with validateOnMount) |         |
+| showErrorIfTouched | will set `showError` for that field to true whenever there is an error and the field is touched              | x       |
+| showErrorIfDirty   | will set `showError` for that field to true whenever there is an error and the field is dirty                |         |
+
+<br />
+
+Finally we have a use case for validating right away ( on mount )
+
+| prop            | description                     | default |
+| --------------- | ------------------------------- | ------- |
+| validateOnMount | will trigger validation onMount | false   |
+
 <!-- STORY -->
 
 ```jsx
@@ -44,11 +63,11 @@ const asyncValidate = username => {
 
 const ValidationControl = () => (
   <div>
-    <Form id="validate-control-form">
+    <Form autocomplete="off">
       <h4>validateOn="blur" ( default )</h4>
       <Input
         name="username1"
-        label="Username"
+        label="Username1"
         required
         validate={validate}
         asyncValidate={asyncValidate}
@@ -56,16 +75,26 @@ const ValidationControl = () => (
       <h4>validateOn="change"</h4>
       <Input
         name="username2"
-        label="Username"
+        label="Username2"
         validateOn="change"
+        required
+        validate={validate}
+        asyncValidate={asyncValidate}
+      />
+      <h4>validateOn="change" && showErrorIfDirty</h4>
+      <Input
+        name="username3"
+        label="Username3"
+        validateOn="change"
+        showErrorIfDirty
         required
         validate={validate}
         asyncValidate={asyncValidate}
       />
       <h4>validateOn="change-blur"</h4>
       <Input
-        name="username3"
-        label="Username"
+        name="username4"
+        label="Username4"
         validateOn="change-blur"
         required
         validate={validate}
@@ -73,8 +102,8 @@ const ValidationControl = () => (
       />
       <h4>validateOn="change-submit"</h4>
       <Input
-        name="username4"
-        label="Username"
+        name="username5"
+        label="Username5"
         validateOn="change-submit"
         required
         validate={validate}
@@ -82,8 +111,8 @@ const ValidationControl = () => (
       />
       <h4>validateOn="blur-submit"</h4>
       <Input
-        name="username5"
-        label="Username"
+        name="username6"
+        label="Username6"
         validateOn="blur-submit"
         required
         validate={validate}
@@ -91,9 +120,28 @@ const ValidationControl = () => (
       />
       <h4>validateOn="submit"</h4>
       <Input
-        name="username6"
-        label="Username"
+        name="username7"
+        label="Username7"
         validateOn="submit"
+        required
+        validate={validate}
+        asyncValidate={asyncValidate}
+      />
+      <h4>validateOnMount</h4>
+      <Input
+        name="username8"
+        label="Username8"
+        validateOnMount
+        required
+        validate={validate}
+        asyncValidate={asyncValidate}
+      />
+      <h4>validateOnMount && showErrorIfError</h4>
+      <Input
+        name="username9"
+        label="Username9"
+        validateOnMount
+        showErrorIfError
         required
         validate={validate}
         asyncValidate={asyncValidate}

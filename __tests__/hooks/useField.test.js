@@ -973,6 +973,28 @@ describe('useField', () => {
     expect(queryByText('Field must be at least five characters')).toBeInTheDocument();
   });
 
+  it('should show error message when rendered with validateOnMount and showErrorIfError at field with required prop and no initial value', () => {
+
+    const formApiRef = {};
+
+    const { queryByText }  = render(
+      <Form formApiRef={formApiRef}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          required
+          showErrorIfError
+          validateOnMount
+          validate={validate} />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'This field is required' });
+
+    expect(queryByText('This field is required')).toBeInTheDocument();
+  });
+
   it('should call validate with initial values when validateOnMount is passed', () => {
 
     const validateSpy = jest.fn();

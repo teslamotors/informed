@@ -586,33 +586,33 @@ export class FormController {
 
       debug(`Initializing ${name}'s maskedValue to ${initialMask}`);
       ObjectMap.set(this.state.maskedValues, name, initialMask);
-
-      // Might need to set initial error
-      if (meta.current.validate && meta.current.validateOnMount) {
-        const val = ObjectMap.get(this.state.values, name);
-        debug(`Validating on mount ${name} ${val}`, this.state);
-        ObjectMap.set(
-          this.state.errors,
-          name,
-          meta.current.validate(val, this.state.values)
-        );
-      }
-
-      // validateOnMount="sync" DONT validateOnMount={true} DO
-      if (meta.current.asyncValidate && meta.current.validateOnMount === true) {
-        // Get error to determine if we even want to validateAsync
-        if (this.getError(name) === undefined) this.validateAsync(name);
-      }
-
-      // Check if the form is valid
-      this.state.valid = ObjectMap.empty(this.state.errors);
-      this.state.invalid = !this.state.valid;
-
-      this.emit('field', name);
-
-      // Special event when fields value changes ( this if first time so its technically a change to initial value)
-      this.emit('field-value', name);
     }
+
+    // Might need to set initial error
+    if (meta.current.validate && meta.current.validateOnMount) {
+      const val = ObjectMap.get(this.state.values, name);
+      debug(`Validating on mount ${name} ${val}`, this.state);
+      ObjectMap.set(
+        this.state.errors,
+        name,
+        meta.current.validate(val, this.state.values)
+      );
+    }
+
+    // validateOnMount="sync" DONT validateOnMount={true} DO
+    if (meta.current.asyncValidate && meta.current.validateOnMount === true) {
+      // Get error to determine if we even want to validateAsync
+      if (this.getError(name) === undefined) this.validateAsync(name);
+    }
+
+    // Check if the form is valid
+    this.state.valid = ObjectMap.empty(this.state.errors);
+    this.state.invalid = !this.state.valid;
+
+    this.emit('field', name);
+
+    // Special event when fields value changes ( this if first time so its technically a change to initial value)
+    this.emit('field-value', name);
   }
 
   validated(name, res) {

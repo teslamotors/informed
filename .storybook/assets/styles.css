@@ -290,7 +290,11 @@ pre {
 }
 
 .markdown-body[class] table strong {
-  color: red;
+  color: rgb(237, 78, 59);
+}
+
+strong {
+  color: rgb(237, 78, 59);
 }
 
 /* .markdown-body[class] table {

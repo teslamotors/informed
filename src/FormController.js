@@ -174,7 +174,7 @@ export class FormController {
 
   setValue(name, value, e, key) {
     // Get meta for field
-    const meta = this.fieldsMap.get(name)?.current;
+    const meta = this.fieldsMap.get(name)?.current || {};
 
     // Remember Cursor position!
     if (e && e.target && e.target.selectionStart) {

@@ -8,7 +8,6 @@ const FormApi = () => (
   <Form id="form-api-form">
     {({ formApi }) => (
       <div>
-        {/* <Debug /> */}
         <Input name="name" label="First name:" />
         <button type="button" onClick={() => formApi.setValue('name', 'Joe')}>
           Set Name to "Joe"
@@ -19,7 +18,11 @@ const FormApi = () => (
         <button type="button" onClick={() => formApi.reset()}>
           Reset
         </button>
+        <button type="button" onClick={() => formApi.setValue('foo', 'Bar')}>
+          Set Foo to "Bar"
+        </button>
         <button type="submit">Submit</button>
+        <Debug />
       </div>
     )}
   </Form>

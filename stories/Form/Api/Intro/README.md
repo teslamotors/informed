@@ -46,6 +46,9 @@ import { Form, Text } from 'informed';
       <button type="button" onClick={() => formApi.reset()}>
         Reset
       </button>
+      <button type="button" onClick={() => formApi.setValue('foo', 'Bar')}>
+        Set Foo to "Bar"
+      </button>
       <button type="submit">Submit</button>
     </div>
   )}

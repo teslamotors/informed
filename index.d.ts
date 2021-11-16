@@ -33,6 +33,7 @@ export type FormApi = {
   getFormState: () => FormState;
   getPristine: () => boolean;
   getDirty: () => boolean;
+  getFieldState: (name: string) => FieldState;
 };
 
 export type FieldState = {

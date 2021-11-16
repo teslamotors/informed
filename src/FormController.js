@@ -457,13 +457,14 @@ export class FormController {
       getFormState: this.getFormState,
       getPristine: this.getPristine,
       getDirty: this.getDirty,
-      validateField: this.validateField
+      validateField: this.validateField,
+      getFieldState: this.getFieldState
     };
   }
 
   getFieldState(name) {
     // Get meta for field
-    const meta = this.fieldsMap.get(name)?.current;
+    const meta = this.fieldsMap.get(name)?.current || {};
     const error = this.getError(name);
     const focused = !!this.getFocused(name);
     const dirty = this.getDirty(name);
@@ -759,7 +760,7 @@ export class FormController {
   resetField(name) {
     debug('Resetting', name);
     // Get meta for field
-    const meta = this.fieldsMap.get(name)?.current;
+    const meta = this.fieldsMap.get(name)?.current || {};
 
     const { formatter, parser, initialize } = meta;
 

@@ -214,6 +214,19 @@ const Basic = () => {
   //   epipen: 'yes'
   // };
 
+  // const initialValues = {
+  //   info: {
+  //     first: 'Joe',
+  //     last: 'Puzzo'
+  //   },
+  //   allergies: {
+  //     peanuts: false
+  //   },
+  //   treatment: {
+  //     epipen: 'yes'
+  //   }
+  // }
+
   return (
     <div>
       {/* {state}
@@ -226,20 +239,7 @@ const Basic = () => {
         Click Me
       </button> */}
 
-      <Form
-        autocomplete="off"
-        initialValues={{
-          info: {
-            first: 'Joe',
-            last: 'Puzzo'
-          },
-          allergies: {
-            peanuts: false
-          },
-          treatment: {
-            epipen: 'yes'
-          }
-        }}>
+      <Form autocomplete="off">
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>
             {/* initialStep="info" */}

@@ -1,4 +1,4 @@
-# Complex Validation
+# Paired Validation
 
 Sometimes when validating you may need to revalidate when a sibling field changes.
 A great example of this is when you have a password and confirm password field,

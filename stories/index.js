@@ -5,6 +5,7 @@ import StoryWrapper from './utils/StoryWrapper';
 import Intro from './Intro';
 import TLDR from './TLDR';
 import Basic from './Form/Basic';
+import Path from './Form/Path';
 import FeatureTester from './Form/FeatureTester';
 import Dynamic from './Form/Dynamic';
 import Schema from './Schema/Intro';
@@ -166,8 +167,9 @@ storiesOf('Form', module)
   .add('Props', Props)
   .add('Dynamic', DynamicFields)
   .add('Dependent Fields', FormatDependent)
+  .add('Path', Path)
   .add('Features', FeatureTester)
-  .add('Complex', Complex)
+  .add('Inputs', Complex)
   .add('Big', Big);
 
 storiesOf('Inputs', module)
@@ -204,7 +206,7 @@ storiesOf('Validation', module)
   .add('Required', Required)
   .add('Validation Messages', ValidationMessages)
   // .add('Form Level Validation', FormLevelValidation)
-  .add('Notifications', Notifications)
+  .add('Paired Validation', Notifications)
   // .add('Array Field Validation', ArrayFieldValidation)
   // .add('Complex Array Field Validation', ComplexArrayFieldValidation)
   .add('Yup Validation', YupValidation)

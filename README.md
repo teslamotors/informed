@@ -82,7 +82,7 @@ const ExampleForm = () => (
       <option value="my">Model Y</option>
     </Select>
     <Checkbox field="married" label="Married?" />
-    <Relevant when={({ values }) => values.married}>
+    <Relevant when={({ formState }) => formState.values.married}>
       <Input field="spouse" label="Spouse" />
     </Relevant>
     <button type="submit">Submit</button>
@@ -299,7 +299,7 @@ import { Form, Text, RadioGroup, Radio, Relevant } from 'informed';
       No <Radio value="no" />
     </label>
   </RadioGroup>
-  <Relevant when={({ values }) => values.married === 'yes'}>
+  <Relevant when={({ formState }) => formState.values.married === 'yes'}>
     <label>
       Spouse name:
       <Text field="spouse" />

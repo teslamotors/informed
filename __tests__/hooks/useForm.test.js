@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Form, Input } from '../../jest/components';
+import { Form, Input, Select } from '../../jest/components';
 import { act } from 'react-dom/test-utils';
 
 const getState = state => {
@@ -320,6 +320,302 @@ describe('useForm', () => {
         greeting: true
       },
     }));   
+
+  });
+
+  it('reset should reset the the form to new initial values when they change and form is pristine', () => {
+    const formApiRef = {};
+   
+    // Use your imagination and pretend these came from an api call :)
+    const profiles = [
+      {
+        name: 'Joe',
+        age: 25
+      },
+      {
+        name: 'Kimbal',
+        age: 47
+      },
+      {
+        name: 'Elon',
+        age: 48
+      }
+    ];
+
+    const ProfileForm = ({ profile: initialValues }) => {
+    
+      // Reset the form whenever initial values change ( happens when user selects profile )
+      useEffect(
+        () => {
+          //formApiRef.current.reset();
+        },
+        [initialValues]
+      );
+
+      return (
+        // Remember to get access to the formApi and pass in the initial values
+        <Form formApiRef={formApiRef} initialValues={initialValues}>
+          <Input name="name" label="First Name" />
+          <Input type="number" name="age" label="Age" />
+          <button type="submit">submit</button>
+        </Form>
+      );
+    };
+
+    const Profiles = () => {
+      // Select the first profile by default
+      const [selectedProfile, setSelectedProfile] = useState(profiles[0]);
+
+      const selectProfile = ({ value }) => setSelectedProfile(profiles[value]);
+
+      return (
+        <React.Fragment>
+          <h2>Select Profile</h2>
+          <Form>
+            {/* A rare case where we want to track the value instead of rcf ( onChange ) */}
+            <Select name="profile" label="Profile" data-testid="select" onChange={selectProfile}>
+              {profiles.map((profile, i) => (
+                <option key={`val-${i}`} value={i}>{profile.name}</option>
+              ))}
+            </Select>
+          </Form>
+          <h2>Edit {selectedProfile.name}</h2>
+          <ProfileForm profile={selectedProfile} />
+        </React.Fragment>
+      );
+    };
+
+    const { getByLabelText, getByTestId } = render(
+      <Profiles />
+    );
+
+    let input1 = getByLabelText('First Name');
+    let input2 = getByLabelText('Age');
+    expect(input1).toHaveValue('Joe');
+    expect(input2).toHaveValue(25);
+
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      values: {
+        age: 25,
+        name: 'Joe'
+      },
+      maskedValues: {
+        age: 25,
+        name: 'Joe'
+      },
+      initialValues: profiles[0],
+      pristine: true
+    }));
+
+    const select = getByTestId('select');
+
+    // Select Second Profile 
+    fireEvent.change(select, { target: { value: '1' } });
+
+    // Should still be the same
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      values: {
+        age: 47,
+        name: 'Kimbal'
+      },
+      maskedValues: {
+        age: 47,
+        name: 'Kimbal'
+      },
+      initialValues: profiles[1],
+      pristine: true
+    }));
+
+    userEvent.type(input1, '!');
+
+    // Should be non pristine
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      values: {
+        age: 47,
+        name: 'Kimbal!'
+      },
+      maskedValues: {
+        age: 47,
+        name: 'Kimbal!'
+      },
+      initialValues: profiles[1],
+      pristine: false,
+      dirty: true,
+      dirt: { 
+        name: true
+      }, 
+      focused: {
+        name: true
+      }
+    }));
+
+    // Select Third Profile 
+    fireEvent.change(select, { target: { value: '2' } });
+
+    // Should be SAME because non pristine
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      values: {
+        age: 47,
+        name: 'Kimbal!'
+      },
+      maskedValues: {
+        age: 47,
+        name: 'Kimbal!'
+      },
+      initialValues: profiles[1],
+      pristine: false,
+      dirty: true,
+      dirt: { 
+        name: true
+      }, 
+      focused: {
+        name: true
+      }
+    }));
+
+  });
+
+  it('reset should reset the the form to new initial values when they change regardless of pristine if manually reset', () => {
+    const formApiRef = {};
+   
+    // Use your imagination and pretend these came from an api call :)
+    const profiles = [
+      {
+        name: 'Joe',
+        age: 25
+      },
+      {
+        name: 'Kimbal',
+        age: 47
+      },
+      {
+        name: 'Elon',
+        age: 48
+      }
+    ];
+
+    const ProfileForm = ({ profile: initialValues }) => {
+    
+      // Reset the form whenever initial values change ( happens when user selects profile )
+      useEffect(
+        () => {
+          formApiRef.current.reset();
+        },
+        [initialValues]
+      );
+
+      return (
+        // Remember to get access to the formApi and pass in the initial values
+        <Form formApiRef={formApiRef} initialValues={initialValues}>
+          <Input name="name" label="First Name" />
+          <Input type="number" name="age" label="Age" />
+          <button type="submit">submit</button>
+        </Form>
+      );
+    };
+
+    const Profiles = () => {
+      // Select the first profile by default
+      const [selectedProfile, setSelectedProfile] = useState(profiles[0]);
+
+      const selectProfile = ({ value }) => setSelectedProfile(profiles[value]);
+
+      return (
+        <React.Fragment>
+          <h2>Select Profile</h2>
+          <Form>
+            {/* A rare case where we want to track the value instead of rcf ( onChange ) */}
+            <Select name="profile" label="Profile" data-testid="select" onChange={selectProfile}>
+              {profiles.map((profile, i) => (
+                <option key={`val-${i}`} value={i}>{profile.name}</option>
+              ))}
+            </Select>
+          </Form>
+          <h2>Edit {selectedProfile.name}</h2>
+          <ProfileForm profile={selectedProfile} />
+        </React.Fragment>
+      );
+    };
+
+    const { getByLabelText, getByTestId } = render(
+      <Profiles />
+    );
+
+    let input1 = getByLabelText('First Name');
+    let input2 = getByLabelText('Age');
+    expect(input1).toHaveValue('Joe');
+    expect(input2).toHaveValue(25);
+
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      values: {
+        age: 25,
+        name: 'Joe'
+      },
+      maskedValues: {
+        age: 25,
+        name: 'Joe'
+      },
+      initialValues: profiles[0],
+      pristine: true
+    }));
+
+    const select = getByTestId('select');
+
+    // Select Second Profile 
+    fireEvent.change(select, { target: { value: '1' } });
+
+    // Should still be the same
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      values: {
+        age: 47,
+        name: 'Kimbal'
+      },
+      maskedValues: {
+        age: 47,
+        name: 'Kimbal'
+      },
+      initialValues: profiles[1],
+      pristine: true
+    }));
+
+    userEvent.type(input1, '!');
+
+    // Should be non pristine
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      values: {
+        age: 47,
+        name: 'Kimbal!'
+      },
+      maskedValues: {
+        age: 47,
+        name: 'Kimbal!'
+      },
+      initialValues: profiles[1],
+      pristine: false,
+      dirty: true,
+      dirt: { 
+        name: true
+      }, 
+      focused: {
+        name: true
+      }
+    }));
+
+    // Select Third Profile 
+    fireEvent.change(select, { target: { value: '2' } });
+
+    // Should be SAME because non pristine
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      values: {
+        age: 48,
+        name: 'Elon'
+      },
+      maskedValues: {
+        age: 48,
+        name: 'Elon'
+      },
+      initialValues: profiles[2],
+    }));
 
   });
 

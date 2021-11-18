@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { FormController } from '../FormController';
 import { FormFields } from '../Components/FormFields';
 import {
@@ -6,6 +6,7 @@ import {
   FormApiContext,
   FormStateContext
 } from '../Context';
+import { useUpdateEffect } from './useUpdateEffect';
 
 export const useForm = ({
   onSubmit,
@@ -53,10 +54,11 @@ export const useForm = ({
     errorMessage
   };
 
+  const optionsRef = useRef();
+  optionsRef.current = formControllerOptions;
+
   // Create form controller
-  const [formController] = useState(
-    () => new FormController(formControllerOptions)
-  );
+  const [formController] = useState(() => new FormController(optionsRef));
 
   // Register for events
   useEffect(
@@ -117,6 +119,17 @@ export const useForm = ({
     }
     return formController.getFormApi();
   }, []);
+
+  useUpdateEffect(
+    () => {
+      // If the form is pristine then reset it when we get new initial values !
+      const { pristine } = formApi.getFormState();
+      if (pristine) {
+        formApi.reset();
+      }
+    },
+    [initialValues]
+  );
 
   const render = children => (
     <FormControllerContext.Provider value={formController}>

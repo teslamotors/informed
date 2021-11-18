@@ -87,16 +87,18 @@ export const useField = ({
   const formController = userFormController ?? useFormController();
 
   // Get any options
-  const autocomplete = userAutocomplete ?? formController.options.autocomplete;
+  const autocomplete =
+    userAutocomplete ?? formController.options.current.autocomplete;
   const showErrorIfError =
-    userShowErrorIfError ?? formController.options.showErrorIfError;
+    userShowErrorIfError ?? formController.options.current.showErrorIfError;
   const showErrorIfTouched =
-    userShowErrorIfTouched ?? formController.options.showErrorIfTouched;
+    userShowErrorIfTouched ?? formController.options.current.showErrorIfTouched;
   const showErrorIfDirty =
-    userShowErrorIfDirty ?? formController.options.showErrorIfDirty;
+    userShowErrorIfDirty ?? formController.options.current.showErrorIfDirty;
   const validateOnMount =
-    userValidateOnMount ?? formController.options.validateOnMount;
-  const validateOn = userValidateOn ?? formController.options.validateOn;
+    userValidateOnMount ?? formController.options.current.validateOnMount;
+  const validateOn =
+    userValidateOn ?? formController.options.current.validateOn;
 
   // For getting initialValue
   const getInitialValue = () =>

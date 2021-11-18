@@ -51,6 +51,10 @@ import FormatterFunctions from './Formatting/FormatterFunctions';
 // import MaskWithCursorOffset from './Formatting/MaskWithCursorOffset';
 // import UnnecessaryRendering from './Gotchas/UnnecessaryRendering';
 import Scope from './Gotchas/Scope';
+import ChangingInitialValues from './Gotchas/ChangingInitialValues';
+// import InitialvsDefault from './Gotchas/InitialvsDefault';
+// import InitializeIfPristine from './Gotchas/InitializeIfPristine';
+
 // import Optimization from './Gotchas/Optimization';
 import DynamicFields from './Dynamic/DynamicFields';
 import CustomInputs from './CustomInputs';
@@ -253,6 +257,9 @@ storiesOf('Multistep Forms', module).add('Dynamic Multistep', ComplexMultistep);
 storiesOf('Gotchas', module)
   //   .add('Unnecessary Rendering', UnnecessaryRendering)
   //   .add('Optimization', Optimization)
+  // .add('Initial Vs Default', InitialvsDefault)
+  .add('Change initialValues', ChangingInitialValues)
+  // .add('Initialize If Pristine', InitializeIfPristine)
   .add('Scope', Scope);
 
 storiesOf('Dynamic Forms', module)

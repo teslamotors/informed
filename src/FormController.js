@@ -53,7 +53,7 @@ export class FormController {
     this.subscriptions = new Map();
 
     // Get schema stuff off of options
-    const { ajv, schema, fieldMap } = options;
+    const { ajv, schema, fieldMap } = options.current;
 
     // Create new ajv instance if passed
     this.ajv = ajv ? new ajv({ allErrors: true }) : null;
@@ -108,7 +108,7 @@ export class FormController {
       maskedValues: {},
       dirt: {},
       focused: {},
-      initialValues: this.options.initialValues || {}
+      initialValues: this.options.current.initialValues || {}
     };
 
     // Bind functions that will be called externally
@@ -157,7 +157,7 @@ export class FormController {
   }
 
   getOptions() {
-    return this.options;
+    return this.options.current;
   }
 
   getValue(name) {
@@ -747,7 +747,7 @@ export class FormController {
       maskedValues: {},
       dirt: {},
       focused: {},
-      initialValues: this.options.initialValues || {}
+      initialValues: this.options.current.initialValues || {}
     };
 
     this.fieldsMap.forEach(fieldMeta => {
@@ -764,15 +764,21 @@ export class FormController {
 
     const { formatter, parser, initialize } = meta;
 
-    const initialValue = initializeValue(meta.initialValue, {
-      formatter,
-      parser,
-      initialize
-    });
-    const initialMask = initializeMask(meta.initialValue, {
-      formatter,
-      initialize
-    });
+    const initialValue = initializeValue(
+      meta.getInitialValue && meta.getInitialValue(),
+      {
+        formatter,
+        parser,
+        initialize
+      }
+    );
+    const initialMask = initializeMask(
+      meta.getInitialValue && meta.getInitialValue(),
+      {
+        formatter,
+        initialize
+      }
+    );
 
     debug(`Resetting ${name}'s value to ${initialValue}`);
     ObjectMap.set(this.state.values, name, initialValue);
@@ -854,7 +860,7 @@ export class FormController {
 
   keyDown(e) {
     // If preventEnter then return
-    if (e.keyCode == 13 && this.options.preventEnter) {
+    if (e.keyCode == 13 && this.options.current.preventEnter) {
       e.preventDefault(e);
       return false;
     }
@@ -867,20 +873,23 @@ export class FormController {
     let errors = {};
 
     // Validate schema if needed
-    if (this.options.yupSchema) {
-      const yupErrors = validateYupSchema(this.options.yupSchema, values);
+    if (this.options.current.yupSchema) {
+      const yupErrors = validateYupSchema(
+        this.options.current.yupSchema,
+        values
+      );
       errors = { ...errors, ...yupErrors };
     }
 
     // Validate AJV schema if needed
-    if (this.options.schema && this.options.ajv) {
+    if (this.options.current.schema && this.options.current.ajv) {
       const ajvErrors = validateAjvSchema(this.ajvValidate, values);
       errors = { ...errors, ...ajvErrors };
     }
 
     // Call the forms field level validation
-    if (this.options.validateFields) {
-      const fieldErrors = this.options.validateFields(values);
+    if (this.options.current.validateFields) {
+      const fieldErrors = this.options.current.validateFields(values);
       errors = { ...errors, ...fieldErrors };
       errors = ObjectMap.purge(errors);
     }
@@ -923,7 +932,7 @@ export class FormController {
 
     let name = n;
 
-    if (this.options.schema) {
+    if (this.options.current.schema) {
       debug('We have schema so looking in there for error message');
 
       // Try to grab message from schema first
@@ -980,7 +989,7 @@ export class FormController {
       while (name !== '') {
         debug(`Looking for message at ${name}`);
         const path = getSchemaPathFromJsonPath(name);
-        const property = ObjectMap.get(this.options.schema, path);
+        const property = ObjectMap.get(this.options.current.schema, path);
         // If the property has an error message use that
         if (property.errorMessage) {
           const message =
@@ -998,7 +1007,7 @@ export class FormController {
       }
 
       // Last but not least check schema
-      const property = this.options.schema;
+      const property = this.options.current.schema;
       if (property.errorMessage) {
         const message =
           typeof property.errorMessage === 'string'
@@ -1026,11 +1035,11 @@ export class FormController {
     }
 
     // Finally we check the forms errorMessage prop
-    if (this.options.errorMessage) {
+    if (this.options.current.errorMessage) {
       const message =
-        typeof this.options.errorMessage === 'string'
-          ? this.options.errorMessage
-          : this.options.errorMessage[key];
+        typeof this.options.current.errorMessage === 'string'
+          ? this.options.current.errorMessage
+          : this.options.current.errorMessage[key];
       // Only return a message if we had one... maybe we don't have that defined at field level!
       if (message) {
         return message;
@@ -1041,7 +1050,7 @@ export class FormController {
   submitForm(e) {
     this.state.submitting = true;
 
-    if (!this.options.dontPreventDefault && e) {
+    if (!this.options.current.dontPreventDefault && e) {
       // Prevent default browser form submission
       e.preventDefault(e);
     }

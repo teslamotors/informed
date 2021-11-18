@@ -35,7 +35,7 @@ const submit = values =>
 <Form onSubmit={submit}>
   <label>
     First name:
-    <Text field="name" />
+    <Text name="name" />
   </label>
   <button type="submit">Submit</button>
 </Form>;
@@ -57,7 +57,7 @@ const submit = values =>
 <Form onSubmit={submit}>
   <label>
     First name:
-    <Text field="name" validate={validate} />
+    <Text name="name" validate={validate} />
   </label>
   <button type="submit">Submit</button>
 </Form>;
@@ -72,18 +72,18 @@ const onSubmit = data => console.log(data);
 
 const ExampleForm = () => (
   <Form onSubmit={onSubmit}>
-    <Input field="name" label="Name" placeholder="Elon" />
-    <Input field="age" type="number" label="Age" required="Age Required" />
-    <Input field="phone" label="Phone" formatter="+1 (###)-###-####" />
-    <Select field="car" label="Car" initialValue="ms">
+    <Input name="name" label="Name" placeholder="Elon" />
+    <Input name="age" type="number" label="Age" required="Age Required" />
+    <Input name="phone" label="Phone" formatter="+1 (###)-###-####" />
+    <Select name="car" label="Car" initialValue="ms">
       <option value="ms">Model S</option>
       <option value="m3">Model 3</option>
       <option value="mx">Model X</option>
       <option value="my">Model Y</option>
     </Select>
-    <Checkbox field="married" label="Married?" />
+    <Checkbox name="married" label="Married?" />
     <Relevant when={({ formState }) => formState.values.married}>
-      <Input field="spouse" label="Spouse" />
+      <Input name="spouse" label="Spouse" />
     </Relevant>
     <button type="submit">Submit</button>
     <FormState />
@@ -149,18 +149,18 @@ const onSubmit = data => console.log(data);
 
 const ExampleForm = () => (
   <Form onSubmit={onSubmit}>
-    <Input field="name" label="Name" placeholder="Elon" />
-    <Input field="age" type="number" label="Age" required="Age Required" />
-    <Input field="phone" label="Phone" formatter="+1 (###)-###-####" />
-    <Select field="car" label="Car" initialValue="ms">
+    <Input name="name" label="Name" placeholder="Elon" />
+    <Input name="age" type="number" label="Age" required="Age Required" />
+    <Input name="phone" label="Phone" formatter="+1 (###)-###-####" />
+    <Select name="car" label="Car" initialValue="ms">
       <option value="ms">Model S</option>
       <option value="m3">Model 3</option>
       <option value="mx">Model X</option>
       <option value="my">Model Y</option>
     </Select>
-    <Checkbox field="married" label="Married?" />
-    <Relevant when={({ values }) => values.married}>
-      <Input field="spouse" label="Spouse" />
+    <Checkbox name="married" label="Married?" />
+    <Relevant when={({ formState }) => formState.values.married}>
+      <Input name="spouse" label="Spouse" />
     </Relevant>
     <button type="submit">Submit</button>
     <FormState />
@@ -185,7 +185,7 @@ const ComponentUsingFormState = () => {
 <Form>
   <label>
     Name:
-    <Text field="name" />
+    <Text name="name" />
   </label>
   <button type="submit">Submit</button>
   <h5>Component using formState:</h5>
@@ -218,7 +218,7 @@ const ComponentUsingFormApi = () => {
   <div>
     <label>
       Name:
-      <Text field="name" />
+      <Text name="name" />
     </label>
     <button type="submit">Submit</button>
     <h5>Component using formApi:</h5>
@@ -274,7 +274,7 @@ const validate = value => {
 <Form id="custom-form">
   <label>
     First name:
-    <ErrorText field="name" validateOnChange validateOnBlur />
+    <ErrorText name="name" validateOnChange validateOnBlur />
   </label>
   <button type="submit">Submit</button>
 </Form>;
@@ -288,10 +288,10 @@ import { Form, Text, RadioGroup, Radio, Relevant } from 'informed';
 <Form>
   <label>
     First name:
-    <Text field="name" />
+    <Text name="name" />
   </label>
   <label>Are you married?</label>
-  <RadioGroup field="married">
+  <RadioGroup name="married">
     <label>
       Yes <Radio value="yes" />
     </label>
@@ -302,7 +302,7 @@ import { Form, Text, RadioGroup, Radio, Relevant } from 'informed';
   <Relevant when={({ formState }) => formState.values.married === 'yes'}>
     <label>
       Spouse name:
-      <Text field="spouse" />
+      <Text name="spouse" />
     </label>
   </Relevant>
   <button type="submit">Submit</button>
@@ -318,7 +318,7 @@ const DynamicArrays = () => {
   return (
     <div>
       <Form initialValues={initialValues}>
-        <ArrayField field="siblings">
+        <ArrayField name="siblings">
           {({ add, reset }) => (
             <>
               <button onClick={reset} type="button">
@@ -331,8 +331,8 @@ const DynamicArrays = () => {
                 {({ remove, field, reset, values, setValue }) => (
                   <label>
                     <h5>{field}</h5>
-                    <Text field={`${field}.name`} />
-                    <Text field={`${field}.age`} />
+                    <Text name={`${field}.name`} />
+                    <Text name={`${field}.age`} />
                     <button type="button" onClick={reset}>
                       Reset
                     </button>
@@ -375,15 +375,15 @@ const SignupSchema = Yup.object().shape({
 <Form validationSchema={SignupSchema}>
   <label>
     First Name:
-    <Text field="firstName" />
+    <Text name="firstName" />
   </label>
   <label>
     Last Name:
-    <Text field="lastName" />
+    <Text name="lastName" />
   </label>
   <label>
     Email:
-    <Text field="email" />
+    <Text name="email" />
   </label>
   <button type="submit">Submit</button>
 </Form>;
@@ -413,15 +413,15 @@ const lastNameSchema = Yup.string()
 <Form validationSchema={SignupSchema}>
   <label>
     First Name:
-    <Text field="firstName" />
+    <Text name="firstName" />
   </label>
   <label>
     Last Name:
-    <Text field="lastName" validationSchema={lastNameSchema} />
+    <Text name="lastName" validationSchema={lastNameSchema} />
   </label>
   <label>
     Email:
-    <Text field="email" />
+    <Text name="email" />
   </label>
   <button type="submit">Submit</button>
 </Form>;

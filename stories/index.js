@@ -4,6 +4,7 @@ import { configureReadme } from 'storybook-readme';
 import StoryWrapper from './utils/StoryWrapper';
 import Intro from './Intro';
 import TLDR from './TLDR';
+import Changelog from './Intro/Changelog';
 import Basic from './Form/Basic';
 import Path from './Form/Path';
 import FeatureTester from './Form/FeatureTester';
@@ -162,7 +163,8 @@ configureReadme({
 storiesOf('Introduction', module)
   //.addParameters(params)
   .add('Getting Started', Intro)
-  .add('TLDR', TLDR);
+  .add('TLDR', TLDR)
+  .add('Changelog', Changelog);
 
 storiesOf('Form', module)
   .add('Basic', Basic)

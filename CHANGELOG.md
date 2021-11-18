@@ -182,6 +182,34 @@ Finally we have a use case for validating right away ( on mount )
 | --------------- | ------------------------------- | ------- |
 | validateOnMount | will trigger validation onMount | false   |
 
+### Migrating From Tesla RCF Breaking changes
+
+#### useFieldState
+
+```
+useFormFieldState is now useFieldState
+```
+
+The second parameter, scope, used to default to false, now it defaults to true!
+
+```
+useFormFieldState('name', false)
+```
+
+#### Form State
+
+| Old          | New          |
+| ------------ | ------------ |
+| \$invalid    | `invalid`    |
+| \$valid      | `valid`      |
+| \$pristine   | `pristine`   |
+| \$dirty      | `dirty`      |
+| \$submitting | `submitting` |
+| \$submitted  | `submitted`  |
+| \$touched    | x            |
+| \$untouched  | x            |
+| \$focused    | x            |
+
 ## 3.34.0 (June 22, 2021)
 
 ### Added

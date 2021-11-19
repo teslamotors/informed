@@ -32,34 +32,40 @@ const Form = ({ children, ...rest }) => {
 // Step 2. Build your input components --------------------
 
 const Input = ({ label, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'text', ...props });
+  const { render, informed, userProps } = useField({ type: 'text', ...props });
 
   return render(
     <label>
       {label}
-      <input {...informed} />
+      <input {...informed} {...userProps} />
     </label>
   );
 };
 
 const Checkbox = ({ label, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'checkbox', ...props });
+  const { render, informed, userProps } = useField({
+    type: 'checkbox',
+    ...props
+  });
 
   return render(
     <label>
       {label}
-      <input {...informed} />
+      <input {...informed} {...userProps} />
     </label>
   );
 };
 
 const Select = ({ label, children, options, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'select', ...props });
+  const { render, informed, userProps } = useField({
+    type: 'select',
+    ...props
+  });
 
   return render(
     <label>
       {label}
-      <select {...informed}>
+      <select {...informed} {...userProps}>
         {options
           ? options.map(option => (
               <option
@@ -123,7 +129,7 @@ const MyArrayField = ({ field, items, uiBefore, uiAfter, ...props }) => {
 
 // Step 3. Define your field map --------------------
 
-const fieldMap = {
+const adapter = {
   select: Select,
   input: Input,
   checkbox: Checkbox,
@@ -155,7 +161,7 @@ const schema = {
       'ui:control': 'input'
     },
     authorize: {
-      type: 'string',
+      type: 'boolean',
       title: 'Authorize',
       'ui:control': 'checkbox'
     },
@@ -183,7 +189,6 @@ const schema = {
       },
       items: {
         type: 'object',
-        'ui:after': [{ 'ui:control': 'remove' }],
         required: ['name', 'age'],
         properties: {
           name: {
@@ -199,7 +204,8 @@ const schema = {
             'ui:props': {
               type: 'number'
             }
-          }
+          },
+          'ui:component:remove': { 'ui:control': 'remove' }
         }
       }
     }
@@ -207,7 +213,7 @@ const schema = {
 };
 
 const Schema = () => (
-  <Form schema={schema} fieldMap={fieldMap}>
+  <Form schema={schema} adapter={adapter}>
     <SchemaFields />
     <button type="submit">Submit</button>
     <Debug />

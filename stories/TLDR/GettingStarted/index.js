@@ -10,7 +10,7 @@ const Form = ({ children, ...rest }) => {
   const { formController, render, userProps } = useForm(rest);
 
   return render(
-    <form {...userProps} onSubmit={formController.submitForm}>
+    <form noValidate {...userProps} onSubmit={formController.submitForm}>
       {children}
     </form>
   );
@@ -18,36 +18,50 @@ const Form = ({ children, ...rest }) => {
 
 // Step 2. Build your input components --------------------
 
-const Input = ({ label, ...props }) => {
-  const { render, informed } = useField({ type: 'text', ...props });
-
+const Input = props => {
+  const { render, informed, userProps, fieldState } = useField({
+    type: 'text',
+    ...props
+  });
+  const { label, id, ...rest } = userProps;
+  const { showError } = fieldState;
+  const style = showError ? { border: 'solid 1px red' } : null;
   return render(
-    <label>
-      {label}
-      <input {...informed} />
-    </label>
+    <>
+      <label htmlFor={id}>{label}</label>
+      <input id={id} {...informed} {...rest} style={style} />
+      {showError && <small style={{ color: 'red' }}>{fieldState.error}</small>}
+    </>
   );
 };
 
-const Checkbox = ({ label, ...props }) => {
-  const { render, informed } = useField({ type: 'checkbox', ...props });
-
+const Checkbox = props => {
+  const { render, informed, userProps } = useField({
+    type: 'checkbox',
+    ...props
+  });
+  const { label, id, ...rest } = userProps;
   return render(
-    <label>
-      {label}
-      <input {...informed} />
-    </label>
+    <>
+      <label htmlFor={id}>{label}</label>
+      <input id={id} {...informed} {...rest} />
+    </>
   );
 };
 
-const Select = ({ label, children, ...props }) => {
-  const { render, informed } = useField({ type: 'select', ...props });
-
+const Select = props => {
+  const { render, informed, userProps } = useField({
+    type: 'select',
+    ...props
+  });
+  const { label, id, children, ...rest } = userProps;
   return render(
-    <label>
-      {label}
-      <select {...informed}>{children}</select>
-    </label>
+    <>
+      <label htmlFor={id}>{label}</label>
+      <select id={id} {...informed} {...rest}>
+        {children}
+      </select>
+    </>
   );
 };
 

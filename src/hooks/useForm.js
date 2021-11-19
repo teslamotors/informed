@@ -31,6 +31,8 @@ export const useForm = ({
   onlyValidateSchema,
   components,
   errorMessage,
+  fieldMap,
+  adapter,
   ...userProps
 }) => {
   const formControllerOptions = {
@@ -51,7 +53,9 @@ export const useForm = ({
     ajv,
     ajvErrors,
     components,
-    errorMessage
+    errorMessage,
+    fieldMap,
+    adapter
   };
 
   const optionsRef = useRef();

@@ -13,36 +13,34 @@ export const Form = props => {
   );
 };
 
-export const Input = React.memo(props => {
-  const { render, informed, ref, fieldState, userProps } = useField({
+export const Input = props => {
+  const { render, informed, userProps, fieldState } = useField({
     type: 'text',
     ...props
   });
+  const { label, id, ...rest } = userProps;
   const { showError } = fieldState;
-  const { label } = userProps;
+  const style = showError ? { border: 'solid 1px red' } : null;
   return render(
-    <label>
-      {label}
-      <input
-        ref={ref}
-        {...informed}
-        style={showError ? { border: 'solid 1px red' } : null}
-      />
-      {showError ? (
-        <small style={{ color: 'red' }}>{fieldState.error}</small>
-      ) : null}
-    </label>
+    <>
+      <label htmlFor={id}>{label}</label>
+      <input id={id} {...informed} {...rest} style={style} />
+      {showError && <small style={{ color: 'red' }}>{fieldState.error}</small>}
+    </>
   );
-});
+};
 
-export const Checkbox = ({ label, ...props }) => {
-  const { render, informed } = useField({ type: 'checkbox', ...props });
-
+export const Checkbox = props => {
+  const { render, informed, userProps } = useField({
+    type: 'checkbox',
+    ...props
+  });
+  const { label, id, ...rest } = userProps;
   return render(
-    <label>
-      {label}
-      <input {...informed} checked={informed.value} />
-    </label>
+    <>
+      <label htmlFor={id}>{label}</label>
+      <input id={id} {...informed} {...rest} />
+    </>
   );
 };
 

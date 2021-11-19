@@ -1,75 +1,47 @@
 import React from 'react';
-import Code from '../../utils/Code';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import { Form, useField } from '../../../src';
+import { Form, Debug, useField } from '../../../src';
 
-const validate = value => {
-  return !value || value.length < 5
-    ? 'Field must be at least five characters'
-    : undefined;
-};
+const CustomInput = props => {
+  const { fieldState, fieldApi, render, ref, userProps } = useField(props);
 
-const ErrorText = (props) => {
-
-  const { fieldState, fieldApi, render, ref, userProps } = useField({ ...props, validate });
-
-  const { value } = fieldState;
+  const { value, error, showError } = fieldState;
   const { setValue, setTouched } = fieldApi;
-  const { onChange, onBlur, ...rest } = userProps;
+  const { label, id, ...rest } = userProps;
   return render(
-    <React.Fragment>
+    <>
+      {label ? <label htmlFor={id}>{label}</label> : null}
       <input
         {...rest}
+        id={id}
         ref={ref}
         value={!value && value !== 0 ? '' : value}
         onChange={e => {
-          setValue(e.target.value);
-          if (onChange) {
-            onChange(e);
-          }
+          setValue(e.target.value, e);
         }}
         onBlur={e => {
-          setTouched(true);
-          if (onBlur) {
-            onBlur(e);
-          }
+          setTouched(true, e);
         }}
-        style={fieldState.error ? { border: 'solid 1px red' } : null}
+        style={showError ? { border: 'solid 1px red' } : null}
       />
-      {fieldState.error ? (
-        <small style={{ color: 'red' }}>{fieldState.error}</small>
-      ) : null}
-    </React.Fragment>
+      {showError ? <small style={{ color: 'red' }}>{error}</small> : null}
+    </>
   );
 };
 
-const FromScratch = () => (
-  <div>
-    <Form id="custom-form-2">
-      {({ formApi, formState }) => (
-        <React.Fragment>
-          <label>
-            First name:
-            <ErrorText
-              field="name"
-              validateOnChange
-              validateOnBlur
-            />
-          </label>
-          <button type="submit">Submit</button>
-          <label>Values:</label>
-          <Code language="language-js">
-            {JSON.stringify(formState.values, null, 2)}
-          </Code>
-          <label>Errors:</label>
-          <Code language="language-js">
-            {JSON.stringify(formState.errors, null, 2)}
-          </Code>
-        </React.Fragment>
-      )}
-    </Form>
-  </div>
+const Example = () => (
+  <Form autocomplete="off">
+    <CustomInput
+      field="name"
+      label="First name:"
+      validateOn="change"
+      required
+      minLength={5}
+    />
+    <button type="submit">Submit</button>
+    <Debug />
+  </Form>
 );
 
-export default withDocs(readme, FromScratch);
+export default withDocs(readme, Example);

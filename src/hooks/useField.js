@@ -314,7 +314,6 @@ export const useField = ({
     fieldApi,
     userProps: recombinedUserProps,
     informed: {
-      ...recombinedUserProps,
       onChange: changeHandler,
       onBlur: blurHandler,
       onFocus: focusHandler,

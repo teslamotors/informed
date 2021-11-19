@@ -53,7 +53,7 @@ export class FormController {
     this.subscriptions = new Map();
 
     // Get schema stuff off of options
-    const { ajv, schema, fieldMap } = options.current;
+    const { ajv, schema, fieldMap, adapter } = options.current;
 
     // Create new ajv instance if passed
     this.ajv = ajv ? new ajv({ allErrors: true }) : null;
@@ -64,7 +64,7 @@ export class FormController {
     this.ajvValidate = ajv ? this.ajv.compile(schema) : null;
 
     // Add field map ( defaults to our field map )
-    this.fieldMap = fieldMap || defaultFieldMap;
+    this.fieldMap = adapter || fieldMap || defaultFieldMap;
 
     // This is the emitter lol
     this.emitter = this;

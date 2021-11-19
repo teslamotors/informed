@@ -15,7 +15,7 @@ export const ErrorText = React.memo(({ label, ...props }) => {
     type: 'text',
     ...props
   });
-  const { value } = fieldState;
+  const { value, error, showError } = fieldState;
   const { setValue, setTouched } = fieldApi;
   const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props;
   return render(
@@ -36,11 +36,9 @@ export const ErrorText = React.memo(({ label, ...props }) => {
             onBlur(e);
           }
         }}
-        style={fieldState.error ? { border: 'solid 1px red' } : null}
+        style={showError ? { border: 'solid 1px red' } : null}
       />
-      {fieldState.error ? (
-        <small style={{ color: 'red' }}>{fieldState.error}</small>
-      ) : null}
+      {showError ? <small style={{ color: 'red' }}>{error}</small> : null}
     </React.Fragment>
   );
 });

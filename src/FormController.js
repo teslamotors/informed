@@ -569,7 +569,10 @@ export class FormController {
       return;
     }
     // Otherwise use the fields initial value
-    if (meta.current.initialValue != null) {
+    if (
+      meta.current.initialValue != null &&
+      (meta.current.initializeValueIfPristine ? this.state.pristine : true)
+    ) {
       const { formatter, parser, initialize } = meta.current;
 
       const initialValue = initializeValue(meta.current.initialValue, {

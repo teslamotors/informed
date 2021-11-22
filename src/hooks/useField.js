@@ -68,6 +68,7 @@ export const useField = ({
   formController: userFormController,
   initialize,
   errorMessage,
+  initializeValueIfPristine,
   ...userProps
 }) => {
   // For backwards compatability
@@ -164,6 +165,7 @@ export const useField = ({
     initialValue,
     keepState,
     keepStateIfRelevant,
+    initializeValueIfPristine,
     fieldApi,
     getInitialValue,
     formatter,

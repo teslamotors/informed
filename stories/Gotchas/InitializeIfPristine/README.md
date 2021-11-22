@@ -8,22 +8,21 @@ To achieve this you can optionally pass `initializeValueIfPristine` to a field.
 
 ```jsx
 import { Button } from '@tesla/design-system-react';
-import { FormState, Relevant } from '@tesla/react-context-form';
-import { Form, Input, RadioGroup, Radio } from '@tesla/react-context-form-tds';
+import { Form, Input, RadioGroup, Radio, Relevant, Debug } from 'informed';
 
 const RelevantExample = () => (
   <Form
     initialValues={{
       married: 'yes',
-      spouseFirst: 'Juliet',
-      spouseLast: 'FooBar'
+      spouseFirst: 'Hope',
+      spouseLast: 'Foobar'
     }}>
     <Input name="name" label="First Name" />
     <RadioGroup name="married" label="Are You Married?">
       <Radio value="yes" label="Yes" />
       <Radio value="no" label="No" />
     </RadioGroup>
-    <Relevant when={({ values }) => values.married === 'yes'}>
+    <Relevant when={({ formState }) => formState.values.married === 'yes'}>
       <Input name="spouseFirst" label="Spouse First Name" />
       <Input
         name="spouseLast"
@@ -34,7 +33,7 @@ const RelevantExample = () => (
     <Button type="submit" variant="primary">
       submit
     </Button>
-    <FormState values />
+    <Debug values />
   </Form>
 );
 ```

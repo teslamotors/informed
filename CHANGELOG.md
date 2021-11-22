@@ -8,6 +8,22 @@
 informed:props is now ui:props when using schema based forms
 ```
 
+#### `asField` has been removed
+
+Instead of doing this
+
+```js
+const CustomField = asField({ fieldState, fieldApi }) => {}
+```
+
+Do this
+
+```js
+const CustomField = props => {
+  const { fieldState, fieldApi } = useField(props);
+};
+```
+
 #### Relevance
 
 The when function for relevance now has this signature

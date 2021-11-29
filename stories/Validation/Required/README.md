@@ -22,7 +22,8 @@ const validate = value => {
 };
 
 const Example = () => (
-  <Form onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
+  <Form
+    onSubmit={({ values }) => window.alert(JSON.stringify(values, null, 2))}>
     <Input name="name" label="First name:" required />
     <Input name="favorite.color" label="Favorite color:" required />
     <Scope scope="favorite">

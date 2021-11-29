@@ -4,7 +4,7 @@ import withDocs from '../../../utils/withDocs';
 import readme from './README.md';
 import { useField, useForm } from '../../../../src';
 
-const onSubmit = values =>
+const onSubmit = ({ values }) =>
   window.alert(`Form successfully submitted with ${JSON.stringify(values)}`);
 
 const UseFieldDirect = () => {

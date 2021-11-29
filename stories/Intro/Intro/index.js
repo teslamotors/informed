@@ -9,7 +9,7 @@ const code = `
 import { Form, Input, Select, Checkbox, Relevant } from 'informed';
 import style from './style.css';
 
-const onSubmit = data => console.log(data);
+const onSubmit = ({values}) => console.log(values);
 
 export default function App() {
   return (
@@ -34,7 +34,7 @@ export default function App() {
   )
 }`;
 
-const onSubmit = data => console.log(data);
+const onSubmit = ({ values }) => console.log(values);
 
 const GettingStarted = () => (
   <>

@@ -12,7 +12,9 @@ class SimpleValidation extends Component {
           errorMessage={{
             required: 'This is field is required for your profile!'
           }}
-          onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
+          onSubmit={({ values }) =>
+            window.alert(JSON.stringify(values, null, 2))
+          }>
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             <div style={{ flex: 1, marginRight: '2rem' }}>
               <Input

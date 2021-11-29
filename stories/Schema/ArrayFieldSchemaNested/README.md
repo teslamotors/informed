@@ -133,7 +133,7 @@ const schema = {
 const Schema = () => (
   <Form
     schema={schema}
-    onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
+    onSubmit={({ values }) => window.alert(JSON.stringify(values, null, 2))}>
     <SchemaFields />
     <button type="submit">Submit</button>
   </Form>

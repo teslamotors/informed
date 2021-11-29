@@ -27,7 +27,7 @@ const validate = value => {
   if (!value || value.length < 5) return 'Field must be at least five characters';
 }
 
-<Form onSubmit={values => window.alert(JSON.stringify(values, null, 2))>
+<Form onSubmit={({values}) => window.alert(JSON.stringify(values, null, 2))>
   <Input name="color" label="Color:" validate={validate} />
   <Input name="food" label="Food:" validate={validate} />
   <Input name="car" label="Car:" validate={validate} />

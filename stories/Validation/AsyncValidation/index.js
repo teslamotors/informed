@@ -31,7 +31,7 @@ const asyncValidate = username => {
 const AsyncValidation = () => {
   return (
     <div>
-      <Form onSubmit={values => console.log('Submitted', values)}>
+      <Form onSubmit={({ values }) => console.log('Submitted', values)}>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 2, marginRight: '2rem' }}>
             <Input

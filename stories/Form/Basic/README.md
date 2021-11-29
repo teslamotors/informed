@@ -5,7 +5,7 @@
 ```jsx
 import { Form, Input, Debug } from 'informed';
 
-const onSubmit = values => {
+const onSubmit = ({ values }) => {
   window.alert(JSON.stringify(values, null, 2));
 };
 

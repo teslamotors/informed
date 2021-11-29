@@ -48,7 +48,7 @@ const AsyncValidation = () => {
     <div>
       <Form
         apiRef={apiRef}
-        onSubmit={values => console.log(values)}
+        onSubmit={({ values }) => console.log(values)}
         initialValues={initialValues}>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>

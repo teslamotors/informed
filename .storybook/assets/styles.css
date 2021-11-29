@@ -158,15 +158,11 @@ select {
 }
 
 label {
-  /* text-align: left; */
-  /* margin-left: 1rem; */
   margin-bottom: 1rem;
   display: block;
 }
 
 legend {
-  /* text-align: left; */
-  /* margin-left: 1rem; */
   margin-bottom: 1rem;
   display: block;
 }

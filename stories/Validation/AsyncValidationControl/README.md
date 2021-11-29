@@ -49,7 +49,7 @@ const ExampleForm = () => {
     <Form
       apiRef={apiRef}
       initialValues={initialValues}
-      onSubmit={values => console.log(values)}>
+      onSubmit={({ values }) => console.log(values)}>
       <Text
         field="username"
         label="Username"

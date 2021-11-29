@@ -27,7 +27,9 @@ class SimpleValidation extends Component {
       <div>
         <Form
           yupSchema={SignupSchema}
-          onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
+          onSubmit={({ values }) =>
+            window.alert(JSON.stringify(values, null, 2))
+          }>
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             <div style={{ flex: 1, marginRight: '2rem' }}>
               <Input name="firstName" label="First Name:" />

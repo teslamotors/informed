@@ -2,6 +2,20 @@
 
 ### Breaking changes
 
+#### onSubmit signature
+
+Old
+
+```
+const onSubmit = values => console.log( values );
+```
+
+New
+
+```
+const onSubmit = formState => console.log( formState.values );
+```
+
 #### informed:props ( schema )
 
 ```
@@ -204,244 +218,6 @@ Finally we have a use case for validating right away ( on mount )
 ---
 
 <br />
-
-### Migrating From **\*\*** Breaking changes
-
-#### useFieldState
-
-```
-useFormFieldState is now useFieldState
-```
-
-The second parameter, scope, used to default to false, now it defaults to true!
-
-```
-useFormFieldState('name', false)
-```
-
-#### Form State
-
-| Old          | New          |
-| ------------ | ------------ |
-| \$invalid    | `invalid`    |
-| \$valid      | `valid`      |
-| \$pristine   | `pristine`   |
-| \$dirty      | `dirty`      |
-| \$submitting | `submitting` |
-| \$submitted  | `submitted`  |
-| \$touched    | x            |
-| \$untouched  | x            |
-| \$focused    | x            |
-
-#### Hooks
-
-| Old               | New           |
-| ----------------- | ------------- |
-| useFormField      | useField      |
-| useFormFieldState | useFieldState |
-| useFormFieldApi   | useFieldState |
-
-#### Relevance
-
-The when function for relevance now has this signature
-
-New:
-
-```
-when={({formState, formApi, scope}) => {...} }
-```
-
-Old:
-
-```
-when={({
-  ...formState,
-  path,
-  parentPath,
-  get) => {...} }
-```
-
-#### Validation
-
-Validation is now controlled via validateOn="validationString"
-
-By default fields will only validate on blur. To get
-more granular validation, simply pass in `validateOn` props.
-
-See table below for mapping:
-
-<br />
-
-| validateOn    | derived       | change       | blur         | submit       | default |
-| ------------- | ------------- | ------------ | ------------ | ------------ | ------- |
-| change        | change-change | sync + async | sync + async | sync + async |         |
-| blur          | blur-blur     | x            | sync + async | sync + async | x       |
-| change-blur   | change-blur   | sync         | sync + async | sync + async |         |
-| change-submit | change-submit | sync         | sync         | sync + async |         |
-| blur-submit   | submit-submit | x            | sync         | sync + async |         |
-| submit        | submit-submit | x            | x            | sync + async |         |
-
-<br />
-
-Validation is controlled via the `validateOn` prop, but in order to control when it shows,
-use the `showErrorIfError` and `showErrorIfDirty` props. **This is because sometimes you may want the form to be invalid but not show the error to the user yet ( default is `showErrorIfTouched` )**
-
-| prop               | description                                                                                                  | default |
-| ------------------ | ------------------------------------------------------------------------------------------------------------ | ------- |
-| showErrorIfError   | will set `showError` for that field to true whenever there is an error (typically used with validateOnMount) |         |
-| showErrorIfTouched | will set `showError` for that field to true whenever there is an error and the field is touched              | x       |
-| showErrorIfDirty   | will set `showError` for that field to true whenever there is an error and the field is dirty                |         |
-
-<br />
-
-Finally we have a use case for validating right away ( on mount )
-
-| prop            | description                     | default |
-| --------------- | ------------------------------- | ------- |
-| validateOnMount | will trigger validation onMount | false   |
-
-#### Array Field
-
-## ArrayFieldApi
-
-The Array Field Api has changed to the following.
-
-```jsx
-<ArrayField name="friends">
-  {({ add, reset, swap, addWithInitialValue }) => <></>}
-</ArrayField>
-```
-
-<br />
-
-| Function            | Example                               | Description                           |
-| ------------------- | ------------------------------------- | ------------------------------------- |
-| add                 | add()                                 | Adds a new item                       |
-| reset               | reset()                               | Resets the array field                |
-| swap                | swap(1,2)                             | Swaps two array fields                |
-| addWithInitialValue | addWithInitialValue({ name: 'test' }) | Adds a new item with an initial value |
-
-## ArrayFieldItemApi
-
-```jsx
-<ArrayField.Items>{({ remove, reset, setValue }) => <></>}</ArrayField.Items>
-```
-
-<br />
-
-| Function   | Example                 | Description                                   |
-| ---------- | ----------------------- | --------------------------------------------- |
-| remove     | remove()                | removes this item                             |
-| reset      | reset()                 | Resets all field within this item             |
-| setValue   | setValue('name', 'Joe') | Sets the value for the field within this item |
-| resetField | resetField('name')      | Resets the given field within this item       |
-
-## ArrayFieldItemInfo
-
-```jsx
-<ArrayField.Items>{({ name, index }) => <></>}</ArrayField.Items>
-```
-
-<br />
-
-| Name  | Example      | Description                  |
-| ----- | ------------ | ---------------------------- |
-| name  | "friends[0]" | the field name for this item |
-| index | 0            | the index for this item      |
-
-## ArrayFieldItemState
-
-##### Usage
-
-```js
-const {
-  key,
-  name,
-  index,
-  parent,
-  values,
-  errors,
-  touched,
-  initialValue
-} = useArrayFieldItemState();
-```
-
-##### Example
-
-```json
-{
-  "key": "d9f97dee-7c39-4bce-a348-a404e75417a6",
-  "name": "friends[0]",
-  "index": 0,
-  "parent": "friends",
-  "values": {
-    "age": 27
-  },
-  "errors": {
-    "name": "This field is required"
-  },
-  "touched": true,
-  "initialValue": {
-    "name": "Joe",
-    "age": 27
-  }
-}
-```
-
-##### No more values in array field render prop
-
-Old:
-
-```js
-// Some component you need to use state of array field item
-const FieldState = ({ values }) => {
-  return (
-    <pre>
-      <code>{JSON.stringify(values, null, 2)}</code>
-    </pre>
-  );
-};
-
-<ArrayField.Items>
-  {({ remove, values }) => (
-    <>
-      <Input name="name" />
-      <Input name="age" />
-      <FieldState values={values} />
-      <button type="button" onClick={remove}>
-        Remove
-      </button>
-    </>
-  )}
-</ArrayField.Items>;
-```
-
-New:
-
-```js
-// Some component you need to use state of array field item
-const FieldState = () => {
-  const { values } = useArrayFieldItemState();
-  return (
-    <pre>
-      <code>{JSON.stringify(values, null, 2)}</code>
-    </pre>
-  );
-};
-
-<ArrayField.Items>
-  {({ remove }) => (
-    <>
-      <Input name="name" />
-      <Input name="age" />
-      <FieldState />
-      <button type="button" onClick={remove}>
-        Remove
-      </button>
-    </>
-  )}
-</ArrayField.Items>;
-```
 
 ## 3.34.0 (June 22, 2021)
 

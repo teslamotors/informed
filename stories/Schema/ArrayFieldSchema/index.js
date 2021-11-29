@@ -82,7 +82,7 @@ const Schema = () => (
   <Form
     ajv={Ajv}
     schema={schema}
-    onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
+    onSubmit={({ values }) => window.alert(JSON.stringify(values, null, 2))}>
     <div style={{ display: 'flex' }}>
       <div style={{ flex: '1' }}>
         <SchemaFields />

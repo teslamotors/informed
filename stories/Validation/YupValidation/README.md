@@ -33,7 +33,7 @@ const SignupSchema = Yup.object().shape({
 
 <Form
   yupSchema={SignupSchema}
-  onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
+  onSubmit={({ values }) => window.alert(JSON.stringify(values, null, 2))}>
   ><Input name="firstName" label="First Name:" />
   <Input name="lastName" label="Last Name:" />
   <Input name="email" label="Email:" />

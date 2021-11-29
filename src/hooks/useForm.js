@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { FormController } from '../FormController';
-import { FormFields } from '../Components/FormFields';
 import {
   FormControllerContext,
   FormApiContext,
   FormStateContext
 } from '../Context';
 import { useUpdateEffect } from './useUpdateEffect';
+// import { SchemaFields } from '../Components/SchemaFields';
 
 export const useForm = ({
   onSubmit,
@@ -28,7 +28,7 @@ export const useForm = ({
   schema,
   ajv,
   ajvErrors,
-  onlyValidateSchema,
+  // onlyValidateSchema,
   components,
   errorMessage,
   fieldMap,
@@ -72,10 +72,9 @@ export const useForm = ({
       const onResetHandler = () =>
         onReset && onReset(formController.getFormState());
       const onSubmitHandler = () =>
-        onSubmit && onSubmit(formController.getFormState().values);
+        onSubmit && onSubmit(formController.getFormState());
       const onFailureHandler = () =>
-        onSubmitFailure &&
-        onSubmitFailure(formController.getFormState().errors);
+        onSubmitFailure && onSubmitFailure(formController.getFormState());
 
       // Register for events
       formController.on('field', onChangeHandler);
@@ -139,14 +138,7 @@ export const useForm = ({
     <FormControllerContext.Provider value={formController}>
       <FormApiContext.Provider value={formApi}>
         <FormStateContext.Provider value={formState}>
-          {!children ? (
-            <FormFields
-              schema={schema}
-              onlyValidateSchema={onlyValidateSchema}
-            />
-          ) : (
-            children
-          )}
+          {children}
         </FormStateContext.Provider>
       </FormApiContext.Provider>
     </FormControllerContext.Provider>

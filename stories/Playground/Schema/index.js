@@ -16,7 +16,7 @@ const scope = { imports };
 let code = `
 const { Form, SchemaFields, Debug } = imports['informed'];
 
-const onSubmit = (values) => {
+const onSubmit = ({values}) => {
   window.alert(JSON.stringify(values));
 }
 

@@ -76,7 +76,7 @@ const Select = props => {
   );
 };
 
-const onSubmit = data => console.log(data);
+const onSubmit = ({ values }) => console.log(values);
 
 const GettingStarted = () => (
   <Form onSubmit={onSubmit} autocomplete="off">

@@ -81,7 +81,7 @@ const Select = props => {
 
 // Step 3. Build your forms! ---------------------------
 
-const onSubmit = data => console.log(data);
+const onSubmit = ({ values }) => console.log(values);
 
 const ExampleForm = () => (
   <Form onSubmit={onSubmit}>

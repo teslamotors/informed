@@ -34,7 +34,7 @@ const Schema = () => (
     schema={schema}
     ajv={Ajv}
     onlyValidateSchema
-    onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
+    onSubmit={({ values }) => window.alert(JSON.stringify(values, null, 2))}>
     <button type="submit">Submit</button>
     <Input name="name" label="First name:" />
     <Input name="age" label="Age:" type="number" />

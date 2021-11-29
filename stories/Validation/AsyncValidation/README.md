@@ -55,7 +55,7 @@ const asyncValidate = username => {
 
 const ExampleForm = () => {
   return (
-    <Form onSubmit={values => console.log(values)}>
+    <Form onSubmit={({ values }) => console.log(values)}>
       <Input
         name="username"
         label="Username"

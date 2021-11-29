@@ -120,9 +120,26 @@ describe('useForm', () => {
 
     fireEvent.click(submit);
 
-    expect(onSubmit).toHaveBeenCalledWith({
-      greeting: 'Hi!'
-    });
+    expect(onSubmit).toHaveBeenCalledWith(getState({
+      pristine: false,
+      dirty: true,
+      submitted: true,
+      values: {
+        greeting: 'Hi!'
+      },
+      maskedValues: {
+        greeting: 'Hi!'
+      },
+      touched: {
+        greeting: true
+      },
+      dirt: {
+        greeting: true
+      },
+      focused: {
+        greeting: true
+      },
+    }));
 
     expect(formApiRef.current.getFormState()).toEqual(getState({
       pristine: false,

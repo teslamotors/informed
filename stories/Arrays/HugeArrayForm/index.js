@@ -35,7 +35,7 @@ const NestedForm = () => (
   <div>
     <Form
       initialValues={initialValues}
-      onSubmit={values => console.log(values)}>
+      onSubmit={({ values }) => console.log(values)}>
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, marginRight: '2rem' }}>
           <button type="submit">Submit</button>

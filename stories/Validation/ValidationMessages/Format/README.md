@@ -28,7 +28,7 @@ const validate = value => {
 const Example = () => (
   <Form
     errorMessage={{ required: 'This is field is required for your profile!' }}
-    onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
+    onSubmit={({ values }) => window.alert(JSON.stringify(values, null, 2))}>
     <Input
       name="name"
       label="First name:"

@@ -13,7 +13,7 @@ const validate = value => {
     return 'Field must be at least five characters';
 };
 
-const onSubmit = values =>
+const onSubmit = ({ values }) =>
   window.alert(`Form successfully submitted with ${JSON.stringify(values)}`);
 
 const UseFormExample = () => {

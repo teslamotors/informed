@@ -11,7 +11,7 @@ Check out our [GitHub](https://github.com/joepuzzo/informed)!
 [![Coverage Status](https://coveralls.io/repos/github/joepuzzo/informed/badge.svg?branch=master)](https://coveralls.io/github/joepuzzo/informed?branch=master)
 [![Minzipped-Size](https://badgen.net/bundlephobia/minzip/informed)](https://bundlephobia.com/result?p=informed)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/A_swsdEUI24" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/DtUo40Jxeyc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Getting Started
 
@@ -30,7 +30,7 @@ By default it comes with native dom inputs that are controlled by informed.
 ```jsx
 import { Form, Input, Select, Checkbox, Relevant, Debug } from 'informed';
 
-const onSubmit = data => console.log(data);
+const onSubmit = ({ values }) => console.log(values);
 
 const ExampleForm = () => (
   <Form onSubmit={onSubmit}>

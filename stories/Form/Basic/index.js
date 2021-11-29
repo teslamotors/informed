@@ -4,7 +4,7 @@ import readme from './README.md';
 
 import { Form, Input, Debug } from '../../../src';
 
-const onSubmit = values => {
+const onSubmit = ({ values }) => {
   window.alert(JSON.stringify(values, null, 2));
 };
 

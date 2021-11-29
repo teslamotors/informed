@@ -67,7 +67,7 @@ const parser = value => {
 
 const mask = value => value.toUpperCase();
 
-const onSubmit = data => console.log(data);
+const onSubmit = ({ values }) => console.log(values);
 
 const validateLength = value => {
   return !value || value.length < 5
@@ -112,7 +112,7 @@ const FeatureTester = () => {
   };
 
   const onChange = state => {
-    console.log('Change', state);
+    console.log('CHANGE', state);
   };
 
   const onSubmitFailure = state => {

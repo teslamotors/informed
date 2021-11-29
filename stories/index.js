@@ -31,6 +31,7 @@ import FieldLevelYupValidation from './Validation/FieldLevelYupValidation';
 import ComplexValidation from './Validation/ComplexValidation';
 import ValidationControl from './Validation/ValidationControl';
 import ValidationMessages from './Validation/ValidationMessages';
+import Elon from './Validation/Elon';
 
 // import ArrayFieldValidation from './Validation/ArrayFieldValidation';
 // import ComplexArrayFieldValidation from './Validation/ComplexArrayFieldValidation';
@@ -218,7 +219,8 @@ storiesOf('Validation', module)
   .add('Yup Validation', YupValidation)
   .add('Field Level + Yup Validation', FieldLevelYupValidation)
   .add('JSON Schema Validation + Rendering', AjvValidation)
-  .add('Only JSON Schema Validation', AjvValidationNoRender);
+  .add('Only JSON Schema Validation', AjvValidationNoRender)
+  .add('Elon', Elon);
 // .add('Async Validation Control', AsyncValidationControl);
 
 storiesOf('Schema', module)

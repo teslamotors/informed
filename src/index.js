@@ -34,6 +34,7 @@ import { useMultistepApi } from './hooks/useMultistepApi';
 import { useMultistepState } from './hooks/useMultistepState';
 
 import * as utils from './utils';
+import { Elon } from './utils';
 
 export {
   useForm,
@@ -68,5 +69,6 @@ export {
   FormField,
   FormComponents,
   FormFields,
-  Multistep
+  Multistep,
+  Elon
 };

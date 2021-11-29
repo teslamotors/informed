@@ -49,6 +49,25 @@ export function debounce(func, timeout = 300) {
 // }
 // const processChange = debounce(() => saveInput());
 
+// Elon -----------
+export class Elon {
+  // Static functions
+  static inspect(validators) {
+    // Create validation funciton
+    return (value, values) => {
+      for (let i = 0; i < validators.length; i++) {
+        // get validator
+        const validator = validators[i];
+        // call validator
+        const res = validator(value, values);
+        // If we have error return it ( exit early )
+        if (res) return res;
+      }
+    };
+  }
+}
+
+// Is Child
 export const isChild = (parent, child) => {
   // Example1
   // parent = "friends[1]"

@@ -321,27 +321,41 @@ export const generateValidationFunction = (
   return error;
 };
 
+/** --------------------------------------------------------------------------------------------
+ * Helper function for getFormatter
+ * @param {*} formatter
+ * @returns
+ */
+const formatterFromString = formatter => {
+  return formatter.split('').map(char => {
+    if (char === '#') {
+      return /\d/;
+    }
+
+    if (char === '*') {
+      return /[\w]/;
+    }
+
+    return char;
+  });
+};
+
 /* -------------------------- Formatter ----------------------------- */
 
 const getFormatter = (formatter, value) => {
   // If mask is a string turn it into an array;
   if (typeof formatter === 'string') {
-    return formatter.split('').map(char => {
-      if (char === '#') {
-        return /\d/;
-      }
-
-      if (char === '*') {
-        return /[\w]/;
-      }
-
-      return char;
-    });
+    return formatterFromString(formatter);
   }
 
   // If mask is a function use it to genreate current mask
   if (typeof formatter === 'function') {
-    return formatter(value);
+    const frmtr = formatter(value);
+
+    if (typeof frmtr === 'string') {
+      return formatterFromString(frmtr);
+    }
+    return frmtr;
   }
 
   if (Array.isArray(formatter)) {
@@ -383,8 +397,13 @@ export const informedParse = (val, parser) => {
     const parsedVal = {};
     Object.keys(val).forEach(key => {
       // parser['foo'] = val['foo']
-      const value = parser[key](val[key]);
-      parsedVal[key] = value;
+      // Only try to parse if we have parser for this key!!!
+      if (parser[key]) {
+        const value = parser[key](val[key]);
+        parsedVal[key] = value;
+      } else {
+        parsedVal[key] = val[key];
+      }
     });
     return parsedVal;
   }
@@ -404,9 +423,15 @@ export const informedFormat = (val, frmtr) => {
     const formattedVal = {};
     const formattedOffset = {};
     Object.keys(val).forEach(key => {
-      const { value, offset } = informedFormatter(val[key], frmtr[key]);
-      formattedVal[key] = value;
-      formattedOffset[key] = offset;
+      // Only try to format if we have formatter for this key!!!
+      if (frmtr[key]) {
+        const { value, offset } = informedFormatter(val[key], frmtr[key]);
+        formattedVal[key] = value;
+        formattedOffset[key] = offset;
+      } else {
+        formattedVal[key] = val[key];
+        formattedOffset[key] = 0;
+      }
     });
     return {
       value: formattedVal,

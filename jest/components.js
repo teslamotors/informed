@@ -45,7 +45,7 @@ export const Checkbox = props => {
 };
 
 export const Select = props => {
-  const { render, userProps, fieldState, fieldApi } = useField(props);
+  const { render, userProps, fieldState, fieldApi, ref } = useField(props);
   const { setValue, setTouched } = fieldApi;
   const { value, showError, error } = fieldState;
   const {
@@ -53,7 +53,6 @@ export const Select = props => {
     onBlur,
     onChange,
     multiple,
-    ref,
     label,
     options,
     children,

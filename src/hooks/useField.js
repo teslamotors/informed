@@ -298,7 +298,7 @@ export const useField = ({
   const recombinedUserProps = {
     id: fieldId,
     name,
-    ref,
+    // ref,
     type,
     multiple,
     autoComplete: autocomplete,

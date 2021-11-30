@@ -52,7 +52,7 @@ const Checkbox = ({ label, ...props }) => {
 };
 
 const Select = ({ label, children, options, ...props }) => {
-  const { render, informed, userProps } = useField({
+  const { render, informed, userProps, ref } = useField({
     type: 'select',
     ...props
   });
@@ -60,7 +60,7 @@ const Select = ({ label, children, options, ...props }) => {
   return render(
     <label>
       {label}
-      <select {...informed} {...userProps}>
+      <select {...informed} {...userProps} ref={ref}>
         {options
           ? options.map(option => (
               <option

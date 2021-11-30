@@ -458,7 +458,8 @@ export class FormController {
       getPristine: this.getPristine,
       getDirty: this.getDirty,
       validateField: this.validateField,
-      getFieldState: this.getFieldState
+      getFieldState: this.getFieldState,
+      getInitialValue: this.getInitialValue
     };
   }
 

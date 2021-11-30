@@ -61,7 +61,7 @@ const ErrorInput = props => {
 };
 
 const Select = props => {
-  const { render, informed, userProps } = useField({
+  const { render, informed, userProps, ref } = useField({
     type: 'select',
     ...props
   });
@@ -69,7 +69,7 @@ const Select = props => {
   return render(
     <>
       <label htmlFor={id}>{label}</label>
-      <select id={id} {...informed} {...rest}>
+      <select id={id} {...informed} {...rest} ref={ref}>
         {children}
       </select>
     </>

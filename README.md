@@ -133,12 +133,14 @@ const Checkbox = ({ label, ...props }) => {
 };
 
 const Select = ({ label, children, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'select', ...props });
+  const { render, informed, ref } = useField({ fieldType: 'select', ...props });
 
   return render(
     <label>
       {label}
-      <select {...informed}>{children}</select>
+      <select {...informed} ref={ref}>
+        {children}
+      </select>
     </label>
   );
 };

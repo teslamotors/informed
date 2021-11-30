@@ -119,9 +119,19 @@ const FormField = ({ name, schema, required }) => {
   );
 
   // Component is either on field map or components list passed in
-  const Component =
+  let Component =
     fieldMap[componentType] ??
     (options.components ? options.components[componentType] : null);
+
+  // Maybe its with options
+  // Example adapter:
+  //  withOptions: {
+  //    array: CheckboxGroup,
+  //  },
+  if (schemaProps.options && fieldMap.withOptions && !items) {
+    Component = fieldMap.withOptions[componentType] || Component;
+    // console.log('HERE!!!!!', componentType, fieldMap.withOptions);
+  }
 
   // console.log('WTF', schemaField);
   logger('Rendering Field', name, schemaField);

@@ -24,14 +24,15 @@ const validate = Elon.inspect([
 
 const Example = () => {
   return (
-    <Form onSubmit={({values}) => window.alert(JSON.stringify(values, null, 2))>
+    <Form
+      onSubmit={({ values }) => window.alert(JSON.stringify(values, null, 2))}>
       <Select label="Country" name="country" initialValue="US">
-          <option value="US">US</option>
-          <option value="CA">Canada</option>
-        </Select>
-        <Input label="Some field" name="some-field" validate={validate} />
+        <option value="US">US</option>
+        <option value="CA">Canada</option>
+      </Select>
+      <Input label="Some field" name="some-field" validate={validate} />
       <button type="submit">Submit</button>
     </Form>
-  )
-}
+  );
+};
 ```

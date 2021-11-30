@@ -18,5 +18,8 @@ export const FieldMap = {
   radio: RadioGroup,
   add: AddButton,
   remove: RemoveButton,
-  array: ArrayField
+  array: ArrayField,
+  withOptions: {
+    string: Select
+  }
 };

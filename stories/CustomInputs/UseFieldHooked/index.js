@@ -4,7 +4,7 @@ import readme from './README.md';
 import { Form, Debug, useField } from '../../../src';
 
 const CustomInput = props => {
-  const { render, informed, fieldState, userProps } = useField({
+  const { render, informed, fieldState, userProps, ref } = useField({
     type: 'text',
     ...props
   });
@@ -18,6 +18,7 @@ const CustomInput = props => {
       <input
         {...rest}
         {...informed}
+        ref={ref}
         style={showError ? { border: 'solid 1px red' } : null}
       />
       {showError && <small style={{ color: 'red' }}>{error}</small>}

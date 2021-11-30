@@ -14,7 +14,7 @@ export const Form = props => {
 };
 
 export const Input = props => {
-  const { render, informed, userProps, fieldState } = useField({
+  const { render, informed, userProps, fieldState, ref } = useField({
     type: 'text',
     ...props
   });
@@ -24,14 +24,14 @@ export const Input = props => {
   return render(
     <>
       <label htmlFor={id}>{label}</label>
-      <input id={id} {...informed} {...rest} style={style} />
+      <input id={id} ref={ref} {...informed} {...rest} style={style} />
       {showError && <small style={{ color: 'red' }}>{fieldState.error}</small>}
     </>
   );
 };
 
 export const Checkbox = props => {
-  const { render, informed, userProps } = useField({
+  const { render, informed, userProps, ref } = useField({
     type: 'checkbox',
     ...props
   });
@@ -39,7 +39,7 @@ export const Checkbox = props => {
   return render(
     <>
       <label htmlFor={id}>{label}</label>
-      <input id={id} {...informed} {...rest} />
+      <input id={id} ref={ref} {...informed} {...rest} />
     </>
   );
 };

@@ -10,7 +10,7 @@ const validate = value => {
 };
 
 export const ErrorTextField = React.memo(({ label, ...props }) => {
-  const { render, informed, fieldState } = useField({
+  const { render, informed, fieldState, ref } = useField({
     type: 'text',
     ...props
   });
@@ -20,6 +20,7 @@ export const ErrorTextField = React.memo(({ label, ...props }) => {
       {label}
       <input
         {...informed}
+        ref={ref}
         style={showError ? { border: 'solid 1px red' } : null}
       />
       {showError ? (

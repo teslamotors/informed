@@ -13,7 +13,7 @@ your dealing with so it knows how to handle the dom or native event.
 import { Form, useField } from 'informed';
 
 const CustomInput = props => {
-  const { render, informed, fieldState, userProps } = useField({
+  const { render, informed, fieldState, userProps, ref } = useField({
     type: 'text',
     ...props
   });
@@ -27,6 +27,7 @@ const CustomInput = props => {
       <input
         {...rest}
         {...informed}
+        ref={ref}
         style={showError ? { border: 'solid 1px red' } : null}
       />
       {showError && <small style={{ color: 'red' }}>{error}</small>}

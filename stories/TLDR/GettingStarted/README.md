@@ -32,7 +32,7 @@ const Form = ({ children, ...rest }) => {
 // Step 2. Build your input components --------------------
 
 const Input = props => {
-  const { render, informed, userProps, fieldState } = useField({
+  const { render, informed, userProps, fieldState, ref } = useField({
     type: 'text',
     ...props
   });
@@ -42,14 +42,14 @@ const Input = props => {
   return render(
     <>
       <label htmlFor={id}>{label}</label>
-      <input id={id} {...informed} {...rest} style={style} />
+      <input id={id} ref={ref} {...informed} {...rest} style={style} />
       {showError && <small style={{ color: 'red' }}>{fieldState.error}</small>}
     </>
   );
 };
 
 const Checkbox = props => {
-  const { render, informed, userProps } = useField({
+  const { render, informed, userProps, ref } = useField({
     type: 'checkbox',
     ...props
   });
@@ -57,7 +57,7 @@ const Checkbox = props => {
   return render(
     <>
       <label htmlFor={id}>{label}</label>
-      <input id={id} {...informed} {...rest} />
+      <input id={id} ref={ref} {...informed} {...rest} />
     </>
   );
 };
@@ -71,7 +71,7 @@ const Select = props => {
   return render(
     <>
       <label htmlFor={id}>{label}</label>
-      <select id={id} {...informed} {...rest} ref={ref}>
+      <select id={id} ref={ref} {...informed} {...rest}>
         {children}
       </select>
     </>

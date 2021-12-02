@@ -9,7 +9,12 @@ import { Scope } from '../Components/Scope';
 
 const logger = Debug('informed:useMultistepStep' + '\t');
 
-const useMultistepStep = ({ step, relevant, keepState }) => {
+const useMultistepStep = ({
+  step,
+  relevant,
+  keepState,
+  relevanceWhen = []
+}) => {
   const formController = useFormController();
   const { current, goal } = useMultistepState();
   const { register, next, metGoal } = useMultistepApi();
@@ -25,7 +30,8 @@ const useMultistepStep = ({ step, relevant, keepState }) => {
 
   const isRelevant = useRelevance({
     name: step,
-    relevant
+    relevant,
+    relevanceWhen
   });
 
   // Cleanup on irrelivant

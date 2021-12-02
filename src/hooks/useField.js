@@ -69,6 +69,8 @@ export const useField = ({
   initialize,
   errorMessage,
   initializeValueIfPristine,
+  relevanceWhen = [],
+  relevanceDeps = [],
   ...userProps
 }) => {
   // For backwards compatability
@@ -120,7 +122,12 @@ export const useField = ({
   const inMultistep = useContext(MultistepStepContext);
 
   // For relevance
-  const isRelevant = useRelevance({ name, relevant });
+  const isRelevant = useRelevance({
+    name,
+    relevant,
+    relevanceWhen,
+    relevanceDeps
+  });
 
   // If we live in `Relevant`
   const relevantContext = useContext(RelevanceContext);

@@ -150,7 +150,7 @@ const Dog = () => {
           name="dogName"
           label="Whats your dogs name?"
           required
-          relevant={({ formApi, scope }) => formApi.getValue(`${scope}.hasDog`)}
+          // relevant={({ formApi, scope }) => formApi.getValue(`${scope}.hasDog`)}
         />
       </Relevant>
       <button type="button" onClick={previous}>

@@ -13,12 +13,15 @@ export const useFieldSubscription = (event, fields, cb, scoped = true) => {
   const scope = useScoper();
 
   // Generate scoped fields
-  const scopedFields = useMemo(() => {
-    if (scoped) {
-      return fields.map(field => scope(field));
-    }
-    return fields;
-  }, []);
+  const scopedFields = useMemo(
+    () => {
+      if (scoped) {
+        return fields.map(field => scope(field));
+      }
+      return fields;
+    },
+    [fields]
+  );
 
   // Grab the form controller
   const formController = useFormController();
@@ -39,7 +42,10 @@ export const useFieldSubscription = (event, fields, cb, scoped = true) => {
           scopedFields.includes(target) ||
           (target && scopedFields.some(field => isChild(field, target)))
         ) {
-          debug(`subscription ${event} triggered for`, scopedFields);
+          debug(
+            `subscription ${event} triggered with target ${target} for`,
+            scopedFields
+          );
           // forceUpdate();
           cb(target);
         }

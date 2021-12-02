@@ -59,7 +59,12 @@ const DynamicFields = () => (
           </RadioGroup>
           <Relevant
             when={({ formState }) => formState.values?.married === 'yes'}>
-            <Input name="spouse" label="Spouse name:" />
+            <Input
+              name="spouse"
+              label="Spouse name:"
+              // relevanceWhen={['married']}
+              // relevant={({ formState }) => formState.values?.married === 'yes'}
+            />
 
             {/* <h5>Siblings:</h5>
             <ArrayField

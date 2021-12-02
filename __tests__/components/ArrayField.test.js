@@ -89,15 +89,17 @@ const RelevantArrayfield = ({ formApiRef, initialValues }) => {
                   <Input label="Foo" name="foo" initialValue={`foo-${name}`} />
                   <Checkbox label="Show Info?" name="showInfo" />
                   <Relevant
-                    when={({ formApi }) =>
-                      formApi.getValue(`${name}.showInfo`)
-                    }>
+                    when={({ formApi, scope }) => {
+                      // console.log(`SCOPE------- ${scope}.showInfo`);
+                      return formApi.getValue(`${scope}.showInfo`);
+                    }}>
                     <Input type="number" label="Age" name="age" />
                     <Input label="Favorite Color" name="color" keepState />
                   </Relevant>
                   <Input
                     label="Favorite Food"
                     name="food"
+                    relevanceWhen={['showInfo']}
                     relevant={({ formApi }) =>
                       formApi.getValue(`${name}.showInfo`)
                     }
@@ -1155,7 +1157,7 @@ describe('ArrayField', () => {
 
       let removeButtons = queryAllByText('Remove');
       expect(removeButtons.length).toBe(3);
-
+      
       fireEvent.click(removeButtons[1]);
 
       let age = queryAllByLabelText('Age');

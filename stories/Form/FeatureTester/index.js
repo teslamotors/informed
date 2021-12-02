@@ -201,6 +201,7 @@ const FeatureTester = () => {
               label="Favorite Food"
               name="food"
               debug
+              relevanceWhen={['showInfo']}
               relevant={({ formState }) => formState.values.showInfo}
             />
             <Input
@@ -208,6 +209,7 @@ const FeatureTester = () => {
               name="animal"
               keepState
               debug
+              relevanceWhen={['showInfo']}
               relevant={({ formState }) => formState.values.showInfo}
             />
             {/* ----------------------------------------------------------- */}
@@ -242,6 +244,7 @@ const FeatureTester = () => {
                     label="Favorite Food []"
                     name="multi.food"
                     debug
+                    relevanceWhen={['showInfo']}
                     relevant={({ formState }) =>
                       formState.values.multi?.showInfo
                     }
@@ -251,6 +254,7 @@ const FeatureTester = () => {
                     name="multi.animal"
                     keepState
                     debug
+                    relevanceWhen={['showInfo']}
                     relevant={({ formState }) =>
                       formState.values.multi?.showInfo
                     }
@@ -340,8 +344,8 @@ const FeatureTester = () => {
                         />
                         <Checkbox label="Show Info?" name="showInfo" debug />
                         <Relevant
-                          when={({ formApi }) =>
-                            formApi.getValue(`${name}.showInfo`)
+                          when={({ formApi, scope }) =>
+                            formApi.getValue(`${scope}.showInfo`)
                           }>
                           <Input type="number" label="Age" name="age" debug />
                           <Input
@@ -355,8 +359,9 @@ const FeatureTester = () => {
                           label="Favorite Food"
                           name="food"
                           debug
-                          relevant={({ formApi }) =>
-                            formApi.getValue(`${name}.showInfo`)
+                          relevanceWhen={['showInfo']}
+                          relevant={({ formApi, scope }) =>
+                            formApi.getValue(`${scope}.showInfo`)
                           }
                         />
                         <FieldState name={name} />

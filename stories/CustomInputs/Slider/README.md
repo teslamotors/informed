@@ -5,41 +5,43 @@ Because of this design, you can add your very own custom inputs! Below is an exa
 <!-- STORY -->
 
 ```jsx
-import { Form, useField } from 'informed';
+import { Form, useField, Debug } from 'informed';
 
-const Slider = React.memo(props => {
-  const { render, fieldState, fieldApi } = useField({ ...props });
+const Slider = ({ min, max, step, ...props }) => {
+  const { render, fieldState, fieldApi, ref, userProps } = useField({
+    ...props
+  });
   const { value } = fieldState;
   const { setValue, setTouched } = fieldApi;
-  const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props;
   return render(
-    <input
-      {...rest}
-      type="range"
-      min={0}
-      max={100}
-      step={5}
-      ref={forwardedRef}
-      value={value || initialValue || '0'}
-      onChange={e => {
-        setValue(e.target.value);
-        if (onChange) {
-          onChange(e);
-        }
-      }}
-      onBlur={e => {
-        setTouched(true);
-        if (onBlur) {
-          onBlur(e);
-        }
-      }}
-    />
+    <>
+      <label htmlFor={userProps.id}>Range:</label>
+      <input
+        {...userProps}
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        ref={ref}
+        value={value || '0'}
+        onChange={e => {
+          setValue(e.target.value, e);
+        }}
+        onBlur={e => {
+          setTouched(true, e);
+        }}
+      />
+    </>
   );
-});
+};
 
-<Form id="custom-form">
-  <label htmlFor="custom-range">Range:</label>
-  <Slider field="range" id="custom-range" initialValue={50} />
-  <button type="submit">Submit</button>
-</Form>;
+const SliderExample = () => (
+  <Form>
+    <React.Fragment>
+      <Slider field="range" initialValue="69" min="0" max="100" />
+      <button type="submit">Submit</button>
+      <Debug values />
+    </React.Fragment>
+  </Form>
+);
 ```

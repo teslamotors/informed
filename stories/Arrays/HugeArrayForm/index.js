@@ -10,7 +10,7 @@ import {
   Debug
 } from '../../../src';
 
-const friends = Array.from(Array(66)).map(e => {
+const friends = Array.from(Array(1)).map(e => {
   return { name: 'Joe', age: 26, f: 'foo' };
 });
 
@@ -81,15 +81,24 @@ const NestedForm = () => (
                         <Input name="d" />
                         <Input name="e" />
                         <Input name="f" />
+                        {/* Example using scope  */}
                         <Input
                           name="g"
+                          relevanceWhen={scope => [`${scope}.f`]}
+                          relevant={({ formApi, scope }) =>
+                            formApi.getValue(`${scope}.f`)
+                          }
+                        />
+                        {/* Example using default ( scoped ) */}
+                        <Input
+                          name="h"
+                          relevanceWhen={['f']}
                           relevant={({ formApi }) =>
                             formApi.getValue(`${name}.f`)
                           }
                         />
                         <Relevant
                           when={({ formApi }) => formApi.getValue(`${name}.f`)}>
-                          <Input name="h" />
                           <Input name="i" />
                           <Input name="j" />
                           <Input name="k" />

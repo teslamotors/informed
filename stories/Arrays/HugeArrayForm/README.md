@@ -52,13 +52,22 @@ const HugeArrayForm = () => {
                     <Text name="d" />
                     <Text name="e" />
                     <Text name="f" />
+                    {/* Example using scope  */}
                     <Input
                       name="g"
+                      relevanceWhen={scope => [`${scope}.f`]}
+                      relevant={({ formApi, scope }) =>
+                        formApi.getValue(`${scope}.f`)
+                      }
+                    />
+                    {/* Example using default ( scoped ) */}
+                    <Input
+                      name="h"
+                      relevanceWhen={['f']}
                       relevant={({ formApi }) => formApi.getValue(`${name}.f`)}
                     />
                     <Relevant
                       when={({ formApi }) => formApi.getValue(`${name}.f`)}>
-                      <Input name="h" />
                       <Input name="i" />
                       <Input name="j" />
                       <Input name="k" />

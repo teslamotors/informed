@@ -520,6 +520,8 @@ export class FormController {
       this.emit('field', name);
       // Special event when fields value changes
       this.emit('field-value', name);
+    } else {
+      debug('Removal locked so NOT removing', name);
     }
   }
 

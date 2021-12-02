@@ -69,6 +69,15 @@ export class Elon {
 
 // Is Child
 export const isChild = (parent, child) => {
+  // console.log(
+  //   'PARENT',
+  //   parent,
+  //   'CHILD',
+  //   child,
+  //   'RES',
+  //   child.slice(0, parent.length) === parent
+  // );
+
   // Example1
   // parent = "friends[1]"
   // child = "friends[1].foo"
@@ -84,6 +93,17 @@ export const isChild = (parent, child) => {
   // ==> "friends[1].foo"
   // "friends[1].foo" === "friends[1]"
   // ==> false
+
+  // Example3 ( Edge Case )
+  // parent = "f"
+  // child = "friends[0].f"
+  // child.slice(0, parent.length)
+  // ==> "f"
+  // "f" === "f"
+  // ==> true << BAD
+  if (parent.length < child.length) {
+    return false;
+  }
 
   return child.slice(0, parent.length) === parent;
 };

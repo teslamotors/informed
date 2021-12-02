@@ -431,6 +431,7 @@ describe('Schema', () => {
             relevant: ({ formState }) => {
               return formState.values.married === 'yes';
             },
+            relevanceWhen: ['married'],
             keepState: true
           }
         }

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useFormApi, useForm, useField, FieldState } from '.';
+import { useFormApi, useForm, useField, FieldState, useFieldApi } from '.';
 import {expectType} from 'tsd';
 
 import { FieldProps, InformedProps, FormState } from '.';
@@ -72,7 +72,7 @@ const ComponentUsingFormApi = () => {
         expectType<unknown>(touched);
 
         formApi.setError('name', 'Ahhh!!!')
-        const error = formApi.getTouched('name');
+        const error = formApi.getError('name');
         expectType<unknown>(error);
 
         formApi.getFocused('name')
@@ -153,3 +153,52 @@ const InputPropsTest = () => {
     </Form>
   );
 }
+
+
+/* ------------------------- useFieldApi ------------------------- */
+
+const ComponentUsingFieldApi = () => {
+  const fieldApi = useFieldApi('name');
+  return (
+    <>
+      <button type="button" onClick={() => fieldApi.setValue(1)}>
+        Set Value
+      </button>
+      <button type="button" onClick={() => {
+
+        fieldApi.setValue('name')
+        const value = fieldApi.getValue()
+        expectType<unknown>(value);
+
+        fieldApi.setTouched(true)
+        const touched = fieldApi.getTouched();
+        expectType<boolean>(touched);
+
+        fieldApi.setError('Ahhh!!!')
+        const error = fieldApi.getError();
+        expectType<unknown>(error);
+
+        fieldApi.setFocused(false)
+        const focused = fieldApi.getFocused();
+        expectType<boolean>(focused);
+
+        fieldApi.reset();
+
+        const pristine = fieldApi.getPristine();
+        expectType<boolean>(pristine);
+
+        const dirty = fieldApi.getDirty();
+        expectType<boolean>(dirty);
+      }}>
+        Do It All
+      </button>
+    </>
+  );
+};
+
+const UseFieldApiTest = () => (
+  <Form>
+    <Input name="name" label="Name:" />
+    <ComponentUsingFieldApi />
+  </Form>
+);

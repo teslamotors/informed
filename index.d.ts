@@ -106,8 +106,14 @@ export type FieldProps<UserProps> = {
     {
       formState,
       formApi,
-      scope
-    }: { formState: FormState; formApi: FormApi; scope: string }
+      scope,
+      relevanceDeps
+    }: {
+      formState: FormState;
+      formApi: FormApi;
+      scope: string;
+      relevanceDeps: Array<any>;
+    }
   ) => boolean;
   onChange?: (fieldState: FieldState, event: React.SyntheticEvent) => void;
   onBlur?: (fieldState: FieldState, event: React.SyntheticEvent) => void;
@@ -185,6 +191,10 @@ export type FormController = {
 export function useFormApi(): FormApi;
 
 export function useFormState(): FormState;
+
+export function useFieldApi(name: string, scoped?: boolean): FieldApi;
+
+export function useFieldState(name: string, scoped?: boolean): FieldState;
 
 export function useForm<UserProps>(
   formProps: InformedProps<UserProps>

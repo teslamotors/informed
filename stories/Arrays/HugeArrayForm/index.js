@@ -10,7 +10,7 @@ import {
   Debug
 } from '../../../src';
 
-const friends = Array.from(Array(1)).map(e => {
+const friends = Array.from(Array(69)).map(e => {
   return { name: 'Joe', age: 26, f: 'foo' };
 });
 

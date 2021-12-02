@@ -33,6 +33,8 @@ export const useRelevance = ({
     })
   );
 
+  const check = typeof relevanceWhen === 'function' ? [] : relevanceWhen;
+
   const fields = useMemo(
     () => {
       if (typeof relevanceWhen === 'function') {
@@ -43,7 +45,7 @@ export const useRelevance = ({
       // Example relevanceWhen = ["name", "age"]
       return relevanceWhen;
     },
-    [...relevanceWhen, scope]
+    [...check, scope]
   );
 
   // Example relevanceWhen = ["name", "age"]

@@ -36,7 +36,7 @@ the values that are changing.
 <!-- STORY -->
 
 ```jsx
-import { Form, Input, FormState } from 'informed';
+import { Form, Input, FormStateAccessor } from 'informed';
 
 const validate = value => {
   return !value || value.length < 5
@@ -55,13 +55,13 @@ const validateForm = values => {
   </label>
   <button type="submit">Submit</button>
   <label>State:</label>
-  <FormState>
+  <FormStateAccessor>
     {formState => (
       <pre>
         <code>{JSON.stringify(formState, null, 2)}</code>
       </pre>
     )}
-  </FormState>
+  </FormStateAccessor>
 </Form>;
 ```
 
@@ -81,13 +81,13 @@ There are a few ways you can get access to `Informed`s form state.
   </label>
   <button type="submit">Submit</button>
   <label>State:</label>
-  <FormState>
+  <FormStateAccessor>
     {formState => (
       <pre>
         <code>{JSON.stringify(formState, null, 2)}</code>
       </pre>
     )}
-  </FormState>
+  </FormStateAccessor>
 </Form>
 ```
 

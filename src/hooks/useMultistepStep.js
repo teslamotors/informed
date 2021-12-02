@@ -41,6 +41,8 @@ const useMultistepStep = ({
         logger('MULTISTEP RELEVNAT REMOVING', step);
         formController.remove(step);
       }
+      // We also need all steps to re evaluate if they have next and prev
+      formController.emitter.emit('multistep-relevance');
     },
     [isRelevant]
   );

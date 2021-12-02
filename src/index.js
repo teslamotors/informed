@@ -17,7 +17,7 @@ import { FormComponents } from './Components/FormComponents';
 import { FormFields } from './Components/FormFields';
 import { Multistep } from './Components/Multistep';
 
-import { FormState } from './Components/FormState';
+import { FormStateAccessor } from './Components/FormStateAccessor';
 
 import { useForm } from './hooks/useForm';
 import { useField } from './hooks/useField';
@@ -63,7 +63,7 @@ export {
   Radio,
   TextArea,
   utils,
-  FormState,
+  FormStateAccessor,
   Scope,
   SchemaFields,
   FormField,

@@ -2,7 +2,7 @@
 import React from 'react';
 import { useFormState } from '../hooks/useFormState';
 
-export const FormState = ({ children }) => {
+export const FormStateAccessor = ({ children }) => {
   const formState = useFormState();
   return children(formState);
 };

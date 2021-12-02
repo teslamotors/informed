@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo, useContext } from 'react';
+import React, { useRef, useState, useMemo, useContext, useEffect } from 'react';
 import {
   MultistepApiContext,
   MultistepStateContext,
@@ -13,8 +13,10 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
     validate,
     asyncValidate,
     getFormState,
-    getFieldState
+    getFieldState,
+    emitter
   } = useFormController();
+
   const formApi = useFormApi();
 
   // Get scope for relevance
@@ -167,6 +169,8 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
       // Get the next step
       const nextStep = getNexStep();
       if (nextStep) {
+        // Touch all the fields
+        formApi.touchAllFields();
         // Validate the form
         validate();
         // Async validate the form
@@ -241,6 +245,26 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
 
     // return the api
     return api;
+  }, []);
+
+  // Register for events when multistep relevance changes
+  useEffect(() => {
+    const listener = () => {
+      // Update the state
+      setState(prev => {
+        return {
+          ...prev,
+          nextStep: multistepApi.getNexStep(),
+          previousStep: multistepApi.getPreviousStep()
+        };
+      });
+    };
+
+    emitter.on('multistep-relevance', listener);
+
+    return () => {
+      emitter.removeListener('multistep-relevance', listener);
+    };
   }, []);
 
   // Render funtion that will provide state and api

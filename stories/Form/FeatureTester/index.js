@@ -11,7 +11,7 @@ import {
   ArrayField,
   useFormApi,
   useFieldState,
-  FormState,
+  FormStateAccessor,
   Debug
 } from '../../../src';
 
@@ -132,7 +132,7 @@ const FeatureTester = () => {
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <div style={{ flex: 1, marginRight: '2rem' }}>
             <Reset />
-            <FormState>
+            <FormStateAccessor>
               {({ submitted }) => (
                 <>
                   <button type="submit">
@@ -140,7 +140,7 @@ const FeatureTester = () => {
                   </button>
                 </>
               )}
-            </FormState>
+            </FormStateAccessor>
             {/* ----------------------------------------------------------- */}
             <hr />
             <h3>Masking Test</h3>

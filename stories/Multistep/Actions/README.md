@@ -1,6 +1,6 @@
 # Multistep Forms
 
-Sometimes you have forms with multiple steps.
+Somtimes you need to take actions when moving from step A to B.
 
 <!-- STORY -->
 
@@ -16,13 +16,50 @@ import {
 
 const Info = () => {
   const { next } = useMultistepApi();
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState();
+
+  const doSomething = ({ values }) => {
+    const { first } = values;
+    return new Promise((resolve, reject) => {
+      setLoading(true);
+      setTimeout(() => {
+        // Simulate username check
+        if (['joe', 'tanner', 'billy', 'bob'].includes(first)) {
+          setLoading(false);
+          const error = 'That name is taken';
+          setError(error);
+          return reject(error);
+        }
+        // Simulate request faulure
+        if (first === 'reject') {
+          setLoading(false);
+          const error = 'Unable to validate name.';
+          setError(error);
+          return reject(new Error(error));
+        }
+        setLoading(false);
+        setError();
+        return resolve();
+      }, 2000);
+    });
+  };
+
   return (
     <Multistep.Step step="info">
-      <Input name="first" label="First Name" required />
+      <Input
+        name="first"
+        label="First Name"
+        required
+        // asyncValidate={asyncValidate}
+      />
       <Input name="last" label="First Name" required />
-      <button type="button" onClick={next}>
+      <button type="button" onClick={() => next(doSomething)}>
         Next
       </button>
+      {loading ? <div class="loader">Loading...</div> : null}
+      {error ? <div style={{ color: 'red' }}>Error: {error}</div> : null}
     </Multistep.Step>
   );
 };

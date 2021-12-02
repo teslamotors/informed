@@ -2,7 +2,7 @@ import React from 'react';
 import readme from './README.md';
 import withDocs from '../../utils/withDocs';
 
-import { Form, Input, FormState } from '../../../src';
+import { Form, Input, FormStateAccessor } from '../../../src';
 
 const validate = value => {
   return !value || value.length < 5
@@ -22,13 +22,13 @@ const FormStateExample = () => (
     </label>
     <button type="submit">Submit</button>
     <label>State:</label>
-    <FormState>
+    <FormStateAccessor>
       {formState => (
         <pre>
           <code>{JSON.stringify(formState, null, 2)}</code>
         </pre>
       )}
-    </FormState>
+    </FormStateAccessor>
   </Form>
 );
 

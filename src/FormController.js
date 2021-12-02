@@ -147,6 +147,7 @@ export class FormController {
     this.getRemovalLocked = this.getRemovalLocked.bind(this);
     this.isRemovalLocked = this.isRemovalLocked.bind(this);
     this.submitForm = this.submitForm.bind(this);
+    this.touchAllFields = this.touchAllFields.bind(this);
     this.keyDown = this.keyDown.bind(this);
     this.validateAsync = this.validateAsync.bind(this);
     this.validated = this.validated.bind(this);
@@ -459,7 +460,8 @@ export class FormController {
       getDirty: this.getDirty,
       validateField: this.validateField,
       getFieldState: this.getFieldState,
-      getInitialValue: this.getInitialValue
+      getInitialValue: this.getInitialValue,
+      touchAllFields: this.touchAllFields
     };
   }
 
@@ -1051,6 +1053,15 @@ export class FormController {
         return message;
       }
     }
+  }
+
+  touchAllFields() {
+    // Touch all the fields
+    // TODO maybe do this all at once !?
+    this.fieldsMap.forEach(meta => {
+      debug(`Submit - setting ${meta.current.name}'s touched to true`);
+      ObjectMap.set(this.state.touched, meta.current.name, true);
+    });
   }
 
   submitForm(e) {

@@ -12,7 +12,7 @@
 
 ## Introduction
 
-Say hello to the best react form library you have ever used! Informed is an extensive, simple, and efficient solution for creating basic to complex forms in react. Out of the box you get the ability to grab and manipulate values, validate fields, create custom inputs, multistep forms, array fields, and much much more!
+Say hello to the best react form library you have ever used! Informed is an extensive, simple, and efficient solution for creating basic to complex forms in react. Out of the box you get the ability to grab and manipulate values, validate fields, create custom inputs, multi-step forms, array fields, and much much more!
 
 Oh and YES WE USE HOOKS!
 

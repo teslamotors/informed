@@ -21,7 +21,7 @@
     "test:jest:watch": "jest --watch",
     "test:watch": "npm run test -- --watch",
     "test:ts": "npx tsd",
-    "preversion": "npm run test:coverage",
+    "preversion": "npm run test:jest",
     "version": "npm run build",
     "postversion": "git push",
     "postpublish": "git push --tags",

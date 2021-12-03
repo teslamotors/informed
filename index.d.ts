@@ -66,6 +66,36 @@ export type FieldApi = {
   getMaskedValue: () => unknown;
 };
 
+export type ArrayFieldApi = {
+  add: () => void;
+  reset: () => void;
+  swap: (a: number, b: number) => void;
+  addWithInitialValue: (unknown) => void;
+};
+
+export type ArrayFieldItemApi = {
+  remove: () => void;
+  reset: () => void;
+  setValue: (name: string, value: unknown) => void;
+  resetField: (name: string) => void;
+};
+
+export type ArrayFieldItemInfo = {
+  name: string;
+  index: number;
+};
+
+export type ArrayFieldItemState = {
+  key: string;
+  name: string;
+  index: number;
+  parent: string;
+  values: Record<string, unknown>;
+  errors: Record<string, unknown>;
+  touched: Record<string, unknown>;
+  initialValue: unknown | Record<string, unknown>;
+};
+
 export type InformedProps<UserProps> = {
   onSubmit?: (values: Record<string, unknown>) => void;
   onReset?: (formState: FormState) => void;
@@ -221,3 +251,25 @@ export function useField<UserProps, FieldValue>(
   render: (children: React.ReactNode) => JSX.Element;
   ref: React.MutableRefObject<any>;
 };
+
+export function FormStateAccessor({
+  children
+}: {
+  children: (formState: FormState) => JSX.Element;
+}): JSX.Element;
+
+declare function ArrayField({
+  children,
+  name
+}: {
+  children: (arrayFieldItemApi: ArrayFieldApi) => JSX.Element;
+  name: string;
+}): JSX.Element;
+
+declare namespace ArrayField {
+  function Items({
+    children
+  }: {
+    children: (props: ArrayFieldItemApi & ArrayFieldItemInfo) => JSX.Element;
+  }): JSX.Element;
+}

@@ -15,3 +15,19 @@ import { Form, Input, Debug, DebugField } from 'informed';
   <DebugField name="name" />
 </Form>;
 ```
+
+## Debugging Logs
+
+In addition to the exported helpers, informed also comes with internal logging that can be enabled in one of two ways.
+
+#### When running in a browser ( development )
+
+```js
+localStorage.debug = 'informed:.*';
+```
+
+#### When running in node ( unit tests )
+
+```js
+DEBUG = 'informed:.*';
+```

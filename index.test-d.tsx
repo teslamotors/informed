@@ -1,8 +1,21 @@
 import React, { useRef } from 'react';
-import { useFormApi, useForm, useField, FieldState, useFieldApi } from '.';
+import { 
+  useFormApi, 
+  useForm, 
+  useField, 
+  FieldState, 
+  useFieldApi, 
+  useFieldState, 
+  useFormState, 
+  FormStateAccessor,
+  FieldProps, 
+  InformedProps,
+  FormState,
+  ArrayField
+} from '.';
+
 import {expectType} from 'tsd';
 
-import { FieldProps, InformedProps, FormState } from '.';
 
 type FormProps = React.FormHTMLAttributes<HTMLFormElement>;
 
@@ -154,6 +167,61 @@ const InputPropsTest = () => {
   );
 }
 
+/* ------------------------- useFormState ------------------------- */
+
+const ComponentUsingFormState = () => {
+  const state = useFormState();
+
+  const {
+    values,
+    maskedValues,
+    touched,
+    errors,
+    pristine,
+    dirty,
+    valid,
+    invalid,
+    validating,
+    focused,
+    submitted,
+    submitting,
+    dirt,
+    initialValues
+  } = state;
+
+ 
+  expectType<FormState>(state);
+
+  expectType<Record<string, unknown>>(values);
+  expectType<Record<string, unknown>>(maskedValues);
+  expectType<Record<string, unknown>>(touched);
+  expectType<Record<string, unknown>>(errors);
+  expectType<Record<string, unknown>>(focused);
+  expectType<Record<string, unknown>>(dirt);
+  expectType<Record<string, unknown>>(initialValues);
+  expectType<boolean>(pristine);
+  expectType<boolean>(dirty);
+  expectType<boolean>(valid);
+  expectType<boolean>(invalid);
+  expectType<number>(validating);
+  expectType<boolean>(submitted);
+  expectType<boolean>(submitting);
+
+
+  return (
+    <>
+      {JSON.stringify( state )}
+    </>
+  );
+};
+
+export const UseFormStateTest = () => (
+  <Form>
+    <Input name="name" label="Name:" />
+    <ComponentUsingFormState />
+  </Form>
+);
+
 
 /* ------------------------- useFieldApi ------------------------- */
 
@@ -200,5 +268,109 @@ const UseFieldApiTest = () => (
   <Form>
     <Input name="name" label="Name:" />
     <ComponentUsingFieldApi />
+  </Form>
+);
+
+/* ------------------------- useFieldState ------------------------- */
+
+const ComponentUsingFieldState = () => {
+  const state = useFieldState('name');
+
+  const {
+    value,
+    maskedValue,
+    touched,
+    error,
+    pristine,
+    dirty,
+    valid,
+    invalid,
+    showError,
+    validating,
+    focused
+  } = state;
+
+  expectType<FieldState>(state);
+
+  expectType<unknown>(value);
+  expectType<unknown>(maskedValue);
+  expectType<boolean>(touched);
+  expectType<unknown>(error);
+  expectType<boolean>(pristine);
+  expectType<boolean>(dirty);
+  expectType<boolean>(valid);
+  expectType<boolean>(invalid);
+  expectType<boolean>(showError);
+  expectType<boolean>(validating);
+  expectType<boolean>(focused);
+
+  return (
+    <>
+      {JSON.stringify( state )}
+    </>
+  );
+};
+
+export const UseFieldStateTest = () => (
+  <Form>
+    <Input name="name" label="Name:" />
+    <ComponentUsingFieldState />
+  </Form>
+);
+
+/* ------------------------- otherShit ------------------------- */
+
+const ComponentUsingOtherShit = () => {
+ 
+  return (
+    <>
+      {/* ---------- Form State Accessor ---------- */}
+      <FormStateAccessor>
+        {(state)=> {
+          expectType<FormState>(state);
+          return (
+              <pre>
+                {JSON.stringify( state )}
+              </pre>
+            )
+          }
+        }
+      </FormStateAccessor>
+      {/* ---------- Array Field ---------- */}
+      <ArrayField name="friends">
+          {({ add }) => {
+            return (
+              <>
+                <button
+                  onClick={() => {
+                    add();
+                  }}
+                  type="button">
+                  Add
+                </button>
+                <ArrayField.Items>
+                  {({ remove, name }) => (
+                    <label>
+                      <h5>{name}</h5>
+                      <Input name="name" label="Name" required />
+                      <Input name="age" label="Age" type="number" />
+                      <button type="button" onClick={remove}>
+                        Remove
+                      </button>
+                    </label>
+                  )}
+                </ArrayField.Items>
+              </>
+            );
+          }}
+        </ArrayField>
+    </>
+  );
+};
+
+export const OtherShitTest = () => (
+  <Form>
+    <Input name="name" label="Name:" />
+    <ComponentUsingOtherShit />
   </Form>
 );

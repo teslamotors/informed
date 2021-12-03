@@ -217,7 +217,7 @@ export const useField = ({
       const metaInfo = metaRef.current;
 
       if (!isRelevant && !keepState) {
-        logger('RELEVNAT REMOVING', metaInfo.name);
+        logger('RELEVANT REMOVING', metaInfo.name);
         formController.remove(metaInfo.name);
       }
     },

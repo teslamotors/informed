@@ -79,7 +79,9 @@ const ArrayFieldItem = ({
           // When the very last field from the array is removed unlock
           const lockedUntil = formController.getRemovalLocked();
           debug(
+            // fieldsMap,
             'DEREGISTER',
+            n,
             'SIZE',
             fieldsMap.size,
             'INDEX',
@@ -88,10 +90,24 @@ const ArrayFieldItem = ({
             lockedUntil
           );
           if (
-            fieldsMap.size === 0 && // <<< We are the last field in this item
             lockedUntil != null &&
             lockedUntil.index === arrayFieldItemState.index &&
-            lockedUntil.name === arrayFieldItemState.parent
+            lockedUntil.name === arrayFieldItemState.parent &&
+            // We are the last field in this item
+            // 1. Example fieldsMap.keys() ==> [ 'friends[0].name' ]
+            // 2. We are de registering friends[1].age
+            // 3. We look to see if friends[1] is in the field map
+            // 4. If its not, we are done and can unlock!!
+            !Array.from(fieldsMap.keys()).some(k => {
+              // debug(
+              //   'CHECKING',
+              //   k,
+              //   `${arrayFieldItemState.parent}[${lockedUntil.index}]`
+              // );
+              return k.includes(
+                `${arrayFieldItemState.parent}[${lockedUntil.index}]`
+              );
+            })
           ) {
             debug('UNLOCKING');
             formController.unlockRemoval();

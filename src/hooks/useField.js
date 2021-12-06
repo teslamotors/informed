@@ -197,8 +197,10 @@ export const useField = ({
   // Register
   useEffect(
     () => {
+      logger('Register', name, metaRef.current);
       formController.register(name, metaRef);
       return () => {
+        logger('De-Register', name, metaRef.current);
         formController.deregister(name);
       };
     },

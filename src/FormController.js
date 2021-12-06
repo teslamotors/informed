@@ -850,6 +850,7 @@ export class FormController {
   }
 
   unlockRemoval() {
+    debug('UNLOCK REMOVAL');
     this.removalLocked = undefined;
   }
 

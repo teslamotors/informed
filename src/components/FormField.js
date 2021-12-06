@@ -149,7 +149,7 @@ const FormField = ({ name, schema, required }) => {
   if (Component && type === 'object' && properties) {
     return (
       <ScopeContext.Provider value={name}>
-        <Component>
+        <Component {...props}>
           <FormFields schema={schemaField} />
         </Component>
       </ScopeContext.Provider>

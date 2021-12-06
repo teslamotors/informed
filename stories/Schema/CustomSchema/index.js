@@ -107,20 +107,18 @@ const RemoveButton = () => {
   );
 };
 
-const MyArrayField = ({ field, items, uiBefore, uiAfter, ...props }) => {
+const MyArrayField = ({ name, items, ...props }) => {
   return (
-    <ArrayField field={field} {...props}>
-      <FormComponents components={uiBefore} />
+    <ArrayField name={name} {...props}>
+      <AddButton />
       <ArrayField.Items>
-        {({ field }) => (
-          <React.Fragment>
-            <FormComponents components={items['ui:before']} />
-            <FormFields schema={items} prefix={field} />
-            <FormComponents components={items['ui:after']} />
-          </React.Fragment>
+        {() => (
+          <>
+            <FormFields schema={items} />
+            <RemoveButton />
+          </>
         )}
       </ArrayField.Items>
-      <FormComponents components={uiAfter} />
     </ArrayField>
   );
 };
@@ -181,7 +179,6 @@ const schema = {
       type: 'array',
       minItems: 2,
       'ui:control': 'array',
-      'ui:before': [{ 'ui:control': 'add' }],
       'ui:props': {
         initialValue
       },
@@ -202,8 +199,7 @@ const schema = {
             'ui:props': {
               type: 'number'
             }
-          },
-          'ui:component:remove': { 'ui:control': 'remove' }
+          }
         }
       }
     }

@@ -15,10 +15,19 @@ import { useScopedApi } from '../hooks/useScopedApi';
 
 const debug = Debug('informed:ArrayField' + '\t');
 
-const ArrayField = ({ relevant, name, ...props }) => {
+const ArrayField = ({
+  relevant,
+  relevanceWhen,
+  relevanceDeps,
+  name,
+  ...props
+}) => {
   if (relevant) {
     return (
-      <Relevant when={relevant}>
+      <Relevant
+        when={relevant}
+        relevanceWhen={relevanceWhen}
+        relevanceDeps={relevanceDeps}>
         <ArrayFieldWrapper name={name} {...props} />
       </Relevant>
     );

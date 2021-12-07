@@ -26,6 +26,7 @@
     "postpublish": "git push --tags",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:docs": "build-storybook -c .storybook -o docs",
+    "build:docs": "rm -r docs/ && build-storybook -c .storybook -o docs",
     "prettier": "prettier --write 'src/**/*.{js,md}' 'tests/**/*.{js,md}' 'stories/**/*.{js,md}'",
     "pretty-quick": "pretty-quick",
     "lint:fix": "eslint src/** tests/** stories/** --fix",

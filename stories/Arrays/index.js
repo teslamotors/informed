@@ -1,17 +1,21 @@
 import ArrayOfFields from './ArrayOfFields';
 import ArrayOfScopes from './ArrayOfScopes';
-import DynamicArrays from './DynamicArrays';
-import NestedForm from './NestedForm';
+// import DynamicArrays from './DynamicArrays';
+import ArrayFieldItem from './ArrayFieldItem';
 import AlternateSyntax from './AlternateSyntax';
 import HugeArrayForm from './HugeArrayForm';
-import Swap from './Swap';
+// import Swap from './Swap';
+import NestedFields from './NestedFields';
+import DependentFieldsInArray from './DependentFields';
 
 export {
   ArrayOfFields,
   ArrayOfScopes,
-  DynamicArrays,
-  NestedForm,
+  // DynamicArrays,
+  NestedFields,
+  ArrayFieldItem,
   AlternateSyntax,
-  HugeArrayForm,
-  Swap
+  DependentFieldsInArray,
+  HugeArrayForm
+  // Swap
 };

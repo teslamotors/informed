@@ -82,12 +82,43 @@ select {
   background-color: #f4f4f4;
 }
 
+input + small,
+textarea + small,
+select + small {
+  color: rgb(237, 78, 59);
+  padding-bottom: 1rem;
+  display: block;
+  font-weight: bold;
+}
+
+fieldset small[role='alert'] {
+  color: rgb(237, 78, 59);
+  padding-bottom: 1rem;
+  display: block;
+  font-weight: bold;
+}
+
+input[aria-invalid='true']:not([type='checkbox']):not([type='radio']),
+textarea[aria-invalid='true'],
+select[aria-invalid='true'] {
+  border: 1px solid rgb(237, 78, 59) !important;
+}
+
+input[aria-invalid='true'][type='radio'],
+input[aria-invalid='true'][type='checkbox'] {
+  outline: 1px solid rgb(237, 78, 59) !important;
+}
+
 .radio-label {
   display: block;
 }
 
 textarea {
   max-width: 100%;
+}
+
+fieldset {
+  border: none;
 }
 
 select {
@@ -127,8 +158,11 @@ select {
 }
 
 label {
-  /* text-align: left; */
-  /* margin-left: 1rem; */
+  margin-bottom: 1rem;
+  display: block;
+}
+
+legend {
   margin-bottom: 1rem;
   display: block;
 }
@@ -149,6 +183,10 @@ button {
 
 button[type='submit'] {
   display: block;
+}
+
+.button-group {
+  display: flex;
 }
 
 hr {
@@ -247,6 +285,18 @@ pre {
   text-decoration: none !important;
 }
 
+.markdown-body[class] table {
+  display: table;
+}
+
+.markdown-body[class] table strong {
+  color: rgb(237, 78, 59);
+}
+
+strong {
+  color: rgb(237, 78, 59);
+}
+
 /* .markdown-body[class] table {
   display: table;
 }
@@ -335,4 +385,58 @@ pre {
 
 .markdown-body > :first-child {
   margin-top: 2rem !important;
+}
+
+.loader,
+.loader:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+}
+
+.loader {
+  top: 0px;
+  margin: 60px auto;
+  font-size: 10px;
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  text-indent: -9999em;
+  border-top: 1.1em solid rgba(67, 64, 64, 0.2);
+  border-right: 1.1em solid rgba(67, 64, 64, 0.2);
+  border-bottom: 1.1em solid rgba(67, 64, 64, 0.2);
+  border-left: 1.1em solid red;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+}
+
+.informed-black .loader {
+  border-top: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-right: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-left: 1.1em solid red;
+}
+
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }

@@ -1,12 +1,11 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 
-import { Form, Text } from '../../../src';
+import { Form, Text, Debug } from '../../../src';
 
-const format = value => value != null ? `$${value}` : value;
-const parse = value => value != null ? value.replace('$','') : value;
+const format = value => (value != null ? `$${value}` : value);
+const parse = value => (value != null ? value.replace('$', '') : value);
 
 const FormatParse = () => (
   <Form>
@@ -16,7 +15,7 @@ const FormatParse = () => (
         <Text field="name" format={format} parse={parse} />
       </label>
       <button type="submit">Submit</button>
-      <FormState />
+      <Debug />
     </div>
   </Form>
 );

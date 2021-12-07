@@ -32,13 +32,12 @@ const schema = {
       type: 'array',
       minItems: 2,
       'ui:control': 'array',
-      'ui:before': [{ 'ui:control': 'add' }],
-      'informed:props': {
+      'ui:props': {
         initialValue
       },
+      'ui:before': [{ 'ui:control': 'add' }],
       items: {
         type: 'object',
-        'ui:after': [{ 'ui:control': 'remove' }],
         required: ['name', 'age'],
         properties: {
           name: {
@@ -51,7 +50,7 @@ const schema = {
             title: 'Sibling age',
             minimum: 0,
             'ui:control': 'input',
-            'input:props': {
+            'ui:props': {
               type: 'number'
             }
           },
@@ -60,7 +59,7 @@ const schema = {
             title: 'Are you married?',
             enum: ['yes', 'no'],
             'ui:control': 'radio',
-            'informed:props': {
+            'ui:props': {
               notify: ['spouse']
             }
           },
@@ -68,13 +67,14 @@ const schema = {
             type: 'string',
             title: 'Spouse name',
             'ui:control': 'input',
-            'informed:props': {
+            'ui:props': {
               relevant: (values, { parentPath, get }) => {
                 const married = get(values, `${parentPath}.married`);
                 return married === 'yes';
               }
             }
-          }
+          },
+          'ui:component:remove': { 'ui:control': 'remove' }
         }
       }
     }
@@ -85,7 +85,7 @@ const Schema = () => (
   <Form
     ajv={Ajv}
     schema={schema}
-    onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
+    onSubmit={({ values }) => window.alert(JSON.stringify(values, null, 2))}>
     <SchemaFields />
     <button type="submit">Submit</button>
   </Form>

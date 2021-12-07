@@ -1,30 +1,26 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 
-import { Form, Text } from '../../../src';
+import { Form, Input, Debug } from '../../../src';
 
 const mask = value => value.toUpperCase();
 
 const formatter = [mask, mask, '-', mask, mask, '-', mask, mask, mask, mask];
 
-const FormatParse = () => (
+const Uppercase = () => (
   <Form>
     <div>
-      <label>
-        Phone Number:
-        <Text
-          field="phone"
-          formatter={formatter}
-          maintainCursor
-          initialValue="abcdefg"
-        />
-      </label>
+      <Input
+        field="uppercase"
+        label="Uppercase"
+        formatter={formatter}
+        initialValue="abcdefg"
+      />
       <button type="submit">Submit</button>
-      <FormState />
+      <Debug values maskedValues />
     </div>
   </Form>
 );
 
-export default withDocs(readme, FormatParse);
+export default withDocs(readme, Uppercase);

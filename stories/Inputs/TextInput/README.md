@@ -1,15 +1,15 @@
-# Text Input
+# Input
 
 <!-- STORY -->
 
 ```jsx
-import { Form, Text } from 'informed';
+import { Form, Input, Debug } from 'informed';
 
-<Form>
-  <label>
-    First name:
-    <Text field="name" />
-  </label>
-  <button type="submit">Submit</button>
-</Form>;
+const InputExample = () => (
+  <Form>
+    <Input name="name" label="First name:" />
+    <button type="submit">Submit</button>
+    <Debug values />
+  </Form>
+);
 ```

@@ -1,7 +1,7 @@
 # Use Field Without Custom Input
 
-Its NOT recomended to write forms this way but its totally doable. Below we hook up each field 
-via a call to useField. 
+Its NOT recomended to write forms this way but its totally doable. Below we hook up each field
+via a call to useField.
 
 The reason I say "NOT" is due to the fact that this hook is best used in a custom input. See the [custom inputs](/?path=/story/custominputs--creating-custom-inputs) section of the docs.
 
@@ -14,22 +14,40 @@ Also there is a great optimization that is made when using the render function t
 ```jsx
 import { useForm, useField } from 'informed';
 
-const onSubmit = values => window.alert(`Form successfully submitted with ${JSON.stringify(values)}`);
+const onSubmit = ({ values }) =>
+  window.alert(`Form successfully submitted with ${JSON.stringify(values)}`);
 
 const MyForm = () => {
-  
-  const { 
-    formController,
-    render,
-  } = useForm({
+  const { formController, render } = useForm({
     onSubmit
   });
 
-  const { informed: informName } = useField({ formController, field: 'name', fieldType: 'text' });
-  const { informed: informAge } = useField({ formController, field: 'age', fieldType: 'number' });
-  const { informed: informStatus } = useField({ formController, field: 'status', fieldType: 'select' });
-  const { informed: informColors } = useField({ formController, field: 'colors', fieldType: 'select', multiple: true });
-  const { informed: informAuthorize } = useField({ formController, field: 'authorize', fieldType: 'checkbox' });
+  const { informed: informName } = useField({
+    formController,
+    field: 'name',
+    fieldType: 'text'
+  });
+  const { informed: informAge } = useField({
+    formController,
+    field: 'age',
+    fieldType: 'number'
+  });
+  const { informed: informStatus } = useField({
+    formController,
+    field: 'status',
+    fieldType: 'select'
+  });
+  const { informed: informColors } = useField({
+    formController,
+    field: 'colors',
+    fieldType: 'select',
+    multiple: true
+  });
+  const { informed: informAuthorize } = useField({
+    formController,
+    field: 'authorize',
+    fieldType: 'checkbox'
+  });
 
   return render(
     <form
@@ -56,9 +74,7 @@ const MyForm = () => {
         </label>
         <label>
           Colors:
-          <select
-            {...informColors}
-            style={{ height: '100px', width: '200px' }}>
+          <select {...informColors} style={{ height: '100px', width: '200px' }}>
             <option value="red">Red</option>
             <option value="green">Green</option>
             <option value="blue">Blue</option>
@@ -72,8 +88,7 @@ const MyForm = () => {
         </label>
       </>
       <button type="submit">Submit</button>
-    </form>  
+    </form>
   );
-}
-
+};
 ```

@@ -1,17 +1,15 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 
-import { Form, Text } from '../../../src';
+import { Form, Text, Debug } from '../../../src';
 
 /**
  * Goal: Mask the input depending on where the user is typing
- * 
+ *
  * M M / D D / Y Y Y Y
  */
 const mask = value => {
-
   if (value == null) return { offset: 0, value };
 
   // Take the current value and blow it into sections
@@ -62,10 +60,11 @@ const Mask = () => (
           field="date"
           maxLength="10"
           maskWithCursorOffset={mask}
-          maintainCursor />
+          maintainCursor
+        />
       </label>
       <button type="submit">Submit</button>
-      <FormState />
+      <Debug />
     </div>
   </Form>
 );

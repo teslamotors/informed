@@ -16,7 +16,7 @@ const validate = value => {
 };
 
 const ErrorText = asField(({ fieldState, fieldApi, ...props }) => {
-  const { value } = fieldState;
+  const { value, error, showError } = fieldState;
   const { setValue, setTouched } = fieldApi;
   const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props;
   return (
@@ -37,9 +37,9 @@ const ErrorText = asField(({ fieldState, fieldApi, ...props }) => {
             onBlur(e);
           }
         }}
-        style={fieldState.error ? { border: 'solid 1px red' } : null}
+        style={showError ? { border: 'solid 1px red' } : null}
       />
-      {fieldState.error ? (
+      {showError ? (
         <small style={{ color: 'red' }}>{fieldState.error}</small>
       ) : null}
     </React.Fragment>

@@ -15,15 +15,15 @@ npm install --save informed
 ```
 
 ```jsx
-import { useForm, useField, Relevant, FormState } from 'informed';
+import { useForm, useField, Relevant, Debug } from 'informed';
 
 // Step 1. Build your form component ---------------------
 
-const Form = ({ children, ...props }) => {
-  const { formController, render, userProps } = useForm(props);
+const Form = ({ children, ...rest }) => {
+  const { formController, render, userProps } = useForm(rest);
 
   return render(
-    <form {...userProps} onSubmit={formController.submitForm}>
+    <form noValidate {...userProps} onSubmit={formController.submitForm}>
       {children}
     </form>
   );
@@ -31,42 +31,56 @@ const Form = ({ children, ...props }) => {
 
 // Step 2. Build your input components --------------------
 
-const Input = ({ label, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'text', ...props });
-
+const Input = props => {
+  const { render, informed, userProps, fieldState, ref } = useField({
+    type: 'text',
+    ...props
+  });
+  const { label, id, ...rest } = userProps;
+  const { showError } = fieldState;
+  const style = showError ? { border: 'solid 1px red' } : null;
   return render(
-    <label>
-      {label}
-      <input {...informed} />
-    </label>
+    <>
+      <label htmlFor={id}>{label}</label>
+      <input id={id} ref={ref} {...informed} {...rest} style={style} />
+      {showError && <small style={{ color: 'red' }}>{fieldState.error}</small>}
+    </>
   );
 };
 
-const Checkbox = ({ label, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'checkbox', ...props });
-
+const Checkbox = props => {
+  const { render, informed, userProps, ref } = useField({
+    type: 'checkbox',
+    ...props
+  });
+  const { label, id, ...rest } = userProps;
   return render(
-    <label>
-      {label}
-      <input {...informed} />
-    </label>
+    <>
+      <label htmlFor={id}>{label}</label>
+      <input id={id} ref={ref} {...informed} {...rest} />
+    </>
   );
 };
 
-const Select = ({ label, children, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'select', ...props });
-
+const Select = props => {
+  const { render, informed, userProps, ref } = useField({
+    type: 'select',
+    ...props
+  });
+  const { label, id, children, ...rest } = userProps;
   return render(
-    <label>
-      {label}
-      <select {...informed}>{children}</select>
-    </label>
+    <>
+      <label htmlFor={id}>{label}</label>
+      <select id={id} ref={ref} {...informed} {...rest}>
+        {children}
+      </select>
+    </>
   );
 };
 
 // Step 3. Build your forms! ---------------------------
 
-const onSubmit = data => console.log(data);
+const onSubmit = ({ values }) => console.log(values);
 
 const ExampleForm = () => (
   <Form onSubmit={onSubmit}>
@@ -80,11 +94,11 @@ const ExampleForm = () => (
       <option value="my">Model Y</option>
     </Select>
     <Checkbox field="married" label="Married?" />
-    <Relevant when={({ values }) => values.married}>
+    <Relevant when={({ formState }) => formState.values.married}>
       <Input field="spouse" label="Spouse" />
     </Relevant>
     <button type="submit">Submit</button>
-    <FormState />
+    <Debug />
   </Form>
 );
 ```

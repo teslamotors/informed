@@ -3,7 +3,7 @@ import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 import Code from '../../utils/Code';
 
-import { Form, Select, Option, useFormState } from '../../../src';
+import { Form, Select, Option, useFormState, Debug } from '../../../src';
 
 const FormState = () => {
   const formState = useFormState();
@@ -29,30 +29,26 @@ const MultiSelectInput = () => {
   // };
 
   return (
-    <Form id="select-colors-form">
-      <div>
-        <label>
-          Colors:
-          <Select
-            // initialValue={initialValue}
-            field="colors"
-            id="select-colors"
-            multiple
-            style={{ height: '100px', width: '200px' }}>
-            <Option value="red">Red</Option>
-            <Option value="green">Green</Option>
-            <Option value="blue">Blue</Option>
-            <Option value="yellow">Yellow</Option>
-            <Option value="orange">Orange</Option>
-            <Option value="purple">Purple</Option>
-          </Select>
-        </label>
-        <button type="submit">Submit</button>
-        {/* <button type="reset">Reset</button>
+    <Form>
+      <Select
+        // initialValue={initialValue}
+        name="colors"
+        label="Colors:"
+        multiple
+        style={{ height: '100px', width: '200px' }}>
+        <Option value="red">Red</Option>
+        <Option value="green">Green</Option>
+        <Option value="blue">Blue</Option>
+        <Option value="yellow">Yellow</Option>
+        <Option value="orange">Orange</Option>
+        <Option value="purple">Purple</Option>
+      </Select>
+
+      <button type="submit">Submit</button>
+      {/* <button type="reset">Reset</button>
         <button type="toggle" type="button" onClick={toggle}>Toggle</button> */}
-        <FormState />
-        {/* {JSON.stringify(initialValue)} */}
-      </div>
+      <Debug values />
+      {/* {JSON.stringify(initialValue)} */}
     </Form>
   );
 };

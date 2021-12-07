@@ -1,9 +1,8 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 
-import { Form, SchemaFields } from '../../../src';
+import { Form, SchemaFields, Debug } from '../../../src';
 
 const schema = {
   type: 'object',
@@ -12,7 +11,7 @@ const schema = {
       type: 'string',
       title: 'First name',
       'ui:control': 'input',
-      'informed:props': {
+      'ui:props': {
         validate: v => (v == null ? 'Required' : undefined)
       },
       'informed:validate': {}
@@ -21,7 +20,7 @@ const schema = {
       type: 'number',
       title: 'Age',
       'ui:control': 'input',
-      'input:props': {
+      'ui:props': {
         type: 'number'
       }
     },
@@ -43,7 +42,7 @@ const schema = {
         {
           const: '',
           title: '- Select -',
-          'input:props': {
+          'ui:props': {
             disabled: true
           }
         },
@@ -63,7 +62,7 @@ const schema = {
         { const: 'my', title: 'Model Y' }
       ],
       default: null,
-      'informed:props': {
+      'ui:props': {
         initialValue: 'm3'
       }
     },
@@ -71,9 +70,10 @@ const schema = {
       type: 'array',
       title: 'Cars',
       'ui:control': 'select',
-      'input:props': {
+      'ui:props': {
         multiple: true,
-        style: { height: '100px', width: '200px' }
+        style: { height: '100px', width: '200px' },
+        initialValue: ['jeep', 'tesla']
       },
       items: {
         oneOf: [
@@ -82,9 +82,6 @@ const schema = {
           { const: 'audi', title: 'Audi' },
           { const: 'jeep', title: 'Jeep' }
         ]
-      },
-      'informed:props': {
-        initialValue: ['jeep', 'tesla']
       }
     }
   }
@@ -94,7 +91,7 @@ const Schema = () => (
   <Form schema={schema}>
     <SchemaFields />
     <button type="submit">Submit</button>
-    <FormState />
+    <Debug />
   </Form>
 );
 

@@ -1,30 +1,20 @@
 import React from 'react';
-import asField from '../../HOC/asField';
+import { useField } from '../../hooks/useField';
 
-const Checkbox = ({ fieldApi, fieldState, ...props }) => {
-  const { value } = fieldState;
+export const Checkbox = props => {
+  const { render, userProps, fieldState, fieldApi } = useField(props);
   const { setValue, setTouched } = fieldApi;
-  const {
-    onChange,
-    onBlur,
-    field,
-    initialValue,
-    debug,
-    forwardedRef,
-    id,
-    label,
-    ...rest
-  } = props;
-  return (
+  const { value, error, showError } = fieldState;
+  const { onBlur, onChange, id, label, ...rest } = userProps;
+  return render(
     <>
-      {label ? <label htmlFor={id}> {label} </label> : null}
-
+      {label ? <label htmlFor={id}>{label}</label> : null}
       <input
         {...rest}
         id={id}
-        name={field}
-        ref={forwardedRef}
         checked={!!value}
+        aria-invalid={!!showError}
+        aria-describedby={`${id}-error`}
         onChange={e => {
           setValue(e.target.checked);
           if (onChange) {
@@ -39,10 +29,11 @@ const Checkbox = ({ fieldApi, fieldState, ...props }) => {
         }}
         type="checkbox"
       />
+      {showError ? (
+        <small role="alert" id={`${id}-error`}>
+          {error}
+        </small>
+      ) : null}
     </>
   );
 };
-
-export { Checkbox as BasicCheckbox };
-
-export default asField(Checkbox);

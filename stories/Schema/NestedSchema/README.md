@@ -27,7 +27,7 @@ const schema = {
           type: 'number',
           title: 'Brother age',
           'ui:control': 'input',
-          'input:props': {
+          'ui:props': {
             type: 'number'
           }
         }
@@ -40,7 +40,7 @@ const Schema = () => (
   <Form schema={schema}>
     <SchemaFields />
     <button type="submit">Submit</button>
-    <FormState />
+    <Debug />
   </Form>
 );
 ```

@@ -1,26 +1,15 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
-import Code from '../../utils/Code';
 
-import { Form, Text } from '../../../src';
+import { Form, Input, Debug } from '../../../src';
 
-const TextInput = () => (
+const InputExample = () => (
   <Form>
-    {({ formState }) => (
-      <div>
-        <label>
-          First name:
-          <Text field="name" />
-        </label>
-        <button type="submit">Submit</button>
-        <Code language="language-js">
-          {JSON.stringify(formState.values, null, 2)}
-        </Code>
-      </div>
-    )}
+    <Input name="name" label="First name:" />
+    <button type="submit">Submit</button>
+    <Debug values />
   </Form>
 );
 
-export default withDocs(readme, TextInput);
+export default withDocs(readme, InputExample);

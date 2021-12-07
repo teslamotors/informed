@@ -24,4 +24,4 @@ const useUpdateEffect = (effect, deps) => {
   }, deps);
 };
 
-export default useUpdateEffect;
+export { useUpdateEffect };

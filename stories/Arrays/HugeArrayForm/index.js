@@ -1,26 +1,45 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
-import { Form, Text, ArrayField } from '../../../src';
+import {
+  Form,
+  Input,
+  ArrayField,
+  useFieldState,
+  Relevant,
+  Debug
+} from '../../../src';
 
-const friends = Array.from(Array(50)).map(e => {
-  return { name: 'Joe', age: 26 };
+const friends = Array.from(Array(69)).map(e => {
+  return { name: 'Joe', age: 26, f: 'foo' };
 });
 
 const initialValues = {
   friends
 };
 
+const FieldState = ({ name }) => {
+  const nameState = useFieldState(name);
+  return (
+    <>
+      <h5>Component using nameState: {name}</h5>
+      Render: {Math.random()}
+      <pre>
+        <code>{JSON.stringify(nameState, null, 2)}</code>
+      </pre>
+    </>
+  );
+};
+
 const NestedForm = () => (
   <div>
     <Form
       initialValues={initialValues}
-      onSubmit={values => console.log(values)}>
+      onSubmit={({ values }) => console.log(values)}>
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, marginRight: '2rem' }}>
           <button type="submit">Submit</button>
-          <ArrayField field="friends">
+          <ArrayField name="friends">
             {({ add, addWithInitialValue, reset }) => {
               return (
                 <React.Fragment>
@@ -47,36 +66,51 @@ const NestedForm = () => (
                   </button>
 
                   <ArrayField.Items>
-                    {({
-                      remove,
-                      field,
-                      reset,
-                      initialValue,
-                      values,
-                      setValue
-                    }) => (
+                    {({ remove, name, reset, initialValue, setValue }) => (
                       <label>
-                        <h5>{field}</h5>
-                        <Text
-                          field={`${field}.name`}
+                        <h5>{name}</h5>
+                        <FieldState name={name} />
+                        <Input
+                          name="name"
                           initialValue={initialValue && initialValue.name}
                         />
-                        <Text field={`${field}.age`} />
-                        <Text field={`${field}.a`} />
-                        <Text field={`${field}.b`} />
-                        <Text field={`${field}.c`} />
-                        <Text field={`${field}.d`} />
-                        <Text field={`${field}.e`} />
-                        <Text field={`${field}.f`} />
-                        <Text field={`${field}.g`} />
-                        <Text field={`${field}.h`} />
-                        <Text field={`${field}.i`} />
-                        <Text field={`${field}.j`} />
-                        <Text field={`${field}.k`} />
-                        <Text field={`${field}.l`} />
-                        <Text field={`${field}.m`} />
+                        <Input name="age" />
+                        <Input name="a" />
+                        <Input name="b" />
+                        <Input name="c" />
+                        <Input name="d" />
+                        <Input name="e" />
+                        <Input name="f" />
+                        {/* Example using scope  */}
+                        <Input
+                          name="g"
+                          relevanceWhen={scope => [`${scope}.f`]}
+                          relevant={({ formApi, scope }) =>
+                            formApi.getValue(`${scope}.f`)
+                          }
+                        />
+                        {/* Example using default ( scoped ) */}
+                        <Input
+                          name="h"
+                          relevanceWhen={['f']}
+                          relevant={({ formApi }) =>
+                            formApi.getValue(`${name}.f`)
+                          }
+                        />
+                        <Relevant
+                          when={({ formApi }) => formApi.getValue(`${name}.f`)}>
+                          <Input name="i" />
+                          <Input name="j" />
+                          <Input name="k" />
+                          <Input name="l" />
+                          <Input name="m" />
+                        </Relevant>
 
-                        <button type="button" onClick={reset}>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            reset();
+                          }}>
                           Reset
                         </button>
                         <button
@@ -95,8 +129,8 @@ const NestedForm = () => (
             }}
           </ArrayField>
         </div>
-        <div style={{ flex: 2, minWidth: '300px' }}>
-          <FormState />
+        <div style={{ flex: 2, minWidth: '300px', marginLeft: '3rem' }}>
+          <Debug />
         </div>
       </div>
     </Form>

@@ -6,16 +6,23 @@ import WhatElse from './WhatElse';
 import UseForm from './UseForm';
 import IntroComp from './Intro';
 import CustomIntro from './CustomIntro';
+import SchemaVsFormat from './SchemaVsFormat';
 
 const Intro = () => (
   <div>
     <IntroComp />
+    <hr />
     <CustomIntro />
+    <hr />
     <GettingStarted />
+    <hr />
     <FormState />
+    <hr />
     <FormApi />
-    <UseForm />
-    <WhatElse />
+    <hr />
+    <SchemaVsFormat />
+    {/* <UseForm /> */}
+    {/* <WhatElse /> */}
   </div>
 );
 

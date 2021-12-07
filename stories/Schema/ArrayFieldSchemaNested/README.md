@@ -1,4 +1,4 @@
-# Array Field in Schema !!!
+# Double Nested Array Fields
 
 ** Note: This is in beta and is subject to change! **
 
@@ -42,18 +42,28 @@ const schema = {
       type: 'array',
       minItems: 2,
       'ui:control': 'array',
-      'ui:before': [{ 'ui:control': 'add' }],
-      'informed:props': {
+      'ui:before': [
+        { 'ui:control': 'add', 'ui:props': { text: 'Add Sibling' } }
+      ],
+      'ui:props': {
         initialValue
       },
       items: {
         type: 'object',
-        'ui:after': [{ 'ui:control': 'remove' }],
         required: ['name', 'age'],
         properties: {
+          'ui:component:remove': {
+            'ui:control': 'remove',
+            'ui:props': { text: 'Remove Sibling' }
+          },
           name: {
             type: 'string',
             title: 'Sibling name',
+            'ui:control': 'input'
+          },
+          age: {
+            type: 'number',
+            title: 'Sibling age',
             'ui:control': 'input'
           },
           married: {
@@ -66,9 +76,9 @@ const schema = {
             type: 'string',
             title: 'Spouse name',
             'ui:control': 'input',
-            'informed:props': {
-              relevant: (values, { parentPath, get }) => {
-                const married = get(values, `${parentPath}.married`);
+            'ui:props': {
+              relevant: ({ scope, formApi }) => {
+                const married = formApi.getValue(`${scope}.married`);
                 return married === 'yes';
               }
             }
@@ -77,12 +87,17 @@ const schema = {
             type: 'array',
             minItems: 2,
             'ui:control': 'array',
-            'ui:before': [{ 'ui:control': 'add' }],
+            'ui:before': [
+              { 'ui:control': 'add', 'ui:props': { text: 'Add Friend' } }
+            ],
             items: {
               type: 'object',
-              'ui:after': [{ 'ui:control': 'remove' }],
-              required: ['name', 'age'],
+              required: ['name'],
               properties: {
+                'ui:component:remove': {
+                  'ui:control': 'remove',
+                  'ui:props': { text: 'Remove Friend' }
+                },
                 name: {
                   type: 'string',
                   title: 'Friends name',
@@ -98,9 +113,9 @@ const schema = {
                   type: 'string',
                   title: 'Spouse',
                   'ui:control': 'input',
-                  'informed:props': {
-                    relevant: (values, { parentPath, get }) => {
-                      const married = get(values, `${parentPath}.married`);
+                  'ui:props': {
+                    relevant: ({ scope, formApi }) => {
+                      const married = formApi.getValue(`${scope}.married`);
                       return married === 'yes';
                     },
                     keepState: true
@@ -117,9 +132,8 @@ const schema = {
 
 const Schema = () => (
   <Form
-    ajv={Ajv}
     schema={schema}
-    onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
+    onSubmit={({ values }) => window.alert(JSON.stringify(values, null, 2))}>
     <SchemaFields />
     <button type="submit">Submit</button>
   </Form>

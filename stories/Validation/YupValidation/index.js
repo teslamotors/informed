@@ -4,7 +4,7 @@ import withDocs from '../../utils/withDocs';
 import Modal from '../../utils/Modal';
 import readme from './README.md';
 
-import { Form, Text } from '../../../src';
+import { Form, Input, Debug } from '../../../src';
 import * as Yup from 'yup'; // for everything
 
 const SignupSchema = Yup.object().shape({
@@ -18,41 +18,29 @@ const SignupSchema = Yup.object().shape({
     .required('Required'),
   email: Yup.string()
     .email('Invalid email')
-    .required('Required'),
+    .required('Required')
 });
 
 class SimpleValidation extends Component {
   render() {
     return (
       <div>
-        <Form onSubmit={() => this.modal.open()} validationSchema={SignupSchema} id="validate-form" >
-          {({ formApi, formState }) => (
-            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-              <div style={{ flex: 1, marginRight: '2rem' }}>
-                <label>First Name:<Text field="firstName" /></label>
-                <label>Last Name:<Text field="lastName" /></label>
-                <label>Email:<Text field="email" /></label>
-                <button type="submit">Submit</button>
-              </div>
-              <div style={{ flex: 2, minWidth: '300px' }}>
-                <label>Values:</label>
-                <Code language="language-js">
-                  {JSON.stringify(formState.values, null, 2)}
-                </Code>
-                <label>Errors:</label>
-                <Code language="language-js">
-                  {JSON.stringify(formState.errors, null, 2)}
-                </Code>
-                <label>Invalid:</label>
-                <Code language="language-js">
-                  {JSON.stringify(formState.invalid, null, 2)}
-                </Code>
-              </div>
-              <Modal getControl={model => (this.modal = model)}>
-                <strong>Form Successfully Submitted!</strong>
-              </Modal>
+        <Form
+          yupSchema={SignupSchema}
+          onSubmit={({ values }) =>
+            window.alert(JSON.stringify(values, null, 2))
+          }>
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            <div style={{ flex: 1, marginRight: '2rem' }}>
+              <Input name="firstName" label="First Name:" />
+              <Input name="lastName" label="Last Name:" />
+              <Input name="email" label="Email:" />
+              <button type="submit">Submit</button>
             </div>
-          )}
+            <div style={{ flex: 2, minWidth: '300px', marginLeft: '3rem' }}>
+              <Debug values errors invalid valid />
+            </div>
+          </div>
         </Form>
       </div>
     );

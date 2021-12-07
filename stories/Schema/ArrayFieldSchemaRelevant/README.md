@@ -1,4 +1,4 @@
-# Array Field in Schema !!!
+# Relevant Array Field in Schema !!!
 
 ** Note: This is in beta and is subject to change! **
 
@@ -33,25 +33,23 @@ const schema = {
       minItems: 2,
       'ui:control': 'array',
       'ui:before': [{ 'ui:control': 'add' }],
-      'informed:props': {
+      'ui:props': {
         initialValue,
-        relevant: values => {
-          const { name } = values;
+        relevant: ({ formState }) => {
+          const { name } = formState.values;
           return !name || name.length < 10;
-        },
-        keepState: true
+        }
       },
       items: {
         type: 'object',
-        'ui:after': [{ 'ui:control': 'remove' }],
         required: ['name', 'age'],
-
         properties: {
+          'ui:component:remove': { 'ui:control': 'remove' },
           name: {
             type: 'string',
             title: 'Sibling name',
             'ui:control': 'input',
-            'informed:props': {
+            'ui:props': {
               keepState: true
             }
           },
@@ -60,11 +58,9 @@ const schema = {
             title: 'Sibling age',
             minimum: 0,
             'ui:control': 'input',
-            'input:props': {
+            'ui:props': {
+              keepState: true,
               type: 'number'
-            },
-            'informed:props': {
-              keepState: true
             }
           },
           married: {
@@ -72,7 +68,7 @@ const schema = {
             title: 'Are you married?',
             enum: ['yes', 'no'],
             'ui:control': 'radio',
-            'informed:props': {
+            'ui:props': {
               keepState: true
             }
           },
@@ -80,9 +76,9 @@ const schema = {
             type: 'string',
             title: 'Spouse name',
             'ui:control': 'input',
-            'informed:props': {
-              relevant: (values, { parentPath, get }) => {
-                const married = get(values, `${parentPath}.married`);
+            'ui:props': {
+              relevant: ({ scope, formApi }) => {
+                const married = formApi.getValue(`${scope}.married`);
                 return married === 'yes';
               },
               keepStateIfRelevant: true
@@ -98,7 +94,7 @@ const Schema = () => (
   <Form
     ajv={Ajv}
     schema={schema}
-    onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
+    onSubmit={({ values }) => window.alert(JSON.stringify(values, null, 2))}>
     <SchemaFields />
     <button type="submit">Submit</button>
   </Form>

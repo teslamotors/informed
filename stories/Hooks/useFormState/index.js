@@ -2,7 +2,7 @@ import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 
-import { Form, Text, useFormState } from '../../../src';
+import { Form, Input, useFormState } from '../../../src';
 
 const ComponentUsingFormState = () => {
   const formState = useFormState();
@@ -15,7 +15,7 @@ const ComponentUsingFormState = () => {
 
 const UseFormState = () => (
   <Form>
-    <label>Name:<Text field="name" /></label>
+    <Input name="name" label="Name:" />
     <button type="submit">Submit</button>
     <h5>Component using formState:</h5>
     <ComponentUsingFormState />

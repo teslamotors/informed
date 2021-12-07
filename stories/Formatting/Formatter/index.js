@@ -1,27 +1,10 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 
-import { Form, Text } from '../../../src';
+import { Form, Input, Debug } from '../../../src';
 
-const formatter = [
-  '+',
-  '1',
-  ' ',
-  /\d/,
-  /\d/,
-  /\d/,
-  '-',
-  /\d/,
-  /\d/,
-  /\d/,
-  '-',
-  /\d/,
-  /\d/,
-  /\d/,
-  /\d/
-];
+const formatter = '+1 ###-###-####';
 
 const parser = value => {
   return value.replace('+1 ', '').replace(/-/g, '');
@@ -30,18 +13,21 @@ const parser = value => {
 const FormatParse = () => (
   <Form>
     <div>
-      <label>
-        Phone Number:
-        <Text
-          field="phone"
-          formatter={formatter}
-          parser={parser}
-          maintainCursor
-          initialValue="1231231234"
-        />
-      </label>
+      <Input
+        name="phone"
+        label="Phone Number:"
+        formatter={formatter}
+        parser={parser}
+        initialValue="1231231234"
+      />
+      <Input
+        name="maskedField"
+        label="Word Formatting"
+        formatter="$***-**(**)***"
+        initialValue="HelloWorld"
+      />
       <button type="submit">Submit</button>
-      <FormState />
+      <Debug values maskedValues />
     </div>
   </Form>
 );

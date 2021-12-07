@@ -6,14 +6,14 @@ Here is an example where you can use the `useFormHook`.
 <!-- STORY -->
 
 ```jsx
-import { Form, Text } from 'informed';
+import { Form, Input } from 'informed';
 
 const validate = value => {
   if (!value || value.length < 5)
     return 'Field must be at least five characters';
 };
 
-const onSubmit = values =>
+const onSubmit = ({ values }) =>
   window.alert(`Form successfully submitted with ${JSON.stringify(values)}`);
 
 const UseFormExample = () => {
@@ -28,7 +28,7 @@ const UseFormExample = () => {
       onKeyDown={formController.keyDown}>
       <label>
         First name:
-        <Text field="name" validate={validate} />
+        <Input field="name" validate={validate} />
         <small style={{ color: 'red' }}>{formState.errors.name}</small>
       </label>
       <button type="submit">Submit</button>

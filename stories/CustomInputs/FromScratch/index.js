@@ -2,7 +2,7 @@ import React from 'react';
 import Code from '../../utils/Code';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import { Form, asField } from '../../../src';
+import { Form, useField } from '../../../src';
 
 const validate = value => {
   return !value || value.length < 5
@@ -10,11 +10,15 @@ const validate = value => {
     : undefined;
 };
 
-const ErrorText = asField(({ fieldState, fieldApi, ...props }) => {
-  const { value } = fieldState;
+export const ErrorText = React.memo(({ label, ...props }) => {
+  const { render, fieldState, fieldApi } = useField({
+    type: 'text',
+    ...props
+  });
+  const { value, error, showError } = fieldState;
   const { setValue, setTouched } = fieldApi;
   const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props;
-  return (
+  return render(
     <React.Fragment>
       <input
         {...rest}
@@ -32,11 +36,9 @@ const ErrorText = asField(({ fieldState, fieldApi, ...props }) => {
             onBlur(e);
           }
         }}
-        style={fieldState.error ? { border: 'solid 1px red' } : null}
+        style={showError ? { border: 'solid 1px red' } : null}
       />
-      {fieldState.error ? (
-        <small style={{ color: 'red' }}>{fieldState.error}</small>
-      ) : null}
+      {showError ? <small style={{ color: 'red' }}>{error}</small> : null}
     </React.Fragment>
   );
 });

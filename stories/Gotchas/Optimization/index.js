@@ -1,20 +1,34 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
-import FormState from '../../utils/FormState';
 import readme from './README.md';
 
-import { Form, Text, TextArea, RadioGroup, Radio, Checkbox, Select, Option, Scope } from '../../../src';
+import {
+  Form,
+  Text,
+  TextArea,
+  RadioGroup,
+  Radio,
+  Checkbox,
+  Select,
+  Option,
+  Scope,
+  Debug
+} from '../../../src';
 
 const basicValidation = value => {
-  return !value || value.length < 5 ? 'Password must be at least five characters' : undefined;
+  return !value || value.length < 5
+    ? 'Password must be at least five characters'
+    : undefined;
 };
 
-const matchValidation = ( value, values ) => {
-  return values.password !== values.confirmPassword ? 'Passwords must match' : undefined;
+const matchValidation = (value, values) => {
+  return values.password !== values.confirmPassword
+    ? 'Passwords must match'
+    : undefined;
 };
 
-const passwordValidation = ( value, values ) => {
-  return basicValidation(value) || matchValidation( value, values );
+const passwordValidation = (value, values) => {
+  return basicValidation(value) || matchValidation(value, values);
 };
 
 const Optimization = () => (
@@ -22,31 +36,69 @@ const Optimization = () => (
     <Form autoComplete="off">
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, marginRight: '2rem' }}>
-          <label>First name:<Text debug field="name"/></label>
+          <label>
+            First name:
+            <Text debug field="name" />
+          </label>
           <Scope scope="favorite">
-            <label>Favorite color:<Text debug field="color"/></label>
-            <label>Favorite food:<Text debug field="food"/></label>
+            <label>
+              Favorite color:
+              <Text debug field="color" />
+            </label>
+            <label>
+              Favorite food:
+              <Text debug field="food" />
+            </label>
           </Scope>
-          <label>Friend 1:<Text debug field="friends[0]" /></label>
-          <label>Friend 2:<Text debug field="friends[1]" /></label>
-          <label>Friend 3:<Text debug field="friends[2]" /></label>
+          <label>
+            Friend 1:
+            <Text debug field="friends[0]" />
+          </label>
+          <label>
+            Friend 2:
+            <Text debug field="friends[1]" />
+          </label>
+          <label>
+            Friend 3:
+            <Text debug field="friends[2]" />
+          </label>
           <label>
             Password:
-            <Text debug field="password" notify={['confirmPassword']} validateOnChange validate={passwordValidation}/>
+            <Text
+              debug
+              field="password"
+              notify={['confirmPassword']}
+              validateOnChange
+              validate={passwordValidation}
+            />
           </label>
-          <label>Confirm Password:
-            <Text debug field="confirmPassword" notify={['password']} validateOnChange validate={passwordValidation} />
+          <label>
+            Confirm Password:
+            <Text
+              debug
+              field="confirmPassword"
+              notify={['password']}
+              validateOnChange
+              validate={passwordValidation}
+            />
           </label>
-          <label>Bio:<TextArea debug field="bio"/></label>
+          <label>
+            Bio:
+            <TextArea debug field="bio" />
+          </label>
           <RadioGroup field="gender">
-            <label>Male: <Radio debug value="male"/></label>            
-            <label>Female: <Radio debug value="female"/></label>
+            <label>
+              Male: <Radio debug value="male" />
+            </label>
+            <label>
+              Female: <Radio debug value="female" />
+            </label>
           </RadioGroup>
           <label>
             Relationship status:
             <Select debug field="status">
               <Option value="" disabled>
-              Select One...
+                Select One...
               </Option>
               <Option value="single">Single</Option>
               <Option value="relationship">Relationship</Option>
@@ -68,11 +120,13 @@ const Optimization = () => (
               <Option value="purple">Purple</Option>
             </Select>
           </label>
-          <label>Authorize: <Checkbox debug field="authorize"/></label>
+          <label>
+            Authorize: <Checkbox debug field="authorize" />
+          </label>
           <button type="submit">Submit</button>
         </div>
         <div style={{ flex: 2, minWidth: '300px' }}>
-          <FormState errors/>
+          <Debug errors />
         </div>
       </div>
     </Form>

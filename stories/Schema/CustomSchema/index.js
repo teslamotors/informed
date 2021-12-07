@@ -10,7 +10,7 @@ import {
   FormComponents,
   FormFields,
   SchemaFields,
-  FormState
+  Debug
 } from '../../../src';
 
 // Step 1. Build your form component ---------------------
@@ -28,34 +28,42 @@ const Form = ({ children, ...rest }) => {
 // Step 2. Build your input components --------------------
 
 const Input = ({ label, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'text', ...props });
+  const { render, informed, userProps, ref } = useField({
+    type: 'text',
+    ...props
+  });
 
   return render(
     <label>
       {label}
-      <input {...informed} />
+      <input ref={ref} {...informed} {...userProps} />
     </label>
   );
 };
 
 const Checkbox = ({ label, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'checkbox', ...props });
-
+  const { render, informed, userProps, ref } = useField({
+    type: 'checkbox',
+    ...props
+  });
   return render(
     <label>
       {label}
-      <input {...informed} />
+      <input ref={ref} {...informed} {...userProps} />
     </label>
   );
 };
 
 const Select = ({ label, children, options, ...props }) => {
-  const { render, informed } = useField({ fieldType: 'select', ...props });
+  const { render, informed, userProps, ref } = useField({
+    type: 'select',
+    ...props
+  });
 
   return render(
     <label>
       {label}
-      <select {...informed}>
+      <select ref={ref} {...informed} {...userProps}>
         {options
           ? options.map(option => (
               <option
@@ -99,27 +107,25 @@ const RemoveButton = () => {
   );
 };
 
-const MyArrayField = ({ field, items, uiBefore, uiAfter, ...props }) => {
+const MyArrayField = ({ name, items, ...props }) => {
   return (
-    <ArrayField field={field} {...props}>
-      <FormComponents components={uiBefore} />
+    <ArrayField name={name} {...props}>
+      <AddButton />
       <ArrayField.Items>
-        {({ field }) => (
-          <React.Fragment>
-            <FormComponents components={items['ui:before']} />
-            <FormFields schema={items} prefix={field} />
-            <FormComponents components={items['ui:after']} />
-          </React.Fragment>
+        {() => (
+          <>
+            <FormFields schema={items} />
+            <RemoveButton />
+          </>
         )}
       </ArrayField.Items>
-      <FormComponents components={uiAfter} />
     </ArrayField>
   );
 };
 
-// Step 3. Define your field map --------------------
+// Step 3. Define your adapter --------------------
 
-const fieldMap = {
+const adapter = {
   select: Select,
   input: Input,
   checkbox: Checkbox,
@@ -156,7 +162,7 @@ const schema = {
       'ui:control': 'checkbox'
     },
     model: {
-      type: 'string',
+      type: 'boolean',
       title: 'Model',
       'ui:control': 'select',
       oneOf: [
@@ -165,7 +171,7 @@ const schema = {
         { const: 'mx', title: 'Model X' },
         { const: 'my', title: 'Model Y' }
       ],
-      'informed:props': {
+      'ui:props': {
         initialValue: 'm3'
       }
     },
@@ -173,13 +179,11 @@ const schema = {
       type: 'array',
       minItems: 2,
       'ui:control': 'array',
-      'ui:before': [{ 'ui:control': 'add' }],
-      'informed:props': {
+      'ui:props': {
         initialValue
       },
       items: {
         type: 'object',
-        'ui:after': [{ 'ui:control': 'remove' }],
         required: ['name', 'age'],
         properties: {
           name: {
@@ -192,7 +196,7 @@ const schema = {
             title: 'Sibling age',
             minimum: 0,
             'ui:control': 'input',
-            'input:props': {
+            'ui:props': {
               type: 'number'
             }
           }
@@ -203,10 +207,10 @@ const schema = {
 };
 
 const Schema = () => (
-  <Form schema={schema} fieldMap={fieldMap}>
+  <Form schema={schema} adapter={adapter}>
     <SchemaFields />
     <button type="submit">Submit</button>
-    <FormState />
+    <Debug />
   </Form>
 );
 

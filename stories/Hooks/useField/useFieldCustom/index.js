@@ -2,11 +2,12 @@ import React from 'react';
 import Code from '../../../utils/Code';
 import withDocs from '../../../utils/withDocs';
 import readme from './README.md';
-import { Form, useField } from '../../../../src';
+import { Form, useField, Debug } from '../../../../src';
 
-const CustomTextInput = (props) => {
-
-  const { fieldState, fieldApi, render, ref, userProps } = useField({ ...props });
+const CustomTextInput = props => {
+  const { fieldState, fieldApi, render, ref, userProps } = useField({
+    ...props
+  });
 
   const { value } = fieldState;
   const { setValue, setTouched } = fieldApi;
@@ -28,31 +29,20 @@ const CustomTextInput = (props) => {
         if (onBlur) {
           onBlur(e);
         }
-      }} />
+      }}
+    />
   );
 };
 
 const FromScratch = () => (
   <div>
-    <Form id="custom-form-2">
-      {({ formApi, formState }) => (
-        <React.Fragment>
-          <label>
-            First name:
-            <CustomTextInput
-              field="name" />
-          </label>
-          <button type="submit">Submit</button>
-          <label>Values:</label>
-          <Code language="language-js">
-            {JSON.stringify(formState.values, null, 2)}
-          </Code>
-          <label>Errors:</label>
-          <Code language="language-js">
-            {JSON.stringify(formState.errors, null, 2)}
-          </Code>
-        </React.Fragment>
-      )}
+    <Form>
+      <label>
+        First name:
+        <CustomTextInput field="name" />
+      </label>
+      <button type="submit">Submit</button>
+      <Debug values errors />
     </Form>
   </div>
 );

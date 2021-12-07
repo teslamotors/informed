@@ -31,34 +31,32 @@ the additional friend checks failed.
 import { Form, Text, Scope } from 'informed';
 
 const basicValidation = value => {
-  return !value || value.length < 5 ? 'Field must be longer than five characters' : undefined;
-}
+  return !value || value.length < 5
+    ? 'Field must be longer than five characters'
+    : undefined;
+};
 
-const duplicateValidation = ( value, values ) => {
-  return values.filter( v => v === value ).length > 1 ? 'This field must be unique.' : undefined;
-}
+const duplicateValidation = (value, values) => {
+  return values.filter(v => v === value).length > 1
+    ? 'This field must be unique.'
+    : undefined;
+};
 
-const friendValidation = ( value, values ) => {
-  return basicValidation(value) || duplicateValidation( value, values.friends )
-}
+const friendValidation = (value, values) => {
+  return basicValidation(value) || duplicateValidation(value, values.friends);
+};
 
-<Form id="complex-validate-form">
-  <label htmlFor="complex-name">First name:</label>
-  <Text field="name" id="complex-name" validate={basicValidation} />
-  <Scope scope="favorite">
-    <label htmlFor="complex-color">Favorite color:</label>
-    <Text field="color" id="complex-color" validate={basicValidation} />undefined
-    <label htmlFor="complex-food">Favorite food:</label>
-    <Text field="food" id="complex-food" validate={basicValidation} />
-  </Scope>
-  <label htmlFor="complex-friend-0">Friend 1:</label>
-  <Text field="friends[0]" id="complex-friend-0" validate={friendValidation} />
-  <label htmlFor="complex-friend-1">Friend 2:</label>
-  <Text field="friends[1]" id="complex-friend-1" validate={friendValidation} />
-  <label htmlFor="complex-friend-2">Friend 3:</label>
-  <Text field="friends[2]" id="complex-friend-2" validate={friendValidation} />
-  <button type="submit">
-    Submit
-  </button>
-</Form>
+const Example = () => (
+  <Form id="complex-validate-form">
+    <Input name="name" label="First name:" validate={basicValidation} />
+    <Scope scope="favorite">
+      <Input name="color" label="Favorite color:" validate={basicValidation} />
+      <Input name="food" label="Favorite food:" validate={basicValidation} />
+    </Scope>
+    <Input name="friends[0]" label="Friend 1:" validate={friendValidation} />
+    <Input name="friends[1]" label="Friend 2:" validate={friendValidation} />
+    <Input name="friends[2]" label="Friend 3:" validate={friendValidation} />
+    <button type="submit">Submit</button>
+  </Form>
+);
 ```

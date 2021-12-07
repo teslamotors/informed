@@ -1,10 +1,9 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 import Ajv from 'ajv';
 
-import { Form, SchemaFields } from '../../../src';
+import { Form, SchemaFields, Debug } from '../../../src';
 
 const schema = {
   type: 'object',
@@ -26,7 +25,7 @@ const schema = {
       title: 'Age',
       minimum: 0,
       'ui:control': 'input',
-      'input:props': {
+      'ui:props': {
         type: 'number'
       }
     },
@@ -49,7 +48,7 @@ const schema = {
         {
           const: '',
           title: '- Select -',
-          'input:props': {
+          'ui:props': {
             disabled: true
           }
         },
@@ -68,7 +67,7 @@ const schema = {
         { const: 'mx', title: 'Model X' },
         { const: 'my', title: 'Model Y' }
       ],
-      'informed:props': {
+      'ui:props': {
         initialValue: 'm3'
       }
     },
@@ -77,9 +76,10 @@ const schema = {
       title: 'Cars',
       minItems: 3,
       'ui:control': 'select',
-      'input:props': {
+      'ui:props': {
         multiple: true,
-        style: { height: '100px', width: '200px' }
+        style: { height: '100px', width: '200px' },
+        initialValue: ['jeep', 'tesla']
       },
       items: {
         oneOf: [
@@ -88,9 +88,6 @@ const schema = {
           { const: 'audi', title: 'Audi' },
           { const: 'jeep', title: 'Jeep' }
         ]
-      },
-      'informed:props': {
-        initialValue: ['jeep', 'tesla']
       }
     }
   }
@@ -100,10 +97,10 @@ const Schema = () => (
   <Form
     schema={schema}
     ajv={Ajv}
-    onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
+    onSubmit={({ values }) => window.alert(JSON.stringify(values, null, 2))}>
     <SchemaFields />
     <button type="submit">Submit</button>
-    <FormState errors values />
+    <Debug errors values />
   </Form>
 );
 

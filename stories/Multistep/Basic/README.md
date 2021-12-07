@@ -1,76 +1,76 @@
-# Multistep Form
+# Multistep Forms
 
-Somtimes you need to create a form with multiple steps. This can easliy be done with informed. 
-Below is an example of a form that has three steps. It will not proceed to the next step, 
-unless the previous step is valid! It will also clear out errors from proceeding steps when 
-you go back :) 
-
-Note one very important thing in this example.
-
-1. the use of the `keepState` prop
-
-The keep state guarentees that the state is kept from step to step when the fields are "unrendered". 
-
+Sometimes you have forms with multiple steps.
 
 <!-- STORY -->
 
 ```jsx
-import { Form, Text, useFormApi, useFormState } from 'informed';
+import {
+  Form,
+  Input,
+  Multistep,
+  Checkbox,
+  Debug,
+  useMultistepApi
+} from 'informed';
 
-const validate = (value) => {
-  return !value || value.length < 5 ? 'Field must be at least five characters' : undefined;
-};
-
-const Step1 = ({ next }) => {
+const Info = () => {
+  const { next } = useMultistepApi();
   return (
-    <div>
-      <label>
-        Please enter your first name:
-        <Text field="first" validate={validate} keepState />
-      </label>
-      <button type="button" onClick={next}>Next</button>
-    </div>
+    <Multistep.Step step="info">
+      <Input name="first" label="First Name" required />
+      <Input name="last" label="First Name" required />
+      <button type="button" onClick={next}>
+        Next
+      </button>
+    </Multistep.Step>
   );
 };
 
-const Step2 = ({ back, next }) => {
+const Favorite = () => {
+  const { next, previous } = useMultistepApi();
   return (
-    <div>
-      <label>
-        Please enter your last name:
-        <Text field="last" validate={validate} keepState />
-      </label>
-      <button type="button" onClick={next}>Next</button>
-      <button type="button" onClick={back}>Back</button>
-    </div>
+    <Multistep.Step step="favorite">
+      <Input name="color" label="Favorite Color:" required />
+      <Input name="food" label="Favorite Food:" required />
+      <div className="button-group">
+        <button type="button" onClick={previous}>
+          Previous
+        </button>
+        <button type="button" onClick={next}>
+          Next
+        </button>
+      </div>
+    </Multistep.Step>
   );
 };
 
-const Step3 = ({ back }) => {
+const Additional = () => {
+  const { previous } = useMultistepApi();
   return (
-    <div>
-      <label>
-        Please enter your favorite color:
-        <Text field="color" validate={validate} keepState />
-      </label>
-      <button type="button" onClick={back}>Back</button>
-      <button type="submit" >Submit</button>
-    </div>
+    <Multistep.Step step="additional">
+      <Input name="height" label="Height:" required />
+      <Input name="weight" label="Weight:" required />
+      <div className="button-group">
+        <button type="button" onClick={previous}>
+          Previous
+        </button>
+        <button type="submit">Submit</button>
+      </div>
+    </Multistep.Step>
   );
 };
 
-const Step = () => {
-
-  const { next, back } = useFormApi();
-  const { step } = useFormState();
-
-  if (step === 0) return <Step1 next={next} />;
-  if (step === 1) return <Step2 next={next} back={back} />;
-  if (step === 2) return <Step3 back={back} />;
-
+const Example = () => {
+  return (
+    <Form autocomplete="off">
+      <Multistep>
+        <Info />
+        <Favorite />
+        <Additional />
+      </Multistep>
+      <Debug />
+    </Form>
+  );
 };
-
-<Form>
-  <Step />
-</Form>
 ```

@@ -15,50 +15,50 @@ it red when there is an error. You could achieve this with the following code.
 ```jsx
 import { Form, useField } from 'informed';
 
-const ErrorText = props => {
+const CustomInput = props => {
   const { fieldState, fieldApi, render, ref, userProps } = useField(props);
 
-  const { value } = fieldState;
+  // The field state
+  const { value, error, showError } = fieldState;
+
+  // The field control
   const { setValue, setTouched } = fieldApi;
-  const { onChange, onBlur, ...rest } = userProps;
+
+  // Everything else
+  const { label, id, ...rest } = userProps;
+
   return render(
-    <React.Fragment>
+    <>
+      {label ? <label htmlFor={id}>{label}</label> : null}
       <input
         {...rest}
+        id={id}
         ref={ref}
         value={!value && value !== 0 ? '' : value}
         onChange={e => {
-          setValue(e.target.value);
-          if (onChange) {
-            onChange(e);
-          }
+          setValue(e.target.value, e);
         }}
         onBlur={e => {
-          setTouched(true);
-          if (onBlur) {
-            onBlur(e);
-          }
+          setTouched(true, e);
         }}
-        style={fieldState.error ? { border: 'solid 1px red' } : null}
+        style={showError ? { border: 'solid 1px red' } : null}
       />
-      {fieldState.error ? (
-        <small style={{ color: 'red' }}>{fieldState.error}</small>
-      ) : null}
-    </React.Fragment>
+      {showError ? <small style={{ color: 'red' }}>{error}</small> : null}
+    </>
   );
 };
 
-const validate = value => {
-  return !value || value.length < 5
-    ? 'Field must be at least five characters'
-    : undefined;
-};
-
-<Form id="custom-form">
-  <label>
-    First name:
-    <ErrorText field="name" validateOnChange validateOnBlur />
-  </label>
-  <button type="submit">Submit</button>
-</Form>;
+const Example = () => (
+  <Form>
+    <ErrorText
+      field="name"
+      label="First name:"
+      validateOn="change"
+      required
+      minLength={5}
+    />
+    <button type="submit">Submit</button>
+    <Debug />
+  </Form>
+);
 ```

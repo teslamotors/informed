@@ -1,18 +1,19 @@
 import React from 'react';
-import InformedArrayField from '../ArrayField';
-import FormComponents from '../FormComponents';
-import FormFields from '../FormFields';
+import { ArrayField as InformedArrayField } from '../ArrayField';
+import { FormComponents } from '../FormComponents';
+import { FormFields } from '../FormFields';
 
-const ArrayField = ({ field, items, uiBefore, uiAfter, ...props }) => {
+const ArrayField = ({ name, items, uiBefore, uiAfter, ...props }) => {
+  // const ArrayField = ({ name, items, ...props }) => {
   return (
-    <InformedArrayField field={field} {...props}>
+    <InformedArrayField name={name} {...props}>
       <FormComponents components={uiBefore} />
       <InformedArrayField.Items>
-        {({ field }) => (
+        {() => (
           <React.Fragment>
-            <FormComponents components={items['ui:before']} />
-            <FormFields schema={items} prefix={field} />
-            <FormComponents components={items['ui:after']} />
+            {/* <FormComponents components={items['ui:before']} /> */}
+            <FormFields schema={items} />
+            {/* <FormComponents components={items['ui:after']} /> */}
           </React.Fragment>
         )}
       </InformedArrayField.Items>
@@ -21,4 +22,4 @@ const ArrayField = ({ field, items, uiBefore, uiAfter, ...props }) => {
   );
 };
 
-export default ArrayField;
+export { ArrayField };

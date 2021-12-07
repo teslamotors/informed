@@ -1,6 +1,4 @@
 import React from 'react';
-import Code from '../../utils/Code';
-import FormState from '../../utils/FormState';
 import withDocs from '../../utils/withDocs';
 import readme from './InlineFunctions.md';
 
@@ -49,7 +47,7 @@ const InlineFunctions = () => (
             <button type="submit">Submit</button>
           </div>
           <div style={{ flex: 2, minWidth: '300px' }}>
-            <FormState errors values />
+            <Debug errors values />
           </div>
         </div>
       )}
@@ -93,7 +91,7 @@ const InlineFunctions = () => (
             <button type="submit">Submit</button>
           </div>
           <div style={{ flex: 2, minWidth: '300px' }}>
-            <FormState errors values />
+            <Debug errors values />
           </div>
         </div>
       )}
@@ -136,7 +134,7 @@ const InlineFunctions = () => (
           <button type="submit">Submit</button>
         </div>
         <div style={{ flex: 2, minWidth: '300px' }}>
-          <FormState errors values />
+          <Debug errors values />
         </div>
       </div>
     </Form>

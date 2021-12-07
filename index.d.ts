@@ -1,320 +1,275 @@
-import * as React from 'react'
+import React from 'react';
 
-// Type definitions for informed 2.0.0
-// Project: https://github.com/joepuzzo/informed#readme
-// Definitions by: Andrey Kamozin <https://github.com/jaffparker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
+export type FormState = {
+  pristine: boolean;
+  dirty: boolean;
+  submitted: boolean;
+  valid: boolean;
+  invalid: boolean;
+  submitting: boolean;
+  validating: number;
+  values: Record<string, unknown>;
+  maskedValues: Record<string, unknown>;
+  errors: Record<string, unknown>;
+  touched: Record<string, unknown>;
+  dirt: Record<string, unknown>;
+  focused: Record<string, unknown>;
+  initialValues: Record<string, unknown>;
+};
 
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+export type FormApi = {
+  getValue: (name: string) => unknown;
+  setValue: (name: string, value: unknown) => void;
+  getMaskedValue: (name: string) => unknown;
+  setMaskedValue: (name: string, value: unknown) => void;
+  getTouched: (name: string) => unknown;
+  setTouched: (name: string, value: boolean) => void;
+  getError: (name: string) => unknown;
+  setError: (name: string, value: unknown) => void;
+  getFocused: (name: string) => unknown;
+  setFocused: (name: string, value: boolean) => void;
+  resetField: (name: string) => void;
+  reset: () => void;
+  getFormState: () => FormState;
+  getPristine: () => boolean;
+  getDirty: () => boolean;
+  getFieldState: (name: string) => FieldState;
+};
 
-declare module 'informed' {
-  export type FormValue<T = {}> = string | number | boolean | T
-  export interface FormValues {
-    [key: string]: FormValue
-  }
+export type FieldState = {
+  value: unknown;
+  maskedValue: unknown;
+  error: unknown;
+  touched: boolean;
+  pristine: boolean;
+  dirty: boolean;
+  valid: boolean;
+  invalid: boolean;
+  showError: boolean;
+  validating: boolean;
+  focused: boolean;
+};
 
-  export type FormError = any
+export type FieldApi = {
+  getValue: () => unknown;
+  setValue: (value: unknown, event?: React.SyntheticEvent) => void;
+  getTouched: () => boolean;
+  setTouched: (value: boolean, event?: React.SyntheticEvent) => void;
+  getError: () => unknown;
+  setError: (value: unknown, event?: React.SyntheticEvent) => void;
+  getFocused: () => boolean;
+  setFocused: (value: boolean, event?: React.SyntheticEvent) => void;
+  reset: () => void;
+  validate: () => unknown;
+  getDirty: () => boolean;
+  getPristine: () => boolean;
+  getMaskedValue: () => unknown;
+};
 
-  export interface FormStateBasic<V = FormValues> {
-    values: V
-    touched: { [key in keyof V]: boolean }
-    errors: { [key in keyof V]: FormError }
-    asyncErrors: { [key in keyof V]: FormError }
-    error: FormError
-    step: number
-    Current: any
-  }
-  export interface FormStateDerived {
-    invalid: boolean
-    pristine: boolean
-    dirty: boolean
-    submits: number
-  }
-  export interface FormState<V = FormValues>
-    extends FormStateBasic<V>,
-    FormStateDerived { }
+export type ArrayFieldApi = {
+  add: () => void;
+  reset: () => void;
+  swap: (a: number, b: number) => void;
+  addWithInitialValue: (unknown) => void;
+};
 
-  export interface FormApi<V = FormValues> {
-    submitForm: () => void
-    setValue: <V>(name: string, value: V) => void
-    getValue: <V = FormValue>(name: string) => V
-    setTouched: (name: string, touched: boolean) => void
-    getTouched: (name: string) => boolean
-    setError: (name: string, error: FormError) => void
-    getError: (name: string) => FormError
-    setFormError: (error: FormError) => void
-    getState: () => FormState<V>
-    reset: () => void
-    setValues: (values: V) => void
-    validate: () => void
-    back: (prevComponent: any) => void
-    next: (nextComponent: any) => void
-    setStep: (value: number) => void
-    setCurrent: (component: any) => void
-  }
+export type ArrayFieldItemApi = {
+  remove: () => void;
+  reset: () => void;
+  setValue: (name: string, value: unknown) => void;
+  resetField: (name: string) => void;
+};
 
-  export interface FormContext<V = FormValues> {
-    formApi: FormApi<V>
-    formState: FormState<V>
-  }
+export type ArrayFieldItemInfo = {
+  name: string;
+  index: number;
+};
 
-  export interface VOffset<V = FormValue> {
-    value: V
-    offset: number
-  }
+export type ArrayFieldItemState = {
+  key: string;
+  name: string;
+  index: number;
+  parent: string;
+  values: Record<string, unknown>;
+  errors: Record<string, unknown>;
+  touched: Record<string, unknown>;
+  initialValue: unknown | Record<string, unknown>;
+};
 
-  export type ChildFunction<C> = (props: C) => React.ReactNode
+export type InformedProps<UserProps> = {
+  onSubmit?: (values: Record<string, unknown>) => void;
+  onReset?: (formState: FormState) => void;
+  onChange?: (formState: FormState) => void;
+  onSubmitFailure?: (errors: Record<string, unknown>) => void;
+  initialValues?: Record<string, unknown>;
+  validateFields?: Function;
+  showErrorIfError?: boolean;
+  showErrorIfDirty?: boolean;
+  validateOn?:
+    | 'change'
+    | 'blur'
+    | 'change-blur'
+    | 'change-submit'
+    | 'blur-submit'
+    | 'submit';
+  validateOnMount?: boolean;
+  formApiRef?: React.MutableRefObject<any>;
+  dontPreventDefault?: boolean;
+  yupSchema?: any;
+  allowEmptyStrings?: boolean;
+  preventEnter?: boolean;
+  schema?: any;
+  ajv?: any;
+  ajvErrors?: any;
+  onlyValidateSchema?: boolean;
+  components?: any;
+  errorMessage?: Record<string, unknown>;
+} & Omit<UserProps, 'onSubmit' | 'onReset' | 'onChange' | 'onSubmitFailure'>;
 
-  export interface FieldApi<V = FormValue> {
-    getValue: () => V
-    setValue: (value: V) => void
-    getTouched: () => boolean
-    setTouched: (touched: boolean) => void
-    getError: () => FormError
-    setError: (error: FormError) => void
-    reset: () => void
-    validate: () => void
-    exists: () => boolean
-  }
+export type FieldProps<UserProps> = {
+  name: string;
+  type?: string;
+  initialValue?: unknown;
+  defaultValue?: unknown;
+  validate?: (value: unknown, values: Record<string, unknown>) => unknown;
+  relevant?: (
+    {
+      formState,
+      formApi,
+      scope,
+      relevanceDeps
+    }: {
+      formState: FormState;
+      formApi: FormApi;
+      scope: string;
+      relevanceDeps: Array<any>;
+    }
+  ) => boolean;
+  onChange?: (fieldState: FieldState, event: React.SyntheticEvent) => void;
+  onBlur?: (fieldState: FieldState, event: React.SyntheticEvent) => void;
+  onFocus?: (fieldState: FieldState, event: React.SyntheticEvent) => void;
+  validateOn?:
+    | 'change'
+    | 'blur'
+    | 'change-blur'
+    | 'change-submit'
+    | 'blur-submit'
+    | 'submit';
+  validateWhen?: string[];
+  validateOnMount?: boolean;
+  keepState?: boolean;
+  keepStateIfRelevant?: boolean;
+  maintainCursor?: boolean;
+  allowEmptyString?: boolean;
+  inputRef?: React.MutableRefObject<any>;
+  showErrorIfError?: boolean;
+  showErrorIfTouched?: boolean;
+  showErrorIfDirty?: boolean;
+  formatter?:
+    | Array<string | RegExp | Function>
+    | string
+    | Object
+    | ((value: unknown) => Array<string | RegExp | Function>);
+} & Omit<
+  UserProps,
+  'onChange' | 'onBlur' | 'onFocus' | 'value' | 'defaultValue'
+>;
 
-  export interface FieldState<V> {
-    value: V
-    maskedValue: V
-    touched: boolean
-    error?: string
-  }
+export type FormController = {
+  getValue: (name: string) => unknown;
+  setValue: (name: string, value: unknown) => void;
+  getMaskedValue: (name: string) => unknown;
+  setMaskedValue: (name: string, value: unknown) => void;
+  getTouched: (name: string) => unknown;
+  setTouched: (name: string, value: boolean) => void;
+  getFocused: (name: string) => unknown;
+  setFocused: (name: string, value: boolean) => void;
+  getError: (name: string) => unknown;
+  setError: (name: string, value: unknown) => void;
+  resetField: (name: string) => void;
+  reset: () => void;
+  getFormState: () => FormState;
+  getPristine: () => boolean;
+  getDirty: () => boolean;
+  validate: () => void;
+  asyncValidate: (done: () => void) => void;
+  getFormApi: () => FormApi;
+  getFieldState: (name: string) => FieldState;
+  getValid: (name: string) => boolean;
+  on: (event: string, handler: (...args: any[]) => void) => void;
+  emit: (event: string, ...args: any[]) => void;
+  removeListener: Function;
+  remove: (name: string) => void;
+  swap: (name: string, a: number, b: number) => void;
+  register: (name: string, meta: any) => void;
+  deregister: (name: string) => void;
+  getInitialValue: (name: string) => unknown;
+  initialize: (name: string, meta: any) => void;
+  reformat: (name: string) => void;
+  lockRemoval: ({ index, name }: { index: number; name: string }) => void;
+  unlockRemoval: () => void;
+  getRemovalLocked: () => { index: number; name: string };
+  isRemovalLocked: () => boolean;
+  submitForm: (e: any) => void;
+  keyDown: (e: any) => void;
+  validateAsync: (name: string) => void;
+  validated: (name: string, res: unknown) => void;
+  debouncedValidateAsync: (name: string, res: unknown) => void;
+  getOptions: (...args: any[]) => any;
+};
 
-  export interface FieldContext<V = FormValue> {
-    fieldState: FieldState<V>
-    fieldApi: FieldApi<V>
-    // not sure what this is for, I actually found it in https://github.com/joepuzzo/informed/blob/02584aeb10bbf04875bddc974f62db95c5612f57/src/hooks/useField.js#L205, not in the docs
-    render: <T>(children: T, userProps?: any[]) => T
-    ref: React.RefObject<any>
-    userProps: any
-  }
+export function useFormApi(): FormApi;
 
-  export interface BaseFieldProps<V = FormValue, VS = FormValues>
-    extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value'> {
-    initialValue?: V
-    keepState?: boolean
-    validate?: (value: V, values: VS) => FormError
-    validateOnBlur?: boolean
-    validateOnChange?: boolean
-    validateOnMount?: boolean
-    notify?: (keyof VS)[]
-    maintainCursor?: boolean
-    allowEmptyString?: boolean
-    mask?: (value: V) => V
-    maskWithCursorOffset?: (value: V) => VOffset
-    maskOnBlur?: boolean
-    format?: (value: V) => V
-    parse?: (value: V) => V
-    onValueChange?: (value: V) => void
-    value?: V
-    forwardedRef?: React.RefObject<HTMLInputElement>
-  }
+export function useFormState(): FormState;
 
-  /*
-   * FORM
-   */
+export function useFieldApi(name: string, scoped?: boolean): FieldApi;
 
-  export interface BasicFormProps<V = FormValues> {
-    allowEmptyStrings?: boolean
-    onSubmit?: (values: V) => void
-    preSubmit?: (values: V) => V
-    initialValues?: V
-    onChange?: (formState: FormState<V>) => void
-    onValueChange?: (values: V) => void
-    dontPreventDefault?: boolean
-    preventEnter?: boolean
-    getApi?: (formApi: FormApi<V>) => void
-    onSubmitFailure?: (errors: { [key in keyof V]: FormError }) => void
-    validate?: (values: V) => FormError
-    validateFields?: (values: V) => { [key in keyof V]: FormError } | undefined
-  }
-  export interface ChildrenFormProps<V> extends BasicFormProps<V> {
-    children: React.ReactNode | ChildFunction<FormContext<V>>
-  }
-  export interface ComponentFormProps<V> extends BasicFormProps<V> {
-    component: React.ComponentType<FormContext<V>>
-  }
-  export interface RenderFormProps<V> extends BasicFormProps<V> {
-    render: ChildFunction<FormContext<V>>
-  }
-  export type FormProps<V = FormValues> =
-    | ChildrenFormProps<V>
-    | ComponentFormProps<V>
-    | RenderFormProps<V>
-    | React.FormHTMLAttributes<HTMLFormElement>
-  export class Form<V = FormValues> extends React.Component<FormProps<V>> { }
+export function useFieldState(name: string, scoped?: boolean): FieldState;
 
-  /*
-   * FIELD ORGANIZING
-   */
+export function useForm<UserProps>(
+  formProps: InformedProps<UserProps>
+): {
+  formState: FormState;
+  formApi: FormApi;
+  formController: FormController;
+  render: (children: React.ReactNode) => JSX.Element;
+  userProps: UserProps;
+};
 
-  export interface ScopeProps {
-    scope: string
-  }
-  export class Scope extends React.Component<ScopeProps> { }
+export function useField<UserProps, FieldValue>(
+  fieldProps: FieldProps<UserProps>
+): {
+  fieldState: FieldState;
+  fieldApi: FieldApi;
+  userProps: UserProps;
+  informed: {
+    onChange(event: React.SyntheticEvent): void;
+    onBlur(event: React.SyntheticEvent): void;
+    onFocus(event: React.SyntheticEvent): void;
+    value: FieldValue;
+  };
+  render: (children: React.ReactNode) => JSX.Element;
+  ref: React.MutableRefObject<any>;
+};
 
-  export interface ArrayFieldProps {
-    key?: React.Key
-    field: string
-    remove?: () => void
-  }
-  export interface ArrayFieldReturnPropParameters {
-    add: () => void
-    addWithInitialValue: (initialValue: any) => void
-    fields: Array<ArrayFieldProps>
-  }
-  export interface ArrayFieldProps {
-    field: string
-    children: (props: ArrayFieldReturnPropParameters) => React.ReactNode
-  }
-  export class ArrayField extends React.Component<ArrayFieldProps, any> { }
+export function FormStateAccessor({
+  children
+}: {
+  children: (formState: FormState) => JSX.Element;
+}): JSX.Element;
 
-  /*
-   * INPUTS
-   */
+declare function ArrayField({
+  children,
+  name
+}: {
+  children: (arrayFieldItemApi: ArrayFieldApi) => JSX.Element;
+  name: string;
+}): JSX.Element;
 
-  export interface FieldProps<V, VS> extends BaseFieldProps<V, VS> {
-    field: string
-  }
-  export interface ChildFieldProps<V, VS> extends BaseFieldProps<V, VS> {
-    field?: string
-  }
-
-  export class Text<V = FormValue, VS = FormValues> extends React.Component<
-    FieldProps<V, VS>,
-    any
-    > { }
-  export class TextArea<V = FormValue, VS = FormValues> extends React.Component<
-    FieldProps<V, VS>,
-    any
-    > { }
-  export class RadioGroup<
-    V = FormValue,
-    VS = FormValues
-    > extends React.Component<FieldProps<V, VS>, any> { }
-  export class Radio<V = FormValue, VS = FormValues> extends React.Component<
-    ChildFieldProps<V, VS>,
-    any
-    > { }
-  export class Checkbox<V = FormValue, VS = FormValues> extends React.Component<
-    FieldProps<V, VS>,
-    any
-    > { }
-
-  export interface SelectFieldProps<V, VS> extends FieldProps<V, VS> {
-    multiple?: boolean
-  }
-  export class Select<V = FormValue, VS = FormValues> extends React.Component<
-    SelectFieldProps<V, VS>,
-    any
-    > { }
-  export class Option<V = FormValue, VS = FormValues> extends React.Component<
-    ChildFieldProps<V, VS>,
-    any
-    > { }
-
-  /*
-   * BASIC INPUTS
-   */
-
-  export interface BasicFieldProps<V, VS>
-    extends BaseFieldProps<V, VS>,
-    Omit<FieldContext<V>, 'render' | 'ref' | 'userProps'> {
-    field?: string
-  }
-
-  export class BasicText<
-    V = FormValue,
-    VS = FormValues
-    > extends React.Component<BasicFieldProps<V, VS>, any> { }
-  export class BasicRadio<
-    V = FormValue,
-    VS = FormValues
-    > extends React.Component<BasicFieldProps<V, VS>, any> { }
-  export class BasicRadioGroup<
-    V = FormValue,
-    VS = FormValues
-    > extends React.Component<BasicFieldProps<V, VS>, any> { }
-  export class BasicTextArea<
-    V = FormValue,
-    VS = FormValues
-    > extends React.Component<BasicFieldProps<V, VS>, any> { }
-
-  export interface BasicSelectFieldProps<V, VS> extends BasicFieldProps<V, VS> {
-    multiple?: boolean
-  }
-  export class BasicSelect<
-    V = FormValue,
-    VS = FormValues
-    > extends React.Component<BasicSelectFieldProps<V, VS>, any> { }
-  export class BasicCheckbox<
-    V = FormValue,
-    VS = FormValues
-    > extends React.Component<BasicFieldProps<V, VS>, any> { }
-
-  /*
-   * HOCs
-   */
-
-  export function withFormApi<P, V = FormValues>(
-    component: React.ComponentType<{ formApi: FormApi<V> } & P>,
-  ): React.ComponentType<P>
-
-  export function withFormState<P, V = FormValues>(
-    component: React.ComponentType<{ formState: FormState<V> } & P>,
-  ): React.ComponentType<P>
-
-  export function withFieldApi<P, V = FormValue, VS = FormValues>(
-    name: keyof VS,
-  ): (
-      component: React.ComponentType<{ fieldApi: FieldApi<V> } & P>,
-    ) => React.ComponentType<P>
-
-  export function withFieldState<P, V = FormValue, VS = FormValues>(
-    name: keyof VS,
-  ): (
-      component: React.ComponentType<{ fieldState: FieldState<V> } & P>,
-    ) => React.ComponentType<P>
-
-  export interface RadioGroupApi<V> extends FieldApi<V> {
-    onChange: (event: React.SyntheticEvent) => void
-    onBlur: (event: React.SyntheticEvent) => void
-  }
-  export interface RadioGroupContext<V> {
-    radioGroupApi: RadioGroupApi<V>
-    radioGroupState: FieldState<V>
-  }
-  export function withRadioGroup<P, V = FormValue>(
-    component: React.ComponentType<RadioGroupContext<V> & P>,
-  ): React.ComponentType<P>
-
-  export function asField<P, V = FormValue>(
-    component: React.ComponentType<FieldContext<V> & P>,
-  ): React.ComponentType<FieldProps<V, any> & P>
-
-  /*
-   * HOOKS
-   */
-
-  export function useFormApi<V = FormValues>(): FormApi<V>
-  export function useFormState<V = FormValues>(): FormState<V>
-
-  export function useFieldApi<V = FormValue>(field: string): FieldApi<V>
-  export function useFieldState<V = FormValue>(field: string): FieldState<V>
-
-  export interface useArrayFieldParams {
-    field: string
-    initialValue?: any
-  }
-
-  export function useArrayField(useArrayFieldParams: useArrayFieldParams): ArrayFieldReturnPropParameters
-
-  export function useField<V = FormValue, VS = any>(
-    fieldProps?: FieldProps<V, VS>,
-  ): FieldContext<V>
+declare namespace ArrayField {
+  function Items({
+    children
+  }: {
+    children: (props: ArrayFieldItemApi & ArrayFieldItemInfo) => JSX.Element;
+  }): JSX.Element;
 }

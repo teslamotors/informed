@@ -1,7 +1,7 @@
 import React from 'react';
-import useArrayFieldApi from '../../hooks/useArrayFieldApi';
+import { useArrayFieldApi } from '../../hooks/useArrayFieldApi';
 
-const AddButton = () => {
+const AddButton = ({ text }) => {
   const { add } = useArrayFieldApi();
 
   return (
@@ -10,9 +10,9 @@ const AddButton = () => {
         add();
       }}
       type="button">
-      Add
+      {text ? text : 'Add'}
     </button>
   );
 };
 
-export default AddButton;
+export { AddButton };

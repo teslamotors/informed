@@ -1,64 +1,44 @@
-import React, { useRef } from 'react';
-import asField from '../../HOC/asField';
-import Debug from '../../debug';
-import useLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
+import React from 'react';
+import { useField } from '../../hooks/useField';
 
-const logger = Debug('informed:Select' + '\t');
-
-const Select = ({ fieldApi, fieldState, ...props }) => {
-  const { value } = fieldState;
-  const { setTouched } = fieldApi;
+export const Select = props => {
+  const { render, userProps, fieldState, fieldApi, ref } = useField(props);
+  const { setValue, setTouched } = fieldApi;
+  const { value, showError, error } = fieldState;
   const {
-    onChange,
+    id,
     onBlur,
-    field,
-    initialValue,
-    options,
-    children,
-    forwardedRef,
-    debug,
+    onChange,
     multiple,
     label,
-    id,
+    options,
+    children,
     ...rest
-  } = props;
-
-  const selectRef = useRef();
+  } = userProps;
 
   const handleChange = e => {
-    let selected = Array.from((forwardedRef || selectRef).current)
+    let selected = Array.from(ref.current)
       .filter(option => option.selected)
       .map(option => option.value);
 
-    fieldApi.setValue(multiple ? selected : selected[0] || '');
+    setValue(multiple ? selected : selected[0] || '');
 
     if (onChange && e) {
       onChange(e);
     }
   };
 
-  // for debugging
-  useLayoutEffect(() => {
-    if (debug && forwardedRef) {
-      forwardedRef.current.style.background = 'red';
-      setTimeout(() => {
-        forwardedRef.current.style.background = 'white';
-      }, 500);
-    }
-  });
-
-  logger('Render', field, value);
-
-  return (
+  return render(
     <>
       {label ? <label htmlFor={id}> {label} </label> : null}
       <select
         {...rest}
         id={id}
         multiple={multiple}
-        name={field}
-        ref={forwardedRef || selectRef}
+        ref={ref}
         value={value || (multiple ? [] : '')}
+        aria-invalid={!!showError}
+        aria-describedby={`${id}-error`}
         onChange={handleChange}
         onBlur={e => {
           setTouched(true);
@@ -68,19 +48,20 @@ const Select = ({ fieldApi, fieldState, ...props }) => {
         }}>
         {options
           ? options.map(option => (
-              <option
-                key={option.value}
-                value={option.value}
-                disabled={option.disabled}>
-                {option.label}
-              </option>
-            ))
+            <option
+              key={option.value}
+              value={option.value}
+              disabled={option.disabled}>
+              {option.label}
+            </option>
+          ))
           : children}
       </select>
+      {showError ? (
+        <small role="alert" id={`${id}-error`}>
+          {error}
+        </small>
+      ) : null}
     </>
   );
 };
-
-export { Select as BasicSelect };
-
-export default asField(Select);

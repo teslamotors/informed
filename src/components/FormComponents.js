@@ -1,17 +1,17 @@
-import React, { useContext } from 'react';
-import { FormRegisterContext } from '../Context';
+import React from 'react';
+import { useFormController } from '../hooks/useFormController';
 
 const FormComponents = ({ components }) => {
   // Get the field map off the forms context
-  const { fieldMap } = useContext(FormRegisterContext);
+  const { fieldMap } = useFormController();
 
   if (!components) return null;
 
   return components.map((comp, i) => {
-    const { 'ui:control': componentType } = comp;
+    const { 'ui:control': componentType, 'ui:props': props } = comp;
     const Component = fieldMap[componentType];
-    return <Component key={`ui-comp-${i}`} />;
+    return <Component key={`ui-comp-${i}`} {...props} />;
   });
 };
 
-export default FormComponents;
+export { FormComponents };

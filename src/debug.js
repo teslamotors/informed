@@ -1,24 +1,24 @@
+/* eslint-disable no-undef */
 /**
- * 
+ *
  * I stole most of this code from the debug lib
  * https://github.com/visionmedia/debug
- * 
+ *
  * Just wanted it to be easy to debug without relying on the dependency!
  */
 
-
 /**
-	* Selects a color for a debug namespace
-  * @param {String} namespace The namespace string for the for the debug instance to be colored
-  * @param {String} colors color pallette to choose from
-	* @return {Number|String} An ANSI color code for the given namespace
-	* @api private
-	*/
+ * Selects a color for a debug namespace
+ * @param {String} namespace The namespace string for the for the debug instance to be colored
+ * @param {String} colors color pallette to choose from
+ * @return {Number|String} An ANSI color code for the given namespace
+ * @api private
+ */
 function selectColor(namespace, colors) {
   let hash = 0;
 
   for (let i = 0; i < namespace.length; i++) {
-    hash = ((hash << 5) - hash) + namespace.charCodeAt(i);
+    hash = (hash << 5) - hash + namespace.charCodeAt(i);
     hash |= 0; // Convert to 32bit integer
   }
 
@@ -32,7 +32,6 @@ function selectColor(namespace, colors) {
  */
 
 function formatNodeArgs(args, config) {
-
   const name = config.namespace;
 
   if (config.useColors) {
@@ -51,7 +50,6 @@ function formatNodeArgs(args, config) {
  */
 
 function formatBrowserArgs(args, config) {
-
   args[0] = (config.useColors ? '%c' : '') + config.namespace;
 
   if (!config.useColors) {
@@ -79,7 +77,6 @@ function formatBrowserArgs(args, config) {
 
   args.splice(lastC, 0, c);
 }
-
 
 const browserColors = [
   '#0000CC',
@@ -176,17 +173,19 @@ function loadBrowser() {
   }
 
   // If debug isn't set in LS, and we're in Electron, try to load $DEBUG
+  // eslint-disable-next-line no-undef
   if (!namespaces && typeof process !== 'undefined' && 'env' in process) {
+    // eslint-disable-next-line no-undef
     namespaces = process.env.DEBUG;
   }
 
-  return { 
-    namespaces: namespaces || '', 
+  return {
+    namespaces: namespaces || '',
     colors: browserColors,
     useColors: true,
     formatArgs: formatBrowserArgs
   };
-} 
+}
 
 /**
  * Load `namespaces`.
@@ -195,43 +194,43 @@ function loadBrowser() {
  * @api private
  */
 function loadNode() {
-  return { 
+  return {
     namespaces: process.env.DEBUG || '',
-    colors: [6, 2, 3, 4, 5, 1], 
-    useColors: true, 
+    colors: [6, 2, 3, 4, 5, 1],
+    useColors: true,
     formatArgs: formatNodeArgs
   };
 }
 
-
 function createLogger(prefix = null, config) {
   return function(...args) {
-
-    if (prefix){
+    if (prefix) {
       args.unshift(prefix);
     }
 
     // Create a namespace regex for each namespace
-    const matches = config.namespaces.split(',').map(( namespace )=>{
+    const matches = config.namespaces.split(',').map(namespace => {
       // Remove wildcard and add to regex if wildcard
-      if( namespace[namespace.length - 1] === '*' ){
-        return new RegExp('^' + namespace.slice(0, namespace.length-1) + '.*' + '$');
+      if (namespace[namespace.length - 1] === '*') {
+        return new RegExp(
+          '^' + namespace.slice(0, namespace.length - 1) + '.*' + '$'
+        );
       }
       return new RegExp('^' + namespace + '$');
     });
-    
+
     // Does the prefix match a namespace
-    const match = matches.some((regex)=>{
+    const match = matches.some(regex => {
       return regex.test(prefix);
     });
 
     const conf = {
-      color: selectColor( prefix, config.colors ),
-      namespace: prefix, 
+      color: selectColor(prefix, config.colors),
+      namespace: prefix,
       useColors: config.useColors
     };
 
-    if (process.env.NODE_ENV !== 'production' && match ) {
+    if (process.env.NODE_ENV !== 'production' && match) {
       config.formatArgs(args, conf);
       console.log(...args);
     }
@@ -246,13 +245,20 @@ function browserLogger(prefix) {
   return createLogger(prefix, loadBrowser());
 }
 
-/**
- * Detect Electron renderer / nwjs process, which is node, but we should
- * treat as a browser.
- */
+export const Debug = prefix => {
+  /**
+   * Detect Electron renderer / nwjs process, which is node, but we should
+   * treat as a browser.
+   */
 
-if (typeof process === 'undefined' || process.type === 'renderer' || process.browser === true || process.__nwjs) {
-  module.exports = browserLogger;
-} else {
-  module.exports = nodeLogger;
-}
+  if (
+    typeof process === 'undefined' ||
+    process.type === 'renderer' ||
+    process.browser === true ||
+    process.__nwjs
+  ) {
+    return browserLogger(prefix);
+  } else {
+    return nodeLogger(prefix);
+  }
+};

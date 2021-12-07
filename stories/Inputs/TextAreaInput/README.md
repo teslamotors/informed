@@ -3,13 +3,13 @@
 <!-- STORY -->
 
 ```jsx
-import { Form, TextArea } from 'informed';
+import { Form, TextArea, Debug } from 'informed';
 
-<Form>
-  <label>
-    Bio:
-    <TextArea field="bio"/>
-  </label>
-  <button type="submit">Submit</button>
-</Form>;
+const TextAreaInput = () => (
+  <Form>
+    <TextArea name="bio" label="Bio:" />
+    <button type="submit">Submit</button>
+    <Debug values />
+  </Form>
+);
 ```

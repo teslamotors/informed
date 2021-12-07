@@ -1,10 +1,9 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 import Ajv from 'ajv';
 
-import { Form, Text } from '../../../src';
+import { Form, Input, Debug } from '../../../src';
 
 const schema = {
   type: 'object',
@@ -32,12 +31,12 @@ const Schema = () => (
     schema={schema}
     ajv={Ajv}
     onlyValidateSchema
-    onSubmit={values => window.alert(JSON.stringify(values, null, 2))}>
+    onSubmit={({ values }) => window.alert(JSON.stringify(values, null, 2))}>
+    <Input name="name" label="First name:" />
+    <Input name="age" label="Age:" type="number" />
+    <Input name="friend" label="Friend:" />
     <button type="submit">Submit</button>
-    <Text field="name" label="First name:" />
-    <Text field="age" label="Age:" type="number" />
-    <Text field="friend" label="Friend:" />
-    <FormState errors values />
+    <Debug errors values />
   </Form>
 );
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 import { Form, Text, ArrayField } from '../../../src';
 
 const initialValues = {
@@ -92,7 +91,7 @@ const NestedForm = () => (
               </ArrayField>
             </div>
             <div style={{ flex: 2, minWidth: '300px' }}>
-              <FormState />
+              <Debug />
             </div>
           </div>
         );

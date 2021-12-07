@@ -3,12 +3,13 @@
 <!-- STORY -->
 
 ```jsx
-import { Form, Checkbox } from 'informed';
+import { Form, Checkbox, Debug } from 'informed';
 
-<Form id="checkbox-form">
-  <label>
-    Authorize <Checkbox field="authorize" />
-  </label>
-  <button type="submit">Submit</button>
-</Form>;
+const CheckboxInput = () => (
+  <Form>
+    <Checkbox name="authorize" label="Authorize" />
+    <button type="submit">Submit</button>
+    <Debug values />
+  </Form>
+);
 ```

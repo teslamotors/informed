@@ -14,9 +14,9 @@ const imports = {
 const scope = { imports };
 
 let code = `
-const { Form, SchemaFields, FormState } = imports['informed'];
+const { Form, SchemaFields, Debug } = imports['informed'];
 
-const onSubmit = (values) => {
+const onSubmit = ({values}) => {
   window.alert(JSON.stringify(values));
 }
 
@@ -27,7 +27,7 @@ const schema = {
       type: 'string',
       title: 'First Name',
       'ui:control': 'input',
-      'input:props': {
+      'ui:props': {
         placeholder: 'Elon'
       }
     },
@@ -39,7 +39,7 @@ const schema = {
         {
           const: '',
           title: '- Select -',
-          'input:props': {
+          'ui:props': {
             disabled: true
           }
         },
@@ -59,7 +59,7 @@ const schema = {
         { const: 'my', title: 'Model Y' }
       ],
       default: null,
-      'informed:props': {
+      'ui:props': {
         initialValue: 'm3'
       }
     },
@@ -71,7 +71,7 @@ const Component = () => {
     <Form schema={schema} onSubmit={onSubmit}>
       <SchemaFields />
       <button type="submit">Submit</button>
-      <FormState />
+      <Debug />
     </Form>
   );
 };

@@ -1,143 +1,271 @@
-import React, { useState, useRef } from 'react';
-import { MultistepApiContext, MultistepStateContext } from '../Context';
-import useFormApi from './useFormApi';
-import useStateWithGetter from './useStateWithGetter';
+import React, { useRef, useState, useMemo, useContext, useEffect } from 'react';
+import {
+  MultistepApiContext,
+  MultistepStateContext,
+  ScopeContext
+} from '../Context';
+import { useFormApi } from './useFormApi';
+import { useFormController } from './useFormController';
 
 const useMultistep = ({ initialStep, multistepApiRef }) => {
   // Get the formApi
-  const { getValues, validate, screenValid } = useFormApi();
+  const {
+    validate,
+    asyncValidate,
+    getFormState,
+    getFieldState,
+    emitter
+  } = useFormController();
 
-  // Track our steps by name
-  const [stepsByName] = useState(new Map());
+  const formApi = useFormApi();
+
+  // Get scope for relevance
+  const scope = useContext(ScopeContext);
 
   // Track number of steps
   const nSteps = useRef(0);
 
-  // Define our state
-  const [
-    multistepState,
-    setMultistepState,
-    getMultistepState
-  ] = useStateWithGetter({
-    current: initialStep,
+  // Track current step
+  const currentStep = useRef();
+
+  // Track array of steps
+  const [steps] = useState(() => []);
+
+  // Track our steps by name
+  const [stepsMap] = useState(() => new Map());
+
+  // Form state will be used to trigger rerenders
+  const [multistepState, setState] = useState({
     steps: [],
     goal: null
   });
 
-  // Define our api
-  const [multistepApi] = useState(() => {
-    const getCurrentStep = () => {
-      // Get the current state
-      const { current } = getMultistepState();
-      // Get the current step
-      const currentStep = stepsByName.get(current);
-      // Return it
-      return currentStep;
+  // YES! this is important! Otherwise it would get a new api object every render
+  /// That would cause unessissarry re-renders! so do not remove useMemeo!
+  const multistepApi = useMemo(() => {
+    // ---------- Define the api functions ----------
+    const register = (name, step) => {
+      // Create step meta
+      const stepMeta = { ...step, index: nSteps.current };
+      // Add step to ordered array
+      steps.push(stepMeta);
+      // Add step to named map
+      stepsMap.set(name, stepMeta);
+      // Inc number of steps
+      nSteps.current = nSteps.current + 1;
+      // Determine if we have initial goal and it just registered
+      let initialGoal = null;
+      let startingStep = null;
+
+      // There is no initial step so we start at first one
+      if (!initialStep) {
+        startingStep = steps[0].name;
+      }
+      // Otherwise we wait until our initial step has registered and then set our goal!
+      else if (initialStep && name === initialStep) {
+        initialGoal = initialStep;
+        startingStep = steps[0].name;
+      }
+      // console.log('WTF', name, initialGoal, startingStep);
+      // Update the state
+      setState(prev => {
+        if (!prev.current && startingStep) {
+          // Update the current step
+          currentStep.current = startingStep;
+        }
+        return {
+          ...prev,
+          steps,
+          goal: prev.goal || initialGoal,
+          current: prev.current || startingStep
+        };
+      });
     };
 
-    const api = {
-      // Gets the whole state
-      getState: () => getMultistepState(),
-      // Gets just the current
-      getCurrentStep,
-      // Gets that step
-      getStep: name => stepsByName.get(name),
-      // gets the current number of steps
-      getNumberOfSteps: () => {
-        return stepsByName.size;
-      },
-      // Goes to next step
-      next: () => {
-        // Validate the entire form
-        validate();
+    const getNexStep = () => {
+      // Get current step meta
+      const stepMeta = stepsMap.get(currentStep.current);
 
-        // If fields on the screen ( currently rendered ) are valid move on
-        if (screenValid()) {
-          // Get the current step
-          const { getNext } = getCurrentStep();
-          const next = getNext();
-          // Determine what the next step should be
-          const nextStep =
-            typeof next === 'function' ? next(getValues()) : next;
-          // Determine if it has a next
-          if (nextStep) {
-            setMultistepState(prev => ({
-              ...prev,
-              current: nextStep
-            }));
-          }
+      // Start searching from current step for a relevant next step
+      let nextStep;
+      for (let i = stepMeta.index + 1; i < steps.length; i++) {
+        // Potential next step
+        nextStep = steps[i];
+        // Check relevance
+        const formState = getFormState();
+        if (
+          nextStep.relevant
+            ? nextStep.relevant({ formState, formApi, scope })
+            : true
+        ) {
+          return nextStep.name;
         }
-      },
-      // Goes to previous step
-      back: () => {
-        // Get the current step
-        const { getPrevious } = getCurrentStep();
-        const previous = getPrevious();
-        // Determine what the previous step should be
-        const previousStep =
-          typeof previous === 'function' ? previous(getValues()) : previous;
-        // Determine if it has a previous
-        if (previousStep) {
-          setMultistepState(prev => ({
-            ...prev,
-            current: previousStep
-          }));
+      }
+
+      // IF we get here there are not next steps so we return nothing
+      return undefined;
+    };
+
+    const getPreviousStep = () => {
+      // Get current step meta
+      const stepMeta = stepsMap.get(currentStep.current);
+
+      // Start searching from current step for a relevant next step
+      let previousStep;
+      for (let i = stepMeta.index - 1; i >= 0; i--) {
+        // Potential previous step
+        previousStep = steps[i];
+        // Check relevance
+        const formState = getFormState();
+        if (
+          previousStep.relevant
+            ? previousStep.relevant({ formState, formApi, scope })
+            : true
+        ) {
+          return previousStep.name;
         }
-      },
-      // Goes to specified step
-      setCurrent: stp => {
-        if (stp) {
-          const goalIndex = stepsByName.get(stp).index;
-          // console.log(
-          //   'GOAL INDEX',
-          //   goalIndex,
-          //   'STPINDEX',
-          //   getCurrentStep().index
-          // );
-          if (goalIndex < getCurrentStep().index) {
-            setMultistepState(prev => ({
-              ...prev,
-              current: stp,
-              goal: null
-            }));
-          } else {
-            setMultistepState(prev => ({
-              ...prev,
-              // current: stp,
-              goal: stp
-            }));
-          }
-        }
-      },
-      // Registers the step
-      register: (name, step, initial) => {
-        if (initial) {
-          nSteps.current = nSteps.current + 1;
-          stepsByName.set(name, { ...step, index: nSteps.current });
-        } else {
-          setMultistepState(prev => ({
-            ...prev,
-            steps: Array.from(stepsByName.keys())
-          }));
-        }
-      },
-      // Deregisters the step
-      deregister: name => {
-        stepsByName.delete(name);
-        nSteps.current = nSteps.current - 1;
-        setMultistepState(prev => ({
-          ...prev,
-          steps: Array.from(stepsByName.keys())
-        }));
+      }
+
+      // IF we get here there are no previous steps so we return nothing
+      return undefined;
+    };
+
+    // Helper function for next
+    const proceed = (nextStep, cb) => {
+      // Get the multistep state values
+      if (cb && typeof cb === 'function') {
+        const fieldState = getFieldState(currentStep.current);
+
+        // Simply making value --> values because it makes more sense in this context
+        const subState = {
+          ...fieldState,
+          values: fieldState.value,
+          errors: fieldState.error
+        };
+
+        cb(subState)
+          .then(() => {
+            // Update the current step
+            currentStep.current = nextStep;
+            // Update the state
+            setState(prev => {
+              return { ...prev, current: nextStep };
+            });
+          })
+          .catch(() => {
+            // TODO mayyybe do something here ??
+          });
+      } else {
+        // Update the current step
+        currentStep.current = nextStep;
+        // Update the state
+        setState(prev => {
+          return { ...prev, current: nextStep };
+        });
       }
     };
 
+    const next = cb => {
+      // Get the next step
+      const nextStep = getNexStep();
+      if (nextStep) {
+        // Touch all the fields
+        formApi.touchAllFields();
+        // Validate the form
+        validate();
+        // Async validate the form
+        // We pass in a callback to proceed if we succeed async validation!
+        asyncValidate(() => proceed(nextStep, cb));
+        // Only proceed if we are valid and we are NOT currently async validating
+        if (getFormState().valid && getFormState().validating === 0) {
+          proceed(nextStep, cb);
+        }
+      }
+    };
+
+    const previous = () => {
+      // Get the next step
+      const previousStep = getPreviousStep();
+      // Update the current step
+      if (previousStep) {
+        // Update the current step
+        currentStep.current = previousStep;
+        // Update the state
+        setState(prev => {
+          return { ...prev, current: previousStep };
+        });
+      }
+    };
+
+    const setCurrent = step => {
+      // Get current step meta
+      const goalIndex = stepsMap.get(step).index;
+      const currIndex = stepsMap.get(currentStep.current).index;
+
+      // If the goal is behind then just go straight there
+      if (goalIndex < currIndex) {
+        // Update the current step
+        currentStep.current = step;
+        // Update the state
+        setState(prev => {
+          return { ...prev, current: step };
+        });
+      }
+      // If the goal is ahead then start walking! ;)
+      else {
+        // Update the state
+        setState(prev => {
+          return { ...prev, goal: step };
+        });
+      }
+    };
+
+    const metGoal = () => {
+      // Update the state
+      setState(prev => {
+        return { ...prev, goal: null };
+      });
+    };
+
+    // ---------- Define the api ----------
+    const api = {
+      register,
+      next,
+      previous,
+      getNexStep,
+      getPreviousStep,
+      setCurrent,
+      metGoal
+    };
+
+    // Set the ref
     if (multistepApiRef) {
       multistepApiRef.current = api;
     }
 
+    // return the api
     return api;
-  });
+  }, []);
+
+  // Register for events when multistep relevance changes
+  useEffect(() => {
+    const listener = () => {
+      // Update the state
+      setState(prev => {
+        return {
+          ...prev,
+          nextStep: multistepApi.getNexStep(),
+          previousStep: multistepApi.getPreviousStep()
+        };
+      });
+    };
+
+    emitter.on('multistep-relevance', listener);
+
+    return () => {
+      emitter.removeListener('multistep-relevance', listener);
+    };
+  }, []);
 
   // Render funtion that will provide state and api
   const render = children => (
@@ -155,4 +283,4 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
   };
 };
 
-export default useMultistep;
+export { useMultistep };

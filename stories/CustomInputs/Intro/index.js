@@ -1,8 +1,7 @@
 import React from 'react';
-import Code from '../../utils/Code';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import { Form, BasicText, asField } from '../../../src';
+import { Form, useField } from '../../../src';
 
 const validate = value => {
   return !value || value.length < 5
@@ -10,46 +9,39 @@ const validate = value => {
     : undefined;
 };
 
-const ErrorText = ({ fieldState, ...props }) => (
-  <React.Fragment>
-    <BasicText
-      fieldState={fieldState}
-      {...props}
-      style={fieldState.error ? { border: 'solid 1px red' } : null}
-    />
-    {fieldState.error ? (
-      <small style={{ color: 'red' }}>{fieldState.error}</small>
-    ) : null}
-  </React.Fragment>
-);
-
-const ErrorTextField = asField(ErrorText);
+export const ErrorTextField = React.memo(({ label, ...props }) => {
+  const { render, informed, fieldState, ref } = useField({
+    type: 'text',
+    ...props
+  });
+  const { showError } = fieldState;
+  return render(
+    <label>
+      {label}
+      <input
+        {...informed}
+        ref={ref}
+        style={showError ? { border: 'solid 1px red' } : null}
+      />
+      {showError ? (
+        <small style={{ color: 'red' }}>{fieldState.error}</small>
+      ) : null}
+    </label>
+  );
+});
 
 const Intro = () => (
   <div>
     <Form>
-      {({ formState }) => (
-        <React.Fragment>
-          <label>
-            First name:
-            <ErrorTextField
-              field="name"
-              validate={validate}
-              validateOnChange
-              validateOnBlur
-            />
-          </label>
-          <button type="submit">Submit</button>
-          <label>Values:</label>
-          <Code language="language-js">
-            {JSON.stringify(formState.values, null, 2)}
-          </Code>
-          <label>Errors:</label>
-          <Code language="language-js">
-            {JSON.stringify(formState.errors, null, 2)}
-          </Code>
-        </React.Fragment>
-      )}
+      <ErrorTextField
+        field="name"
+        label="First name:"
+        validate={validate}
+        validateOnChange
+        validateOnBlur
+      />
+      <button type="submit">Submit</button>
+      <Debug values errors />
     </Form>
   </div>
 );

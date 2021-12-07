@@ -1,26 +1,25 @@
-import React, { Component } from 'react';
-import { GroupContext } from '../../Context';
-import Radio from './Radio';
+/* eslint-disable indent */
+import React from 'react';
+import { RadioGroupContext } from '../../Context';
+import { useField } from '../../hooks/useField';
+import { Radio } from './Radio';
 
-import asField from '../../HOC/asField';
+export const RadioGroup = props => {
+  const { fieldApi, fieldState, userProps } = useField(props);
 
-class RadioGroup extends Component {
-  get groupContext() {
-    return {
-      radioGroupApi: {
-        ...this.props.fieldApi,
-        onChange: this.props.onChange,
-        onBlur: this.props.onBlur
-      },
-      radioGroupState: this.props.fieldState
-    };
-  }
+  const groupContext = {
+    radioGroupApi: fieldApi,
+    radioGroupState: fieldState,
+    ...props
+  };
 
-  render() {
-    const { options, children } = this.props;
+  const { label, id, options, children } = userProps;
+  const { showError, error } = fieldState;
 
-    return (
-      <GroupContext.Provider value={this.groupContext}>
+  return (
+    <RadioGroupContext.Provider value={groupContext}>
+      <fieldset aria-describedby={`${id}-error`}>
+        {label ? <legend>{label}</legend> : null}
         {options
           ? options.map(option => (
               <label key={option.value}>
@@ -28,11 +27,12 @@ class RadioGroup extends Component {
               </label>
             ))
           : children}
-      </GroupContext.Provider>
-    );
-  }
-}
-
-export { RadioGroup as BasicRadioGroup };
-
-export default asField(RadioGroup);
+        {showError ? (
+          <small role="alert" id={`${id}-error`}>
+            {error}
+          </small>
+        ) : null}
+      </fieldset>
+    </RadioGroupContext.Provider>
+  );
+};

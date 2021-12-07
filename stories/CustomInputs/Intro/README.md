@@ -1,10 +1,7 @@
 # Custom Inputs
 
 Sometimes the inputs `informed` provides are not good enough. So we decided to
-help you out with that! Informed also gives you access to an asField HOC
-( High Order Component ). We also expose the internal input fields such that you
-can simply add on to them without writing all of the code again. You will see this
-in one of the following examples.
+help you out with that! Informed also gives you access to a useField hook.
 
 ## Custom Text Input
 
@@ -14,7 +11,7 @@ it red when there is an error. You could achieve this with the following code.
 <!-- IDFK Strange issue where i need this commnet or code formatting is messed up -->
 
 ```jsx
-import { Form, BasicText, asField } from 'informed';
+import { Form, BasicText, useField } from 'informed';
 
 const validate = value => {
   return !value || value.length < 5
@@ -22,33 +19,42 @@ const validate = value => {
     : undefined;
 };
 
-const ErrorText = ({ fieldState, ...props }) => (
-  <React.Fragment>
-    <BasicText
-      fieldState={fieldState}
-      {...props}
-      style={fieldState.error ? { border: 'solid 1px red' } : null}
-    />
-    {fieldState.error ? (
-      <small style={{ color: 'red' }}>{fieldState.error}</small>
-    ) : null}
-  </React.Fragment>
-));
+export const ErrorTextField = React.memo(({ label, ...props }) => {
+  const { render, informed, ref, fieldState } = useField({
+    type: 'text',
+    ...props
+  });
+  const { showError } = fieldState;
+  return render(
+    <label>
+      {label}
+      <input
+        ref={ref}
+        {...informed}
+        style={showError ? { border: 'solid 1px red' } : null}
+      />
+      {showError ? (
+        <small style={{ color: 'red' }}>{fieldState.error}</small>
+      ) : null}
+    </label>
+  );
+});
 
-const ErrorTextField = asField(ErrorText);
-
-<Form>
-  <label>
-    First name:
-    <ErrorTextField
-      field="name"
-      validate={validate}
-      validateOnChange
-      validateOnBlur
-    />
-  </label>
-  <button type="submit">Submit</button>
-</Form>;
+const Intro = () => (
+  <div>
+    <Form>
+      <ErrorTextField
+        field="name"
+        label="First name:"
+        validate={validate}
+        validateOnChange
+        validateOnBlur
+      />
+      <button type="submit">Submit</button>
+      <Debug values errors />
+    </Form>
+  </div>
+);
 ```
 
 <!-- STORY -->

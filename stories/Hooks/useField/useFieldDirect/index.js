@@ -4,24 +4,40 @@ import withDocs from '../../../utils/withDocs';
 import readme from './README.md';
 import { useField, useForm } from '../../../../src';
 
-const onSubmit = values => window.alert(`Form successfully submitted with ${JSON.stringify(values)}`);
+const onSubmit = ({ values }) =>
+  window.alert(`Form successfully submitted with ${JSON.stringify(values)}`);
 
 const UseFieldDirect = () => {
-
-  const { 
-    formController,
-    render,
-    formState,
-  } = useForm({
+  const { formController, render, formState } = useForm({
     onSubmit
   });
 
-  const { informed: informName } = useField({ formController, field: 'name', fieldType: 'text' });
-  const { informed: informAge } = useField({ formController, field: 'age', fieldType: 'number' });
-  const { informed: informStatus } = useField({ formController, field: 'status', fieldType: 'select' });
-  const { informed: informColors } = useField({ formController, field: 'colors', fieldType: 'select', multiple: true });
-  const { informed: informAuthorize } = useField({ formController, field: 'authorize', fieldType: 'checkbox' });
- 
+  const { informed: informName } = useField({
+    formController,
+    field: 'name',
+    fieldType: 'text'
+  });
+  const { informed: informAge } = useField({
+    formController,
+    field: 'age',
+    fieldType: 'number'
+  });
+  const { informed: informStatus } = useField({
+    formController,
+    field: 'status',
+    fieldType: 'select'
+  });
+  const { informed: informColors } = useField({
+    formController,
+    field: 'colors',
+    fieldType: 'select',
+    multiple: true
+  });
+  const { informed: informAuthorize } = useField({
+    formController,
+    field: 'authorize',
+    fieldType: 'checkbox'
+  });
 
   return render(
     <form
@@ -48,9 +64,7 @@ const UseFieldDirect = () => {
         </label>
         <label>
           Colors:
-          <select
-            {...informColors}
-            style={{ height: '100px', width: '200px' }}>
+          <select {...informColors} style={{ height: '100px', width: '200px' }}>
             <option value="red">Red</option>
             <option value="green">Green</option>
             <option value="blue">Blue</option>
@@ -72,7 +86,7 @@ const UseFieldDirect = () => {
       <Code language="language-js">
         {JSON.stringify(formState.touched, null, 2)}
       </Code>
-    </form>  
+    </form>
   );
 };
 

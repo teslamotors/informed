@@ -1,5 +1,11 @@
-import Debug from './debug';
+import { Debug } from './debug';
 const debug = Debug('informed:ObjMap' + '\t');
+
+/**
+ *
+ * A data structure to read and write to a JS object via
+ * JSPAN ( Java Script Property Access Notation )
+ */
 
 /* -------------------- toPath -------------------- */
 
@@ -22,6 +28,21 @@ const ldget = (obj, path = '', defaultValue) => {
       obj
     );
   return result === undefined || result === obj ? defaultValue : result;
+};
+
+/* --------------------- swap --------------------- */
+const ldSwap = (arr, a, b) => {
+  if (arr[a] && arr[b]) {
+    const oldA = arr[a];
+    const oldB = arr[b];
+    arr[a] = oldB;
+    arr[b] = oldA;
+  } else {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `Attempted to swap ${a} with ${b} but one of them does not exist :(`
+    );
+  }
 };
 
 /* --------------------- has --------------------- */
@@ -70,7 +91,13 @@ const ldset = (obj, path = '', val) => {
         return res[key];
       }
       // Initialize to new array or object if needed
-      if (res[key] === undefined) {
+      // OLD CODE: if (res[key] === undefined) {
+      // Note I left comment above because it used to be undefined check
+      // I had to change it to object in case someone tried to set
+      // a value on an existing non object type
+      // Example ldSet({ foo: 'HelloWorld' }, 'foo.bar', 'Hello World')
+      // ==> { foo: { bar: 'HelloWorld' } }
+      if (typeof res[key] !== 'object') {
         if (Number.isInteger(+arr[i + 1])) {
           res[key] = [];
         } else {
@@ -141,6 +168,7 @@ const ldpullAt = (obj, path = '') => {
 
 /* --------------------- values --------------------- */
 
+// eslint-disable-next-line no-unused-vars
 const ldvalues = (obj = {}) => {
   const props = Object.keys(obj);
   return props.map(key => obj[key]);
@@ -151,9 +179,11 @@ const pathToArrayElem = path => {
   return Number.isInteger(+pathArray[pathArray.length - 1]);
 };
 
-class ObjectMap {
+export class ObjectMap {
   static empty(object) {
-    return ldvalues(object).length === 0;
+    // return ldvalues(object).length === 0;
+    for (let i in object) return false;
+    return true;
   }
 
   static get(object, path) {
@@ -168,7 +198,7 @@ class ObjectMap {
 
   static set(object, path, value) {
     if (value !== undefined) {
-      debug('SETTING', path, value);
+      debug('Setting', path, value);
       ldset(object, path, value);
     } else {
       // Setting things to undefined in informed is special!
@@ -206,7 +236,7 @@ class ObjectMap {
 
     // Special case for arrays
     if (pathToArrayElem(path)) {
-      debug('ARRAY', path);
+      debug('ARRAY PATH', path);
       //ldunset(object, path);
       this.pullOut(object, path);
     } else {
@@ -216,6 +246,7 @@ class ObjectMap {
     let pathArray = ldtoPath(path);
     pathArray = pathArray.slice(0, pathArray.length - 1);
     cleanup(object, pathArray);
+    debug('DELETED', path);
   }
 
   // Very important ;)
@@ -228,16 +259,50 @@ class ObjectMap {
     debug('Pulling out:', pathArray, 'index', index);
     // Get the array
     const arr = ldget(object, pathArray);
-    debug('Array', arr);
+    debug('Array Before', arr);
     // Pull out of array
     if (Array.isArray(arr)) {
       ldpullAt(arr, index);
     }
+    debug('Array After', arr);
     cleanup(object, pathArray);
+  }
+
+  static purge(obj) {
+    let newObj = Array.isArray(obj) ? [] : {};
+    Object.keys(obj).forEach(key => {
+      // Its an object recur
+      if (typeof obj[key] === 'object') {
+        newObj[key] = ObjectMap.purge(obj[key]);
+        // If its empty after purge delete
+        if (Object.keys(newObj[key]).length === 0) {
+          delete newObj[key];
+        }
+      } else if (obj[key] !== undefined) {
+        newObj[key] = obj[key];
+      }
+    });
+    return newObj;
+  }
+
+  // Very important ;)
+  static swap(object, path, i, j) {
+    // Get the path to the array
+    console.log('Swaping out out:', path, i, j);
+    // Get the array
+    const arr = ldget(object, path);
+    console.log('Array', arr);
+    // Pull out of array
+    if (Array.isArray(arr)) {
+      ldSwap(arr, i, j);
+    }
   }
 }
 
-function cleanup(obj, path, pull = true) {
+function cleanup(obj, path) {
+  // uncomment this to add third param back
+  //,pull = true) {
+
   // Base case no path left
   if (path.length === 0) {
     return;
@@ -261,5 +326,3 @@ function cleanup(obj, path, pull = true) {
   // Recur
   cleanup(obj, path.slice(0, path.length - 1));
 }
-
-export default ObjectMap;

@@ -10,66 +10,40 @@ This is hard to describe in words so hopefully the example below helps!
 
 **Hint:** Perform the user flow described below.
 
-1. Type a name into the name field and click next
-2. Select the checkbox because you're allergic to penut butter :( then click next
-3. Select yes becauese you have an epipen
-4. Type in a color DONT CLICK SUBMIT
-5. You just remembered that you actually are NOT allergic to penut butter! So Jump back to the allergy question.
-6. Uncheck the checkbox and note how the form state changes! The epipen question goes away!
-7. Click next and note how you go to the color question instead of the epi pen question.
+1. Click the next button to trigger validation.
+1. Fill out the fields and click next.
+1. Select the checkbox because you're allergic to peanut butter, then click next.
+1. Select that you have an epipen, then click next.
+1. Type in your favorite color and food, DONT CLICK NEXT.
+1. You just remembered that you actually are NOT allergic to peanut butter. So Jump back to the allergies question.
+1. Uncheck the checkbox and note how the form state changes! The souse name goes away!
+1. Click next and note how you go to the favorite question instead of the epipen question.
 
 <!-- STORY -->
 
 ```jsx
-import { Form, Text, useFormApi, useFormState } from 'informed';
+import {
+  Form,
+  Input,
+  Multistep,
+  Checkbox,
+  RadioGroup,
+  Radio,
+  Relevant,
+  Debug,
+  useMultistepApi,
+  useMultistepState
+} from 'informed';
 
 const validate = value =>
   value == null ? 'This field is required' : undefined;
 
-/**
- *
- * At any point in time the form is in a state, and the following questions
- * need to be answered
- * 1. What is the next quesion
- * 2. What is the previous quesion
- * 3. Am I a relevant quesion
- *
- * Example: Suppose this user flow
- *
- * Name
- *   ^
- * User types name and clicks the next button
- *
- * Name ------> Allergic
- *                 ^
- * User selects yes and clicks the next button
- *
- * Name ------> Allergic( yes ) -------> EpiPen
- *                                          ^
- * User selects yes and clicks the next button
- *
- * Name ------> Allergic( yes ) -------> EpiPen( yes ) ------> Color
- *                                                               ^
- * User decides to jump back to the Allergic quesion
- *
- * Name ------> Allergic( yes ) -------> EpiPen ------> Color
- *                 ^
- * User selects No and clicks the next button
- *
- * Name ------> Allergic( no ) ------> Color
- *                                       ^
- * At this point Allergic Component decides his next is color and epi pen decides he is No longer relevant
- *
- **/
-
 const Info = () => {
   const { next } = useMultistepApi();
   return (
-    <Multistep.Step step="info" next="allergies">
-      <label>
-        Please enter your first name:
-        <Text field="first" validate={validate} />
-      </label>
+    <Multistep.Step step="info">
+      <Input name="first" label="First Name" required />
+      <Input name="last" label="First Name" required />
       <button type="button" onClick={next}>
         Next
       </button>
@@ -78,104 +52,107 @@ const Info = () => {
 };
 
 const Allergic = () => {
-  const { next, back } = useMultistepApi();
+  const { next, previous } = useMultistepApi();
   return (
-    <Multistep.Step
-      step="allergies"
-      next={values => (values.allergic ? 'epipen' : 'color')}
-      previous="info">
-      <label>
-        Are you alergic to penut butter?:
-        <Checkbox field="allergic" validate={validate} />
-      </label>
-      <button type="button" onClick={next}>
-        Next
-      </button>
-      <button type="button" onClick={back}>
-        Back
-      </button>
+    <Multistep.Step step="allergies">
+      <h5>Are you allergic to any of the following?</h5>
+      <Checkbox name="peanuts" label="Peanut butter?:" />
+      <Checkbox name="shellfish" label="Shellfish:" />
+      <div className="button-group">
+        <button type="button" onClick={previous}>
+          Previous
+        </button>
+        <button type="button" onClick={next}>
+          Next
+        </button>
+      </div>
     </Multistep.Step>
   );
 };
 
 const EpiPen = () => {
-  const { next, back } = useMultistepApi();
+  const { next, previous } = useMultistepApi();
 
-  // Only relevant if the person is allergic
-  const relevant = ({ allergic }) => allergic;
+  // Only relevant if the person is allergic to something
+  const relevant = ({ formState }) => {
+    const { allergies } = formState.values;
+    return allergies && Object.values(allergies).some(a => !!a);
+  };
 
   return (
-    <Multistep.Step
-      step="epipen"
-      next="color"
-      previous="allergies"
-      relevant={relevant}>
+    <Multistep.Step step="treatment" relevant={relevant}>
       <label>
         Do you have an epipen?:
-        <RadioGroup field="epipen" validate={validate}>
-          <label>
-            Yes <Radio value="yes" />
-          </label>
-          <label>
-            No <Radio value="no" />
-          </label>
+        <RadioGroup name="epipen" required>
+          <Radio value="yes" label="Yes" />
+          <Radio value="no" label="No" />
         </RadioGroup>
       </label>
-      <button type="button" onClick={next}>
-        Next
-      </button>
-      <button type="button" onClick={back}>
-        Back
-      </button>
+      <div className="button-group">
+        <button type="button" onClick={previous}>
+          Previous
+        </button>
+        <button type="button" onClick={next}>
+          Next
+        </button>
+      </div>
     </Multistep.Step>
   );
 };
 
 const Color = () => {
-  const { back, next } = useMultistepApi();
+  const { next, previous } = useMultistepApi();
+  const { nextStep } = useMultistepState();
 
   return (
-    <Multistep.Step
-      step="color"
-      next="dog"
-      previous={values => (values.allergic ? 'epipen' : 'allergies')}>
-      <label>
-        Please enter your favorite color:
-        <Text field="color" validate={validate} />
-      </label>
-      <button type="button" onClick={next}>
-        Next
-      </button>
-      <button type="button" onClick={back}>
-        Back
-      </button>
-      <button type="submit">Submit</button>
+    <Multistep.Step step="favorite">
+      <Input name="color" label="Favorite Color:" required />
+      <Input name="food" label="Favorite Food:" required />
+      <Checkbox name="pet" label="Do you have a pet?" />
+      <div className="button-group">
+        <button type="button" onClick={previous}>
+          Previous
+        </button>
+        {nextStep ? (
+          <button type="button" onClick={next}>
+            Next
+          </button>
+        ) : null}
+        {!nextStep ? <button type="submit">Submit</button> : null}
+      </div>
     </Multistep.Step>
   );
 };
 
 const Dog = () => {
-  const { back } = useMultistepApi();
+  const { previous } = useMultistepApi();
+
+  // Only relevant if the person is has a pet
+  const relevant = ({ formState }) => {
+    const { favorite } = formState.values;
+    return favorite?.pet;
+  };
 
   return (
-    <Multistep.Step step="dog" previous="color">
-      <label>
-        Do you have a dog? <Checkbox field="hasDog" />
-      </label>
-      <Relevant when={({ values }) => values.hasDog}>
-        <label>
-          Whats your dogs name?:
-          <Text
-            field="dogName"
-            validate={validate}
-            relevant={values => values.hasDog}
-          />
-        </label>
+    <Multistep.Step step="pets" previous="color" relevant={relevant}>
+      <Checkbox name="hasDog" label="Do you have a dog?" />
+      <Relevant
+        when={({ formApi, scope }) => formApi.getValue(`${scope}.hasDog`)}>
+        <Input name="dogName" label="Whats your dogs name?" required />
       </Relevant>
-      <button type="button" onClick={back}>
-        Back
-      </button>
-      <button type="submit">Submit</button>
+      <Checkbox name="hasCat" label="Do you have a cat?" />
+      <Input
+        name="catName"
+        label="Whats your cats name?"
+        required
+        relevant={({ formApi, scope }) => formApi.getValue(`${scope}.hasCat`)}
+      />
+      <div className="button-group">
+        <button type="button" onClick={previous}>
+          Previous
+        </button>
+        <button type="submit">Submit</button>
+      </div>
     </Multistep.Step>
   );
 };
@@ -191,33 +168,32 @@ const Buttons = () => {
       <button type="button" onClick={() => setCurrent('allergies')}>
         Jump2 Allergic
       </button>
-      <button type="button" onClick={() => setCurrent('epipen')}>
+      <button type="button" onClick={() => setCurrent('treatment')}>
         Jump2 EpiPen
       </button>
-      <button type="button" onClick={() => setCurrent('color')}>
+      <button type="button" onClick={() => setCurrent('favorite')}>
         Jump2 Color
       </button>
-      <button type="button" onClick={() => setCurrent('dog')}>
+      <button type="button" onClick={() => setCurrent('pets')}>
         Jump2 Dog
       </button>
     </div>
   );
 };
 
-<Form>
-  <Multistep initialStep="info">
-    <div
-      style={{
-        border: 'solid 1px',
-        padding: '10px',
-        marginBottom: '10px'
-      }}>
-      <Info />
-      <Allergic />
-      <EpiPen />
-      <Color />
-      <Dog />
-    <Buttons />
-  </Multistep>
-</Form>;
+const Example = () => {
+  return (
+    <Form autocomplete="off">
+      <Multistep>
+        <Info />
+        <Allergic />
+        <EpiPen />
+        <Color />
+        <Dog />
+        <Buttons />
+      </Multistep>
+      <Debug />
+    </Form>
+  );
+};
 ```

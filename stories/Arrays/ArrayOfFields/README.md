@@ -7,13 +7,13 @@ Fields can also be associated with an array. Here is an example where you can in
 ```jsx
 import { Form, Text } from 'informed';
 
-<Form id="array-form">
-  <label htmlFor="array-friend-1">Friend1</label>
-  <Text field="friends[0]" id="array-friend-1" />
-  <label htmlFor="array-friend-2">Friend2</label>
-  <Text field="friends[1]" id="array-friend-2" />
-  <label htmlFor="array-friend-3">Friend3</label>
-  <Text field="friends[2]" id="array-friend-3" />
-  <button type="submit">Submit</button>
-</Form>;
+const Example = () => (
+  <Form>
+    <Input name="friends[0]" label="Friend1" />
+    <Input name="friends[1]" label="Friend2" />
+    <Input name="friends[2]" label="Friend3" />
+    <button type="submit">Submit</button>
+    <Debug values />
+  </Form>
+);
 ```

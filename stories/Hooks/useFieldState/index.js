@@ -2,7 +2,7 @@ import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 
-import { Form, Text, useFieldState } from '../../../src';
+import { Form, Input, useFieldState } from '../../../src';
 
 const ComponentUsingFieldState = ({ name }) => {
   const fieldState = useFieldState(name);
@@ -19,8 +19,8 @@ const ComponentUsingFieldState = ({ name }) => {
 
 const UseFieldState = () => (
   <Form>
-    <Text field="name" label="Name:" initialValue="Joe" />
-    <Text field="age" label="Age:" type="number" />
+    <Input name="name" label="Name:" initialValue="Joe" />
+    <Input field="age" label="Age:" type="number" />
     <button type="submit">Submit</button>
     <ComponentUsingFieldState name="name" />
     <ComponentUsingFieldState name="age" />

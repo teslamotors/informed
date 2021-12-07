@@ -16,12 +16,9 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              '@babel/preset-env',
-              '@babel/preset-react',
-            ],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
             plugins: [
-              ['@babel/plugin-proposal-class-properties', { 'loose': false }]
+              ['@babel/plugin-proposal-class-properties', { loose: false }]
             ]
           }
         }
@@ -33,7 +30,7 @@ module.exports = {
           options: { esModules: true }
         },
         enforce: 'post',
-        exclude: /node_modules|\.spec\.js$/,
+        exclude: /node_modules|\.spec\.js$/
       }
     ]
   }

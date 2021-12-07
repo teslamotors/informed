@@ -71,7 +71,7 @@ const FormatParse = () => (
       />
       <FormattedField />
       <button type="submit">Submit</button>
-      <FormState />
+      <Debug />
     </div>
   </Form>
 );

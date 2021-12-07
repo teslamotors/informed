@@ -42,38 +42,33 @@ const FormattedObjectInput = props => {
 
   const { fieldState, fieldApi, render, userProps } = useField({
     ...props,
-    initialize
+    inputRefs: {
+      a: refA,
+      b: refB
+    },
+    formatter: {
+      a: formatter,
+      b: formatter
+    },
+    parser: {
+      a: parser,
+      b: parser
+    }
   });
-  const { value } = fieldState;
+
+  const { maskedValue } = fieldState;
   const { setValue, setTouched } = fieldApi;
   const { onChange, onBlur, ...rest } = userProps;
-
-  const v = value || {};
-
-  const {
-    setCursorOffset: setCursorOffsetA,
-    setCursor: setCursorA
-  } = useCursorPosition({ value: v.a, inputRef: refA });
-  const {
-    setCursorOffset: setCursorOffsetB,
-    setCursor: setCursorB
-  } = useCursorPosition({ value: v.b, inputRef: refB });
 
   const aChange = e => {
     const newVal = { ...v };
 
     const val = e.target.value;
 
-    // Remember Cursor position!
-    if (e && e.target && e.target.selectionStart) {
-      setCursorA(e.target.selectionStart);
-    }
+    // update the "a" value
+    newVal.a = val;
 
-    const res = informedFormat(val, formatter);
-    setCursorOffsetA(res.offset);
-    newVal.a = res.value;
-
-    setValue(newVal);
+    setValue(newVal, e, 'a');
   };
 
   const bChange = e => {
@@ -81,17 +76,13 @@ const FormattedObjectInput = props => {
 
     const val = e.target.value;
 
-    // Remember Cursor position!
-    if (e && e.target && e.target.selectionStart) {
-      setCursorB(e.target.selectionStart);
-    }
+    // update the "a" value
+    newVal.b = val;
 
-    const res = informedFormat(val, formatter);
-    setCursorOffsetB(res.offset);
-    newVal.b = res.value;
-
-    setValue(newVal);
+    setValue(newVal, e, 'b');
   };
+
+  const v = maskedValue || {};
 
   const { a, b } = v;
 

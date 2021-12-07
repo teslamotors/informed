@@ -1,81 +1,82 @@
-import React, { useEffect, useRef, useState } from 'react';
-import useMultistepState from './useMultistepState';
-import useFormState from './useFormState';
-import useMultistepApi from './useMultistepApi';
+import React, { useEffect } from 'react';
+import { useMultistepState } from './useMultistepState';
+import { useMultistepApi } from './useMultistepApi';
 import { MultistepStepContext } from '../Context';
+import { useRelevance } from './useRelevance';
+import { Debug } from '../debug';
+import { useFormController } from './useFormController';
+import { Scope } from '../components/Scope';
 
-const useMultistepStep = ({ step, next, previous, relevant }) => {
-  const { values } = useFormState();
+const logger = Debug('informed:useMultistepStep' + '\t');
+
+const useMultistepStep = ({
+  step,
+  relevant,
+  keepState,
+  relevanceWhen = []
+}) => {
+  const formController = useFormController();
   const { current, goal } = useMultistepState();
-  const { register, deregister, next: goToNext } = useMultistepApi();
+  const { register, next, metGoal } = useMultistepApi();
 
-  const isCurrent = step === current;
-  const isRelevant = relevant ? relevant(values) : true;
+  const active = step === current;
 
-  const nextRef = useRef(next);
-  const prevRef = useRef(previous);
-  const relevantRef = useRef();
-  nextRef.current = next;
-  prevRef.current = previous;
-  relevantRef.current = relevant;
+  useEffect(() => {
+    register(step, {
+      name: step,
+      relevant
+    });
+  }, []);
 
-  useState(() => {
-    register(
-      step,
-      {
-        name: step,
-        getNext: () => nextRef.current,
-        getPrevious: () => prevRef.current
-      },
-      true
-    );
+  const isRelevant = useRelevance({
+    name: step,
+    relevant,
+    relevanceWhen
   });
 
+  // Cleanup on irrelivant
   useEffect(
     () => {
-      register(step, {
-        name: step,
-        getNext: () => nextRef.current,
-        getPrevious: () => prevRef.current
-      });
-      return () => {
-        deregister(step);
-      };
+      if (!isRelevant && !keepState) {
+        logger('MULTISTEP RELEVNAT REMOVING', step);
+        formController.remove(step);
+      }
+      // We also need all steps to re evaluate if they have next and prev
+      formController.emitter.emit('multistep-relevance');
     },
-    [step]
+    [isRelevant]
   );
 
   useEffect(
     () => {
       // if we are NOT at the goal go to the next step
-      if (goal && isCurrent && goal !== step) {
-        // console.log('GOAL', goal, 'STEP', step, 'INDEX', getStep(step).index);
-        // console.log('GOING TO NEXT STEP');
-        goToNext();
+      if (goal && active && goal !== step) {
+        logger('GOAL', goal, 'STEP', step);
+        logger('GOING TO NEXT STEP');
+        next();
+      }
+      // If we have met our goal clear it
+      if (goal && active && goal === step) {
+        metGoal();
       }
     },
-    [goal, isCurrent]
+    [goal, active]
   );
 
   const render = children => {
     return (
-      <MultistepStepContext.Provider
-        value={{
-          relevant: params =>
-            relevantRef.current ? relevantRef.current(params) : true,
-          multistep: true
-        }}>
-        {isCurrent && isRelevant ? children : null}
+      <MultistepStepContext.Provider value={active}>
+        <Scope scope={step}>{active ? children : null}</Scope>
       </MultistepStepContext.Provider>
     );
   };
 
   return {
-    isCurrent,
-    isRelevant,
+    active,
     step,
-    render
+    render,
+    relevant: isRelevant
   };
 };
 
-export default useMultistepStep;
+export { useMultistepStep };

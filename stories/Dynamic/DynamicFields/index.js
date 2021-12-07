@@ -1,14 +1,14 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 
 import {
   Form,
-  Text,
+  Input,
   RadioGroup,
   Radio,
   Relevant,
+  Debug,
   ArrayField,
   Scope
 } from '../../../src';
@@ -19,19 +19,19 @@ import {
 //       {({ formState }) => (
 //         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
 //           <div style={{ flex: 1, marginRight: '2rem' }}>
-//             <label>First name:<Text field="name"/></label>
+//             <label>First name:<Input name="name"/></label>
 //             <label>Are you married?</label>
-//             <RadioGroup field="married">
+//             <RadioGroup name="married">
 //               <label>Yes <Radio value="yes"/></label>
 //               <label>No <Radio value="no"/></label>
 //             </RadioGroup>
 //             {formState.values.married === 'yes' ? (
-//               <label >Spouse name:<Text field="spouse" /></label>
+//               <label >Spouse name:<Input name="spouse" /></label>
 //             ) : null}
 //             <button type="submit">Submit</button>
 //           </div>
 //           <div style={{ flex: 2, minWidth: '300px' }}>
-//             <FormState />
+//             <Debug />
 //           </div>
 //         </div>
 //       )}
@@ -47,12 +47,9 @@ const DynamicFields = () => (
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, marginRight: '2rem' }}>
           {/* <Scope scope="person"> */}
-          <label>
-            First name:
-            <Text field="name" />
-          </label>
+          <Input name="name" label="First name:" />
           <label>Are you married?</label>
-          <RadioGroup field="married">
+          <RadioGroup name="married">
             <label>
               Yes <Radio value="yes" />
             </label>
@@ -60,15 +57,18 @@ const DynamicFields = () => (
               No <Radio value="no" />
             </label>
           </RadioGroup>
-          <Relevant when={({ values }) => values?.married === 'yes'}>
-            <label>
-              Spouse name:
-              <Text field="spouse" />
-            </label>
+          <Relevant
+            when={({ formState }) => formState.values?.married === 'yes'}>
+            <Input
+              name="spouse"
+              label="Spouse name:"
+              // relevanceWhen={['married']}
+              // relevant={({ formState }) => formState.values?.married === 'yes'}
+            />
 
             {/* <h5>Siblings:</h5>
             <ArrayField
-              field="siblings"
+              name="siblings"
               keepState
               initialValue={[
                 { first: 'Foo', last: 'ahh' },
@@ -86,9 +86,9 @@ const DynamicFields = () => (
                     {({ remove, field, index }) => (
                       <label>
                         Sibling {index}:
-                        <Text field={`${field}.first`} keepState />
+                        <Input name={`${field}.first`} keepState />
                         Sibling {index}:
-                        <Text field={`${field}.last`} keepState />
+                        <Input name={`${field}.last`} keepState />
                         <button type="button" onClick={remove}>
                           Remove
                         </button>
@@ -102,8 +102,8 @@ const DynamicFields = () => (
           <button type="submit">Submit</button>
           {/* </Scope> */}
         </div>
-        <div style={{ flex: 2, minWidth: '300px' }}>
-          <FormState />
+        <div style={{ flex: 2, minWidth: '300px', marginLeft: '3rem' }}>
+          <Debug />
         </div>
       </div>
     </Form>

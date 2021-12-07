@@ -6,23 +6,22 @@ where a friend consists of a first and last name.
 <!-- STORY -->
 
 ```jsx
-import { Form, Text, Scope } from 'informed';
+import { Form, Text, Scope, Debug } from 'informed';
 
-<Form id="array-form">
-  <h5>Friend1</h5>
-  <Scope scope="friends[0]">
-    <label htmlFor="friend-1-firstname">Firstname</label>
-    <Text field="firstname" id="friend-1-firstname" />
-    <label htmlFor="friend-1-lastname">Lastname</label>
-    <Text field="lastname" id="friend-1-lastname" />
-  </Scope>
-  <h5>Friend2</h5>
-  <Scope scope="friends[1]">
-    <label htmlFor="friend-2-firstname">Firstname</label>
-    <Text field="firstname" id="friend-2-firstname" />
-    <label htmlFor="friend-2-lastname">Lastname</label>
-    <Text field="lastname" id="friend-2-lastname" />
-  </Scope>
-  <button type="submit">Submit</button>
-</Form>;
+const ArrayOfScopes = () => (
+  <Form>
+    <h5>Friend1</h5>
+    <Scope scope="friends[0]">
+      <Input name="firstName" label="First Name" />
+      <Input name="lastName" label="Last Name" />
+    </Scope>
+    <h5>Friend2</h5>
+    <Scope scope="friends[1]">
+      <Input name="firstName" label="First Name" />
+      <Input name="lastName" label="Last Name" />
+    </Scope>
+    <button type="submit">Submit</button>
+    <Debug />
+  </Form>
+);
 ```

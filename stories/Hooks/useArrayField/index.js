@@ -1,9 +1,8 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import FormState from '../../utils/FormState';
 
-import { Form, Text, useArrayField } from '../../../src';
+import { Form, Input, useArrayField, Debug } from '../../../src';
 
 const Siblings = () => {
   const { add, fields } = useArrayField({ field: 'siblings' });
@@ -13,10 +12,9 @@ const Siblings = () => {
       <button onClick={add} type="button">
         Add Sibling
       </button>
-      {fields.map(({ field, key, remove }, i) => (
+      {fields.map(({ name, key, remove }, i) => (
         <label key={key}>
-          Sibling {i}:
-          <Text field={field} />
+          <Input field={field} label={`Sibling {${i}}:`} />
           <button type="button" onClick={remove}>
             Remove
           </button>
@@ -27,20 +25,17 @@ const Siblings = () => {
 };
 
 const UseArrayFieldWrapper = () => {
-
   return (
     <div>
       <Form initialValues={{ siblings: ['foo', 'bar', 'baz'] }}>
         <Siblings />
         <button type="submit">Submit</button>
-        <FormState />
+        <Debug />
       </Form>
     </div>
   );
 };
 
-const UseArrayField = () => (
-  <UseArrayFieldWrapper />
-);
+const UseArrayField = () => <UseArrayFieldWrapper />;
 
 export default withDocs(readme, UseArrayField);

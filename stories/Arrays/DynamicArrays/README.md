@@ -5,28 +5,31 @@ Fields can also be associated with an dynamic array. Here is an example where yo
 <!-- STORY -->
 
 ```jsx
-import { Form, Text, ArrayField } from 'informed';
+import { Form, Input, ArrayField } from 'informed';
 
 const DynamicArrays = () => {
-
   return (
     <div>
-      <Form initialValues={{ siblings: ['foo', 'bar', 'baz']}}>
-        <ArrayField field="siblings">
-          {({ add, fields }) => (
+      <Form initialValues={{ siblings: ['foo', 'bar', 'baz'] }}>
+        <ArrayField name="siblings">
+          {({ add, reset }) => (
             <>
               <button onClick={add} type="button">
                 Add Sibling
               </button>
-              {fields.map(({ field, key, remove }, i) => (
-                <label key={key}>
-                  Sibling {i}:
-                  <Text field={field} />
-                  <button type="button" onClick={remove}>
-                    Remove
-                  </button>
-                </label>
-              ))}
+              <button onClick={reset} type="button">
+                Reset Siblings
+              </button>
+              <ArrayField.Items>
+                {({ remove, name }) => (
+                  <>
+                    <Input label="Name" name={name} />
+                    <button type="button" onClick={remove}>
+                      Remove
+                    </button>
+                  </>
+                )}
+              </ArrayField.Items>
             </>
           )}
         </ArrayField>

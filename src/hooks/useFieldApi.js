@@ -1,31 +1,30 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useMemo } from 'react';
-import useFormApi from './useFormApi';
+import { useMemo } from 'react';
+import { useFormApi } from './useFormApi';
+import { useScope } from './useScope';
 
-const buildFieldApi = (formApi, field) => {
+/* ----------------------- useFieldApi ----------------------- */
+const buildFieldApi = (formApi, name) => {
   return {
-    // TODO refactor to use field api from updater.. need to make sure this
-    // will be stable
-    getValue: () => formApi.getValue(field),
-    setValue: value => formApi.setValue(field, value),
-    getTouched: () => formApi.getTouched(field),
-    setTouched: value => formApi.setTouched(field, value),
-    getError: () => formApi.getError(field),
-    setError: value => formApi.setError(field, value),
-    reset: () => formApi.resetField(field),
-    validate: () => formApi.validateField(field),
-    exists: () => formApi.fieldExists(field),
-    getDirty: () => formApi.getDirty(field),
-    getPristine: () => formApi.getPristine(field),
-    getFieldState: () => formApi.getField(field).fieldApi.getFieldState()
+    getValue: () => formApi.getValue(name),
+    setValue: (value, e, key) => formApi.setValue(name, value, e, key),
+    getTouched: () => formApi.getTouched(name),
+    setTouched: (value, e) => formApi.setTouched(name, value, e),
+    getError: () => formApi.getError(name),
+    setError: value => formApi.setError(name, value),
+    getFocused: () => formApi.getFocused(name),
+    setFocused: (value, e) => formApi.setFocused(name, value, e),
+    reset: () => formApi.resetField(name),
+    validate: () => formApi.validateField(name),
+    getDirty: () => formApi.getDirty(name),
+    getPristine: () => formApi.getPristine(name),
+    getMaskedValue: () => formApi.getMaskedValue(name)
   };
 };
 
-function useFieldApi(field) {
+export function useFieldApi(n, scoped = true) {
   const formApi = useFormApi();
+  const name = scoped ? useScope(n) : n;
 
-  const fieldApi = useMemo(() => buildFieldApi(formApi, field), [field]);
+  const fieldApi = useMemo(() => buildFieldApi(formApi, name), [name]);
   return fieldApi;
 }
-
-export default useFieldApi;

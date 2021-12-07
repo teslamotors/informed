@@ -1,58 +1,64 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
-import FormState from '../../utils/FormState';
 import readme from './README.md';
 
-import { Form, Text, TextArea, RadioGroup, Radio, Checkbox, Select, Option, Scope } from '../../../src';
+import {
+  Form,
+  Input,
+  TextArea,
+  RadioGroup,
+  Radio,
+  Checkbox,
+  Select,
+  Option,
+  Scope,
+  Debug
+} from '../../../src';
 
 const Complex = () => (
   <div>
-    <Form>
+    <Form autocomplete="off">
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, marginRight: '2rem' }}>
-          <label>First name:<Text field="name" /></label>
+          <Input name="name" label="First name:" />
+          <Input name="favorite.color" label="Favorite color:" />
           <Scope scope="favorite">
-            <label>Favorite color:<Text field="color" /></label>
-            <label>Favorite food:<Text field="food" /></label>
+            <Input name="food" label="Favorite food:" />
+            <Input name="animal" label="Favorite animal:" />
           </Scope>
-          <label>Friend 1:<Text field="friends[0]" /></label>
-          <label>Friend 2:<Text field="friends[1]" /></label>
-          <label>Friend 3:<Text field="friends[2]" /></label>
-          <label>Bio:<TextArea field="bio" /></label>
-          <RadioGroup field="gender">
-            <label>Male: <Radio value="male" /></label>
-            <label>Female: <Radio value="female" /></label>
+          <Input name="friends[0]" label="Friend 1:" />
+          <Input name="friends[1]" label="Friend 2:" />
+          <Input name="friends[2]" label="Friend 3:" />
+          <TextArea name="bio" label="Bio" />
+          <RadioGroup name="gender">
+            <Radio value="male" label="Male:" />
+            <Radio value="female" label="Female:" />
           </RadioGroup>
-          <label>
-            Relationship status:
-            <Select field="status">
-              <Option value="" disabled>
-                Select One...
-              </Option>
-              <Option value="single">Single</Option>
-              <Option value="relationship">Relationship</Option>
-              <Option value="complicated">Complicated</Option>
-            </Select>
-          </label>
-          <label>
-            Colors:
-            <Select
-              field="colors"
-              multiple
-              style={{ height: '100px', width: '200px' }}>
-              <Option value="red">Red</Option>
-              <Option value="green">Green</Option>
-              <Option value="blue">Blue</Option>
-              <Option value="yellow">Yellow</Option>
-              <Option value="orange">Orange</Option>
-              <Option value="purple">Purple</Option>
-            </Select>
-          </label>
-          <label>Authorize: <Checkbox field="authorize" /></label>
+          <Select name="status" label="Relationship status:">
+            <Option value="" disabled>
+              Select One...
+            </Option>
+            <Option value="single">Single</Option>
+            <Option value="relationship">Relationship</Option>
+            <Option value="complicated">Complicated</Option>
+          </Select>
+          <Select
+            name="colors"
+            label="Colors:"
+            multiple
+            style={{ height: '100px', width: '200px' }}>
+            <Option value="red">Red</Option>
+            <Option value="green">Green</Option>
+            <Option value="blue">Blue</Option>
+            <Option value="yellow">Yellow</Option>
+            <Option value="orange">Orange</Option>
+            <Option value="purple">Purple</Option>
+          </Select>
+          <Checkbox name="authorize" label="Authorize:" />
           <button type="submit">Submit</button>
         </div>
-        <div style={{ flex: 2, minWidth: '300px' }}>
-          <FormState />
+        <div style={{ flex: 2, minWidth: '300px', marginLeft: '3rem' }}>
+          <Debug />
         </div>
       </div>
     </Form>

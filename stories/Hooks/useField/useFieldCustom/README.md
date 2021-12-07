@@ -8,11 +8,12 @@ for a specific input type, then you simply start using your `<CustomTextInput />
 <!-- IDFK Strange issue where i need this commnet or code formatting is messed up -->
 
 ```jsx
-import { Form, useField } from 'informed';
+import { Form, useField, Debug } from 'informed';
 
-const CustomTextInput = (props) => {
-
-  const { fieldState, fieldApi, render, ref, userProps } = useField({ ...props });
+const CustomTextInput = props => {
+  const { fieldState, fieldApi, render, ref, userProps } = useField({
+    ...props
+  });
 
   const { value } = fieldState;
   const { setValue, setTouched } = fieldApi;
@@ -40,11 +41,16 @@ const CustomTextInput = (props) => {
   );
 };
 
-<Form>
-  <label>
-    First name:
-    <CustomTextInput field="name" />
-  </label>
-  <button type="submit">Submit</button>
-</Form>;
+const FromScratch = () => (
+  <div>
+    <Form>
+      <label>
+        First name:
+        <CustomTextInput field="name" />
+      </label>
+      <button type="submit">Submit</button>
+      <Debug values errors />
+    </Form>
+  </div>
+);
 ```

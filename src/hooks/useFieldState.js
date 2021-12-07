@@ -1,39 +1,52 @@
-// eslint-disable-next-line no-unused-vars
-import React from 'react';
-import useFieldApi from './useFieldApi';
-import useFormApi from './useFormApi';
-import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
+import { useEffect } from 'react';
+import { useFormController } from './useFormController';
+import { useForceUpdate } from './useForceUpdate';
+import { isChild } from '../utils';
+import { Debug } from '../debug';
+import { useScope } from './useScope';
 
-function useFieldState(name) {
-  const fieldApi = useFieldApi(name);
-  const formApi = useFormApi();
+const debug = Debug('informed:useFieldState' + '\t');
 
-  const [, updateState] = React.useState();
-  const forceUpdate = React.useCallback(() => updateState({}), []);
+/* ----------------------- useFieldState ----------------------- */
+export const useFieldState = (n, scoped = true) => {
+  // Create name
+  const name = scoped ? useScope(n) : n;
 
-  useIsomorphicLayoutEffect(() => {
-    const listener = target => {
-      if (target === name) {
-        forceUpdate();
-      }
-    };
+  // Grab the form controller
+  const formController = useFormController();
 
-    formApi.emitter.on('field', listener);
+  // Magic trick
+  const forceUpdate = useForceUpdate();
 
-    return () => {
-      formApi.emitter.removeListener('field', listener);
-    };
-  }, []);
+  // Register for events on our field
+  useEffect(
+    () => {
+      const listener = target => {
+        // either
+        // 1. All fields are supposed to update
+        // 2. This is a specific registration "foo" === "foo"
+        // 3. This field is a child of registration "friends[0].name" is a child of name="friends[0]"
+        if (
+          target === '_ALL_' ||
+          target === name ||
+          (target && isChild(name, target))
+        ) {
+          debug('Updating', name);
+          forceUpdate();
+        }
+      };
 
-  useIsomorphicLayoutEffect(() => {
-    forceUpdate();
-  }, []);
+      formController.emitter.on('field', listener);
 
-  // useEffect(() => {
-  //   forceUpdate();
-  // }, []);
+      // When name changes we always force an update!
+      forceUpdate();
 
-  return fieldApi.getFieldState() || {};
-}
+      return () => {
+        formController.emitter.removeListener('field', listener);
+      };
+    },
+    [name]
+  );
 
-export default useFieldState;
+  return formController.getFieldState(name);
+};

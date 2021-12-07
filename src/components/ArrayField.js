@@ -1,51 +1,47 @@
-import React, { useContext, useState, useEffect } from 'react';
-import ObjectMap from '../ObjectMap';
-import useArrayField from '../hooks/useArrayField';
-import useFormApi from '../hooks/useFormApi';
-import useScopedApi from '../hooks/useScopedApi';
-import Relevant from './Relevant';
+import React, { useContext, useMemo, useState, useCallback } from 'react';
+import { Relevant } from './Relevant';
+import { useArrayField } from '../hooks/useArrayField';
 import {
   ArrayFieldStateContext,
   ArrayFieldItemApiContext,
   ArrayFieldItemStateContext,
-  FormRegisterContext
+  FormControllerContext,
+  ScopeContext
 } from '../Context';
+import { useFormController } from '../hooks/useFormController';
+import { useFieldState } from '../hooks/useFieldState';
+import { Debug } from '../debug';
+import { useScopedApi } from '../hooks/useScopedApi';
 
-const ArrayField = ({ relevant, field, ...props }) => {
-  // Need to get formApi to have consistant interface for relevant function
-  const formApi = useFormApi();
+const debug = Debug('informed:ArrayField' + '\t');
 
+const ArrayField = ({
+  relevant,
+  relevanceWhen,
+  relevanceDeps,
+  name,
+  ...props
+}) => {
   if (relevant) {
-    const ff = formApi.getFullField(field);
-    const args = {
-      path: ff,
-      parentPath: ff.replace(/(.*)[.[].*/, '$1'),
-      get: (values, path) => ObjectMap.get(values, path)
-    };
-
-    const when = ({ values }) => {
-      return relevant(values, args);
-    };
-
     return (
-      <Relevant when={when}>
-        <ArrayFieldWrapper field={field} {...props} />
+      <Relevant
+        when={relevant}
+        relevanceWhen={relevanceWhen}
+        relevanceDeps={relevanceDeps}>
+        <ArrayFieldWrapper name={name} {...props} />
       </Relevant>
     );
   } else {
-    return <ArrayFieldWrapper field={field} {...props} />;
+    return <ArrayFieldWrapper name={name} {...props} />;
   }
 };
 
 const ArrayFieldWrapper = ({ children, ...props }) => {
-  const { render, arrayFieldState, arrayFieldApi, field } = useArrayField(
-    props
-  );
+  const { render, arrayFieldState, arrayFieldApi } = useArrayField(props);
 
   if (typeof children === 'function') {
     return render(
       children({
-        field,
         arrayFieldApi,
         arrayFieldState,
         // Make it easier for user
@@ -63,131 +59,145 @@ const ArrayFieldItem = ({
   arrayFieldItemApi,
   children
 }) => {
-  // Grab the form register context
-  const updater = useContext(FormRegisterContext);
+  const formController = useFormController();
 
-  // Grab the form state
-  const formApi = useFormApi();
+  // Map will store all fields by name
+  // Key => name
+  // Val => fieldMetaRef
+  // Why? so the array knows about all its field meta
+  const [fieldsMap] = useState(() => new Map());
 
-  // A little trick I learned in nam to trigger rerender
-  const [state, setState] = useState(0);
+  // Register for child field updates
+  const subState = useFieldState(arrayFieldItemState.name);
 
-  // Keep track of fields that belong to this array field
-  const [fieldsById] = useState(new Map());
+  // Get scoped api for item api
+  const itemApi = useScopedApi(arrayFieldItemState.name);
 
-  // Get this items field
-  const { field } = arrayFieldItemState;
-
-  // Create scoped api
-  const scopedApi = useScopedApi(field);
-
-  // State generation function
-  const getState = () => {
-    const { values, errors, touched } = formApi.getState();
-    // Get this fields state
-    const itemState = {
-      values: ObjectMap.get(values, field),
-      errors: ObjectMap.get(errors, field),
-      touched: ObjectMap.get(touched, field)
-    };
-    return itemState;
-  };
-
-  // Register for events for rerenders!
-  useEffect(
+  // Need to memoize to prevent re renders
+  const wrappedController = useMemo(
     () => {
-      // Define event handler
-      const onChangeHandler = fieldName => {
-        // Example foo.bar.baz[3].baz >>>> foo.bar.baz[3]
-        const magicValue = fieldName.slice(
-          0,
-          fieldName.lastIndexOf('[') != -1
-            ? fieldName.lastIndexOf(']') + 1
-            : fieldName.length
-        );
-
-        // This field updated so trigger rerender
-        if (magicValue === field) {
-          setState(Math.random());
+      return {
+        ...formController,
+        register: (n, m) => {
+          fieldsMap.set(n, m);
+          formController.register(n, m);
+        },
+        deregister: (n, m) => {
+          fieldsMap.delete(n);
+          formController.deregister(n, m);
+          // When the very last field from the array is removed unlock
+          const lockedUntil = formController.getRemovalLocked();
+          debug(
+            // fieldsMap,
+            'DEREGISTER',
+            n,
+            'SIZE',
+            fieldsMap.size,
+            'INDEX',
+            arrayFieldItemState.index,
+            'LOCKEDUNTIL',
+            lockedUntil
+          );
+          if (
+            lockedUntil != null &&
+            lockedUntil.index === arrayFieldItemState.index &&
+            lockedUntil.name === arrayFieldItemState.parent &&
+            // We are the last field in this item
+            // 1. Example fieldsMap.keys() ==> [ 'friends[0].name' ]
+            // 2. We are de registering friends[1].age
+            // 3. We look to see if friends[1] is in the field map
+            // 4. If its not, we are done and can unlock!!
+            !Array.from(fieldsMap.keys()).some(k => {
+              // debug(
+              //   'CHECKING',
+              //   k,
+              //   `${arrayFieldItemState.parent}[${lockedUntil.index}]`
+              // );
+              return k.includes(
+                `${arrayFieldItemState.parent}[${lockedUntil.index}]`
+              );
+            })
+          ) {
+            debug('UNLOCKING');
+            formController.unlockRemoval();
+          }
         }
       };
-
-      // Register for events
-      formApi.emitter.on('value', onChangeHandler);
-
-      // Unregister events
-      return () => {
-        formApi.emitter.removeListener('value', onChangeHandler);
-      };
     },
-    [field]
+    // WHATEVER YOU DO... DONT REMOVE THIS... need updated controller when index changes
+    [arrayFieldItemState.index]
   );
 
-  // Resets all fields in this item
-  const reset = () => {
-    fieldsById.forEach(fld => {
-      fld.fieldApi.reset();
-    });
-  };
-
-  // Generate the item state
-  const itemState = getState();
-
-  // Wrap the updater to update array fields references
-  const wrappedUpdator = {
-    ...updater,
-    register: (id, fld, initialRender) => {
-      fieldsById.set(id, fld);
-      updater.register(id, fld, initialRender);
+  const reset = useCallback(
+    () => {
+      fieldsMap.forEach(fieldMeta => {
+        fieldMeta.current.fieldApi.reset();
+      });
     },
-    deregister: (id, ...args) => {
-      fieldsById.delete(id);
-      updater.deregister(id, ...args);
-    }
-  };
+    [arrayFieldItemState.name, arrayFieldItemState.index]
+  );
 
-  const arrayFieldItemApiValue = {
-    ...arrayFieldItemApi,
-    ...scopedApi,
-    reset
-  };
-
-  const arrayFieldItemStateValue = {
+  const arrayFieldStateValue = {
     ...arrayFieldItemState,
-    ...itemState
+    values: subState.value,
+    errors: subState.error,
+    touched: subState.touched
   };
+
+  const arrayFieldItemApiValue = useMemo(
+    () => {
+      return {
+        ...arrayFieldItemApi,
+        ...itemApi,
+        reset
+      };
+    },
+    [arrayFieldItemState.name, arrayFieldItemState.index]
+  );
+
+  const memoizedChildren = useMemo(
+    () => {
+      debug('Rendering');
+      return children({
+        ...arrayFieldItemApiValue,
+        name: arrayFieldItemState.name,
+        index: arrayFieldItemState.index
+      });
+    },
+    [arrayFieldItemState.name, arrayFieldItemState.index]
+  );
 
   if (typeof children === 'function') {
     return (
-      <FormRegisterContext.Provider value={wrappedUpdator}>
+      <FormControllerContext.Provider value={wrappedController}>
         <ArrayFieldItemApiContext.Provider value={arrayFieldItemApiValue}>
-          <ArrayFieldItemStateContext.Provider value={arrayFieldItemStateValue}>
-            {children({
-              arrayFieldItemApi: arrayFieldItemApiValue,
-              arrayFieldItemState: arrayFieldItemStateValue,
-              // Make it easier for user
-              ...arrayFieldItemApiValue,
-              ...arrayFieldItemStateValue
-            })}
+          <ArrayFieldItemStateContext.Provider value={arrayFieldStateValue}>
+            <ScopeContext.Provider value={arrayFieldItemState.name}>
+              {/* <h3>{arrayFieldItemState.key}</h3> */}
+              {memoizedChildren}
+            </ScopeContext.Provider>
           </ArrayFieldItemStateContext.Provider>
         </ArrayFieldItemApiContext.Provider>
-      </FormRegisterContext.Provider>
+      </FormControllerContext.Provider>
     );
   }
 
   return (
-    <FormRegisterContext.Provider value={wrappedUpdator}>
-      <ArrayFieldItemApiContext.Provider value={arrayFieldItemApiValue}>
-        <ArrayFieldItemStateContext.Provider value={arrayFieldItemStateValue}>
-          {children}
+    <FormControllerContext.Provider value={wrappedController}>
+      <ArrayFieldItemApiContext.Provider value={arrayFieldItemApi}>
+        <ArrayFieldItemStateContext.Provider value={arrayFieldItemState}>
+          <ScopeContext.Provider value={arrayFieldItemState.name}>
+            {children}
+          </ScopeContext.Provider>
         </ArrayFieldItemStateContext.Provider>
       </ArrayFieldItemApiContext.Provider>
-    </FormRegisterContext.Provider>
+    </FormControllerContext.Provider>
   );
 };
 
 ArrayField.Items = ({ children }) => {
   const { fields } = useContext(ArrayFieldStateContext);
+  // console.log("FIELDS", fields);
   return fields.map(({ arrayFieldItemState, arrayFieldItemApi }) => {
     const { key } = arrayFieldItemState;
     return (
@@ -201,4 +211,4 @@ ArrayField.Items = ({ children }) => {
   });
 };
 
-export default ArrayField;
+export { ArrayField };

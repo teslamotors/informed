@@ -1,20 +1,25 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useMemo } from 'react';
-import useFormApi from './useFormApi';
+import { useMemo } from 'react';
+import { useFormApi } from './useFormApi';
 
 const buildScopedFormApi = (scope, formApi) => {
   return {
-    ...formApi,
     getValue: field => formApi.getValue(`${scope}.${field}`),
+    setValue: (field, value, e, key) =>
+      formApi.setValue(`${scope}.${field}`, value, e, key),
     getTouched: field => formApi.getTouched(`${scope}.${field}`),
-    getError: field => formApi.getError(`${scope}.${field}`),
-    setValue: (field, value) => formApi.setValue(`${scope}.${field}`, value),
     setTouched: (field, value) =>
       formApi.setTouched(`${scope}.${field}`, value),
+    getFocused: field => formApi.getFocused(`${scope}.${field}`),
+    setFocused: (field, value) =>
+      formApi.setFocused(`${scope}.${field}`, value),
+    getError: field => formApi.getError(`${scope}.${field}`),
     setError: (field, value) => formApi.setError(`${scope}.${field}`, value),
-    getInitialValue: field => formApi.getInitialValue(`${scope}.${field}`),
-    getSavedValue: field => formApi.getSavedValue(`${scope}.${field}`),
-    getFullField: field => `${formApi.getFullField(scope)}.${field}`
+    resetField: field => formApi.resetField(`${scope}.${field}`),
+    validate: field => formApi.validate(`${scope}.${field}`),
+    getDirty: field => formApi.getDirty(`${scope}.${field}`),
+    getPristine: field => formApi.getPristine(`${scope}.${field}`),
+    getMaskedValue: field => formApi.getMaskedValue(`${scope}.${field}`)
   };
 };
 
@@ -29,4 +34,4 @@ function useScopedApi(scope) {
   return scopedFormApi;
 }
 
-export default useScopedApi;
+export { useScopedApi };

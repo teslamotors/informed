@@ -1,6 +1,6 @@
-# Dynamic Array of fields
+# Flat Arrays
 
-Fields can also be associated with an dynamic array. Here is an example where you can add many siblings!
+You can create flat arrays where the value is not an object.
 
 <!-- STORY -->
 
@@ -9,38 +9,31 @@ import { Form, Text, ArrayField } from 'informed';
 
 const DynamicArrays = () => {
   return (
-    <div>
-      <Form initialValues={{ siblings: ['foo', 'bar', 'baz'] }}>
-        <h5>You:</h5>
-        <label>
-          Your Name: <Text field="name" />
-        </label>
-        <h5>Siblings:</h5>
-        <ArrayField field="siblings">
-          {({ add, reset }) => (
-            <>
-              <button type="button" onClick={add}>
-                Add Sibling
-              </button>
-              <button type="button" onClick={reset}>
-                Reset Siblings
-              </button>
-              <ArrayField.Items>
-                {({ remove, field, index }) => (
-                  <label>
-                    Sibling {index}:<Text field={field} />
-                    <button type="button" onClick={remove}>
-                      Remove
-                    </button>
-                  </label>
-                )}
-              </ArrayField.Items>
-            </>
-          )}
-        </ArrayField>
-        <button type="submit">Submit</button>
-      </Form>
-    </div>
+    <Form initialValues={{ siblings: ['foo', 'bar', 'baz'] }}>
+      <h5>You:</h5>
+      <Input name="name" label="Your Name:" />
+      <h5>Siblings:</h5>
+      <ArrayField name="siblings">
+        {({ add }) => (
+          <>
+            <button type="button" onClick={add}>
+              Add Sibling
+            </button>
+            <ArrayField.Items>
+              {({ remove, name, index }) => (
+                <>
+                  <Input name={name} label={`Sibling ${index}:`} />
+                  <button type="button" onClick={remove}>
+                    Remove
+                  </button>
+                </>
+              )}
+            </ArrayField.Items>
+          </>
+        )}
+      </ArrayField>
+      <button type="submit">Submit</button>
+    </Form>
   );
 };
 ```

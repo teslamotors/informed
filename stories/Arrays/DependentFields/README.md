@@ -5,7 +5,7 @@ Informed's hooks are automatically scoped for you!!
 <!-- STORY -->
 
 ```jsx
-import { Form, Text, ArrayField } from 'informed';
+import { Form, Input, ArrayField } from 'informed';
 
 const options = {
   car: [

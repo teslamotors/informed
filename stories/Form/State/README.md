@@ -108,7 +108,7 @@ const FormState = () => {
 
 <Form>
   <div>
-    <Text field="hello" />
+    <Input field="hello" />
     <button type="submit">Submit</button>
     <Debug />
   </div>
@@ -121,7 +121,7 @@ const FormState = () => {
 <Form>
   {({ formState }) => (
     <div>
-      <Text field="hello" />
+      <Input field="hello" />
       <button type="submit">Submit</button>
       <label>Values:</label>
       <code>{JSON.stringify(formState.values)}</code>
@@ -145,7 +145,7 @@ Don't fret! This is also very simple. You have two options:
 
 ```jsx
 <Form onChange={formState => console.log(formState)}>
-  <Text field="hello" />
+  <Input field="hello" />
   <button type="submit">Submit</button>
 </Form>
 ```

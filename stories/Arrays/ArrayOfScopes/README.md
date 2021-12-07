@@ -6,7 +6,7 @@ where a friend consists of a first and last name.
 <!-- STORY -->
 
 ```jsx
-import { Form, Text, Scope, Debug } from 'informed';
+import { Form, Input, Scope, Debug } from 'informed';
 
 const ArrayOfScopes = () => (
   <Form>

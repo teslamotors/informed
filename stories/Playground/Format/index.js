@@ -23,7 +23,7 @@ const onSubmit = ({values}) => {
 const Component = () => {
   return (
     <Form onSubmit={onSubmit}>
-      <Text field="name" label="First Name" placeholder="Elon"/>
+      <Input field="name" label="First Name" placeholder="Elon"/>
       <Select field="color" label="Color">
           <option value="" disabled>
             - Select -

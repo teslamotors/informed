@@ -3,5 +3,5 @@
 <!-- STORY -->
 
 ```jsx
-import { Form, Text, useFormApi } from 'informed';
+import { Form, Input, useFormApi } from 'informed';
 ```

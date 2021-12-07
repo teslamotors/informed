@@ -13,29 +13,47 @@ const validateLength = value => {
 };
 
 const validateFields = values => {
-  return { 
-    color: validateLength( values.color ),
-    food: validateLength( values.food ),
-    car: validateLength( values.car ),
+  return {
+    color: validateLength(values.color),
+    food: validateLength(values.food),
+    car: validateLength(values.car)
   };
 };
 
-const validate = values => 
+const validate = values =>
   values.a + values.b !== 4 ? 'a and b must sum to 4!' : undefined;
 
 class SimpleValidation extends Component {
   render() {
     return (
       <div>
-        <Form onSubmit={() => this.modal.open()} validateFields={validateFields} validate={validate}>
+        <Form
+          onSubmit={() => this.modal.open()}
+          validateFields={validateFields}
+          validate={validate}>
           {({ formState }) => (
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
               <div style={{ flex: 1, marginRight: '2rem' }}>
-                <label>Color:<Text field="color" /></label>
-                <label>Food:<Text field="food"/></label>
-                <label>Car:<Text field="car"/></label>
-                <label>A:<Text field="a" type="number"/></label>
-                <label>B:<Text field="b" type="number"/></label>
+                <label>
+                  Color:
+                  <Input field="color" />
+                </label>
+                <label>
+                  Food:
+                  <Input field="food" />
+                </label>
+                <label>
+                  Car:
+                  <Input field="car" />
+                </label>
+                <label>
+                  A:
+                  <Input field="a" type="number" />
+                </label>
+                <label>
+                  B:
+                  <Input field="b" type="number" />
+                </label>
                 <button type="submit">Submit</button>
               </div>
               <div style={{ flex: 2, minWidth: '300px' }}>

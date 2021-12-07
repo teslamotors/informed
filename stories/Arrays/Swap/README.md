@@ -3,7 +3,7 @@
 <!-- STORY -->
 
 ```jsx
-import { Form, Text, ArrayField } from 'informed';
+import { Form, Input, ArrayField } from 'informed';
 
 const initialValues = {
   friends: [
@@ -51,8 +51,8 @@ const NestedForm = () => {
                 {({ remove, field, reset, values, setValue }) => (
                   <label>
                     <h5>{field}</h5>
-                    <Text field={`${field}.name`} />
-                    <Text field={`${field}.age`} />
+                    <Input field={`${field}.name`} />
+                    <Input field={`${field}.age`} />
                     <button type="button" onClick={reset}>
                       Reset
                     </button>

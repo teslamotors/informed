@@ -35,6 +35,6 @@ Informed takes care of managing form state so you don't have to! Basically
 it hooks up the native `onChange`, `onBlur`, and `onSubmit` functions and keeps track of
 all sorts of stuff based on those changes. This example uses the `<Text>` and `<Form>` components
 from informed, but under the hood they are literally just `<input>` and `<form>` dom elements.
-So you can pass anything down to them as usual! **For example:** `<Text field="name" style={{color: 'green'}}>`
+So you can pass anything down to them as usual! **For example:** `<Input field="name" style={{color: 'green'}}>`
 
 <br/>

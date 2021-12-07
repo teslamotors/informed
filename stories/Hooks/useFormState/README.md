@@ -5,7 +5,7 @@ The `useFormState` hook will allow you to gain access to the formState.
 <!-- STORY -->
 
 ```jsx
-import { Form, Text, useFormState } from 'informed';
+import { Form, Input, useFormState } from 'informed';
 
 const ComponentUsingFormState = () => {
   const formState = useFormState();

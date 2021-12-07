@@ -173,6 +173,61 @@ const FieldState = () => {
 </ArrayField.Items>;
 ```
 
+#### Debugging with `<FormState />`
+
+Old:
+
+```jsx
+<FormState values errors />
+```
+
+New:
+
+```jsx
+<Debug values errors />
+```
+
+#### Custom Inputs
+
+Minor changes to custom inputs
+
+New:
+
+```jsx
+const CustomInput = props => {
+  const { fieldState, fieldApi, render, ref, userProps } = useField(props);
+
+  // The field state
+  const { value, error, showError } = fieldState;
+
+  // The field control
+  const { setValue, setTouched } = fieldApi;
+
+  // Everything else
+  const { label, id, ...rest } = userProps;
+
+  return render(
+    <>
+      {label ? <label htmlFor={id}>{label}</label> : null}
+      <input
+        {...rest}
+        id={id}
+        ref={ref}
+        value={!value && value !== 0 ? '' : value}
+        onChange={e => {
+          setValue(e.target.value, e);
+        }}
+        onBlur={e => {
+          setTouched(true, e);
+        }}
+        style={showError ? { border: 'solid 1px red' } : null}
+      />
+      {showError ? <small style={{ color: 'red' }}>{error}</small> : null}
+    </>
+  );
+};
+```
+
 #### Validation
 
 Validation is now controlled via validateOn="validationString"

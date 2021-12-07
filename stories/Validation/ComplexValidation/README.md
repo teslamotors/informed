@@ -28,7 +28,7 @@ the additional friend checks failed.
 <!-- IDFK Strange issue where i need this commnet or code formatting is messed up -->
 
 ```jsx
-import { Form, Text, Scope } from 'informed';
+import { Form, Input, Scope } from 'informed';
 
 const basicValidation = value => {
   return !value || value.length < 5

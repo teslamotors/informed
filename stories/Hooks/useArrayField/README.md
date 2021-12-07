@@ -5,11 +5,10 @@ The `useArrayField` hook will allow you to create field arrays.
 <!-- STORY -->
 
 ```jsx
-import { Form, Text, useArrayField } from 'informed';
+import { Form, Input, useArrayField } from 'informed';
 
 const Siblings = () => {
-
-  const { add, fields } = useArrayField({field: 'siblings'});
+  const { add, fields } = useArrayField({ field: 'siblings' });
 
   return (
     <React.Fragment>
@@ -18,20 +17,19 @@ const Siblings = () => {
       </button>
       {fields.map(({ field, key, remove }, i) => (
         <label key={key}>
-          Sibling {i}:
-          <Text field={field} />
+          Sibling {i}:<Input field={field} />
           <button type="button" onClick={remove}>
             Remove
           </button>
         </label>
-      ))}   
-    </React.Fragment>  
+      ))}
+    </React.Fragment>
   );
 };
 
 const UseArrayFieldExample = () => (
   <div>
-    <Form initialValues={{ siblings: ['foo', 'bar', 'baz']}}>
+    <Form initialValues={{ siblings: ['foo', 'bar', 'baz'] }}>
       <Siblings />
       <button type="submit">Submit</button>
     </Form>

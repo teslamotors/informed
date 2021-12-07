@@ -2,7 +2,7 @@ import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 
-import { Form, Text, Debug } from '../../../src';
+import { Form, Input, Debug } from '../../../src';
 
 /**
  * Goal: Mask the input depending on where the user is typing

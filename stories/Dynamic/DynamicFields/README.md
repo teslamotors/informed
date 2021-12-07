@@ -6,7 +6,7 @@ example the shows or hides a spouce depending on the radio selected!
 <!-- STORY -->
 
 ```jsx
-import { Form, Text, RadioGroup, Radio, Relevant } from 'informed';
+import { Form, Input, RadioGroup, Radio, Relevant } from 'informed';
 
 <Form>
   <Input name="name" label="First name:" />

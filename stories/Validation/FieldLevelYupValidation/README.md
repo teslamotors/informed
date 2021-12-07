@@ -33,15 +33,15 @@ const lastNameSchema = Yup.string()
 <Form yupSchema={SignupSchema}>
   <label>
     First Name:
-    <Text field="firstName" />
+    <Input field="firstName" />
   </label>
   <label>
     Last Name:
-    <Text field="lastName" validationSchema={lastNameSchema} />
+    <Input field="lastName" validationSchema={lastNameSchema} />
   </label>
   <label>
     Email:
-    <Text field="email" />
+    <Input field="email" />
   </label>
   <button type="submit">Submit</button>
 </Form>;

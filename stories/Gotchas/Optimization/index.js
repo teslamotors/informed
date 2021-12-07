@@ -38,29 +38,29 @@ const Optimization = () => (
         <div style={{ flex: 1, marginRight: '2rem' }}>
           <label>
             First name:
-            <Text debug field="name" />
+            <Input debug field="name" />
           </label>
           <Scope scope="favorite">
             <label>
               Favorite color:
-              <Text debug field="color" />
+              <Input debug field="color" />
             </label>
             <label>
               Favorite food:
-              <Text debug field="food" />
+              <Input debug field="food" />
             </label>
           </Scope>
           <label>
             Friend 1:
-            <Text debug field="friends[0]" />
+            <Input debug field="friends[0]" />
           </label>
           <label>
             Friend 2:
-            <Text debug field="friends[1]" />
+            <Input debug field="friends[1]" />
           </label>
           <label>
             Friend 3:
-            <Text debug field="friends[2]" />
+            <Input debug field="friends[2]" />
           </label>
           <label>
             Password:

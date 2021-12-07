@@ -2,7 +2,7 @@ import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 
-import { Form, Text, ArrayField, Debug } from '../../../src';
+import { Form, Input, ArrayField, Debug } from '../../../src';
 
 const validate = (values, length) => {
   if (length < 3) {
@@ -31,7 +31,7 @@ const DynamicArraysContent = () => {
                   {fields.map(({ field, key, remove }, i) => (
                     <label key={key}>
                       Sibling {i}:
-                      <Text field={field} validate={validateLength} />
+                      <Input field={field} validate={validateLength} />
                       <button type="button" onClick={remove}>
                         Remove
                       </button>

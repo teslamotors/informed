@@ -19,7 +19,7 @@ and then toggle again! You can see how the value persisted!
 
 ```jsx
 import React, { useState } from 'react';
-import { Form, Text, useFieldState } from 'informed';
+import { Form, Input, useFieldState } from 'informed';
 
 const JoesState = () => {
   const fieldState = useFieldState('joe');
@@ -76,32 +76,32 @@ const DynamicForm = () => {
     <div>
       <Form>
         <label htmlFor="field1" key={field1}>
-          {field1}:<Text field={field1} id="field1" />
+          {field1}:<Input field={field1} id="field1" />
         </label>
 
         {field2 === 'baz' ? (
           <label htmlFor="baz" key="baz">
             baz:
-            <Text field="baz" id="baz" />
+            <Input field="baz" id="baz" />
           </label>
         ) : (
           <label htmlFor="taz" key="taz">
             taz:
-            <Text field="taz" id="taz" />
+            <Input field="taz" id="taz" />
           </label>
         )}
 
         <label htmlFor="field3" key={field3}>
-          {field3}:<Text field={field3} id="field3" keepState />
+          {field3}:<Input field={field3} id="field3" keepState />
         </label>
 
         <label key="diabled">
           Diabled:
-          <Text field="disabled" disabled={disabled} />
+          <Input field="disabled" disabled={disabled} />
         </label>
 
         <label>
-          {field5}:<Text field={field5} />
+          {field5}:<Input field={field5} />
         </label>
 
         <JoesState />

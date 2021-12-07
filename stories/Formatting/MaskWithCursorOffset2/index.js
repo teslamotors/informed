@@ -2,7 +2,7 @@ import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 
-import { Form, Text, Debug } from '../../../src';
+import { Form, Input, Debug } from '../../../src';
 
 const mask = value => {
   let v = value && value.replace(/\D/g, '').slice(0, 10);

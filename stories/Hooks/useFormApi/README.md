@@ -5,7 +5,7 @@ The `useFormApi` hook will allow you to gain access to the formApi.
 <!-- STORY -->
 
 ```jsx
-import { Form, Text, useFormApi } from 'informed';
+import { Form, Input, useFormApi } from 'informed';
 
 const ComponentUsingFormApi = () => {
   const formApi = useFormApi();

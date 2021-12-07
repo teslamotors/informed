@@ -5,7 +5,7 @@ You can create flat arrays where the value is not an object.
 <!-- STORY -->
 
 ```jsx
-import { Form, Text, ArrayField } from 'informed';
+import { Form, Input, ArrayField } from 'informed';
 
 const DynamicArrays = () => {
   return (

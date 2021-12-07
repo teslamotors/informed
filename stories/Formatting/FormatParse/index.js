@@ -2,7 +2,7 @@ import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 
-import { Form, Text, Debug } from '../../../src';
+import { Form, Input, Debug } from '../../../src';
 
 const format = value => (value != null ? `$${value}` : value);
 const parse = value => (value != null ? value.replace('$', '') : value);
@@ -12,7 +12,7 @@ const FormatParse = () => (
     <div>
       <label>
         First name:
-        <Text field="name" format={format} parse={parse} />
+        <Input field="name" format={format} parse={parse} />
       </label>
       <button type="submit">Submit</button>
       <Debug />

@@ -1,3 +1,9 @@
+## 4.0.2 (December 7th, 2021)
+
+### Fixed
+
+- Issue with schema path util `inverter[12].air_filter_ok` would not work
+
 ## 4.0.1 (December 7th, 2021)
 
 ### Fixed

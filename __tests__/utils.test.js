@@ -58,6 +58,15 @@ describe('Utils', () => {
     it('brother ----> properties.brother', () => {
       expect(getSchemaPathFromJsonPath('brother')).toEqual('properties.brother');
     });
+
+    it('siblings[1] ----> properties.siblings.items', () => {
+      expect(getSchemaPathFromJsonPath('siblings[1]')).toEqual('properties.siblings.items');
+    });
+
+    it('inverter[12].air_filter_ok ----> properties.inverter.items.properties.air_filter_ok', () => {
+      expect(getSchemaPathFromJsonPath('inverter[12].air_filter_ok')).toEqual('properties.inverter.items.properties.air_filter_ok');
+    });
+
   });
  
   describe('informedFormat', () => {

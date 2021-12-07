@@ -751,7 +751,7 @@ export const getSchemaPathFromJsonPath = jsonPath => {
   // Convert
   let schemaPath = jsonPath
     .replace(/\./g, '.properties.')
-    .replace(/\[.?\]/g, '.items');
+    .replace(/\[\d+\]/g, '.items');
   // Add first properties
   schemaPath = `properties.${schemaPath}`;
   return schemaPath;

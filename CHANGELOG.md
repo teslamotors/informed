@@ -1,3 +1,9 @@
+## 4.0.1 (December 7th, 2021)
+
+### Fixed
+
+- Issue with initializing when becoming relevant
+
 ## 4.0 !!!!
 
 ### Breaking changes

@@ -208,9 +208,10 @@ export const useField = ({
   );
 
   // Initialize
-  useEffect(() => {
-    formController.initialize(name, metaRef);
-  }, []);
+  // useEffect(() => {
+  //   formController.initialize(name, metaRef);
+  //   logger('Initialize', name);
+  // }, []);
 
   // Cleanup on irrelivant
   useEffect(
@@ -221,6 +222,11 @@ export const useField = ({
       if (!isRelevant && !keepState) {
         logger('RELEVANT REMOVING', metaInfo.name);
         formController.remove(metaInfo.name);
+      }
+
+      if (isRelevant) {
+        logger('RELEVANT Initialize', metaInfo.name);
+        formController.initialize(name, metaRef);
       }
     },
     [isRelevant]

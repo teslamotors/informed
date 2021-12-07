@@ -5,3 +5,4 @@ coverage
 .coveralls.yml
 .idea
 .eslintcache
+docs

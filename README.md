@@ -1,9 +1,9 @@
 # Informed
 
-[![Docs](https://badgen.net/badge/V4/Docs/red)](https://joepuzzo.github.io/informed)
+[![Docs](https://badgen.net/badge/V4/Docs/purple)](https://joepuzzo.github.io/informed)
 [![npmversion](https://img.shields.io/npm/v/informed.svg)](https://www.npmjs.com/package/informed)
 [![github](https://badgen.net/badge/gihub/main/green?icon=github)](https://github.com/joepuzzo/informed)
-[![Docs](https://badgen.net/badge/V3/Docs/purple)](https://61af80ffc6bc460007bf9ec7--joepuzzo-informed.netlify.app/)
+[![Docs](https://badgen.net/badge/V3/Docs/red)](https://61af80ffc6bc460007bf9ec7--joepuzzo-informed.netlify.app/)
 
 <!-- [![Discord](https://img.shields.io/discord/676066734746370058)](https://discord.gg/zpF5wA) -->
 
@@ -27,8 +27,8 @@ npm install --save informed
 
 #### Live Examples / Docs
 
-[![Docs](https://badgen.net/badge/V4/Docs/red)](https://joepuzzo.github.io/informed)
-[![Docs](https://badgen.net/badge/V3/Docs/purple)](https://61af80ffc6bc460007bf9ec7--joepuzzo-informed.netlify.app/)
+[![Docs](https://badgen.net/badge/V4/Docs/purple)](https://joepuzzo.github.io/informed)
+[![Docs](https://badgen.net/badge/V3/Docs/red)](https://61af80ffc6bc460007bf9ec7--joepuzzo-informed.netlify.app/)
 
 ### What Can it do ?
 

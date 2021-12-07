@@ -16,10 +16,9 @@
   "scripts": {
     "start": "npm run storybook",
     "build": "rm -rf dist && rollup --config",
-    "test": "mocha-webpack --opts tests/mocha-webpack.opts",
+    "test": "jest",
     "test:jest": "jest",
     "test:jest:watch": "jest --watch",
-    "test:watch": "npm run test -- --watch",
     "test:ts": "npx tsd",
     "preversion": "npm run test:jest",
     "version": "npm run build",

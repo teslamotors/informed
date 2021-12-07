@@ -4,9 +4,10 @@ Say hello to the best react form library you have ever used! Informed is an exte
 
 Oh and YES WE USE HOOKS!
 
-[![Docs](https://badgen.net/badge/Docs/Here/red?icon=wiki)](https://joepuzzo.github.io/informed)
+[![Docs](https://badgen.net/badge/V4/Docs/red)](https://joepuzzo.github.io/informed)
 [![npmversion](https://img.shields.io/npm/v/informed.svg)](https://www.npmjs.com/package/informed)
 [![github](https://badgen.net/badge/gihub/main/green?icon=github)](https://github.com/joepuzzo/informed)
+[![Docs](https://badgen.net/badge/V3/Docs/purple)](https://61af80ffc6bc460007bf9ec7--joepuzzo-informed.netlify.app/)
 
 <!--  -->
 

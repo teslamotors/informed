@@ -4,12 +4,15 @@ Say hello to the best react form library you have ever used! Informed is an exte
 
 Oh and YES WE USE HOOKS!
 
-Check out our [GitHub](https://github.com/joepuzzo/informed)!
-
+[![Docs](https://badgen.net/badge/Docs/Here/red?icon=wiki)](https://joepuzzo.github.io/informed)
 [![npmversion](https://img.shields.io/npm/v/informed.svg)](https://www.npmjs.com/package/informed)
-[![Build Status](https://travis-ci.org/joepuzzo/informed.svg?branch=master)](https://travis-ci.org/joepuzzo/informed)
+[![github](https://badgen.net/badge/gihub/main/green?icon=github)](https://github.com/joepuzzo/informed)
+
+<!--  -->
+
+<!-- [![Build Status](https://travis-ci.org/joepuzzo/informed.svg?branch=master)](https://travis-ci.org/joepuzzo/informed)
 [![Coverage Status](https://coveralls.io/repos/github/joepuzzo/informed/badge.svg?branch=master)](https://coveralls.io/github/joepuzzo/informed?branch=master)
-[![Minzipped-Size](https://badgen.net/bundlephobia/minzip/informed)](https://bundlephobia.com/result?p=informed)
+[![Minzipped-Size](https://badgen.net/bundlephobia/minzip/informed)](https://bundlephobia.com/result?p=informed) -->
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/DtUo40Jxeyc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 

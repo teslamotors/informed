@@ -1,11 +1,11 @@
-import { Input } from './Components/form-fields/Input';
-import { TextArea } from './Components/form-fields/TextArea';
-import { Select } from './Components/form-fields/Select';
-import { Checkbox } from './Components/form-fields/Checkbox';
-import { RadioGroup } from './Components/form-fields/RadioGroup';
-import { AddButton } from './Components/form-fields/AddButton';
-import { RemoveButton } from './Components/form-fields/RemoveButton';
-import { ArrayField } from './Components/form-fields/ArrayField';
+import { Input } from './components/form-fields/Input';
+import { TextArea } from './components/form-fields/TextArea';
+import { Select } from './components/form-fields/Select';
+import { Checkbox } from './components/form-fields/Checkbox';
+import { RadioGroup } from './components/form-fields/RadioGroup';
+import { AddButton } from './components/form-fields/AddButton';
+import { RemoveButton } from './components/form-fields/RemoveButton';
+import { ArrayField } from './components/form-fields/ArrayField';
 
 export const FieldMap = {
   string: Input,

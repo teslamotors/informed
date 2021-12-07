@@ -6,7 +6,7 @@ import {
   FormStateContext
 } from '../Context';
 import { useUpdateEffect } from './useUpdateEffect';
-// import { SchemaFields } from '../Components/SchemaFields';
+// import { SchemaFields } from '../components/SchemaFields';
 
 export const useForm = ({
   onSubmit,

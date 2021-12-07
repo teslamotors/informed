@@ -5,7 +5,7 @@ import { MultistepStepContext } from '../Context';
 import { useRelevance } from './useRelevance';
 import { Debug } from '../debug';
 import { useFormController } from './useFormController';
-import { Scope } from '../Components/Scope';
+import { Scope } from '../components/Scope';
 
 const logger = Debug('informed:useMultistepStep' + '\t');
 

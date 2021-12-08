@@ -1,3 +1,9 @@
+## 4.0.3 (December 7th, 2021)
+
+### Fixed
+
+- Issue with forms valid and invalid when relevance changes
+
 ## 4.0.2 (December 7th, 2021)
 
 ### Fixed

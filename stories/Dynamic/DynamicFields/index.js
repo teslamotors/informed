@@ -62,6 +62,9 @@ const DynamicFields = () => (
             <Input
               name="spouse"
               label="Spouse name:"
+              // required
+              // validateOnMount
+              // showErrorIfError
               // relevanceWhen={['married']}
               // relevant={({ formState }) => formState.values?.married === 'yes'}
             />

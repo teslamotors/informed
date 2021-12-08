@@ -417,6 +417,7 @@ export class FormController {
   setError(name, value) {
     debug(`Setting ${name}'s error to ${value}`);
     ObjectMap.set(this.state.errors, name, value);
+    // TODO maybe evaluate vaid for form here
     this.emit('field', name);
   }
 
@@ -519,6 +520,12 @@ export class FormController {
       ObjectMap.delete(this.state.dirt, name);
       debug('Delete Focused', name);
       ObjectMap.delete(this.state.focused, name);
+
+      // Remember to update valid
+      this.state.valid = ObjectMap.empty(this.state.errors);
+      this.state.invalid = !this.state.valid;
+
+      // Final field change
       this.emit('field', name);
       // Special event when fields value changes
       this.emit('field-value', name);

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form, Input, Checkbox } from '../../jest/components';
-import { Relevant } from '../../src';
+import { Relevant, SchemaFields } from '../../src';
 
 const RelevantComp = ({ relevant1, relevant2, formApiRef }) => {
   const [externalDep, setExternalDep] = useState('FOO');
@@ -28,6 +28,20 @@ const RelevantComp = ({ relevant1, relevant2, formApiRef }) => {
   );
 };
 
+const SchemaFieldRelevanceComp = ({ formApiRef, schema }) => {
+  return (
+    <Form
+      formApiRef={formApiRef}
+      schema={schema}
+      validateOnMount
+      validateOn="change" // make it easy to test for error states, without having to blur the input
+      errorMessage={{ required: 'this field is required' }} // global error message
+    >
+      <SchemaFields />
+    </Form>
+  );
+};
+
 // prettier-ignore
 describe('Relevant', () => {
 
@@ -45,7 +59,7 @@ describe('Relevant', () => {
 
     const relevant2 = ({ formState }) => {
       call2++;
-      return formState.values.showInfo ;
+      return formState.values.showInfo;
     };
 
     const { queryByLabelText, getByText } = render(
@@ -103,10 +117,10 @@ describe('Relevant', () => {
     expect(movie).toHaveValue('StarWars');
 
     // Validate the form state
-    expect(formApiRef.current.getFormState().values).toEqual({ 
+    expect(formApiRef.current.getFormState().values).toEqual({
       showInfo: true,
       age: 27,
-      color: 'Green', 
+      color: 'Green',
       food: 'Apples',
       movie: 'StarWars'
     });
@@ -131,7 +145,7 @@ describe('Relevant', () => {
     expect(movie).toBeNull();
 
     // Validate the form state
-    expect(formApiRef.current.getFormState().values).toEqual({ 
+    expect(formApiRef.current.getFormState().values).toEqual({
       showInfo: false,
       color: 'Green', // <<< this had saved state !!!
     });
@@ -152,9 +166,9 @@ describe('Relevant', () => {
     expect(movie).not.toBeNull();
 
     // Validate the form state
-    expect(formApiRef.current.getFormState().values).toEqual({ 
+    expect(formApiRef.current.getFormState().values).toEqual({
       showInfo: true,
-      color: 'Green', 
+      color: 'Green',
     });
 
     // expect(show).toHaveAttribute('checked', true);
@@ -186,9 +200,9 @@ describe('Relevant', () => {
     expect(movie).not.toBeNull();
 
     // Validate the form state
-    expect(formApiRef.current.getFormState().values).toEqual({ 
+    expect(formApiRef.current.getFormState().values).toEqual({
       showInfo: true,
-      color: 'Green', 
+      color: 'Green',
     });
 
     // expect(show).toHaveAttribute('checked', true);
@@ -200,8 +214,77 @@ describe('Relevant', () => {
     // Check calls on relevance
     expect(call1).toBe(6);
     expect(call2).toBe(53);
-
-
   });
 
+  it('should update form state when a relevant field with errors unmounts', () => {
+    const schema = {
+      type: 'object',
+      required: ['field_1'],
+      properties: {
+        field_1: {
+          title: 'Regular Input',
+          'ui:control': 'input',
+          'ui:props': {
+            type: 'number',
+          },
+        },
+        field_2: {
+          type: 'number',
+          title: 'Conditional Input',
+          'ui:control': 'input',
+          'ui:props': {
+            type: 'number',
+            relevant: ({ formState }) => {
+              return formState.values.field_1 > 1;
+            },
+            validate: (value) => {
+              if (!value) {
+                return 'this conditional field is required';
+              }
+              return undefined;
+            }
+          }
+        }
+      }
+    };
+    const formApiRef = {};
+
+    const { queryByLabelText } = render(
+      <SchemaFieldRelevanceComp formApiRef={formApiRef} schema={schema} />
+    );
+
+    let regularInput = queryByLabelText('Regular Input');
+    let hiddenInput = queryByLabelText('Conditional Input');
+
+    expect(regularInput).not.toBeNull();
+    expect(hiddenInput).toBeNull();
+
+    expect(formApiRef.current.getFormState().valid).toEqual(false);
+    expect(formApiRef.current.getFormState().errors).toEqual({ field_1: 'this field is required' });
+
+    // Simulate inputting "3" in the regular field. This should SHOW the condtional field
+    fireEvent.change(regularInput, { target: { value: '3' } });
+
+    regularInput = queryByLabelText('Regular Input');
+    hiddenInput = queryByLabelText('Conditional Input');
+
+    expect(regularInput).not.toBeNull();
+    expect(hiddenInput).not.toBeNull(); // condtional field should be relevant now, expect to find it
+
+    expect(formApiRef.current.getFormState().valid).toEqual(false);
+    expect(formApiRef.current.getFormState().errors).toEqual({
+      field_2: 'this conditional field is required',
+    });
+
+    // Simulate inputting "1" in the regular field. This should HIDE the condtional field
+    fireEvent.change(regularInput, { target: { value: '1' } });
+    regularInput = queryByLabelText('Regular Input');
+    hiddenInput = queryByLabelText('Conditional Input');
+
+    expect(regularInput).not.toBeNull();
+    expect(hiddenInput).toBeNull(); // conditional field should be hidden now
+
+    expect(formApiRef.current.getFormState().valid).toEqual(true);
+    expect(formApiRef.current.getFormState().errors).toEqual({});
+  });
 });

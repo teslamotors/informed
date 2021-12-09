@@ -106,12 +106,12 @@ export type InformedProps<UserProps> = {
   showErrorIfError?: boolean;
   showErrorIfDirty?: boolean;
   validateOn?:
-    | 'change'
-    | 'blur'
-    | 'change-blur'
-    | 'change-submit'
-    | 'blur-submit'
-    | 'submit';
+  | 'change'
+  | 'blur'
+  | 'change-blur'
+  | 'change-submit'
+  | 'blur-submit'
+  | 'submit';
   validateOnMount?: boolean;
   formApiRef?: React.MutableRefObject<any>;
   dontPreventDefault?: boolean;
@@ -149,12 +149,12 @@ export type FieldProps<UserProps> = {
   onBlur?: (fieldState: FieldState, event: React.SyntheticEvent) => void;
   onFocus?: (fieldState: FieldState, event: React.SyntheticEvent) => void;
   validateOn?:
-    | 'change'
-    | 'blur'
-    | 'change-blur'
-    | 'change-submit'
-    | 'blur-submit'
-    | 'submit';
+  | 'change'
+  | 'blur'
+  | 'change-blur'
+  | 'change-submit'
+  | 'blur-submit'
+  | 'submit';
   validateWhen?: string[];
   validateOnMount?: boolean;
   keepState?: boolean;
@@ -166,10 +166,10 @@ export type FieldProps<UserProps> = {
   showErrorIfTouched?: boolean;
   showErrorIfDirty?: boolean;
   formatter?:
-    | Array<string | RegExp | Function>
-    | string
-    | Object
-    | ((value: unknown) => Array<string | RegExp | Function>);
+  | Array<string | RegExp | Function>
+  | string
+  | Object
+  | ((value: unknown) => Array<string | RegExp | Function>);
 } & Omit<
   UserProps,
   'onChange' | 'onBlur' | 'onFocus' | 'value' | 'defaultValue'
@@ -226,6 +226,10 @@ export function useFieldApi(name: string, scoped?: boolean): FieldApi;
 
 export function useFieldState(name: string, scoped?: boolean): FieldState;
 
+export function useScope(name: string): string;
+
+export function useScoper(name: string): (name: string) => string;
+
 export function useForm<UserProps>(
   formProps: InformedProps<UserProps>
 ): {
@@ -272,4 +276,80 @@ declare namespace ArrayField {
   }: {
     children: (props: ArrayFieldItemApi & ArrayFieldItemInfo) => JSX.Element;
   }): JSX.Element;
+}
+
+declare namespace utils {
+  function uuidv4(): string
+  function getParentPath(scopedFieldName: string): string
+  function isChild(scopedParentFieldName: string, scopedChildFieldName: string): string
+  function generateOnChange(props: {
+    fieldType: string;
+    setValue: (value: unknown, event?: React.SyntheticEvent) => void;
+    multiple?: boolean;
+    ref: React.Ref<unknown>;
+  }): (e: React.SyntheticEvent) => void;
+  function generateOnBlur(props: {
+    setTouched: (touched: true, e?: React.SyntheticEvent) => void;
+  }): (e: React.SyntheticEvent) => void;
+  function generateOnFocus(props: {
+    setFocused: (focused: true, e?: React.SyntheticEvent) => void;
+  }): (e: React.SyntheticEvent) => void;
+  function generateValue(props: {
+    fieldType: string;
+    maskedValue: unknown;
+    value: unknown;
+    multiple?: boolean;
+  }): unknown;
+  function yupToFormErrors(yupError: any): { [fieldKey: string]: unknown };
+  function validateYupSchema(schema: any, values: unknown): ReturnType<typeof yupToFormErrors>;
+  function yupToFormError(yupError: any): string | undefined;
+  function validateYupField(schema: any, value: unknown): ReturnType<typeof yupToFormError> | undefined;
+  function validateAjvSchema(validate: (data: any) => any, data: unknown): { [fieldKey: string]: unknown };
+  function validateRequired(
+    value: unknown,
+    required: boolean,
+    getErrorMessage: (key: 'required') => string | undefined
+  ): string
+  function validateMax(
+    value: unknown,
+    max: number | null | undefined,
+    getErrorMessage: (key: 'maximum') => string | undefined
+  ): string
+  function validateMin(
+    value: unknown,
+    min: number | null | undefined,
+    getErrorMessage: (key: 'minimum') => string | undefined
+  ): string
+  function validateMaxLength(
+    value: unknown,
+    maxLength: number | null | undefined,
+    getErrorMessage: (key: 'maxLength') => string | undefined
+  ): string
+  function validateMinLength(
+    value: unknown,
+    minLength: number | null | undefined,
+    getErrorMessage: (key: 'minLength') => string | undefined
+  ): string
+  function generateValidationFunction(validationFunc: any, yupSchema: any, { required, minimum, maximum, minLength, maxLength, pattern, getErrorMessage }: {
+    required: any;
+    minimum: any;
+    maximum: any;
+    minLength: any;
+    maxLength: any;
+    pattern: any;
+    getErrorMessage: any;
+  }): (val: any, values: any) => any
+  function informedParse(val: any, parser: any): any
+  function informedFormat(val: any, frmtr: any): {
+    value: any;
+    offset: number;
+  } | {
+    value: {};
+    offset: {};
+  }
+  function informedFormatter(val: any, frmtr: any): {
+    value: any;
+    offset: number;
+  }
+  function getSchemaPathFromJsonPath(scopedName: string): string
 }

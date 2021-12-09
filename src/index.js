@@ -32,6 +32,8 @@ import { useArrayFieldItemApi } from './hooks/useArrayFieldItemApi';
 import { useArrayFieldItemState } from './hooks/useArrayFieldItemState';
 import { useMultistepApi } from './hooks/useMultistepApi';
 import { useMultistepState } from './hooks/useMultistepState';
+import { useScope } from './hooks/useScope';
+import { useScoper } from './hooks/useScoper';
 
 import * as utils from './utils';
 import { Elon } from './utils';
@@ -49,6 +51,8 @@ export {
   useArrayFieldItemState,
   useMultistepApi,
   useMultistepState,
+  useScope,
+  useScoper,
   ArrayField,
   useArrayField,
   Debug,

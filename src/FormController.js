@@ -462,7 +462,8 @@ export class FormController {
       validateField: this.validateField,
       getFieldState: this.getFieldState,
       getInitialValue: this.getInitialValue,
-      touchAllFields: this.touchAllFields
+      touchAllFields: this.touchAllFields,
+      validate: this.validate
     };
   }
 

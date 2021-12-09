@@ -1,3 +1,14 @@
+## 4.0.4 (December 9th, 2021)
+
+### Fixed
+
+- Issue where we forgot to expose form validate
+- Missing utils types
+
+## Added
+
+- useScope and useScoper to exports
+
 ## 4.0.3 (December 7th, 2021)
 
 ### Fixed

@@ -96,6 +96,10 @@ const ComponentUsingFormApi = () => {
 
         formApi.reset();
 
+        formApi.validate();
+
+        formApi.validateField('name');
+
         const formState = formApi.getFormState();
         expectType<FormState>(formState);
 

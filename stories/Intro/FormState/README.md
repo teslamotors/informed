@@ -51,14 +51,14 @@ Don't fret! This is also very simple. You have two options:
 ```
 
 <br/>
-2) Use the Forms `apiRef` prop, and then use the apis `getState` function.
+2) Use the Forms `formApiRef` prop, and then use the apis `getState` function.
 
 ```jsx
 import React, { useRef } from 'react';
 import { Form, Input } from 'informed';
 
 const MyAwesomeForm = () => {
-  const apiRef = useRef();
+  const formApiRef = useRef();
 
   const handleClick = () => {
     console.log(apiRef.current.getState());
@@ -66,7 +66,7 @@ const MyAwesomeForm = () => {
 
   return (
     <div>
-      <Form apiRef={apiRef}>
+      <Form formApiRef={formApiRef}>
         <Input name="hello" />
         <button type="submit">Submit</button>
       </Form>

@@ -1,3 +1,9 @@
+## 4.0.5 (December 9th, 2021)
+
+### Fixed
+
+- Missing types for validate and validateField on FormApi
+
 ## 4.0.4 (December 9th, 2021)
 
 ### Fixed

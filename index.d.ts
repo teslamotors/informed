@@ -35,7 +35,7 @@ export type FormApi = {
   getDirty: () => boolean;
   getFieldState: (name: string) => FieldState;
   validate: () => void;
-  validateField: (name) => void;
+  validateField: (name: string) => void;
 };
 
 export type FieldState = {

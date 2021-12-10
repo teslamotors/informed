@@ -1,6 +1,6 @@
 import React, { FormEventHandler, KeyboardEventHandler } from 'react';
 
-// utility types come from the wonderful react-hook-form utility types
+// utility types come from the wonderful react-hook-form library.
 // https://github.com/react-hook-form/react-hook-form/blob/master/src/types/utils.ts
 
 

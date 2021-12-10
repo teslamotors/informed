@@ -120,6 +120,115 @@ describe('useFormApi', () => {
 
   });
 
+  it('should update state correctly when setValues is called', () => {
+
+    const formApiRef = {};
+
+    const Button = () => {
+      const formApi = useFormApi();
+
+      return (
+        <button type="button" onClick={()=>formApi.setValues({ foo: 'bar', bar: 'baz' })}>Click Me</button>
+      );
+    };
+
+    const { getByText } = render(
+      <Form formApiRef={formApiRef}>
+        <Input name="foo" label="input1" />
+        <Input name="bar" label="input1" formatter="*-*-*"/>
+        <Input name="baz" label="input1" initialValue="joe" />
+        <Button />
+      </Form>
+    );
+
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      values: {
+        baz: 'joe'
+      },
+      maskedValues: {
+        baz: 'joe'
+      },
+    }));
+
+    const button = getByText('Click Me');
+
+    fireEvent.click(button);
+  
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      pristine: false,
+      dirty: true,
+      values: {
+        foo: 'bar',
+        bar: 'b-a-z'
+      },
+      maskedValues: {
+        foo: 'bar',
+        bar: 'b-a-z'
+      },
+      dirt: {
+        foo: true,
+        bar: true,
+        baz: true
+      }
+    }));
+
+  });
+
+  it('should update state correctly when setTheseValues is called', () => {
+
+    const formApiRef = {};
+
+    const Button = () => {
+      const formApi = useFormApi();
+
+      return (
+        <button type="button" onClick={()=>formApi.setTheseValues({ foo: 'bar', bar: 'baz' })}>Click Me</button>
+      );
+    };
+
+    const { getByText } = render(
+      <Form formApiRef={formApiRef}>
+        <Input name="foo" label="input1" />
+        <Input name="bar" label="input1" formatter="*-*-*"/>
+        <Input name="baz" label="input1" initialValue="joe" />
+        <Button />
+      </Form>
+    );
+
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      values: {
+        baz: 'joe'
+      },
+      maskedValues: {
+        baz: 'joe'
+      },
+    }));
+
+    const button = getByText('Click Me');
+
+    fireEvent.click(button);
+  
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      pristine: false,
+      dirty: true,
+      values: {
+        foo: 'bar',
+        bar: 'b-a-z',
+        baz: 'joe'
+      },
+      maskedValues: {
+        foo: 'bar',
+        bar: 'b-a-z',
+        baz: 'joe'
+      },
+      dirt: {
+        foo: true,
+        bar: true,
+      }
+    }));
+
+  });
+
   it('should update state correctly when resetField is called on field that does not exist', () => {
 
     const formApiRef = {};

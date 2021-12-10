@@ -133,7 +133,6 @@
     "webpack-node-externals": "^1.7.2",
     "yup": "^0.28.1"
   },
-  "dependencies": {},
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0",
     "react-dom": "^16.8.0 || ^17.0.0"

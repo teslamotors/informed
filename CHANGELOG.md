@@ -1,3 +1,9 @@
+## 4.0.8 (December 10th, 2021)
+
+### Removed
+
+- Empty dependencies object from package.json
+
 ## 4.0.7 (December 10th, 2021)
 
 ### Fixed

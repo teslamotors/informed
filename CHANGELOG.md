@@ -1,3 +1,9 @@
+## 4.0.7 (December 10th, 2021)
+
+### Fixed
+
+- Issue with relevance subscription when no relevance function
+
 ## 4.0.6 (December 9th, 2021)
 
 ### Fixed

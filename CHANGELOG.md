@@ -1,3 +1,9 @@
+## 4.0.6 (December 9th, 2021)
+
+### Fixed
+
+- Missing functions setValues and setTheseValues
+
 ## 4.0.5 (December 9th, 2021)
 
 ### Fixed

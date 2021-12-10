@@ -114,6 +114,8 @@ export class FormController {
     // Bind functions that will be called externally
     this.getValue = this.getValue.bind(this);
     this.setValue = this.setValue.bind(this);
+    this.setValues = this.setValues.bind(this);
+    this.setTheseValues = this.setTheseValues.bind(this);
     this.getMaskedValue = this.getMaskedValue.bind(this);
     this.setMaskedValue = this.setMaskedValue.bind(this);
     this.getTouched = this.getTouched.bind(this);
@@ -171,6 +173,25 @@ export class FormController {
 
   setMaskedValue(name, value) {
     return ObjectMap.set(this.state.maskedValues, name, value);
+  }
+
+  setValues(values) {
+    this.fieldsMap.forEach(fieldMeta => {
+      // Get value out of values object basd on path
+      const val = ObjectMap.get(values, fieldMeta.current.name);
+      fieldMeta.current.fieldApi.setValue(val);
+    });
+  }
+
+  setTheseValues(values) {
+    this.fieldsMap.forEach(fieldMeta => {
+      // Get value out of values object basd on path
+      const val = ObjectMap.get(values, fieldMeta.current.name);
+      // Only set if it is there
+      if (val != null) {
+        fieldMeta.current.fieldApi.setValue(val);
+      }
+    });
   }
 
   setValue(name, value, e, key) {
@@ -463,7 +484,9 @@ export class FormController {
       getFieldState: this.getFieldState,
       getInitialValue: this.getInitialValue,
       touchAllFields: this.touchAllFields,
-      validate: this.validate
+      validate: this.validate,
+      setValues: this.setValues,
+      setTheseValues: this.setTheseValues
     };
   }
 

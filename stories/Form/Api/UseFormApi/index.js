@@ -1,7 +1,7 @@
 import React from 'react';
 import withDocs from '../../../utils/withDocs';
 import readme from './README.md';
-import { Form, Input, useFormApi } from '../../../../src';
+import { Form, Input, useFormApi, Debug } from '../../../../src';
 
 const RandomSetterButton = () => {
   const formApi = useFormApi();
@@ -19,13 +19,38 @@ const RandomSetterButton = () => {
   );
 };
 
+const SetValuesButton = () => {
+  const formApi = useFormApi();
+  return (
+    <button
+      type="button"
+      onClick={() => formApi.setValues({ age: 26, color: 'Green' })}>
+      All
+    </button>
+  );
+};
+
+const SetTheseValuesButton = () => {
+  const formApi = useFormApi();
+  return (
+    <button
+      type="button"
+      onClick={() => formApi.setTheseValues({ age: 26, color: 'Green' })}>
+      Age & Color
+    </button>
+  );
+};
+
 const FormApi = () => (
-  <Form id="state-form">
-    <div>
-      <Input name="name" label="First Name:" />
-      <RandomSetterButton />
-      <button type="submit">Submit</button>
-    </div>
+  <Form validateOn="change" showErrorIfError>
+    <Input name="name" label="First Name:" initialValue="Joe" required />
+    <Input name="age" label="First Name:" type="number" initialValue="27" />
+    <Input name="color" label="Favorite Color:" formatter="*-*-***" />
+    <RandomSetterButton />
+    <SetValuesButton />
+    <SetTheseValuesButton />
+    <button type="submit">Submit</button>
+    {/* <Debug /> */}
   </Form>
 );
 

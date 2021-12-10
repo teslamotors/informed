@@ -426,7 +426,7 @@ export interface UseCursorPositionParams {
 
 export interface UseMultistepParams {
   initialStep?: string;
-  multiStepApiRef?: ReturnType<typeof useMultistepApi>;
+  multiStepApiRef?: React.MutableRefObject<typeof useMultistepApi>;
 }
 
 export interface UseMultistepStepParams {

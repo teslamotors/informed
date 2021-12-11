@@ -9,7 +9,7 @@ const logger = Debug('informed:useRelevance' + '\t');
 /* ----------------------- useRelevance ----------------------- */
 export const useRelevance = ({
   name,
-  relevant = () => true,
+  relevant,
   relevanceWhen = [],
   relevanceDeps = []
 }) => {
@@ -24,14 +24,17 @@ export const useRelevance = ({
   scopeRef.current = scope;
 
   // Relevant state
-  const [isRelevant, setIsRelevant, getIsRelevant] = useStateWithGetter(() =>
-    relevant({
-      formState: formController.getFormState(),
-      formApi: formController.getFormApi(),
-      scope,
-      relevanceDeps
-    })
-  );
+  const [isRelevant, setIsRelevant, getIsRelevant] = useStateWithGetter(() => {
+    if (relevant) {
+      return relevant({
+        formState: formController.getFormState(),
+        formApi: formController.getFormApi(),
+        scope,
+        relevanceDeps
+      });
+    }
+    return true;
+  });
 
   const check = typeof relevanceWhen === 'function' ? [] : relevanceWhen;
 
@@ -73,9 +76,14 @@ export const useRelevance = ({
 
   // Register for ALL events if we have no relevanceWhen
   useEffect(() => {
-    if (typeof relevanceWhen !== 'function' && relevanceWhen.length === 0) {
+    if (
+      relevant &&
+      typeof relevanceWhen !== 'function' &&
+      relevanceWhen.length === 0
+    ) {
       // When we have a field update we always check
-      const listener = () => {
+      const listener = target => {
+        logger(`re-evaluating relevance for ${name} because of ${target}`);
         const rel = relevant({
           formState: formController.getFormState(),
           formApi: formController.getFormApi(),
@@ -100,15 +108,17 @@ export const useRelevance = ({
 
   useEffect(
     () => {
-      // When name changes we always check if relevant
-      setIsRelevant(
-        relevant({
-          formState: formController.getFormState(),
-          formApi: formController.getFormApi(),
-          scope,
-          relevanceDeps
-        })
-      );
+      if (relevant) {
+        // When name changes we always check if relevant
+        setIsRelevant(
+          relevant({
+            formState: formController.getFormState(),
+            formApi: formController.getFormApi(),
+            scope,
+            relevanceDeps
+          })
+        );
+      }
     },
     [name, ...relevanceDeps]
   );

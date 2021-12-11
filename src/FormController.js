@@ -419,6 +419,7 @@ export class FormController {
       }
     }
 
+    // Remember to update valid
     this.state.valid = ObjectMap.empty(this.state.errors);
     this.state.invalid = !this.state.valid;
 

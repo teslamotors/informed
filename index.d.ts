@@ -376,6 +376,7 @@ export type UseFormParams<
   onSubmitFailure?: (errors: FieldErrors<TValues>) => void;
   validateFields?: () => void;
   showErrorIfError?: boolean;
+  showErrorIfTouched?: boolean;
   showErrorIfDirty?: boolean;
   validateOn?:
     | 'change'
@@ -505,9 +506,6 @@ export type FieldProps<
   maintainCursor?: boolean;
   allowEmptyString?: boolean;
   inputRef?: React.MutableRefObject<any>;
-  showErrorIfError?: boolean;
-  showErrorIfTouched?: boolean;
-  showErrorIfDirty?: boolean;
   formatter?:
     | Array<string | RegExp | Function>
     | string
@@ -515,7 +513,10 @@ export type FieldProps<
     | ((
         value: UnpackNestedValue<FieldPathValue<TValues, TFieldName>>
       ) => Array<string | RegExp | Function>);
-} & Omit<
+} & Pick<
+  FormProps<TValues, UserProps>, 
+  'showIfError' | 'showErrorIfTouched' | 'showErrorIfDirty'
+> & Omit<
   UserProps,
   'name' | 'onChange' | 'onBlur' | 'onFocus' | 'value' | 'defaultValue'
 >;

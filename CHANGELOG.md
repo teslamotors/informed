@@ -1,3 +1,9 @@
+## 4.0.9 (December 13th, 2021)
+
+### Fixed
+
+- issue where passing showErrorIfTouched={false} would not work
+
 ## 4.0.8 (December 10th, 2021)
 
 ### Removed

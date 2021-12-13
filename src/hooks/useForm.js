@@ -17,6 +17,7 @@ export const useForm = ({
   validateFields,
   autocomplete,
   showErrorIfError,
+  showErrorIfTouched,
   showErrorIfDirty,
   validateOn,
   validateOnMount,
@@ -40,7 +41,7 @@ export const useForm = ({
     validateFields,
     autocomplete,
     showErrorIfError,
-    // showErrorIfTouched << wanted to call out that we specifically dont want this because its default
+    showErrorIfTouched: showErrorIfTouched ?? true,
     showErrorIfDirty,
     validateOn,
     validateOnMount,

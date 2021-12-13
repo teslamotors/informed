@@ -852,6 +852,51 @@ describe('useField', () => {
     expect(getByText('Field must be at least five characters')).toBeInTheDocument();
   });
 
+  it('should NOT show error message when blurred and showErrorIfTouched={false} at field level', () => {
+    const { getByLabelText, queryByText }  = render(
+      <Form>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          showErrorIfTouched={false}
+          validate={validate} />
+        <Input 
+          name="greeting2"  
+          label="input2"/>
+      </Form>
+    );
+
+    const input1 = getByLabelText('input1');
+    const input2 = getByLabelText('input2');
+
+    userEvent.type(input1, 'Hi!');
+    input2.focus();
+
+    expect(queryByText('Field must be at least five characters')).not.toBeInTheDocument();
+  });
+
+  it('should NOT show error message when blurred and showErrorIfTouched={false} at form level', () => {
+    const { getByLabelText, queryByText }  = render(
+      <Form showErrorIfTouched={false}>
+        <Input 
+          name="greeting"  
+          label="input1" 
+          validate={validate} />
+        <Input 
+          name="greeting2"  
+          label="input2"/>
+      </Form>
+    );
+
+    const input1 = getByLabelText('input1');
+    const input2 = getByLabelText('input2');
+
+    userEvent.type(input1, 'Hi!');
+    input2.focus();
+
+    expect(queryByText('Field must be at least five characters')).not.toBeInTheDocument();
+  });
+
   it('should show error message when submitted by default', () => {
     const { getByText }  = render(
       <Form>

@@ -1,3 +1,9 @@
+## 4.0.10 (December 15th, 2021)
+
+### Fixed
+
+- issue where FormProvider was not exported
+
 ## 4.0.9 (December 13th, 2021)
 
 ### Fixed

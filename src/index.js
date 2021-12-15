@@ -4,6 +4,7 @@ import { DebugField } from './components/DebugField';
 import { Relevant } from './components/Relevant';
 import { Scope } from './components/Scope';
 import { Form } from './components/Form';
+import { FormProvider } from './components/FormProvider';
 import { Input } from './components/form-fields/Input';
 import { Checkbox } from './components/form-fields/Checkbox';
 import { Select } from './components/form-fields/Select';
@@ -59,6 +60,7 @@ export {
   DebugField,
   Relevant,
   Form,
+  FormProvider,
   Input,
   Select,
   Option,

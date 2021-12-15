@@ -9,9 +9,11 @@ const onSubmit = ({ values }) => {
   window.alert(JSON.stringify(values, null, 2));
 };
 
-<Form onSubmit={onSubmit}>
-  <Input field="name" label="First name:" />
-  <button type="submit">Submit</button>
-  <Debug values />
-</Form>;
+const Basic = () => (
+  <Form onSubmit={onSubmit} autocomplete="off">
+    <Input name="name" label="First name:" />
+    <button type="submit">Submit</button>
+    <Debug values />
+  </Form>
+);
 ```

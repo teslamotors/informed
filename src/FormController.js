@@ -487,7 +487,8 @@ export class FormController {
       touchAllFields: this.touchAllFields,
       validate: this.validate,
       setValues: this.setValues,
-      setTheseValues: this.setTheseValues
+      setTheseValues: this.setTheseValues,
+      submitForm: this.submitForm
     };
   }
 

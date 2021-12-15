@@ -6,6 +6,7 @@ import Intro from './Intro';
 import TLDR from './TLDR';
 import Changelog from './Intro/Changelog';
 import Basic from './Form/Basic';
+import FormProvider from './Form/FormProvider';
 import Path from './Form/Path';
 import FeatureTester from './Form/FeatureTester';
 import Dynamic from './Form/Dynamic';
@@ -178,6 +179,7 @@ storiesOf('Form', module)
   .add('Path', Path)
   .add('Features', FeatureTester)
   .add('Inputs', Complex)
+  .add('FormProvider', FormProvider)
   .add('Big', Big);
 
 storiesOf('Inputs', module)

@@ -227,6 +227,10 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
       });
     };
 
+    const getCurrentStep = () => {
+      return currentStep.current;
+    };
+
     // ---------- Define the api ----------
     const api = {
       register,
@@ -235,7 +239,8 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
       getNexStep,
       getPreviousStep,
       setCurrent,
-      metGoal
+      metGoal,
+      getCurrentStep
     };
 
     // Set the ref
@@ -266,6 +271,21 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
       emitter.removeListener('multistep-relevance', listener);
     };
   }, []);
+
+  // Also re evaluate when current changes
+  useEffect(
+    () => {
+      // Update the state
+      setState(prev => {
+        return {
+          ...prev,
+          nextStep: multistepApi.getNexStep(),
+          previousStep: multistepApi.getPreviousStep()
+        };
+      });
+    },
+    [multistepState.current]
+  );
 
   // Render funtion that will provide state and api
   const render = children => (

@@ -1,3 +1,10 @@
+## 4.0.14 (December 15th, 2021)
+
+### Fixed
+
+- forgot to add getCurrentStep to multistepApi
+- forgot to add nextStep and previousStep to multistepState
+
 ## 4.0.13 (December 15th, 2021)
 
 ### Fixed

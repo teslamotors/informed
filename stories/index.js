@@ -25,6 +25,7 @@ import Props from './Form/Props';
 import Api from './Form/Api';
 import BasicMultistep from './Multistep/Basic';
 import ComplexMultistep from './Multistep/Complex';
+import MultistepState from './Multistep/MultistepState';
 import Actions from './Multistep/Actions';
 import SimpleValidation from './Validation/SimpleValidation';
 import Required from './Validation/Required';
@@ -261,6 +262,7 @@ storiesOf('Hooks!', module)
 
 storiesOf('Multistep Forms', module)
   .add('BasicMultistep', BasicMultistep)
+  .add('MultistepState', MultistepState)
   .add('Dynamic Multistep', ComplexMultistep)
   .add('Multistep Actions', Actions);
 

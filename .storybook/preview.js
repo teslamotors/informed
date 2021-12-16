@@ -38,8 +38,11 @@ const theme = create({
   base: 'light',
   brandTitle: 'Informed',
   brandTitle: `Informed v${version}`,
-  brandUrl: 'https://teslamotors.github.io/informed'
-  //brandImage: 'https://placehold.it/350x150',
+  brandUrl: 'https://teslamotors.github.io/informed',
+  // brandImage: 'https://placehold.it/350x150',
+  // brandImage: '/InformedLogo.png'
+  // brandImage: '/informed-car.png'
+  brandImage: '/car-on-informed.png'
 
   //colorPrimary: 'hotpink',
   //colorSecondary: 'deepskyblue',

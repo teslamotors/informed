@@ -14,7 +14,7 @@
     "require": "./dist/cjs/index.js"
   },
   "scripts": {
-    "start": "npm run storybook",
+    "start": "npm run storybook -s public",
     "build": "rm -rf dist && rollup --config",
     "test": "jest",
     "test:jest": "jest",

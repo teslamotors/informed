@@ -371,7 +371,7 @@ export class FormController {
     debug(`Setting ${name}'s touched to ${value}`);
 
     // Get meta for field
-    const meta = this.fieldsMap.get(name)?.current;
+    const meta = this.fieldsMap.get(name)?.current || {};
 
     // Update the state
     ObjectMap.set(this.state.touched, name, value);

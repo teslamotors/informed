@@ -1,3 +1,9 @@
+## 4.0.13 (December 15th, 2021)
+
+### Fixed
+
+- issue where set touched did not default meta when field is not there
+
 ## 4.0.12 (December 15th, 2021)
 
 ### Fixed

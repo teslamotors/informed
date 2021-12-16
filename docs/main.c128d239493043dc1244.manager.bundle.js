@@ -7,7 +7,7 @@
       __webpack_require__.r(__webpack_exports__),
         __webpack_require__(80).c.setConfig({
           name: 'Informed',
-          url: 'https://joepuzzo.github.io/informed',
+          url: 'https://teslamotors.github.io/informed',
           isFullscreen: !1,
           showNav: !0,
           showPanel: !1,

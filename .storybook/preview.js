@@ -38,7 +38,7 @@ const theme = create({
   base: 'light',
   brandTitle: 'Informed',
   brandTitle: `Informed v${version}`,
-  brandUrl: 'https://joepuzzo.github.io/informed'
+  brandUrl: 'https://teslamotors.github.io/informed'
   //brandImage: 'https://placehold.it/350x150',
 
   //colorPrimary: 'hotpink',

@@ -8,7 +8,7 @@ import './assets/skeleton.css';
 import './assets/prism.css';
 import './assets/styles.css';
 
-// NEW 
+// NEW
 import { addReadme } from 'storybook-readme';
 
 // addParameters({
@@ -25,11 +25,10 @@ import { addReadme } from 'storybook-readme';
 
 setOptions({
   //name: 'Informed',
-  //url: 'https://joepuzzo.github.io/informed',
+  //url: 'https://teslamotors.github.io/informed',
   //showAddonPanel: false,
   //addonPanelInRight: false,
 });
-
 
 // NEW
 //addDecorator(addReadme);

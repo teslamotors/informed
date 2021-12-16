@@ -2,7 +2,7 @@ import { addons } from '@storybook/addons';
 
 addons.setConfig({
   name: 'Informed',
-  url: 'https://joepuzzo.github.io/informed',
+  url: 'https://teslamotors.github.io/informed',
   /**
    * show story component as full screen
    * @type {Boolean}

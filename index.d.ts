@@ -72,7 +72,7 @@ export type ArrayFieldApi = {
   add: () => void;
   reset: () => void;
   swap: (a: number, b: number) => void;
-  addWithInitialValue: (unknown) => void;
+  addWithInitialValue: (value: any) => void;
 };
 
 export type ArrayFieldItemApi = {
@@ -128,25 +128,20 @@ export type InformedProps<UserProps> = {
   errorMessage?: Record<string, unknown>;
 } & Omit<UserProps, 'onSubmit' | 'onReset' | 'onChange' | 'onSubmitFailure'>;
 
+export type RelevantParams = {
+  formState: FormState;
+  formApi: FormApi;
+  scope: string;
+  relevanceDeps: Array<any> | undefined;
+};
+
 export type FieldProps<UserProps> = {
   name: string;
   type?: string;
   initialValue?: unknown;
   defaultValue?: unknown;
   validate?: (value: unknown, values: Record<string, unknown>) => unknown;
-  relevant?: (
-    {
-      formState,
-      formApi,
-      scope,
-      relevanceDeps
-    }: {
-      formState: FormState;
-      formApi: FormApi;
-      scope: string;
-      relevanceDeps: Array<any>;
-    }
-  ) => boolean;
+  relevant?: (relevantParams: RelevantParams) => boolean;
   onChange?: (fieldState: FieldState, event: React.SyntheticEvent) => void;
   onBlur?: (fieldState: FieldState, event: React.SyntheticEvent) => void;
   onFocus?: (fieldState: FieldState, event: React.SyntheticEvent) => void;
@@ -167,6 +162,8 @@ export type FieldProps<UserProps> = {
   showErrorIfError?: boolean;
   showErrorIfTouched?: boolean;
   showErrorIfDirty?: boolean;
+  relevanceWhen?: Array<string>;
+  relevanceDeps?: Array<any>;
   formatter?:
     | Array<string | RegExp | Function>
     | string
@@ -219,6 +216,18 @@ export type FormController = {
   debouncedValidateAsync: (name: string, res: unknown) => void;
   getOptions: (...args: any[]) => any;
 };
+
+export function Relevant({
+  when,
+  relevanceWhen,
+  relevanceDeps,
+  children
+}: {
+  when: (relevantParams: RelevantParams) => boolean;
+  relevanceWhen?: Array<string>;
+  relevanceDeps?: Array<any>;
+  children: React.ReactNode;
+}): JSX.Element;
 
 export function useFormApi(): FormApi;
 

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { 
   useFormApi, 
   useForm, 
@@ -11,7 +11,8 @@ import {
   FieldProps, 
   InformedProps,
   FormState,
-  ArrayField
+  ArrayField,
+  Relevant
 } from '.';
 
 import {expectType} from 'tsd';
@@ -372,9 +373,34 @@ const ComponentUsingOtherShit = () => {
   );
 };
 
-export const OtherShitTest = () => (
-  <Form>
-    <Input name="name" label="Name:" />
-    <ComponentUsingOtherShit />
-  </Form>
-);
+export const OtherShitTest = () => {
+  const [externalDep, setExternalDep] = useState('FOO');
+
+  const relevant1 = ({ formState, relevanceDeps }: any) => {
+    return formState.values.showInfo && relevanceDeps[0] !== 'BAR';
+  };
+
+  const relevant2 = ({ formState }: any) => {
+    return formState.values.showInfo;
+  };
+
+  return (
+    <Form>
+      <Input name="name" label="Name:" />
+      <ComponentUsingOtherShit />
+      {/* ---------- Relevance Test ---------- */}
+      <Relevant when={({ formState }) => !!formState.values.showInfo}>
+        <Input type="number" label="Age" name="age" />
+        <Input label="Favorite Color" name="color" keepState />
+      </Relevant>
+      <Input
+        label="Favorite Food"
+        name="food"
+        relevanceWhen={['showInfo']}
+        relevanceDeps={[externalDep]}
+        relevant={relevant1}
+      />
+      <Input label="Favorite Movie" name="movie" relevant={relevant2} />
+    </Form>
+  );
+}

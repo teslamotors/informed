@@ -1,3 +1,9 @@
+## 4.0.11 (December 15th, 2021)
+
+### Fixed
+
+- missing type for Relevant
+
 ## 4.0.10 (December 15th, 2021)
 
 ### Fixed

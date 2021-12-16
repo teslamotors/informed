@@ -859,7 +859,7 @@
           'brandUrl',
           'https://teslamotors.github.io/informed'
         ),
-        _defineProperty(_create, 'brandImage', '/car-on-informed.png'),
+        _defineProperty(_create, 'brandImage', 'car-on-informed.png'),
         _create)
       );
       function preview_js_generated_config_entry_ownKeys(

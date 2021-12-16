@@ -42,7 +42,7 @@ const theme = create({
   // brandImage: 'https://placehold.it/350x150',
   // brandImage: '/InformedLogo.png'
   // brandImage: '/informed-car.png'
-  brandImage: '/car-on-informed.png'
+  brandImage: 'car-on-informed.png'
 
   //colorPrimary: 'hotpink',
   //colorSecondary: 'deepskyblue',

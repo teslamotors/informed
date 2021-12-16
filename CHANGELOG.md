@@ -1,3 +1,9 @@
+## 4.0.12 (December 15th, 2021)
+
+### Fixed
+
+- issue where `FormField` could not take field props
+
 ## 4.0.11 (December 15th, 2021)
 
 ### Fixed

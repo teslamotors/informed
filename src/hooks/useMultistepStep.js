@@ -13,7 +13,8 @@ const useMultistepStep = ({
   step,
   relevant,
   keepState,
-  relevanceWhen = []
+  relevanceWhen = [],
+  relevanceDeps = []
 }) => {
   const formController = useFormController();
   const { current, goal } = useMultistepState();
@@ -31,7 +32,8 @@ const useMultistepStep = ({
   const isRelevant = useRelevance({
     name: step,
     relevant,
-    relevanceWhen
+    relevanceWhen,
+    relevanceDeps
   });
 
   // Cleanup on irrelivant

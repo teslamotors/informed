@@ -1,3 +1,9 @@
+## 4.0.16 (December 17th, 2021)
+
+### Fixed
+
+- issue where I forgot to allow relevanceDeps to be passed to multistep step
+
 ## 4.0.15 (December 15th, 2021)
 
 ### Moved

@@ -1038,7 +1038,7 @@
         './node_modules/@storybook/builder-webpack4/node_modules/css-loader/dist/runtime/api.js'
       )(!1)).push([
         module.i,
-        ":root {\n  --informed-font-size--10: 10px;\n  --informed-font-size--20: 12px;\n  --informed-font-size--30: 14px;\n  --informed-font-size--40: 17px;\n  --informed-font-size--50: 20px;\n  --informed-font-size--55: 23px;\n  --informed-font-size--60: 24px;\n  --informed-font-size--70: 28px;\n  --informed-font-size--75: 34px;\n  --informed-font-size--80: 40px;\n  --informed-height--pill: 40px;\n  --informed-line-height--10: 18px;\n  --informed-line-height--20: 20px;\n  --informed-line-height--30: 21px;\n  --informed-line-height--40: 23px;\n  --informed-line-height--50: 24px;\n  --informed-line-height--60: 28px;\n  --informed-line-height--70: 36px;\n  --informed-line-height--75: 45px;\n  --informed-line-height--80: 48px;\n}\n\n.body {\n  font-family: Helvetica, sans-serif;\n}\n\na > img {\n  border-radius: 10px;\n}\n\nh1 {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--80, 40px);\n  line-height: var(--informed-line-height--80, 48px);\n}\n\nh2 {\n  letter-spacing: -0.5px;\n  font-size: var(--informed-font-size--70, 28px);\n  line-height: var(--informed-line-height--70, 36px);\n}\n\nh3 {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--60, 24px);\n  line-height: var(--informed-line-height--60, 28px);\n}\n\nh4 {\n  letter-spacing: -0.4px;\n  font-size: var(--informed-font-size--50, 20px);\n  line-height: var(--informed-line-height--60, 28px);\n}\n\nh5 {\n  font-size: var(--informed-font-size--40, 17px);\n  line-height: var(--informed-line-height--20, 20px);\n}\n\nh6 {\n  font-size: var(--informed-font-size--30, 14px);\n  line-height: var(--informed-line-height--30, 21px);\n}\n\ninput {\n  margin-bottom: 1rem;\n}\n\ninput:not([type='checkbox']):not([type='radio']),\ntextarea,\nselect {\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n  display: block;\n  border-radius: 20px;\n  width: 100%;\n  padding: 10px 20px;\n  font-weight: 500;\n  border: 1px solid transparent;\n  max-width: 400px;\n  background-color: #f4f4f4;\n}\n\ninput + small,\ntextarea + small,\nselect + small {\n  color: rgb(237, 78, 59);\n  padding-bottom: 1rem;\n  display: block;\n  font-weight: bold;\n}\n\nfieldset small[role='alert'] {\n  color: rgb(237, 78, 59);\n  padding-bottom: 1rem;\n  display: block;\n  font-weight: bold;\n}\n\ninput[aria-invalid='true']:not([type='checkbox']):not([type='radio']),\ntextarea[aria-invalid='true'],\nselect[aria-invalid='true'] {\n  border: 1px solid rgb(237, 78, 59) !important;\n}\n\ninput[aria-invalid='true'][type='radio'],\ninput[aria-invalid='true'][type='checkbox'] {\n  outline: 1px solid rgb(237, 78, 59) !important;\n}\n\n.radio-label {\n  display: block;\n}\n\ntextarea {\n  max-width: 100%;\n}\n\nfieldset {\n  border: none;\n}\n\nselect {\n  /* needed */\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  /* SVG background image */\n  background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23000000%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E');\n  background-size: 0.6em;\n  background-position: calc(100% - 1.3em) center;\n  background-repeat: no-repeat;\n}\n\n.select:before {\n  content: '';\n  position: absolute;\n  right: 10px;\n  top: 8px;\n  width: 0;\n  height: 0;\n  border-left: 10px solid transparent;\n  border-right: 10px solid transparent;\n  border-top: 10px solid #f00;\n}\n\n.select:after {\n  content: '';\n  position: absolute;\n  right: 10px;\n  top: 3px;\n  width: 0;\n  height: 0;\n  border-left: 10px solid transparent;\n  border-right: 10px solid transparent;\n  border-top: 10px solid #333;\n}\n\nlabel {\n  margin-bottom: 1rem;\n  display: block;\n}\n\nlegend {\n  margin-bottom: 1rem;\n  display: block;\n}\n\nbutton {\n  text-align: left;\n  display: inline-block;\n  height: var(--informed-height--pill);\n  border: 1px solid transparent;\n  border-radius: 20px;\n  padding: 5px 40px;\n  color: white;\n  background-color: #3e6ae1;\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n  margin-right: 1rem;\n}\n\nbutton[type='submit'] {\n  display: block;\n}\n\n.button-group {\n  display: flex;\n}\n\nhr {\n  border: none !important;\n  height: 1px !important;\n  /* Set the hr color */\n  color: #333; /* old IE */\n  background-color: #333; /* Modern Browsers */\n}\n\npre {\n  font-size: 1em !important;\n}\n\n.markdown-body[class] {\n  font-size: inherit;\n  color: inherit;\n  border: inherit;\n}\n\n.markdown-body pre {\n  font-size: inherit;\n  color: inherit;\n  border: inherit;\n  border-radius: 10px;\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n}\n\n.markdown-body[class] h1,\n.markdown-body[class] h2,\n.markdown-body[class] h3,\n.markdown-body[class] h4,\n.markdown-body[class] h5,\n.markdown-body[class] h6 {\n  border: inherit;\n  margin: inherit;\n  padding: inherit;\n}\n\n.markdown-body[class] h1[id] {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--80, 40px);\n  line-height: var(--informed-line-height--80, 48px);\n  margin-top: 2rem;\n}\n\n.markdown-body[class] h2[id] {\n  letter-spacing: -0.5px;\n  font-size: var(--informed-font-size--70, 28px);\n  line-height: var(--informed-line-height--70, 36px);\n  margin-top: 2rem;\n}\n\n.markdown-body[class] h3[id] {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--60, 24px);\n  line-height: var(--informed-line-height--60, 28px);\n  margin-top: 2rem;\n}\n\n.markdown-body[class] h4[id] {\n  letter-spacing: -0.4px;\n  font-size: var(--informed-font-size--50, 20px);\n  line-height: var(--informed-line-height--60, 28px);\n  margin-top: 2rem;\n}\n\n.markdown-body[class] h5[id] {\n  font-size: var(--informed-font-size--40, 17px);\n  line-height: var(--informed-line-height--20, 20px);\n  margin-top: 1rem;\n}\n\n.markdown-body[class] h6[id] {\n  font-size: var(--informed-font-size--30, 14px);\n  line-height: var(--informed-line-height--30, 21px);\n  margin-top: 1rem;\n}\n\n.markdown-body p {\n  margin: inherit;\n}\n\n.markdown-body[class] p {\n}\n\n.markdown-body[class] ul {\n}\n\n.markdown-body[class] ol {\n}\n\n.markdown-body a:active,\n.markdown-body a:hover {\n  text-decoration: none !important;\n}\n\n.markdown-body[class] table {\n  display: table;\n}\n\n.markdown-body[class] table strong {\n  color: rgb(237, 78, 59);\n}\n\nstrong {\n  color: rgb(237, 78, 59);\n}\n\n/* .markdown-body[class] table {\n  display: table;\n}\n\n.markdown-body thead {\n}\n\n.markdown-body tbody {\n}\n\n.markdown-body table thead tr:nth-child(1n),\n.markdown-body table tbody tr:nth-child(1n) {\n  background: inherit;\n  border: inherit;\n}\n\n.markdown-body table thead tr:nth-child(1n):first-child th {\n}\n\n.markdown-body thead tr th:nth-child(1n),\n.markdown-body tbody tr th:nth-child(1n) {\n  padding: inherit;\n  border: inherit;\n}\n\n.markdown-body[class] thead tr th:nth-child(1n),\n.markdown-body[class] tbody tr th:nth-child(1n) {\n}\n\n.markdown-body thead tr td:nth-child(1n),\n.markdown-body tbody tr td:nth-child(1n) {\n  padding: inherit;\n  border: inherit;\n}\n\n.markdown-body[class] thead tr td:nth-child(1n),\n.markdown-body[class] tbody tr td:nth-child(1n) {\n}\n\n.markdown-body[class] thead tr th:nth-child(1n):first-child,\n.markdown-body[class] tbody tr th:nth-child(1n):first-child,\n.markdown-body[class] thead tr td:nth-child(1n):first-child,\n.markdown-body[class] tbody tr td:nth-child(1n):first-child {\n  padding-left: 0;\n}\n\n.markdown-body[class] thead tr th:nth-child(1n):last-child,\n.markdown-body[class] tbody tr th:nth-child(1n):last-child,\n.markdown-body[class] thead tr td:nth-child(1n):last-child,\n.markdown-body[class] tbody tr td:nth-child(1n):last-child {\n  padding-right: 0;\n} */\n\n.informed-container {\n  padding: 4rem;\n}\n\n.informed-black {\n  background-color: rgb(13, 16, 17);\n  color: white !important;\n}\n\n.informed-black input:not([type='checkbox']):not([type='radio']),\n.informed-black select,\n.informed-black textarea {\n  background-color: #222222;\n  color: white;\n}\n\n.informed-black select {\n  background-image: url(\"data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Ctitle%3Edown-arrow%3C/title%3E%3Cg fill='%23000000'%3E%3Cpath d='M10.293,3.293,6,7.586,1.707,3.293A1,1,0,0,0,.293,4.707l5,5a1,1,0,0,0,1.414,0l5-5a1,1,0,1,0-1.414-1.414Z' fill='%23FFFFFF'%3E%3C/path%3E%3C/g%3E%3C/svg%3E\");\n  /* filter: invert(1); */\n}\n\n.informed-black .markdown-body[class] table {\n  background-color: #000;\n}\n\n.informed-black td {\n  background-color: #000;\n}\n\n.informed-black th {\n  background-color: #000;\n}\n\n.markdown-body > :first-child {\n  margin-top: 2rem !important;\n}\n\n.loader,\n.loader:after {\n  border-radius: 50%;\n  width: 10em;\n  height: 10em;\n}\n\n.loader {\n  top: 0px;\n  margin: 60px auto;\n  font-size: 10px;\n  position: fixed;\n  top: 50%;\n  right: 50%;\n  text-indent: -9999em;\n  border-top: 1.1em solid rgba(67, 64, 64, 0.2);\n  border-right: 1.1em solid rgba(67, 64, 64, 0.2);\n  border-bottom: 1.1em solid rgba(67, 64, 64, 0.2);\n  border-left: 1.1em solid red;\n  transform: translateZ(0);\n  -webkit-animation: load8 1.1s infinite linear;\n  animation: load8 1.1s infinite linear;\n}\n\n.informed-black .loader {\n  border-top: 1.1em solid rgba(255, 255, 255, 0.2);\n  border-right: 1.1em solid rgba(255, 255, 255, 0.2);\n  border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);\n  border-left: 1.1em solid red;\n}\n\n@-webkit-keyframes load8 {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@keyframes load8 {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n\n/* This is for Car!!! */\n\n.cls-1 {\n  fill: #fefefe;\n}\n\n.cls-1,\n.cls-10,\n.cls-11,\n.cls-12,\n.cls-13,\n.cls-14,\n.cls-15,\n.cls-2,\n.cls-3,\n.cls-4,\n.cls-5,\n.cls-6,\n.cls-7,\n.cls-8,\n.cls-9 {\n  fill-rule: evenodd;\n}\n\n.cls-2 {\n  fill: #cfd5cf;\n}\n\n.cls-11,\n.cls-12,\n.cls-3,\n.cls-5 {\n  fill: none;\n  stroke-linecap: round;\n  stroke-linejoin: round;\n}\n\n.cls-3,\n.cls-5 {\n  stroke: #212121;\n}\n\n.cls-11,\n.cls-3 {\n  stroke-width: 3px;\n}\n\n.cls-4 {\n  fill: #212121;\n}\n\n.cls-12,\n.cls-5 {\n  stroke-width: 2px;\n}\n\n.cls-6 {\n  fill: #194767;\n}\n\n.cls-7 {\n  fill: #1a3850;\n}\n\n.cls-8 {\n  fill: #e53046;\n}\n\n.cls-9 {\n  fill: #ae3b46;\n}\n\n.cls-10 {\n  fill: #e96650;\n}\n\n.cls-11,\n.cls-12 {\n  stroke: #231f20;\n}\n\n.cls-13,\n.cls-16 {\n  fill: #848c93;\n}\n\n.cls-14 {\n  fill: #020303;\n}\n\n.cls-15 {\n  fill: #74848c;\n}\n\n.cls-16 {\n  font-size: 40px;\n  font-family: HelveticaNeue-Bold, Helvetica Neue;\n  font-weight: 700;\n}\n\n#Circleelement {\n  -webkit-animation-name: rotate;\n  -webkit-animation-duration: 2s;\n  -webkit-animation-iteration-count: infinite;\n  -webkit-animation-timing-function: linear;\n  -moz-animation-name: rotate;\n  -moz-animation-duration: 2s;\n  -moz-animation-iteration-count: infinite;\n  -moz-animation-timing-function: linear;\n  animation-name: rotate;\n  animation-duration: 2s;\n  animation-iteration-count: infinite;\n  animation-timing-function: linear;\n}\n@-webkit-keyframes rotate {\n  from {\n    -webkit-transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(360deg);\n  }\n}\n\n@keyframes rotate {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n",
+        ":root {\n  --informed-font-size--10: 10px;\n  --informed-font-size--20: 12px;\n  --informed-font-size--30: 14px;\n  --informed-font-size--40: 17px;\n  --informed-font-size--50: 20px;\n  --informed-font-size--55: 23px;\n  --informed-font-size--60: 24px;\n  --informed-font-size--70: 28px;\n  --informed-font-size--75: 34px;\n  --informed-font-size--80: 40px;\n  --informed-height--pill: 40px;\n  --informed-line-height--10: 18px;\n  --informed-line-height--20: 20px;\n  --informed-line-height--30: 21px;\n  --informed-line-height--40: 23px;\n  --informed-line-height--50: 24px;\n  --informed-line-height--60: 28px;\n  --informed-line-height--70: 36px;\n  --informed-line-height--75: 45px;\n  --informed-line-height--80: 48px;\n}\n\n.body {\n  font-family: Helvetica, sans-serif;\n}\n\na > img {\n  border-radius: 10px;\n}\n\nh1 {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--80, 40px);\n  line-height: var(--informed-line-height--80, 48px);\n}\n\nh2 {\n  letter-spacing: -0.5px;\n  font-size: var(--informed-font-size--70, 28px);\n  line-height: var(--informed-line-height--70, 36px);\n}\n\nh3 {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--60, 24px);\n  line-height: var(--informed-line-height--60, 28px);\n}\n\nh4 {\n  letter-spacing: -0.4px;\n  font-size: var(--informed-font-size--50, 20px);\n  line-height: var(--informed-line-height--60, 28px);\n}\n\nh5 {\n  font-size: var(--informed-font-size--40, 17px);\n  line-height: var(--informed-line-height--20, 20px);\n}\n\nh6 {\n  font-size: var(--informed-font-size--30, 14px);\n  line-height: var(--informed-line-height--30, 21px);\n}\n\ninput {\n  margin-bottom: 1rem;\n}\n\ninput:not([type='checkbox']):not([type='radio']),\ntextarea,\nselect {\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n  display: block;\n  border-radius: 20px;\n  width: 85%;\n  padding: 10px 20px;\n  font-weight: 500;\n  border: 1px solid transparent;\n  margin-right: 2rem;\n  /* max-width: 400px; */\n  background-color: #f4f4f4;\n}\n\ninput + small,\ntextarea + small,\nselect + small {\n  color: rgb(237, 78, 59);\n  padding-bottom: 1rem;\n  display: block;\n  font-weight: bold;\n}\n\nfieldset small[role='alert'] {\n  color: rgb(237, 78, 59);\n  padding-bottom: 1rem;\n  display: block;\n  font-weight: bold;\n}\n\ninput[aria-invalid='true']:not([type='checkbox']):not([type='radio']),\ntextarea[aria-invalid='true'],\nselect[aria-invalid='true'] {\n  border: 1px solid rgb(237, 78, 59) !important;\n}\n\ninput[aria-invalid='true'][type='radio'],\ninput[aria-invalid='true'][type='checkbox'] {\n  outline: 1px solid rgb(237, 78, 59) !important;\n}\n\n.radio-label {\n  display: block;\n}\n\ntextarea {\n  max-width: 100%;\n}\n\nfieldset {\n  border: none;\n}\n\nselect {\n  /* needed */\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  /* SVG background image */\n  background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23000000%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E');\n  background-size: 0.6em;\n  background-position: calc(100% - 1.3em) center;\n  background-repeat: no-repeat;\n}\n\n.select:before {\n  content: '';\n  position: absolute;\n  right: 10px;\n  top: 8px;\n  width: 0;\n  height: 0;\n  border-left: 10px solid transparent;\n  border-right: 10px solid transparent;\n  border-top: 10px solid #f00;\n}\n\n.select:after {\n  content: '';\n  position: absolute;\n  right: 10px;\n  top: 3px;\n  width: 0;\n  height: 0;\n  border-left: 10px solid transparent;\n  border-right: 10px solid transparent;\n  border-top: 10px solid #333;\n}\n\nlabel {\n  margin-bottom: 1rem;\n  display: block;\n}\n\nlegend {\n  margin-bottom: 1rem;\n  display: block;\n}\n\nbutton {\n  text-align: left;\n  display: inline-block;\n  height: var(--informed-height--pill);\n  border: 1px solid transparent;\n  border-radius: 20px;\n  padding: 5px 40px;\n  color: white;\n  background-color: #3e6ae1;\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n  margin-right: 1rem;\n}\n\nbutton[type='submit'] {\n  display: block;\n}\n\n.button-group {\n  display: flex;\n}\n\nhr {\n  border: none !important;\n  height: 2px !important;\n  /* Set the hr color */\n  color: #333; /* old IE */\n  background-color: #333; /* Modern Browsers */\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\npre {\n  font-size: 1em !important;\n}\n\n.markdown-body[class] {\n  font-size: inherit;\n  color: inherit;\n  border: inherit;\n}\n\n.markdown-body pre {\n  font-size: inherit;\n  color: inherit;\n  border: inherit;\n  border-radius: 10px;\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n}\n\n.markdown-body[class] h1,\n.markdown-body[class] h2,\n.markdown-body[class] h3,\n.markdown-body[class] h4,\n.markdown-body[class] h5,\n.markdown-body[class] h6 {\n  border: inherit;\n  margin: inherit;\n  padding: inherit;\n  margin-top: 2rem !important;\n  margin-bottom: 2rem !important;\n}\n\n.markdown-body[class] h1[id] {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--80, 40px);\n  line-height: var(--informed-line-height--80, 48px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h2[id] {\n  letter-spacing: -0.5px;\n  font-size: var(--informed-font-size--70, 28px);\n  line-height: var(--informed-line-height--70, 36px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h3[id] {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--60, 24px);\n  line-height: var(--informed-line-height--60, 28px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h4[id] {\n  letter-spacing: -0.4px;\n  font-size: var(--informed-font-size--50, 20px);\n  line-height: var(--informed-line-height--60, 28px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h5[id] {\n  font-size: var(--informed-font-size--40, 17px);\n  line-height: var(--informed-line-height--20, 20px);\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.markdown-body[class] h6[id] {\n  font-size: var(--informed-font-size--30, 14px);\n  line-height: var(--informed-line-height--30, 21px);\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.markdown-body p {\n  margin: inherit;\n}\n\n.markdown-body[class] p {\n}\n\n.markdown-body[class] ul {\n}\n\n.markdown-body[class] ol {\n}\n\n.markdown-body a:active,\n.markdown-body a:hover {\n  text-decoration: none !important;\n}\n\n.markdown-body[class] table {\n  display: table;\n}\n\n.markdown-body[class] table strong {\n  color: rgb(237, 78, 59);\n}\n\nstrong {\n  color: rgb(237, 78, 59);\n}\n\n/* .markdown-body[class] table {\n  display: table;\n}\n\n.markdown-body thead {\n}\n\n.markdown-body tbody {\n}\n\n.markdown-body table thead tr:nth-child(1n),\n.markdown-body table tbody tr:nth-child(1n) {\n  background: inherit;\n  border: inherit;\n}\n\n.markdown-body table thead tr:nth-child(1n):first-child th {\n}\n\n.markdown-body thead tr th:nth-child(1n),\n.markdown-body tbody tr th:nth-child(1n) {\n  padding: inherit;\n  border: inherit;\n}\n\n.markdown-body[class] thead tr th:nth-child(1n),\n.markdown-body[class] tbody tr th:nth-child(1n) {\n}\n\n.markdown-body thead tr td:nth-child(1n),\n.markdown-body tbody tr td:nth-child(1n) {\n  padding: inherit;\n  border: inherit;\n}\n\n.markdown-body[class] thead tr td:nth-child(1n),\n.markdown-body[class] tbody tr td:nth-child(1n) {\n}\n\n.markdown-body[class] thead tr th:nth-child(1n):first-child,\n.markdown-body[class] tbody tr th:nth-child(1n):first-child,\n.markdown-body[class] thead tr td:nth-child(1n):first-child,\n.markdown-body[class] tbody tr td:nth-child(1n):first-child {\n  padding-left: 0;\n}\n\n.markdown-body[class] thead tr th:nth-child(1n):last-child,\n.markdown-body[class] tbody tr th:nth-child(1n):last-child,\n.markdown-body[class] thead tr td:nth-child(1n):last-child,\n.markdown-body[class] tbody tr td:nth-child(1n):last-child {\n  padding-right: 0;\n} */\n\n.informed-container {\n  padding-left: 4rem;\n  padding-right: 4rem;\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n  max-width: 1060px;\n}\n\n.informed-black {\n  background-color: black;\n  color: white !important;\n}\n\n.informed-black input:not([type='checkbox']):not([type='radio']),\n.informed-black select,\n.informed-black textarea {\n  background-color: rgb(58, 60, 65);\n  color: white;\n}\n\n.informed-black select {\n  background-image: url(\"data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Ctitle%3Edown-arrow%3C/title%3E%3Cg fill='%23000000'%3E%3Cpath d='M10.293,3.293,6,7.586,1.707,3.293A1,1,0,0,0,.293,4.707l5,5a1,1,0,0,0,1.414,0l5-5a1,1,0,1,0-1.414-1.414Z' fill='%23FFFFFF'%3E%3C/path%3E%3C/g%3E%3C/svg%3E\");\n  /* filter: invert(1); */\n}\n\n.informed-black .markdown-body[class] table {\n  background-color: #000;\n}\n\n.informed-black td {\n  background-color: #000;\n}\n\n.informed-black th {\n  background-color: #000;\n}\n\n.markdown-body > :first-child {\n  margin-top: 2rem !important;\n}\n\n.loader,\n.loader:after {\n  border-radius: 50%;\n  width: 10em;\n  height: 10em;\n}\n\n.loader {\n  top: 0px;\n  margin: 60px auto;\n  font-size: 10px;\n  position: fixed;\n  top: 50%;\n  right: 50%;\n  text-indent: -9999em;\n  border-top: 1.1em solid rgba(67, 64, 64, 0.2);\n  border-right: 1.1em solid rgba(67, 64, 64, 0.2);\n  border-bottom: 1.1em solid rgba(67, 64, 64, 0.2);\n  border-left: 1.1em solid red;\n  transform: translateZ(0);\n  -webkit-animation: load8 1.1s infinite linear;\n  animation: load8 1.1s infinite linear;\n}\n\n.informed-black .loader {\n  border-top: 1.1em solid rgba(255, 255, 255, 0.2);\n  border-right: 1.1em solid rgba(255, 255, 255, 0.2);\n  border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);\n  border-left: 1.1em solid red;\n}\n\n@-webkit-keyframes load8 {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@keyframes load8 {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n\n/* This is for Car!!! */\n\n.cls-1 {\n  fill: #fefefe;\n}\n\n.cls-1,\n.cls-10,\n.cls-11,\n.cls-12,\n.cls-13,\n.cls-14,\n.cls-15,\n.cls-2,\n.cls-3,\n.cls-4,\n.cls-5,\n.cls-6,\n.cls-7,\n.cls-8,\n.cls-9 {\n  fill-rule: evenodd;\n}\n\n.cls-2 {\n  fill: #cfd5cf;\n}\n\n.cls-11,\n.cls-12,\n.cls-3,\n.cls-5 {\n  fill: none;\n  stroke-linecap: round;\n  stroke-linejoin: round;\n}\n\n.cls-3,\n.cls-5 {\n  stroke: #212121;\n}\n\n.cls-11,\n.cls-3 {\n  stroke-width: 3px;\n}\n\n.cls-4 {\n  fill: #212121;\n}\n\n.cls-12,\n.cls-5 {\n  stroke-width: 2px;\n}\n\n.cls-6 {\n  fill: #194767;\n}\n\n.cls-7 {\n  fill: #1a3850;\n}\n\n.cls-8 {\n  fill: #e53046;\n}\n\n.cls-9 {\n  fill: #ae3b46;\n}\n\n.cls-10 {\n  fill: #e96650;\n}\n\n.cls-11,\n.cls-12 {\n  stroke: #231f20;\n}\n\n.cls-13,\n.cls-16 {\n  fill: #848c93;\n}\n\n.cls-14 {\n  fill: #020303;\n}\n\n.cls-15 {\n  fill: #74848c;\n}\n\n.cls-16 {\n  font-size: 40px;\n  font-family: HelveticaNeue-Bold, Helvetica Neue;\n  font-weight: 700;\n}\n\n#Circleelement {\n  -webkit-animation-name: rotate;\n  -webkit-animation-duration: 2s;\n  -webkit-animation-iteration-count: infinite;\n  -webkit-animation-timing-function: linear;\n  -moz-animation-name: rotate;\n  -moz-animation-duration: 2s;\n  -moz-animation-iteration-count: infinite;\n  -moz-animation-timing-function: linear;\n  animation-name: rotate;\n  animation-duration: 2s;\n  animation-iteration-count: infinite;\n  animation-timing-function: linear;\n}\n@-webkit-keyframes rotate {\n  from {\n    -webkit-transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(360deg);\n  }\n}\n\n@keyframes rotate {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n",
         ''
       ]),
         (module.exports = exports);
@@ -14512,6 +14512,150 @@
         }
       );
     },
+    './stories/Intro/SchemaVsFormat/index.js': function(
+      module,
+      __webpack_exports__,
+      __webpack_require__
+    ) {
+      'use strict';
+      var react = __webpack_require__('./node_modules/react/index.js'),
+        react_default = __webpack_require__.n(react),
+        withDocs = __webpack_require__('./stories/utils/withDocs.js'),
+        src = __webpack_require__('./src/index.js'),
+        onSubmit = function onSubmit(_ref) {
+          _ref.values;
+          return console.log(data);
+        },
+        schema = {
+          type: 'object',
+          required: ['age'],
+          properties: {
+            name: {
+              type: 'string',
+              title: 'Name',
+              'ui:props': { placeholder: 'Elon' }
+            },
+            age: {
+              type: 'number',
+              title: 'Age',
+              errorMessage: { required: 'Age Required' }
+            },
+            phone: {
+              type: 'string',
+              title: 'Phone',
+              'ui:props': { formatter: '+1 (###)-###-####' }
+            },
+            color: {
+              type: 'string',
+              title: 'Color',
+              'ui:control': 'select',
+              oneOf: [
+                { const: 'md', title: 'Model S' },
+                { const: 'm3', title: 'Model 3' },
+                { const: 'mx', title: 'Model X' },
+                { const: 'my', title: 'Model Y' }
+              ],
+              'ui:props': { initialValue: 'ms' }
+            }
+          }
+        };
+      __webpack_exports__.a = Object(withDocs.a)(
+        '## Schema Vs Format\n\nHere is the same form with Format Based ( JSX ), and with JSON Schema.\n\n\x3c!-- STORY --\x3e\n',
+        function GettingStarted() {
+          return react_default.a.createElement(
+            'div',
+            { style: { display: 'flex' } },
+            react_default.a.createElement(
+              'div',
+              { style: { flex: '1', marginRight: '1rem', maxWidth: '500px' } },
+              react_default.a.createElement('h4', null, 'Format Based (JSX)'),
+              react_default.a.createElement(
+                src.f,
+                { onSubmit: onSubmit, autocomplete: 'off' },
+                react_default.a.createElement(src.k, {
+                  name: 'name',
+                  label: 'Name',
+                  placeholder: 'Elon'
+                }),
+                react_default.a.createElement(src.k, {
+                  name: 'age',
+                  type: 'number',
+                  label: 'Age',
+                  required: 'Age Required'
+                }),
+                react_default.a.createElement(src.k, {
+                  name: 'phone',
+                  label: 'Phone',
+                  formatter: '+1 (###)-###-####'
+                }),
+                react_default.a.createElement(
+                  src.s,
+                  { name: 'car', label: 'Car', initialValue: 'ms' },
+                  react_default.a.createElement(
+                    'option',
+                    { value: 'ms' },
+                    'Model S'
+                  ),
+                  react_default.a.createElement(
+                    'option',
+                    { value: 'm3' },
+                    'Model 3'
+                  ),
+                  react_default.a.createElement(
+                    'option',
+                    { value: 'mx' },
+                    'Model X'
+                  ),
+                  react_default.a.createElement(
+                    'option',
+                    { value: 'my' },
+                    'Model Y'
+                  )
+                ),
+                react_default.a.createElement(
+                  'button',
+                  { type: 'submit' },
+                  'Submit'
+                )
+              ),
+              react_default.a.createElement(
+                'pre',
+                { style: { height: '1250px' } },
+                react_default.a.createElement(
+                  'code',
+                  { className: 'language-jsx' },
+                  '\nimport { SchemaFields, Form, Input, Select } from \'informed\';\n\nconst onSubmit = ({values}) => console.log(values);\n\nconst ExampleForm = () => (\n  <Form onSubmit={onSubmit}>\n    <Input name="name" label="Name" placeholder="Elon" />\n    <Input name="age" type="number" label="Age" required="Age Required" />\n    <Input name="phone" label="Phone" formatter="+1 (###)-###-####" />\n    <Select name="car" label="Car" initialValue="ms">\n      <option value="ms">Model S</option>\n      <option value="m3">Model 3</option>\n      <option value="mx">Model X</option>\n      <option value="my">Model Y</option>\n    </Select>\n    <button type="submit">Submit</button>\n    <Debug />\n  </Form>\n);\n'
+                )
+              )
+            ),
+            react_default.a.createElement(
+              'div',
+              { style: { flex: '1', maxWidth: '500px' } },
+              react_default.a.createElement('h4', null, 'Schema Based'),
+              react_default.a.createElement(
+                src.f,
+                { schema: schema, onSubmit: onSubmit },
+                react_default.a.createElement(src.q, null),
+                react_default.a.createElement(
+                  'button',
+                  { type: 'submit' },
+                  'Submit'
+                )
+              ),
+              react_default.a.createElement(
+                'pre',
+                { style: { height: '1250px' } },
+                react_default.a.createElement(
+                  'code',
+                  { className: 'language-jsx' },
+                  "\nimport { Form } from 'informed';\n\nconst onSubmit = ({values}) => console.log(values);\n\nconst schema = {\n  type: 'object',\n  required: ['age'],\n  properties: {\n    name: {\n      type: 'string',\n      title: 'Name',\n      'ui:props': {\n        placeholder: 'Elon'\n      },\n    },\n    age: {\n      type: 'number',\n      title: 'Age',\n      errorMessage: {\n        required: 'Age Required'\n      }\n    },\n    phone: {\n      type: 'string',\n      title: 'Phone',\n      'ui:props': {\n        formatter: \"+1 (###)-###-####\"\n      },\n    },\n    color: {\n      type: 'string',\n      title: 'Color',\n      'ui:control': 'select',\n      oneOf: [\n        { const: 'md', title: 'Model S' },\n        { const: 'm3', title: 'Model 3' },\n        { const: 'mx', title: 'Model X' },\n        { const: 'my', title: 'Model Y' },\n      ],\n      'ui:props': {\n        initialValue: \"ms\"\n      },\n    },\n  }\n};\n\nconst ExampleForm = () => {\n  return (\n    <Form schema={schema} onSubmit={onSubmit}>\n      <SchemaFields />\n      <button type=\"submit\">Submit</button>\n    </Form>\n  )\n}\n"
+                )
+              )
+            )
+          );
+        }
+      );
+    },
     './stories/Intro/index.js': function(
       module,
       __webpack_exports__,
@@ -15333,140 +15477,8 @@
             );
           }
         ),
-        SchemaVsFormat_onSubmit = function onSubmit(_ref) {
-          _ref.values;
-          return console.log(data);
-        },
-        schema = {
-          type: 'object',
-          required: ['age'],
-          properties: {
-            name: {
-              type: 'string',
-              title: 'Name',
-              'ui:props': { placeholder: 'Elon' }
-            },
-            age: {
-              type: 'number',
-              title: 'Age',
-              errorMessage: { required: 'Age Required' }
-            },
-            phone: {
-              type: 'string',
-              title: 'Phone',
-              'ui:props': { formatter: '+1 (###)-###-####' }
-            },
-            color: {
-              type: 'string',
-              title: 'Color',
-              'ui:control': 'select',
-              oneOf: [
-                { const: 'md', title: 'Model S' },
-                { const: 'm3', title: 'Model 3' },
-                { const: 'mx', title: 'Model X' },
-                { const: 'my', title: 'Model Y' }
-              ],
-              'ui:props': { initialValue: 'ms' }
-            }
-          }
-        },
-        SchemaVsFormat = Object(withDocs.a)(
-          '## Schema Vs Format\n\nHere is the same form with Format Based ( JSX ), and with JSON Schema.\n\n\x3c!-- STORY --\x3e\n',
-          function GettingStarted() {
-            return react_default.a.createElement(
-              'div',
-              { style: { display: 'flex' } },
-              react_default.a.createElement(
-                'div',
-                {
-                  style: { flex: '1', marginRight: '1rem', maxWidth: '500px' }
-                },
-                react_default.a.createElement('h4', null, 'Format Based (JSX)'),
-                react_default.a.createElement(
-                  src.f,
-                  { onSubmit: SchemaVsFormat_onSubmit, autocomplete: 'off' },
-                  react_default.a.createElement(src.k, {
-                    name: 'name',
-                    label: 'Name',
-                    placeholder: 'Elon'
-                  }),
-                  react_default.a.createElement(src.k, {
-                    name: 'age',
-                    type: 'number',
-                    label: 'Age',
-                    required: 'Age Required'
-                  }),
-                  react_default.a.createElement(src.k, {
-                    name: 'phone',
-                    label: 'Phone',
-                    formatter: '+1 (###)-###-####'
-                  }),
-                  react_default.a.createElement(
-                    src.s,
-                    { name: 'car', label: 'Car', initialValue: 'ms' },
-                    react_default.a.createElement(
-                      'option',
-                      { value: 'ms' },
-                      'Model S'
-                    ),
-                    react_default.a.createElement(
-                      'option',
-                      { value: 'm3' },
-                      'Model 3'
-                    ),
-                    react_default.a.createElement(
-                      'option',
-                      { value: 'mx' },
-                      'Model X'
-                    ),
-                    react_default.a.createElement(
-                      'option',
-                      { value: 'my' },
-                      'Model Y'
-                    )
-                  ),
-                  react_default.a.createElement(
-                    'button',
-                    { type: 'submit' },
-                    'Submit'
-                  )
-                ),
-                react_default.a.createElement(
-                  'pre',
-                  { style: { height: '1250px' } },
-                  react_default.a.createElement(
-                    'code',
-                    { className: 'language-jsx' },
-                    '\nimport { SchemaFields, Form, Input, Select } from \'informed\';\n\nconst onSubmit = ({values}) => console.log(values);\n\nconst ExampleForm = () => (\n  <Form onSubmit={onSubmit}>\n    <Input name="name" label="Name" placeholder="Elon" />\n    <Input name="age" type="number" label="Age" required="Age Required" />\n    <Input name="phone" label="Phone" formatter="+1 (###)-###-####" />\n    <Select name="car" label="Car" initialValue="ms">\n      <option value="ms">Model S</option>\n      <option value="m3">Model 3</option>\n      <option value="mx">Model X</option>\n      <option value="my">Model Y</option>\n    </Select>\n    <button type="submit">Submit</button>\n    <Debug />\n  </Form>\n);\n'
-                  )
-                )
-              ),
-              react_default.a.createElement(
-                'div',
-                { style: { flex: '1', maxWidth: '500px' } },
-                react_default.a.createElement('h4', null, 'Schema Based'),
-                react_default.a.createElement(
-                  src.f,
-                  { schema: schema, onSubmit: SchemaVsFormat_onSubmit },
-                  react_default.a.createElement(src.q, null),
-                  react_default.a.createElement(
-                    'button',
-                    { type: 'submit' },
-                    'Submit'
-                  )
-                ),
-                react_default.a.createElement(
-                  'pre',
-                  { style: { height: '1250px' } },
-                  react_default.a.createElement(
-                    'code',
-                    { className: 'language-jsx' },
-                    "\nimport { Form } from 'informed';\n\nconst onSubmit = ({values}) => console.log(values);\n\nconst schema = {\n  type: 'object',\n  required: ['age'],\n  properties: {\n    name: {\n      type: 'string',\n      title: 'Name',\n      'ui:props': {\n        placeholder: 'Elon'\n      },\n    },\n    age: {\n      type: 'number',\n      title: 'Age',\n      errorMessage: {\n        required: 'Age Required'\n      }\n    },\n    phone: {\n      type: 'string',\n      title: 'Phone',\n      'ui:props': {\n        formatter: \"+1 (###)-###-####\"\n      },\n    },\n    color: {\n      type: 'string',\n      title: 'Color',\n      'ui:control': 'select',\n      oneOf: [\n        { const: 'md', title: 'Model S' },\n        { const: 'm3', title: 'Model 3' },\n        { const: 'mx', title: 'Model X' },\n        { const: 'my', title: 'Model Y' },\n      ],\n      'ui:props': {\n        initialValue: \"ms\"\n      },\n    },\n  }\n};\n\nconst ExampleForm = () => {\n  return (\n    <Form schema={schema} onSubmit={onSubmit}>\n      <SchemaFields />\n      <button type=\"submit\">Submit</button>\n    </Form>\n  )\n}\n"
-                  )
-                )
-              )
-            );
-          }
+        SchemaVsFormat = __webpack_require__(
+          './stories/Intro/SchemaVsFormat/index.js'
         ),
         stories_Intro_Intro = function Intro() {
           return react_default.a.createElement(
@@ -15482,7 +15494,7 @@
             react_default.a.createElement('hr', null),
             react_default.a.createElement(Intro_FormApi, null),
             react_default.a.createElement('hr', null),
-            react_default.a.createElement(SchemaVsFormat, null)
+            react_default.a.createElement(SchemaVsFormat.a, null)
           );
         };
       stories_Intro_Intro.__docgenInfo = {
@@ -17979,7 +17991,7 @@
           return console.log(values);
         },
         TLDR_GettingStarted = Object(withDocs.a)(
-          '# TLDR\n\n[GitHub](https://github.com/joepuzzo/informed)\n\n[![npmversion](https://img.shields.io/npm/v/informed.svg)](https://www.npmjs.com/package/informed)\n[![Discord](https://img.shields.io/discord/676066734746370058)](https://discord.gg/zpF5wA)\n[![Build Status](https://travis-ci.org/joepuzzo/informed.svg?branch=master)](https://travis-ci.org/joepuzzo/informed)\n[![Coverage Status](https://coveralls.io/repos/github/joepuzzo/informed/badge.svg?branch=master)](https://coveralls.io/github/joepuzzo/informed?branch=master)\n[![Minzipped-Size](https://badgen.net/bundlephobia/minzip/informed)](https://bundlephobia.com/result?p=informed)\n\n##### Install\n\n```\nnpm install --save informed\n```\n\n```jsx\nimport { useForm, useField, Relevant, Debug } from \'informed\';\n\n// Step 1. Build your form component ---------------------\n\nconst Form = ({ children, ...rest }) => {\n  const { formController, render, userProps } = useForm(rest);\n\n  return render(\n    <form noValidate {...userProps} onSubmit={formController.submitForm}>\n      {children}\n    </form>\n  );\n};\n\n// Step 2. Build your input components --------------------\n\nconst Input = props => {\n  const { render, informed, userProps, fieldState, ref } = useField({\n    type: \'text\',\n    ...props\n  });\n  const { label, id, ...rest } = userProps;\n  const { showError } = fieldState;\n  const style = showError ? { border: \'solid 1px red\' } : null;\n  return render(\n    <>\n      <label htmlFor={id}>{label}</label>\n      <input id={id} ref={ref} {...informed} {...rest} style={style} />\n      {showError && <small style={{ color: \'red\' }}>{fieldState.error}</small>}\n    </>\n  );\n};\n\nconst Checkbox = props => {\n  const { render, informed, userProps, ref } = useField({\n    type: \'checkbox\',\n    ...props\n  });\n  const { label, id, ...rest } = userProps;\n  return render(\n    <>\n      <label htmlFor={id}>{label}</label>\n      <input id={id} ref={ref} {...informed} {...rest} />\n    </>\n  );\n};\n\nconst Select = props => {\n  const { render, informed, userProps, ref } = useField({\n    type: \'select\',\n    ...props\n  });\n  const { label, id, children, ...rest } = userProps;\n  return render(\n    <>\n      <label htmlFor={id}>{label}</label>\n      <select id={id} ref={ref} {...informed} {...rest}>\n        {children}\n      </select>\n    </>\n  );\n};\n\n// Step 3. Build your forms! ---------------------------\n\nconst onSubmit = ({ values }) => console.log(values);\n\nconst ExampleForm = () => (\n  <Form onSubmit={onSubmit}>\n    <Input field="name" label="Name" placeholder="Elon" />\n    <Input field="age" type="number" label="Age" required="Age Required" />\n    <Input field="phone" label="Phone" formatter="+1 (###)-###-####" />\n    <Select field="car" label="Car" initialValue="ms">\n      <option value="ms">Model S</option>\n      <option value="m3">Model 3</option>\n      <option value="mx">Model X</option>\n      <option value="my">Model Y</option>\n    </Select>\n    <Checkbox field="married" label="Married?" />\n    <Relevant when={({ formState }) => formState.values.married}>\n      <Input field="spouse" label="Spouse" />\n    </Relevant>\n    <button type="submit">Submit</button>\n    <Debug />\n  </Form>\n);\n```\n\n\x3c!-- STORY --\x3e\n',
+          '# Creating Your Own Fields\n\nInformed makes it very easy to create your own custom fields!\n\n```jsx\nimport { useForm, useField, Relevant, Debug } from \'informed\';\n\n// Step 1. Build your form component ---------------------\n\nconst Form = ({ children, ...rest }) => {\n  const { formController, render, userProps } = useForm(rest);\n\n  return render(\n    <form noValidate {...userProps} onSubmit={formController.submitForm}>\n      {children}\n    </form>\n  );\n};\n\n// Step 2. Build your input components --------------------\n\nconst Input = props => {\n  const { render, informed, userProps, fieldState, ref } = useField({\n    type: \'text\',\n    ...props\n  });\n  const { label, id, ...rest } = userProps;\n  const { showError } = fieldState;\n  const style = showError ? { border: \'solid 1px red\' } : null;\n  return render(\n    <>\n      <label htmlFor={id}>{label}</label>\n      <input id={id} ref={ref} {...informed} {...rest} style={style} />\n      {showError && <small style={{ color: \'red\' }}>{fieldState.error}</small>}\n    </>\n  );\n};\n\nconst Checkbox = props => {\n  const { render, informed, userProps, ref } = useField({\n    type: \'checkbox\',\n    ...props\n  });\n  const { label, id, ...rest } = userProps;\n  return render(\n    <>\n      <label htmlFor={id}>{label}</label>\n      <input id={id} ref={ref} {...informed} {...rest} />\n    </>\n  );\n};\n\nconst Select = props => {\n  const { render, informed, userProps, ref } = useField({\n    type: \'select\',\n    ...props\n  });\n  const { label, id, children, ...rest } = userProps;\n  return render(\n    <>\n      <label htmlFor={id}>{label}</label>\n      <select id={id} ref={ref} {...informed} {...rest}>\n        {children}\n      </select>\n    </>\n  );\n};\n\n// Step 3. Build your forms! ---------------------------\n\nconst onSubmit = ({ values }) => console.log(values);\n\nconst ExampleForm = () => (\n  <Form onSubmit={onSubmit}>\n    <Input field="name" label="Name" placeholder="Elon" />\n    <Input field="age" type="number" label="Age" required="Age Required" />\n    <Input field="phone" label="Phone" formatter="+1 (###)-###-####" />\n    <Select field="car" label="Car" initialValue="ms">\n      <option value="ms">Model S</option>\n      <option value="m3">Model 3</option>\n      <option value="mx">Model X</option>\n      <option value="my">Model Y</option>\n    </Select>\n    <Checkbox field="married" label="Married?" />\n    <Relevant when={({ formState }) => formState.values.married}>\n      <Input field="spouse" label="Spouse" />\n    </Relevant>\n    <button type="submit">Submit</button>\n    <Debug />\n  </Form>\n);\n```\n\n\x3c!-- STORY --\x3e\n',
           function GettingStarted() {
             return react_default.a.createElement(
               GettingStarted_Form,
@@ -18061,10 +18073,22 @@
             );
           }
         ),
+        Intro = Object(withDocs.a)(
+          '# TLDR\n\n[![Docs](https://badgen.net/badge/V4/Docs/purple)](https://teslamotors.github.io/informed)\n[![npmversion](https://img.shields.io/npm/v/informed.svg)](https://www.npmjs.com/package/informed)\n[![github](https://badgen.net/badge/gihub/main/green?icon=github)](https://github.com/joepuzzo/informed)\n[![Docs](https://badgen.net/badge/V3/Docs/red)](https://61af80ffc6bc460007bf9ec7--joepuzzo-informed.netlify.app/)\n\n##### Install\n\n```\nnpm install --save informed\n```',
+          function() {
+            return null;
+          }
+        ),
+        SchemaVsFormat = __webpack_require__(
+          './stories/Intro/SchemaVsFormat/index.js'
+        ),
         TLDR_TLDR = function TLDR() {
           return react_default.a.createElement(
             'div',
             null,
+            react_default.a.createElement(Intro, null),
+            react_default.a.createElement(SchemaVsFormat.a, null),
+            react_default.a.createElement('hr', null),
             react_default.a.createElement(TLDR_GettingStarted, null)
           );
         };

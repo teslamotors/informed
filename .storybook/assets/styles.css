@@ -74,11 +74,12 @@ select {
   margin-top: 1rem;
   display: block;
   border-radius: 20px;
-  width: 100%;
+  width: 85%;
   padding: 10px 20px;
   font-weight: 500;
   border: 1px solid transparent;
-  max-width: 400px;
+  margin-right: 2rem;
+  /* max-width: 400px; */
   background-color: #f4f4f4;
 }
 
@@ -191,10 +192,12 @@ button[type='submit'] {
 
 hr {
   border: none !important;
-  height: 1px !important;
+  height: 2px !important;
   /* Set the hr color */
   color: #333; /* old IE */
   background-color: #333; /* Modern Browsers */
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 pre {
@@ -225,6 +228,8 @@ pre {
   border: inherit;
   margin: inherit;
   padding: inherit;
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
 }
 
 .markdown-body[class] h1[id] {
@@ -232,6 +237,7 @@ pre {
   font-size: var(--informed-font-size--80, 40px);
   line-height: var(--informed-line-height--80, 48px);
   margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .markdown-body[class] h2[id] {
@@ -239,6 +245,7 @@ pre {
   font-size: var(--informed-font-size--70, 28px);
   line-height: var(--informed-line-height--70, 36px);
   margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .markdown-body[class] h3[id] {
@@ -246,6 +253,7 @@ pre {
   font-size: var(--informed-font-size--60, 24px);
   line-height: var(--informed-line-height--60, 28px);
   margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .markdown-body[class] h4[id] {
@@ -253,18 +261,21 @@ pre {
   font-size: var(--informed-font-size--50, 20px);
   line-height: var(--informed-line-height--60, 28px);
   margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .markdown-body[class] h5[id] {
   font-size: var(--informed-font-size--40, 17px);
   line-height: var(--informed-line-height--20, 20px);
   margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .markdown-body[class] h6[id] {
   font-size: var(--informed-font-size--30, 14px);
   line-height: var(--informed-line-height--30, 21px);
   margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .markdown-body p {
@@ -351,18 +362,22 @@ strong {
 } */
 
 .informed-container {
-  padding: 4rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  max-width: 1060px;
 }
 
 .informed-black {
-  background-color: rgb(13, 16, 17);
+  background-color: black;
   color: white !important;
 }
 
 .informed-black input:not([type='checkbox']):not([type='radio']),
 .informed-black select,
 .informed-black textarea {
-  background-color: #222222;
+  background-color: rgb(58, 60, 65);
   color: white;
 }
 

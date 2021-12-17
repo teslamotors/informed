@@ -587,14 +587,18 @@ export class FormController {
   register(name, meta) {
     debug('Register', name, meta);
     // Register the meta
-    this.fieldsMap.set(name, meta);
-    this.emit('field', name);
+    if (!this.fieldsMap.get(name)) {
+      this.fieldsMap.set(name, meta);
+      this.emit('field', name);
+    }
   }
 
   deregister(name) {
     debug('De-Register', name);
-    this.fieldsMap.delete(name);
-    this.emit('field', name);
+    if (this.fieldsMap.get(name)) {
+      this.fieldsMap.delete(name);
+      this.emit('field', name);
+    }
   }
 
   initialize(name, meta) {

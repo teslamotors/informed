@@ -222,11 +222,15 @@ export const useField = ({
       if (!isRelevant && !keepState) {
         logger('RELEVANT REMOVING', metaInfo.name);
         formController.remove(metaInfo.name);
+        logger('RELEVANT De-Register', metaInfo.name);
+        formController.deregister(metaInfo.name);
       }
 
       if (isRelevant) {
         logger('RELEVANT Initialize', metaInfo.name);
-        formController.initialize(name, metaRef);
+        formController.initialize(metaInfo.name, metaRef);
+        logger('RELEVANT register', metaInfo.name);
+        formController.register(metaInfo.name, metaRef);
       }
     },
     [isRelevant]

@@ -127,7 +127,7 @@ describe('Relevant', () => {
 
     // Check calls on relevance
     expect(call1).toBe(3);
-    expect(call2).toBe(39);
+    expect(call2).toBe(42);
 
     // Toggle off -------------------------------------------
     fireEvent.click(show);
@@ -180,7 +180,7 @@ describe('Relevant', () => {
 
     // Check calls on relevance
     expect(call1).toBe(5);
-    expect(call2).toBe(52);
+    expect(call2).toBe(59);
 
     // Toggle external dep  -------------------------------------------
 
@@ -213,7 +213,7 @@ describe('Relevant', () => {
 
     // Check calls on relevance
     expect(call1).toBe(6);
-    expect(call2).toBe(53);
+    expect(call2).toBe(61);
   });
 
   it('should update form state when a relevant field with errors unmounts', () => {
@@ -287,4 +287,44 @@ describe('Relevant', () => {
     expect(formApiRef.current.getFormState().valid).toEqual(true);
     expect(formApiRef.current.getFormState().errors).toEqual({});
   });
+
+  it('should not have an error for a field thats irrelevant', () => {
+
+    const relevant = ({ formState }) => {
+      return formState.values.name === 'joe';
+    };
+
+    const formApiRef = {};
+
+    const { getByText, getByLabelText } = render(
+      <Form formApiRef={formApiRef}>
+        <Input name="name" label="First name:" required />
+        <Input name="foo" label="Foo field:" relevant={relevant} required />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const submit = getByText('Submit');
+    const input = getByLabelText('First name:');
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({
+      name: 'This field is required'
+    });
+
+    userEvent.type(input, 'joe');
+
+    expect(formApiRef.current.getFormState().errors).toEqual({
+      name: 'This field is required'
+    });
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({
+      foo: 'This field is required',
+    });
+
+  });
+
 });

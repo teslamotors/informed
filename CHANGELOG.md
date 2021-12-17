@@ -1,3 +1,9 @@
+## 4.0.17 (December 17th, 2021)
+
+### Fixed
+
+- issue where I forgot to deregister fields when they became irrelevant
+
 ## 4.0.16 (December 17th, 2021)
 
 ### Fixed

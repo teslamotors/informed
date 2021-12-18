@@ -35,6 +35,7 @@ import { useMultistepApi } from './hooks/useMultistepApi';
 import { useMultistepState } from './hooks/useMultistepState';
 import { useScope } from './hooks/useScope';
 import { useScoper } from './hooks/useScoper';
+import { useRelevance } from './hooks/useRelevance';
 
 import * as utils from './utils';
 import { Elon } from './utils';
@@ -54,6 +55,7 @@ export {
   useMultistepState,
   useScope,
   useScoper,
+  useRelevance,
   ArrayField,
   useArrayField,
   Debug,

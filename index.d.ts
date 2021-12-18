@@ -132,7 +132,8 @@ export type RelevantParams = {
   formState: FormState;
   formApi: FormApi;
   scope: string;
-  relevanceDeps: Array<any> | undefined;
+  relevanceDeps?: unknown[];
+  relevanceWhen?: string[];
 };
 
 export type FieldProps<UserProps> = {
@@ -162,8 +163,8 @@ export type FieldProps<UserProps> = {
   showErrorIfError?: boolean;
   showErrorIfTouched?: boolean;
   showErrorIfDirty?: boolean;
-  relevanceWhen?: Array<string>;
-  relevanceDeps?: Array<any>;
+  relevanceWhen?: string[];
+  relevanceDeps?: unknown[];
   formatter?:
     | Array<string | RegExp | Function>
     | string
@@ -224,8 +225,8 @@ export function Relevant({
   children
 }: {
   when: (relevantParams: RelevantParams) => boolean;
-  relevanceWhen?: Array<string>;
-  relevanceDeps?: Array<any>;
+  relevanceWhen?: string[];
+  relevanceDeps?: unknown[];
   children: React.ReactNode;
 }): JSX.Element;
 
@@ -266,6 +267,13 @@ export function useField<UserProps, FieldValue>(
   render: (children: React.ReactNode) => JSX.Element;
   ref: React.MutableRefObject<any>;
 };
+
+export function useRelevance(params: {
+  name: string;
+  relevant?: (params: RelevantParams) => boolean;
+  relevanceWhen?: unknown[];
+  relevanceDeps?: unknown[];
+}): boolean;
 
 export function FormStateAccessor({
   children

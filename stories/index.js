@@ -86,6 +86,10 @@ import {
   // Swap
 } from './Arrays';
 
+import RelevantComonent from './Relevance/RelevantComponent';
+import RelevanceProp from './Relevance/RelevanceProp';
+import ComplexRelevance from './Relevance/ComplexRelevance';
+
 // import {
 //   WithFormApi,
 //   WithFormState,
@@ -226,6 +230,11 @@ storiesOf('Validation', module)
   .add('Only JSON Schema Validation', AjvValidationNoRender)
   .add('Elon', Elon);
 // .add('Async Validation Control', AsyncValidationControl);
+
+storiesOf('Relevance', module)
+  .add('Relevant Comonent', RelevantComonent)
+  .add('Relevance Prop', RelevanceProp)
+  .add('Complex Relevance', ComplexRelevance);
 
 storiesOf('Schema', module)
   .add('Schema', Schema)

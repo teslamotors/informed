@@ -27,9 +27,9 @@ const RelevantComp = () => {
   const [call1, setCall1] = useState(0);
   const [call2, setCall2] = useState(0);
 
-  const relevant1 = ({ formState, relevanceDeps }) => {
+  const relevant1 = ({ formState }) => {
     setCall1(prev => prev + 1);
-    return formState.values.showInfo && relevanceDeps[0] !== 'BAR';
+    return formState.values.showInfo;
   };
 
   const relevant2 = ({ formState }) => {

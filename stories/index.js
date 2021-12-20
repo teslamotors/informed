@@ -234,7 +234,7 @@ storiesOf('Validation', module)
 storiesOf('Relevance', module)
   .add('Relevant Comonent', RelevantComonent)
   .add('Relevance Prop', RelevanceProp)
-  .add('Complex Relevance', ComplexRelevance);
+  .add('Relevance Optimization', ComplexRelevance);
 
 storiesOf('Schema', module)
   .add('Schema', Schema)

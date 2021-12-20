@@ -16570,7 +16570,7 @@
         return arr2;
       }
       __webpack_exports__.a = Object(withDocs.a)(
-        '# Relevance Optimization\n\nBy default the relevant function will evaluate on every single form state change.\n\nBelow you can see a form with relevance on two components.\n\n1. Has `relevanceWhen`\n2. Has NO `relevanceWhen`\n\nClick the checkbox and see what happens.\n\nNote how the second count went up by 5, where the first went up by one!\n\nThis is because we told the first one to ONLY evaluate relevance when the `showInfo` field changes.\n\n\x3c!-- STORY --\x3e\n\n```jsx\nimport React, { useState } from \'react\';\nimport { Form, Input, Checkbox, Relevant } from \'informed\';\n\nconst RelevantComp = () => {\n  const [call1, setCall1] = useState(0);\n  const [call2, setCall2] = useState(0);\n\n  const relevant1 = ({ formState, relevanceDeps }) => {\n    setCall1(prev => prev + 1);\n    return formState.values.showInfo && relevanceDeps[0] !== \'BAR\';\n  };\n\n  const relevant2 = ({ formState }) => {\n    setCall2(prev => prev + 1);\n    return formState.values.showInfo;\n  };\n\n  return (\n    <Form>\n      <strong>relevant1 called {call1} times</strong>\n      <strong>relevant2 called {call2} times</strong>\n      <Checkbox label="Show Info?" name="showInfo" />\n      <Input\n        label="Favorite Food"\n        name="food"\n        relevanceWhen={[\'showInfo\']}\n        relevant={relevant1}\n      />\n      <Input label="Favorite Movie" name="movie" relevant={relevant2} />\n      <button type="button" onClick={() => setExternalDep(\'BAR\')}>\n        Change\n      </button>\n      <Debug values />\n    </Form>\n  );\n};\n```\n',
+        '# Relevance Optimization\n\nBy default the relevant function will evaluate on every single form state change.\n\nBelow you can see a form with relevance on two components.\n\n1. Has `relevanceWhen`\n2. Has NO `relevanceWhen`\n\nClick the checkbox and see what happens.\n\nNote how the second count went up by 5, where the first went up by one!\n\nThis is because we told the first one to ONLY evaluate relevance when the `showInfo` field changes.\n\n\x3c!-- STORY --\x3e\n\n```jsx\nimport React, { useState } from \'react\';\nimport { Form, Input, Checkbox, Relevant } from \'informed\';\n\nconst RelevantComp = () => {\n  const [call1, setCall1] = useState(0);\n  const [call2, setCall2] = useState(0);\n\n  const relevant1 = ({ formState }) => {\n    setCall1(prev => prev + 1);\n    return formState.values.showInfo;\n  };\n\n  const relevant2 = ({ formState }) => {\n    setCall2(prev => prev + 1);\n    return formState.values.showInfo;\n  };\n\n  return (\n    <Form>\n      <strong>relevant1 called {call1} times</strong>\n      <strong>relevant2 called {call2} times</strong>\n      <Checkbox label="Show Info?" name="showInfo" />\n      <Input\n        label="Favorite Food"\n        name="food"\n        relevanceWhen={[\'showInfo\']}\n        relevant={relevant1}\n      />\n      <Input label="Favorite Movie" name="movie" relevant={relevant2} />\n      <button type="button" onClick={() => setExternalDep(\'BAR\')}>\n        Change\n      </button>\n      <Debug values />\n    </Form>\n  );\n};\n```\n',
         function RelevantComp() {
           var _useState2 = _slicedToArray(Object(react.useState)(0), 2),
             call1 = _useState2[0],
@@ -16608,13 +16608,12 @@
               name: 'food',
               relevanceWhen: ['showInfo'],
               relevant: function relevant1(_ref) {
-                var formState = _ref.formState,
-                  relevanceDeps = _ref.relevanceDeps;
+                var formState = _ref.formState;
                 return (
                   setCall1(function(prev) {
                     return prev + 1;
                   }),
-                  formState.values.showInfo && 'BAR' !== relevanceDeps[0]
+                  formState.values.showInfo
                 );
               }
             }),
@@ -21200,7 +21199,7 @@
                 _Relevance_RelevanceProp__WEBPACK_IMPORTED_MODULE_53__.a
               )
               .add(
-                'Complex Relevance',
+                'Relevance Optimization',
                 _Relevance_ComplexRelevance__WEBPACK_IMPORTED_MODULE_54__.a
               ),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(

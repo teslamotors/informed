@@ -4,6 +4,7 @@ import { configureReadme } from 'storybook-readme';
 import StoryWrapper from './utils/StoryWrapper';
 import Intro from './Intro';
 import TLDR from './TLDR';
+import CarColor from './CarColor';
 import Changelog from './Intro/Changelog';
 import Basic from './Form/Basic';
 import FormProvider from './Form/FormProvider';
@@ -90,6 +91,8 @@ import RelevantComonent from './Relevance/RelevantComponent';
 import RelevanceProp from './Relevance/RelevanceProp';
 import ComplexRelevance from './Relevance/ComplexRelevance';
 
+import ScopeComponent from './Scope/ScopeComponent';
+
 // import {
 //   WithFormApi,
 //   WithFormState,
@@ -172,6 +175,7 @@ storiesOf('Introduction', module)
   //.addParameters(params)
   .add('Getting Started', Intro)
   .add('TLDR', TLDR)
+  .add('Car Color', CarColor)
   .add('Changelog', Changelog);
 
 storiesOf('Form', module)
@@ -235,6 +239,8 @@ storiesOf('Relevance', module)
   .add('Relevant Comonent', RelevantComonent)
   .add('Relevance Prop', RelevanceProp)
   .add('Relevance Optimization', ComplexRelevance);
+
+storiesOf('Scope', module).add('Scope Comonent', ScopeComponent);
 
 storiesOf('Schema', module)
   .add('Schema', Schema)

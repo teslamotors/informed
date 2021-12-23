@@ -124,6 +124,36 @@ New
 const onSubmit = formState => console.log( formState.values );
 ```
 
+#### Text --> Input
+
+Old
+
+```jsx
+<Text field="name" />
+```
+
+New
+
+```jsx
+<Input name="name" />
+```
+
+#### apiRef --> formApiRef
+
+Old
+
+```jsx
+<Form apiRef={apiRef} />
+// OR
+<Form getApi={getApi} />
+```
+
+New
+
+```jsx
+<Form formApiRef={formApiRef} />
+```
+
 #### informed:props ( schema )
 
 ```
@@ -164,7 +194,7 @@ validationSchema ---> is now yupSchema
 
 ##### Renamed `field` to `name`
 
-```js
+```jsx
 <ArrayField.Items>
   {({ remove, field }) => (
     <>
@@ -179,7 +209,7 @@ validationSchema ---> is now yupSchema
 
 Is Now
 
-```js
+```jsx
 <ArrayField.Items>
   {({ remove, name }) => (
     <>
@@ -196,7 +226,7 @@ Is Now
 
 Old:
 
-```js
+```jsx
 <ArrayField.Items>
   {({ remove, field }) => (
     <>
@@ -212,7 +242,7 @@ Old:
 
 New:
 
-```js
+```jsx
 <ArrayField.Items>
   {({ remove }) => (
     <>
@@ -230,7 +260,7 @@ New:
 
 Old:
 
-```js
+```jsx
 // Some component you need to use state of array field item
 const FieldState = ({ values }) => {
   return (
@@ -256,7 +286,7 @@ const FieldState = ({ values }) => {
 
 New:
 
-```js
+```jsx
 // Some component you need to use state of array field item
 const FieldState = () => {
   const { values } = useArrayFieldItemState();

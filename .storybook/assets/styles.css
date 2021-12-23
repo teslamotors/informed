@@ -532,6 +532,42 @@ strong {
   fill: #e96650;
 }
 
+.car-color-red .cls-8 {
+  fill: #e53046;
+}
+
+.car-color-red .cls-9 {
+  fill: #ae3b46;
+}
+
+.car-color-red .cls-10 {
+  fill: #e96650;
+}
+
+.car-color-blue .cls-8 {
+  fill: #4a2eee;
+}
+
+.car-color-blue .cls-9 {
+  fill: #2540af;
+}
+
+.car-color-blue .cls-10 {
+  fill: #6a72d5;
+}
+
+.car-color-green .cls-8 {
+  fill: #0f4d1d;
+}
+
+.car-color-green .cls-9 {
+  fill: #126014;
+}
+
+.car-color-green .cls-10 {
+  fill: #0d5c18;
+}
+
 .cls-11,
 .cls-12 {
   stroke: #231f20;

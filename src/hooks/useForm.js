@@ -7,6 +7,8 @@ import {
 } from '../Context';
 import { useUpdateEffect } from './useUpdateEffect';
 // import { SchemaFields } from '../components/SchemaFields';
+import { Debug } from '../debug';
+const logger = Debug('informed:useForm' + '\t');
 
 export const useForm = ({
   onSubmit,
@@ -134,6 +136,15 @@ export const useForm = ({
     },
     [initialValues]
   );
+
+  useEffect(() => {
+    logger('Mount');
+    return () => {
+      // Important so we dont clear values!!!
+      formController.lockRemoval(true);
+      logger('Un-Mount');
+    };
+  }, []);
 
   const render = children => (
     <FormControllerContext.Provider value={formController}>

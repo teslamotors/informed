@@ -1,3 +1,9 @@
+## 4.0.18 (December 23rd, 2021)
+
+### Fixed
+
+- issue where values would get cleared on un-mount
+
 ## 4.0.17 (December 17th, 2021)
 
 ### Fixed

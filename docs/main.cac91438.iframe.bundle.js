@@ -1038,7 +1038,7 @@
         './node_modules/@storybook/builder-webpack4/node_modules/css-loader/dist/runtime/api.js'
       )(!1)).push([
         module.i,
-        ":root {\n  --informed-font-size--10: 10px;\n  --informed-font-size--20: 12px;\n  --informed-font-size--30: 14px;\n  --informed-font-size--40: 17px;\n  --informed-font-size--50: 20px;\n  --informed-font-size--55: 23px;\n  --informed-font-size--60: 24px;\n  --informed-font-size--70: 28px;\n  --informed-font-size--75: 34px;\n  --informed-font-size--80: 40px;\n  --informed-height--pill: 40px;\n  --informed-line-height--10: 18px;\n  --informed-line-height--20: 20px;\n  --informed-line-height--30: 21px;\n  --informed-line-height--40: 23px;\n  --informed-line-height--50: 24px;\n  --informed-line-height--60: 28px;\n  --informed-line-height--70: 36px;\n  --informed-line-height--75: 45px;\n  --informed-line-height--80: 48px;\n}\n\n.body {\n  font-family: Helvetica, sans-serif;\n}\n\na > img {\n  border-radius: 10px;\n}\n\nh1 {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--80, 40px);\n  line-height: var(--informed-line-height--80, 48px);\n}\n\nh2 {\n  letter-spacing: -0.5px;\n  font-size: var(--informed-font-size--70, 28px);\n  line-height: var(--informed-line-height--70, 36px);\n}\n\nh3 {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--60, 24px);\n  line-height: var(--informed-line-height--60, 28px);\n}\n\nh4 {\n  letter-spacing: -0.4px;\n  font-size: var(--informed-font-size--50, 20px);\n  line-height: var(--informed-line-height--60, 28px);\n}\n\nh5 {\n  font-size: var(--informed-font-size--40, 17px);\n  line-height: var(--informed-line-height--20, 20px);\n}\n\nh6 {\n  font-size: var(--informed-font-size--30, 14px);\n  line-height: var(--informed-line-height--30, 21px);\n}\n\ninput {\n  margin-bottom: 1rem;\n}\n\ninput:not([type='checkbox']):not([type='radio']),\ntextarea,\nselect {\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n  display: block;\n  border-radius: 20px;\n  width: 85%;\n  padding: 10px 20px;\n  font-weight: 500;\n  border: 1px solid transparent;\n  margin-right: 2rem;\n  /* max-width: 400px; */\n  background-color: #f4f4f4;\n}\n\ninput + small,\ntextarea + small,\nselect + small {\n  color: rgb(237, 78, 59);\n  padding-bottom: 1rem;\n  display: block;\n  font-weight: bold;\n}\n\nfieldset small[role='alert'] {\n  color: rgb(237, 78, 59);\n  padding-bottom: 1rem;\n  display: block;\n  font-weight: bold;\n}\n\ninput[aria-invalid='true']:not([type='checkbox']):not([type='radio']),\ntextarea[aria-invalid='true'],\nselect[aria-invalid='true'] {\n  border: 1px solid rgb(237, 78, 59) !important;\n}\n\ninput[aria-invalid='true'][type='radio'],\ninput[aria-invalid='true'][type='checkbox'] {\n  outline: 1px solid rgb(237, 78, 59) !important;\n}\n\n.radio-label {\n  display: block;\n}\n\ntextarea {\n  max-width: 100%;\n}\n\nfieldset {\n  border: none;\n}\n\nselect {\n  /* needed */\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  /* SVG background image */\n  background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23000000%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E');\n  background-size: 0.6em;\n  background-position: calc(100% - 1.3em) center;\n  background-repeat: no-repeat;\n}\n\n.select:before {\n  content: '';\n  position: absolute;\n  right: 10px;\n  top: 8px;\n  width: 0;\n  height: 0;\n  border-left: 10px solid transparent;\n  border-right: 10px solid transparent;\n  border-top: 10px solid #f00;\n}\n\n.select:after {\n  content: '';\n  position: absolute;\n  right: 10px;\n  top: 3px;\n  width: 0;\n  height: 0;\n  border-left: 10px solid transparent;\n  border-right: 10px solid transparent;\n  border-top: 10px solid #333;\n}\n\nlabel {\n  margin-bottom: 1rem;\n  display: block;\n}\n\nlegend {\n  margin-bottom: 1rem;\n  display: block;\n}\n\nbutton {\n  text-align: left;\n  display: inline-block;\n  height: var(--informed-height--pill);\n  border: 1px solid transparent;\n  border-radius: 20px;\n  padding: 5px 40px;\n  color: white;\n  background-color: #3e6ae1;\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n  margin-right: 1rem;\n}\n\nbutton[type='submit'] {\n  display: block;\n}\n\n.button-group {\n  display: flex;\n}\n\nhr {\n  border: none !important;\n  height: 2px !important;\n  /* Set the hr color */\n  color: #333; /* old IE */\n  background-color: #333; /* Modern Browsers */\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\npre {\n  font-size: 1em !important;\n}\n\n.markdown-body[class] {\n  font-size: inherit;\n  color: inherit;\n  border: inherit;\n}\n\n.markdown-body pre {\n  font-size: inherit;\n  color: inherit;\n  border: inherit;\n  border-radius: 10px;\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n}\n\n.markdown-body[class] h1,\n.markdown-body[class] h2,\n.markdown-body[class] h3,\n.markdown-body[class] h4,\n.markdown-body[class] h5,\n.markdown-body[class] h6 {\n  border: inherit;\n  margin: inherit;\n  padding: inherit;\n  margin-top: 2rem !important;\n  margin-bottom: 2rem !important;\n}\n\n.markdown-body[class] h1[id] {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--80, 40px);\n  line-height: var(--informed-line-height--80, 48px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h2[id] {\n  letter-spacing: -0.5px;\n  font-size: var(--informed-font-size--70, 28px);\n  line-height: var(--informed-line-height--70, 36px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h3[id] {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--60, 24px);\n  line-height: var(--informed-line-height--60, 28px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h4[id] {\n  letter-spacing: -0.4px;\n  font-size: var(--informed-font-size--50, 20px);\n  line-height: var(--informed-line-height--60, 28px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h5[id] {\n  font-size: var(--informed-font-size--40, 17px);\n  line-height: var(--informed-line-height--20, 20px);\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.markdown-body[class] h6[id] {\n  font-size: var(--informed-font-size--30, 14px);\n  line-height: var(--informed-line-height--30, 21px);\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.markdown-body p {\n  margin: inherit;\n}\n\n.markdown-body[class] p {\n}\n\n.markdown-body[class] ul {\n}\n\n.markdown-body[class] ol {\n}\n\n.markdown-body a:active,\n.markdown-body a:hover {\n  text-decoration: none !important;\n}\n\n.markdown-body[class] table {\n  display: table;\n}\n\n.markdown-body[class] table strong {\n  color: rgb(237, 78, 59);\n}\n\nstrong {\n  color: rgb(237, 78, 59);\n}\n\n/* .markdown-body[class] table {\n  display: table;\n}\n\n.markdown-body thead {\n}\n\n.markdown-body tbody {\n}\n\n.markdown-body table thead tr:nth-child(1n),\n.markdown-body table tbody tr:nth-child(1n) {\n  background: inherit;\n  border: inherit;\n}\n\n.markdown-body table thead tr:nth-child(1n):first-child th {\n}\n\n.markdown-body thead tr th:nth-child(1n),\n.markdown-body tbody tr th:nth-child(1n) {\n  padding: inherit;\n  border: inherit;\n}\n\n.markdown-body[class] thead tr th:nth-child(1n),\n.markdown-body[class] tbody tr th:nth-child(1n) {\n}\n\n.markdown-body thead tr td:nth-child(1n),\n.markdown-body tbody tr td:nth-child(1n) {\n  padding: inherit;\n  border: inherit;\n}\n\n.markdown-body[class] thead tr td:nth-child(1n),\n.markdown-body[class] tbody tr td:nth-child(1n) {\n}\n\n.markdown-body[class] thead tr th:nth-child(1n):first-child,\n.markdown-body[class] tbody tr th:nth-child(1n):first-child,\n.markdown-body[class] thead tr td:nth-child(1n):first-child,\n.markdown-body[class] tbody tr td:nth-child(1n):first-child {\n  padding-left: 0;\n}\n\n.markdown-body[class] thead tr th:nth-child(1n):last-child,\n.markdown-body[class] tbody tr th:nth-child(1n):last-child,\n.markdown-body[class] thead tr td:nth-child(1n):last-child,\n.markdown-body[class] tbody tr td:nth-child(1n):last-child {\n  padding-right: 0;\n} */\n\n.informed-container {\n  padding-left: 4rem;\n  padding-right: 4rem;\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n  max-width: 1060px;\n}\n\n.informed-black {\n  background-color: black;\n  color: white !important;\n}\n\n.informed-black input:not([type='checkbox']):not([type='radio']),\n.informed-black select,\n.informed-black textarea {\n  background-color: rgb(58, 60, 65);\n  color: white;\n}\n\n.informed-black select {\n  background-image: url(\"data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Ctitle%3Edown-arrow%3C/title%3E%3Cg fill='%23000000'%3E%3Cpath d='M10.293,3.293,6,7.586,1.707,3.293A1,1,0,0,0,.293,4.707l5,5a1,1,0,0,0,1.414,0l5-5a1,1,0,1,0-1.414-1.414Z' fill='%23FFFFFF'%3E%3C/path%3E%3C/g%3E%3C/svg%3E\");\n  /* filter: invert(1); */\n}\n\n.informed-black .markdown-body[class] table {\n  background-color: #000;\n}\n\n.informed-black td {\n  background-color: #000;\n}\n\n.informed-black th {\n  background-color: #000;\n}\n\n.markdown-body > :first-child {\n  margin-top: 2rem !important;\n}\n\n.loader,\n.loader:after {\n  border-radius: 50%;\n  width: 10em;\n  height: 10em;\n}\n\n.loader {\n  top: 0px;\n  margin: 60px auto;\n  font-size: 10px;\n  position: fixed;\n  top: 50%;\n  right: 50%;\n  text-indent: -9999em;\n  border-top: 1.1em solid rgba(67, 64, 64, 0.2);\n  border-right: 1.1em solid rgba(67, 64, 64, 0.2);\n  border-bottom: 1.1em solid rgba(67, 64, 64, 0.2);\n  border-left: 1.1em solid red;\n  transform: translateZ(0);\n  -webkit-animation: load8 1.1s infinite linear;\n  animation: load8 1.1s infinite linear;\n}\n\n.informed-black .loader {\n  border-top: 1.1em solid rgba(255, 255, 255, 0.2);\n  border-right: 1.1em solid rgba(255, 255, 255, 0.2);\n  border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);\n  border-left: 1.1em solid red;\n}\n\n@-webkit-keyframes load8 {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@keyframes load8 {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n\n/* This is for Car!!! */\n\n.cls-1 {\n  fill: #fefefe;\n}\n\n.cls-1,\n.cls-10,\n.cls-11,\n.cls-12,\n.cls-13,\n.cls-14,\n.cls-15,\n.cls-2,\n.cls-3,\n.cls-4,\n.cls-5,\n.cls-6,\n.cls-7,\n.cls-8,\n.cls-9 {\n  fill-rule: evenodd;\n}\n\n.cls-2 {\n  fill: #cfd5cf;\n}\n\n.cls-11,\n.cls-12,\n.cls-3,\n.cls-5 {\n  fill: none;\n  stroke-linecap: round;\n  stroke-linejoin: round;\n}\n\n.cls-3,\n.cls-5 {\n  stroke: #212121;\n}\n\n.cls-11,\n.cls-3 {\n  stroke-width: 3px;\n}\n\n.cls-4 {\n  fill: #212121;\n}\n\n.cls-12,\n.cls-5 {\n  stroke-width: 2px;\n}\n\n.cls-6 {\n  fill: #194767;\n}\n\n.cls-7 {\n  fill: #1a3850;\n}\n\n.cls-8 {\n  fill: #e53046;\n}\n\n.cls-9 {\n  fill: #ae3b46;\n}\n\n.cls-10 {\n  fill: #e96650;\n}\n\n.cls-11,\n.cls-12 {\n  stroke: #231f20;\n}\n\n.cls-13,\n.cls-16 {\n  fill: #848c93;\n}\n\n.cls-14 {\n  fill: #020303;\n}\n\n.cls-15 {\n  fill: #74848c;\n}\n\n.cls-16 {\n  font-size: 40px;\n  font-family: HelveticaNeue-Bold, Helvetica Neue;\n  font-weight: 700;\n}\n\n#Circleelement {\n  -webkit-animation-name: rotate;\n  -webkit-animation-duration: 2s;\n  -webkit-animation-iteration-count: infinite;\n  -webkit-animation-timing-function: linear;\n  -moz-animation-name: rotate;\n  -moz-animation-duration: 2s;\n  -moz-animation-iteration-count: infinite;\n  -moz-animation-timing-function: linear;\n  animation-name: rotate;\n  animation-duration: 2s;\n  animation-iteration-count: infinite;\n  animation-timing-function: linear;\n}\n@-webkit-keyframes rotate {\n  from {\n    -webkit-transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(360deg);\n  }\n}\n\n@keyframes rotate {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n",
+        ":root {\n  --informed-font-size--10: 10px;\n  --informed-font-size--20: 12px;\n  --informed-font-size--30: 14px;\n  --informed-font-size--40: 17px;\n  --informed-font-size--50: 20px;\n  --informed-font-size--55: 23px;\n  --informed-font-size--60: 24px;\n  --informed-font-size--70: 28px;\n  --informed-font-size--75: 34px;\n  --informed-font-size--80: 40px;\n  --informed-height--pill: 40px;\n  --informed-line-height--10: 18px;\n  --informed-line-height--20: 20px;\n  --informed-line-height--30: 21px;\n  --informed-line-height--40: 23px;\n  --informed-line-height--50: 24px;\n  --informed-line-height--60: 28px;\n  --informed-line-height--70: 36px;\n  --informed-line-height--75: 45px;\n  --informed-line-height--80: 48px;\n}\n\n.body {\n  font-family: Helvetica, sans-serif;\n}\n\na > img {\n  border-radius: 10px;\n}\n\nh1 {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--80, 40px);\n  line-height: var(--informed-line-height--80, 48px);\n}\n\nh2 {\n  letter-spacing: -0.5px;\n  font-size: var(--informed-font-size--70, 28px);\n  line-height: var(--informed-line-height--70, 36px);\n}\n\nh3 {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--60, 24px);\n  line-height: var(--informed-line-height--60, 28px);\n}\n\nh4 {\n  letter-spacing: -0.4px;\n  font-size: var(--informed-font-size--50, 20px);\n  line-height: var(--informed-line-height--60, 28px);\n}\n\nh5 {\n  font-size: var(--informed-font-size--40, 17px);\n  line-height: var(--informed-line-height--20, 20px);\n}\n\nh6 {\n  font-size: var(--informed-font-size--30, 14px);\n  line-height: var(--informed-line-height--30, 21px);\n}\n\ninput {\n  margin-bottom: 1rem;\n}\n\ninput:not([type='checkbox']):not([type='radio']),\ntextarea,\nselect {\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n  display: block;\n  border-radius: 20px;\n  width: 85%;\n  padding: 10px 20px;\n  font-weight: 500;\n  border: 1px solid transparent;\n  margin-right: 2rem;\n  /* max-width: 400px; */\n  background-color: #f4f4f4;\n}\n\ninput + small,\ntextarea + small,\nselect + small {\n  color: rgb(237, 78, 59);\n  padding-bottom: 1rem;\n  display: block;\n  font-weight: bold;\n}\n\nfieldset small[role='alert'] {\n  color: rgb(237, 78, 59);\n  padding-bottom: 1rem;\n  display: block;\n  font-weight: bold;\n}\n\ninput[aria-invalid='true']:not([type='checkbox']):not([type='radio']),\ntextarea[aria-invalid='true'],\nselect[aria-invalid='true'] {\n  border: 1px solid rgb(237, 78, 59) !important;\n}\n\ninput[aria-invalid='true'][type='radio'],\ninput[aria-invalid='true'][type='checkbox'] {\n  outline: 1px solid rgb(237, 78, 59) !important;\n}\n\n.radio-label {\n  display: block;\n}\n\ntextarea {\n  max-width: 100%;\n}\n\nfieldset {\n  border: none;\n}\n\nselect {\n  /* needed */\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  /* SVG background image */\n  background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23000000%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E');\n  background-size: 0.6em;\n  background-position: calc(100% - 1.3em) center;\n  background-repeat: no-repeat;\n}\n\n.select:before {\n  content: '';\n  position: absolute;\n  right: 10px;\n  top: 8px;\n  width: 0;\n  height: 0;\n  border-left: 10px solid transparent;\n  border-right: 10px solid transparent;\n  border-top: 10px solid #f00;\n}\n\n.select:after {\n  content: '';\n  position: absolute;\n  right: 10px;\n  top: 3px;\n  width: 0;\n  height: 0;\n  border-left: 10px solid transparent;\n  border-right: 10px solid transparent;\n  border-top: 10px solid #333;\n}\n\nlabel {\n  margin-bottom: 1rem;\n  display: block;\n}\n\nlegend {\n  margin-bottom: 1rem;\n  display: block;\n}\n\nbutton {\n  text-align: left;\n  display: inline-block;\n  height: var(--informed-height--pill);\n  border: 1px solid transparent;\n  border-radius: 20px;\n  padding: 5px 40px;\n  color: white;\n  background-color: #3e6ae1;\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n  margin-right: 1rem;\n}\n\nbutton[type='submit'] {\n  display: block;\n}\n\n.button-group {\n  display: flex;\n}\n\nhr {\n  border: none !important;\n  height: 2px !important;\n  /* Set the hr color */\n  color: #333; /* old IE */\n  background-color: #333; /* Modern Browsers */\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\npre {\n  font-size: 1em !important;\n}\n\n.markdown-body[class] {\n  font-size: inherit;\n  color: inherit;\n  border: inherit;\n}\n\n.markdown-body pre {\n  font-size: inherit;\n  color: inherit;\n  border: inherit;\n  border-radius: 10px;\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n}\n\n.markdown-body[class] h1,\n.markdown-body[class] h2,\n.markdown-body[class] h3,\n.markdown-body[class] h4,\n.markdown-body[class] h5,\n.markdown-body[class] h6 {\n  border: inherit;\n  margin: inherit;\n  padding: inherit;\n  margin-top: 2rem !important;\n  margin-bottom: 2rem !important;\n}\n\n.markdown-body[class] h1[id] {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--80, 40px);\n  line-height: var(--informed-line-height--80, 48px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h2[id] {\n  letter-spacing: -0.5px;\n  font-size: var(--informed-font-size--70, 28px);\n  line-height: var(--informed-line-height--70, 36px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h3[id] {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--60, 24px);\n  line-height: var(--informed-line-height--60, 28px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h4[id] {\n  letter-spacing: -0.4px;\n  font-size: var(--informed-font-size--50, 20px);\n  line-height: var(--informed-line-height--60, 28px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h5[id] {\n  font-size: var(--informed-font-size--40, 17px);\n  line-height: var(--informed-line-height--20, 20px);\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.markdown-body[class] h6[id] {\n  font-size: var(--informed-font-size--30, 14px);\n  line-height: var(--informed-line-height--30, 21px);\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.markdown-body p {\n  margin: inherit;\n}\n\n.markdown-body[class] p {\n}\n\n.markdown-body[class] ul {\n}\n\n.markdown-body[class] ol {\n}\n\n.markdown-body a:active,\n.markdown-body a:hover {\n  text-decoration: none !important;\n}\n\n.markdown-body[class] table {\n  display: table;\n}\n\n.markdown-body[class] table strong {\n  color: rgb(237, 78, 59);\n}\n\nstrong {\n  color: rgb(237, 78, 59);\n}\n\n/* .markdown-body[class] table {\n  display: table;\n}\n\n.markdown-body thead {\n}\n\n.markdown-body tbody {\n}\n\n.markdown-body table thead tr:nth-child(1n),\n.markdown-body table tbody tr:nth-child(1n) {\n  background: inherit;\n  border: inherit;\n}\n\n.markdown-body table thead tr:nth-child(1n):first-child th {\n}\n\n.markdown-body thead tr th:nth-child(1n),\n.markdown-body tbody tr th:nth-child(1n) {\n  padding: inherit;\n  border: inherit;\n}\n\n.markdown-body[class] thead tr th:nth-child(1n),\n.markdown-body[class] tbody tr th:nth-child(1n) {\n}\n\n.markdown-body thead tr td:nth-child(1n),\n.markdown-body tbody tr td:nth-child(1n) {\n  padding: inherit;\n  border: inherit;\n}\n\n.markdown-body[class] thead tr td:nth-child(1n),\n.markdown-body[class] tbody tr td:nth-child(1n) {\n}\n\n.markdown-body[class] thead tr th:nth-child(1n):first-child,\n.markdown-body[class] tbody tr th:nth-child(1n):first-child,\n.markdown-body[class] thead tr td:nth-child(1n):first-child,\n.markdown-body[class] tbody tr td:nth-child(1n):first-child {\n  padding-left: 0;\n}\n\n.markdown-body[class] thead tr th:nth-child(1n):last-child,\n.markdown-body[class] tbody tr th:nth-child(1n):last-child,\n.markdown-body[class] thead tr td:nth-child(1n):last-child,\n.markdown-body[class] tbody tr td:nth-child(1n):last-child {\n  padding-right: 0;\n} */\n\n.informed-container {\n  padding-left: 4rem;\n  padding-right: 4rem;\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n  max-width: 1060px;\n}\n\n.informed-black {\n  background-color: black;\n  color: white !important;\n}\n\n.informed-black input:not([type='checkbox']):not([type='radio']),\n.informed-black select,\n.informed-black textarea {\n  background-color: rgb(58, 60, 65);\n  color: white;\n}\n\n.informed-black select {\n  background-image: url(\"data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Ctitle%3Edown-arrow%3C/title%3E%3Cg fill='%23000000'%3E%3Cpath d='M10.293,3.293,6,7.586,1.707,3.293A1,1,0,0,0,.293,4.707l5,5a1,1,0,0,0,1.414,0l5-5a1,1,0,1,0-1.414-1.414Z' fill='%23FFFFFF'%3E%3C/path%3E%3C/g%3E%3C/svg%3E\");\n  /* filter: invert(1); */\n}\n\n.informed-black .markdown-body[class] table {\n  background-color: #000;\n}\n\n.informed-black td {\n  background-color: #000;\n}\n\n.informed-black th {\n  background-color: #000;\n}\n\n.markdown-body > :first-child {\n  margin-top: 2rem !important;\n}\n\n.loader,\n.loader:after {\n  border-radius: 50%;\n  width: 10em;\n  height: 10em;\n}\n\n.loader {\n  top: 0px;\n  margin: 60px auto;\n  font-size: 10px;\n  position: fixed;\n  top: 50%;\n  right: 50%;\n  text-indent: -9999em;\n  border-top: 1.1em solid rgba(67, 64, 64, 0.2);\n  border-right: 1.1em solid rgba(67, 64, 64, 0.2);\n  border-bottom: 1.1em solid rgba(67, 64, 64, 0.2);\n  border-left: 1.1em solid red;\n  transform: translateZ(0);\n  -webkit-animation: load8 1.1s infinite linear;\n  animation: load8 1.1s infinite linear;\n}\n\n.informed-black .loader {\n  border-top: 1.1em solid rgba(255, 255, 255, 0.2);\n  border-right: 1.1em solid rgba(255, 255, 255, 0.2);\n  border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);\n  border-left: 1.1em solid red;\n}\n\n@-webkit-keyframes load8 {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@keyframes load8 {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n\n/* This is for Car!!! */\n\n.cls-1 {\n  fill: #fefefe;\n}\n\n.cls-1,\n.cls-10,\n.cls-11,\n.cls-12,\n.cls-13,\n.cls-14,\n.cls-15,\n.cls-2,\n.cls-3,\n.cls-4,\n.cls-5,\n.cls-6,\n.cls-7,\n.cls-8,\n.cls-9 {\n  fill-rule: evenodd;\n}\n\n.cls-2 {\n  fill: #cfd5cf;\n}\n\n.cls-11,\n.cls-12,\n.cls-3,\n.cls-5 {\n  fill: none;\n  stroke-linecap: round;\n  stroke-linejoin: round;\n}\n\n.cls-3,\n.cls-5 {\n  stroke: #212121;\n}\n\n.cls-11,\n.cls-3 {\n  stroke-width: 3px;\n}\n\n.cls-4 {\n  fill: #212121;\n}\n\n.cls-12,\n.cls-5 {\n  stroke-width: 2px;\n}\n\n.cls-6 {\n  fill: #194767;\n}\n\n.cls-7 {\n  fill: #1a3850;\n}\n\n.cls-8 {\n  fill: #e53046;\n}\n\n.cls-9 {\n  fill: #ae3b46;\n}\n\n.cls-10 {\n  fill: #e96650;\n}\n\n.car-color-red .cls-8 {\n  fill: #e53046;\n}\n\n.car-color-red .cls-9 {\n  fill: #ae3b46;\n}\n\n.car-color-red .cls-10 {\n  fill: #e96650;\n}\n\n.car-color-blue .cls-8 {\n  fill: #4a2eee;\n}\n\n.car-color-blue .cls-9 {\n  fill: #2540af;\n}\n\n.car-color-blue .cls-10 {\n  fill: #6a72d5;\n}\n\n.car-color-green .cls-8 {\n  fill: #0f4d1d;\n}\n\n.car-color-green .cls-9 {\n  fill: #126014;\n}\n\n.car-color-green .cls-10 {\n  fill: #0d5c18;\n}\n\n.cls-11,\n.cls-12 {\n  stroke: #231f20;\n}\n\n.cls-13,\n.cls-16 {\n  fill: #848c93;\n}\n\n.cls-14 {\n  fill: #020303;\n}\n\n.cls-15 {\n  fill: #74848c;\n}\n\n.cls-16 {\n  font-size: 40px;\n  font-family: HelveticaNeue-Bold, Helvetica Neue;\n  font-weight: 700;\n}\n\n#Circleelement {\n  -webkit-animation-name: rotate;\n  -webkit-animation-duration: 2s;\n  -webkit-animation-iteration-count: infinite;\n  -webkit-animation-timing-function: linear;\n  -moz-animation-name: rotate;\n  -moz-animation-duration: 2s;\n  -moz-animation-iteration-count: infinite;\n  -moz-animation-timing-function: linear;\n  animation-name: rotate;\n  animation-duration: 2s;\n  animation-iteration-count: infinite;\n  animation-timing-function: linear;\n}\n@-webkit-keyframes rotate {\n  from {\n    -webkit-transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(360deg);\n  }\n}\n\n@keyframes rotate {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n",
         ''
       ]),
         (module.exports = exports);
@@ -7715,7 +7715,8 @@
         }
         return target;
       }
-      var useForm_useForm = function useForm(_ref) {
+      var useForm_logger = Object(src_debug.a)('informed:useForm\t'),
+        useForm_useForm = function useForm(_ref) {
           var onSubmit = _ref.onSubmit,
             onReset = _ref.onReset,
             onChange = _ref.onChange,
@@ -7838,7 +7839,15 @@
               formApi.getFormState().pristine && formApi.reset();
             },
             [initialValues]
-          );
+          ),
+            Object(react.useEffect)(function() {
+              return (
+                useForm_logger('Mount'),
+                function() {
+                  formController.lockRemoval(!0), useForm_logger('Un-Mount');
+                }
+              );
+            }, []);
           return {
             formApi: formApi,
             formState: formState,
@@ -9372,6 +9381,647 @@
             );
           }
         );
+    },
+    './stories/CarColor/index.js': function(
+      module,
+      __webpack_exports__,
+      __webpack_require__
+    ) {
+      'use strict';
+      var react = __webpack_require__('./node_modules/react/index.js'),
+        react_default = __webpack_require__.n(react),
+        withDocs = __webpack_require__('./stories/utils/withDocs.js'),
+        src = __webpack_require__('./src/index.js'),
+        CarColor_SVG = function SVG() {
+          var value = Object(src.z)('color').value;
+          return react_default.a.createElement(
+            'div',
+            { className: 'car-color-'.concat(value) },
+            react_default.a.createElement(
+              'svg',
+              {
+                xmlns: 'http://www.w3.org/2000/svg',
+                width: '554.349',
+                height: '231.889',
+                viewBox: '0 0 554.349 231.889'
+              },
+              react_default.a.createElement(
+                'g',
+                {
+                  id: 'Group_2',
+                  'data-name': 'Group 2',
+                  transform: 'translate(-205.632 -671.078)'
+                },
+                react_default.a.createElement(
+                  'g',
+                  {
+                    id: 'Group_5',
+                    'data-name': 'Group 5',
+                    transform: 'translate(206.591 672.034)'
+                  },
+                  react_default.a.createElement(
+                    'g',
+                    {
+                      id: 'Group_2-2',
+                      'data-name': 'Group 2',
+                      transform: 'translate(215.224 0.047)'
+                    },
+                    react_default.a.createElement('path', {
+                      id: 'Fill-1',
+                      class: 'cls-1',
+                      d:
+                        'M27.812,43.49l50.737,4.193,11.512.455L83.646,57.2l-53.9,3.6S4.7,57.4,9.233,44.982c0,0,3-7.147,18.58-1.492'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Fill-3',
+                      class: 'cls-2',
+                      d:
+                        'M26.418,50.459l50.737,4.193,11.512.455-6.415,9.057-53.9,3.608s-25.044-3.4-20.513-15.82c0,0,3-7.147,18.58-1.492'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Fill-5',
+                      class: 'cls-1',
+                      d:
+                        'M41.38,16.641A20.477,20.477,0,1,1,31.839,3.393,20.477,20.477,0,0,1,41.38,16.641'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Fill-7',
+                      class: 'cls-2',
+                      d:
+                        'M30.368,31.519A20.475,20.475,0,0,1,5.916,7.624,20.466,20.466,0,1,0,41.661,24.691a20.359,20.359,0,0,1-11.293,6.828'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Stroke-9',
+                      class: 'cls-3',
+                      d:
+                        'M41.38,16.641A20.477,20.477,0,1,1,31.839,3.393,20.477,20.477,0,0,1,41.38,16.641Z'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Stroke-11',
+                      class: 'cls-3',
+                      d:
+                        'M26.418,43.49l50.737,4.193,11.512.455L82.252,57.2l-53.9,3.6S3.308,57.4,7.839,44.982C7.839,44.982,10.839,37.835,26.418,43.49Z'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Fill-13',
+                      class: 'cls-1',
+                      d: 'M97.961,57.447a11.3,11.3,0,1,0-22.606.418Z'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Stroke-15',
+                      class: 'cls-3',
+                      d: 'M97.961,57.447a11.3,11.3,0,1,0-22.606.418Z'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Fill-17',
+                      class: 'cls-4',
+                      d:
+                        'M35.847,6.319,15.959,15.612s-.855,3.486.558,3.16c2.417-.558,20.667,11.986,20.63,14.868,0,0,11.338-14.311-1.3-27.321'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Stroke-19',
+                      class: 'cls-3',
+                      d: 'M5.763,32.671l10.545-2.555L34.34,35.928'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Stroke-21',
+                      class: 'cls-5',
+                      d: 'M1.438,24.66l10.07-2.189'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Fill-23',
+                      class: 'cls-4',
+                      d:
+                        'M30.456,45.442s-1.7,5.042-.836,6.412c1.38,2.206,8.056,2.684,10.315,1.394C41.645,52.274,43,46,43,46Z'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Fill-25',
+                      class: 'cls-4',
+                      d:
+                        'M60.565,47.673l2.788,3.067,12.545.836-.836,3.067L61.68,53.806l-5.3-6.133Z'
+                    })
+                  ),
+                  react_default.a.createElement(
+                    'g',
+                    {
+                      id: 'Group_3',
+                      'data-name': 'Group 3',
+                      transform: 'translate(0 10.083)'
+                    },
+                    react_default.a.createElement('path', {
+                      id: 'Fill-28',
+                      class: 'cls-6',
+                      d:
+                        'M344.371,48.509s-27.879-26.764-35.127-33.455,0-14.5,0-14.5L406.262,44.6l-61.891,3.717'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Fill-30',
+                      class: 'cls-7',
+                      d:
+                        'M361.891,32.711S338.287,21,328.437,15.24C319.922,10.26,307.758.929,307.758.929l97.018,44.048-35.264-9.665Z'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Fill-32',
+                      class: 'cls-8',
+                      d:
+                        'M77.665,30.481,19.3,28.994S2.02,30.11,13.171,42.934c0,0-11.152,1.673-6.691,17.285,0,0-17.236,1.858,4.51,63.191,0,0,1.879,2.81,3.211,3.145,5.377,1.354,19.24,4.786,22.389,5.034,7.111.558,106.5,5.576,106.5,5.576l244.776-3.345,107.1-.558s32.86-.177,40.1-5.576c7.547-5.63,16.17-34.012,16.17-34.012s5.576-26.764-85.309-45.164c0,0-51.855-8.921-78.061-11.709l16.727,7.806L347.141,48.23l-4.443.28H247.911s-25.648-1.673-45.164-40.145L41.236,36.986'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Fill-34',
+                      class: 'cls-9',
+                      d: 'M144.045,137.043a56.91,56.91,0,1,0-111.33-6.99Z'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Fill-36',
+                      class: 'cls-9',
+                      d: 'M508.571,132.267a56.894,56.894,0,1,0-110.681,2.078Z'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Fill-38',
+                      class: 'cls-10',
+                      d:
+                        'M69.292,42.664,197.055,20.073c19.932,39.3,46.13,41.005,46.13,41.005H340l4.539-.287,58.678-3.7s46-.278,63.123,2.012c55.016,7.352,78.629,27.308,84.537,36.807.226-.713.352-1.122.352-1.122S556.8,68.024,465.92,49.624c0,0-51.855-8.921-78.061-11.709l16.727,7.806-57.449,3.623-4.442.28H247.912s-25.648-1.673-45.164-40.145L41.237,38.1l36.429-6.5-58.36-1.491s-12.77-.084-6.457,10.036Z'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Stroke-40',
+                      class: 'cls-3',
+                      d:
+                        'M78.223,30.481,19.863,29S2.577,30.11,13.729,42.934c0,0-11.152,1.673-6.691,17.285,0,0-17.236,1.858,4.51,63.191,0,0,1.879,2.81,3.211,3.145,5.377,1.354,19.24,4.786,22.389,5.034,7.111.558,106.5,5.576,106.5,5.576l244.776-3.345,107.1-.558s32.86-.177,40.1-5.576c7.547-5.63,16.17-34.012,16.17-34.012S557.365,66.91,466.48,48.51c0,0-51.855-8.921-78.061-11.709l16.727,7.806L347.7,48.23l-4.443.28H248.468S222.82,46.837,203.3,8.364L41.794,36.986'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Stroke-42',
+                      class: 'cls-3',
+                      d:
+                        'M343.256,48.509s-27.879-26.764-35.127-33.455,0-14.5,0-14.5L405.147,44.6l-61.891,3.717'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Fill-44',
+                      class: 'cls-4',
+                      d:
+                        'M308.129.558,309.8,9.9l43.909,37.636-10.455.79L308.129,15.055s-6.318-5.947,0-14.5'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Fill-46',
+                      class: 'cls-8',
+                      d:
+                        'M320.3,33.594s-2.927,12.267,5.855,17.145,13.8-8.921,13.8-8.921-.418-8.5-19.655-8.224'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Fill-48',
+                      class: 'cls-9',
+                      d:
+                        'M319.655,35.731s3.8-2.6,9.432,5.715c6.226,9.2,11.43,2.88,11.43,2.88s-1.952-14.4-20.862-8.6'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Stroke-50',
+                      class: 'cls-11',
+                      d:
+                        'M320.953,33.733S318.026,46,326.808,50.879s13.8-8.921,13.8-8.921S340.19,33.455,320.953,33.733Z'
+                    }),
+                    react_default.a.createElement(
+                      'g',
+                      {
+                        id: 'Group-55',
+                        transform: 'translate(133.818 113.745)'
+                      },
+                      react_default.a.createElement('path', {
+                        id: 'Fill-52',
+                        class: 'cls-1',
+                        d: 'M274.953,1.673.162.558'
+                      }),
+                      react_default.a.createElement('path', {
+                        id: 'Stroke-54',
+                        class: 'cls-3',
+                        d: 'M274.953,1.673.162.558'
+                      })
+                    ),
+                    react_default.a.createElement('path', {
+                      id: 'Stroke-56',
+                      class: 'cls-5',
+                      d: 'M361.656,47.394s17.842,26.224-5.018,67.838'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Stroke-58',
+                      class: 'cls-12',
+                      d: 'M27.668,55.758s35.87,25.277,43.863,25.277'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Stroke-60',
+                      class: 'cls-5',
+                      d:
+                        'M157.584,15.612,147.171,38.2l-19.089-.664s-26.609,27.9-24.873,40.525'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Fill-62',
+                      class: 'cls-4',
+                      d:
+                        'M7.038,60.218l3.9,4.461L27.111,55.2s1.673-7.806-13.382-12.267c0,0-11.337,3.159-6.691,17.285'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Stroke-64',
+                      class: 'cls-3',
+                      d:
+                        'M7.038,60.218l3.9,4.461L27.111,55.2s1.673-7.806-13.382-12.267C13.729,42.933,2.392,46.093,7.038,60.218Z'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Stroke-66',
+                      class: 'cls-5',
+                      d:
+                        'M188.25,11.709s9.479,34.012,2.23,36.8,26.764,66.352,26.764,66.352'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Stroke-68',
+                      class: 'cls-5',
+                      d: 'M482.65,88.1l34.942-23.79'
+                    }),
+                    react_default.a.createElement('path', {
+                      id: 'Stroke-70',
+                      class: 'cls-5',
+                      d:
+                        'M179.318,34.75a7.429,7.429,0,1,1-7.429-7.429,7.429,7.429,0,0,1,7.429,7.429Z'
+                    })
+                  ),
+                  react_default.a.createElement(
+                    'g',
+                    { transform: 'translate(39.03 80.338)' },
+                    react_default.a.createElement(
+                      'g',
+                      { transform: 'translate(50.00 54.0)' },
+                      react_default.a.createElement(
+                        'g',
+                        { id: 'Circleelement' },
+                        react_default.a.createElement(
+                          'g',
+                          { transform: 'translate(-50.00 -54.0)' },
+                          react_default.a.createElement('path', {
+                            id: 'Fill-73',
+                            class: 'cls-13',
+                            d:
+                              'M93.775,54.234A44.065,44.065,0,1,1,49.71,10.168,44.065,44.065,0,0,1,93.775,54.234'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-75',
+                            class: 'cls-4',
+                            d:
+                              'M50.469,89.714H49.414a34.789,34.789,0,0,1-10.033-1.4,2.454,2.454,0,0,1-1.915-3.484c.761-2.6,1.693-5.373,2.944-8.685a53.247,53.247,0,0,1,3.116-6.918,13.824,13.824,0,0,1,1.717-2.453,2.919,2.919,0,0,1,2.674-.981,11.237,11.237,0,0,0,2.208,0,2.77,2.77,0,0,1,2.7,1.374,11.554,11.554,0,0,1,1.473,3.9,57.514,57.514,0,0,1,.98,6.451c.245,2.209.418,4.613.589,7.361V85.2a15.139,15.139,0,0,1,0,2.11A2.231,2.231,0,0,1,54,89.346a19.957,19.957,0,0,1-2.6.27Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-77',
+                            class: 'cls-4',
+                            d:
+                              'M62.957,86.869a2.136,2.136,0,0,1-2.012-1.449c-.393-.956-.711-1.937-1.032-2.943l-.318-.932c-.957-2.895-1.963-5.742-2.969-8.588l-1.2-3.386c-.343-1-.613-1.937-.834-2.845a2.563,2.563,0,0,1,4-2.454,12.045,12.045,0,0,1,1.693,1.619c1.865,2.037,3.533,4.221,5.152,6.33,2.11,2.748,3.7,4.908,5.177,6.993a5.7,5.7,0,0,1,.515.808,2.515,2.515,0,0,1,.368.492l.123.49a2.256,2.256,0,0,1-.883,1.938A20.153,20.153,0,0,1,68.6,84.39a31.353,31.353,0,0,1-3.95,2.11,4.253,4.253,0,0,1-.662.245,2.63,2.63,0,0,1-1.007.123Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-79',
+                            class: 'cls-4',
+                            d:
+                              'M29.321,83.115a3.164,3.164,0,0,1-1.815-.762A33.386,33.386,0,0,1,22.6,77.914a2.7,2.7,0,0,1-.908-2.111,2.623,2.623,0,0,1,1.3-1.912c1.129-.859,2.257-1.718,3.41-2.454,2.012-1.471,3.8-2.845,5.618-4.219l3.827-2.9A22.483,22.483,0,0,1,38.5,62.555a2.862,2.862,0,0,1,1.1-.44,2.626,2.626,0,0,1,2.183,1.153,2.452,2.452,0,0,1,.27,2.527,22.325,22.325,0,0,1-1.84,3.337c-2.085,3.287-4.244,6.33-6.845,9.985l-.221.294q-.907,1.325-1.914,2.575a2.648,2.648,0,0,1-1.914,1.13'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-81',
+                            class: 'cls-4',
+                            d:
+                              'M77.431,75.215a3.113,3.113,0,0,1-1.693-.638c-2.453-1.668-4.907-3.484-6.82-5.054a65.292,65.292,0,0,1-5.592-4.907A16.409,16.409,0,0,1,60.871,61.6a2.87,2.87,0,0,1-.146-2.87,13.888,13.888,0,0,0,.785-2.16,2.747,2.747,0,0,1,2.06-2.06,9.842,9.842,0,0,1,3.018-.222,37.675,37.675,0,0,1,5.765.737c3.386.661,6.895,1.472,10.4,2.453a5.314,5.314,0,0,1,.81.293,2.259,2.259,0,0,1,1.547,2.773c-.2,1.006-.443,1.987-.713,2.943a36.357,36.357,0,0,1-4.906,10.354,2.456,2.456,0,0,1-2.062,1.374'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-83',
+                            class: 'cls-14',
+                            d: 'M83.221,60.2l-1.791-.417,1.791.368-1.791-.368Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-85',
+                            class: 'cls-4',
+                            d:
+                              'M18.576,70.014a2.134,2.134,0,0,1-1.987-1.251c-.417-.811-.736-1.644-1.079-2.453a37.066,37.066,0,0,1-1.938-7.36,34.345,34.345,0,0,1-.393-4.662,2.257,2.257,0,0,1,2.052-2.444c.051,0,.1-.008.156-.008a33.14,33.14,0,0,1,3.459,0H21.03c2.035,0,4.342.123,6.6.318a32.538,32.538,0,0,1,5.985.86,11.907,11.907,0,0,1,1.915.687,2.845,2.845,0,0,1,1.717,2.11,12.388,12.388,0,0,0,.686,2.453,2.67,2.67,0,0,1-.514,2.624A10.723,10.723,0,0,1,34.7,63.342a58.8,58.8,0,0,1-6.452,3.238c-3.362,1.349-5.814,2.38-8.268,3.263l-.492.147a3.229,3.229,0,0,1-.883.123Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-87',
+                            class: 'cls-14',
+                            d: 'M18.576,66.358,19.337,68l-.59-1.645Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-89',
+                            class: 'cls-14',
+                            d: 'M19.95,67.094Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-91',
+                            class: 'cls-4',
+                            d:
+                              'M65.336,52.791H63.668a2.453,2.453,0,0,1-1.178-4.71,20.867,20.867,0,0,1,3.337-1.644c4.146-1.667,8.637-3.238,14.72-5.1a7.143,7.143,0,0,1,.785-.222,2.26,2.26,0,0,1,2.8,1.5c.318.981.588,1.963.808,2.969a35.016,35.016,0,0,1,.687,4.146,2.282,2.282,0,0,1-2.428,2.8h-6.65l-10.525.27Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-93',
+                            class: 'cls-4',
+                            d:
+                              'M35.823,50.387a18.963,18.963,0,0,1-3.067-.588c-5.446-1.375-10.8-3.067-15.407-4.589a8.25,8.25,0,0,1-.981-.391,2.111,2.111,0,0,1-1.338-2.667.952.952,0,0,1,.038-.1A22.1,22.1,0,0,1,16,39.592,39.216,39.216,0,0,1,18.11,35.4a2.233,2.233,0,0,1,3.389-.86c.859.54,1.668,1.13,2.453,1.717l.736.54c2.012,1.424,4.023,2.846,6.06,4.244l4.465,3.092a19.58,19.58,0,0,1,2.453,1.962,2.575,2.575,0,0,1-1.84,4.367Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-95',
+                            class: 'cls-14',
+                            d: 'M16.81,42.61l1.742.589Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-97',
+                            class: 'cls-4',
+                            d:
+                              'M59.841,45.383a2.6,2.6,0,0,1-1.791-.736A13.717,13.717,0,0,0,56.063,43.1a2.823,2.823,0,0,1-1.251-2.6,12.234,12.234,0,0,1,.981-3.754A58.68,58.68,0,0,1,59.4,29.828c1.4-2.453,2.7-4.491,4.023-6.452a8.079,8.079,0,0,1,.54-.761,2.281,2.281,0,0,1,3.067-.762,38.019,38.019,0,0,1,5.4,3.657,36.428,36.428,0,0,1,5.913,6.084,2.182,2.182,0,0,1-.188,3.081,1.653,1.653,0,0,1-.13.108,22.453,22.453,0,0,1-2.282,1.742l-.417.319A110.811,110.811,0,0,1,65.7,43.125a22.811,22.811,0,0,1-4.391,2.011l-.761.173h-.515Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-99',
+                            class: 'cls-4',
+                            d:
+                              'M39.847,44.67a3.244,3.244,0,0,1-1.179-.245,11.676,11.676,0,0,1-2.453-1.57,42.669,42.669,0,0,1-3.973-3.631c-2.331-2.453-4.686-5.175-7.213-8.317a5.8,5.8,0,0,1-.466-.638l-.172-.245a2.181,2.181,0,0,1,.49-2.992,36.746,36.746,0,0,1,8.071-5.667,37.562,37.562,0,0,1,4.761-2.037,2.159,2.159,0,0,1,2.821,1.166l.025.06a16.047,16.047,0,0,1,.785,2.134,111.417,111.417,0,0,1,3.165,11.581,24,24,0,0,1,.638,4.906v1.277a2.724,2.724,0,0,1-1.423,2.109,15.33,15.33,0,0,0-2.11,1.447,2.721,2.721,0,0,1-1.766.662'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-101',
+                            class: 'cls-4',
+                            d:
+                              'M50.714,41.384h-.269a2.452,2.452,0,0,1-2.282-1.889,22.659,22.659,0,0,1-.467-3.509c-.2-2.65-.269-5.274-.318-8.07v-7.8a5.882,5.882,0,0,1,0-.687,2.11,2.11,0,0,1,2.158-2.037,34.888,34.888,0,0,1,3.95.246,35.9,35.9,0,0,1,3.608.588,2.451,2.451,0,0,1,1.643.958,2.258,2.258,0,0,1,.222,1.79c-.2.811-.466,1.619-.711,2.454l-.2.563c-1.129,3.509-2.183,7.042-3.237,10.6L54.149,36.8a27.178,27.178,0,0,1-1.1,3.165,2.454,2.454,0,0,1-2.258,1.423Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-103',
+                            class: 'cls-15',
+                            d:
+                              'M49.414,86.034h2.8v-.86c-.148-2.673-.345-4.906-.564-7.163a57.925,57.925,0,0,0-.909-6.035,11.049,11.049,0,0,0-.785-2.454,15.835,15.835,0,0,1-2.158,0,8.592,8.592,0,0,0-1.007,1.522,47.992,47.992,0,0,0-2.845,6.427c-1.105,2.872-1.939,5.3-2.626,7.581a30.368,30.368,0,0,0,8.1.982'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-105',
+                            class: 'cls-15',
+                            d:
+                              'M59.767,70.7l.319.907c1.03,2.895,2.036,5.765,3.018,8.661l.319.981c.147.49.294.956.466,1.447.859-.443,1.766-.932,2.7-1.521l.761-.466c-1.374-1.914-2.869-3.925-4.907-6.477-.761-1.081-1.717-2.332-2.674-3.533'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-107',
+                            class: 'cls-15',
+                            d:
+                              'M26.083,76.2A33.615,33.615,0,0,0,29,78.869l1.251-1.717.221-.318c2.159-2.993,4-5.594,5.716-8.219L34.3,70.038c-1.815,1.4-3.654,2.772-5.5,4.146Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-109',
+                            class: 'cls-15',
+                            d:
+                              'M64.134,60.053a12.148,12.148,0,0,0,1.742,2.036,63.623,63.623,0,0,0,5.275,4.539c1.815,1.424,3.754,2.921,5.814,4.342a32.223,32.223,0,0,0,3.8-8.487,15.062,15.062,0,0,0,.417-1.6C77.945,60,74.73,59.239,71.589,58.65a35.667,35.667,0,0,0-5.2-.686,5.885,5.885,0,0,0-1.521,0,18.336,18.336,0,0,1-.736,2.084'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-111',
+                            class: 'cls-15',
+                            d:
+                              'M16.932,55.466a25.5,25.5,0,0,0,.319,2.969,33.543,33.543,0,0,0,1.717,6.6l.443,1.054c2.134-.808,4.439-1.741,7.359-2.992a55.023,55.023,0,0,0,6.011-3.018,9.871,9.871,0,0,0,1.6-1.178,16.161,16.161,0,0,1-.59-2.062l-1.03-.342a32.165,32.165,0,0,0-5.422-.736c-2.183-.173-4.416-.245-6.353-.294Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-113',
+                            class: 'cls-15',
+                            d:
+                              'M80.915,44.989c-4.636,1.472-8.366,2.748-11.751,4.048l7.237-.2h5.348c-.147-.858-.294-1.668-.466-2.453s-.245-.957-.368-1.4'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-115',
+                            class: 'cls-15',
+                            d:
+                              'M19.017,41.923c3.631,1.179,7.729,2.453,11.923,3.631l-2.257-1.569c-2.061-1.424-4.1-2.822-6.133-4.269l-.761-.564-1.127-.811a25.38,25.38,0,0,0-1.251,2.626c-.147.293-.271.637-.394.956'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-117',
+                            class: 'cls-15',
+                            d:
+                              'M58.541,40.328a14.1,14.1,0,0,1,1.644,1.3,18.1,18.1,0,0,0,3.63-1.668,108.514,108.514,0,0,0,9.373-6.06l.417-.319,1.006-.711A33.888,33.888,0,0,0,70.1,28.405a34.279,34.279,0,0,0-3.8-2.674c-1.2,1.84-2.453,3.8-3.73,6.011a53.391,53.391,0,0,0-3.335,6.427,8.338,8.338,0,0,0-.687,2.16'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-119',
+                            class: 'cls-15',
+                            d:
+                              'M28.168,28.994c2.453,2.919,4.588,5.471,6.771,7.777A41.162,41.162,0,0,0,38.4,40.058a9.817,9.817,0,0,0,1.276.859,19.779,19.779,0,0,1,1.742-1.178.912.912,0,0,1,0-.27,19.346,19.346,0,0,0-.564-4.367,103.606,103.606,0,0,0-3.067-11.015,5.18,5.18,0,0,0-.245-.736A30.145,30.145,0,0,0,34.5,24.725a32.244,32.244,0,0,0-6.33,4.269'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-121',
+                            class: 'cls-15',
+                            d:
+                              'M51.009,21.069v6.673c0,1.963,0,3.827.171,5.644,1.056-3.558,2.111-7.116,3.264-10.649l.171-.588a2.861,2.861,0,0,1,.246-.736l-1.791-.245a19.769,19.769,0,0,0-1.988-.1Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-123',
+                            class: 'cls-4',
+                            d:
+                              'M49.414,4.461A49.067,49.067,0,1,0,98.48,53.527,49.067,49.067,0,0,0,49.414,4.461m0,7.36A41.707,41.707,0,1,1,7.708,53.527,41.707,41.707,0,0,1,49.414,11.821'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-125',
+                            class: 'cls-14',
+                            d:
+                              'M49.414,49.847a3.68,3.68,0,1,1-3.68,3.68,3.68,3.68,0,0,1,3.68-3.68'
+                          })
+                        )
+                      )
+                    )
+                  ),
+                  react_default.a.createElement(
+                    'g',
+                    { transform: 'translate(404.03 80.338)' },
+                    react_default.a.createElement(
+                      'g',
+                      { transform: 'translate(50.00 54.0)' },
+                      react_default.a.createElement(
+                        'g',
+                        { id: 'Circleelement' },
+                        react_default.a.createElement(
+                          'g',
+                          { transform: 'translate(-50.00 -54.0)' },
+                          react_default.a.createElement('path', {
+                            id: 'Fill-73',
+                            class: 'cls-13',
+                            d:
+                              'M93.775,54.234A44.065,44.065,0,1,1,49.71,10.168,44.065,44.065,0,0,1,93.775,54.234'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-75',
+                            class: 'cls-4',
+                            d:
+                              'M50.469,89.714H49.414a34.789,34.789,0,0,1-10.033-1.4,2.454,2.454,0,0,1-1.915-3.484c.761-2.6,1.693-5.373,2.944-8.685a53.247,53.247,0,0,1,3.116-6.918,13.824,13.824,0,0,1,1.717-2.453,2.919,2.919,0,0,1,2.674-.981,11.237,11.237,0,0,0,2.208,0,2.77,2.77,0,0,1,2.7,1.374,11.554,11.554,0,0,1,1.473,3.9,57.514,57.514,0,0,1,.98,6.451c.245,2.209.418,4.613.589,7.361V85.2a15.139,15.139,0,0,1,0,2.11A2.231,2.231,0,0,1,54,89.346a19.957,19.957,0,0,1-2.6.27Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-77',
+                            class: 'cls-4',
+                            d:
+                              'M62.957,86.869a2.136,2.136,0,0,1-2.012-1.449c-.393-.956-.711-1.937-1.032-2.943l-.318-.932c-.957-2.895-1.963-5.742-2.969-8.588l-1.2-3.386c-.343-1-.613-1.937-.834-2.845a2.563,2.563,0,0,1,4-2.454,12.045,12.045,0,0,1,1.693,1.619c1.865,2.037,3.533,4.221,5.152,6.33,2.11,2.748,3.7,4.908,5.177,6.993a5.7,5.7,0,0,1,.515.808,2.515,2.515,0,0,1,.368.492l.123.49a2.256,2.256,0,0,1-.883,1.938A20.153,20.153,0,0,1,68.6,84.39a31.353,31.353,0,0,1-3.95,2.11,4.253,4.253,0,0,1-.662.245,2.63,2.63,0,0,1-1.007.123Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-79',
+                            class: 'cls-4',
+                            d:
+                              'M29.321,83.115a3.164,3.164,0,0,1-1.815-.762A33.386,33.386,0,0,1,22.6,77.914a2.7,2.7,0,0,1-.908-2.111,2.623,2.623,0,0,1,1.3-1.912c1.129-.859,2.257-1.718,3.41-2.454,2.012-1.471,3.8-2.845,5.618-4.219l3.827-2.9A22.483,22.483,0,0,1,38.5,62.555a2.862,2.862,0,0,1,1.1-.44,2.626,2.626,0,0,1,2.183,1.153,2.452,2.452,0,0,1,.27,2.527,22.325,22.325,0,0,1-1.84,3.337c-2.085,3.287-4.244,6.33-6.845,9.985l-.221.294q-.907,1.325-1.914,2.575a2.648,2.648,0,0,1-1.914,1.13'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-81',
+                            class: 'cls-4',
+                            d:
+                              'M77.431,75.215a3.113,3.113,0,0,1-1.693-.638c-2.453-1.668-4.907-3.484-6.82-5.054a65.292,65.292,0,0,1-5.592-4.907A16.409,16.409,0,0,1,60.871,61.6a2.87,2.87,0,0,1-.146-2.87,13.888,13.888,0,0,0,.785-2.16,2.747,2.747,0,0,1,2.06-2.06,9.842,9.842,0,0,1,3.018-.222,37.675,37.675,0,0,1,5.765.737c3.386.661,6.895,1.472,10.4,2.453a5.314,5.314,0,0,1,.81.293,2.259,2.259,0,0,1,1.547,2.773c-.2,1.006-.443,1.987-.713,2.943a36.357,36.357,0,0,1-4.906,10.354,2.456,2.456,0,0,1-2.062,1.374'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-83',
+                            class: 'cls-14',
+                            d: 'M83.221,60.2l-1.791-.417,1.791.368-1.791-.368Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-85',
+                            class: 'cls-4',
+                            d:
+                              'M18.576,70.014a2.134,2.134,0,0,1-1.987-1.251c-.417-.811-.736-1.644-1.079-2.453a37.066,37.066,0,0,1-1.938-7.36,34.345,34.345,0,0,1-.393-4.662,2.257,2.257,0,0,1,2.052-2.444c.051,0,.1-.008.156-.008a33.14,33.14,0,0,1,3.459,0H21.03c2.035,0,4.342.123,6.6.318a32.538,32.538,0,0,1,5.985.86,11.907,11.907,0,0,1,1.915.687,2.845,2.845,0,0,1,1.717,2.11,12.388,12.388,0,0,0,.686,2.453,2.67,2.67,0,0,1-.514,2.624A10.723,10.723,0,0,1,34.7,63.342a58.8,58.8,0,0,1-6.452,3.238c-3.362,1.349-5.814,2.38-8.268,3.263l-.492.147a3.229,3.229,0,0,1-.883.123Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-87',
+                            class: 'cls-14',
+                            d: 'M18.576,66.358,19.337,68l-.59-1.645Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-89',
+                            class: 'cls-14',
+                            d: 'M19.95,67.094Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-91',
+                            class: 'cls-4',
+                            d:
+                              'M65.336,52.791H63.668a2.453,2.453,0,0,1-1.178-4.71,20.867,20.867,0,0,1,3.337-1.644c4.146-1.667,8.637-3.238,14.72-5.1a7.143,7.143,0,0,1,.785-.222,2.26,2.26,0,0,1,2.8,1.5c.318.981.588,1.963.808,2.969a35.016,35.016,0,0,1,.687,4.146,2.282,2.282,0,0,1-2.428,2.8h-6.65l-10.525.27Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-93',
+                            class: 'cls-4',
+                            d:
+                              'M35.823,50.387a18.963,18.963,0,0,1-3.067-.588c-5.446-1.375-10.8-3.067-15.407-4.589a8.25,8.25,0,0,1-.981-.391,2.111,2.111,0,0,1-1.338-2.667.952.952,0,0,1,.038-.1A22.1,22.1,0,0,1,16,39.592,39.216,39.216,0,0,1,18.11,35.4a2.233,2.233,0,0,1,3.389-.86c.859.54,1.668,1.13,2.453,1.717l.736.54c2.012,1.424,4.023,2.846,6.06,4.244l4.465,3.092a19.58,19.58,0,0,1,2.453,1.962,2.575,2.575,0,0,1-1.84,4.367Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-95',
+                            class: 'cls-14',
+                            d: 'M16.81,42.61l1.742.589Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-97',
+                            class: 'cls-4',
+                            d:
+                              'M59.841,45.383a2.6,2.6,0,0,1-1.791-.736A13.717,13.717,0,0,0,56.063,43.1a2.823,2.823,0,0,1-1.251-2.6,12.234,12.234,0,0,1,.981-3.754A58.68,58.68,0,0,1,59.4,29.828c1.4-2.453,2.7-4.491,4.023-6.452a8.079,8.079,0,0,1,.54-.761,2.281,2.281,0,0,1,3.067-.762,38.019,38.019,0,0,1,5.4,3.657,36.428,36.428,0,0,1,5.913,6.084,2.182,2.182,0,0,1-.188,3.081,1.653,1.653,0,0,1-.13.108,22.453,22.453,0,0,1-2.282,1.742l-.417.319A110.811,110.811,0,0,1,65.7,43.125a22.811,22.811,0,0,1-4.391,2.011l-.761.173h-.515Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-99',
+                            class: 'cls-4',
+                            d:
+                              'M39.847,44.67a3.244,3.244,0,0,1-1.179-.245,11.676,11.676,0,0,1-2.453-1.57,42.669,42.669,0,0,1-3.973-3.631c-2.331-2.453-4.686-5.175-7.213-8.317a5.8,5.8,0,0,1-.466-.638l-.172-.245a2.181,2.181,0,0,1,.49-2.992,36.746,36.746,0,0,1,8.071-5.667,37.562,37.562,0,0,1,4.761-2.037,2.159,2.159,0,0,1,2.821,1.166l.025.06a16.047,16.047,0,0,1,.785,2.134,111.417,111.417,0,0,1,3.165,11.581,24,24,0,0,1,.638,4.906v1.277a2.724,2.724,0,0,1-1.423,2.109,15.33,15.33,0,0,0-2.11,1.447,2.721,2.721,0,0,1-1.766.662'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-101',
+                            class: 'cls-4',
+                            d:
+                              'M50.714,41.384h-.269a2.452,2.452,0,0,1-2.282-1.889,22.659,22.659,0,0,1-.467-3.509c-.2-2.65-.269-5.274-.318-8.07v-7.8a5.882,5.882,0,0,1,0-.687,2.11,2.11,0,0,1,2.158-2.037,34.888,34.888,0,0,1,3.95.246,35.9,35.9,0,0,1,3.608.588,2.451,2.451,0,0,1,1.643.958,2.258,2.258,0,0,1,.222,1.79c-.2.811-.466,1.619-.711,2.454l-.2.563c-1.129,3.509-2.183,7.042-3.237,10.6L54.149,36.8a27.178,27.178,0,0,1-1.1,3.165,2.454,2.454,0,0,1-2.258,1.423Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-103',
+                            class: 'cls-15',
+                            d:
+                              'M49.414,86.034h2.8v-.86c-.148-2.673-.345-4.906-.564-7.163a57.925,57.925,0,0,0-.909-6.035,11.049,11.049,0,0,0-.785-2.454,15.835,15.835,0,0,1-2.158,0,8.592,8.592,0,0,0-1.007,1.522,47.992,47.992,0,0,0-2.845,6.427c-1.105,2.872-1.939,5.3-2.626,7.581a30.368,30.368,0,0,0,8.1.982'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-105',
+                            class: 'cls-15',
+                            d:
+                              'M59.767,70.7l.319.907c1.03,2.895,2.036,5.765,3.018,8.661l.319.981c.147.49.294.956.466,1.447.859-.443,1.766-.932,2.7-1.521l.761-.466c-1.374-1.914-2.869-3.925-4.907-6.477-.761-1.081-1.717-2.332-2.674-3.533'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-107',
+                            class: 'cls-15',
+                            d:
+                              'M26.083,76.2A33.615,33.615,0,0,0,29,78.869l1.251-1.717.221-.318c2.159-2.993,4-5.594,5.716-8.219L34.3,70.038c-1.815,1.4-3.654,2.772-5.5,4.146Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-109',
+                            class: 'cls-15',
+                            d:
+                              'M64.134,60.053a12.148,12.148,0,0,0,1.742,2.036,63.623,63.623,0,0,0,5.275,4.539c1.815,1.424,3.754,2.921,5.814,4.342a32.223,32.223,0,0,0,3.8-8.487,15.062,15.062,0,0,0,.417-1.6C77.945,60,74.73,59.239,71.589,58.65a35.667,35.667,0,0,0-5.2-.686,5.885,5.885,0,0,0-1.521,0,18.336,18.336,0,0,1-.736,2.084'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-111',
+                            class: 'cls-15',
+                            d:
+                              'M16.932,55.466a25.5,25.5,0,0,0,.319,2.969,33.543,33.543,0,0,0,1.717,6.6l.443,1.054c2.134-.808,4.439-1.741,7.359-2.992a55.023,55.023,0,0,0,6.011-3.018,9.871,9.871,0,0,0,1.6-1.178,16.161,16.161,0,0,1-.59-2.062l-1.03-.342a32.165,32.165,0,0,0-5.422-.736c-2.183-.173-4.416-.245-6.353-.294Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-113',
+                            class: 'cls-15',
+                            d:
+                              'M80.915,44.989c-4.636,1.472-8.366,2.748-11.751,4.048l7.237-.2h5.348c-.147-.858-.294-1.668-.466-2.453s-.245-.957-.368-1.4'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-115',
+                            class: 'cls-15',
+                            d:
+                              'M19.017,41.923c3.631,1.179,7.729,2.453,11.923,3.631l-2.257-1.569c-2.061-1.424-4.1-2.822-6.133-4.269l-.761-.564-1.127-.811a25.38,25.38,0,0,0-1.251,2.626c-.147.293-.271.637-.394.956'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-117',
+                            class: 'cls-15',
+                            d:
+                              'M58.541,40.328a14.1,14.1,0,0,1,1.644,1.3,18.1,18.1,0,0,0,3.63-1.668,108.514,108.514,0,0,0,9.373-6.06l.417-.319,1.006-.711A33.888,33.888,0,0,0,70.1,28.405a34.279,34.279,0,0,0-3.8-2.674c-1.2,1.84-2.453,3.8-3.73,6.011a53.391,53.391,0,0,0-3.335,6.427,8.338,8.338,0,0,0-.687,2.16'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-119',
+                            class: 'cls-15',
+                            d:
+                              'M28.168,28.994c2.453,2.919,4.588,5.471,6.771,7.777A41.162,41.162,0,0,0,38.4,40.058a9.817,9.817,0,0,0,1.276.859,19.779,19.779,0,0,1,1.742-1.178.912.912,0,0,1,0-.27,19.346,19.346,0,0,0-.564-4.367,103.606,103.606,0,0,0-3.067-11.015,5.18,5.18,0,0,0-.245-.736A30.145,30.145,0,0,0,34.5,24.725a32.244,32.244,0,0,0-6.33,4.269'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-121',
+                            class: 'cls-15',
+                            d:
+                              'M51.009,21.069v6.673c0,1.963,0,3.827.171,5.644,1.056-3.558,2.111-7.116,3.264-10.649l.171-.588a2.861,2.861,0,0,1,.246-.736l-1.791-.245a19.769,19.769,0,0,0-1.988-.1Z'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-123',
+                            class: 'cls-4',
+                            d:
+                              'M49.414,4.461A49.067,49.067,0,1,0,98.48,53.527,49.067,49.067,0,0,0,49.414,4.461m0,7.36A41.707,41.707,0,1,1,7.708,53.527,41.707,41.707,0,0,1,49.414,11.821'
+                          }),
+                          react_default.a.createElement('path', {
+                            id: 'Fill-125',
+                            class: 'cls-14',
+                            d:
+                              'M49.414,49.847a3.68,3.68,0,1,1-3.68,3.68,3.68,3.68,0,0,1,3.68-3.68'
+                          })
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          );
+        };
+      __webpack_exports__.a = Object(withDocs.a)(
+        '# Car Color\n\nGo ahead and change the color of the Tesla!\n\n\x3c!-- STORY --\x3e\n\n```jsx\nimport { Form, Select, Debug } from \'informed\';\n\nconst Car = () => {\n  const { value } = useFieldState(\'color\');\n\n  return <div className={`car-color-${value}`}>{\'...SVG...\'}</div>;\n};\n\nconst CarColor = () => (\n  <Form autocomplete="off">\n    <Select name="color" label="Color" initialValue="blue">\n      <option value="red">Red</option>\n      <option value="green">Green</option>\n      <option value="blue">Blue</option>\n    </Select>\n    <button type="submit">Submit</button>\n    <Debug values />\n    <br />\n    <Car />\n  </Form>\n);\n```\n',
+        function Basic() {
+          return react_default.a.createElement(
+            src.f,
+            { autocomplete: 'off' },
+            react_default.a.createElement(
+              src.s,
+              { name: 'color', label: 'Color', initialValue: 'blue' },
+              react_default.a.createElement('option', { value: 'red' }, 'Red'),
+              react_default.a.createElement(
+                'option',
+                { value: 'green' },
+                'Green'
+              ),
+              react_default.a.createElement('option', { value: 'blue' }, 'Blue')
+            ),
+            react_default.a.createElement(
+              'button',
+              { type: 'submit' },
+              'Submit'
+            ),
+            react_default.a.createElement(src.c, { values: !0 }),
+            react_default.a.createElement('br', null),
+            react_default.a.createElement(CarColor_SVG, null)
+          );
+        }
+      );
     },
     './stories/CustomInputs/FormattedObjectInput/index.js': function(
       module,
@@ -14468,7 +15118,7 @@
       'use strict';
       var withDocs = __webpack_require__('./stories/utils/withDocs.js');
       __webpack_exports__.a = Object(withDocs.a)(
-        '## 4.0.17 (December 17th, 2021)\n\n### Fixed\n\n- issue where I forgot to deregister fields when they became irrelevant\n\n## 4.0.16 (December 17th, 2021)\n\n### Fixed\n\n- issue where I forgot to allow relevanceDeps to be passed to multistep step\n\n## 4.0.15 (December 15th, 2021)\n\n### Moved\n\n- The repo to tesla or go needed to re publish to get updated README to npm\n\n## 4.0.14 (December 15th, 2021)\n\n### Fixed\n\n- forgot to add getCurrentStep to multistepApi\n- forgot to add nextStep and previousStep to multistepState\n\n## 4.0.13 (December 15th, 2021)\n\n### Fixed\n\n- issue where set touched did not default meta when field is not there\n\n## 4.0.12 (December 15th, 2021)\n\n### Fixed\n\n- issue where `FormField` could not take field props\n\n## 4.0.11 (December 15th, 2021)\n\n### Fixed\n\n- missing type for Relevant\n\n## 4.0.10 (December 15th, 2021)\n\n### Fixed\n\n- issue where FormProvider was not exported\n\n## 4.0.9 (December 13th, 2021)\n\n### Fixed\n\n- issue where passing showErrorIfTouched={false} would not work\n\n## 4.0.8 (December 10th, 2021)\n\n### Removed\n\n- Empty dependencies object from package.json\n\n## 4.0.7 (December 10th, 2021)\n\n### Fixed\n\n- Issue with relevance subscription when no relevance function\n\n## 4.0.6 (December 9th, 2021)\n\n### Fixed\n\n- Missing functions setValues and setTheseValues\n\n## 4.0.5 (December 9th, 2021)\n\n### Fixed\n\n- Missing types for validate and validateField on FormApi\n\n## 4.0.4 (December 9th, 2021)\n\n### Fixed\n\n- Issue where we forgot to expose form validate\n- Missing utils types\n\n## Added\n\n- useScope and useScoper to exports\n\n## 4.0.3 (December 7th, 2021)\n\n### Fixed\n\n- Issue with forms valid and invalid when relevance changes\n\n## 4.0.2 (December 7th, 2021)\n\n### Fixed\n\n- Issue with schema path util `inverter[12].air_filter_ok` would not work\n\n## 4.0.1 (December 7th, 2021)\n\n### Fixed\n\n- Issue with initializing when becoming relevant\n\n## 4.0 !!!!\n\n### Breaking changes\n\n#### onSubmit signature\n\nOld\n\n```\nconst onSubmit = values => console.log( values );\n```\n\nNew\n\n```\nconst onSubmit = formState => console.log( formState.values );\n```\n\n#### informed:props ( schema )\n\n```\ninformed:props is now ui:props when using schema based forms\n```\n\n#### `asField` has been removed\n\nInstead of doing this\n\n```js\nconst CustomField = asField({ fieldState, fieldApi }) => {}\n```\n\nDo this\n\n```js\nconst CustomField = props => {\n  const { fieldState, fieldApi } = useField(props);\n};\n```\n\n#### Relevance\n\nThe when function for relevance now has this signature\n\n```\nwhen={({formState, formApi, scope}) => {...} }\n```\n\n#### yupSchema\n\n```\nvalidationSchema ---\x3e is now yupSchema\n```\n\n#### Array Fields\n\n##### Renamed `field` to `name`\n\n```js\n<ArrayField.Items>\n  {({ remove, field }) => (\n    <>\n      <Input name={field} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\nIs Now\n\n```js\n<ArrayField.Items>\n  {({ remove, name }) => (\n    <>\n      <Input name={name} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\n##### No more array field path prefixing\n\nOld:\n\n```js\n<ArrayField.Items>\n  {({ remove, field }) => (\n    <>\n      <Input name={`${field}.name`} />\n      <Input name={`${field}.age`} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\nNew:\n\n```js\n<ArrayField.Items>\n  {({ remove }) => (\n    <>\n      <Input name="name" />\n      <Input name="age" />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\n##### No more values in array field render prop\n\nOld:\n\n```js\n// Some component you need to use state of array field item\nconst FieldState = ({ values }) => {\n  return (\n    <pre>\n      <code>{JSON.stringify(values, null, 2)}</code>\n    </pre>\n  );\n};\n\n<ArrayField.Items>\n  {({ remove, values }) => (\n    <>\n      <Input name="name" />\n      <Input name="age" />\n      <FieldState values={values} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>;\n```\n\nNew:\n\n```js\n// Some component you need to use state of array field item\nconst FieldState = () => {\n  const { values } = useArrayFieldItemState();\n  return (\n    <pre>\n      <code>{JSON.stringify(values, null, 2)}</code>\n    </pre>\n  );\n};\n\n<ArrayField.Items>\n  {({ remove }) => (\n    <>\n      <Input name="name" />\n      <Input name="age" />\n      <FieldState />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>;\n```\n\n#### Debugging with `<FormState />`\n\nOld:\n\n```jsx\n<FormState values errors />\n```\n\nNew:\n\n```jsx\n<Debug values errors />\n```\n\n#### Custom Inputs\n\nMinor changes to custom inputs\n\nNew:\n\n```jsx\nconst CustomInput = props => {\n  const { fieldState, fieldApi, render, ref, userProps } = useField(props);\n\n  // The field state\n  const { value, error, showError } = fieldState;\n\n  // The field control\n  const { setValue, setTouched } = fieldApi;\n\n  // Everything else\n  const { label, id, ...rest } = userProps;\n\n  return render(\n    <>\n      {label ? <label htmlFor={id}>{label}</label> : null}\n      <input\n        {...rest}\n        id={id}\n        ref={ref}\n        value={!value && value !== 0 ? \'\' : value}\n        onChange={e => {\n          setValue(e.target.value, e);\n        }}\n        onBlur={e => {\n          setTouched(true, e);\n        }}\n        style={showError ? { border: \'solid 1px red\' } : null}\n      />\n      {showError ? <small style={{ color: \'red\' }}>{error}</small> : null}\n    </>\n  );\n};\n```\n\n#### Validation\n\nValidation is now controlled via validateOn="validationString"\n\nBy default fields will only validate on blur. To get\nmore granular validation, simply pass in `validateOn` props.\n\nSee table below for mapping:\n\n<br />\n\n| validateOn    | derived       | change       | blur         | submit       | default |\n| ------------- | ------------- | ------------ | ------------ | ------------ | ------- |\n| change        | change-change | sync + async | sync + async | sync + async |         |\n| blur          | blur-blur     | x            | sync + async | sync + async | x       |\n| change-blur   | change-blur   | sync         | sync + async | sync + async |         |\n| change-submit | change-submit | sync         | sync         | sync + async |         |\n| blur-submit   | submit-submit | x            | sync         | sync + async |         |\n| submit        | submit-submit | x            | x            | sync + async |         |\n\n<br />\n\nValidation is controlled via the `validateOn` prop, but in order to control when it shows,\nuse the `showErrorIfError` and `showErrorIfDirty` props. **This is because sometimes you may want the form to be invalid but not show the error to the user yet ( default is `showErrorIfTouched` )**\n\n| prop               | description                                                                                                  | default |\n| ------------------ | ------------------------------------------------------------------------------------------------------------ | ------- |\n| showErrorIfError   | will set `showError` for that field to true whenever there is an error (typically used with validateOnMount) |         |\n| showErrorIfTouched | will set `showError` for that field to true whenever there is an error and the field is touched              | x       |\n| showErrorIfDirty   | will set `showError` for that field to true whenever there is an error and the field is dirty                |         |\n\n<br />\n\nFinally we have a use case for validating right away ( on mount )\n\n| prop            | description                     | default |\n| --------------- | ------------------------------- | ------- |\n| validateOnMount | will trigger validation onMount | false   |\n\n<br />\n<br />\n\n---\n\n<br />\n\n## 3.34.0 (June 22, 2021)\n\n### Added\n\n- ability to control when async validation occurs with props\n\n## 3.33.0 (May 21, 2021)\n\n### Added\n\n- createIntlNumberFormatter\n\n## 3.32.3 (May 21, 2021)\n\n### Fixed\n\n- Issue with useFieldState, now returns empty object by default\n\n## 3.32.2 (May 21, 2021)\n\n### Fixed\n\n- Issue with mounting useFieldStates\n\n## 3.32.1 (May 21, 2021)\n\n### Fixed\n\n- Issue with layoutEffect in SSR\n\n## 3.32.0 (May 19, 2021)\n\n### Added\n\n- Ability to walk down a multistep with step selection.\n\n## 3.31.0 (April 26, 2021)\n\n### Added\n\n- formatter functions `formatter = [()=>{}, ()=>{}]`\n\n## 3.30.3 (April 2, 2021)\n\n### Added\n\n- memoized render back because I never should have removed it\n\n## 3.30.2 (March 15, 2021)\n\n### Refactored\n\n- To no longer use event emitter.\n\n## 3.30.1 (March 5, 2021)\n\n### Fixed\n\n- Issue where keep state in scope was not working.\n\n## 3.30.0 (March 2, 2021)\n\n### Added\n\n- Pristine and Dirty to formFieldState\n\n## 3.29.4 (February 24, 2021)\n\n### Updated\n\n- Peer deps to support react v 17\n\n## 3.29.3 (February 5, 2021)\n\n### Fixed\n\n- Issue where ObjectMap `has` would reference wrong get funciton fixes #327\n\n## 3.29.2 (February 4, 2021)\n\n### Fixed\n\n- Issue where carrot pos would be in the wrong place when formatting\n\n### Updated\n\n- `useField` hook to use the `useCarrotPosition` hook ( removed duplicate code )\n\n## 3.29.1 (February 4, 2021)\n\n### Added\n\n- Ability to call `setValue` function for custom formattedObject Inputs\n\n## 3.29.0 (February 2, 2021)\n\n### Added\n\n- Ability to pass `initialize` function for custom initialization of the initial value\n\n## 3.28.0 (February 2, 2021)\n\n### Exposed\n\n- Utils functions that can be used by end users\n\n## 3.27.0 (December 18, 2020)\n\n### Fixed\n\n- bug with update function in form controller where it would pull instead of delete on swap\n\n## 3.26.0 (December 17, 2020)\n\n### Added\n\n- `swap` to array fields\n\n### Rafactored\n\n- Internal state management\n\n## 3.25.0 (December 8, 2020)\n\n### Added\n\n- `onReset` to form props\n\n## 3.24.4 (December 5, 2020)\n\n### Updated\n\n- README and needed to get it to npm ... again again\n\n## 3.24.3 (December 5, 2020)\n\n### Updated\n\n- README and needed to get it to npm ... again\n\n## 3.24.2 (November 24, 2020)\n\n### Updated\n\n- README and needed to get it to npm\n\n## 3.24.1 (November 23, 2020)\n\n### Fixed\n\n- Type issue ( missing allow empty string from props def )\n\n## 3.24.0 (November 19, 2020)\n\n### Fixed\n\n- Issue where Id was not getting passed to default select field\n\n## 3.23.0 (November 18, 2020)\n\n### Removed\n\n- LODASH!!!!! SEE YA LATER NEVER\n\n## 3.22.0 (November 17, 2020)\n\n### Added\n\n- Ability to pass relevant to array fields!!!\n\n## 3.21.2 (November 14, 2020)\n\n### Fixed\n\n- Bug with field level relevant\n\n### Updated\n\n- Form to always evaluate relevance, and not force the user to pass notify.\n\n## 3.21.1 (November 12, 2020)\n\n### Fixed\n\n- Isssue where state would not update after submit\n\n## 3.21.0 (November 12, 2020)\n\n### Added\n\n- Ability to add async validation functions to inputs\n\n## 3.20.0 (November 11, 2020)\n\n### Added\n\n- Ability to not pass keep state to multistep fields, and also added docs for conditional relevant nested array fields\n\n## 3.19.0 (November 10, 2020)\n\n### Added\n\n- Ability to hide or show fields based on relevant, and notify relevant fields\n\n## 3.18.3 (November 10, 2020)\n\n### Fixed\n\n- bug with resetting array field items\n\n## 3.18.2 (November 9, 2020)\n\n### Fixed\n\n- bug with duplicate fields\n\n## 3.18.1 (November 9, 2020)\n\n### Fixed\n\n- bug with keep state registering phantom fields\n\n## 3.18.0 (November 5, 2020)\n\n### Added\n\n- ability to create custom schema fields\n\n## 3.17.1 (November 3, 2020)\n\n### Fixed\n\n- useField was not adding id to label by default\n\n## 3.17.0 (November 3, 2020)\n\n### Added\n\n- Required attribute to input and automatic type generation for useField hook\n\n## 3.16.1 (November 2, 2020)\n\n### Fixed\n\n- Issue where informed props were not passed down to array fields in schema\n\n## 3.16.0 (November 1, 2020)\n\n### Added\n\n- Ability to have conditional schemas!!!!\n\n## 3.15.0 (October 28, 2020)\n\n### Added\n\n- Ability to add array fields in schema!!!!\n\n## 3.14.0 (October 27, 2020)\n\n### Added\n\n- Formatter and Parser !!!!!\n\n## 3.13.2 (October 27, 2020)\n\n### Fixed\n\n- Issue with strict mode double registering\n\n## 3.13.1 (October 23, 2020)\n\n### Fixed\n\n- Bug where inforemd would crash if schema was missing field that was in JSX ( returns null )\n\n## 3.13.0 (October 23, 2020)\n\n### Added\n\n- Ability to render schema fields in specific paces within JSX!!\n\n## 3.12.0 (October 22, 2020)\n\n### Added\n\n- Added AJV Schema shit!!!\n\n## 3.11.0 (October 21, 2020)\n\n### Added\n\n- Schema shit\n\n## 3.10.1 (October 18, 2020)\n\n### Fixed\n\n- Array fields because I stupidly broke them\n\n#### Added\n\n- Tests for multistep fields\n- Better multistep form syntax\n- Better multistep docs\n\n## 3.10.0 (September 29, 2020)\n\n### Updated\n\n- internals to modify state direct to improve performance!\n\n## 3.9.0 (June 15, 2020)\n\n### Updated\n\n- useArray field to expose a reset that resets to initial values\n\n## 3.8.1 (May 11, 2020)\n\n### Fixed\n\n- Issue with back and next types for multistep fields\n\n## 3.8.0 (May 4, 2020)\n\n### Added\n\n- Array field Api control for ArrayFieldItems\n\n## 3.7.0 (May 4, 2020)\n\n### Refactored\n\n- To use field ids instead of names\n\n### Added\n\n- `<Relevant>` component\n\n## 3.6.1 (March 2, 2020)\n\n### Updated\n\n- Type file to include preventEnter on form props\n\n## 3.6.0 (March 1, 2020)\n\n### Added\n\n- Ability to pass formController to useField hook\n\n## 3.5.2 (February 28, 2020)\n\n### Fixed\n\n- [Issue](https://github.com/joepuzzo/informed/issues/275) where new version of react would throw warnings due to bad code\n\n## 3.5.1 (February 27, 2020)\n\n### Fixed\n\n- [Issue](https://github.com/joepuzzo/informed/issues/272) where dynamic nested array fields with keep state kept too much state :)\n\n## 3.5.0 (February 25, 2020)\n\n### Added\n\n- New multistep abilities via setCurrent in `formApi` and `Current` in `formState`. See compex multistep form in docs\n\n## 3.4.0 (February 22, 2020)\n\n### Added\n\n- Ability to spread `informed` object on inputs via the `useField` hook\n\n## 3.3.5 (February 22, 2020)\n\n### Updated\n\n- Readme to show useForm example\n\n## 3.3.4 (February 20, 2020)\n\n### Added\n\n- FormState component to assist when debugging!\n\n## 3.3.3 (February 18, 2020)\n\n### Added\n\n- Types for multisetp forms\n\n## 3.3.2 (February 16, 2020)\n\n### Added\n\n- Ability to use cursor position in mask function\n\n## 3.3.1 (February 16, 2020)\n\n### Updated\n\n- Intro examples to inculde on submit example\n\n## 3.3.0 (February 10, 2020)\n\n### Added\n\n- Field level Yup support\n\n## 3.2.1 (February 9, 2020)\n\n### Fixed\n\n- Typo in yup docs and readme\n\n## 3.2.0 (February 9, 2020)\n\n### Added\n\n- Yup support\n\n## 3.1.2 (February 9, 2020)\n\n### Updated\n\n- docs and readme to link to dicord channel\n\n## 3.1.1 (February 8, 2020)\n\n### Added\n\n- apiRef so you can just pass a ref to the form\n\n## 3.1.0 (February 5, 2020)\n\n### Added\n\n- Step functionality to support multistep forms\n\n## 3.0.2 (January 24, 2020)\n\n### Fixed\n\n- Issue https://github.com/joepuzzo/informed/issues/267\n\n## 3.0.1 (January 24, 2020)\n\n### Fixed\n\n- README ( I wish there was a way on npm to update readme without publishing version )\n\n## 3.0.0 (January 24, 2020)\n\n### Fixed\n\n- Issue with array field validation https://github.com/joepuzzo/informed/issues/259\n- Issue where informed would throw errors when fields were hidden but referenced\n\n### Added\n\n- Ability to ( in the near future ) add validations to scopes ( Enabled because of code refacotor... will add soon :)\n\n### Changed\n\n- The internals to no longer keep track of giant state object but instead generate it on demand\n\n### Removed\n\n- A bunch of useless code :)\n\n#### Cleaned up\n\n- Large portion of the code .. Mostly the formController!\n\n## 2.11.17 (January 21, 2020)\n\n## Update\n\n- useField to trigger validation when validation related props change\n\n## 2.11.16 (November 18, 2019)\n\n## Fixed\n\n- issue with array field where validation would fail\n\n## 2.11.15 (November 6, 2019)\n\n## Fixed\n\n- issue with array field where removing multiple fields did not remove the data from state\n\n## 2.11.14 (November 5, 2019)\n\n## Removed\n\n- removable prop to inputs because it was a bad idea... now it supports removal nativley\n\n## 2.11.13 (November 4, 2019)\n\n## Added\n\n- removable prop to inputs ( adds support for pairing keep state and array fields such that remove button actually removes field )\n\n## 2.11.12 (November 1, 2019)\n\n## Fixed\n\n- issue with keep state on array fields\n\n## 2.11.11 (November 1, 2019)\n\n## Added\n\n- comp name to useField hook\n\n## 2.11.10 (October 21, 2019)\n\n## Added\n\n- missing setFormError prop to FormApi interface\n\n## 2.11.9 (September 10, 2019)\n\n## Added\n\n- keepState to types\n\n## 2.11.8 (July 16, 2019)\n\n## Adds\n\n- allowEmptyStrings form level prop to types\n\n## 2.11.7 (July 8, 2019)\n\n## Fixes\n\n- issue 227 where allowEmptyStrings form level prop did not work\n\n## 2.11.6 (July 2, 2019)\n\n## Fixes\n\n- issue 219 where array fields would not work with scope\n\n## 2.11.5 (July 2, 2019)\n\n## Fixes\n\n- issue 225 where validation will occur on mount when there are initial values\n\n## 2.11.4 (July 1, 2019)\n\n## Fixes\n\n- issue 215 where selects dont work in Edge becase .. you know.. Microsoft\n\n## 2.11.3 (July 1, 2019)\n\n## Fixes\n\n- warning with useLayoutEffect when using SSR\n\n## 2.11.2 (June 27, 2019)\n\n## Updated\n\n- README file to include minzipped badge\n\n## 2.11.1 (June 18, 2019)\n\n## Fixed\n\n- Issue where initial values changing on multiselects caused looping .. oops\n\n## 2.11.0 (June 14, 2019)\n\n## Updated\n\n- useForm to return user props and a render method\n- Form provider to no longer render a `<form></form>` IT NEVER SHOULD HAVE.\n\n## 2.10.2 (June 13, 2019)\n\n## Fixed\n\n- Issue where initial values did not change when form was reset\n\n## 2.10.1 (June 11, 2019)\n\n## Fixed\n\n- Issue where array level validation would not trigger for complex nested fields within array field\n\n## Added\n\n- length as a second parameter to arrayFields validate function\n\n## 2.10.0 (June 7, 2019)\n\n## Added\n\n- ability to pass validation function to an array field\n- arrayFields are now treaded as "shadow" fields\n\n## 2.9.0 (June 6, 2019)\n\n## Added\n\n- useArrayField hook\n\n## 2.8.2 (June 5, 2019)\n\n## Added\n\n- ability to change out form options such as validateFields\n\n## 2.8.1 (June 5, 2019)\n\n## Fixed\n\n- issue with addWithInitialValue when using add and then addWithInitialValue\n\n## 2.8.0 (June 5, 2019)\n\n## Added\n\n- addWithInitialValue to the `ArrayField`\n\n## 2.7.8 (May 31, 2019)\n\n## Fixed\n\n- issue where initial values were not being formatted\n\n## 2.7.7 (May 30, 2019)\n\n## Fixed\n\n- issue where initial values were not being masked\n\n## 2.7.6 (May 29, 2019)\n\n## Updated\n\n- Types file to support validate on formApi\n\n## 2.7.5 (May 29, 2019)\n\n## Updated\n\n- Types file to support any type on form errors\n\n## 2.7.4 (May 23, 2019)\n\n### Fixed\n\n- documentation for creating custom inputs\n\n### Added\n\n- the ability to pass your own ref to inputs\n\n## 2.7.3 (May 22, 2019)\n\n### Fixed\n\n- issue with validation triggering when keep state and validate on blur\n\n## 2.7.2 (May 21, 2019)\n\n### Added\n\n- made `maskWithCursorOffset` optional in types\n\n## 2.7.1 (May 21, 2019)\n\n### Added\n\n- `maskWithCursorOffset` to the type defs\n\n## 2.7.0 (May 21, 2019)\n\n### Added\n\n- `maskWithCursorOffset` prop to inputs\n\n## 2.6.15 (May 20, 2019)\n\n### Added\n\n- maintainCursor to types\n\n## 2.6.14 (May 16, 2019)\n\n### Added\n\n- render and userProps to field context types\n\n## 2.6.13 (May 16, 2019)\n\n### Added\n\n- maskedValue to types\n\n## 2.6.12 (May 14, 2019)\n\n### Added\n\n- getters to useFields field api\n\n## 2.6.11 (May 11, 2019)\n\n### Added\n\n- useField hook to the docs\n\n### Updated\n\n- the interface for useField hook\n\n## 2.6.10 (May 10, 2019)\n\n### Fixed\n\n- issue where initialization code in useform was in the effect and not in constructor\n\n## 2.6.9 (May 10, 2019)\n\n### Fixed\n\n- attempting to fix issue that I think is caused by useEffect in useForm hook\n\n## 2.6.8 (May 10, 2019)\n\n### Fixed\n\n- issues cause by using `useMemo` instead of `useState` for initial render stuff\n\n## 2.6.7 (May 9, 2019)\n\n### Added\n\n- exists function to the field api types\n\n## 2.6.6 (May 9, 2019)\n\n### Added\n\n- exists function to the field api so you can check to see if that field exists\n\n## 2.6.5 (May 9, 2019)\n\n### Fixed\n\n- issue where inital render of useFieldApi would fail when field was not registered yet\n\n## 2.6.4 (May 9, 2019)\n\n### Updated\n\n- useForm hook so that the event handlers can change\n\n## 2.6.3 (May 7, 2019)\n\n### Removed\n\n- debug as a dependency and added my own :)\n\n## 2.6.2 (May 3, 2019)\n\n### Fixed\n\n- issue with default register context missin getField function\n\n## 2.6.1 (May 3, 2019)\n\n### Fixed\n\n- issue with `useFieldApi` hook and `withFieldApi` HOC where reset and validate were not there\n\n### Added\n\n- a few more tests to increase test coverage!!!! wooo\n\n## 2.6.0 (May 2, 2019)\n\n### Added\n\n- `useForm` hook!!! and `FormProvider` component!!!\n\n## 2.5.0 (April 30, 2019)\n\n### Updated\n\n- useField hook to useEffect instead of useLayoutEffect\n\n## 2.4.0 (April 30, 2019)\n\n### Added\n\n- preventEnter prop to the form so users can prevent enter key form submission\n\n## 2.3.2 (April 22, 2019)\n\n### Updated\n\n- Issue with dynamic arrays and initial values\n\n## 2.3.1 (April 12, 2019)\n\n### Updated\n\n- Babel build\n\n## 2.3.0 (April 3, 2019)\n\n### Added\n\n- `allowEmtyStrings` prop to the form\n- `allowEmtyString` prop to inputs\n\n### Fixed\n\n- issue where setValues would not allow empty strings\n\n## 2.2.0 (March 29, 2019)\n\n### Added\n\n- `setFormError` function to the form api\n- `validate` function to the form api\n\n## 2.1.15 (March 28, 2019)\n\n### Fixed\n\n- Issue with setValues missing from the default context\n\n## 2.1.14 (March 27, 2019)\n\n### Fixed\n\n- Issue where reset would call validation\n\n## 2.1.13 (March 18, 2019)\n\n### Updated\n\n- Allowing for optional generic on FormValue\n\n## 2.1.12 (March 13, 2019)\n\n### Updated\n\n- ref to be any type in typings\n\n## 2.1.11 (March 12, 2019)\n\n### Fixed\n\n- issue in typings for ref field on FieldContext\n\n## 2.1.10 (March 12, 2019)\n\n### Fixed\n\n- issue when using a field NOT in the context of a form\n\n## 2.1.9 (March 8, 2019)\n\n### Fixed\n\n- another issue where initial values did not work when keep state was passed\n\n## 2.1.8 (March 8, 2019)\n\n### Fixed\n\n- issue where initial values did not work when keep state was passed\n\n## 2.1.7 (March 3, 2019)\n\n### Fixed\n\n- issue where initial values did not work for `ArrayFields`\n\n## 2.1.6 (Feb 21, 2019)\n\n### Updated\n\n- typing files for type script users\n\n## 2.1.5 (Feb 19, 2019)\n\n### Fixed\n\n- Issue with text area input not setting typed value\n\n## 2.1.4 (Feb 19, 2019)\n\n### Added\n\n- `maskOnBlur` prop to inputs\n\n## 2.1.3 (Feb 14, 2019)\n\n### Added\n\n- `fieldExists` api function to check if field exists\n\n## 2.1.2 (Feb 14, 2019)\n\n### Fixed\n\n- Issue where form that is submitted through enter key would try to prevent default\n\n## 2.1.1 (Feb 14, 2019)\n\n### Fixed\n\n- Issue where form values would not get passed to validation function when touched\n\n## 2.1.0 (Feb 14, 2019)\n\n### Updated\n\n- Format and parse to set maskedValue instead of value\n\n## 2.0.5 (Feb 14, 2019)\n\n### Fixed\n\n- Issue where you could NOT set 0 null or false as initial values because they are falsey\n\n## 2.0.4 (Feb 13, 2019)\n\n### Added\n\n- validateFields function to the form!!!\n\n## 2.0.3 (Feb 13, 2019)\n\n### Fixed\n\n- Issue where reset would not work for scoped fields\n\n### Added\n\n- Set Values to the form api!!!\n\n## 2.0.2 (Feb 13, 2019)\n\n### Fixed\n\n- Issue where ArrayField was prefixing all fields with \'field\'\n- Issue where when input fields changed input did not rerender.\n\n## 2.0.1 (Feb 10, 2019)\n\n### Fixed\n\n- Issue where render and component props were getting passed to the dom form\n\n## 2.0.0 (Feb 7, 2019)\n\n### Added\n\n- useFieldApi\n- useFieldState\n- useFormApi\n- useFormState\n- useField\n- format\n- parse\n- maintianCursor ( fixes issue where cursor jumps to end on mask )\n- ArrayField ( Check out the docs! this is sick! )\n- Form Level validation ( function that can invalidate the form as a whole )\n- debug prop that allows you to visually view the rendering!\n\n### Changed\n\n- the field `"siblings.1"` now resolves to `values.siblings[1]`, it used to resolve to `values.siblings.1`\n- the field `"siblings[\'2\']"` now resolves to `values.siblings[2]`, it used to resolve to `values.siblings.2`\n- withFormApi will no longer trigger a rerender if the fomrs state changes. This is a great optimization for those who want to modify but dont care about the form state!\n- the `validate` prop now expects the validation function to return `undefined` if there is no error. Any other returned value (including falsey `null`, `0`, etc will be treated as an error for the field.\n\n### Removed\n\n- The Field Component\n- `fieldExists` not needed\n- `setState` will maybe add later but its complex and out of scope ATM\n- `setValues` will maybe add later but its complex and out of scope ATM ( as of V 2.0.3 its back! )\n- `preSubmit` was never needed.. developers can do this themselves\n- Async Validation. Async validation led to many issues that overcomplicated `informed`. We determined this is something that the developer could achive on there own for now but we may look into adding this in the future.\n\n## 1.10.12 ( December 4, 2018 )\n\n### Updated\n\n- typescript definition file\n\n## 1.10.11 & 1.10.10 I ran version patch twice lol ( December 4, 2018 )\n\n### Updated\n\n- Select forward ref\n\n## 1.10.9 ( November 16, 2018 )\n\n### Updated\n\n- files in package json to include typeigs\n\n## 1.10.8 ( November 8, 2018 )\n\n### Added\n\n- type file for typescript\n\n## 1.10.7 ( October 11, 2018 )\n\n### Updated\n\n- Name of withFormSate\n\n## 1.10.6 ( October 2, 2018 )\n\n### Fixed\n\n- Skipped test for select!!!\n\n### Updated\n\n- Select to use new ref interface\n\n## 1.10.5 ( September 14, 2018 )\n\n### Added\n\n- License\n\n## 1.10.4 ( August 13, 2018 )\n\n### Fixed\n\n- Issue with @babel/runtime was the dep when it should have ben @babel/runtime-corejs2\n\n## 1.10.3 ( August 13, 2018 )\n\n### Fixed\n\n- Issue with @babel/runtime for real this time\n\n## 1.10.2 ( August 13, 2018 )\n\n### Fixed\n\n- Issue with @babel/runtime\n\n## 1.10.1 ( August 13, 2018 )\n\n### Removed\n\n- mistakenly added dev deps that were deps... oops\n\n## 1.10.0 ( August 13, 2018 )\n\n### Added\n\n- submits to the form state\n\n## 1.9.0 ( August 8, 2018 )\n\n### Rebuilt\n\n- Added prettier so all the files have been changed... so i rebuilt to have source maps match code\n\n## 1.8.1 ( August 1, 2018 )\n\n### Rebuilt\n\n- Attempting to simply rebuild lib due to possible build issue\n\n## 1.8.0 ( August 1, 2018 )\n\n### Updated\n\n- initialValue to get exposed as prop to custom fields\n\n## 1.7.5 ( July 31, 2018 )\n\n### Added\n\n- Source maps\n\n## 1.7.4 ( July 26, 2018 )\n\n### Fixed\n\n- Issue where Basic radio group was not getting exported\n\n## 1.7.3 ( July 23, 2018 )\n\n### Fixed\n\n- issue where bind to field did not pass down the field prop.\n\n## 1.7.2 ( July 20, 2018 )\n\n### Fixed\n\n- Issue where element wont get removed from array when deregistering field... this is used when dynamically removing value\n\n## 1.7.1 ( July 20, 2018 )\n\n### Added\n\n- Field prop is now exposed to field elements and default inputs pass field as name to html inputs\n\n## 1.7.0 ( July 18, 2018 )\n\n### Added\n\n- fieldExists method to the formApi\n\n## 1.6.0 ( July 16, 2018 )\n\n### Added\n\n- onValueChange prop to inputs so you can tie into when values change!!\n\n## 1.5.2 ( July 13, 2018 )\n\n### Fixed\n\n- Issue where prop changes to fields would not get recognized\n\n## 1.5.1 ( July 13, 2018 )\n\n### Fixed\n\n- issue where i forgott to add @babel/runtime as dependency\n\n## 1.5.0 ( July 12, 2018 )\n\n### Added\n\n- asyncValidation prop to inputs\n- asyncValidateOnBlur prop to inputs\n\n## 1.4.0 ( July 5, 2018 )\n\n### Added\n\n- Basic input fields so users can more easily create custom inputs\n- Docs for creating custom inputs\n\n## 1.3.11 ( July 9, 2018 )\n\n### Fixed\n\n- issue where you could not nest scope\n\n## 1.3.10 ( July 5, 2018 )\n\n### Fixed\n\n- issue where you could not pass initialValue=false to checkbox\n\n## 1.3.9 ( July 5, 2018 )\n\n### Fixed\n\n- issue where mutable values were getting passed to onSubmit and getState\n\n## 1.3.8 ( July 2, 2018 )\n\n### Fixed\n\n- issue where path array was being build every get and set\n\n## 1.3.7 ( July 2, 2018 )\n\n### Fixed\n\n- issue where onChange was getting passed to internal form element\n\n## 1.3.6 ( June 28, 2018 )\n\n### Added\n\n- globalObject: \'this\' to the webpack dist config to support SSR\n\n## 1.3.5 ( June 28, 2018 )\n\n### Fixed\n\n- Issue with event emitter limit ( need to look into alternative solution )\n- Removed depricated sandbox sinon usage that was causing errors during tests\n\n## 1.3.3 ( June 28, 2018 )\n\n### Updated\n\n- Webpack dist configuration to keep class names\n\n## 1.3.2 ( June 28, 2018 )\n\n### Fixed\n\n- Issue were initialValue was getting passed all the way down to html input\n- Issue where form would not rerender when field was registered\n\n## 1.3.1 ( June 28, 2018 )\n\n### Fixed\n\n- Issue were validateOnMount was getting passed all the way down to html input\n\n## 1.3.0 ( June 28, 2018 )\n\n### Added\n\n- mask so you can mask values at field level. example `value => value + \'!!!\'`\n\n## 1.2.1 ( June 27, 2018 )\n\n### Added\n\n- hook so you can add a button with type=reset and it will reset the form\n\n## 1.2.0 ( June 27, 2018 )\n\n### Added\n\n- validateOnMount to input props\n\n## 1.1.2 ( June 25, 2018 )\n\n### Moved\n\n- React and React-Dom to dev dependencies\n\n## 1.1.1 ( June 18, 2018 )\n\n### Fixed\n\n- Bug where i did not do null check on event within on submit\n\n## 1.0.1 ( June 15, 2018 )\n\n### Added\n\n- Notify prop to inputs that allows you to notify other fields when your error state changes ( see docs )\n\n## 1.0.0 (June 12, 2018)\n\n### Added\n\n- Text\n- TextArea\n- Radio Group\n- Radio\n- Select\n- Select as Multiselect !!!\n- Checkbox\n- withRadioGroup\n- withFieldApi\n- withFieldState\n- withFormApi\n- withFormState\n- asField\n- Form\n- Field\n\n### Changed\n\n**\nNote: this was the first release but i wanted to include changes from\n`react-form` so here they are:\n**\n\n- `formApi` was split into two parts `formApi` ( contains just functions ) `formState` ( contains just form state )\n- Form level validation is gone. You do all validation via field validation.\n- `defaultValues` Form prop is now called `initialValues`\n- `onChange` Form prop only recieves the `formState`. It used to retrieve the form Api as well.\n- `preventDefault` Form prop is now `dontPreventDefault`\n- `getApi` Form prop just returns the formApi, not the state and the api.\n- `Form` component now renders the `form` element internally. So you dont have to "hook it up" anymore!!\n\n### Removed\n\n**\nNote: this was the first release but i wanted to include things that were removed from\n`react-form` so here they are:\n**\n\n- `NestedField` you can use `Scope` instead but all it does is scope internal fields to `scope="your-scope"`\n- validateOnSubmit was removed. Now the form always validates on submit by default and you can opt into sooner validation at field level.\n- `defaultValues` form prop is now called `initialValues`\n- `pure` Form prop. Its not needed anymore due to the use of `React.PureComponent` internally.\n- add, remove, and swap values. The developer can achive this on there own without the use of internal functionality.\n- Array Syntax. In order to keep things simple we now only support the string syntax for field names.\n- Async Validation. Async validation led to many issues that overcomplicated `react-form`. We determined this is something that the developer could achive on there own for now but we may look into adding this in the future.\n- Warning and Success have been removed for now to keep lib lean but we may add additional functions in the future.\n',
+        '## 4.0.18 (December 23rd, 2021)\n\n### Fixed\n\n- issue where values would get cleared on un-mount\n\n## 4.0.17 (December 17th, 2021)\n\n### Fixed\n\n- issue where I forgot to deregister fields when they became irrelevant\n\n## 4.0.16 (December 17th, 2021)\n\n### Fixed\n\n- issue where I forgot to allow relevanceDeps to be passed to multistep step\n\n## 4.0.15 (December 15th, 2021)\n\n### Moved\n\n- The repo to tesla or go needed to re publish to get updated README to npm\n\n## 4.0.14 (December 15th, 2021)\n\n### Fixed\n\n- forgot to add getCurrentStep to multistepApi\n- forgot to add nextStep and previousStep to multistepState\n\n## 4.0.13 (December 15th, 2021)\n\n### Fixed\n\n- issue where set touched did not default meta when field is not there\n\n## 4.0.12 (December 15th, 2021)\n\n### Fixed\n\n- issue where `FormField` could not take field props\n\n## 4.0.11 (December 15th, 2021)\n\n### Fixed\n\n- missing type for Relevant\n\n## 4.0.10 (December 15th, 2021)\n\n### Fixed\n\n- issue where FormProvider was not exported\n\n## 4.0.9 (December 13th, 2021)\n\n### Fixed\n\n- issue where passing showErrorIfTouched={false} would not work\n\n## 4.0.8 (December 10th, 2021)\n\n### Removed\n\n- Empty dependencies object from package.json\n\n## 4.0.7 (December 10th, 2021)\n\n### Fixed\n\n- Issue with relevance subscription when no relevance function\n\n## 4.0.6 (December 9th, 2021)\n\n### Fixed\n\n- Missing functions setValues and setTheseValues\n\n## 4.0.5 (December 9th, 2021)\n\n### Fixed\n\n- Missing types for validate and validateField on FormApi\n\n## 4.0.4 (December 9th, 2021)\n\n### Fixed\n\n- Issue where we forgot to expose form validate\n- Missing utils types\n\n## Added\n\n- useScope and useScoper to exports\n\n## 4.0.3 (December 7th, 2021)\n\n### Fixed\n\n- Issue with forms valid and invalid when relevance changes\n\n## 4.0.2 (December 7th, 2021)\n\n### Fixed\n\n- Issue with schema path util `inverter[12].air_filter_ok` would not work\n\n## 4.0.1 (December 7th, 2021)\n\n### Fixed\n\n- Issue with initializing when becoming relevant\n\n## 4.0 !!!!\n\n### Breaking changes\n\n#### onSubmit signature\n\nOld\n\n```\nconst onSubmit = values => console.log( values );\n```\n\nNew\n\n```\nconst onSubmit = formState => console.log( formState.values );\n```\n\n#### Text --\x3e Input\n\nOld\n\n```jsx\n<Text field="name" />\n```\n\nNew\n\n```jsx\n<Input name="name" />\n```\n\n#### apiRef --\x3e formApiRef\n\nOld\n\n```jsx\n<Form apiRef={apiRef} />\n// OR\n<Form getApi={getApi} />\n```\n\nNew\n\n```jsx\n<Form formApiRef={formApiRef} />\n```\n\n#### informed:props ( schema )\n\n```\ninformed:props is now ui:props when using schema based forms\n```\n\n#### `asField` has been removed\n\nInstead of doing this\n\n```js\nconst CustomField = asField({ fieldState, fieldApi }) => {}\n```\n\nDo this\n\n```js\nconst CustomField = props => {\n  const { fieldState, fieldApi } = useField(props);\n};\n```\n\n#### Relevance\n\nThe when function for relevance now has this signature\n\n```\nwhen={({formState, formApi, scope}) => {...} }\n```\n\n#### yupSchema\n\n```\nvalidationSchema ---\x3e is now yupSchema\n```\n\n#### Array Fields\n\n##### Renamed `field` to `name`\n\n```jsx\n<ArrayField.Items>\n  {({ remove, field }) => (\n    <>\n      <Input name={field} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\nIs Now\n\n```jsx\n<ArrayField.Items>\n  {({ remove, name }) => (\n    <>\n      <Input name={name} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\n##### No more array field path prefixing\n\nOld:\n\n```jsx\n<ArrayField.Items>\n  {({ remove, field }) => (\n    <>\n      <Input name={`${field}.name`} />\n      <Input name={`${field}.age`} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\nNew:\n\n```jsx\n<ArrayField.Items>\n  {({ remove }) => (\n    <>\n      <Input name="name" />\n      <Input name="age" />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\n##### No more values in array field render prop\n\nOld:\n\n```jsx\n// Some component you need to use state of array field item\nconst FieldState = ({ values }) => {\n  return (\n    <pre>\n      <code>{JSON.stringify(values, null, 2)}</code>\n    </pre>\n  );\n};\n\n<ArrayField.Items>\n  {({ remove, values }) => (\n    <>\n      <Input name="name" />\n      <Input name="age" />\n      <FieldState values={values} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>;\n```\n\nNew:\n\n```jsx\n// Some component you need to use state of array field item\nconst FieldState = () => {\n  const { values } = useArrayFieldItemState();\n  return (\n    <pre>\n      <code>{JSON.stringify(values, null, 2)}</code>\n    </pre>\n  );\n};\n\n<ArrayField.Items>\n  {({ remove }) => (\n    <>\n      <Input name="name" />\n      <Input name="age" />\n      <FieldState />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>;\n```\n\n#### Debugging with `<FormState />`\n\nOld:\n\n```jsx\n<FormState values errors />\n```\n\nNew:\n\n```jsx\n<Debug values errors />\n```\n\n#### Custom Inputs\n\nMinor changes to custom inputs\n\nNew:\n\n```jsx\nconst CustomInput = props => {\n  const { fieldState, fieldApi, render, ref, userProps } = useField(props);\n\n  // The field state\n  const { value, error, showError } = fieldState;\n\n  // The field control\n  const { setValue, setTouched } = fieldApi;\n\n  // Everything else\n  const { label, id, ...rest } = userProps;\n\n  return render(\n    <>\n      {label ? <label htmlFor={id}>{label}</label> : null}\n      <input\n        {...rest}\n        id={id}\n        ref={ref}\n        value={!value && value !== 0 ? \'\' : value}\n        onChange={e => {\n          setValue(e.target.value, e);\n        }}\n        onBlur={e => {\n          setTouched(true, e);\n        }}\n        style={showError ? { border: \'solid 1px red\' } : null}\n      />\n      {showError ? <small style={{ color: \'red\' }}>{error}</small> : null}\n    </>\n  );\n};\n```\n\n#### Validation\n\nValidation is now controlled via validateOn="validationString"\n\nBy default fields will only validate on blur. To get\nmore granular validation, simply pass in `validateOn` props.\n\nSee table below for mapping:\n\n<br />\n\n| validateOn    | derived       | change       | blur         | submit       | default |\n| ------------- | ------------- | ------------ | ------------ | ------------ | ------- |\n| change        | change-change | sync + async | sync + async | sync + async |         |\n| blur          | blur-blur     | x            | sync + async | sync + async | x       |\n| change-blur   | change-blur   | sync         | sync + async | sync + async |         |\n| change-submit | change-submit | sync         | sync         | sync + async |         |\n| blur-submit   | submit-submit | x            | sync         | sync + async |         |\n| submit        | submit-submit | x            | x            | sync + async |         |\n\n<br />\n\nValidation is controlled via the `validateOn` prop, but in order to control when it shows,\nuse the `showErrorIfError` and `showErrorIfDirty` props. **This is because sometimes you may want the form to be invalid but not show the error to the user yet ( default is `showErrorIfTouched` )**\n\n| prop               | description                                                                                                  | default |\n| ------------------ | ------------------------------------------------------------------------------------------------------------ | ------- |\n| showErrorIfError   | will set `showError` for that field to true whenever there is an error (typically used with validateOnMount) |         |\n| showErrorIfTouched | will set `showError` for that field to true whenever there is an error and the field is touched              | x       |\n| showErrorIfDirty   | will set `showError` for that field to true whenever there is an error and the field is dirty                |         |\n\n<br />\n\nFinally we have a use case for validating right away ( on mount )\n\n| prop            | description                     | default |\n| --------------- | ------------------------------- | ------- |\n| validateOnMount | will trigger validation onMount | false   |\n\n<br />\n<br />\n\n---\n\n<br />\n\n## 3.34.0 (June 22, 2021)\n\n### Added\n\n- ability to control when async validation occurs with props\n\n## 3.33.0 (May 21, 2021)\n\n### Added\n\n- createIntlNumberFormatter\n\n## 3.32.3 (May 21, 2021)\n\n### Fixed\n\n- Issue with useFieldState, now returns empty object by default\n\n## 3.32.2 (May 21, 2021)\n\n### Fixed\n\n- Issue with mounting useFieldStates\n\n## 3.32.1 (May 21, 2021)\n\n### Fixed\n\n- Issue with layoutEffect in SSR\n\n## 3.32.0 (May 19, 2021)\n\n### Added\n\n- Ability to walk down a multistep with step selection.\n\n## 3.31.0 (April 26, 2021)\n\n### Added\n\n- formatter functions `formatter = [()=>{}, ()=>{}]`\n\n## 3.30.3 (April 2, 2021)\n\n### Added\n\n- memoized render back because I never should have removed it\n\n## 3.30.2 (March 15, 2021)\n\n### Refactored\n\n- To no longer use event emitter.\n\n## 3.30.1 (March 5, 2021)\n\n### Fixed\n\n- Issue where keep state in scope was not working.\n\n## 3.30.0 (March 2, 2021)\n\n### Added\n\n- Pristine and Dirty to formFieldState\n\n## 3.29.4 (February 24, 2021)\n\n### Updated\n\n- Peer deps to support react v 17\n\n## 3.29.3 (February 5, 2021)\n\n### Fixed\n\n- Issue where ObjectMap `has` would reference wrong get funciton fixes #327\n\n## 3.29.2 (February 4, 2021)\n\n### Fixed\n\n- Issue where carrot pos would be in the wrong place when formatting\n\n### Updated\n\n- `useField` hook to use the `useCarrotPosition` hook ( removed duplicate code )\n\n## 3.29.1 (February 4, 2021)\n\n### Added\n\n- Ability to call `setValue` function for custom formattedObject Inputs\n\n## 3.29.0 (February 2, 2021)\n\n### Added\n\n- Ability to pass `initialize` function for custom initialization of the initial value\n\n## 3.28.0 (February 2, 2021)\n\n### Exposed\n\n- Utils functions that can be used by end users\n\n## 3.27.0 (December 18, 2020)\n\n### Fixed\n\n- bug with update function in form controller where it would pull instead of delete on swap\n\n## 3.26.0 (December 17, 2020)\n\n### Added\n\n- `swap` to array fields\n\n### Rafactored\n\n- Internal state management\n\n## 3.25.0 (December 8, 2020)\n\n### Added\n\n- `onReset` to form props\n\n## 3.24.4 (December 5, 2020)\n\n### Updated\n\n- README and needed to get it to npm ... again again\n\n## 3.24.3 (December 5, 2020)\n\n### Updated\n\n- README and needed to get it to npm ... again\n\n## 3.24.2 (November 24, 2020)\n\n### Updated\n\n- README and needed to get it to npm\n\n## 3.24.1 (November 23, 2020)\n\n### Fixed\n\n- Type issue ( missing allow empty string from props def )\n\n## 3.24.0 (November 19, 2020)\n\n### Fixed\n\n- Issue where Id was not getting passed to default select field\n\n## 3.23.0 (November 18, 2020)\n\n### Removed\n\n- LODASH!!!!! SEE YA LATER NEVER\n\n## 3.22.0 (November 17, 2020)\n\n### Added\n\n- Ability to pass relevant to array fields!!!\n\n## 3.21.2 (November 14, 2020)\n\n### Fixed\n\n- Bug with field level relevant\n\n### Updated\n\n- Form to always evaluate relevance, and not force the user to pass notify.\n\n## 3.21.1 (November 12, 2020)\n\n### Fixed\n\n- Isssue where state would not update after submit\n\n## 3.21.0 (November 12, 2020)\n\n### Added\n\n- Ability to add async validation functions to inputs\n\n## 3.20.0 (November 11, 2020)\n\n### Added\n\n- Ability to not pass keep state to multistep fields, and also added docs for conditional relevant nested array fields\n\n## 3.19.0 (November 10, 2020)\n\n### Added\n\n- Ability to hide or show fields based on relevant, and notify relevant fields\n\n## 3.18.3 (November 10, 2020)\n\n### Fixed\n\n- bug with resetting array field items\n\n## 3.18.2 (November 9, 2020)\n\n### Fixed\n\n- bug with duplicate fields\n\n## 3.18.1 (November 9, 2020)\n\n### Fixed\n\n- bug with keep state registering phantom fields\n\n## 3.18.0 (November 5, 2020)\n\n### Added\n\n- ability to create custom schema fields\n\n## 3.17.1 (November 3, 2020)\n\n### Fixed\n\n- useField was not adding id to label by default\n\n## 3.17.0 (November 3, 2020)\n\n### Added\n\n- Required attribute to input and automatic type generation for useField hook\n\n## 3.16.1 (November 2, 2020)\n\n### Fixed\n\n- Issue where informed props were not passed down to array fields in schema\n\n## 3.16.0 (November 1, 2020)\n\n### Added\n\n- Ability to have conditional schemas!!!!\n\n## 3.15.0 (October 28, 2020)\n\n### Added\n\n- Ability to add array fields in schema!!!!\n\n## 3.14.0 (October 27, 2020)\n\n### Added\n\n- Formatter and Parser !!!!!\n\n## 3.13.2 (October 27, 2020)\n\n### Fixed\n\n- Issue with strict mode double registering\n\n## 3.13.1 (October 23, 2020)\n\n### Fixed\n\n- Bug where inforemd would crash if schema was missing field that was in JSX ( returns null )\n\n## 3.13.0 (October 23, 2020)\n\n### Added\n\n- Ability to render schema fields in specific paces within JSX!!\n\n## 3.12.0 (October 22, 2020)\n\n### Added\n\n- Added AJV Schema shit!!!\n\n## 3.11.0 (October 21, 2020)\n\n### Added\n\n- Schema shit\n\n## 3.10.1 (October 18, 2020)\n\n### Fixed\n\n- Array fields because I stupidly broke them\n\n#### Added\n\n- Tests for multistep fields\n- Better multistep form syntax\n- Better multistep docs\n\n## 3.10.0 (September 29, 2020)\n\n### Updated\n\n- internals to modify state direct to improve performance!\n\n## 3.9.0 (June 15, 2020)\n\n### Updated\n\n- useArray field to expose a reset that resets to initial values\n\n## 3.8.1 (May 11, 2020)\n\n### Fixed\n\n- Issue with back and next types for multistep fields\n\n## 3.8.0 (May 4, 2020)\n\n### Added\n\n- Array field Api control for ArrayFieldItems\n\n## 3.7.0 (May 4, 2020)\n\n### Refactored\n\n- To use field ids instead of names\n\n### Added\n\n- `<Relevant>` component\n\n## 3.6.1 (March 2, 2020)\n\n### Updated\n\n- Type file to include preventEnter on form props\n\n## 3.6.0 (March 1, 2020)\n\n### Added\n\n- Ability to pass formController to useField hook\n\n## 3.5.2 (February 28, 2020)\n\n### Fixed\n\n- [Issue](https://github.com/joepuzzo/informed/issues/275) where new version of react would throw warnings due to bad code\n\n## 3.5.1 (February 27, 2020)\n\n### Fixed\n\n- [Issue](https://github.com/joepuzzo/informed/issues/272) where dynamic nested array fields with keep state kept too much state :)\n\n## 3.5.0 (February 25, 2020)\n\n### Added\n\n- New multistep abilities via setCurrent in `formApi` and `Current` in `formState`. See compex multistep form in docs\n\n## 3.4.0 (February 22, 2020)\n\n### Added\n\n- Ability to spread `informed` object on inputs via the `useField` hook\n\n## 3.3.5 (February 22, 2020)\n\n### Updated\n\n- Readme to show useForm example\n\n## 3.3.4 (February 20, 2020)\n\n### Added\n\n- FormState component to assist when debugging!\n\n## 3.3.3 (February 18, 2020)\n\n### Added\n\n- Types for multisetp forms\n\n## 3.3.2 (February 16, 2020)\n\n### Added\n\n- Ability to use cursor position in mask function\n\n## 3.3.1 (February 16, 2020)\n\n### Updated\n\n- Intro examples to inculde on submit example\n\n## 3.3.0 (February 10, 2020)\n\n### Added\n\n- Field level Yup support\n\n## 3.2.1 (February 9, 2020)\n\n### Fixed\n\n- Typo in yup docs and readme\n\n## 3.2.0 (February 9, 2020)\n\n### Added\n\n- Yup support\n\n## 3.1.2 (February 9, 2020)\n\n### Updated\n\n- docs and readme to link to dicord channel\n\n## 3.1.1 (February 8, 2020)\n\n### Added\n\n- apiRef so you can just pass a ref to the form\n\n## 3.1.0 (February 5, 2020)\n\n### Added\n\n- Step functionality to support multistep forms\n\n## 3.0.2 (January 24, 2020)\n\n### Fixed\n\n- Issue https://github.com/joepuzzo/informed/issues/267\n\n## 3.0.1 (January 24, 2020)\n\n### Fixed\n\n- README ( I wish there was a way on npm to update readme without publishing version )\n\n## 3.0.0 (January 24, 2020)\n\n### Fixed\n\n- Issue with array field validation https://github.com/joepuzzo/informed/issues/259\n- Issue where informed would throw errors when fields were hidden but referenced\n\n### Added\n\n- Ability to ( in the near future ) add validations to scopes ( Enabled because of code refacotor... will add soon :)\n\n### Changed\n\n- The internals to no longer keep track of giant state object but instead generate it on demand\n\n### Removed\n\n- A bunch of useless code :)\n\n#### Cleaned up\n\n- Large portion of the code .. Mostly the formController!\n\n## 2.11.17 (January 21, 2020)\n\n## Update\n\n- useField to trigger validation when validation related props change\n\n## 2.11.16 (November 18, 2019)\n\n## Fixed\n\n- issue with array field where validation would fail\n\n## 2.11.15 (November 6, 2019)\n\n## Fixed\n\n- issue with array field where removing multiple fields did not remove the data from state\n\n## 2.11.14 (November 5, 2019)\n\n## Removed\n\n- removable prop to inputs because it was a bad idea... now it supports removal nativley\n\n## 2.11.13 (November 4, 2019)\n\n## Added\n\n- removable prop to inputs ( adds support for pairing keep state and array fields such that remove button actually removes field )\n\n## 2.11.12 (November 1, 2019)\n\n## Fixed\n\n- issue with keep state on array fields\n\n## 2.11.11 (November 1, 2019)\n\n## Added\n\n- comp name to useField hook\n\n## 2.11.10 (October 21, 2019)\n\n## Added\n\n- missing setFormError prop to FormApi interface\n\n## 2.11.9 (September 10, 2019)\n\n## Added\n\n- keepState to types\n\n## 2.11.8 (July 16, 2019)\n\n## Adds\n\n- allowEmptyStrings form level prop to types\n\n## 2.11.7 (July 8, 2019)\n\n## Fixes\n\n- issue 227 where allowEmptyStrings form level prop did not work\n\n## 2.11.6 (July 2, 2019)\n\n## Fixes\n\n- issue 219 where array fields would not work with scope\n\n## 2.11.5 (July 2, 2019)\n\n## Fixes\n\n- issue 225 where validation will occur on mount when there are initial values\n\n## 2.11.4 (July 1, 2019)\n\n## Fixes\n\n- issue 215 where selects dont work in Edge becase .. you know.. Microsoft\n\n## 2.11.3 (July 1, 2019)\n\n## Fixes\n\n- warning with useLayoutEffect when using SSR\n\n## 2.11.2 (June 27, 2019)\n\n## Updated\n\n- README file to include minzipped badge\n\n## 2.11.1 (June 18, 2019)\n\n## Fixed\n\n- Issue where initial values changing on multiselects caused looping .. oops\n\n## 2.11.0 (June 14, 2019)\n\n## Updated\n\n- useForm to return user props and a render method\n- Form provider to no longer render a `<form></form>` IT NEVER SHOULD HAVE.\n\n## 2.10.2 (June 13, 2019)\n\n## Fixed\n\n- Issue where initial values did not change when form was reset\n\n## 2.10.1 (June 11, 2019)\n\n## Fixed\n\n- Issue where array level validation would not trigger for complex nested fields within array field\n\n## Added\n\n- length as a second parameter to arrayFields validate function\n\n## 2.10.0 (June 7, 2019)\n\n## Added\n\n- ability to pass validation function to an array field\n- arrayFields are now treaded as "shadow" fields\n\n## 2.9.0 (June 6, 2019)\n\n## Added\n\n- useArrayField hook\n\n## 2.8.2 (June 5, 2019)\n\n## Added\n\n- ability to change out form options such as validateFields\n\n## 2.8.1 (June 5, 2019)\n\n## Fixed\n\n- issue with addWithInitialValue when using add and then addWithInitialValue\n\n## 2.8.0 (June 5, 2019)\n\n## Added\n\n- addWithInitialValue to the `ArrayField`\n\n## 2.7.8 (May 31, 2019)\n\n## Fixed\n\n- issue where initial values were not being formatted\n\n## 2.7.7 (May 30, 2019)\n\n## Fixed\n\n- issue where initial values were not being masked\n\n## 2.7.6 (May 29, 2019)\n\n## Updated\n\n- Types file to support validate on formApi\n\n## 2.7.5 (May 29, 2019)\n\n## Updated\n\n- Types file to support any type on form errors\n\n## 2.7.4 (May 23, 2019)\n\n### Fixed\n\n- documentation for creating custom inputs\n\n### Added\n\n- the ability to pass your own ref to inputs\n\n## 2.7.3 (May 22, 2019)\n\n### Fixed\n\n- issue with validation triggering when keep state and validate on blur\n\n## 2.7.2 (May 21, 2019)\n\n### Added\n\n- made `maskWithCursorOffset` optional in types\n\n## 2.7.1 (May 21, 2019)\n\n### Added\n\n- `maskWithCursorOffset` to the type defs\n\n## 2.7.0 (May 21, 2019)\n\n### Added\n\n- `maskWithCursorOffset` prop to inputs\n\n## 2.6.15 (May 20, 2019)\n\n### Added\n\n- maintainCursor to types\n\n## 2.6.14 (May 16, 2019)\n\n### Added\n\n- render and userProps to field context types\n\n## 2.6.13 (May 16, 2019)\n\n### Added\n\n- maskedValue to types\n\n## 2.6.12 (May 14, 2019)\n\n### Added\n\n- getters to useFields field api\n\n## 2.6.11 (May 11, 2019)\n\n### Added\n\n- useField hook to the docs\n\n### Updated\n\n- the interface for useField hook\n\n## 2.6.10 (May 10, 2019)\n\n### Fixed\n\n- issue where initialization code in useform was in the effect and not in constructor\n\n## 2.6.9 (May 10, 2019)\n\n### Fixed\n\n- attempting to fix issue that I think is caused by useEffect in useForm hook\n\n## 2.6.8 (May 10, 2019)\n\n### Fixed\n\n- issues cause by using `useMemo` instead of `useState` for initial render stuff\n\n## 2.6.7 (May 9, 2019)\n\n### Added\n\n- exists function to the field api types\n\n## 2.6.6 (May 9, 2019)\n\n### Added\n\n- exists function to the field api so you can check to see if that field exists\n\n## 2.6.5 (May 9, 2019)\n\n### Fixed\n\n- issue where inital render of useFieldApi would fail when field was not registered yet\n\n## 2.6.4 (May 9, 2019)\n\n### Updated\n\n- useForm hook so that the event handlers can change\n\n## 2.6.3 (May 7, 2019)\n\n### Removed\n\n- debug as a dependency and added my own :)\n\n## 2.6.2 (May 3, 2019)\n\n### Fixed\n\n- issue with default register context missin getField function\n\n## 2.6.1 (May 3, 2019)\n\n### Fixed\n\n- issue with `useFieldApi` hook and `withFieldApi` HOC where reset and validate were not there\n\n### Added\n\n- a few more tests to increase test coverage!!!! wooo\n\n## 2.6.0 (May 2, 2019)\n\n### Added\n\n- `useForm` hook!!! and `FormProvider` component!!!\n\n## 2.5.0 (April 30, 2019)\n\n### Updated\n\n- useField hook to useEffect instead of useLayoutEffect\n\n## 2.4.0 (April 30, 2019)\n\n### Added\n\n- preventEnter prop to the form so users can prevent enter key form submission\n\n## 2.3.2 (April 22, 2019)\n\n### Updated\n\n- Issue with dynamic arrays and initial values\n\n## 2.3.1 (April 12, 2019)\n\n### Updated\n\n- Babel build\n\n## 2.3.0 (April 3, 2019)\n\n### Added\n\n- `allowEmtyStrings` prop to the form\n- `allowEmtyString` prop to inputs\n\n### Fixed\n\n- issue where setValues would not allow empty strings\n\n## 2.2.0 (March 29, 2019)\n\n### Added\n\n- `setFormError` function to the form api\n- `validate` function to the form api\n\n## 2.1.15 (March 28, 2019)\n\n### Fixed\n\n- Issue with setValues missing from the default context\n\n## 2.1.14 (March 27, 2019)\n\n### Fixed\n\n- Issue where reset would call validation\n\n## 2.1.13 (March 18, 2019)\n\n### Updated\n\n- Allowing for optional generic on FormValue\n\n## 2.1.12 (March 13, 2019)\n\n### Updated\n\n- ref to be any type in typings\n\n## 2.1.11 (March 12, 2019)\n\n### Fixed\n\n- issue in typings for ref field on FieldContext\n\n## 2.1.10 (March 12, 2019)\n\n### Fixed\n\n- issue when using a field NOT in the context of a form\n\n## 2.1.9 (March 8, 2019)\n\n### Fixed\n\n- another issue where initial values did not work when keep state was passed\n\n## 2.1.8 (March 8, 2019)\n\n### Fixed\n\n- issue where initial values did not work when keep state was passed\n\n## 2.1.7 (March 3, 2019)\n\n### Fixed\n\n- issue where initial values did not work for `ArrayFields`\n\n## 2.1.6 (Feb 21, 2019)\n\n### Updated\n\n- typing files for type script users\n\n## 2.1.5 (Feb 19, 2019)\n\n### Fixed\n\n- Issue with text area input not setting typed value\n\n## 2.1.4 (Feb 19, 2019)\n\n### Added\n\n- `maskOnBlur` prop to inputs\n\n## 2.1.3 (Feb 14, 2019)\n\n### Added\n\n- `fieldExists` api function to check if field exists\n\n## 2.1.2 (Feb 14, 2019)\n\n### Fixed\n\n- Issue where form that is submitted through enter key would try to prevent default\n\n## 2.1.1 (Feb 14, 2019)\n\n### Fixed\n\n- Issue where form values would not get passed to validation function when touched\n\n## 2.1.0 (Feb 14, 2019)\n\n### Updated\n\n- Format and parse to set maskedValue instead of value\n\n## 2.0.5 (Feb 14, 2019)\n\n### Fixed\n\n- Issue where you could NOT set 0 null or false as initial values because they are falsey\n\n## 2.0.4 (Feb 13, 2019)\n\n### Added\n\n- validateFields function to the form!!!\n\n## 2.0.3 (Feb 13, 2019)\n\n### Fixed\n\n- Issue where reset would not work for scoped fields\n\n### Added\n\n- Set Values to the form api!!!\n\n## 2.0.2 (Feb 13, 2019)\n\n### Fixed\n\n- Issue where ArrayField was prefixing all fields with \'field\'\n- Issue where when input fields changed input did not rerender.\n\n## 2.0.1 (Feb 10, 2019)\n\n### Fixed\n\n- Issue where render and component props were getting passed to the dom form\n\n## 2.0.0 (Feb 7, 2019)\n\n### Added\n\n- useFieldApi\n- useFieldState\n- useFormApi\n- useFormState\n- useField\n- format\n- parse\n- maintianCursor ( fixes issue where cursor jumps to end on mask )\n- ArrayField ( Check out the docs! this is sick! )\n- Form Level validation ( function that can invalidate the form as a whole )\n- debug prop that allows you to visually view the rendering!\n\n### Changed\n\n- the field `"siblings.1"` now resolves to `values.siblings[1]`, it used to resolve to `values.siblings.1`\n- the field `"siblings[\'2\']"` now resolves to `values.siblings[2]`, it used to resolve to `values.siblings.2`\n- withFormApi will no longer trigger a rerender if the fomrs state changes. This is a great optimization for those who want to modify but dont care about the form state!\n- the `validate` prop now expects the validation function to return `undefined` if there is no error. Any other returned value (including falsey `null`, `0`, etc will be treated as an error for the field.\n\n### Removed\n\n- The Field Component\n- `fieldExists` not needed\n- `setState` will maybe add later but its complex and out of scope ATM\n- `setValues` will maybe add later but its complex and out of scope ATM ( as of V 2.0.3 its back! )\n- `preSubmit` was never needed.. developers can do this themselves\n- Async Validation. Async validation led to many issues that overcomplicated `informed`. We determined this is something that the developer could achive on there own for now but we may look into adding this in the future.\n\n## 1.10.12 ( December 4, 2018 )\n\n### Updated\n\n- typescript definition file\n\n## 1.10.11 & 1.10.10 I ran version patch twice lol ( December 4, 2018 )\n\n### Updated\n\n- Select forward ref\n\n## 1.10.9 ( November 16, 2018 )\n\n### Updated\n\n- files in package json to include typeigs\n\n## 1.10.8 ( November 8, 2018 )\n\n### Added\n\n- type file for typescript\n\n## 1.10.7 ( October 11, 2018 )\n\n### Updated\n\n- Name of withFormSate\n\n## 1.10.6 ( October 2, 2018 )\n\n### Fixed\n\n- Skipped test for select!!!\n\n### Updated\n\n- Select to use new ref interface\n\n## 1.10.5 ( September 14, 2018 )\n\n### Added\n\n- License\n\n## 1.10.4 ( August 13, 2018 )\n\n### Fixed\n\n- Issue with @babel/runtime was the dep when it should have ben @babel/runtime-corejs2\n\n## 1.10.3 ( August 13, 2018 )\n\n### Fixed\n\n- Issue with @babel/runtime for real this time\n\n## 1.10.2 ( August 13, 2018 )\n\n### Fixed\n\n- Issue with @babel/runtime\n\n## 1.10.1 ( August 13, 2018 )\n\n### Removed\n\n- mistakenly added dev deps that were deps... oops\n\n## 1.10.0 ( August 13, 2018 )\n\n### Added\n\n- submits to the form state\n\n## 1.9.0 ( August 8, 2018 )\n\n### Rebuilt\n\n- Added prettier so all the files have been changed... so i rebuilt to have source maps match code\n\n## 1.8.1 ( August 1, 2018 )\n\n### Rebuilt\n\n- Attempting to simply rebuild lib due to possible build issue\n\n## 1.8.0 ( August 1, 2018 )\n\n### Updated\n\n- initialValue to get exposed as prop to custom fields\n\n## 1.7.5 ( July 31, 2018 )\n\n### Added\n\n- Source maps\n\n## 1.7.4 ( July 26, 2018 )\n\n### Fixed\n\n- Issue where Basic radio group was not getting exported\n\n## 1.7.3 ( July 23, 2018 )\n\n### Fixed\n\n- issue where bind to field did not pass down the field prop.\n\n## 1.7.2 ( July 20, 2018 )\n\n### Fixed\n\n- Issue where element wont get removed from array when deregistering field... this is used when dynamically removing value\n\n## 1.7.1 ( July 20, 2018 )\n\n### Added\n\n- Field prop is now exposed to field elements and default inputs pass field as name to html inputs\n\n## 1.7.0 ( July 18, 2018 )\n\n### Added\n\n- fieldExists method to the formApi\n\n## 1.6.0 ( July 16, 2018 )\n\n### Added\n\n- onValueChange prop to inputs so you can tie into when values change!!\n\n## 1.5.2 ( July 13, 2018 )\n\n### Fixed\n\n- Issue where prop changes to fields would not get recognized\n\n## 1.5.1 ( July 13, 2018 )\n\n### Fixed\n\n- issue where i forgott to add @babel/runtime as dependency\n\n## 1.5.0 ( July 12, 2018 )\n\n### Added\n\n- asyncValidation prop to inputs\n- asyncValidateOnBlur prop to inputs\n\n## 1.4.0 ( July 5, 2018 )\n\n### Added\n\n- Basic input fields so users can more easily create custom inputs\n- Docs for creating custom inputs\n\n## 1.3.11 ( July 9, 2018 )\n\n### Fixed\n\n- issue where you could not nest scope\n\n## 1.3.10 ( July 5, 2018 )\n\n### Fixed\n\n- issue where you could not pass initialValue=false to checkbox\n\n## 1.3.9 ( July 5, 2018 )\n\n### Fixed\n\n- issue where mutable values were getting passed to onSubmit and getState\n\n## 1.3.8 ( July 2, 2018 )\n\n### Fixed\n\n- issue where path array was being build every get and set\n\n## 1.3.7 ( July 2, 2018 )\n\n### Fixed\n\n- issue where onChange was getting passed to internal form element\n\n## 1.3.6 ( June 28, 2018 )\n\n### Added\n\n- globalObject: \'this\' to the webpack dist config to support SSR\n\n## 1.3.5 ( June 28, 2018 )\n\n### Fixed\n\n- Issue with event emitter limit ( need to look into alternative solution )\n- Removed depricated sandbox sinon usage that was causing errors during tests\n\n## 1.3.3 ( June 28, 2018 )\n\n### Updated\n\n- Webpack dist configuration to keep class names\n\n## 1.3.2 ( June 28, 2018 )\n\n### Fixed\n\n- Issue were initialValue was getting passed all the way down to html input\n- Issue where form would not rerender when field was registered\n\n## 1.3.1 ( June 28, 2018 )\n\n### Fixed\n\n- Issue were validateOnMount was getting passed all the way down to html input\n\n## 1.3.0 ( June 28, 2018 )\n\n### Added\n\n- mask so you can mask values at field level. example `value => value + \'!!!\'`\n\n## 1.2.1 ( June 27, 2018 )\n\n### Added\n\n- hook so you can add a button with type=reset and it will reset the form\n\n## 1.2.0 ( June 27, 2018 )\n\n### Added\n\n- validateOnMount to input props\n\n## 1.1.2 ( June 25, 2018 )\n\n### Moved\n\n- React and React-Dom to dev dependencies\n\n## 1.1.1 ( June 18, 2018 )\n\n### Fixed\n\n- Bug where i did not do null check on event within on submit\n\n## 1.0.1 ( June 15, 2018 )\n\n### Added\n\n- Notify prop to inputs that allows you to notify other fields when your error state changes ( see docs )\n\n## 1.0.0 (June 12, 2018)\n\n### Added\n\n- Text\n- TextArea\n- Radio Group\n- Radio\n- Select\n- Select as Multiselect !!!\n- Checkbox\n- withRadioGroup\n- withFieldApi\n- withFieldState\n- withFormApi\n- withFormState\n- asField\n- Form\n- Field\n\n### Changed\n\n**\nNote: this was the first release but i wanted to include changes from\n`react-form` so here they are:\n**\n\n- `formApi` was split into two parts `formApi` ( contains just functions ) `formState` ( contains just form state )\n- Form level validation is gone. You do all validation via field validation.\n- `defaultValues` Form prop is now called `initialValues`\n- `onChange` Form prop only recieves the `formState`. It used to retrieve the form Api as well.\n- `preventDefault` Form prop is now `dontPreventDefault`\n- `getApi` Form prop just returns the formApi, not the state and the api.\n- `Form` component now renders the `form` element internally. So you dont have to "hook it up" anymore!!\n\n### Removed\n\n**\nNote: this was the first release but i wanted to include things that were removed from\n`react-form` so here they are:\n**\n\n- `NestedField` you can use `Scope` instead but all it does is scope internal fields to `scope="your-scope"`\n- validateOnSubmit was removed. Now the form always validates on submit by default and you can opt into sooner validation at field level.\n- `defaultValues` form prop is now called `initialValues`\n- `pure` Form prop. Its not needed anymore due to the use of `React.PureComponent` internally.\n- add, remove, and swap values. The developer can achive this on there own without the use of internal functionality.\n- Array Syntax. In order to keep things simple we now only support the string syntax for field names.\n- Async Validation. Async validation led to many issues that overcomplicated `react-form`. We determined this is something that the developer could achive on there own for now but we may look into adding this in the future.\n- Warning and Success have been removed for now to keep lib lean but we may add additional functions in the future.\n',
         function() {
           return null;
         }
@@ -18009,6 +18659,56 @@
         }
       );
     },
+    './stories/Scope/ScopeComponent/index.js': function(
+      module,
+      __webpack_exports__,
+      __webpack_require__
+    ) {
+      'use strict';
+      var react = __webpack_require__('./node_modules/react/index.js'),
+        react_default = __webpack_require__.n(react),
+        withDocs = __webpack_require__('./stories/utils/withDocs.js'),
+        src = __webpack_require__('./src/index.js'),
+        initialValues = {
+          name: 'Elon',
+          age: 50,
+          spouse: { name: 'Talulah', age: 36 }
+        };
+      __webpack_exports__.a = Object(withDocs.a)(
+        '# Scope Component\n\nSometimes you need to scope specific fields ( group them ). This is easily achieved with the use of `Scope`.\n\n\x3c!-- STORY --\x3e\n\n```jsx\nimport { Form, Input, Scope } from \'informed\';\n\nconst initialValues = {\n  name: \'Elon\',\n  age: 50,\n  spouse: {\n    name: \'Talulah\',\n    age: 36\n  }\n}\n\nconst ScopeComonent = () => (\n  <Form initialValues={}>\n    <h3>Your Info</h3>\n    <Input name="name" label="First name:" />\n    <Input name="age" label="Age:" type="number" />\n    <Scope scope="spouse">\n      <h3>Spouses Info</h3>\n      <Input name="name" label="First name:" />\n      <Input name="age" label="Age:" type="number" />\n    </Scope>\n    <Debug values />\n  </Form>\n);\n```\n',
+        function ScopeComonent() {
+          return react_default.a.createElement(
+            src.f,
+            { initialValues: initialValues },
+            react_default.a.createElement('h3', null, 'Your Info'),
+            react_default.a.createElement(src.k, {
+              name: 'name',
+              label: 'First name:'
+            }),
+            react_default.a.createElement(src.k, {
+              name: 'age',
+              label: 'Age:',
+              type: 'number'
+            }),
+            react_default.a.createElement(
+              src.r,
+              { scope: 'spouse' },
+              react_default.a.createElement('h3', null, 'Spouses Info'),
+              react_default.a.createElement(src.k, {
+                name: 'name',
+                label: 'First name:'
+              }),
+              react_default.a.createElement(src.k, {
+                name: 'age',
+                label: 'Age:',
+                type: 'number'
+              })
+            ),
+            react_default.a.createElement(src.c, { values: !0 })
+          );
+        }
+      );
+    },
     './stories/TLDR/index.js': function(
       module,
       __webpack_exports__,
@@ -20844,178 +21544,184 @@
             _TLDR__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
               './stories/TLDR/index.js'
             ),
-            _Intro_Changelog__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+            _CarColor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+              './stories/CarColor/index.js'
+            ),
+            _Intro_Changelog__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
               './stories/Intro/Changelog.js'
             ),
-            _Form_Basic__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+            _Form_Basic__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
               './stories/Form/Basic/index.js'
             ),
-            _Form_FormProvider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+            _Form_FormProvider__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
               './stories/Form/FormProvider/index.js'
             ),
-            _Form_Path__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+            _Form_Path__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
               './stories/Form/Path/index.js'
             ),
-            _Form_FeatureTester__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+            _Form_FeatureTester__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
               './stories/Form/FeatureTester/index.js'
             ),
-            _Form_Dynamic__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+            _Form_Dynamic__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
               './stories/Form/Dynamic/index.js'
             ),
-            _Schema_Intro__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+            _Schema_Intro__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
               './stories/Schema/Intro/index.js'
             ),
-            _Schema_FormattedSchema__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+            _Schema_FormattedSchema__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
               './stories/Schema/FormattedSchema/index.js'
             ),
-            _Schema_NestedSchema__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+            _Schema_NestedSchema__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
               './stories/Schema/NestedSchema/index.js'
             ),
-            _Schema_ArrayFieldSchema__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
+            _Schema_ArrayFieldSchema__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
               './stories/Schema/ArrayFieldSchema/index.js'
             ),
-            _Schema_ArrayFieldSchemaRelevant__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
+            _Schema_ArrayFieldSchemaRelevant__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
               './stories/Schema/ArrayFieldSchemaRelevant/index.js'
             ),
-            _Schema_ArrayFieldSchemaNested__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
+            _Schema_ArrayFieldSchemaNested__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(
               './stories/Schema/ArrayFieldSchemaNested/index.js'
             ),
-            _Schema_CustomSchema__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(
+            _Schema_CustomSchema__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(
               './stories/Schema/CustomSchema/index.js'
             ),
-            _Form_Complex__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(
+            _Form_Complex__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(
               './stories/Form/Complex/index.js'
             ),
-            _Form_Big__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(
+            _Form_Big__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(
               './stories/Form/Big/index.js'
             ),
-            _Form_State__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(
+            _Form_State__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(
               './stories/Form/State/index.js'
             ),
-            _Debugging_Debug__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(
+            _Debugging_Debug__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(
               './stories/Debugging/Debug/index.js'
             ),
-            _Form_Props__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(
+            _Form_Props__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(
               './stories/Form/Props/index.js'
             ),
-            _Form_Api__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(
+            _Form_Api__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(
               './stories/Form/Api/index.js'
             ),
-            _Multistep_Basic__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(
+            _Multistep_Basic__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(
               './stories/Multistep/Basic/index.js'
             ),
-            _Multistep_Complex__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(
+            _Multistep_Complex__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(
               './stories/Multistep/Complex/index.js'
             ),
-            _Multistep_MultistepState__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(
+            _Multistep_MultistepState__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(
               './stories/Multistep/MultistepState/index.js'
             ),
-            _Multistep_Actions__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(
+            _Multistep_Actions__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(
               './stories/Multistep/Actions/index.js'
             ),
-            _Validation_SimpleValidation__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(
+            _Validation_SimpleValidation__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(
               './stories/Validation/SimpleValidation/index.js'
             ),
-            _Validation_Required__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(
+            _Validation_Required__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(
               './stories/Validation/Required/index.js'
             ),
-            _Validation_YupValidation__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(
+            _Validation_YupValidation__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(
               './stories/Validation/YupValidation/index.js'
             ),
-            _Validation_FieldLevelYupValidation__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(
+            _Validation_FieldLevelYupValidation__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(
               './stories/Validation/FieldLevelYupValidation/index.js'
             ),
-            _Validation_ComplexValidation__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(
+            _Validation_ComplexValidation__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(
               './stories/Validation/ComplexValidation/index.js'
             ),
-            _Validation_ValidationControl__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(
+            _Validation_ValidationControl__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(
               './stories/Validation/ValidationControl/index.js'
             ),
-            _Validation_ValidationMessages__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(
+            _Validation_ValidationMessages__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(
               './stories/Validation/ValidationMessages/index.js'
             ),
-            _Validation_Elon__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(
+            _Validation_Elon__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(
               './stories/Validation/Elon/index.js'
             ),
-            _Validation_Notifications__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(
+            _Validation_Notifications__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(
               './stories/Validation/Notifications/index.js'
             ),
-            _Validation_AjvValidation__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(
+            _Validation_AjvValidation__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(
               './stories/Validation/AjvValidation/index.js'
             ),
-            _Validation_AjvValidationNoRender__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(
+            _Validation_AjvValidationNoRender__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(
               './stories/Validation/AjvValidationNoRender/index.js'
             ),
-            _Validation_AsyncValidation__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(
+            _Validation_AsyncValidation__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(
               './stories/Validation/AsyncValidation/index.js'
             ),
-            _Playground_RickRoll__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(
+            _Playground_RickRoll__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(
               './stories/Playground/RickRoll.js'
             ),
-            _Formatting_Formatter__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(
+            _Formatting_Formatter__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(
               './stories/Formatting/Formatter/index.js'
             ),
-            _Formatting_FormatterFunctions__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(
+            _Formatting_FormatterFunctions__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(
               './stories/Formatting/FormatterFunctions/index.js'
             ),
-            _Gotchas_Scope__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(
+            _Gotchas_Scope__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(
               './stories/Gotchas/Scope/index.js'
             ),
-            _Gotchas_ChangingInitialValues__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(
+            _Gotchas_ChangingInitialValues__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(
               './stories/Gotchas/ChangingInitialValues/index.js'
             ),
-            _Gotchas_InitialvsDefault__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(
+            _Gotchas_InitialvsDefault__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(
               './stories/Gotchas/InitialvsDefault/index.js'
             ),
-            _Gotchas_InitializeIfPristine__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(
+            _Gotchas_InitializeIfPristine__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(
               './stories/Gotchas/InitializeIfPristine/index.js'
             ),
-            _Dynamic_DynamicFields__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(
+            _Dynamic_DynamicFields__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(
               './stories/Dynamic/DynamicFields/index.js'
             ),
-            _CustomInputs__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(
+            _CustomInputs__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(
               './stories/CustomInputs/index.js'
             ),
-            _Inputs__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(
+            _Inputs__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(
               './stories/Inputs/index.js'
             ),
-            _Arrays__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(
+            _Arrays__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(
               './stories/Arrays/index.js'
             ),
-            _Relevance_RelevantComponent__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(
+            _Relevance_RelevantComponent__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(
               './stories/Relevance/RelevantComponent/index.js'
             ),
-            _Relevance_RelevanceProp__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(
+            _Relevance_RelevanceProp__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(
               './stories/Relevance/RelevanceProp/index.js'
             ),
-            _Relevance_ComplexRelevance__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(
+            _Relevance_ComplexRelevance__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(
               './stories/Relevance/ComplexRelevance/index.js'
             ),
-            _Hooks__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(
+            _Scope_ScopeComponent__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(
+              './stories/Scope/ScopeComponent/index.js'
+            ),
+            _Hooks__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(
               './stories/Hooks/index.js'
             ),
-            _Schema_ConditionalSchema__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(
+            _Schema_ConditionalSchema__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(
               './stories/Schema/ConditionalSchema/index.js'
             ),
-            _Schema_ConditionalSchemaControl__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(
+            _Schema_ConditionalSchemaControl__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(
               './stories/Schema/ConditionalSchemaControl/index.js'
             ),
-            _Schema_ConditionalOptions__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(
+            _Schema_ConditionalOptions__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(
               './stories/Schema/ConditionalOptions/index.js'
             ),
-            _Schema_SchemaComponents__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(
+            _Schema_SchemaComponents__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(
               './stories/Schema/SchemaComponents/index.js'
             ),
-            _Form_FormatDependent__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(
+            _Form_FormatDependent__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(
               './stories/Form/FormatDependent/index.js'
             ),
-            _CustomInputs_FormattedObjectInput__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(
+            _CustomInputs_FormattedObjectInput__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(
               './stories/CustomInputs/FormattedObjectInput/index.js'
             ),
-            _CustomInputs_ObjectInput__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(
+            _CustomInputs_ObjectInput__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(
               './stories/CustomInputs/ObjectInput/index.js'
             ),
-            _Formatting_NumberFormatter__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(
+            _Formatting_NumberFormatter__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(
               './stories/Formatting/NumberFormatter/index.js'
             );
           Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.addDecorator)(
@@ -21066,236 +21772,244 @@
             )
               .add('Getting Started', _Intro__WEBPACK_IMPORTED_MODULE_4__.a)
               .add('TLDR', _TLDR__WEBPACK_IMPORTED_MODULE_5__.a)
+              .add('Car Color', _CarColor__WEBPACK_IMPORTED_MODULE_6__.a)
               .add(
                 'Changelog',
-                _Intro_Changelog__WEBPACK_IMPORTED_MODULE_6__.a
+                _Intro_Changelog__WEBPACK_IMPORTED_MODULE_7__.a
               ),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Form',
               module
             )
-              .add('Basic', _Form_Basic__WEBPACK_IMPORTED_MODULE_7__.a)
-              .add('State', _Form_State__WEBPACK_IMPORTED_MODULE_21__.a)
-              .add('Api', _Form_Api__WEBPACK_IMPORTED_MODULE_24__.a)
-              .add('Props', _Form_Props__WEBPACK_IMPORTED_MODULE_23__.a)
+              .add('Basic', _Form_Basic__WEBPACK_IMPORTED_MODULE_8__.a)
+              .add('State', _Form_State__WEBPACK_IMPORTED_MODULE_22__.a)
+              .add('Api', _Form_Api__WEBPACK_IMPORTED_MODULE_25__.a)
+              .add('Props', _Form_Props__WEBPACK_IMPORTED_MODULE_24__.a)
               .add(
                 'Dynamic',
-                _Dynamic_DynamicFields__WEBPACK_IMPORTED_MODULE_48__.a
+                _Dynamic_DynamicFields__WEBPACK_IMPORTED_MODULE_49__.a
               )
               .add(
                 'Dependent Fields',
-                _Form_FormatDependent__WEBPACK_IMPORTED_MODULE_60__.a
+                _Form_FormatDependent__WEBPACK_IMPORTED_MODULE_62__.a
               )
-              .add('Path', _Form_Path__WEBPACK_IMPORTED_MODULE_9__.a)
+              .add('Path', _Form_Path__WEBPACK_IMPORTED_MODULE_10__.a)
               .add(
                 'Features',
-                _Form_FeatureTester__WEBPACK_IMPORTED_MODULE_10__.a
+                _Form_FeatureTester__WEBPACK_IMPORTED_MODULE_11__.a
               )
-              .add('Inputs', _Form_Complex__WEBPACK_IMPORTED_MODULE_19__.a)
+              .add('Inputs', _Form_Complex__WEBPACK_IMPORTED_MODULE_20__.a)
               .add(
                 'FormProvider',
-                _Form_FormProvider__WEBPACK_IMPORTED_MODULE_8__.a
+                _Form_FormProvider__WEBPACK_IMPORTED_MODULE_9__.a
               )
-              .add('Big', _Form_Big__WEBPACK_IMPORTED_MODULE_20__.a),
+              .add('Big', _Form_Big__WEBPACK_IMPORTED_MODULE_21__.a),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Inputs',
               module
             )
-              .add('Intro', _Inputs__WEBPACK_IMPORTED_MODULE_50__.b)
-              .add('Input', _Inputs__WEBPACK_IMPORTED_MODULE_50__.h)
-              .add('Text Area', _Inputs__WEBPACK_IMPORTED_MODULE_50__.g)
-              .add('Radio Input', _Inputs__WEBPACK_IMPORTED_MODULE_50__.e)
-              .add('Checkbox Input', _Inputs__WEBPACK_IMPORTED_MODULE_50__.a)
-              .add('Select Input', _Inputs__WEBPACK_IMPORTED_MODULE_50__.f)
+              .add('Intro', _Inputs__WEBPACK_IMPORTED_MODULE_51__.b)
+              .add('Input', _Inputs__WEBPACK_IMPORTED_MODULE_51__.h)
+              .add('Text Area', _Inputs__WEBPACK_IMPORTED_MODULE_51__.g)
+              .add('Radio Input', _Inputs__WEBPACK_IMPORTED_MODULE_51__.e)
+              .add('Checkbox Input', _Inputs__WEBPACK_IMPORTED_MODULE_51__.a)
+              .add('Select Input', _Inputs__WEBPACK_IMPORTED_MODULE_51__.f)
               .add(
                 'Multi Select Input',
-                _Inputs__WEBPACK_IMPORTED_MODULE_50__.c
+                _Inputs__WEBPACK_IMPORTED_MODULE_51__.c
               )
-              .add('Number Input', _Inputs__WEBPACK_IMPORTED_MODULE_50__.d),
+              .add('Number Input', _Inputs__WEBPACK_IMPORTED_MODULE_51__.d),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'CustomInputs',
               module
             )
               .add(
                 'Creating Custom Inputs',
-                _CustomInputs__WEBPACK_IMPORTED_MODULE_49__.a
+                _CustomInputs__WEBPACK_IMPORTED_MODULE_50__.a
               )
               .add(
                 'Creating Object Inputs',
-                _CustomInputs_ObjectInput__WEBPACK_IMPORTED_MODULE_62__.a
+                _CustomInputs_ObjectInput__WEBPACK_IMPORTED_MODULE_64__.a
               )
               .add(
                 'Creating Formatted Object Inputs',
-                _CustomInputs_FormattedObjectInput__WEBPACK_IMPORTED_MODULE_61__.a
+                _CustomInputs_FormattedObjectInput__WEBPACK_IMPORTED_MODULE_63__.a
               ),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Arrays',
               module
             )
-              .add('Array Field', _Arrays__WEBPACK_IMPORTED_MODULE_51__.e)
-              .add('Flat Array Field', _Arrays__WEBPACK_IMPORTED_MODULE_51__.a)
-              .add('Array Field Item', _Arrays__WEBPACK_IMPORTED_MODULE_51__.b)
-              .add('Dependent Fields', _Arrays__WEBPACK_IMPORTED_MODULE_51__.c)
-              .add('Huge Array Form', _Arrays__WEBPACK_IMPORTED_MODULE_51__.d),
+              .add('Array Field', _Arrays__WEBPACK_IMPORTED_MODULE_52__.e)
+              .add('Flat Array Field', _Arrays__WEBPACK_IMPORTED_MODULE_52__.a)
+              .add('Array Field Item', _Arrays__WEBPACK_IMPORTED_MODULE_52__.b)
+              .add('Dependent Fields', _Arrays__WEBPACK_IMPORTED_MODULE_52__.c)
+              .add('Huge Array Form', _Arrays__WEBPACK_IMPORTED_MODULE_52__.d),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Validation',
               module
             )
               .add(
                 'Simple Validation',
-                _Validation_SimpleValidation__WEBPACK_IMPORTED_MODULE_29__.a
+                _Validation_SimpleValidation__WEBPACK_IMPORTED_MODULE_30__.a
               )
               .add(
                 'Async Validation',
-                _Validation_AsyncValidation__WEBPACK_IMPORTED_MODULE_40__.a
+                _Validation_AsyncValidation__WEBPACK_IMPORTED_MODULE_41__.a
               )
               .add(
                 'Complex Validation',
-                _Validation_ComplexValidation__WEBPACK_IMPORTED_MODULE_33__.a
+                _Validation_ComplexValidation__WEBPACK_IMPORTED_MODULE_34__.a
               )
               .add(
                 'Validation Control',
-                _Validation_ValidationControl__WEBPACK_IMPORTED_MODULE_34__.a
+                _Validation_ValidationControl__WEBPACK_IMPORTED_MODULE_35__.a
               )
               .add(
                 'Required',
-                _Validation_Required__WEBPACK_IMPORTED_MODULE_30__.a
+                _Validation_Required__WEBPACK_IMPORTED_MODULE_31__.a
               )
               .add(
                 'Validation Messages',
-                _Validation_ValidationMessages__WEBPACK_IMPORTED_MODULE_35__.a
+                _Validation_ValidationMessages__WEBPACK_IMPORTED_MODULE_36__.a
               )
               .add(
                 'Paired Validation',
-                _Validation_Notifications__WEBPACK_IMPORTED_MODULE_37__.a
+                _Validation_Notifications__WEBPACK_IMPORTED_MODULE_38__.a
               )
               .add(
                 'Yup Validation',
-                _Validation_YupValidation__WEBPACK_IMPORTED_MODULE_31__.a
+                _Validation_YupValidation__WEBPACK_IMPORTED_MODULE_32__.a
               )
               .add(
                 'Field Level + Yup Validation',
-                _Validation_FieldLevelYupValidation__WEBPACK_IMPORTED_MODULE_32__.a
+                _Validation_FieldLevelYupValidation__WEBPACK_IMPORTED_MODULE_33__.a
               )
               .add(
                 'JSON Schema Validation + Rendering',
-                _Validation_AjvValidation__WEBPACK_IMPORTED_MODULE_38__.a
+                _Validation_AjvValidation__WEBPACK_IMPORTED_MODULE_39__.a
               )
               .add(
                 'Only JSON Schema Validation',
-                _Validation_AjvValidationNoRender__WEBPACK_IMPORTED_MODULE_39__.a
+                _Validation_AjvValidationNoRender__WEBPACK_IMPORTED_MODULE_40__.a
               )
-              .add('Elon', _Validation_Elon__WEBPACK_IMPORTED_MODULE_36__.a),
+              .add('Elon', _Validation_Elon__WEBPACK_IMPORTED_MODULE_37__.a),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Relevance',
               module
             )
               .add(
                 'Relevant Comonent',
-                _Relevance_RelevantComponent__WEBPACK_IMPORTED_MODULE_52__.a
+                _Relevance_RelevantComponent__WEBPACK_IMPORTED_MODULE_53__.a
               )
               .add(
                 'Relevance Prop',
-                _Relevance_RelevanceProp__WEBPACK_IMPORTED_MODULE_53__.a
+                _Relevance_RelevanceProp__WEBPACK_IMPORTED_MODULE_54__.a
               )
               .add(
                 'Relevance Optimization',
-                _Relevance_ComplexRelevance__WEBPACK_IMPORTED_MODULE_54__.a
+                _Relevance_ComplexRelevance__WEBPACK_IMPORTED_MODULE_55__.a
               ),
+            Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
+              'Scope',
+              module
+            ).add(
+              'Scope Comonent',
+              _Scope_ScopeComponent__WEBPACK_IMPORTED_MODULE_56__.a
+            ),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Schema',
               module
             )
-              .add('Schema', _Schema_Intro__WEBPACK_IMPORTED_MODULE_12__.a)
+              .add('Schema', _Schema_Intro__WEBPACK_IMPORTED_MODULE_13__.a)
               .add(
                 'Nested Schema',
-                _Schema_NestedSchema__WEBPACK_IMPORTED_MODULE_14__.a
+                _Schema_NestedSchema__WEBPACK_IMPORTED_MODULE_15__.a
               )
               .add(
                 'Formatted Schema',
-                _Schema_FormattedSchema__WEBPACK_IMPORTED_MODULE_13__.a
+                _Schema_FormattedSchema__WEBPACK_IMPORTED_MODULE_14__.a
               )
               .add(
                 'Array Field Schema',
-                _Schema_ArrayFieldSchema__WEBPACK_IMPORTED_MODULE_15__.a
+                _Schema_ArrayFieldSchema__WEBPACK_IMPORTED_MODULE_16__.a
               )
               .add(
                 'Conditional Schema',
-                _Schema_ConditionalSchema__WEBPACK_IMPORTED_MODULE_56__.a
+                _Schema_ConditionalSchema__WEBPACK_IMPORTED_MODULE_58__.a
               )
               .add(
                 'Conditional Schema Control',
-                _Schema_ConditionalSchemaControl__WEBPACK_IMPORTED_MODULE_57__.a
+                _Schema_ConditionalSchemaControl__WEBPACK_IMPORTED_MODULE_59__.a
               )
               .add(
                 'Conditional Options',
-                _Schema_ConditionalOptions__WEBPACK_IMPORTED_MODULE_58__.a
+                _Schema_ConditionalOptions__WEBPACK_IMPORTED_MODULE_60__.a
               )
               .add(
                 'Custom Schema',
-                _Schema_CustomSchema__WEBPACK_IMPORTED_MODULE_18__.a
+                _Schema_CustomSchema__WEBPACK_IMPORTED_MODULE_19__.a
               )
               .add(
                 'Schema Components',
-                _Schema_SchemaComponents__WEBPACK_IMPORTED_MODULE_59__.a
+                _Schema_SchemaComponents__WEBPACK_IMPORTED_MODULE_61__.a
               )
               .add(
                 'Nested Array Fields',
-                _Schema_ArrayFieldSchemaNested__WEBPACK_IMPORTED_MODULE_17__.a
+                _Schema_ArrayFieldSchemaNested__WEBPACK_IMPORTED_MODULE_18__.a
               )
               .add(
                 'Relevant ArrayField Schema',
-                _Schema_ArrayFieldSchemaRelevant__WEBPACK_IMPORTED_MODULE_16__.a
+                _Schema_ArrayFieldSchemaRelevant__WEBPACK_IMPORTED_MODULE_17__.a
               ),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Debugging',
               module
-            ).add('Debug', _Debugging_Debug__WEBPACK_IMPORTED_MODULE_22__.a),
+            ).add('Debug', _Debugging_Debug__WEBPACK_IMPORTED_MODULE_23__.a),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Formatting',
               module
             )
               .add(
                 'Formatter',
-                _Formatting_Formatter__WEBPACK_IMPORTED_MODULE_42__.a
+                _Formatting_Formatter__WEBPACK_IMPORTED_MODULE_43__.a
               )
               .add(
                 'Number Formatter',
-                _Formatting_NumberFormatter__WEBPACK_IMPORTED_MODULE_63__.a
+                _Formatting_NumberFormatter__WEBPACK_IMPORTED_MODULE_65__.a
               )
               .add(
                 'Formatter Functions',
-                _Formatting_FormatterFunctions__WEBPACK_IMPORTED_MODULE_43__.a
+                _Formatting_FormatterFunctions__WEBPACK_IMPORTED_MODULE_44__.a
               ),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Hooks!',
               module
             )
-              .add('useFormApi', _Hooks__WEBPACK_IMPORTED_MODULE_55__.e)
-              .add('useFormState', _Hooks__WEBPACK_IMPORTED_MODULE_55__.f)
-              .add('useFieldApi', _Hooks__WEBPACK_IMPORTED_MODULE_55__.b)
-              .add('useFieldState', _Hooks__WEBPACK_IMPORTED_MODULE_55__.c)
-              .add('useForm', _Hooks__WEBPACK_IMPORTED_MODULE_55__.d)
-              .add('useField', _Hooks__WEBPACK_IMPORTED_MODULE_55__.a),
+              .add('useFormApi', _Hooks__WEBPACK_IMPORTED_MODULE_57__.e)
+              .add('useFormState', _Hooks__WEBPACK_IMPORTED_MODULE_57__.f)
+              .add('useFieldApi', _Hooks__WEBPACK_IMPORTED_MODULE_57__.b)
+              .add('useFieldState', _Hooks__WEBPACK_IMPORTED_MODULE_57__.c)
+              .add('useForm', _Hooks__WEBPACK_IMPORTED_MODULE_57__.d)
+              .add('useField', _Hooks__WEBPACK_IMPORTED_MODULE_57__.a),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Multistep Forms',
               module
             )
               .add(
                 'BasicMultistep',
-                _Multistep_Basic__WEBPACK_IMPORTED_MODULE_25__.a
+                _Multistep_Basic__WEBPACK_IMPORTED_MODULE_26__.a
               )
               .add(
                 'MultistepState',
-                _Multistep_MultistepState__WEBPACK_IMPORTED_MODULE_27__.a
+                _Multistep_MultistepState__WEBPACK_IMPORTED_MODULE_28__.a
               )
               .add(
                 'Dynamic Multistep',
-                _Multistep_Complex__WEBPACK_IMPORTED_MODULE_26__.a
+                _Multistep_Complex__WEBPACK_IMPORTED_MODULE_27__.a
               )
               .add(
                 'Multistep Actions',
-                _Multistep_Actions__WEBPACK_IMPORTED_MODULE_28__.a
+                _Multistep_Actions__WEBPACK_IMPORTED_MODULE_29__.a
               ),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Gotchas',
@@ -21303,35 +22017,35 @@
             )
               .add(
                 'Initial Vs Default',
-                _Gotchas_InitialvsDefault__WEBPACK_IMPORTED_MODULE_46__.a
+                _Gotchas_InitialvsDefault__WEBPACK_IMPORTED_MODULE_47__.a
               )
               .add(
                 'Change initialValues',
-                _Gotchas_ChangingInitialValues__WEBPACK_IMPORTED_MODULE_45__.a
+                _Gotchas_ChangingInitialValues__WEBPACK_IMPORTED_MODULE_46__.a
               )
               .add(
                 'Initialize If Pristine',
-                _Gotchas_InitializeIfPristine__WEBPACK_IMPORTED_MODULE_47__.a
+                _Gotchas_InitializeIfPristine__WEBPACK_IMPORTED_MODULE_48__.a
               )
-              .add('Scope', _Gotchas_Scope__WEBPACK_IMPORTED_MODULE_44__.a),
+              .add('Scope', _Gotchas_Scope__WEBPACK_IMPORTED_MODULE_45__.a),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Dynamic Forms',
               module
             )
               .add(
                 'Dynamic Fields',
-                _Dynamic_DynamicFields__WEBPACK_IMPORTED_MODULE_48__.a
+                _Dynamic_DynamicFields__WEBPACK_IMPORTED_MODULE_49__.a
               )
               .add(
                 'Dynamic Rendering',
-                _Form_Dynamic__WEBPACK_IMPORTED_MODULE_11__.a
+                _Form_Dynamic__WEBPACK_IMPORTED_MODULE_12__.a
               ),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Cool Examples',
               module
             ).add(
               'Cool Example',
-              _Playground_RickRoll__WEBPACK_IMPORTED_MODULE_41__.a
+              _Playground_RickRoll__WEBPACK_IMPORTED_MODULE_42__.a
             );
         }.call(
           this,

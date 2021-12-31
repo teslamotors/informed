@@ -1,3 +1,9 @@
+## 4.0.19 (December 31st, 2021)
+
+### Exposed
+
+- useRelevance hook and added type for it in types
+
 ## 4.0.18 (December 23rd, 2021)
 
 ### Fixed

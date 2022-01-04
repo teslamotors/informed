@@ -1,3 +1,9 @@
+## 4.0.20 (January 4th, 2022)
+
+### Fixed
+
+- issue where removing item from array field would not make the form dirty
+
 ## 4.0.19 (December 31st, 2021)
 
 ### Exposed

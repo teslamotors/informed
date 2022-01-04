@@ -570,6 +570,8 @@ export class FormController {
     ObjectMap.swap(this.state.focused, name, a, b);
     // DO NOT emit event here we want to delay it on purpose because otherwise relevance will trigger with bad state
     // this.emit("field", name);
+    this.state.pristine = false;
+    this.state.dirty = !this.state.pristine;
   }
 
   pullOut(name) {
@@ -582,6 +584,8 @@ export class FormController {
     ObjectMap.delete(this.state.focused, name);
     // DO NOT emit event here we want to delay it on purpose because otherwise relevance will trigger with bad state
     // this.emit("field", name);
+    this.state.pristine = false;
+    this.state.dirty = !this.state.pristine;
   }
 
   register(name, meta) {

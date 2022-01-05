@@ -1,3 +1,9 @@
+## 4.0.22 (January 5th, 2022)
+
+### Fixed
+
+- issue with createIntlNumber mask adding random "[]" sometimes
+
 ## 4.0.21 (January 5th, 2022)
 
 ### Fixed

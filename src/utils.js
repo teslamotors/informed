@@ -720,7 +720,7 @@ export const createIntlNumberFormatter = (locale, opts) => {
       maskArray.indexOf(decimalChar) === -1 &&
       `${value}`.indexOf(decimalChar) !== -1
     ) {
-      maskArray = insert(maskArray, lastDigitIndex + 1, [decimalChar, '[]']);
+      maskArray = insert(maskArray, lastDigitIndex + 1, [decimalChar]);
       lastDigitIndex += 2; // we want to insert a new number after the decimal
     }
 

@@ -1089,6 +1089,10 @@ const FormattedField = () => {
     [currency, locale]
   );
 
+  // const { formatter, parser } = useMemo(() => {
+  //   return utils.createIntlNumberFormatter('en-US', {});
+  // }, []);
+
   return (
     <Input
       field="localeMask"

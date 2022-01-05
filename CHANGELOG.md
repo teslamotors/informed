@@ -1,3 +1,9 @@
+## 4.0.23 (January 5th, 2022)
+
+### Fixed
+
+- issue with array field items being memoized
+
 ## 4.0.22 (January 5th, 2022)
 
 ### Fixed

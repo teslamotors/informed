@@ -24,7 +24,7 @@ const initialValues = {
 
 const NestedForm = () => (
   <div>
-    <Form initialValues={initialValues}>
+    <Form initialValues={initialValues} autoComplete="off">
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, marginRight: '2rem' }}>
           <ArrayField name="friends">

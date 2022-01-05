@@ -949,7 +949,7 @@ export class FormController {
       const meta = fieldMeta.current;
       const value = this.getValue(meta.name);
       const error = meta.validate ? meta.validate(value, values) : undefined;
-      if (error) {
+      if (error != null) {
         ObjectMap.set(errors, meta.name, error);
       }
     });

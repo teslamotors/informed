@@ -1,3 +1,9 @@
+## 4.0.21 (January 5th, 2022)
+
+### Fixed
+
+- issue where returning "" from validation function would not show error state
+
 ## 4.0.20 (January 4th, 2022)
 
 ### Fixed

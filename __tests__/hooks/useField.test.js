@@ -184,6 +184,31 @@ describe('useField', () => {
     expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'});
   });
 
+  it('should call validate that was passed on blur and be in error state even when "" is returned', () => {
+
+    const validate = () => '';
+
+    const formApiRef = {};
+
+    const { getByLabelText } = render(
+      <Form formApiRef={formApiRef} >
+        <Input 
+          name="greeting1" 
+          label="input1" 
+          initialValue="Hello"
+          validate={validate} />
+        <Input name="greeting2" label="input2" />
+      </Form>
+    );
+
+    const input1 = getByLabelText('input1');
+    const input2 = getByLabelText('input2');
+    input1.focus();
+    input2.focus();
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting1: '' });
+  });
+
   it('should NOT call validate that was passed on blur when validateOn="submit" at field level', () => {
 
     const validate = jest.fn();

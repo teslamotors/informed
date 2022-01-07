@@ -1,3 +1,13 @@
+## 4.0.24 (January 7th, 2022)
+
+### Added
+
+- clearValue() function to form and field apis
+
+### Fixed
+
+- Issue where validateOnMount would NOT trigger validation when a field was re-rendered
+
 ## 4.0.23 (January 5th, 2022)
 
 ### Fixed

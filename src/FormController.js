@@ -157,6 +157,7 @@ export class FormController {
     this.getOptions = this.getOptions.bind(this);
     this.validateField = this.validateField.bind(this);
     this.getErrorMessage = this.getErrorMessage.bind(this);
+    this.clearValue = this.clearValue.bind(this);
   }
 
   getOptions() {
@@ -464,6 +465,10 @@ export class FormController {
     return this.state;
   }
 
+  clearValue(name) {
+    this.setValue(name, undefined);
+  }
+
   getFormApi() {
     return {
       getValue: this.getValue,
@@ -488,7 +493,8 @@ export class FormController {
       validate: this.validate,
       setValues: this.setValues,
       setTheseValues: this.setTheseValues,
-      submitForm: this.submitForm
+      submitForm: this.submitForm,
+      clearValue: this.clearValue
     };
   }
 
@@ -610,12 +616,9 @@ export class FormController {
     // Initialize value if needed
     // If we already have value i.e "saved"
     // use that ( it was not removed on purpose! )
-    if (this.getValue(name)) {
-      this.emit('field', name);
-      return;
-    }
     // Otherwise use the fields initial value
     if (
+      !this.getValue(name) &&
       meta.current.initialValue != null &&
       (meta.current.initializeValueIfPristine ? this.state.pristine : true)
     ) {

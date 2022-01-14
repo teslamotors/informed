@@ -1,3 +1,9 @@
+## 4.0.26 (January 14th, 2022)
+
+### Fixed
+
+- issue with off by one cursor locations on formatter
+
 ## 4.0.25 (January 14th, 2022)
 
 ### Fixed

@@ -601,9 +601,15 @@ export const informedFormatter = (val, frmtr) => {
     }
   }
 
+  // console.log('FORMATTEDARR', formatted);
+  // console.log('VALUE', value, value.length);
+  const formattedString = formatted.join('');
+  // console.log('FORMATTED', formattedString, formattedString.length);
+  // console.log('OFFSET', value ? formattedString.length - value.length : 0);
+
   return {
-    value: formatted.join(''),
-    offset: value ? formatted.length - value.length : 0
+    value: formattedString,
+    offset: value ? formattedString.length - value.length : 0
   };
 };
 

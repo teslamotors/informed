@@ -1,3 +1,9 @@
+## 4.0.25 (January 14th, 2022)
+
+### Fixed
+
+- createIntlNumberFormatter not working with negative numbers
+
 ## 4.0.24 (January 7th, 2022)
 
 ### Added

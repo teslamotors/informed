@@ -617,6 +617,10 @@ export const createIntlNumberFormatter = (locale, opts) => {
       .formatToParts(0.1)
       .find(({ type }) => type === 'decimal')?.value ?? '.';
 
+  const minusChar =
+    numberFormatter.formatToParts(-1).find(({ type }) => type === 'minusSign')
+      ?.value ?? '-';
+
   function isRegexEqual(x, y) {
     return (
       x instanceof RegExp &&
@@ -671,14 +675,34 @@ export const createIntlNumberFormatter = (locale, opts) => {
   }
 
   function mask(value) {
+    // value = -3000.25
+    // console.log('VAL', value);
+
+    const isNegative = value.includes(minusChar);
+
     const float = toNumberString(value);
 
-    // if (!float) {
-    //   return [];
-    // }
+    // float = 3000.25
+    // console.log('float', float);
 
     const fraction = `${float}`.split('.')[1];
-    const numberParts = numberFormatter.formatToParts(Number(float));
+
+    // fraction = 25
+    // console.log('fraction', fraction);
+
+    const number = isNegative ? -Number(float) : Number(float);
+
+    const numberParts = numberFormatter.formatToParts(number);
+
+    // number-parts =
+    // 0: {type: 'minusSign', value: '-'}
+    // 1: {type: 'currency', value: '$'}
+    // 2: {type: 'integer', value: '3'}
+    // 3: {type: 'group', value: ','}
+    // 4: {type: 'integer', value: '000'}
+    // 5: {type: 'decimal', value: '.'}
+    // 6: {type: 'fraction', value: '25'}
+    // console.log('number-parts', numberParts);
 
     if (fraction === '0') {
       numberParts.push(
@@ -688,6 +712,15 @@ export const createIntlNumberFormatter = (locale, opts) => {
     }
 
     let maskArray = numberParts.reduce((pv, { type, value: partValue }) => {
+      // PV [] minusSign -
+      // PV ['-'] currency $
+      // PV ['-', '$'] integer 3
+      // PV ['-', '$', /\d/] group ,
+      // PV ['-', '$', /\d/, ','] integer 000
+      // PV ['-', '$', /\d/, ',', /\d/, /\d/, /\d/] decimal .
+      // PV ['-', '$', /\d/, ',', /\d/, /\d/, /\d/, '.'] fraction 25
+      // console.log('PV', pv, type, partValue);
+
       if (['decimal', 'fraction'].includes(type) && fraction == null) {
         return pv;
       }
@@ -705,7 +738,7 @@ export const createIntlNumberFormatter = (locale, opts) => {
         ];
       }
 
-      if (type === 'currency') {
+      if (type === 'currency' || type === 'minusSign') {
         return [...pv, ...partValue.split('')];
       }
 
@@ -735,7 +768,11 @@ export const createIntlNumberFormatter = (locale, opts) => {
       return undefined;
     }
 
-    return toFloat(value);
+    const isNegative = value.includes(minusChar);
+
+    // console.log('TOPARSE', value);
+
+    return isNegative ? -toFloat(value) : toFloat(value);
   };
 
   return { formatter: mask, parser };

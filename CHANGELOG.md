@@ -1,4 +1,8 @@
-## 4.0.26 (January 14th, 2022)
+## 4.0.27 (January 14th, 2022)
+
+### Fixed
+
+- issue with negative cursor offsets
 
 ### Fixed
 

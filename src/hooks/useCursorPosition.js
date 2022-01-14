@@ -46,7 +46,10 @@ const useCursorPosition = ({
     () => {
       if (!inputRefs && inputRef.current != null && getCursor()) {
         // inputRef.current.selectionEnd = getCursor() + getCursorOffset();
-        const cursorLoc = getCursor() + getCursorOffset();
+        const offset = getCursorOffset() < 0 ? 0 : getCursorOffset();
+        const cursorLoc = getCursor() + offset;
+        // console.log('Cursor', getCursor());
+        // console.log('Offset', offset);
         // Only offset if we need to
         if (maintainCursor) {
           inputRef.current.setSelectionRange(cursorLoc, cursorLoc);
@@ -55,7 +58,9 @@ const useCursorPosition = ({
       if (inputRefs && getCursor()) {
         // Loop over each ref and set selection range
         Object.keys(inputRefs).forEach(key => {
-          const cursorLoc = getCursor()[key] + getCursorOffset()[key];
+          const offset =
+            getCursorOffset()[key] < 0 ? 0 : getCursorOffset()[key];
+          const cursorLoc = getCursor()[key] + offset;
           // Only offset if we need to
           if (maintainCursor) {
             inputRefs[key].current.setSelectionRange(cursorLoc, cursorLoc);

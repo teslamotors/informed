@@ -385,7 +385,8 @@ declare namespace utils {
   function informedParse(val: any, parser: any): any;
   function informedFormat(
     val: any,
-    frmtr: any
+    frmtr: any,
+    old?: any
   ):
     | {
         value: any;
@@ -397,7 +398,8 @@ declare namespace utils {
       };
   function informedFormatter(
     val: any,
-    frmtr: any
+    frmtr: any,
+    old?: any
   ): {
     value: any;
     offset: number;

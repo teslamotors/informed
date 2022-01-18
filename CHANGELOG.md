@@ -1,3 +1,9 @@
+## 4.0.28 (January 18th, 2022)
+
+### Fixed
+
+- issue with cursor offsets when suffix is added
+
 ## 4.0.27 (January 14th, 2022)
 
 ### Fixed

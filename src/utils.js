@@ -431,7 +431,7 @@ export const informedParse = (val, parser) => {
   return parser(val);
 };
 
-export const informedFormat = (val, frmtr) => {
+export const informedFormat = (val, frmtr, old) => {
   // Our formatter is an object! so we must format for each key
   // Example:
   //
@@ -445,7 +445,12 @@ export const informedFormat = (val, frmtr) => {
     Object.keys(val).forEach(key => {
       // Only try to format if we have formatter for this key!!!
       if (frmtr[key]) {
-        const { value, offset } = informedFormatter(val[key], frmtr[key]);
+        // console.log('Old', old);
+        const { value, offset } = informedFormatter(
+          val[key],
+          frmtr[key],
+          old ? old[val] : undefined
+        );
         formattedVal[key] = value;
         formattedOffset[key] = offset;
       } else {
@@ -459,10 +464,10 @@ export const informedFormat = (val, frmtr) => {
     };
   }
   // Simply pass along if its a flat formatter
-  return informedFormatter(val, frmtr);
+  return informedFormatter(val, frmtr, old);
 };
 
-export const informedFormatter = (val, frmtr) => {
+export const informedFormatter = (val, frmtr, old) => {
   // console.log('Formatting', val);
 
   // Null check
@@ -489,6 +494,10 @@ export const informedFormatter = (val, frmtr) => {
   // "1"				 ----> +1 1
   // "1234"			 ----> +1 123-4
   // "123a"      ----> +1 123
+
+  // console.log('New', value);
+  // console.log('Old', old);
+  // console.log('Formatter', formatter);
 
   // Determine prefix length and suffix start
   const prefixLength = formatter.findIndex(v => typeof v != 'string');
@@ -605,11 +614,36 @@ export const informedFormatter = (val, frmtr) => {
   // console.log('VALUE', value, value.length);
   const formattedString = formatted.join('');
   // console.log('FORMATTED', formattedString, formattedString.length);
-  // console.log('OFFSET', value ? formattedString.length - value.length : 0);
+
+  let offset = value ? formattedString.length - value.length : 0;
+
+  // console.log('OFFSET', offset);
+
+  // Special case,
+  // Suffix is '-'
+  // user typed backspace
+  // +1 123-123-1234-|
+  // +1 123-123-1234|-
+  //                ^
+  //           suffixStart (15)
+  // New: +1 123-123-1234
+  // Old: +1 123-123-1234-
+  //
+  // New length is less than old length
+  // And length of new is greater than or equal two suffix start
+  if (
+    value &&
+    old &&
+    value.length < old.length &&
+    value.length >= suffixStart
+  ) {
+    offset = 0;
+    // console.log('OFFSET OVERRIDE', offset);
+  }
 
   return {
     value: formattedString,
-    offset: value ? formattedString.length - value.length : 0
+    offset
   };
 };
 

@@ -218,7 +218,11 @@ export class FormController {
 
       // Call formatter and parser if passed
       if (meta.formatter) {
-        const res = informedFormat(val, meta.formatter);
+        const res = informedFormat(
+          val,
+          meta.formatter,
+          this.getMaskedValue(name)
+        );
         meta.setCursorOffset(res.offset, key);
         maskedVal = res.value;
         val = maskedVal;

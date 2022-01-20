@@ -495,6 +495,7 @@ export class FormController {
       getInitialValue: this.getInitialValue,
       touchAllFields: this.touchAllFields,
       validate: this.validate,
+      asyncValidate: this.asyncValidate,
       setValues: this.setValues,
       setTheseValues: this.setTheseValues,
       submitForm: this.submitForm,

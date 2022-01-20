@@ -568,6 +568,18 @@ strong {
   fill: #0d5c18;
 }
 
+.car-color-pink .cls-8 {
+  fill: rgb(233, 36, 111);
+}
+
+.car-color-pink .cls-9 {
+  fill: rgb(145, 39, 80);
+}
+
+.car-color-pink .cls-10 {
+  fill: rgb(155, 18, 70);
+}
+
 .cls-11,
 .cls-12 {
   stroke: #231f20;

@@ -1,3 +1,9 @@
+## 4.0.29 (January 20th, 2022)
+
+### Added
+
+- asyncValidate to formApi
+
 ## 4.0.28 (January 18th, 2022)
 
 ### Fixed

@@ -930,13 +930,23 @@ export const computeFieldsFromSchema = (schema, onlyValidateSchema) => {
   }
 
   // Grab properties and items off of schema
-  const { properties = {}, allOf } = schema;
+  const { properties = {}, allOf, propertyOrder = [] } = schema;
 
   if (Object.keys(properties).length > 0) {
     // Attempt to generate fields from properties
-    const fields = Object.keys(properties).map(propertyName => {
-      return propertyName;
-    });
+    const fields = Object.keys(properties)
+      .sort((a, b) => {
+        const aIndex = propertyOrder.indexOf(a);
+        const bIndex = propertyOrder.indexOf(b);
+
+        return (
+          (aIndex > -1 ? aIndex : propertyOrder.length + 1) -
+          (bIndex > -1 ? bIndex : propertyOrder.length + 1)
+        );
+      })
+      .map(propertyName => {
+        return propertyName;
+      });
 
     let conditions = [];
     let components = [];

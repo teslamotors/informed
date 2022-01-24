@@ -1,3 +1,9 @@
+## 4.0.30 (January 24th, 2022)
+
+### Added
+
+- propertyOrder back to schema
+
 ## 4.0.29 (January 20th, 2022)
 
 ### Added

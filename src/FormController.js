@@ -353,7 +353,7 @@ export class FormController {
     debug(`Setting ${name}'s focused to ${value}`);
 
     // Get meta for field
-    const meta = this.fieldsMap.get(name)?.current;
+    const meta = this.fieldsMap.get(name)?.current || {};
 
     // Update the state
     ObjectMap.set(this.state.focused, name, value);

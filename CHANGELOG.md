@@ -1,3 +1,9 @@
+## 4.0.31 (January 25th, 2022)
+
+### Fixes https://github.com/teslamotors/informed/issues/381
+
+- autoFocus on Input throws error
+
 ## 4.0.30 (January 24th, 2022)
 
 ### Added

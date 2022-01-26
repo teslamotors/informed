@@ -2,7 +2,7 @@ import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 
-import { Form, SchemaFields, Debug } from '../../../src';
+import { Form, SchemaFields, FormField, Debug } from '../../../src';
 
 const schema = {
   type: 'object',
@@ -86,6 +86,56 @@ const schema = {
     }
   }
 };
+
+const onSubmit = ({ values }) => console.log(values);
+
+// const schema2 = {
+//   type: 'object',
+//   required: ['name'],
+//   properties: {
+//     name: {
+//       type: 'string',
+//       title: 'First name',
+//       'ui:control': 'input'
+//     },
+//     married: {
+//       type: 'string',
+//       title: 'Are you married?',
+//       enum: ['yes', 'no'],
+//       'ui:control': 'radio'
+//     }
+//   },
+//   allOf: [
+//     {
+//       if: {
+//         properties: {
+//           married: { const: 'yes' }
+//         },
+//         required: ['married']
+//       },
+//       then: {
+//         properties: {
+//           spouse: {
+//             type: 'string',
+//             title: 'Spouse name',
+//             'ui:control': 'input'
+//           }
+//         }
+//       }
+//     }
+//   ]
+// };
+
+// function App() {
+//   return (
+//     <Form onSubmit={onSubmit} autocomplete="off" schema={schema2}>
+//       <FormField name="name" />
+//       <FormField name="spouse" />
+//       <FormField name="married" />
+//       <button type="submit">Submit</button>
+//     </Form>
+//   );
+// }
 
 const Schema = () => (
   <Form schema={schema}>

@@ -1,3 +1,9 @@
+## 4.0.32 (January 26th, 2022)
+
+### Fixed
+
+- issue with FormField not allowing conditional fields
+
 ## 4.0.31 (January 25th, 2022)
 
 ### Fixes https://github.com/teslamotors/informed/issues/381

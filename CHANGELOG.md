@@ -1,3 +1,9 @@
+## 4.0.33 (Feb 3rd, 2022)
+
+### Fixed
+
+- issue with formatter function not allowing full value
+
 ## 4.0.32 (January 26th, 2022)
 
 ### Fixed

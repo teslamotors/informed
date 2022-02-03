@@ -1,4 +1,6 @@
 import { ObjectMap } from './ObjectMap';
+import { Debug } from './debug';
+const debug = Debug('informed:utils' + '\t');
 
 // https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
 export const uuidv4 = () => {
@@ -362,7 +364,7 @@ const formatterFromString = formatter => {
 
 /* -------------------------- Formatter ----------------------------- */
 
-const getFormatter = (formatter, value) => {
+const getFormatter = (formatter, value, full) => {
   // If mask is a string turn it into an array;
   if (typeof formatter === 'string') {
     return formatterFromString(formatter);
@@ -370,7 +372,7 @@ const getFormatter = (formatter, value) => {
 
   // If mask is a function use it to genreate current mask
   if (typeof formatter === 'function') {
-    const frmtr = formatter(value);
+    const frmtr = formatter(value, full);
 
     if (typeof frmtr === 'string') {
       return formatterFromString(frmtr);
@@ -449,7 +451,8 @@ export const informedFormat = (val, frmtr, old) => {
         const { value, offset } = informedFormatter(
           val[key],
           frmtr[key],
-          old ? old[val] : undefined
+          old ? old[val] : undefined,
+          val
         );
         formattedVal[key] = value;
         formattedOffset[key] = offset;
@@ -464,11 +467,13 @@ export const informedFormat = (val, frmtr, old) => {
     };
   }
   // Simply pass along if its a flat formatter
-  return informedFormatter(val, frmtr, old);
+  return informedFormatter(val, frmtr, old, val);
 };
 
-export const informedFormatter = (val, frmtr, old) => {
+export const informedFormatter = (val, frmtr, old, full) => {
   // console.log('Formatting', val);
+  debug('Formatting', val);
+  debug('Full Value', full);
 
   // Null check
   if (!val) {
@@ -481,7 +486,7 @@ export const informedFormatter = (val, frmtr, old) => {
   const value = `${val}`;
 
   // Generate formatter array
-  const formatter = getFormatter(frmtr, value);
+  const formatter = getFormatter(frmtr, value, full);
 
   // Start to fill in the array
   // Example: phone formatter

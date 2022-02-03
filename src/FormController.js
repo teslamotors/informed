@@ -196,6 +196,8 @@ export class FormController {
   }
 
   setValue(name, value, e, key) {
+    debug(`setValue ${name}`, value);
+
     // Get meta for field
     const meta = this.fieldsMap.get(name)?.current || {};
 
@@ -233,10 +235,10 @@ export class FormController {
         val = val != null ? informedParse(val, meta.parser) : val;
       }
 
-      debug(`Setting ${name}'s value to ${val}`);
+      debug(`Setting ${name}'s value to`, val);
       ObjectMap.set(this.state.values, name, val);
 
-      debug(`Setting ${name}'s maskedValue to ${maskedVal}`);
+      debug(`Setting ${name}'s maskedValue to`, maskedVal);
       ObjectMap.set(this.state.maskedValues, name, maskedVal);
     }
 

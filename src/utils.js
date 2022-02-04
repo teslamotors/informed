@@ -656,7 +656,10 @@ export const informedFormatter = (val, frmtr, old, full) => {
 
 export const createIntlNumberFormatter = (locale, opts) => {
   const numberFormatter = new Intl.NumberFormat(locale, opts);
-  const numberFormatterWithoutOpts = new Intl.NumberFormat(locale);
+  const numberFormatterWithoutOpts = new Intl.NumberFormat(locale, {
+    style: opts?.style,
+    currency: opts?.currency
+  });
   const decimalChar =
     numberFormatterWithoutOpts
       .formatToParts(0.1)
@@ -721,6 +724,7 @@ export const createIntlNumberFormatter = (locale, opts) => {
 
   function mask(value) {
     // value = -3000.25
+    // console.log('decChar', decimalChar);
     // console.log('VAL', value);
 
     const isNegative = value.includes(minusChar);
@@ -734,6 +738,7 @@ export const createIntlNumberFormatter = (locale, opts) => {
 
     // fraction = 25
     // console.log('fraction', fraction);
+    // console.log('--------------\n');
 
     const number = isNegative ? -Number(float) : Number(float);
 

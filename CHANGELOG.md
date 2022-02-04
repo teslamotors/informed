@@ -1,3 +1,9 @@
+## 4.0.34 (Feb 4th, 2022)
+
+### Fixed
+
+- issue with INTL formatter when used with `EUR` and `en-DE`
+
 ## 4.0.33 (Feb 3rd, 2022)
 
 ### Fixed

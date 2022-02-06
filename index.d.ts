@@ -28,7 +28,7 @@ export type FormApi = {
   setError: (name: string, value: unknown) => void;
   getFocused: (name: string) => unknown;
   setFocused: (name: string, value: boolean) => void;
-  resetField: (name: string) => void;
+  resetField: (name: string, options: FieldResetOptions) => void;
   reset: () => void;
   getFormState: () => FormState;
   getPristine: () => boolean;
@@ -52,6 +52,13 @@ export type FieldState = {
   focused: boolean;
 };
 
+export type FieldResetOptions = {
+  value?: any;
+  resetError?: boolean;
+  resetTouched?: boolean;
+  resetDirt?: boolean;
+};
+
 export type FieldApi = {
   getValue: () => unknown;
   setValue: (value: unknown, event?: React.SyntheticEvent) => void;
@@ -61,7 +68,7 @@ export type FieldApi = {
   setError: (value: unknown, event?: React.SyntheticEvent) => void;
   getFocused: () => boolean;
   setFocused: (value: boolean, event?: React.SyntheticEvent) => void;
-  reset: () => void;
+  reset: (options?: FieldResetOptions) => void;
   validate: () => unknown;
   getDirty: () => boolean;
   getPristine: () => boolean;
@@ -186,7 +193,7 @@ export type FormController = {
   setFocused: (name: string, value: boolean) => void;
   getError: (name: string) => unknown;
   setError: (name: string, value: unknown) => void;
-  resetField: (name: string) => void;
+  resetField: (name: string, options?: FieldResetOptions) => void;
   reset: () => void;
   getFormState: () => FormState;
   getPristine: () => boolean;

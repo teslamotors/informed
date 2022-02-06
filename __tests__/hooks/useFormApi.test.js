@@ -284,4 +284,84 @@ describe('useFormApi', () => {
 
   });
 
+  it('should update state correctly when resetField is called on field with value option provided', () => {
+    const formApiRef = {};
+
+    const Button = () => {
+      const formApi = useFormApi();
+
+      return (
+        <button type="button" onClick={()=>formApi.resetField('greeting', { value: 'elon' })}>Click Me</button>
+      );
+    };
+
+    const { getByText } = render(
+      <Form formApiRef={formApiRef}>
+        <Input name="greeting" label="input1"/>
+        <Button />
+      </Form>
+    );
+
+    const button = getByText('Click Me');
+    fireEvent.click(button);
+
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      pristine: true,
+      dirty: false,
+      values: {
+        greeting: 'elon'
+      },
+      maskedValues: {
+        greeting: 'elon'
+      },
+    }));
+
+  });
+
+  it('should update state correctly when resetField is called on field with resetError set to false', () => {
+    const formApiRef = {};
+
+    const Button = () => {
+      const formApi = useFormApi();
+
+      return (
+        <button type="button" onClick={() => formApi.resetField('greeting', { resetError: false })}>Click Me</button>
+      );
+    };
+
+
+    const { getByText } = render(
+      <Form formApiRef={formApiRef} initialValues={{ greeting: '123' }}>
+        <Input name="greeting" label="input1" validate={value => !!Number(value)} validateOn="change" />
+        <Button />
+      </Form>
+    );
+
+    act(() => {
+      formApiRef.current.setValue('greeting', 'bar');
+    });
+
+    const button = getByText('Click Me');
+    fireEvent.click(button);
+
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      pristine: false,
+      dirty: true,
+      invalid: true,
+      errors: {
+        greeting: false
+      },
+      values: {
+        greeting: '123'
+      },
+      maskedValues: {
+        greeting: '123'
+      },
+      initialValues: {
+        greeting: '123',
+      },
+      valid: false,
+    }));
+
+  });
 });

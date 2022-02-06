@@ -806,43 +806,65 @@ export class FormController {
     this.emit('reset');
   }
 
-  resetField(name) {
+  resetField(name, options = {}) {
     debug('Resetting', name);
     // Get meta for field
     const meta = this.fieldsMap.get(name)?.current || {};
 
     const { formatter, parser, initialize } = meta;
+    const {
+      value,
+      resetError = true,
+      resetTouched = true,
+      resetDirt = true
+    } = options;
 
-    const initialValue = initializeValue(
-      meta.getInitialValue && meta.getInitialValue(),
-      {
-        formatter,
-        parser,
-        initialize
-      }
-    );
-    const initialMask = initializeMask(
-      meta.getInitialValue && meta.getInitialValue(),
-      {
-        formatter,
-        initialize
-      }
-    );
+    if (value) {
+      debug(`Resetting ${name}'s value to ${options.value}`);
+      ObjectMap.set(this.state.values, name, value);
 
-    debug(`Resetting ${name}'s value to ${initialValue}`);
-    ObjectMap.set(this.state.values, name, initialValue);
+      const maskedValue = initializeMask(value, { formatter, parser });
+      debug(`Resetting ${name}'s maskedValue to ${maskedValue}`);
+      ObjectMap.set(this.state.maskedValues, name, maskedValue);
+    } else {
+      const initialValue = initializeValue(
+        meta.getInitialValue && meta.getInitialValue(),
+        {
+          formatter,
+          parser,
+          initialize
+        }
+      );
 
-    debug(`Resetting ${name}'s maskedValue to ${initialMask}`);
-    ObjectMap.set(this.state.maskedValues, name, initialMask);
+      const initialMask = initializeMask(
+        meta.getInitialValue && meta.getInitialValue(),
+        {
+          formatter,
+          initialize
+        }
+      );
 
-    debug(`Resetting ${name}'s error`);
-    ObjectMap.delete(this.state.errors, name);
+      debug(`Resetting ${name}'s value to ${initialValue}`);
+      ObjectMap.set(this.state.values, name, initialValue);
 
-    debug(`Resetting ${name}'s touched`);
-    ObjectMap.delete(this.state.touched, name);
+      debug(`Resetting ${name}'s maskedValue to ${initialMask}`);
+      ObjectMap.set(this.state.maskedValues, name, initialMask);
+    }
 
-    debug(`Resetting ${name}'s dirt`);
-    ObjectMap.delete(this.state.dirt, name);
+    if (resetError) {
+      debug(`Resetting ${name}'s error`);
+      ObjectMap.delete(this.state.errors, name);
+    }
+
+    if (resetTouched) {
+      debug(`Resetting ${name}'s touched`);
+      ObjectMap.delete(this.state.touched, name);
+    }
+
+    if (resetDirt) {
+      debug(`Resetting ${name}'s dirt`);
+      ObjectMap.delete(this.state.dirt, name);
+    }
 
     // Check if the form is valid
     this.state.valid = ObjectMap.empty(this.state.errors);

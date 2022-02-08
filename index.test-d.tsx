@@ -99,6 +99,8 @@ const ComponentUsingFormApi = () => {
 
         formApi.validate();
 
+        formApi.submitForm();
+
         formApi.validateField('name');
 
         const formState = formApi.getFormState();

@@ -82,7 +82,7 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
       });
     };
 
-    const getNexStep = () => {
+    const getNextStep = () => {
       // Get current step meta
       const stepMeta = stepsMap.get(currentStep.current);
 
@@ -167,7 +167,7 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
 
     const next = cb => {
       // Get the next step
-      const nextStep = getNexStep();
+      const nextStep = getNextStep();
       if (nextStep) {
         // Touch all the fields
         formApi.touchAllFields();
@@ -236,7 +236,7 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
       register,
       next,
       previous,
-      getNexStep,
+      getNextStep,
       getPreviousStep,
       setCurrent,
       metGoal,
@@ -259,7 +259,7 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
       setState(prev => {
         return {
           ...prev,
-          nextStep: multistepApi.getNexStep(),
+          nextStep: multistepApi.getNextStep(),
           previousStep: multistepApi.getPreviousStep()
         };
       });
@@ -279,7 +279,7 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
       setState(prev => {
         return {
           ...prev,
-          nextStep: multistepApi.getNexStep(),
+          nextStep: multistepApi.getNextStep(),
           previousStep: multistepApi.getPreviousStep()
         };
       });

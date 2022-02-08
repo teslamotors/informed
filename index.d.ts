@@ -36,6 +36,7 @@ export type FormApi = {
   getFieldState: (name: string) => FieldState;
   validate: () => void;
   validateField: (name: string) => void;
+  submitForm: () => void;
 };
 
 export type FieldState = {
@@ -66,6 +67,23 @@ export type FieldApi = {
   getDirty: () => boolean;
   getPristine: () => boolean;
   getMaskedValue: () => unknown;
+};
+
+export type MultistepApi = {
+  next: () => void;
+  previous: () => void;
+  getNextStep: () => void;
+  getPreviousStep: () => string;
+  setCurrent: (name: string) => string;
+  getCurrentStep: () => string;
+};
+
+export type MultistepState = {
+  steps: Array<string>;
+  goal: string;
+  current: string;
+  nextStep: string;
+  previousStep: string;
 };
 
 export type ArrayFieldApi = {
@@ -242,6 +260,8 @@ export function useScope(name: string): string;
 
 export function useScoper(name: string): (name: string) => string;
 
+export function useMultistepApi(): MultistepApi;
+
 export function useForm<UserProps>(
   formProps: InformedProps<UserProps>
 ): {
@@ -295,6 +315,16 @@ declare namespace ArrayField {
   }: {
     children: (props: ArrayFieldItemApi & ArrayFieldItemInfo) => JSX.Element;
   }): JSX.Element;
+}
+
+declare function Multistep({
+  children
+}: {
+  children: (props: MultistepApi & MultistepState) => JSX.Element;
+}): JSX.Element;
+
+declare namespace Multistep {
+  function Step({ children }: { children: () => JSX.Element }): JSX.Element;
 }
 
 declare namespace utils {

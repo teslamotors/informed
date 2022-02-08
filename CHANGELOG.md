@@ -1,3 +1,9 @@
+## 4.0.35 (Feb 8th, 2022)
+
+### Fixed
+
+- missing types for multistep and formApi
+
 ## 4.0.34 (Feb 4th, 2022)
 
 ### Fixed

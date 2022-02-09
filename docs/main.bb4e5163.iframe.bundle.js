@@ -1044,7 +1044,7 @@
         (module.exports = exports);
     },
     './package.json': function(module) {
-      module.exports = JSON.parse('{"a":"4.0.34"}');
+      module.exports = JSON.parse('{"a":"4.1.0"}');
     },
     './src/Context.js': function(
       module,
@@ -1061,13 +1061,13 @@
         __webpack_require__.d(__webpack_exports__, 'g', function() {
           return FormStateContext;
         }),
-        __webpack_require__.d(__webpack_exports__, 'j', function() {
+        __webpack_require__.d(__webpack_exports__, 'k', function() {
           return MultistepStepContext;
         }),
-        __webpack_require__.d(__webpack_exports__, 'h', function() {
+        __webpack_require__.d(__webpack_exports__, 'i', function() {
           return MultistepApiContext;
         }),
-        __webpack_require__.d(__webpack_exports__, 'i', function() {
+        __webpack_require__.d(__webpack_exports__, 'j', function() {
           return MultistepStateContext;
         }),
         __webpack_require__.d(__webpack_exports__, 'd', function() {
@@ -1082,14 +1082,17 @@
         __webpack_require__.d(__webpack_exports__, 'c', function() {
           return ArrayFieldItemStateContext;
         }),
-        __webpack_require__.d(__webpack_exports__, 'l', function() {
+        __webpack_require__.d(__webpack_exports__, 'm', function() {
           return RelevanceContext;
         }),
-        __webpack_require__.d(__webpack_exports__, 'k', function() {
+        __webpack_require__.d(__webpack_exports__, 'l', function() {
           return RadioGroupContext;
         }),
-        __webpack_require__.d(__webpack_exports__, 'm', function() {
+        __webpack_require__.d(__webpack_exports__, 'n', function() {
           return ScopeContext;
+        }),
+        __webpack_require__.d(__webpack_exports__, 'h', function() {
+          return InformedContext;
         });
       var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
           './node_modules/react/index.js'
@@ -1115,7 +1118,8 @@
         ArrayFieldItemStateContext = react__WEBPACK_IMPORTED_MODULE_0___default.a.createContext(),
         RelevanceContext = react__WEBPACK_IMPORTED_MODULE_0___default.a.createContext(),
         RadioGroupContext = react__WEBPACK_IMPORTED_MODULE_0___default.a.createContext(),
-        ScopeContext = react__WEBPACK_IMPORTED_MODULE_0___default.a.createContext();
+        ScopeContext = react__WEBPACK_IMPORTED_MODULE_0___default.a.createContext(),
+        InformedContext = react__WEBPACK_IMPORTED_MODULE_0___default.a.createContext();
     },
     './src/debug.js': function(
       module,
@@ -1325,38 +1329,44 @@
       __webpack_require__
     ) {
       'use strict';
-      __webpack_require__.d(__webpack_exports__, 'A', function() {
+      __webpack_require__.d(__webpack_exports__, 'B', function() {
         return useForm_useForm;
       }),
-        __webpack_require__.d(__webpack_exports__, 'x', function() {
+        __webpack_require__.d(__webpack_exports__, 'y', function() {
           return useField_useField;
         }),
-        __webpack_require__.d(__webpack_exports__, 'y', function() {
+        __webpack_require__.d(__webpack_exports__, 'z', function() {
           return useFieldApi;
         }),
-        __webpack_require__.d(__webpack_exports__, 'z', function() {
+        __webpack_require__.d(__webpack_exports__, 'A', function() {
           return useFieldState_useFieldState;
         }),
-        __webpack_require__.d(__webpack_exports__, 'B', function() {
+        __webpack_require__.d(__webpack_exports__, 'C', function() {
           return useFormApi;
         }),
-        __webpack_require__.d(__webpack_exports__, 'C', function() {
+        __webpack_require__.d(__webpack_exports__, 'D', function() {
           return useFormState;
         }),
-        __webpack_require__.d(__webpack_exports__, 'u', function() {
+        __webpack_require__.d(__webpack_exports__, 'v', function() {
           return useArrayFieldApi;
         }),
-        __webpack_require__.d(__webpack_exports__, 'v', function() {
+        __webpack_require__.d(__webpack_exports__, 'w', function() {
           return useArrayFieldItemApi;
         }),
-        __webpack_require__.d(__webpack_exports__, 'w', function() {
+        __webpack_require__.d(__webpack_exports__, 'x', function() {
           return useArrayFieldItemState;
         }),
-        __webpack_require__.d(__webpack_exports__, 'D', function() {
+        __webpack_require__.d(__webpack_exports__, 'G', function() {
           return useMultistepApi;
         }),
-        __webpack_require__.d(__webpack_exports__, 'E', function() {
+        __webpack_require__.d(__webpack_exports__, 'H', function() {
           return useMultistepState;
+        }),
+        __webpack_require__.d(__webpack_exports__, 'F', function() {
+          return useInformedState_useInformedState;
+        }),
+        __webpack_require__.d(__webpack_exports__, 'E', function() {
+          return useInformedField_useInformedField;
         }),
         __webpack_require__.d(__webpack_exports__, 'a', function() {
           return ArrayField_ArrayField;
@@ -1367,7 +1377,7 @@
         __webpack_require__.d(__webpack_exports__, 'd', function() {
           return DebugField_DebugField;
         }),
-        __webpack_require__.d(__webpack_exports__, 'p', function() {
+        __webpack_require__.d(__webpack_exports__, 'q', function() {
           return Relevant_Relevant;
         }),
         __webpack_require__.d(__webpack_exports__, 'f', function() {
@@ -1376,37 +1386,37 @@
         __webpack_require__.d(__webpack_exports__, 'i', function() {
           return FormProvider_FormProvider;
         }),
-        __webpack_require__.d(__webpack_exports__, 'k', function() {
+        __webpack_require__.d(__webpack_exports__, 'l', function() {
           return Input;
         }),
-        __webpack_require__.d(__webpack_exports__, 's', function() {
+        __webpack_require__.d(__webpack_exports__, 't', function() {
           return Select_Select;
         }),
-        __webpack_require__.d(__webpack_exports__, 'm', function() {
+        __webpack_require__.d(__webpack_exports__, 'n', function() {
           return Option_Option;
         }),
         __webpack_require__.d(__webpack_exports__, 'b', function() {
           return Checkbox_Checkbox;
         }),
-        __webpack_require__.d(__webpack_exports__, 'o', function() {
+        __webpack_require__.d(__webpack_exports__, 'p', function() {
           return RadioGroup_RadioGroup;
         }),
-        __webpack_require__.d(__webpack_exports__, 'n', function() {
+        __webpack_require__.d(__webpack_exports__, 'o', function() {
           return Radio_Radio;
         }),
-        __webpack_require__.d(__webpack_exports__, 't', function() {
+        __webpack_require__.d(__webpack_exports__, 'u', function() {
           return TextArea;
         }),
-        __webpack_require__.d(__webpack_exports__, 'F', function() {
+        __webpack_require__.d(__webpack_exports__, 'I', function() {
           return utils_namespaceObject;
         }),
         __webpack_require__.d(__webpack_exports__, 'j', function() {
           return FormStateAccessor_FormStateAccessor;
         }),
-        __webpack_require__.d(__webpack_exports__, 'r', function() {
+        __webpack_require__.d(__webpack_exports__, 's', function() {
           return Scope_Scope;
         }),
-        __webpack_require__.d(__webpack_exports__, 'q', function() {
+        __webpack_require__.d(__webpack_exports__, 'r', function() {
           return SchemaFields_SchemaFields;
         }),
         __webpack_require__.d(__webpack_exports__, 'g', function() {
@@ -1415,11 +1425,14 @@
         __webpack_require__.d(__webpack_exports__, 'h', function() {
           return FormFields_FormFields;
         }),
-        __webpack_require__.d(__webpack_exports__, 'l', function() {
+        __webpack_require__.d(__webpack_exports__, 'm', function() {
           return Multistep;
         }),
         __webpack_require__.d(__webpack_exports__, 'e', function() {
           return Elon;
+        }),
+        __webpack_require__.d(__webpack_exports__, 'k', function() {
+          return Informed_Informed;
         });
       var utils_namespaceObject = {};
       __webpack_require__.r(utils_namespaceObject),
@@ -2981,7 +2994,7 @@
         });
       }
       function useScoper() {
-        var scope = Object(react.useContext)(Context.m);
+        var scope = Object(react.useContext)(Context.n);
         return Object(react.useCallback)(
           function(name) {
             return scope === name
@@ -3138,7 +3151,7 @@
             relevanceDeps =
               void 0 === _ref$relevanceDeps ? [] : _ref$relevanceDeps,
             formController = useFormController(),
-            scope = Object(react.useContext)(Context.m),
+            scope = Object(react.useContext)(Context.n),
             scopeRef = Object(react.useRef)(scope);
           scopeRef.current = scope;
           var _useStateWithGetter2 = useRelevance_slicedToArray(
@@ -3232,7 +3245,7 @@
             relevanceDeps = _ref.relevanceDeps,
             children = _ref.children,
             formController = useFormController(),
-            scope = Object(react.useContext)(Context.m),
+            scope = Object(react.useContext)(Context.n),
             isRelevant = useRelevance_useRelevance({
               relevant: when,
               relevanceWhen: relevanceWhen,
@@ -3255,7 +3268,7 @@
               [isRelevant, scope, relevanceDeps]
             );
           return react_default.a.createElement(
-            Context.l.Provider,
+            Context.m.Provider,
             { value: relevantContext },
             isRelevant ? children : null
           );
@@ -3264,7 +3277,7 @@
         return Object(react.useContext)(Context.e);
       }
       function useScope(name) {
-        var scope = Object(react.useContext)(Context.m);
+        var scope = Object(react.useContext)(Context.n);
         return scope === name
           ? name
           : scope && name
@@ -4157,7 +4170,7 @@
                     Context.c.Provider,
                     { value: arrayFieldStateValue },
                     react_default.a.createElement(
-                      Context.m.Provider,
+                      Context.n.Provider,
                       { value: arrayFieldItemState.name },
                       children(
                         ArrayField_objectSpread(
@@ -4183,7 +4196,7 @@
                     Context.c.Provider,
                     { value: arrayFieldItemState },
                     react_default.a.createElement(
-                      Context.m.Provider,
+                      Context.n.Provider,
                       { value: arrayFieldItemState.name },
                       children
                     )
@@ -4327,13 +4340,13 @@
         var newScope,
           scope = _ref.scope,
           children = _ref.children,
-          parentScope = Object(react.useContext)(Context.m);
+          parentScope = Object(react.useContext)(Context.n);
         return (
           (newScope = parentScope
             ? ''.concat(parentScope, '.').concat(scope)
             : scope),
           react_default.a.createElement(
-            Context.m.Provider,
+            Context.n.Provider,
             { value: newScope },
             children
           )
@@ -4758,14 +4771,14 @@
             )[0],
             fieldState = useFieldState_useFieldState(name, !1),
             fieldApi = useFieldApi(name, !1),
-            inMultistep = Object(react.useContext)(Context.j),
+            inMultistep = Object(react.useContext)(Context.k),
             isRelevant = useRelevance_useRelevance({
               name: name,
               relevant: relevant,
               relevanceWhen: relevanceWhen,
               relevanceDeps: relevanceDeps
             }),
-            relevantContext = Object(react.useContext)(Context.l),
+            relevantContext = Object(react.useContext)(Context.m),
             internalRef = Object(react.useRef)(null),
             ref = react_default.a.useMemo(function() {
               return inputRef || internalRef;
@@ -5489,7 +5502,7 @@
           _onBlur = _ref.onBlur,
           props = Radio_objectWithoutProperties(_ref, Radio_excluded),
           _useRadioGroup = (function useRadioGroup() {
-            return Object(react.useContext)(Context.k);
+            return Object(react.useContext)(Context.l);
           })(),
           radioGroupApi = _useRadioGroup.radioGroupApi,
           radioGroupState = _useRadioGroup.radioGroupState,
@@ -5595,7 +5608,7 @@
           showError = fieldState.showError,
           error = fieldState.error;
         return react_default.a.createElement(
-          Context.k.Provider,
+          Context.l.Provider,
           { value: groupContext },
           react_default.a.createElement(
             'fieldset',
@@ -5978,7 +5991,7 @@
             !Component && 'object' === type && properties)
           )
             return react_default.a.createElement(
-              Context.m.Provider,
+              Context.n.Provider,
               { value: name },
               react_default.a.createElement(FormFields_FormFields, {
                 schema: schemaField
@@ -5986,7 +5999,7 @@
             );
           if (Component && 'object' === type && properties)
             return react_default.a.createElement(
-              Context.m.Provider,
+              Context.n.Provider,
               { value: name },
               react_default.a.createElement(
                 Component,
@@ -7648,33 +7661,37 @@
             ]),
             FormController
           );
-        })(),
-        useForm_excluded = [
-          'onSubmit',
-          'onReset',
-          'onChange',
-          'onSubmitFailure',
-          'initialValues',
-          'validateFields',
-          'autocomplete',
-          'showErrorIfError',
-          'showErrorIfTouched',
-          'showErrorIfDirty',
-          'validateOn',
-          'validateOnMount',
-          'formApiRef',
-          'dontPreventDefault',
-          'yupSchema',
-          'allowEmptyStrings',
-          'preventEnter',
-          'schema',
-          'ajv',
-          'ajvErrors',
-          'components',
-          'errorMessage',
-          'fieldMap',
-          'adapter'
-        ];
+        })();
+      function useInformed() {
+        return Object(react.useContext)(Context.h);
+      }
+      var useForm_excluded = [
+        'onSubmit',
+        'onReset',
+        'onChange',
+        'onSubmitFailure',
+        'initialValues',
+        'validateFields',
+        'autocomplete',
+        'showErrorIfError',
+        'showErrorIfTouched',
+        'showErrorIfDirty',
+        'validateOn',
+        'validateOnMount',
+        'formApiRef',
+        'dontPreventDefault',
+        'yupSchema',
+        'allowEmptyStrings',
+        'preventEnter',
+        'schema',
+        'ajv',
+        'ajvErrors',
+        'components',
+        'errorMessage',
+        'fieldMap',
+        'adapter',
+        'name'
+      ];
       function useForm_ownKeys(object, enumerableOnly) {
         var keys = Object.keys(object);
         if (Object.getOwnPropertySymbols) {
@@ -7816,7 +7833,7 @@
             onReset = _ref.onReset,
             onChange = _ref.onChange,
             onSubmitFailure = _ref.onSubmitFailure,
-            initialValues = _ref.initialValues,
+            userInitialValues = _ref.initialValues,
             validateFields = _ref.validateFields,
             autocomplete = _ref.autocomplete,
             showErrorIfError = _ref.showErrorIfError,
@@ -7836,7 +7853,26 @@
             errorMessage = _ref.errorMessage,
             fieldMap = _ref.fieldMap,
             adapter = _ref.adapter,
+            name = _ref.name,
             userProps = useForm_objectWithoutProperties(_ref, useForm_excluded),
+            informed = useInformed(),
+            initialValues = Object(react.useMemo)(
+              function() {
+                var _informed$getSavedVal;
+                return informed && name
+                  ? (useForm_logger(
+                      'Checking for saved values',
+                      informed.getSavedValues(name)
+                    ),
+                    null !==
+                      (_informed$getSavedVal = informed.getSavedValues(name)) &&
+                    void 0 !== _informed$getSavedVal
+                      ? _informed$getSavedVal
+                      : userInitialValues)
+                  : userInitialValues;
+              },
+              [userInitialValues]
+            ),
             formControllerOptions = {
               initialValues: initialValues,
               validateFields: validateFields,
@@ -7908,18 +7944,26 @@
             formState = _useState4[0],
             setFormState = _useState4[1];
           Object(react.useEffect)(function() {
-            var listener = function listener() {
+            var listener = function listener(target) {
               setFormState(
                 useForm_objectSpread({}, formController.getFormState())
-              );
+              ),
+                informed && informed.inform(name, target);
             };
             return (
               formController.emitter.on('field', listener),
               setFormState(
                 useForm_objectSpread({}, formController.getFormState())
               ),
+              name && informed && informed.register(name, formController),
               function() {
-                formController.emitter.removeListener('field', listener);
+                formController.emitter.removeListener('field', listener),
+                  name &&
+                    informed &&
+                    informed.setSavedValues(
+                      name,
+                      formController.getFormState().values
+                    );
               }
             );
           }, []);
@@ -8282,10 +8326,10 @@
             path: 'src/components/SchemaFields.js'
           });
       function useMultistepState() {
-        return Object(react.useContext)(Context.i);
+        return Object(react.useContext)(Context.j);
       }
       function useMultistepApi() {
-        return Object(react.useContext)(Context.h);
+        return Object(react.useContext)(Context.i);
       }
       var useMultistepStep_logger = Object(src_debug.a)(
           'informed:useMultistepStep\t'
@@ -8333,7 +8377,7 @@
               getFieldState = _useFormController.getFieldState,
               emitter = _useFormController.emitter,
               formApi = useFormApi(),
-              scope = Object(react.useContext)(Context.m),
+              scope = Object(react.useContext)(Context.n),
               nSteps = Object(react.useRef)(0),
               currentStep = Object(react.useRef)(),
               steps = useMultistep_slicedToArray(
@@ -8355,7 +8399,7 @@
               multistepState = _useState6[0],
               setState = _useState6[1],
               multistepApi = Object(react.useMemo)(function() {
-                var getNexStep = function getNexStep() {
+                var getNextStep = function getNextStep() {
                     for (
                       var nextStep,
                         i = stepsMap.get(currentStep.current).index + 1;
@@ -8462,7 +8506,7 @@
                         });
                     },
                     next: function next(cb) {
-                      var nextStep = getNexStep();
+                      var nextStep = getNextStep();
                       nextStep &&
                         (formApi.touchAllFields(),
                         validate(),
@@ -8485,7 +8529,7 @@
                           );
                         }));
                     },
-                    getNexStep: getNexStep,
+                    getNextStep: getNextStep,
                     getPreviousStep: getPreviousStep,
                     setCurrent: function setCurrent(step) {
                       stepsMap.get(step).index <
@@ -8529,7 +8573,7 @@
                       useMultistep_objectSpread({}, prev),
                       {},
                       {
-                        nextStep: multistepApi.getNexStep(),
+                        nextStep: multistepApi.getNextStep(),
                         previousStep: multistepApi.getPreviousStep()
                       }
                     );
@@ -8549,7 +8593,7 @@
                       useMultistep_objectSpread({}, prev),
                       {},
                       {
-                        nextStep: multistepApi.getNexStep(),
+                        nextStep: multistepApi.getNextStep(),
                         previousStep: multistepApi.getPreviousStep()
                       }
                     );
@@ -8566,10 +8610,10 @@
                 {
                   render: function render(children) {
                     return react_default.a.createElement(
-                      Context.h.Provider,
+                      Context.i.Provider,
                       { value: multistepApi },
                       react_default.a.createElement(
-                        Context.i.Provider,
+                        Context.j.Provider,
                         { value: multistepState },
                         children
                       )
@@ -8586,6 +8630,87 @@
           );
         return render(
           'function' == typeof children ? children(context) : children
+        );
+      }
+      function Informed_slicedToArray(arr, i) {
+        return (
+          (function Informed_arrayWithHoles(arr) {
+            if (Array.isArray(arr)) return arr;
+          })(arr) ||
+          (function Informed_iterableToArrayLimit(arr, i) {
+            var _i =
+              null == arr
+                ? null
+                : ('undefined' != typeof Symbol && arr[Symbol.iterator]) ||
+                  arr['@@iterator'];
+            if (null == _i) return;
+            var _s,
+              _e,
+              _arr = [],
+              _n = !0,
+              _d = !1;
+            try {
+              for (
+                _i = _i.call(arr);
+                !(_n = (_s = _i.next()).done) &&
+                (_arr.push(_s.value), !i || _arr.length !== i);
+                _n = !0
+              );
+            } catch (err) {
+              (_d = !0), (_e = err);
+            } finally {
+              try {
+                _n || null == _i.return || _i.return();
+              } finally {
+                if (_d) throw _e;
+              }
+            }
+            return _arr;
+          })(arr, i) ||
+          (function Informed_unsupportedIterableToArray(o, minLen) {
+            if (!o) return;
+            if ('string' == typeof o)
+              return Informed_arrayLikeToArray(o, minLen);
+            var n = Object.prototype.toString.call(o).slice(8, -1);
+            'Object' === n && o.constructor && (n = o.constructor.name);
+            if ('Map' === n || 'Set' === n) return Array.from(o);
+            if (
+              'Arguments' === n ||
+              /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)
+            )
+              return Informed_arrayLikeToArray(o, minLen);
+          })(arr, i) ||
+          (function Informed_nonIterableRest() {
+            throw new TypeError(
+              'Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
+            );
+          })()
+        );
+      }
+      function Informed_arrayLikeToArray(arr, len) {
+        (null == len || len > arr.length) && (len = arr.length);
+        for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+        return arr2;
+      }
+      function Informed_classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor))
+          throw new TypeError('Cannot call a class as a function');
+      }
+      function Informed_defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+          var descriptor = props[i];
+          (descriptor.enumerable = descriptor.enumerable || !1),
+            (descriptor.configurable = !0),
+            'value' in descriptor && (descriptor.writable = !0),
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+      }
+      function Informed_createClass(Constructor, protoProps, staticProps) {
+        return (
+          protoProps &&
+            Informed_defineProperties(Constructor.prototype, protoProps),
+          staticProps && Informed_defineProperties(Constructor, staticProps),
+          Constructor
         );
       }
       Multistep.Step = function MultistepStep(_ref2) {
@@ -8649,7 +8774,7 @@
                 step: step,
                 render: function render(children) {
                   return react_default.a.createElement(
-                    Context.j.Provider,
+                    Context.k.Provider,
                     { value: active },
                     react_default.a.createElement(
                       Scope_Scope,
@@ -8664,6 +8789,137 @@
           })(Multistep_objectWithoutProperties(_ref2, _excluded3));
         return (0, _useMultistepStep.render)(children);
       };
+      var Informed_debug = Object(src_debug.a)('informed:Informed\t\t'),
+        Emitter = (function() {
+          function Emitter() {
+            Informed_classCallCheck(this, Emitter),
+              (this.subscriptions = new Map()),
+              (this.emitter = this),
+              (this.on = this.on.bind(this)),
+              (this.emit = this.emit.bind(this));
+          }
+          return (
+            Informed_createClass(Emitter, [
+              {
+                key: 'emit',
+                value: function emit(event) {
+                  for (
+                    var _len = arguments.length,
+                      args = new Array(_len > 1 ? _len - 1 : 0),
+                      _key = 1;
+                    _key < _len;
+                    _key++
+                  )
+                    args[_key - 1] = arguments[_key];
+                  var listeners = this.subscriptions.get(event);
+                  listeners &&
+                    listeners.forEach(function(listener) {
+                      return listener.apply(void 0, args);
+                    });
+                }
+              },
+              {
+                key: 'on',
+                value: function on(event, listener) {
+                  this.subscriptions.get(event) ||
+                    this.subscriptions.set(event, new Set()),
+                    this.subscriptions.get(event).add(listener);
+                }
+              },
+              {
+                key: 'removeListener',
+                value: function removeListener(event, listener) {
+                  this.subscriptions.get(event).delete(listener);
+                }
+              }
+            ]),
+            Emitter
+          );
+        })(),
+        InformedController = (function() {
+          function InformedController() {
+            Informed_classCallCheck(this, InformedController),
+              (this.emitter = new Emitter()),
+              (this.formMap = new Map()),
+              (this.savedValues = new Map()),
+              (this.getController = this.getController.bind(this)),
+              (this.register = this.register.bind(this)),
+              (this.deregister = this.deregister.bind(this));
+          }
+          return (
+            Informed_createClass(InformedController, [
+              {
+                key: 'register',
+                value: function register(name, controller) {
+                  Informed_debug('Register', name, controller),
+                    this.formMap.get(name) && this.formMap.delete(name),
+                    this.formMap.set(name, controller),
+                    this.emitter.emit(name, '_ALL_');
+                }
+              },
+              {
+                key: 'deregister',
+                value: function deregister(name) {
+                  Informed_debug('De-Register', name),
+                    this.formMap.get(name) &&
+                      (this.formMap.delete(name),
+                      this.emitter.emit(name, '_ALL_'));
+                }
+              },
+              {
+                key: 'getController',
+                value: function getController(name) {
+                  return this.formMap.get(name);
+                }
+              },
+              {
+                key: 'inform',
+                value: function inform(name, target) {
+                  this.emitter.emit(name, target);
+                }
+              },
+              {
+                key: 'getSavedValues',
+                value: function getSavedValues(name) {
+                  return this.savedValues.get(name);
+                }
+              },
+              {
+                key: 'setSavedValues',
+                value: function setSavedValues(name, values) {
+                  return this.savedValues.set(name, values);
+                }
+              }
+            ]),
+            InformedController
+          );
+        })(),
+        Informed_Informed = function Informed(_ref) {
+          var children = _ref.children;
+          Informed_debug('Render Informed Provider');
+          var informedController = Informed_slicedToArray(
+            Object(react.useState)(function() {
+              return new InformedController();
+            }),
+            1
+          )[0];
+          return react_default.a.createElement(
+            Context.h.Provider,
+            { value: informedController },
+            children
+          );
+        };
+      (Informed_Informed.__docgenInfo = {
+        description: '',
+        methods: [],
+        displayName: 'Informed'
+      }),
+        'undefined' != typeof STORYBOOK_REACT_CLASSES &&
+          (STORYBOOK_REACT_CLASSES['src/components/Informed.js'] = {
+            name: 'Informed',
+            docgenInfo: Informed_Informed.__docgenInfo,
+            path: 'src/components/Informed.js'
+          });
       var FormStateAccessor_FormStateAccessor = function FormStateAccessor(
         _ref
       ) {
@@ -8672,6 +8928,71 @@
       function useArrayFieldItemState() {
         return Object(react.useContext)(Context.c);
       }
+      var useInformedState_debug = Object(src_debug.a)(
+          'informed:useInformedState\t'
+        ),
+        useInformedState_useInformedState = function useInformedState(name) {
+          var _informed$getControll,
+            informed = useInformed(),
+            forceUpdate = useForceUpdate_useForceUpdate();
+          return (
+            Object(react.useEffect)(
+              function() {
+                var listener = function listener(n) {
+                  useInformedState_debug('Updating', n), forceUpdate();
+                };
+                return (
+                  informed.emitter.on(name, listener),
+                  forceUpdate(),
+                  function() {
+                    informed.emitter.removeListener(name, listener);
+                  }
+                );
+              },
+              [name]
+            ),
+            null === (_informed$getControll = informed.getController(name)) ||
+            void 0 === _informed$getControll
+              ? void 0
+              : _informed$getControll.getFormState()
+          );
+        },
+        useInformedField_debug = Object(src_debug.a)(
+          'informed:useInformedField\t'
+        ),
+        useInformedField_useInformedField = function useInformedField(
+          name,
+          target
+        ) {
+          var _informed$getControll,
+            informed = useInformed(),
+            forceUpdate = useForceUpdate_useForceUpdate();
+          return (
+            Object(react.useEffect)(
+              function() {
+                var listener = function listener(t) {
+                  ('_ALL_' === t ||
+                    t === target ||
+                    (t && isChild(target, t))) &&
+                    (useInformedField_debug('Updating', t, name, target),
+                    forceUpdate());
+                };
+                return (
+                  informed.emitter.on(name, listener),
+                  forceUpdate(),
+                  function() {
+                    informed.emitter.removeListener(name, listener);
+                  }
+                );
+              },
+              [name]
+            ),
+            null === (_informed$getControll = informed.getController(name)) ||
+            void 0 === _informed$getControll
+              ? void 0
+              : _informed$getControll.getFieldState(target)
+          );
+        };
     },
     './stories sync ^\\.[\\\\/](?:index\\.js)$': function(
       module,
@@ -8729,15 +9050,15 @@
             return react_default.a.createElement(
               src.f,
               null,
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'friends[0]',
                 label: 'Friend1'
               }),
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'friends[1]',
                 label: 'Friend2'
               }),
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'friends[2]',
                 label: 'Friend3'
               }),
@@ -8758,26 +9079,26 @@
               null,
               react_default.a.createElement('h5', null, 'Friend1'),
               react_default.a.createElement(
-                src.r,
+                src.s,
                 { scope: 'friends[0]' },
-                react_default.a.createElement(src.k, {
+                react_default.a.createElement(src.l, {
                   name: 'firstName',
                   label: 'First Name'
                 }),
-                react_default.a.createElement(src.k, {
+                react_default.a.createElement(src.l, {
                   name: 'lastName',
                   label: 'Last Name'
                 })
               ),
               react_default.a.createElement('h5', null, 'Friend2'),
               react_default.a.createElement(
-                src.r,
+                src.s,
                 { scope: 'friends[1]' },
-                react_default.a.createElement(src.k, {
+                react_default.a.createElement(src.l, {
                   name: 'firstName',
                   label: 'First Name'
                 }),
-                react_default.a.createElement(src.k, {
+                react_default.a.createElement(src.l, {
                   name: 'lastName',
                   label: 'Last Name'
                 })
@@ -8793,7 +9114,7 @@
         ),
         { friends: [{ name: 'Joe', age: 27 }, { name: 'Jane', age: 22 }] }),
         ArrayFieldItem_FieldState = function FieldState() {
-          var state = Object(src.w)();
+          var state = Object(src.x)();
           return react_default.a.createElement(
             'pre',
             null,
@@ -8871,12 +9192,12 @@
                                 'label',
                                 null,
                                 react_default.a.createElement('h5', null, name),
-                                react_default.a.createElement(src.k, {
+                                react_default.a.createElement(src.l, {
                                   name: 'name',
                                   label: 'Name',
                                   required: !0
                                 }),
-                                react_default.a.createElement(src.k, {
+                                react_default.a.createElement(src.l, {
                                   name: 'age',
                                   label: 'Age',
                                   type: 'number'
@@ -8947,7 +9268,7 @@
                   'div',
                   { style: { flex: 1, marginRight: '1rem' } },
                   react_default.a.createElement('h5', null, 'You:'),
-                  react_default.a.createElement(src.k, {
+                  react_default.a.createElement(src.l, {
                     name: 'name',
                     label: 'Your Name:'
                   }),
@@ -8975,7 +9296,7 @@
                             return react_default.a.createElement(
                               react_default.a.Fragment,
                               null,
-                              react_default.a.createElement(src.k, {
+                              react_default.a.createElement(src.l, {
                                 name: name,
                                 label: 'Sibling '.concat(index, ':')
                               }),
@@ -9013,7 +9334,7 @@
         },
         HugeArrayForm_FieldState = function FieldState(_ref) {
           var name = _ref.name,
-            nameState = Object(src.z)(name);
+            nameState = Object(src.A)(name);
           return react_default.a.createElement(
             react_default.a.Fragment,
             null,
@@ -9118,33 +9439,33 @@
                                   HugeArrayForm_FieldState,
                                   { name: name }
                                 ),
-                                react_default.a.createElement(src.k, {
+                                react_default.a.createElement(src.l, {
                                   name: 'name',
                                   initialValue:
                                     initialValue && initialValue.name
                                 }),
-                                react_default.a.createElement(src.k, {
+                                react_default.a.createElement(src.l, {
                                   name: 'age'
                                 }),
-                                react_default.a.createElement(src.k, {
+                                react_default.a.createElement(src.l, {
                                   name: 'a'
                                 }),
-                                react_default.a.createElement(src.k, {
+                                react_default.a.createElement(src.l, {
                                   name: 'b'
                                 }),
-                                react_default.a.createElement(src.k, {
+                                react_default.a.createElement(src.l, {
                                   name: 'c'
                                 }),
-                                react_default.a.createElement(src.k, {
+                                react_default.a.createElement(src.l, {
                                   name: 'd'
                                 }),
-                                react_default.a.createElement(src.k, {
+                                react_default.a.createElement(src.l, {
                                   name: 'e'
                                 }),
-                                react_default.a.createElement(src.k, {
+                                react_default.a.createElement(src.l, {
                                   name: 'f'
                                 }),
-                                react_default.a.createElement(src.k, {
+                                react_default.a.createElement(src.l, {
                                   name: 'g',
                                   relevanceWhen: function relevanceWhen(scope) {
                                     return [''.concat(scope, '.f')];
@@ -9157,7 +9478,7 @@
                                     );
                                   }
                                 }),
-                                react_default.a.createElement(src.k, {
+                                react_default.a.createElement(src.l, {
                                   name: 'h',
                                   relevanceWhen: ['f'],
                                   relevant: function relevant(_ref6) {
@@ -9167,7 +9488,7 @@
                                   }
                                 }),
                                 react_default.a.createElement(
-                                  src.p,
+                                  src.q,
                                   {
                                     when: function when(_ref7) {
                                       return _ref7.formApi.getValue(
@@ -9175,19 +9496,19 @@
                                       );
                                     }
                                   },
-                                  react_default.a.createElement(src.k, {
+                                  react_default.a.createElement(src.l, {
                                     name: 'i'
                                   }),
-                                  react_default.a.createElement(src.k, {
+                                  react_default.a.createElement(src.l, {
                                     name: 'j'
                                   }),
-                                  react_default.a.createElement(src.k, {
+                                  react_default.a.createElement(src.l, {
                                     name: 'k'
                                   }),
-                                  react_default.a.createElement(src.k, {
+                                  react_default.a.createElement(src.l, {
                                     name: 'l'
                                   }),
-                                  react_default.a.createElement(src.k, {
+                                  react_default.a.createElement(src.l, {
                                     name: 'm'
                                   })
                                 ),
@@ -9284,12 +9605,12 @@
                                 'label',
                                 null,
                                 react_default.a.createElement('h5', null, name),
-                                react_default.a.createElement(src.k, {
+                                react_default.a.createElement(src.l, {
                                   name: 'name',
                                   label: 'Name',
                                   required: !0
                                 }),
-                                react_default.a.createElement(src.k, {
+                                react_default.a.createElement(src.l, {
                                   name: 'age',
                                   label: 'Age',
                                   type: 'number'
@@ -9342,13 +9663,13 @@
               'Would you like a car or truck?'
             ),
             react_default.a.createElement(
-              src.o,
+              src.p,
               { name: 'type' },
-              react_default.a.createElement(src.n, {
+              react_default.a.createElement(src.o, {
                 value: 'car',
                 label: 'Car'
               }),
-              react_default.a.createElement(src.n, {
+              react_default.a.createElement(src.o, {
                 value: 'truck',
                 label: 'Truck'
               })
@@ -9356,10 +9677,10 @@
           );
         },
         DependentFields_ProductSelect = function ProductSelect() {
-          var _useFieldState = Object(src.z)('type'),
+          var _useFieldState = Object(src.A)('type'),
             value = _useFieldState.value,
             dirty = _useFieldState.dirty,
-            clearValue = Object(src.y)('product').clearValue,
+            clearValue = Object(src.z)('product').clearValue,
             opts = Object(react.useMemo)(
               function() {
                 return options[value] || [];
@@ -9374,7 +9695,7 @@
               [value]
             ),
             react_default.a.createElement(
-              src.s,
+              src.t,
               { field: 'product', label: 'Product', disabled: !value },
               react_default.a.createElement(
                 'option',
@@ -9410,7 +9731,7 @@
                   'div',
                   { style: { flex: 1, marginRight: '1rem' } },
                   react_default.a.createElement('h5', null, 'You:'),
-                  react_default.a.createElement(src.k, {
+                  react_default.a.createElement(src.l, {
                     name: 'name',
                     label: 'Your Name:'
                   }),
@@ -9439,7 +9760,7 @@
                               react_default.a.Fragment,
                               null,
                               react_default.a.createElement('h5', null, name),
-                              react_default.a.createElement(src.k, {
+                              react_default.a.createElement(src.l, {
                                 name: 'name',
                                 label: 'Name',
                                 required: !0
@@ -9491,7 +9812,7 @@
         withDocs = __webpack_require__('./stories/utils/withDocs.js'),
         src = __webpack_require__('./src/index.js'),
         CarColor_SVG = function SVG() {
-          var value = Object(src.z)('color').value;
+          var value = Object(src.A)('color').value;
           return react_default.a.createElement(
             'div',
             { className: 'car-color-'.concat(value) },
@@ -10099,7 +10420,7 @@
             src.f,
             { autocomplete: 'off' },
             react_default.a.createElement(
-              src.s,
+              src.t,
               { name: 'color', label: 'Color', initialValue: 'blue' },
               react_default.a.createElement('option', { value: 'red' }, 'Red'),
               react_default.a.createElement(
@@ -10226,7 +10547,7 @@
           obj
         );
       }
-      src.F.informedFormat;
+      src.I.informedFormat;
       var formatter = [
           '+',
           '1',
@@ -10252,7 +10573,7 @@
         ) {
           var refA = Object(react.useRef)(),
             refB = Object(react.useRef)(),
-            _useField = Object(src.x)(
+            _useField = Object(src.y)(
               _objectSpread(
                 _objectSpread({}, props),
                 {},
@@ -10478,7 +10799,7 @@
         return target;
       }
       var ObjectInput_ObjectInput = function ObjectInput(props) {
-        var _useField = Object(src.x)(props),
+        var _useField = Object(src.y)(props),
           fieldState = _useField.fieldState,
           fieldApi = _useField.fieldApi,
           render = _useField.render,
@@ -10647,7 +10968,7 @@
         ErrorTextField = react_default.a.memo(function(_ref) {
           var label = _ref.label,
             props = _objectWithoutProperties(_ref, _excluded),
-            _useField = Object(src.x)(
+            _useField = Object(src.y)(
               (function _objectSpread(target) {
                 for (var i = 1; i < arguments.length; i++) {
                   var source = null != arguments[i] ? arguments[i] : {};
@@ -10807,7 +11128,7 @@
               _ref,
               FromScratch_excluded
             ),
-            _useField = Object(src.x)(
+            _useField = Object(src.y)(
               (function FromScratch_objectSpread(target) {
                 for (var i = 1; i < arguments.length; i++) {
                   var source = null != arguments[i] ? arguments[i] : {};
@@ -10970,7 +11291,7 @@
         return target;
       }
       var UseField_CustomInput = function CustomInput(props) {
-          var _useField = Object(src.x)(props),
+          var _useField = Object(src.y)(props),
             fieldState = _useField.fieldState,
             fieldApi = _useField.fieldApi,
             render = _useField.render,
@@ -11116,7 +11437,7 @@
             max = _ref.max,
             step = _ref.step,
             props = Slider_objectWithoutProperties(_ref, Slider_excluded),
-            _useField = Object(src.x)(
+            _useField = Object(src.y)(
               (function Slider_objectSpread(target) {
                 for (var i = 1; i < arguments.length; i++) {
                   var source = null != arguments[i] ? arguments[i] : {};
@@ -11273,7 +11594,7 @@
         );
       }
       var UseFieldHooked_CustomInput = function CustomInput(props) {
-          var _useField = Object(src.x)(
+          var _useField = Object(src.y)(
               (function UseFieldHooked_objectSpread(target) {
                 for (var i = 1; i < arguments.length; i++) {
                   var source = null != arguments[i] ? arguments[i] : {};
@@ -11407,7 +11728,7 @@
               react_default.a.createElement(
                 'div',
                 { style: { flex: 2, marginRight: '2rem' } },
-                react_default.a.createElement(src.k, {
+                react_default.a.createElement(src.l, {
                   name: 'name',
                   label: 'Name:'
                 }),
@@ -11457,7 +11778,7 @@
                 react_default.a.createElement(
                   'div',
                   { style: { flex: 1, marginRight: '2rem' } },
-                  react_default.a.createElement(src.k, {
+                  react_default.a.createElement(src.l, {
                     name: 'name',
                     label: 'First name:'
                   }),
@@ -11467,23 +11788,23 @@
                     'Are you married?'
                   ),
                   react_default.a.createElement(
-                    src.o,
+                    src.p,
                     { name: 'married' },
                     react_default.a.createElement(
                       'label',
                       null,
                       'Yes ',
-                      react_default.a.createElement(src.n, { value: 'yes' })
+                      react_default.a.createElement(src.o, { value: 'yes' })
                     ),
                     react_default.a.createElement(
                       'label',
                       null,
                       'No ',
-                      react_default.a.createElement(src.n, { value: 'no' })
+                      react_default.a.createElement(src.o, { value: 'no' })
                     )
                   ),
                   react_default.a.createElement(
-                    src.p,
+                    src.q,
                     {
                       when: function when(_ref) {
                         var _formState$values;
@@ -11497,7 +11818,7 @@
                         );
                       }
                     },
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       name: 'spouse',
                       label: 'Spouse name:'
                     })
@@ -11540,7 +11861,7 @@
                 return react_default.a.createElement(
                   'div',
                   null,
-                  react_default.a.createElement(src.k, {
+                  react_default.a.createElement(src.l, {
                     name: 'name',
                     label: 'First name:'
                   }),
@@ -11599,7 +11920,7 @@
           './stories/Intro/FormApi/RenderProp/index.js'
         ),
         UseFormApi_RandomSetterButton = function RandomSetterButton() {
-          var formApi = Object(src.B)();
+          var formApi = Object(src.C)();
           return react_default.a.createElement(
             'button',
             {
@@ -11617,7 +11938,7 @@
           );
         },
         UseFormApi_SetValuesButton = function SetValuesButton() {
-          var formApi = Object(src.B)();
+          var formApi = Object(src.C)();
           return react_default.a.createElement(
             'button',
             {
@@ -11630,7 +11951,7 @@
           );
         },
         UseFormApi_SetTheseValuesButton = function SetTheseValuesButton() {
-          var formApi = Object(src.B)();
+          var formApi = Object(src.C)();
           return react_default.a.createElement(
             'button',
             {
@@ -11648,19 +11969,19 @@
             return react_default.a.createElement(
               src.f,
               { validateOn: 'change', showErrorIfError: !0 },
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'name',
                 label: 'First Name:',
                 initialValue: 'Joe',
                 required: !0
               }),
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'age',
                 label: 'First Name:',
                 type: 'number',
                 initialValue: '27'
               }),
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'color',
                 label: 'Favorite Color:',
                 formatter: '*-*-***'
@@ -11724,7 +12045,7 @@
           return react_default.a.createElement(
             src.f,
             { onSubmit: onSubmit, autocomplete: 'off' },
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'name',
               label: 'First name:'
             }),
@@ -11749,7 +12070,7 @@
         withDocs = __webpack_require__('./stories/utils/withDocs.js'),
         src = __webpack_require__('./src/index.js'),
         Big_MyButton = function MyButton() {
-          var formApi = Object(src.B)();
+          var formApi = Object(src.C)();
           return react_default.a.createElement(
             'button',
             { type: 'button', onClick: formApi.reset },
@@ -11777,7 +12098,7 @@
                       'label',
                       { key: 'big-'.concat(i) },
                       'First name:',
-                      react_default.a.createElement(src.k, {
+                      react_default.a.createElement(src.l, {
                         name: 'field-'.concat(i)
                       })
                     )
@@ -11824,80 +12145,80 @@
                 react_default.a.createElement(
                   'div',
                   { style: { flex: 1, marginRight: '2rem' } },
-                  react_default.a.createElement(src.k, {
+                  react_default.a.createElement(src.l, {
                     name: 'name',
                     label: 'First name:'
                   }),
-                  react_default.a.createElement(src.k, {
+                  react_default.a.createElement(src.l, {
                     name: 'favorite.color',
                     label: 'Favorite color:'
                   }),
                   react_default.a.createElement(
-                    src.r,
+                    src.s,
                     { scope: 'favorite' },
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       name: 'food',
                       label: 'Favorite food:'
                     }),
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       name: 'animal',
                       label: 'Favorite animal:'
                     })
                   ),
-                  react_default.a.createElement(src.k, {
+                  react_default.a.createElement(src.l, {
                     name: 'friends[0]',
                     label: 'Friend 1:'
                   }),
-                  react_default.a.createElement(src.k, {
+                  react_default.a.createElement(src.l, {
                     name: 'friends[1]',
                     label: 'Friend 2:'
                   }),
-                  react_default.a.createElement(src.k, {
+                  react_default.a.createElement(src.l, {
                     name: 'friends[2]',
                     label: 'Friend 3:'
                   }),
-                  react_default.a.createElement(src.t, {
+                  react_default.a.createElement(src.u, {
                     name: 'bio',
                     label: 'Bio'
                   }),
                   react_default.a.createElement(
-                    src.o,
+                    src.p,
                     { name: 'gender' },
-                    react_default.a.createElement(src.n, {
+                    react_default.a.createElement(src.o, {
                       value: 'male',
                       label: 'Male:'
                     }),
-                    react_default.a.createElement(src.n, {
+                    react_default.a.createElement(src.o, {
                       value: 'female',
                       label: 'Female:'
                     })
                   ),
                   react_default.a.createElement(
-                    src.s,
+                    src.t,
                     { name: 'status', label: 'Relationship status:' },
                     react_default.a.createElement(
-                      src.m,
+                      src.n,
                       { value: '', disabled: !0 },
                       'Select One...'
                     ),
                     react_default.a.createElement(
-                      src.m,
+                      src.n,
                       { value: 'single' },
                       'Single'
                     ),
                     react_default.a.createElement(
-                      src.m,
+                      src.n,
                       { value: 'relationship' },
                       'Relationship'
                     ),
                     react_default.a.createElement(
-                      src.m,
+                      src.n,
                       { value: 'complicated' },
                       'Complicated'
                     )
                   ),
                   react_default.a.createElement(
-                    src.s,
+                    src.t,
                     {
                       name: 'colors',
                       label: 'Colors:',
@@ -11905,32 +12226,32 @@
                       style: { height: '100px', width: '200px' }
                     },
                     react_default.a.createElement(
-                      src.m,
+                      src.n,
                       { value: 'red' },
                       'Red'
                     ),
                     react_default.a.createElement(
-                      src.m,
+                      src.n,
                       { value: 'green' },
                       'Green'
                     ),
                     react_default.a.createElement(
-                      src.m,
+                      src.n,
                       { value: 'blue' },
                       'Blue'
                     ),
                     react_default.a.createElement(
-                      src.m,
+                      src.n,
                       { value: 'yellow' },
                       'Yellow'
                     ),
                     react_default.a.createElement(
-                      src.m,
+                      src.n,
                       { value: 'orange' },
                       'Orange'
                     ),
                     react_default.a.createElement(
-                      src.m,
+                      src.n,
                       { value: 'purple' },
                       'Purple'
                     )
@@ -12026,7 +12347,7 @@
         return arr2;
       }
       var Dynamic_JoesState = function JoesState() {
-          var fieldState = Object(src.z)('joe');
+          var fieldState = Object(src.A)('joe');
           return react_default.a.createElement(
             react_default.a.Fragment,
             null,
@@ -12043,7 +12364,7 @@
           );
         },
         Dynamic_ElonsState = function ElonsState() {
-          var fieldState = Object(src.z)('elon');
+          var fieldState = Object(src.A)('elon');
           return react_default.a.createElement(
             react_default.a.Fragment,
             null,
@@ -12092,7 +12413,7 @@
                     { htmlFor: 'field1', key: field1 },
                     field1,
                     ':',
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       name: field1,
                       id: 'field1'
                     })
@@ -12102,7 +12423,7 @@
                         'label',
                         { htmlFor: 'baz', key: 'baz' },
                         'baz:',
-                        react_default.a.createElement(src.k, {
+                        react_default.a.createElement(src.l, {
                           name: 'baz',
                           id: 'baz'
                         })
@@ -12111,7 +12432,7 @@
                         'label',
                         { htmlFor: 'taz', key: 'taz' },
                         'taz:',
-                        react_default.a.createElement(src.k, {
+                        react_default.a.createElement(src.l, {
                           name: 'taz',
                           id: 'taz'
                         })
@@ -12121,7 +12442,7 @@
                     { htmlFor: 'field3', key: field3 },
                     field3,
                     ':',
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       name: field3,
                       id: 'field3',
                       keepState: !0
@@ -12131,7 +12452,7 @@
                     'label',
                     { key: 'diabled' },
                     'Diabled:',
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       name: 'disabled',
                       disabled: disabled
                     })
@@ -12141,7 +12462,7 @@
                     null,
                     field5,
                     ':',
-                    react_default.a.createElement(src.k, { name: field5 })
+                    react_default.a.createElement(src.l, { name: field5 })
                   ),
                   react_default.a.createElement(Dynamic_JoesState, null),
                   react_default.a.createElement('br', null),
@@ -12312,7 +12633,7 @@
           ]
         },
         FeatureTester_Reset = function Reset() {
-          var formApi = Object(src.B)();
+          var formApi = Object(src.C)();
           return react_default.a.createElement(
             'button',
             { type: 'button', onClick: formApi.reset },
@@ -12364,7 +12685,7 @@
         },
         FeatureTester_FieldState = function FieldState(_ref2) {
           var name = _ref2.name,
-            fieldState = Object(src.z)(name);
+            fieldState = Object(src.A)(name);
           return react_default.a.createElement(
             react_default.a.Fragment,
             null,
@@ -12432,7 +12753,7 @@
                   }),
                   react_default.a.createElement('hr', null),
                   react_default.a.createElement('h3', null, 'Masking Test'),
-                  react_default.a.createElement(src.k, {
+                  react_default.a.createElement(src.l, {
                     name: 'phone',
                     formatter: formatter,
                     parser: parser,
@@ -12440,7 +12761,7 @@
                     initialValue: '1231231234',
                     debug: !0
                   }),
-                  react_default.a.createElement(src.k, {
+                  react_default.a.createElement(src.l, {
                     name: 'uppercase',
                     formatter: [
                       mask,
@@ -12460,13 +12781,13 @@
                   }),
                   react_default.a.createElement('hr', null),
                   react_default.a.createElement('h3', null, 'Normal Form Test'),
-                  react_default.a.createElement(src.k, {
+                  react_default.a.createElement(src.l, {
                     label: 'First Name',
                     name: 'first',
                     initialValue: 'Joe',
                     debug: !0
                   }),
-                  react_default.a.createElement(src.k, {
+                  react_default.a.createElement(src.l, {
                     label: 'Last Name',
                     name: 'last',
                     debug: !0,
@@ -12474,20 +12795,20 @@
                       return 'Puzzo' === v ? 'Ahhhh' : void 0;
                     }
                   }),
-                  react_default.a.createElement(src.k, {
+                  react_default.a.createElement(src.l, {
                     label: 'Foo',
                     name: 'foo',
                     defaultValue: 'foo',
                     debug: !0
                   }),
-                  react_default.a.createElement(src.k, {
+                  react_default.a.createElement(src.l, {
                     label: 'Bar',
                     name: 'bar',
                     initialValue: 'BAR',
                     defaultValue: 'bar',
                     debug: !0
                   }),
-                  react_default.a.createElement(src.k, {
+                  react_default.a.createElement(src.l, {
                     label: 'Baz',
                     name: 'baz',
                     defaultValue: 'bar',
@@ -12501,26 +12822,26 @@
                     debug: !0
                   }),
                   react_default.a.createElement(
-                    src.p,
+                    src.q,
                     {
                       when: function when(_ref4) {
                         return _ref4.formState.values.showInfo;
                       }
                     },
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       type: 'number',
                       label: 'Age',
                       name: 'age',
                       debug: !0
                     }),
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       label: 'Favorite Color',
                       name: 'color',
                       keepState: !0,
                       debug: !0
                     })
                   ),
-                  react_default.a.createElement(src.k, {
+                  react_default.a.createElement(src.l, {
                     label: 'Favorite Food',
                     name: 'food',
                     debug: !0,
@@ -12529,7 +12850,7 @@
                       return _ref5.formState.values.showInfo;
                     }
                   }),
-                  react_default.a.createElement(src.k, {
+                  react_default.a.createElement(src.l, {
                     label: 'Favorite Animal',
                     name: 'animal',
                     keepState: !0,
@@ -12542,7 +12863,7 @@
                   react_default.a.createElement('hr', null),
                   react_default.a.createElement('h3', null, 'Multistep Test'),
                   react_default.a.createElement(
-                    Context.j.Provider,
+                    Context.k.Provider,
                     { value: step },
                     react_default.a.createElement(
                       'button',
@@ -12574,7 +12895,7 @@
                             debug: !0
                           }),
                           react_default.a.createElement(
-                            src.p,
+                            src.q,
                             {
                               when: function when(_ref7) {
                                 var _formState$values$mul;
@@ -12586,20 +12907,20 @@
                                   : _formState$values$mul.showInfo;
                               }
                             },
-                            react_default.a.createElement(src.k, {
+                            react_default.a.createElement(src.l, {
                               type: 'number',
                               label: 'Age []',
                               name: 'multi.age',
                               debug: !0
                             }),
-                            react_default.a.createElement(src.k, {
+                            react_default.a.createElement(src.l, {
                               label: 'Favorite Color [keepState]',
                               name: 'multi.color',
                               keepState: !0,
                               debug: !0
                             })
                           ),
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             label: 'Favorite Food []',
                             name: 'multi.food',
                             debug: !0,
@@ -12614,7 +12935,7 @@
                                 : _formState$values$mul2.showInfo;
                             }
                           }),
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             label: 'Favorite Animal [keepState]',
                             name: 'multi.animal',
                             keepState: !0,
@@ -12636,13 +12957,13 @@
                       ? react_default.a.createElement(
                           react_default.a.Fragment,
                           null,
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             label: 'First Name',
                             name: 'multi.first',
                             initialValue: 'Joe',
                             debug: !0
                           }),
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             label: 'Last Name',
                             name: 'multi.last',
                             debug: !0
@@ -12726,20 +13047,20 @@
                               null,
                               console.log('RENDER'),
                               react_default.a.createElement('h5', null, name),
-                              react_default.a.createElement(src.k, {
+                              react_default.a.createElement(src.l, {
                                 label: 'First [ keepState ]',
                                 name: 'first',
                                 keepState: !0,
                                 debug: !0
                               }),
-                              react_default.a.createElement(src.k, {
+                              react_default.a.createElement(src.l, {
                                 label: 'Last [ keepState ]',
                                 name: 'last',
                                 debug: !0,
                                 keepState: !0,
                                 initialValue: 'bob-'.concat(name)
                               }),
-                              react_default.a.createElement(src.k, {
+                              react_default.a.createElement(src.l, {
                                 label: 'Foo [ ]',
                                 name: 'foo',
                                 debug: !0,
@@ -12751,7 +13072,7 @@
                                 debug: !0
                               }),
                               react_default.a.createElement(
-                                src.p,
+                                src.q,
                                 {
                                   when: function when(_ref13) {
                                     var formApi = _ref13.formApi,
@@ -12761,20 +13082,20 @@
                                     );
                                   }
                                 },
-                                react_default.a.createElement(src.k, {
+                                react_default.a.createElement(src.l, {
                                   type: 'number',
                                   label: 'Age',
                                   name: 'age',
                                   debug: !0
                                 }),
-                                react_default.a.createElement(src.k, {
+                                react_default.a.createElement(src.l, {
                                   label: 'Favorite Color',
                                   name: 'color',
                                   keepState: !0,
                                   debug: !0
                                 })
                               ),
-                              react_default.a.createElement(src.k, {
+                              react_default.a.createElement(src.l, {
                                 label: 'Favorite Food',
                                 name: 'food',
                                 debug: !0,
@@ -12829,7 +13150,7 @@
           window.alert(JSON.stringify(values, null, 2));
         },
         FormProvider_SubmitButton = function SubmitButton() {
-          var formApi = Object(src.B)();
+          var formApi = Object(src.C)();
           return react_default.a.createElement(
             'button',
             { onClick: formApi.submitForm },
@@ -12842,7 +13163,7 @@
           return react_default.a.createElement(
             src.i,
             { onSubmit: onSubmit },
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               field: 'name',
               label: 'First name:'
             }),
@@ -12872,13 +13193,13 @@
               'Would you like a car or truck?'
             ),
             react_default.a.createElement(
-              src.o,
+              src.p,
               { name: 'type', initialValue: 'car' },
-              react_default.a.createElement(src.n, {
+              react_default.a.createElement(src.o, {
                 value: 'car',
                 label: 'Car'
               }),
-              react_default.a.createElement(src.n, {
+              react_default.a.createElement(src.o, {
                 value: 'truck',
                 label: 'Truck'
               })
@@ -12900,10 +13221,10 @@
           ]
         },
         FormatDependent_ProductSelect = function ProductSelect() {
-          var _useFieldState = Object(src.z)('type'),
+          var _useFieldState = Object(src.A)('type'),
             value = _useFieldState.value,
             dirty = _useFieldState.dirty,
-            clearValue = Object(src.y)('product').clearValue,
+            clearValue = Object(src.z)('product').clearValue,
             opts = Object(react.useMemo)(
               function() {
                 return options[value] || [];
@@ -12917,7 +13238,7 @@
               },
               [value]
             ),
-            react_default.a.createElement(src.s, {
+            react_default.a.createElement(src.t, {
               field: 'product',
               label: 'Product',
               disabled: !value,
@@ -12988,23 +13309,23 @@
           return react_default.a.createElement(
             src.f,
             null,
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'username',
               label: 'username:'
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'friends[0]',
               label: 'friend[0]:'
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'siblings.1',
               label: 'siblings.1:'
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'parents[0].name',
               label: 'parents[0].name'
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'foo.bar[0].baz[1]',
               label: 'foo.bar[0].baz[1]'
             }),
@@ -13062,7 +13383,7 @@
               'label',
               null,
               'First name:',
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'name',
                 validate: validate
               })
@@ -13110,14 +13431,14 @@
             react_default.a.createElement(
               'div',
               null,
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'phone',
                 label: 'Phone Number:',
                 formatter: '+1 ###-###-####',
                 parser: parser,
                 initialValue: '1231231234'
               }),
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'maskedField',
                 label: 'Word Formatting',
                 formatter: '$***-**(**)***',
@@ -13160,7 +13481,7 @@
             react_default.a.createElement(
               'div',
               null,
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 field: 'uppercase',
                 label: 'Uppercase',
                 formatter: formatter,
@@ -13809,12 +14130,12 @@
           { value: 'ZWL', label: 'ZWL' }
         ],
         NumberFormatter_FormattedField = function FormattedField() {
-          var locale = Object(src.z)('locale').value,
-            currency = Object(src.z)('currency').value,
+          var locale = Object(src.A)('locale').value,
+            currency = Object(src.A)('currency').value,
             _useMemo = Object(react.useMemo)(
               function() {
                 return locale && currency
-                  ? src.F.createIntlNumberFormatter(locale, {
+                  ? src.I.createIntlNumberFormatter(locale, {
                       style: 'currency',
                       currency: currency
                     })
@@ -13824,7 +14145,7 @@
             ),
             formatter = _useMemo.formatter,
             parser = _useMemo.parser;
-          return react_default.a.createElement(src.k, {
+          return react_default.a.createElement(src.l, {
             field: 'localeMask',
             label: 'Locale Masked Field ('.concat(currency, ' currency)'),
             formatter: formatter,
@@ -13842,13 +14163,13 @@
             react_default.a.createElement(
               'div',
               null,
-              react_default.a.createElement(src.s, {
+              react_default.a.createElement(src.t, {
                 label: 'Locale',
                 field: 'locale',
                 options: localeOptions,
                 initialValue: 'en-US'
               }),
-              react_default.a.createElement(src.s, {
+              react_default.a.createElement(src.t, {
                 label: 'Currency',
                 field: 'currency',
                 options: currencyOptions,
@@ -13865,6 +14186,226 @@
               ),
               react_default.a.createElement(src.c, null)
             )
+          );
+        }
+      );
+    },
+    './stories/GlobalForms/Intro/index.js': function(
+      module,
+      __webpack_exports__,
+      __webpack_require__
+    ) {
+      'use strict';
+      var react = __webpack_require__('./node_modules/react/index.js'),
+        react_default = __webpack_require__.n(react),
+        withDocs = __webpack_require__('./stories/utils/withDocs.js'),
+        src = __webpack_require__('./src/index.js');
+      function _slicedToArray(arr, i) {
+        return (
+          (function _arrayWithHoles(arr) {
+            if (Array.isArray(arr)) return arr;
+          })(arr) ||
+          (function _iterableToArrayLimit(arr, i) {
+            var _i =
+              null == arr
+                ? null
+                : ('undefined' != typeof Symbol && arr[Symbol.iterator]) ||
+                  arr['@@iterator'];
+            if (null == _i) return;
+            var _s,
+              _e,
+              _arr = [],
+              _n = !0,
+              _d = !1;
+            try {
+              for (
+                _i = _i.call(arr);
+                !(_n = (_s = _i.next()).done) &&
+                (_arr.push(_s.value), !i || _arr.length !== i);
+                _n = !0
+              );
+            } catch (err) {
+              (_d = !0), (_e = err);
+            } finally {
+              try {
+                _n || null == _i.return || _i.return();
+              } finally {
+                if (_d) throw _e;
+              }
+            }
+            return _arr;
+          })(arr, i) ||
+          (function _unsupportedIterableToArray(o, minLen) {
+            if (!o) return;
+            if ('string' == typeof o) return _arrayLikeToArray(o, minLen);
+            var n = Object.prototype.toString.call(o).slice(8, -1);
+            'Object' === n && o.constructor && (n = o.constructor.name);
+            if ('Map' === n || 'Set' === n) return Array.from(o);
+            if (
+              'Arguments' === n ||
+              /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)
+            )
+              return _arrayLikeToArray(o, minLen);
+          })(arr, i) ||
+          (function _nonIterableRest() {
+            throw new TypeError(
+              'Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
+            );
+          })()
+        );
+      }
+      function _arrayLikeToArray(arr, len) {
+        (null == len || len > arr.length) && (len = arr.length);
+        for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+        return arr2;
+      }
+      var Intro_PurpleBorder = function PurpleBorder(_ref) {
+          var children = _ref.children;
+          return react_default.a.createElement(
+            'div',
+            {
+              style: {
+                border: '2px solid purple',
+                padding: '1rem',
+                margin: '1rem'
+              }
+            },
+            children
+          );
+        },
+        Intro_Overview = function Overview() {
+          var _infoState$values,
+            _questionState$values,
+            renders = Object(react.useRef)(0);
+          renders.current = renders.current + 1;
+          var infoState = Object(src.F)('info'),
+            questionState = Object(src.F)('questions');
+          return react_default.a.createElement(
+            Intro_PurpleBorder,
+            null,
+            react_default.a.createElement(
+              'h4',
+              null,
+              'Renders: ',
+              renders.current
+            ),
+            react_default.a.createElement(
+              'h3',
+              null,
+              null == infoState ||
+              null === (_infoState$values = infoState.values) ||
+              void 0 === _infoState$values
+                ? void 0
+                : _infoState$values.name,
+              's favorite color is',
+              ' ',
+              null == questionState ||
+              null === (_questionState$values = questionState.values) ||
+              void 0 === _questionState$values
+                ? void 0
+                : _questionState$values.color
+            )
+          );
+        },
+        Intro_Color = function Color() {
+          var renders = Object(react.useRef)(0);
+          renders.current = renders.current + 1;
+          var colorState = Object(src.E)('questions', 'color');
+          return react_default.a.createElement(
+            Intro_PurpleBorder,
+            null,
+            react_default.a.createElement(
+              'h4',
+              null,
+              'Renders ',
+              renders.current,
+              ' '
+            ),
+            react_default.a.createElement('div', {
+              style: {
+                width: '100px',
+                height: '100px',
+                backgroundColor: null == colorState ? void 0 : colorState.value
+              }
+            }),
+            null == colorState ? void 0 : colorState.value
+          );
+        };
+      __webpack_exports__.a = Object(withDocs.a)(
+        '# Global Forms\n\nSometimes you need to share state between forms. Below is an example where you can name your forms and reference them while in the context of Informed.\n\n<br/>\n\n\x3c!-- STORY --\x3e\n\n#### Code:\n\n```jsx\nimport {\n  Form,\n  Input,\n  Select,\n  Debug,\n  useInformedState,\n  useInformedField,\n  Informed\n} from \'informed\';\n\nconst PurpleBorder = ({ children }) => {\n  return (\n    <div\n      style={{ border: \'2px solid purple\', padding: \'1rem\', margin: \'1rem\' }}>\n      {children}\n    </div>\n  );\n};\n\nconst Overview = () => {\n  const renders = useRef(0);\n  renders.current = renders.current + 1;\n\n  const infoState = useInformedState(\'info\');\n  const questionState = useInformedState(\'questions\');\n\n  return (\n    <PurpleBorder>\n      <h4>Renders: {renders.current}</h4>\n      <h3>\n        {infoState?.values?.name}s favorite color is{\' \'}\n        {questionState?.values?.color}\n      </h3>\n    </PurpleBorder>\n  );\n};\n\nconst Color = () => {\n  const renders = useRef(0);\n  renders.current = renders.current + 1;\n\n  const colorState = useInformedField(\'questions\', \'color\');\n\n  return (\n    <PurpleBorder>\n      <h4>Renders {renders.current} </h4>\n      <div\n        style={{\n          width: \'100px\',\n          height: \'100px\',\n          backgroundColor: colorState?.value\n        }}\n      />\n      {colorState?.value}\n    </PurpleBorder>\n  );\n};\n\nconst Example = () => {\n  return (\n    <Informed>\n      <PurpleBorder>\n        <Form autocomplete="off" name="info">\n          <h3>Info</h3>\n          <Input name="name" label="First name:" />\n          <button type="submit">Submit</button>\n          <Debug values />\n        </Form>\n      </PurpleBorder>\n      <PurpleBorder>\n        <Form autocomplete="off" name="questions">\n          <h3>Questions</h3>\n          <Select name="color" label="Color" defaultValue="blue">\n            <option value="red">Red</option>\n            <option value="green">Green</option>\n            <option value="blue">Blue</option>\n          </Select>\n          <button type="submit">Submit</button>\n          <Debug values />\n        </Form>\n      </PurpleBorder>\n      <Overview />\n      <Color />\n    </Informed>\n  );\n};\n```\n',
+        function Example() {
+          var _useState2 = _slicedToArray(Object(react.useState)(!0), 2),
+            show = _useState2[0],
+            setShow = _useState2[1];
+          return react_default.a.createElement(
+            src.k,
+            null,
+            react_default.a.createElement(
+              Intro_PurpleBorder,
+              null,
+              react_default.a.createElement(
+                src.f,
+                { autocomplete: 'off', name: 'info' },
+                react_default.a.createElement('h3', null, 'Info'),
+                react_default.a.createElement(src.l, {
+                  name: 'name',
+                  label: 'First name:'
+                }),
+                react_default.a.createElement(
+                  'button',
+                  { type: 'submit' },
+                  'Submit'
+                ),
+                react_default.a.createElement(src.c, { values: !0 })
+              )
+            ),
+            react_default.a.createElement(
+              'button',
+              {
+                onClick: function onClick() {
+                  return setShow(!show);
+                }
+              },
+              'Toggle'
+            ),
+            show
+              ? react_default.a.createElement(
+                  Intro_PurpleBorder,
+                  null,
+                  react_default.a.createElement(
+                    src.f,
+                    { autocomplete: 'off', name: 'questions' },
+                    react_default.a.createElement('h3', null, 'Questions'),
+                    react_default.a.createElement(
+                      src.t,
+                      { name: 'color', label: 'Color', defaultValue: 'blue' },
+                      react_default.a.createElement(
+                        'option',
+                        { value: 'red' },
+                        'Red'
+                      ),
+                      react_default.a.createElement(
+                        'option',
+                        { value: 'green' },
+                        'Green'
+                      ),
+                      react_default.a.createElement(
+                        'option',
+                        { value: 'blue' },
+                        'Blue'
+                      )
+                    ),
+                    react_default.a.createElement(
+                      'button',
+                      { type: 'submit' },
+                      'Submit'
+                    ),
+                    react_default.a.createElement(src.c, { values: !0 })
+                  )
+                )
+              : null,
+            react_default.a.createElement(Intro_Overview, null),
+            react_default.a.createElement(Intro_Color, null)
           );
         }
       );
@@ -13956,11 +14497,11 @@
             react_default.a.createElement(
               src.f,
               { formApiRef: formApiRef, initialValues: initialValues },
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'name',
                 label: 'First Name'
               }),
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 type: 'number',
                 name: 'age',
                 label: 'Age'
@@ -13994,7 +14535,7 @@
               src.f,
               null,
               react_default.a.createElement(
-                src.s,
+                src.t,
                 {
                   name: 'profile',
                   label: 'Profile',
@@ -14049,31 +14590,31 @@
                 spouseLast: 'Foobar'
               }
             },
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'name',
               label: 'First Name'
             }),
             react_default.a.createElement(
-              src.o,
+              src.p,
               { name: 'married', label: 'Are You Married?' },
-              react_default.a.createElement(src.n, {
+              react_default.a.createElement(src.o, {
                 value: 'yes',
                 label: 'Yes'
               }),
-              react_default.a.createElement(src.n, { value: 'no', label: 'No' })
+              react_default.a.createElement(src.o, { value: 'no', label: 'No' })
             ),
             react_default.a.createElement(
-              src.p,
+              src.q,
               {
                 when: function when(_ref) {
                   return 'yes' === _ref.formState.values.married;
                 }
               },
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'spouseFirst',
                 label: 'Spouse First Name'
               }),
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'spouseLast',
                 label: 'Spouse Last Name',
                 initializeValueIfPristine: !0
@@ -14109,27 +14650,27 @@
             react_default.a.createElement(
               src.f,
               { initialValues: initialValues },
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'name',
                 label: 'First Name'
               }),
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 type: 'number',
                 name: 'age',
                 label: 'Age'
               }),
               react_default.a.createElement(
-                src.o,
+                src.p,
                 {
                   name: 'love',
                   label: 'Do You Love Tesla?',
                   defaultValue: 'yes'
                 },
-                react_default.a.createElement(src.n, {
+                react_default.a.createElement(src.o, {
                   value: 'yes',
                   label: 'Yes'
                 }),
-                react_default.a.createElement(src.n, {
+                react_default.a.createElement(src.o, {
                   value: 'no',
                   label: 'No'
                 })
@@ -14148,27 +14689,27 @@
             react_default.a.createElement(
               src.f,
               { initialValues: initialValues },
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'name',
                 label: 'First Name'
               }),
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 type: 'number',
                 name: 'age',
                 label: 'Age'
               }),
               react_default.a.createElement(
-                src.o,
+                src.p,
                 {
                   name: 'love',
                   label: 'Do You Love Tesla?',
                   initialValue: 'yes'
                 },
-                react_default.a.createElement(src.n, {
+                react_default.a.createElement(src.o, {
                   value: 'yes',
                   label: 'Yes'
                 }),
-                react_default.a.createElement(src.n, {
+                react_default.a.createElement(src.o, {
                   value: 'no',
                   label: 'No'
                 })
@@ -14201,7 +14742,7 @@
         src = __webpack_require__('./src/index.js'),
         WithField_ScopedFieldState = function ScopedFieldState(_ref) {
           var name = _ref.name,
-            value = Object(src.z)(name).value;
+            value = Object(src.A)(name).value;
           return react_default.a.createElement(
             'pre',
             null,
@@ -14214,7 +14755,7 @@
         },
         WithField_UnScopedFieldState = function UnScopedFieldState(_ref2) {
           var name = _ref2.name,
-            value = Object(src.z)(name, !1).value;
+            value = Object(src.A)(name, !1).value;
           return react_default.a.createElement(
             'pre',
             null,
@@ -14235,9 +14776,9 @@
                 src.f,
                 null,
                 react_default.a.createElement(
-                  src.r,
+                  src.s,
                   { scope: 'favorite' },
-                  react_default.a.createElement(src.k, { field: 'color' }),
+                  react_default.a.createElement(src.l, { field: 'color' }),
                   react_default.a.createElement(
                     'h5',
                     null,
@@ -14302,7 +14843,7 @@
         withDocs = __webpack_require__('./stories/utils/withDocs.js'),
         src = __webpack_require__('./src/index.js'),
         useFormApi_ComponentUsingFormApi = function ComponentUsingFormApi() {
-          var formApi = Object(src.B)();
+          var formApi = Object(src.C)();
           return react_default.a.createElement(
             'button',
             {
@@ -14328,7 +14869,7 @@
               react_default.a.createElement(
                 'div',
                 null,
-                react_default.a.createElement(src.k, {
+                react_default.a.createElement(src.l, {
                   name: 'name',
                   label: 'Name:'
                 }),
@@ -14351,7 +14892,7 @@
           }
         ),
         useFormState_ComponentUsingFormState = function ComponentUsingFormState() {
-          var formState = Object(src.C)();
+          var formState = Object(src.D)();
           return react_default.a.createElement(
             'pre',
             null,
@@ -14368,7 +14909,7 @@
             return react_default.a.createElement(
               src.f,
               null,
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'name',
                 label: 'Name:'
               }),
@@ -14390,7 +14931,7 @@
           }
         ),
         useFieldApi_ComponentUsingFieldApi = function ComponentUsingFieldApi() {
-          var fieldApi = Object(src.y)('name');
+          var fieldApi = Object(src.z)('name');
           return react_default.a.createElement(
             react_default.a.Fragment,
             null,
@@ -14426,7 +14967,7 @@
             return react_default.a.createElement(
               src.f,
               null,
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'name',
                 label: 'Name:',
                 initialValue: 'Joe'
@@ -14452,7 +14993,7 @@
           _ref
         ) {
           var name = _ref.name,
-            fieldState = Object(src.z)(name);
+            fieldState = Object(src.A)(name);
           return react_default.a.createElement(
             react_default.a.Fragment,
             null,
@@ -14481,12 +15022,12 @@
             return react_default.a.createElement(
               src.f,
               null,
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'name',
                 label: 'Name:',
                 initialValue: 'Joe'
               }),
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 field: 'age',
                 label: 'Age:',
                 type: 'number'
@@ -14552,7 +15093,7 @@
       var useForm_CustomForm = function CustomForm(_ref) {
           var children = _ref.children,
             rest = _objectWithoutProperties(_ref, _excluded),
-            _useForm = Object(src.A)(rest),
+            _useForm = Object(src.B)(rest),
             formController = _useForm.formController,
             render = _useForm.render,
             userProps = _useForm.userProps;
@@ -14574,7 +15115,7 @@
             return react_default.a.createElement(
               useForm_CustomForm,
               null,
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 field: 'name',
                 name: 'First name:'
               }),
@@ -14613,32 +15154,32 @@
         useFieldCustom_excluded = (Object(withDocs.a)(
           '# Use Field Without Custom Input\n\nIts NOT recomended to write forms this way but its totally doable. Below we hook up each field\nvia a call to useField.\n\nThe reason I say "NOT" is due to the fact that this hook is best used in a custom input. See the [custom inputs](/?path=/story/custominputs--creating-custom-inputs) section of the docs.\n\nAlso there is a great optimization that is made when using the render function that the `useField` hook returns.\n\n\x3c!-- STORY --\x3e\n\n\x3c!-- IDFK Strange issue where i need this commnet or code formatting is messed up --\x3e\n\n```jsx\nimport { useForm, useField } from \'informed\';\n\nconst onSubmit = ({ values }) =>\n  window.alert(`Form successfully submitted with ${JSON.stringify(values)}`);\n\nconst MyForm = () => {\n  const { formController, render } = useForm({\n    onSubmit\n  });\n\n  const { informed: informName } = useField({\n    formController,\n    field: \'name\',\n    fieldType: \'text\'\n  });\n  const { informed: informAge } = useField({\n    formController,\n    field: \'age\',\n    fieldType: \'number\'\n  });\n  const { informed: informStatus } = useField({\n    formController,\n    field: \'status\',\n    fieldType: \'select\'\n  });\n  const { informed: informColors } = useField({\n    formController,\n    field: \'colors\',\n    fieldType: \'select\',\n    multiple: true\n  });\n  const { informed: informAuthorize } = useField({\n    formController,\n    field: \'authorize\',\n    fieldType: \'checkbox\'\n  });\n\n  return render(\n    <form\n      onReset={formController.reset}\n      onSubmit={formController.submitForm}\n      onKeyDown={formController.keyDown}>\n      <>\n        <label>\n          First name: <input {...informName} />\n        </label>\n        <label>\n          Age: <input {...informAge} type="number" />\n        </label>\n        <label>\n          Relationship status:\n          <select {...informStatus}>\n            <option value="" disabled>\n              Select One...\n            </option>\n            <option value="single">Single</option>\n            <option value="relationship">Relationship</option>\n            <option value="complicated">Complicated</option>\n          </select>\n        </label>\n        <label>\n          Colors:\n          <select {...informColors} style={{ height: \'100px\', width: \'200px\' }}>\n            <option value="red">Red</option>\n            <option value="green">Green</option>\n            <option value="blue">Blue</option>\n            <option value="yellow">Yellow</option>\n            <option value="orange">Orange</option>\n            <option value="purple">Purple</option>\n          </select>\n        </label>\n        <label>\n          Authorize <input type="checkbox" {...informAuthorize} />\n        </label>\n      </>\n      <button type="submit">Submit</button>\n    </form>\n  );\n};\n```\n',
           function UseFieldDirect() {
-            var _useForm = Object(src.A)({ onSubmit: onSubmit }),
+            var _useForm = Object(src.B)({ onSubmit: onSubmit }),
               formController = _useForm.formController,
               render = _useForm.render,
               formState = _useForm.formState,
-              informName = Object(src.x)({
+              informName = Object(src.y)({
                 formController: formController,
                 field: 'name',
                 fieldType: 'text'
               }).informed,
-              informAge = Object(src.x)({
+              informAge = Object(src.y)({
                 formController: formController,
                 field: 'age',
                 fieldType: 'number'
               }).informed,
-              informStatus = Object(src.x)({
+              informStatus = Object(src.y)({
                 formController: formController,
                 field: 'status',
                 fieldType: 'select'
               }).informed,
-              informColors = Object(src.x)({
+              informColors = Object(src.y)({
                 formController: formController,
                 field: 'colors',
                 fieldType: 'select',
                 multiple: !0
               }).informed,
-              informAuthorize = Object(src.x)({
+              informAuthorize = Object(src.y)({
                 formController: formController,
                 field: 'authorize',
                 fieldType: 'checkbox'
@@ -14844,7 +15385,7 @@
         );
       }
       var useFieldCustom_CustomTextInput = function CustomTextInput(props) {
-          var _useField = Object(src.x)(
+          var _useField = Object(src.y)(
               (function _objectSpread(target) {
                 for (var i = 1; i < arguments.length; i++) {
                   var source = null != arguments[i] ? arguments[i] : {};
@@ -14986,7 +15527,7 @@
             return react_default.a.createElement(
               src.f,
               null,
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'name',
                 label: 'First name:'
               }),
@@ -15005,7 +15546,7 @@
             return react_default.a.createElement(
               src.f,
               null,
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'age',
                 type: 'number',
                 label: 'Age:'
@@ -15026,7 +15567,7 @@
             return react_default.a.createElement(
               src.f,
               null,
-              react_default.a.createElement(src.t, {
+              react_default.a.createElement(src.u, {
                 name: 'bio',
                 label: 'Bio:'
               }),
@@ -15046,13 +15587,13 @@
               src.f,
               null,
               react_default.a.createElement(
-                src.o,
+                src.p,
                 { name: 'gender' },
-                react_default.a.createElement(src.n, {
+                react_default.a.createElement(src.o, {
                   value: 'male',
                   label: 'Male'
                 }),
-                react_default.a.createElement(src.n, {
+                react_default.a.createElement(src.o, {
                   value: 'female',
                   label: 'Female'
                 })
@@ -15092,25 +15633,25 @@
               src.f,
               null,
               react_default.a.createElement(
-                src.s,
+                src.t,
                 { name: 'status', label: 'Relationship status:' },
                 react_default.a.createElement(
-                  src.m,
+                  src.n,
                   { value: '', disabled: !0 },
                   'Select One...'
                 ),
                 react_default.a.createElement(
-                  src.m,
+                  src.n,
                   { value: 'single' },
                   'Single'
                 ),
                 react_default.a.createElement(
-                  src.m,
+                  src.n,
                   { value: 'relationship' },
                   'Relationship'
                 ),
                 react_default.a.createElement(
-                  src.m,
+                  src.n,
                   { value: 'complicated' },
                   'Complicated'
                 )
@@ -15129,28 +15670,28 @@
             src.f,
             null,
             react_default.a.createElement(
-              src.s,
+              src.t,
               {
                 name: 'colors',
                 label: 'Colors:',
                 multiple: !0,
                 style: { height: '100px', width: '200px' }
               },
-              react_default.a.createElement(src.m, { value: 'red' }, 'Red'),
-              react_default.a.createElement(src.m, { value: 'green' }, 'Green'),
-              react_default.a.createElement(src.m, { value: 'blue' }, 'Blue'),
+              react_default.a.createElement(src.n, { value: 'red' }, 'Red'),
+              react_default.a.createElement(src.n, { value: 'green' }, 'Green'),
+              react_default.a.createElement(src.n, { value: 'blue' }, 'Blue'),
               react_default.a.createElement(
-                src.m,
+                src.n,
                 { value: 'yellow' },
                 'Yellow'
               ),
               react_default.a.createElement(
-                src.m,
+                src.n,
                 { value: 'orange' },
                 'Orange'
               ),
               react_default.a.createElement(
-                src.m,
+                src.n,
                 { value: 'purple' },
                 'Purple'
               )
@@ -15181,23 +15722,23 @@
               react_default.a.createElement(
                 'div',
                 null,
-                react_default.a.createElement(src.k, {
+                react_default.a.createElement(src.l, {
                   name: 'username',
                   label: 'Username:'
                 }),
-                react_default.a.createElement(src.k, {
+                react_default.a.createElement(src.l, {
                   name: 'friends[0]',
                   label: 'Friend[0]'
                 }),
-                react_default.a.createElement(src.k, {
+                react_default.a.createElement(src.l, {
                   name: 'siblings.1',
                   label: 'Siblings.1'
                 }),
-                react_default.a.createElement(src.k, {
+                react_default.a.createElement(src.l, {
                   name: "siblings['2']",
                   label: "Siblings['2']"
                 }),
-                react_default.a.createElement(src.k, {
+                react_default.a.createElement(src.l, {
                   name: 'parents[0].name',
                   label: 'Parents[0].name:'
                 }),
@@ -15221,7 +15762,7 @@
       'use strict';
       var withDocs = __webpack_require__('./stories/utils/withDocs.js');
       __webpack_exports__.a = Object(withDocs.a)(
-        '## 4.0.34 (Feb 4th, 2022)\n\n### Fixed\n\n- issue with INTL formatter when used with `EUR` and `en-DE`\n\n## 4.0.33 (Feb 3rd, 2022)\n\n### Fixed\n\n- issue with formatter function not allowing full value\n\n## 4.0.32 (January 26th, 2022)\n\n### Fixed\n\n- issue with FormField not allowing conditional fields\n\n## 4.0.31 (January 25th, 2022)\n\n### Fixes https://github.com/teslamotors/informed/issues/381\n\n- autoFocus on Input throws error\n\n## 4.0.30 (January 24th, 2022)\n\n### Added\n\n- propertyOrder back to schema\n\n## 4.0.29 (January 20th, 2022)\n\n### Added\n\n- asyncValidate to formApi\n\n## 4.0.28 (January 18th, 2022)\n\n### Fixed\n\n- issue with cursor offsets when suffix is added\n\n## 4.0.27 (January 14th, 2022)\n\n### Fixed\n\n- issue with negative cursor offsets\n\n### Fixed\n\n- issue with off by one cursor locations on formatter\n\n## 4.0.25 (January 14th, 2022)\n\n### Fixed\n\n- createIntlNumberFormatter not working with negative numbers\n\n## 4.0.24 (January 7th, 2022)\n\n### Added\n\n- clearValue() function to form and field apis\n\n### Fixed\n\n- Issue where validateOnMount would NOT trigger validation when a field was re-rendered\n\n## 4.0.23 (January 5th, 2022)\n\n### Fixed\n\n- issue with array field items being memoized\n\n## 4.0.22 (January 5th, 2022)\n\n### Fixed\n\n- issue with createIntlNumber mask adding random "[]" sometimes\n\n## 4.0.21 (January 5th, 2022)\n\n### Fixed\n\n- issue where returning "" from validation function would not show error state\n\n## 4.0.20 (January 4th, 2022)\n\n### Fixed\n\n- issue where removing item from array field would not make the form dirty\n\n## 4.0.19 (December 31st, 2021)\n\n### Exposed\n\n- useRelevance hook and added type for it in types\n\n## 4.0.18 (December 23rd, 2021)\n\n### Fixed\n\n- issue where values would get cleared on un-mount\n\n## 4.0.17 (December 17th, 2021)\n\n### Fixed\n\n- issue where I forgot to deregister fields when they became irrelevant\n\n## 4.0.16 (December 17th, 2021)\n\n### Fixed\n\n- issue where I forgot to allow relevanceDeps to be passed to multistep step\n\n## 4.0.15 (December 15th, 2021)\n\n### Moved\n\n- The repo to tesla or go needed to re publish to get updated README to npm\n\n## 4.0.14 (December 15th, 2021)\n\n### Fixed\n\n- forgot to add getCurrentStep to multistepApi\n- forgot to add nextStep and previousStep to multistepState\n\n## 4.0.13 (December 15th, 2021)\n\n### Fixed\n\n- issue where set touched did not default meta when field is not there\n\n## 4.0.12 (December 15th, 2021)\n\n### Fixed\n\n- issue where `FormField` could not take field props\n\n## 4.0.11 (December 15th, 2021)\n\n### Fixed\n\n- missing type for Relevant\n\n## 4.0.10 (December 15th, 2021)\n\n### Fixed\n\n- issue where FormProvider was not exported\n\n## 4.0.9 (December 13th, 2021)\n\n### Fixed\n\n- issue where passing showErrorIfTouched={false} would not work\n\n## 4.0.8 (December 10th, 2021)\n\n### Removed\n\n- Empty dependencies object from package.json\n\n## 4.0.7 (December 10th, 2021)\n\n### Fixed\n\n- Issue with relevance subscription when no relevance function\n\n## 4.0.6 (December 9th, 2021)\n\n### Fixed\n\n- Missing functions setValues and setTheseValues\n\n## 4.0.5 (December 9th, 2021)\n\n### Fixed\n\n- Missing types for validate and validateField on FormApi\n\n## 4.0.4 (December 9th, 2021)\n\n### Fixed\n\n- Issue where we forgot to expose form validate\n- Missing utils types\n\n## Added\n\n- useScope and useScoper to exports\n\n## 4.0.3 (December 7th, 2021)\n\n### Fixed\n\n- Issue with forms valid and invalid when relevance changes\n\n## 4.0.2 (December 7th, 2021)\n\n### Fixed\n\n- Issue with schema path util `inverter[12].air_filter_ok` would not work\n\n## 4.0.1 (December 7th, 2021)\n\n### Fixed\n\n- Issue with initializing when becoming relevant\n\n## 4.0 !!!!\n\n### Breaking changes\n\n#### onSubmit signature\n\nOld\n\n```\nconst onSubmit = values => console.log( values );\n```\n\nNew\n\n```\nconst onSubmit = formState => console.log( formState.values );\n```\n\n#### Text --\x3e Input\n\nOld\n\n```jsx\n<Text field="name" />\n```\n\nNew\n\n```jsx\n<Input name="name" />\n```\n\n#### apiRef --\x3e formApiRef\n\nOld\n\n```jsx\n<Form apiRef={apiRef} />\n// OR\n<Form getApi={getApi} />\n```\n\nNew\n\n```jsx\n<Form formApiRef={formApiRef} />\n```\n\n#### informed:props ( schema )\n\n```\ninformed:props is now ui:props when using schema based forms\n```\n\n#### `asField` has been removed\n\nInstead of doing this\n\n```js\nconst CustomField = asField({ fieldState, fieldApi }) => {}\n```\n\nDo this\n\n```js\nconst CustomField = props => {\n  const { fieldState, fieldApi } = useField(props);\n};\n```\n\n#### Relevance\n\nThe when function for relevance now has this signature\n\n```\nwhen={({formState, formApi, scope}) => {...} }\n```\n\n#### yupSchema\n\n```\nvalidationSchema ---\x3e is now yupSchema\n```\n\n#### Array Fields\n\n##### Renamed `field` to `name`\n\n```jsx\n<ArrayField.Items>\n  {({ remove, field }) => (\n    <>\n      <Input name={field} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\nIs Now\n\n```jsx\n<ArrayField.Items>\n  {({ remove, name }) => (\n    <>\n      <Input name={name} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\n##### No more array field path prefixing\n\nOld:\n\n```jsx\n<ArrayField.Items>\n  {({ remove, field }) => (\n    <>\n      <Input name={`${field}.name`} />\n      <Input name={`${field}.age`} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\nNew:\n\n```jsx\n<ArrayField.Items>\n  {({ remove }) => (\n    <>\n      <Input name="name" />\n      <Input name="age" />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\n##### No more values in array field render prop\n\nOld:\n\n```jsx\n// Some component you need to use state of array field item\nconst FieldState = ({ values }) => {\n  return (\n    <pre>\n      <code>{JSON.stringify(values, null, 2)}</code>\n    </pre>\n  );\n};\n\n<ArrayField.Items>\n  {({ remove, values }) => (\n    <>\n      <Input name="name" />\n      <Input name="age" />\n      <FieldState values={values} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>;\n```\n\nNew:\n\n```jsx\n// Some component you need to use state of array field item\nconst FieldState = () => {\n  const { values } = useArrayFieldItemState();\n  return (\n    <pre>\n      <code>{JSON.stringify(values, null, 2)}</code>\n    </pre>\n  );\n};\n\n<ArrayField.Items>\n  {({ remove }) => (\n    <>\n      <Input name="name" />\n      <Input name="age" />\n      <FieldState />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>;\n```\n\n#### Debugging with `<FormState />`\n\nOld:\n\n```jsx\n<FormState values errors />\n```\n\nNew:\n\n```jsx\n<Debug values errors />\n```\n\n#### Custom Inputs\n\nMinor changes to custom inputs\n\nNew:\n\n```jsx\nconst CustomInput = props => {\n  const { fieldState, fieldApi, render, ref, userProps } = useField(props);\n\n  // The field state\n  const { value, error, showError } = fieldState;\n\n  // The field control\n  const { setValue, setTouched } = fieldApi;\n\n  // Everything else\n  const { label, id, ...rest } = userProps;\n\n  return render(\n    <>\n      {label ? <label htmlFor={id}>{label}</label> : null}\n      <input\n        {...rest}\n        id={id}\n        ref={ref}\n        value={!value && value !== 0 ? \'\' : value}\n        onChange={e => {\n          setValue(e.target.value, e);\n        }}\n        onBlur={e => {\n          setTouched(true, e);\n        }}\n        style={showError ? { border: \'solid 1px red\' } : null}\n      />\n      {showError ? <small style={{ color: \'red\' }}>{error}</small> : null}\n    </>\n  );\n};\n```\n\n#### Validation\n\nValidation is now controlled via validateOn="validationString"\n\nBy default fields will only validate on blur. To get\nmore granular validation, simply pass in `validateOn` props.\n\nSee table below for mapping:\n\n<br />\n\n| validateOn    | derived       | change       | blur         | submit       | default |\n| ------------- | ------------- | ------------ | ------------ | ------------ | ------- |\n| change        | change-change | sync + async | sync + async | sync + async |         |\n| blur          | blur-blur     | x            | sync + async | sync + async | x       |\n| change-blur   | change-blur   | sync         | sync + async | sync + async |         |\n| change-submit | change-submit | sync         | sync         | sync + async |         |\n| blur-submit   | submit-submit | x            | sync         | sync + async |         |\n| submit        | submit-submit | x            | x            | sync + async |         |\n\n<br />\n\nValidation is controlled via the `validateOn` prop, but in order to control when it shows,\nuse the `showErrorIfError` and `showErrorIfDirty` props. **This is because sometimes you may want the form to be invalid but not show the error to the user yet ( default is `showErrorIfTouched` )**\n\n| prop               | description                                                                                                  | default |\n| ------------------ | ------------------------------------------------------------------------------------------------------------ | ------- |\n| showErrorIfError   | will set `showError` for that field to true whenever there is an error (typically used with validateOnMount) |         |\n| showErrorIfTouched | will set `showError` for that field to true whenever there is an error and the field is touched              | x       |\n| showErrorIfDirty   | will set `showError` for that field to true whenever there is an error and the field is dirty                |         |\n\n<br />\n\nFinally we have a use case for validating right away ( on mount )\n\n| prop            | description                     | default |\n| --------------- | ------------------------------- | ------- |\n| validateOnMount | will trigger validation onMount | false   |\n\n<br />\n<br />\n\n---\n\n<br />\n\n## 3.34.0 (June 22, 2021)\n\n### Added\n\n- ability to control when async validation occurs with props\n\n## 3.33.0 (May 21, 2021)\n\n### Added\n\n- createIntlNumberFormatter\n\n## 3.32.3 (May 21, 2021)\n\n### Fixed\n\n- Issue with useFieldState, now returns empty object by default\n\n## 3.32.2 (May 21, 2021)\n\n### Fixed\n\n- Issue with mounting useFieldStates\n\n## 3.32.1 (May 21, 2021)\n\n### Fixed\n\n- Issue with layoutEffect in SSR\n\n## 3.32.0 (May 19, 2021)\n\n### Added\n\n- Ability to walk down a multistep with step selection.\n\n## 3.31.0 (April 26, 2021)\n\n### Added\n\n- formatter functions `formatter = [()=>{}, ()=>{}]`\n\n## 3.30.3 (April 2, 2021)\n\n### Added\n\n- memoized render back because I never should have removed it\n\n## 3.30.2 (March 15, 2021)\n\n### Refactored\n\n- To no longer use event emitter.\n\n## 3.30.1 (March 5, 2021)\n\n### Fixed\n\n- Issue where keep state in scope was not working.\n\n## 3.30.0 (March 2, 2021)\n\n### Added\n\n- Pristine and Dirty to formFieldState\n\n## 3.29.4 (February 24, 2021)\n\n### Updated\n\n- Peer deps to support react v 17\n\n## 3.29.3 (February 5, 2021)\n\n### Fixed\n\n- Issue where ObjectMap `has` would reference wrong get funciton fixes #327\n\n## 3.29.2 (February 4, 2021)\n\n### Fixed\n\n- Issue where carrot pos would be in the wrong place when formatting\n\n### Updated\n\n- `useField` hook to use the `useCarrotPosition` hook ( removed duplicate code )\n\n## 3.29.1 (February 4, 2021)\n\n### Added\n\n- Ability to call `setValue` function for custom formattedObject Inputs\n\n## 3.29.0 (February 2, 2021)\n\n### Added\n\n- Ability to pass `initialize` function for custom initialization of the initial value\n\n## 3.28.0 (February 2, 2021)\n\n### Exposed\n\n- Utils functions that can be used by end users\n\n## 3.27.0 (December 18, 2020)\n\n### Fixed\n\n- bug with update function in form controller where it would pull instead of delete on swap\n\n## 3.26.0 (December 17, 2020)\n\n### Added\n\n- `swap` to array fields\n\n### Rafactored\n\n- Internal state management\n\n## 3.25.0 (December 8, 2020)\n\n### Added\n\n- `onReset` to form props\n\n## 3.24.4 (December 5, 2020)\n\n### Updated\n\n- README and needed to get it to npm ... again again\n\n## 3.24.3 (December 5, 2020)\n\n### Updated\n\n- README and needed to get it to npm ... again\n\n## 3.24.2 (November 24, 2020)\n\n### Updated\n\n- README and needed to get it to npm\n\n## 3.24.1 (November 23, 2020)\n\n### Fixed\n\n- Type issue ( missing allow empty string from props def )\n\n## 3.24.0 (November 19, 2020)\n\n### Fixed\n\n- Issue where Id was not getting passed to default select field\n\n## 3.23.0 (November 18, 2020)\n\n### Removed\n\n- LODASH!!!!! SEE YA LATER NEVER\n\n## 3.22.0 (November 17, 2020)\n\n### Added\n\n- Ability to pass relevant to array fields!!!\n\n## 3.21.2 (November 14, 2020)\n\n### Fixed\n\n- Bug with field level relevant\n\n### Updated\n\n- Form to always evaluate relevance, and not force the user to pass notify.\n\n## 3.21.1 (November 12, 2020)\n\n### Fixed\n\n- Isssue where state would not update after submit\n\n## 3.21.0 (November 12, 2020)\n\n### Added\n\n- Ability to add async validation functions to inputs\n\n## 3.20.0 (November 11, 2020)\n\n### Added\n\n- Ability to not pass keep state to multistep fields, and also added docs for conditional relevant nested array fields\n\n## 3.19.0 (November 10, 2020)\n\n### Added\n\n- Ability to hide or show fields based on relevant, and notify relevant fields\n\n## 3.18.3 (November 10, 2020)\n\n### Fixed\n\n- bug with resetting array field items\n\n## 3.18.2 (November 9, 2020)\n\n### Fixed\n\n- bug with duplicate fields\n\n## 3.18.1 (November 9, 2020)\n\n### Fixed\n\n- bug with keep state registering phantom fields\n\n## 3.18.0 (November 5, 2020)\n\n### Added\n\n- ability to create custom schema fields\n\n## 3.17.1 (November 3, 2020)\n\n### Fixed\n\n- useField was not adding id to label by default\n\n## 3.17.0 (November 3, 2020)\n\n### Added\n\n- Required attribute to input and automatic type generation for useField hook\n\n## 3.16.1 (November 2, 2020)\n\n### Fixed\n\n- Issue where informed props were not passed down to array fields in schema\n\n## 3.16.0 (November 1, 2020)\n\n### Added\n\n- Ability to have conditional schemas!!!!\n\n## 3.15.0 (October 28, 2020)\n\n### Added\n\n- Ability to add array fields in schema!!!!\n\n## 3.14.0 (October 27, 2020)\n\n### Added\n\n- Formatter and Parser !!!!!\n\n## 3.13.2 (October 27, 2020)\n\n### Fixed\n\n- Issue with strict mode double registering\n\n## 3.13.1 (October 23, 2020)\n\n### Fixed\n\n- Bug where inforemd would crash if schema was missing field that was in JSX ( returns null )\n\n## 3.13.0 (October 23, 2020)\n\n### Added\n\n- Ability to render schema fields in specific paces within JSX!!\n\n## 3.12.0 (October 22, 2020)\n\n### Added\n\n- Added AJV Schema shit!!!\n\n## 3.11.0 (October 21, 2020)\n\n### Added\n\n- Schema shit\n\n## 3.10.1 (October 18, 2020)\n\n### Fixed\n\n- Array fields because I stupidly broke them\n\n#### Added\n\n- Tests for multistep fields\n- Better multistep form syntax\n- Better multistep docs\n\n## 3.10.0 (September 29, 2020)\n\n### Updated\n\n- internals to modify state direct to improve performance!\n\n## 3.9.0 (June 15, 2020)\n\n### Updated\n\n- useArray field to expose a reset that resets to initial values\n\n## 3.8.1 (May 11, 2020)\n\n### Fixed\n\n- Issue with back and next types for multistep fields\n\n## 3.8.0 (May 4, 2020)\n\n### Added\n\n- Array field Api control for ArrayFieldItems\n\n## 3.7.0 (May 4, 2020)\n\n### Refactored\n\n- To use field ids instead of names\n\n### Added\n\n- `<Relevant>` component\n\n## 3.6.1 (March 2, 2020)\n\n### Updated\n\n- Type file to include preventEnter on form props\n\n## 3.6.0 (March 1, 2020)\n\n### Added\n\n- Ability to pass formController to useField hook\n\n## 3.5.2 (February 28, 2020)\n\n### Fixed\n\n- [Issue](https://github.com/joepuzzo/informed/issues/275) where new version of react would throw warnings due to bad code\n\n## 3.5.1 (February 27, 2020)\n\n### Fixed\n\n- [Issue](https://github.com/joepuzzo/informed/issues/272) where dynamic nested array fields with keep state kept too much state :)\n\n## 3.5.0 (February 25, 2020)\n\n### Added\n\n- New multistep abilities via setCurrent in `formApi` and `Current` in `formState`. See compex multistep form in docs\n\n## 3.4.0 (February 22, 2020)\n\n### Added\n\n- Ability to spread `informed` object on inputs via the `useField` hook\n\n## 3.3.5 (February 22, 2020)\n\n### Updated\n\n- Readme to show useForm example\n\n## 3.3.4 (February 20, 2020)\n\n### Added\n\n- FormState component to assist when debugging!\n\n## 3.3.3 (February 18, 2020)\n\n### Added\n\n- Types for multisetp forms\n\n## 3.3.2 (February 16, 2020)\n\n### Added\n\n- Ability to use cursor position in mask function\n\n## 3.3.1 (February 16, 2020)\n\n### Updated\n\n- Intro examples to inculde on submit example\n\n## 3.3.0 (February 10, 2020)\n\n### Added\n\n- Field level Yup support\n\n## 3.2.1 (February 9, 2020)\n\n### Fixed\n\n- Typo in yup docs and readme\n\n## 3.2.0 (February 9, 2020)\n\n### Added\n\n- Yup support\n\n## 3.1.2 (February 9, 2020)\n\n### Updated\n\n- docs and readme to link to dicord channel\n\n## 3.1.1 (February 8, 2020)\n\n### Added\n\n- apiRef so you can just pass a ref to the form\n\n## 3.1.0 (February 5, 2020)\n\n### Added\n\n- Step functionality to support multistep forms\n\n## 3.0.2 (January 24, 2020)\n\n### Fixed\n\n- Issue https://github.com/joepuzzo/informed/issues/267\n\n## 3.0.1 (January 24, 2020)\n\n### Fixed\n\n- README ( I wish there was a way on npm to update readme without publishing version )\n\n## 3.0.0 (January 24, 2020)\n\n### Fixed\n\n- Issue with array field validation https://github.com/joepuzzo/informed/issues/259\n- Issue where informed would throw errors when fields were hidden but referenced\n\n### Added\n\n- Ability to ( in the near future ) add validations to scopes ( Enabled because of code refacotor... will add soon :)\n\n### Changed\n\n- The internals to no longer keep track of giant state object but instead generate it on demand\n\n### Removed\n\n- A bunch of useless code :)\n\n#### Cleaned up\n\n- Large portion of the code .. Mostly the formController!\n\n## 2.11.17 (January 21, 2020)\n\n## Update\n\n- useField to trigger validation when validation related props change\n\n## 2.11.16 (November 18, 2019)\n\n## Fixed\n\n- issue with array field where validation would fail\n\n## 2.11.15 (November 6, 2019)\n\n## Fixed\n\n- issue with array field where removing multiple fields did not remove the data from state\n\n## 2.11.14 (November 5, 2019)\n\n## Removed\n\n- removable prop to inputs because it was a bad idea... now it supports removal nativley\n\n## 2.11.13 (November 4, 2019)\n\n## Added\n\n- removable prop to inputs ( adds support for pairing keep state and array fields such that remove button actually removes field )\n\n## 2.11.12 (November 1, 2019)\n\n## Fixed\n\n- issue with keep state on array fields\n\n## 2.11.11 (November 1, 2019)\n\n## Added\n\n- comp name to useField hook\n\n## 2.11.10 (October 21, 2019)\n\n## Added\n\n- missing setFormError prop to FormApi interface\n\n## 2.11.9 (September 10, 2019)\n\n## Added\n\n- keepState to types\n\n## 2.11.8 (July 16, 2019)\n\n## Adds\n\n- allowEmptyStrings form level prop to types\n\n## 2.11.7 (July 8, 2019)\n\n## Fixes\n\n- issue 227 where allowEmptyStrings form level prop did not work\n\n## 2.11.6 (July 2, 2019)\n\n## Fixes\n\n- issue 219 where array fields would not work with scope\n\n## 2.11.5 (July 2, 2019)\n\n## Fixes\n\n- issue 225 where validation will occur on mount when there are initial values\n\n## 2.11.4 (July 1, 2019)\n\n## Fixes\n\n- issue 215 where selects dont work in Edge becase .. you know.. Microsoft\n\n## 2.11.3 (July 1, 2019)\n\n## Fixes\n\n- warning with useLayoutEffect when using SSR\n\n## 2.11.2 (June 27, 2019)\n\n## Updated\n\n- README file to include minzipped badge\n\n## 2.11.1 (June 18, 2019)\n\n## Fixed\n\n- Issue where initial values changing on multiselects caused looping .. oops\n\n## 2.11.0 (June 14, 2019)\n\n## Updated\n\n- useForm to return user props and a render method\n- Form provider to no longer render a `<form></form>` IT NEVER SHOULD HAVE.\n\n## 2.10.2 (June 13, 2019)\n\n## Fixed\n\n- Issue where initial values did not change when form was reset\n\n## 2.10.1 (June 11, 2019)\n\n## Fixed\n\n- Issue where array level validation would not trigger for complex nested fields within array field\n\n## Added\n\n- length as a second parameter to arrayFields validate function\n\n## 2.10.0 (June 7, 2019)\n\n## Added\n\n- ability to pass validation function to an array field\n- arrayFields are now treaded as "shadow" fields\n\n## 2.9.0 (June 6, 2019)\n\n## Added\n\n- useArrayField hook\n\n## 2.8.2 (June 5, 2019)\n\n## Added\n\n- ability to change out form options such as validateFields\n\n## 2.8.1 (June 5, 2019)\n\n## Fixed\n\n- issue with addWithInitialValue when using add and then addWithInitialValue\n\n## 2.8.0 (June 5, 2019)\n\n## Added\n\n- addWithInitialValue to the `ArrayField`\n\n## 2.7.8 (May 31, 2019)\n\n## Fixed\n\n- issue where initial values were not being formatted\n\n## 2.7.7 (May 30, 2019)\n\n## Fixed\n\n- issue where initial values were not being masked\n\n## 2.7.6 (May 29, 2019)\n\n## Updated\n\n- Types file to support validate on formApi\n\n## 2.7.5 (May 29, 2019)\n\n## Updated\n\n- Types file to support any type on form errors\n\n## 2.7.4 (May 23, 2019)\n\n### Fixed\n\n- documentation for creating custom inputs\n\n### Added\n\n- the ability to pass your own ref to inputs\n\n## 2.7.3 (May 22, 2019)\n\n### Fixed\n\n- issue with validation triggering when keep state and validate on blur\n\n## 2.7.2 (May 21, 2019)\n\n### Added\n\n- made `maskWithCursorOffset` optional in types\n\n## 2.7.1 (May 21, 2019)\n\n### Added\n\n- `maskWithCursorOffset` to the type defs\n\n## 2.7.0 (May 21, 2019)\n\n### Added\n\n- `maskWithCursorOffset` prop to inputs\n\n## 2.6.15 (May 20, 2019)\n\n### Added\n\n- maintainCursor to types\n\n## 2.6.14 (May 16, 2019)\n\n### Added\n\n- render and userProps to field context types\n\n## 2.6.13 (May 16, 2019)\n\n### Added\n\n- maskedValue to types\n\n## 2.6.12 (May 14, 2019)\n\n### Added\n\n- getters to useFields field api\n\n## 2.6.11 (May 11, 2019)\n\n### Added\n\n- useField hook to the docs\n\n### Updated\n\n- the interface for useField hook\n\n## 2.6.10 (May 10, 2019)\n\n### Fixed\n\n- issue where initialization code in useform was in the effect and not in constructor\n\n## 2.6.9 (May 10, 2019)\n\n### Fixed\n\n- attempting to fix issue that I think is caused by useEffect in useForm hook\n\n## 2.6.8 (May 10, 2019)\n\n### Fixed\n\n- issues cause by using `useMemo` instead of `useState` for initial render stuff\n\n## 2.6.7 (May 9, 2019)\n\n### Added\n\n- exists function to the field api types\n\n## 2.6.6 (May 9, 2019)\n\n### Added\n\n- exists function to the field api so you can check to see if that field exists\n\n## 2.6.5 (May 9, 2019)\n\n### Fixed\n\n- issue where inital render of useFieldApi would fail when field was not registered yet\n\n## 2.6.4 (May 9, 2019)\n\n### Updated\n\n- useForm hook so that the event handlers can change\n\n## 2.6.3 (May 7, 2019)\n\n### Removed\n\n- debug as a dependency and added my own :)\n\n## 2.6.2 (May 3, 2019)\n\n### Fixed\n\n- issue with default register context missin getField function\n\n## 2.6.1 (May 3, 2019)\n\n### Fixed\n\n- issue with `useFieldApi` hook and `withFieldApi` HOC where reset and validate were not there\n\n### Added\n\n- a few more tests to increase test coverage!!!! wooo\n\n## 2.6.0 (May 2, 2019)\n\n### Added\n\n- `useForm` hook!!! and `FormProvider` component!!!\n\n## 2.5.0 (April 30, 2019)\n\n### Updated\n\n- useField hook to useEffect instead of useLayoutEffect\n\n## 2.4.0 (April 30, 2019)\n\n### Added\n\n- preventEnter prop to the form so users can prevent enter key form submission\n\n## 2.3.2 (April 22, 2019)\n\n### Updated\n\n- Issue with dynamic arrays and initial values\n\n## 2.3.1 (April 12, 2019)\n\n### Updated\n\n- Babel build\n\n## 2.3.0 (April 3, 2019)\n\n### Added\n\n- `allowEmtyStrings` prop to the form\n- `allowEmtyString` prop to inputs\n\n### Fixed\n\n- issue where setValues would not allow empty strings\n\n## 2.2.0 (March 29, 2019)\n\n### Added\n\n- `setFormError` function to the form api\n- `validate` function to the form api\n\n## 2.1.15 (March 28, 2019)\n\n### Fixed\n\n- Issue with setValues missing from the default context\n\n## 2.1.14 (March 27, 2019)\n\n### Fixed\n\n- Issue where reset would call validation\n\n## 2.1.13 (March 18, 2019)\n\n### Updated\n\n- Allowing for optional generic on FormValue\n\n## 2.1.12 (March 13, 2019)\n\n### Updated\n\n- ref to be any type in typings\n\n## 2.1.11 (March 12, 2019)\n\n### Fixed\n\n- issue in typings for ref field on FieldContext\n\n## 2.1.10 (March 12, 2019)\n\n### Fixed\n\n- issue when using a field NOT in the context of a form\n\n## 2.1.9 (March 8, 2019)\n\n### Fixed\n\n- another issue where initial values did not work when keep state was passed\n\n## 2.1.8 (March 8, 2019)\n\n### Fixed\n\n- issue where initial values did not work when keep state was passed\n\n## 2.1.7 (March 3, 2019)\n\n### Fixed\n\n- issue where initial values did not work for `ArrayFields`\n\n## 2.1.6 (Feb 21, 2019)\n\n### Updated\n\n- typing files for type script users\n\n## 2.1.5 (Feb 19, 2019)\n\n### Fixed\n\n- Issue with text area input not setting typed value\n\n## 2.1.4 (Feb 19, 2019)\n\n### Added\n\n- `maskOnBlur` prop to inputs\n\n## 2.1.3 (Feb 14, 2019)\n\n### Added\n\n- `fieldExists` api function to check if field exists\n\n## 2.1.2 (Feb 14, 2019)\n\n### Fixed\n\n- Issue where form that is submitted through enter key would try to prevent default\n\n## 2.1.1 (Feb 14, 2019)\n\n### Fixed\n\n- Issue where form values would not get passed to validation function when touched\n\n## 2.1.0 (Feb 14, 2019)\n\n### Updated\n\n- Format and parse to set maskedValue instead of value\n\n## 2.0.5 (Feb 14, 2019)\n\n### Fixed\n\n- Issue where you could NOT set 0 null or false as initial values because they are falsey\n\n## 2.0.4 (Feb 13, 2019)\n\n### Added\n\n- validateFields function to the form!!!\n\n## 2.0.3 (Feb 13, 2019)\n\n### Fixed\n\n- Issue where reset would not work for scoped fields\n\n### Added\n\n- Set Values to the form api!!!\n\n## 2.0.2 (Feb 13, 2019)\n\n### Fixed\n\n- Issue where ArrayField was prefixing all fields with \'field\'\n- Issue where when input fields changed input did not rerender.\n\n## 2.0.1 (Feb 10, 2019)\n\n### Fixed\n\n- Issue where render and component props were getting passed to the dom form\n\n## 2.0.0 (Feb 7, 2019)\n\n### Added\n\n- useFieldApi\n- useFieldState\n- useFormApi\n- useFormState\n- useField\n- format\n- parse\n- maintianCursor ( fixes issue where cursor jumps to end on mask )\n- ArrayField ( Check out the docs! this is sick! )\n- Form Level validation ( function that can invalidate the form as a whole )\n- debug prop that allows you to visually view the rendering!\n\n### Changed\n\n- the field `"siblings.1"` now resolves to `values.siblings[1]`, it used to resolve to `values.siblings.1`\n- the field `"siblings[\'2\']"` now resolves to `values.siblings[2]`, it used to resolve to `values.siblings.2`\n- withFormApi will no longer trigger a rerender if the fomrs state changes. This is a great optimization for those who want to modify but dont care about the form state!\n- the `validate` prop now expects the validation function to return `undefined` if there is no error. Any other returned value (including falsey `null`, `0`, etc will be treated as an error for the field.\n\n### Removed\n\n- The Field Component\n- `fieldExists` not needed\n- `setState` will maybe add later but its complex and out of scope ATM\n- `setValues` will maybe add later but its complex and out of scope ATM ( as of V 2.0.3 its back! )\n- `preSubmit` was never needed.. developers can do this themselves\n- Async Validation. Async validation led to many issues that overcomplicated `informed`. We determined this is something that the developer could achive on there own for now but we may look into adding this in the future.\n\n## 1.10.12 ( December 4, 2018 )\n\n### Updated\n\n- typescript definition file\n\n## 1.10.11 & 1.10.10 I ran version patch twice lol ( December 4, 2018 )\n\n### Updated\n\n- Select forward ref\n\n## 1.10.9 ( November 16, 2018 )\n\n### Updated\n\n- files in package json to include typeigs\n\n## 1.10.8 ( November 8, 2018 )\n\n### Added\n\n- type file for typescript\n\n## 1.10.7 ( October 11, 2018 )\n\n### Updated\n\n- Name of withFormSate\n\n## 1.10.6 ( October 2, 2018 )\n\n### Fixed\n\n- Skipped test for select!!!\n\n### Updated\n\n- Select to use new ref interface\n\n## 1.10.5 ( September 14, 2018 )\n\n### Added\n\n- License\n\n## 1.10.4 ( August 13, 2018 )\n\n### Fixed\n\n- Issue with @babel/runtime was the dep when it should have ben @babel/runtime-corejs2\n\n## 1.10.3 ( August 13, 2018 )\n\n### Fixed\n\n- Issue with @babel/runtime for real this time\n\n## 1.10.2 ( August 13, 2018 )\n\n### Fixed\n\n- Issue with @babel/runtime\n\n## 1.10.1 ( August 13, 2018 )\n\n### Removed\n\n- mistakenly added dev deps that were deps... oops\n\n## 1.10.0 ( August 13, 2018 )\n\n### Added\n\n- submits to the form state\n\n## 1.9.0 ( August 8, 2018 )\n\n### Rebuilt\n\n- Added prettier so all the files have been changed... so i rebuilt to have source maps match code\n\n## 1.8.1 ( August 1, 2018 )\n\n### Rebuilt\n\n- Attempting to simply rebuild lib due to possible build issue\n\n## 1.8.0 ( August 1, 2018 )\n\n### Updated\n\n- initialValue to get exposed as prop to custom fields\n\n## 1.7.5 ( July 31, 2018 )\n\n### Added\n\n- Source maps\n\n## 1.7.4 ( July 26, 2018 )\n\n### Fixed\n\n- Issue where Basic radio group was not getting exported\n\n## 1.7.3 ( July 23, 2018 )\n\n### Fixed\n\n- issue where bind to field did not pass down the field prop.\n\n## 1.7.2 ( July 20, 2018 )\n\n### Fixed\n\n- Issue where element wont get removed from array when deregistering field... this is used when dynamically removing value\n\n## 1.7.1 ( July 20, 2018 )\n\n### Added\n\n- Field prop is now exposed to field elements and default inputs pass field as name to html inputs\n\n## 1.7.0 ( July 18, 2018 )\n\n### Added\n\n- fieldExists method to the formApi\n\n## 1.6.0 ( July 16, 2018 )\n\n### Added\n\n- onValueChange prop to inputs so you can tie into when values change!!\n\n## 1.5.2 ( July 13, 2018 )\n\n### Fixed\n\n- Issue where prop changes to fields would not get recognized\n\n## 1.5.1 ( July 13, 2018 )\n\n### Fixed\n\n- issue where i forgott to add @babel/runtime as dependency\n\n## 1.5.0 ( July 12, 2018 )\n\n### Added\n\n- asyncValidation prop to inputs\n- asyncValidateOnBlur prop to inputs\n\n## 1.4.0 ( July 5, 2018 )\n\n### Added\n\n- Basic input fields so users can more easily create custom inputs\n- Docs for creating custom inputs\n\n## 1.3.11 ( July 9, 2018 )\n\n### Fixed\n\n- issue where you could not nest scope\n\n## 1.3.10 ( July 5, 2018 )\n\n### Fixed\n\n- issue where you could not pass initialValue=false to checkbox\n\n## 1.3.9 ( July 5, 2018 )\n\n### Fixed\n\n- issue where mutable values were getting passed to onSubmit and getState\n\n## 1.3.8 ( July 2, 2018 )\n\n### Fixed\n\n- issue where path array was being build every get and set\n\n## 1.3.7 ( July 2, 2018 )\n\n### Fixed\n\n- issue where onChange was getting passed to internal form element\n\n## 1.3.6 ( June 28, 2018 )\n\n### Added\n\n- globalObject: \'this\' to the webpack dist config to support SSR\n\n## 1.3.5 ( June 28, 2018 )\n\n### Fixed\n\n- Issue with event emitter limit ( need to look into alternative solution )\n- Removed depricated sandbox sinon usage that was causing errors during tests\n\n## 1.3.3 ( June 28, 2018 )\n\n### Updated\n\n- Webpack dist configuration to keep class names\n\n## 1.3.2 ( June 28, 2018 )\n\n### Fixed\n\n- Issue were initialValue was getting passed all the way down to html input\n- Issue where form would not rerender when field was registered\n\n## 1.3.1 ( June 28, 2018 )\n\n### Fixed\n\n- Issue were validateOnMount was getting passed all the way down to html input\n\n## 1.3.0 ( June 28, 2018 )\n\n### Added\n\n- mask so you can mask values at field level. example `value => value + \'!!!\'`\n\n## 1.2.1 ( June 27, 2018 )\n\n### Added\n\n- hook so you can add a button with type=reset and it will reset the form\n\n## 1.2.0 ( June 27, 2018 )\n\n### Added\n\n- validateOnMount to input props\n\n## 1.1.2 ( June 25, 2018 )\n\n### Moved\n\n- React and React-Dom to dev dependencies\n\n## 1.1.1 ( June 18, 2018 )\n\n### Fixed\n\n- Bug where i did not do null check on event within on submit\n\n## 1.0.1 ( June 15, 2018 )\n\n### Added\n\n- Notify prop to inputs that allows you to notify other fields when your error state changes ( see docs )\n\n## 1.0.0 (June 12, 2018)\n\n### Added\n\n- Text\n- TextArea\n- Radio Group\n- Radio\n- Select\n- Select as Multiselect !!!\n- Checkbox\n- withRadioGroup\n- withFieldApi\n- withFieldState\n- withFormApi\n- withFormState\n- asField\n- Form\n- Field\n\n### Changed\n\n**\nNote: this was the first release but i wanted to include changes from\n`react-form` so here they are:\n**\n\n- `formApi` was split into two parts `formApi` ( contains just functions ) `formState` ( contains just form state )\n- Form level validation is gone. You do all validation via field validation.\n- `defaultValues` Form prop is now called `initialValues`\n- `onChange` Form prop only recieves the `formState`. It used to retrieve the form Api as well.\n- `preventDefault` Form prop is now `dontPreventDefault`\n- `getApi` Form prop just returns the formApi, not the state and the api.\n- `Form` component now renders the `form` element internally. So you dont have to "hook it up" anymore!!\n\n### Removed\n\n**\nNote: this was the first release but i wanted to include things that were removed from\n`react-form` so here they are:\n**\n\n- `NestedField` you can use `Scope` instead but all it does is scope internal fields to `scope="your-scope"`\n- validateOnSubmit was removed. Now the form always validates on submit by default and you can opt into sooner validation at field level.\n- `defaultValues` form prop is now called `initialValues`\n- `pure` Form prop. Its not needed anymore due to the use of `React.PureComponent` internally.\n- add, remove, and swap values. The developer can achive this on there own without the use of internal functionality.\n- Array Syntax. In order to keep things simple we now only support the string syntax for field names.\n- Async Validation. Async validation led to many issues that overcomplicated `react-form`. We determined this is something that the developer could achive on there own for now but we may look into adding this in the future.\n- Warning and Success have been removed for now to keep lib lean but we may add additional functions in the future.\n',
+        '## 4.1.0 (Feb 8th, 2022)\n\n### Fixed\n\n- Ability to use state across multiple forms\n\n## 4.0.35 (Feb 8th, 2022)\n\n### Fixed\n\n- missing types for multistep and formApi\n\n## 4.0.34 (Feb 4th, 2022)\n\n### Fixed\n\n- issue with INTL formatter when used with `EUR` and `en-DE`\n\n## 4.0.33 (Feb 3rd, 2022)\n\n### Fixed\n\n- issue with formatter function not allowing full value\n\n## 4.0.32 (January 26th, 2022)\n\n### Fixed\n\n- issue with FormField not allowing conditional fields\n\n## 4.0.31 (January 25th, 2022)\n\n### Fixes https://github.com/teslamotors/informed/issues/381\n\n- autoFocus on Input throws error\n\n## 4.0.30 (January 24th, 2022)\n\n### Added\n\n- propertyOrder back to schema\n\n## 4.0.29 (January 20th, 2022)\n\n### Added\n\n- asyncValidate to formApi\n\n## 4.0.28 (January 18th, 2022)\n\n### Fixed\n\n- issue with cursor offsets when suffix is added\n\n## 4.0.27 (January 14th, 2022)\n\n### Fixed\n\n- issue with negative cursor offsets\n\n### Fixed\n\n- issue with off by one cursor locations on formatter\n\n## 4.0.25 (January 14th, 2022)\n\n### Fixed\n\n- createIntlNumberFormatter not working with negative numbers\n\n## 4.0.24 (January 7th, 2022)\n\n### Added\n\n- clearValue() function to form and field apis\n\n### Fixed\n\n- Issue where validateOnMount would NOT trigger validation when a field was re-rendered\n\n## 4.0.23 (January 5th, 2022)\n\n### Fixed\n\n- issue with array field items being memoized\n\n## 4.0.22 (January 5th, 2022)\n\n### Fixed\n\n- issue with createIntlNumber mask adding random "[]" sometimes\n\n## 4.0.21 (January 5th, 2022)\n\n### Fixed\n\n- issue where returning "" from validation function would not show error state\n\n## 4.0.20 (January 4th, 2022)\n\n### Fixed\n\n- issue where removing item from array field would not make the form dirty\n\n## 4.0.19 (December 31st, 2021)\n\n### Exposed\n\n- useRelevance hook and added type for it in types\n\n## 4.0.18 (December 23rd, 2021)\n\n### Fixed\n\n- issue where values would get cleared on un-mount\n\n## 4.0.17 (December 17th, 2021)\n\n### Fixed\n\n- issue where I forgot to deregister fields when they became irrelevant\n\n## 4.0.16 (December 17th, 2021)\n\n### Fixed\n\n- issue where I forgot to allow relevanceDeps to be passed to multistep step\n\n## 4.0.15 (December 15th, 2021)\n\n### Moved\n\n- The repo to tesla or go needed to re publish to get updated README to npm\n\n## 4.0.14 (December 15th, 2021)\n\n### Fixed\n\n- forgot to add getCurrentStep to multistepApi\n- forgot to add nextStep and previousStep to multistepState\n\n## 4.0.13 (December 15th, 2021)\n\n### Fixed\n\n- issue where set touched did not default meta when field is not there\n\n## 4.0.12 (December 15th, 2021)\n\n### Fixed\n\n- issue where `FormField` could not take field props\n\n## 4.0.11 (December 15th, 2021)\n\n### Fixed\n\n- missing type for Relevant\n\n## 4.0.10 (December 15th, 2021)\n\n### Fixed\n\n- issue where FormProvider was not exported\n\n## 4.0.9 (December 13th, 2021)\n\n### Fixed\n\n- issue where passing showErrorIfTouched={false} would not work\n\n## 4.0.8 (December 10th, 2021)\n\n### Removed\n\n- Empty dependencies object from package.json\n\n## 4.0.7 (December 10th, 2021)\n\n### Fixed\n\n- Issue with relevance subscription when no relevance function\n\n## 4.0.6 (December 9th, 2021)\n\n### Fixed\n\n- Missing functions setValues and setTheseValues\n\n## 4.0.5 (December 9th, 2021)\n\n### Fixed\n\n- Missing types for validate and validateField on FormApi\n\n## 4.0.4 (December 9th, 2021)\n\n### Fixed\n\n- Issue where we forgot to expose form validate\n- Missing utils types\n\n## Added\n\n- useScope and useScoper to exports\n\n## 4.0.3 (December 7th, 2021)\n\n### Fixed\n\n- Issue with forms valid and invalid when relevance changes\n\n## 4.0.2 (December 7th, 2021)\n\n### Fixed\n\n- Issue with schema path util `inverter[12].air_filter_ok` would not work\n\n## 4.0.1 (December 7th, 2021)\n\n### Fixed\n\n- Issue with initializing when becoming relevant\n\n## 4.0 !!!!\n\n### Breaking changes\n\n#### onSubmit signature\n\nOld\n\n```\nconst onSubmit = values => console.log( values );\n```\n\nNew\n\n```\nconst onSubmit = formState => console.log( formState.values );\n```\n\n#### Text --\x3e Input\n\nOld\n\n```jsx\n<Text field="name" />\n```\n\nNew\n\n```jsx\n<Input name="name" />\n```\n\n#### apiRef --\x3e formApiRef\n\nOld\n\n```jsx\n<Form apiRef={apiRef} />\n// OR\n<Form getApi={getApi} />\n```\n\nNew\n\n```jsx\n<Form formApiRef={formApiRef} />\n```\n\n#### informed:props ( schema )\n\n```\ninformed:props is now ui:props when using schema based forms\n```\n\n#### `asField` has been removed\n\nInstead of doing this\n\n```js\nconst CustomField = asField({ fieldState, fieldApi }) => {}\n```\n\nDo this\n\n```js\nconst CustomField = props => {\n  const { fieldState, fieldApi } = useField(props);\n};\n```\n\n#### Relevance\n\nThe when function for relevance now has this signature\n\n```\nwhen={({formState, formApi, scope}) => {...} }\n```\n\n#### yupSchema\n\n```\nvalidationSchema ---\x3e is now yupSchema\n```\n\n#### Array Fields\n\n##### Renamed `field` to `name`\n\n```jsx\n<ArrayField.Items>\n  {({ remove, field }) => (\n    <>\n      <Input name={field} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\nIs Now\n\n```jsx\n<ArrayField.Items>\n  {({ remove, name }) => (\n    <>\n      <Input name={name} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\n##### No more array field path prefixing\n\nOld:\n\n```jsx\n<ArrayField.Items>\n  {({ remove, field }) => (\n    <>\n      <Input name={`${field}.name`} />\n      <Input name={`${field}.age`} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\nNew:\n\n```jsx\n<ArrayField.Items>\n  {({ remove }) => (\n    <>\n      <Input name="name" />\n      <Input name="age" />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\n##### No more values in array field render prop\n\nOld:\n\n```jsx\n// Some component you need to use state of array field item\nconst FieldState = ({ values }) => {\n  return (\n    <pre>\n      <code>{JSON.stringify(values, null, 2)}</code>\n    </pre>\n  );\n};\n\n<ArrayField.Items>\n  {({ remove, values }) => (\n    <>\n      <Input name="name" />\n      <Input name="age" />\n      <FieldState values={values} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>;\n```\n\nNew:\n\n```jsx\n// Some component you need to use state of array field item\nconst FieldState = () => {\n  const { values } = useArrayFieldItemState();\n  return (\n    <pre>\n      <code>{JSON.stringify(values, null, 2)}</code>\n    </pre>\n  );\n};\n\n<ArrayField.Items>\n  {({ remove }) => (\n    <>\n      <Input name="name" />\n      <Input name="age" />\n      <FieldState />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>;\n```\n\n#### Debugging with `<FormState />`\n\nOld:\n\n```jsx\n<FormState values errors />\n```\n\nNew:\n\n```jsx\n<Debug values errors />\n```\n\n#### Custom Inputs\n\nMinor changes to custom inputs\n\nNew:\n\n```jsx\nconst CustomInput = props => {\n  const { fieldState, fieldApi, render, ref, userProps } = useField(props);\n\n  // The field state\n  const { value, error, showError } = fieldState;\n\n  // The field control\n  const { setValue, setTouched } = fieldApi;\n\n  // Everything else\n  const { label, id, ...rest } = userProps;\n\n  return render(\n    <>\n      {label ? <label htmlFor={id}>{label}</label> : null}\n      <input\n        {...rest}\n        id={id}\n        ref={ref}\n        value={!value && value !== 0 ? \'\' : value}\n        onChange={e => {\n          setValue(e.target.value, e);\n        }}\n        onBlur={e => {\n          setTouched(true, e);\n        }}\n        style={showError ? { border: \'solid 1px red\' } : null}\n      />\n      {showError ? <small style={{ color: \'red\' }}>{error}</small> : null}\n    </>\n  );\n};\n```\n\n#### Validation\n\nValidation is now controlled via validateOn="validationString"\n\nBy default fields will only validate on blur. To get\nmore granular validation, simply pass in `validateOn` props.\n\nSee table below for mapping:\n\n<br />\n\n| validateOn    | derived       | change       | blur         | submit       | default |\n| ------------- | ------------- | ------------ | ------------ | ------------ | ------- |\n| change        | change-change | sync + async | sync + async | sync + async |         |\n| blur          | blur-blur     | x            | sync + async | sync + async | x       |\n| change-blur   | change-blur   | sync         | sync + async | sync + async |         |\n| change-submit | change-submit | sync         | sync         | sync + async |         |\n| blur-submit   | submit-submit | x            | sync         | sync + async |         |\n| submit        | submit-submit | x            | x            | sync + async |         |\n\n<br />\n\nValidation is controlled via the `validateOn` prop, but in order to control when it shows,\nuse the `showErrorIfError` and `showErrorIfDirty` props. **This is because sometimes you may want the form to be invalid but not show the error to the user yet ( default is `showErrorIfTouched` )**\n\n| prop               | description                                                                                                  | default |\n| ------------------ | ------------------------------------------------------------------------------------------------------------ | ------- |\n| showErrorIfError   | will set `showError` for that field to true whenever there is an error (typically used with validateOnMount) |         |\n| showErrorIfTouched | will set `showError` for that field to true whenever there is an error and the field is touched              | x       |\n| showErrorIfDirty   | will set `showError` for that field to true whenever there is an error and the field is dirty                |         |\n\n<br />\n\nFinally we have a use case for validating right away ( on mount )\n\n| prop            | description                     | default |\n| --------------- | ------------------------------- | ------- |\n| validateOnMount | will trigger validation onMount | false   |\n\n<br />\n<br />\n\n---\n\n<br />\n\n## 3.34.0 (June 22, 2021)\n\n### Added\n\n- ability to control when async validation occurs with props\n\n## 3.33.0 (May 21, 2021)\n\n### Added\n\n- createIntlNumberFormatter\n\n## 3.32.3 (May 21, 2021)\n\n### Fixed\n\n- Issue with useFieldState, now returns empty object by default\n\n## 3.32.2 (May 21, 2021)\n\n### Fixed\n\n- Issue with mounting useFieldStates\n\n## 3.32.1 (May 21, 2021)\n\n### Fixed\n\n- Issue with layoutEffect in SSR\n\n## 3.32.0 (May 19, 2021)\n\n### Added\n\n- Ability to walk down a multistep with step selection.\n\n## 3.31.0 (April 26, 2021)\n\n### Added\n\n- formatter functions `formatter = [()=>{}, ()=>{}]`\n\n## 3.30.3 (April 2, 2021)\n\n### Added\n\n- memoized render back because I never should have removed it\n\n## 3.30.2 (March 15, 2021)\n\n### Refactored\n\n- To no longer use event emitter.\n\n## 3.30.1 (March 5, 2021)\n\n### Fixed\n\n- Issue where keep state in scope was not working.\n\n## 3.30.0 (March 2, 2021)\n\n### Added\n\n- Pristine and Dirty to formFieldState\n\n## 3.29.4 (February 24, 2021)\n\n### Updated\n\n- Peer deps to support react v 17\n\n## 3.29.3 (February 5, 2021)\n\n### Fixed\n\n- Issue where ObjectMap `has` would reference wrong get funciton fixes #327\n\n## 3.29.2 (February 4, 2021)\n\n### Fixed\n\n- Issue where carrot pos would be in the wrong place when formatting\n\n### Updated\n\n- `useField` hook to use the `useCarrotPosition` hook ( removed duplicate code )\n\n## 3.29.1 (February 4, 2021)\n\n### Added\n\n- Ability to call `setValue` function for custom formattedObject Inputs\n\n## 3.29.0 (February 2, 2021)\n\n### Added\n\n- Ability to pass `initialize` function for custom initialization of the initial value\n\n## 3.28.0 (February 2, 2021)\n\n### Exposed\n\n- Utils functions that can be used by end users\n\n## 3.27.0 (December 18, 2020)\n\n### Fixed\n\n- bug with update function in form controller where it would pull instead of delete on swap\n\n## 3.26.0 (December 17, 2020)\n\n### Added\n\n- `swap` to array fields\n\n### Rafactored\n\n- Internal state management\n\n## 3.25.0 (December 8, 2020)\n\n### Added\n\n- `onReset` to form props\n\n## 3.24.4 (December 5, 2020)\n\n### Updated\n\n- README and needed to get it to npm ... again again\n\n## 3.24.3 (December 5, 2020)\n\n### Updated\n\n- README and needed to get it to npm ... again\n\n## 3.24.2 (November 24, 2020)\n\n### Updated\n\n- README and needed to get it to npm\n\n## 3.24.1 (November 23, 2020)\n\n### Fixed\n\n- Type issue ( missing allow empty string from props def )\n\n## 3.24.0 (November 19, 2020)\n\n### Fixed\n\n- Issue where Id was not getting passed to default select field\n\n## 3.23.0 (November 18, 2020)\n\n### Removed\n\n- LODASH!!!!! SEE YA LATER NEVER\n\n## 3.22.0 (November 17, 2020)\n\n### Added\n\n- Ability to pass relevant to array fields!!!\n\n## 3.21.2 (November 14, 2020)\n\n### Fixed\n\n- Bug with field level relevant\n\n### Updated\n\n- Form to always evaluate relevance, and not force the user to pass notify.\n\n## 3.21.1 (November 12, 2020)\n\n### Fixed\n\n- Isssue where state would not update after submit\n\n## 3.21.0 (November 12, 2020)\n\n### Added\n\n- Ability to add async validation functions to inputs\n\n## 3.20.0 (November 11, 2020)\n\n### Added\n\n- Ability to not pass keep state to multistep fields, and also added docs for conditional relevant nested array fields\n\n## 3.19.0 (November 10, 2020)\n\n### Added\n\n- Ability to hide or show fields based on relevant, and notify relevant fields\n\n## 3.18.3 (November 10, 2020)\n\n### Fixed\n\n- bug with resetting array field items\n\n## 3.18.2 (November 9, 2020)\n\n### Fixed\n\n- bug with duplicate fields\n\n## 3.18.1 (November 9, 2020)\n\n### Fixed\n\n- bug with keep state registering phantom fields\n\n## 3.18.0 (November 5, 2020)\n\n### Added\n\n- ability to create custom schema fields\n\n## 3.17.1 (November 3, 2020)\n\n### Fixed\n\n- useField was not adding id to label by default\n\n## 3.17.0 (November 3, 2020)\n\n### Added\n\n- Required attribute to input and automatic type generation for useField hook\n\n## 3.16.1 (November 2, 2020)\n\n### Fixed\n\n- Issue where informed props were not passed down to array fields in schema\n\n## 3.16.0 (November 1, 2020)\n\n### Added\n\n- Ability to have conditional schemas!!!!\n\n## 3.15.0 (October 28, 2020)\n\n### Added\n\n- Ability to add array fields in schema!!!!\n\n## 3.14.0 (October 27, 2020)\n\n### Added\n\n- Formatter and Parser !!!!!\n\n## 3.13.2 (October 27, 2020)\n\n### Fixed\n\n- Issue with strict mode double registering\n\n## 3.13.1 (October 23, 2020)\n\n### Fixed\n\n- Bug where inforemd would crash if schema was missing field that was in JSX ( returns null )\n\n## 3.13.0 (October 23, 2020)\n\n### Added\n\n- Ability to render schema fields in specific paces within JSX!!\n\n## 3.12.0 (October 22, 2020)\n\n### Added\n\n- Added AJV Schema shit!!!\n\n## 3.11.0 (October 21, 2020)\n\n### Added\n\n- Schema shit\n\n## 3.10.1 (October 18, 2020)\n\n### Fixed\n\n- Array fields because I stupidly broke them\n\n#### Added\n\n- Tests for multistep fields\n- Better multistep form syntax\n- Better multistep docs\n\n## 3.10.0 (September 29, 2020)\n\n### Updated\n\n- internals to modify state direct to improve performance!\n\n## 3.9.0 (June 15, 2020)\n\n### Updated\n\n- useArray field to expose a reset that resets to initial values\n\n## 3.8.1 (May 11, 2020)\n\n### Fixed\n\n- Issue with back and next types for multistep fields\n\n## 3.8.0 (May 4, 2020)\n\n### Added\n\n- Array field Api control for ArrayFieldItems\n\n## 3.7.0 (May 4, 2020)\n\n### Refactored\n\n- To use field ids instead of names\n\n### Added\n\n- `<Relevant>` component\n\n## 3.6.1 (March 2, 2020)\n\n### Updated\n\n- Type file to include preventEnter on form props\n\n## 3.6.0 (March 1, 2020)\n\n### Added\n\n- Ability to pass formController to useField hook\n\n## 3.5.2 (February 28, 2020)\n\n### Fixed\n\n- [Issue](https://github.com/joepuzzo/informed/issues/275) where new version of react would throw warnings due to bad code\n\n## 3.5.1 (February 27, 2020)\n\n### Fixed\n\n- [Issue](https://github.com/joepuzzo/informed/issues/272) where dynamic nested array fields with keep state kept too much state :)\n\n## 3.5.0 (February 25, 2020)\n\n### Added\n\n- New multistep abilities via setCurrent in `formApi` and `Current` in `formState`. See compex multistep form in docs\n\n## 3.4.0 (February 22, 2020)\n\n### Added\n\n- Ability to spread `informed` object on inputs via the `useField` hook\n\n## 3.3.5 (February 22, 2020)\n\n### Updated\n\n- Readme to show useForm example\n\n## 3.3.4 (February 20, 2020)\n\n### Added\n\n- FormState component to assist when debugging!\n\n## 3.3.3 (February 18, 2020)\n\n### Added\n\n- Types for multisetp forms\n\n## 3.3.2 (February 16, 2020)\n\n### Added\n\n- Ability to use cursor position in mask function\n\n## 3.3.1 (February 16, 2020)\n\n### Updated\n\n- Intro examples to inculde on submit example\n\n## 3.3.0 (February 10, 2020)\n\n### Added\n\n- Field level Yup support\n\n## 3.2.1 (February 9, 2020)\n\n### Fixed\n\n- Typo in yup docs and readme\n\n## 3.2.0 (February 9, 2020)\n\n### Added\n\n- Yup support\n\n## 3.1.2 (February 9, 2020)\n\n### Updated\n\n- docs and readme to link to dicord channel\n\n## 3.1.1 (February 8, 2020)\n\n### Added\n\n- apiRef so you can just pass a ref to the form\n\n## 3.1.0 (February 5, 2020)\n\n### Added\n\n- Step functionality to support multistep forms\n\n## 3.0.2 (January 24, 2020)\n\n### Fixed\n\n- Issue https://github.com/joepuzzo/informed/issues/267\n\n## 3.0.1 (January 24, 2020)\n\n### Fixed\n\n- README ( I wish there was a way on npm to update readme without publishing version )\n\n## 3.0.0 (January 24, 2020)\n\n### Fixed\n\n- Issue with array field validation https://github.com/joepuzzo/informed/issues/259\n- Issue where informed would throw errors when fields were hidden but referenced\n\n### Added\n\n- Ability to ( in the near future ) add validations to scopes ( Enabled because of code refacotor... will add soon :)\n\n### Changed\n\n- The internals to no longer keep track of giant state object but instead generate it on demand\n\n### Removed\n\n- A bunch of useless code :)\n\n#### Cleaned up\n\n- Large portion of the code .. Mostly the formController!\n\n## 2.11.17 (January 21, 2020)\n\n## Update\n\n- useField to trigger validation when validation related props change\n\n## 2.11.16 (November 18, 2019)\n\n## Fixed\n\n- issue with array field where validation would fail\n\n## 2.11.15 (November 6, 2019)\n\n## Fixed\n\n- issue with array field where removing multiple fields did not remove the data from state\n\n## 2.11.14 (November 5, 2019)\n\n## Removed\n\n- removable prop to inputs because it was a bad idea... now it supports removal nativley\n\n## 2.11.13 (November 4, 2019)\n\n## Added\n\n- removable prop to inputs ( adds support for pairing keep state and array fields such that remove button actually removes field )\n\n## 2.11.12 (November 1, 2019)\n\n## Fixed\n\n- issue with keep state on array fields\n\n## 2.11.11 (November 1, 2019)\n\n## Added\n\n- comp name to useField hook\n\n## 2.11.10 (October 21, 2019)\n\n## Added\n\n- missing setFormError prop to FormApi interface\n\n## 2.11.9 (September 10, 2019)\n\n## Added\n\n- keepState to types\n\n## 2.11.8 (July 16, 2019)\n\n## Adds\n\n- allowEmptyStrings form level prop to types\n\n## 2.11.7 (July 8, 2019)\n\n## Fixes\n\n- issue 227 where allowEmptyStrings form level prop did not work\n\n## 2.11.6 (July 2, 2019)\n\n## Fixes\n\n- issue 219 where array fields would not work with scope\n\n## 2.11.5 (July 2, 2019)\n\n## Fixes\n\n- issue 225 where validation will occur on mount when there are initial values\n\n## 2.11.4 (July 1, 2019)\n\n## Fixes\n\n- issue 215 where selects dont work in Edge becase .. you know.. Microsoft\n\n## 2.11.3 (July 1, 2019)\n\n## Fixes\n\n- warning with useLayoutEffect when using SSR\n\n## 2.11.2 (June 27, 2019)\n\n## Updated\n\n- README file to include minzipped badge\n\n## 2.11.1 (June 18, 2019)\n\n## Fixed\n\n- Issue where initial values changing on multiselects caused looping .. oops\n\n## 2.11.0 (June 14, 2019)\n\n## Updated\n\n- useForm to return user props and a render method\n- Form provider to no longer render a `<form></form>` IT NEVER SHOULD HAVE.\n\n## 2.10.2 (June 13, 2019)\n\n## Fixed\n\n- Issue where initial values did not change when form was reset\n\n## 2.10.1 (June 11, 2019)\n\n## Fixed\n\n- Issue where array level validation would not trigger for complex nested fields within array field\n\n## Added\n\n- length as a second parameter to arrayFields validate function\n\n## 2.10.0 (June 7, 2019)\n\n## Added\n\n- ability to pass validation function to an array field\n- arrayFields are now treaded as "shadow" fields\n\n## 2.9.0 (June 6, 2019)\n\n## Added\n\n- useArrayField hook\n\n## 2.8.2 (June 5, 2019)\n\n## Added\n\n- ability to change out form options such as validateFields\n\n## 2.8.1 (June 5, 2019)\n\n## Fixed\n\n- issue with addWithInitialValue when using add and then addWithInitialValue\n\n## 2.8.0 (June 5, 2019)\n\n## Added\n\n- addWithInitialValue to the `ArrayField`\n\n## 2.7.8 (May 31, 2019)\n\n## Fixed\n\n- issue where initial values were not being formatted\n\n## 2.7.7 (May 30, 2019)\n\n## Fixed\n\n- issue where initial values were not being masked\n\n## 2.7.6 (May 29, 2019)\n\n## Updated\n\n- Types file to support validate on formApi\n\n## 2.7.5 (May 29, 2019)\n\n## Updated\n\n- Types file to support any type on form errors\n\n## 2.7.4 (May 23, 2019)\n\n### Fixed\n\n- documentation for creating custom inputs\n\n### Added\n\n- the ability to pass your own ref to inputs\n\n## 2.7.3 (May 22, 2019)\n\n### Fixed\n\n- issue with validation triggering when keep state and validate on blur\n\n## 2.7.2 (May 21, 2019)\n\n### Added\n\n- made `maskWithCursorOffset` optional in types\n\n## 2.7.1 (May 21, 2019)\n\n### Added\n\n- `maskWithCursorOffset` to the type defs\n\n## 2.7.0 (May 21, 2019)\n\n### Added\n\n- `maskWithCursorOffset` prop to inputs\n\n## 2.6.15 (May 20, 2019)\n\n### Added\n\n- maintainCursor to types\n\n## 2.6.14 (May 16, 2019)\n\n### Added\n\n- render and userProps to field context types\n\n## 2.6.13 (May 16, 2019)\n\n### Added\n\n- maskedValue to types\n\n## 2.6.12 (May 14, 2019)\n\n### Added\n\n- getters to useFields field api\n\n## 2.6.11 (May 11, 2019)\n\n### Added\n\n- useField hook to the docs\n\n### Updated\n\n- the interface for useField hook\n\n## 2.6.10 (May 10, 2019)\n\n### Fixed\n\n- issue where initialization code in useform was in the effect and not in constructor\n\n## 2.6.9 (May 10, 2019)\n\n### Fixed\n\n- attempting to fix issue that I think is caused by useEffect in useForm hook\n\n## 2.6.8 (May 10, 2019)\n\n### Fixed\n\n- issues cause by using `useMemo` instead of `useState` for initial render stuff\n\n## 2.6.7 (May 9, 2019)\n\n### Added\n\n- exists function to the field api types\n\n## 2.6.6 (May 9, 2019)\n\n### Added\n\n- exists function to the field api so you can check to see if that field exists\n\n## 2.6.5 (May 9, 2019)\n\n### Fixed\n\n- issue where inital render of useFieldApi would fail when field was not registered yet\n\n## 2.6.4 (May 9, 2019)\n\n### Updated\n\n- useForm hook so that the event handlers can change\n\n## 2.6.3 (May 7, 2019)\n\n### Removed\n\n- debug as a dependency and added my own :)\n\n## 2.6.2 (May 3, 2019)\n\n### Fixed\n\n- issue with default register context missin getField function\n\n## 2.6.1 (May 3, 2019)\n\n### Fixed\n\n- issue with `useFieldApi` hook and `withFieldApi` HOC where reset and validate were not there\n\n### Added\n\n- a few more tests to increase test coverage!!!! wooo\n\n## 2.6.0 (May 2, 2019)\n\n### Added\n\n- `useForm` hook!!! and `FormProvider` component!!!\n\n## 2.5.0 (April 30, 2019)\n\n### Updated\n\n- useField hook to useEffect instead of useLayoutEffect\n\n## 2.4.0 (April 30, 2019)\n\n### Added\n\n- preventEnter prop to the form so users can prevent enter key form submission\n\n## 2.3.2 (April 22, 2019)\n\n### Updated\n\n- Issue with dynamic arrays and initial values\n\n## 2.3.1 (April 12, 2019)\n\n### Updated\n\n- Babel build\n\n## 2.3.0 (April 3, 2019)\n\n### Added\n\n- `allowEmtyStrings` prop to the form\n- `allowEmtyString` prop to inputs\n\n### Fixed\n\n- issue where setValues would not allow empty strings\n\n## 2.2.0 (March 29, 2019)\n\n### Added\n\n- `setFormError` function to the form api\n- `validate` function to the form api\n\n## 2.1.15 (March 28, 2019)\n\n### Fixed\n\n- Issue with setValues missing from the default context\n\n## 2.1.14 (March 27, 2019)\n\n### Fixed\n\n- Issue where reset would call validation\n\n## 2.1.13 (March 18, 2019)\n\n### Updated\n\n- Allowing for optional generic on FormValue\n\n## 2.1.12 (March 13, 2019)\n\n### Updated\n\n- ref to be any type in typings\n\n## 2.1.11 (March 12, 2019)\n\n### Fixed\n\n- issue in typings for ref field on FieldContext\n\n## 2.1.10 (March 12, 2019)\n\n### Fixed\n\n- issue when using a field NOT in the context of a form\n\n## 2.1.9 (March 8, 2019)\n\n### Fixed\n\n- another issue where initial values did not work when keep state was passed\n\n## 2.1.8 (March 8, 2019)\n\n### Fixed\n\n- issue where initial values did not work when keep state was passed\n\n## 2.1.7 (March 3, 2019)\n\n### Fixed\n\n- issue where initial values did not work for `ArrayFields`\n\n## 2.1.6 (Feb 21, 2019)\n\n### Updated\n\n- typing files for type script users\n\n## 2.1.5 (Feb 19, 2019)\n\n### Fixed\n\n- Issue with text area input not setting typed value\n\n## 2.1.4 (Feb 19, 2019)\n\n### Added\n\n- `maskOnBlur` prop to inputs\n\n## 2.1.3 (Feb 14, 2019)\n\n### Added\n\n- `fieldExists` api function to check if field exists\n\n## 2.1.2 (Feb 14, 2019)\n\n### Fixed\n\n- Issue where form that is submitted through enter key would try to prevent default\n\n## 2.1.1 (Feb 14, 2019)\n\n### Fixed\n\n- Issue where form values would not get passed to validation function when touched\n\n## 2.1.0 (Feb 14, 2019)\n\n### Updated\n\n- Format and parse to set maskedValue instead of value\n\n## 2.0.5 (Feb 14, 2019)\n\n### Fixed\n\n- Issue where you could NOT set 0 null or false as initial values because they are falsey\n\n## 2.0.4 (Feb 13, 2019)\n\n### Added\n\n- validateFields function to the form!!!\n\n## 2.0.3 (Feb 13, 2019)\n\n### Fixed\n\n- Issue where reset would not work for scoped fields\n\n### Added\n\n- Set Values to the form api!!!\n\n## 2.0.2 (Feb 13, 2019)\n\n### Fixed\n\n- Issue where ArrayField was prefixing all fields with \'field\'\n- Issue where when input fields changed input did not rerender.\n\n## 2.0.1 (Feb 10, 2019)\n\n### Fixed\n\n- Issue where render and component props were getting passed to the dom form\n\n## 2.0.0 (Feb 7, 2019)\n\n### Added\n\n- useFieldApi\n- useFieldState\n- useFormApi\n- useFormState\n- useField\n- format\n- parse\n- maintianCursor ( fixes issue where cursor jumps to end on mask )\n- ArrayField ( Check out the docs! this is sick! )\n- Form Level validation ( function that can invalidate the form as a whole )\n- debug prop that allows you to visually view the rendering!\n\n### Changed\n\n- the field `"siblings.1"` now resolves to `values.siblings[1]`, it used to resolve to `values.siblings.1`\n- the field `"siblings[\'2\']"` now resolves to `values.siblings[2]`, it used to resolve to `values.siblings.2`\n- withFormApi will no longer trigger a rerender if the fomrs state changes. This is a great optimization for those who want to modify but dont care about the form state!\n- the `validate` prop now expects the validation function to return `undefined` if there is no error. Any other returned value (including falsey `null`, `0`, etc will be treated as an error for the field.\n\n### Removed\n\n- The Field Component\n- `fieldExists` not needed\n- `setState` will maybe add later but its complex and out of scope ATM\n- `setValues` will maybe add later but its complex and out of scope ATM ( as of V 2.0.3 its back! )\n- `preSubmit` was never needed.. developers can do this themselves\n- Async Validation. Async validation led to many issues that overcomplicated `informed`. We determined this is something that the developer could achive on there own for now but we may look into adding this in the future.\n\n## 1.10.12 ( December 4, 2018 )\n\n### Updated\n\n- typescript definition file\n\n## 1.10.11 & 1.10.10 I ran version patch twice lol ( December 4, 2018 )\n\n### Updated\n\n- Select forward ref\n\n## 1.10.9 ( November 16, 2018 )\n\n### Updated\n\n- files in package json to include typeigs\n\n## 1.10.8 ( November 8, 2018 )\n\n### Added\n\n- type file for typescript\n\n## 1.10.7 ( October 11, 2018 )\n\n### Updated\n\n- Name of withFormSate\n\n## 1.10.6 ( October 2, 2018 )\n\n### Fixed\n\n- Skipped test for select!!!\n\n### Updated\n\n- Select to use new ref interface\n\n## 1.10.5 ( September 14, 2018 )\n\n### Added\n\n- License\n\n## 1.10.4 ( August 13, 2018 )\n\n### Fixed\n\n- Issue with @babel/runtime was the dep when it should have ben @babel/runtime-corejs2\n\n## 1.10.3 ( August 13, 2018 )\n\n### Fixed\n\n- Issue with @babel/runtime for real this time\n\n## 1.10.2 ( August 13, 2018 )\n\n### Fixed\n\n- Issue with @babel/runtime\n\n## 1.10.1 ( August 13, 2018 )\n\n### Removed\n\n- mistakenly added dev deps that were deps... oops\n\n## 1.10.0 ( August 13, 2018 )\n\n### Added\n\n- submits to the form state\n\n## 1.9.0 ( August 8, 2018 )\n\n### Rebuilt\n\n- Added prettier so all the files have been changed... so i rebuilt to have source maps match code\n\n## 1.8.1 ( August 1, 2018 )\n\n### Rebuilt\n\n- Attempting to simply rebuild lib due to possible build issue\n\n## 1.8.0 ( August 1, 2018 )\n\n### Updated\n\n- initialValue to get exposed as prop to custom fields\n\n## 1.7.5 ( July 31, 2018 )\n\n### Added\n\n- Source maps\n\n## 1.7.4 ( July 26, 2018 )\n\n### Fixed\n\n- Issue where Basic radio group was not getting exported\n\n## 1.7.3 ( July 23, 2018 )\n\n### Fixed\n\n- issue where bind to field did not pass down the field prop.\n\n## 1.7.2 ( July 20, 2018 )\n\n### Fixed\n\n- Issue where element wont get removed from array when deregistering field... this is used when dynamically removing value\n\n## 1.7.1 ( July 20, 2018 )\n\n### Added\n\n- Field prop is now exposed to field elements and default inputs pass field as name to html inputs\n\n## 1.7.0 ( July 18, 2018 )\n\n### Added\n\n- fieldExists method to the formApi\n\n## 1.6.0 ( July 16, 2018 )\n\n### Added\n\n- onValueChange prop to inputs so you can tie into when values change!!\n\n## 1.5.2 ( July 13, 2018 )\n\n### Fixed\n\n- Issue where prop changes to fields would not get recognized\n\n## 1.5.1 ( July 13, 2018 )\n\n### Fixed\n\n- issue where i forgott to add @babel/runtime as dependency\n\n## 1.5.0 ( July 12, 2018 )\n\n### Added\n\n- asyncValidation prop to inputs\n- asyncValidateOnBlur prop to inputs\n\n## 1.4.0 ( July 5, 2018 )\n\n### Added\n\n- Basic input fields so users can more easily create custom inputs\n- Docs for creating custom inputs\n\n## 1.3.11 ( July 9, 2018 )\n\n### Fixed\n\n- issue where you could not nest scope\n\n## 1.3.10 ( July 5, 2018 )\n\n### Fixed\n\n- issue where you could not pass initialValue=false to checkbox\n\n## 1.3.9 ( July 5, 2018 )\n\n### Fixed\n\n- issue where mutable values were getting passed to onSubmit and getState\n\n## 1.3.8 ( July 2, 2018 )\n\n### Fixed\n\n- issue where path array was being build every get and set\n\n## 1.3.7 ( July 2, 2018 )\n\n### Fixed\n\n- issue where onChange was getting passed to internal form element\n\n## 1.3.6 ( June 28, 2018 )\n\n### Added\n\n- globalObject: \'this\' to the webpack dist config to support SSR\n\n## 1.3.5 ( June 28, 2018 )\n\n### Fixed\n\n- Issue with event emitter limit ( need to look into alternative solution )\n- Removed depricated sandbox sinon usage that was causing errors during tests\n\n## 1.3.3 ( June 28, 2018 )\n\n### Updated\n\n- Webpack dist configuration to keep class names\n\n## 1.3.2 ( June 28, 2018 )\n\n### Fixed\n\n- Issue were initialValue was getting passed all the way down to html input\n- Issue where form would not rerender when field was registered\n\n## 1.3.1 ( June 28, 2018 )\n\n### Fixed\n\n- Issue were validateOnMount was getting passed all the way down to html input\n\n## 1.3.0 ( June 28, 2018 )\n\n### Added\n\n- mask so you can mask values at field level. example `value => value + \'!!!\'`\n\n## 1.2.1 ( June 27, 2018 )\n\n### Added\n\n- hook so you can add a button with type=reset and it will reset the form\n\n## 1.2.0 ( June 27, 2018 )\n\n### Added\n\n- validateOnMount to input props\n\n## 1.1.2 ( June 25, 2018 )\n\n### Moved\n\n- React and React-Dom to dev dependencies\n\n## 1.1.1 ( June 18, 2018 )\n\n### Fixed\n\n- Bug where i did not do null check on event within on submit\n\n## 1.0.1 ( June 15, 2018 )\n\n### Added\n\n- Notify prop to inputs that allows you to notify other fields when your error state changes ( see docs )\n\n## 1.0.0 (June 12, 2018)\n\n### Added\n\n- Text\n- TextArea\n- Radio Group\n- Radio\n- Select\n- Select as Multiselect !!!\n- Checkbox\n- withRadioGroup\n- withFieldApi\n- withFieldState\n- withFormApi\n- withFormState\n- asField\n- Form\n- Field\n\n### Changed\n\n**\nNote: this was the first release but i wanted to include changes from\n`react-form` so here they are:\n**\n\n- `formApi` was split into two parts `formApi` ( contains just functions ) `formState` ( contains just form state )\n- Form level validation is gone. You do all validation via field validation.\n- `defaultValues` Form prop is now called `initialValues`\n- `onChange` Form prop only recieves the `formState`. It used to retrieve the form Api as well.\n- `preventDefault` Form prop is now `dontPreventDefault`\n- `getApi` Form prop just returns the formApi, not the state and the api.\n- `Form` component now renders the `form` element internally. So you dont have to "hook it up" anymore!!\n\n### Removed\n\n**\nNote: this was the first release but i wanted to include things that were removed from\n`react-form` so here they are:\n**\n\n- `NestedField` you can use `Scope` instead but all it does is scope internal fields to `scope="your-scope"`\n- validateOnSubmit was removed. Now the form always validates on submit by default and you can opt into sooner validation at field level.\n- `defaultValues` form prop is now called `initialValues`\n- `pure` Form prop. Its not needed anymore due to the use of `React.PureComponent` internally.\n- add, remove, and swap values. The developer can achive this on there own without the use of internal functionality.\n- Array Syntax. In order to keep things simple we now only support the string syntax for field names.\n- Async Validation. Async validation led to many issues that overcomplicated `react-form`. We determined this is something that the developer could achive on there own for now but we may look into adding this in the future.\n- Warning and Success have been removed for now to keep lib lean but we may add additional functions in the future.\n',
         function() {
           return null;
         }
@@ -15245,7 +15786,7 @@
             return react_default.a.createElement(
               'div',
               null,
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'name',
                 label: 'First Name:'
               }),
@@ -15334,24 +15875,24 @@
               react_default.a.createElement(
                 src.f,
                 { onSubmit: onSubmit, autocomplete: 'off' },
-                react_default.a.createElement(src.k, {
+                react_default.a.createElement(src.l, {
                   name: 'name',
                   label: 'Name',
                   placeholder: 'Elon'
                 }),
-                react_default.a.createElement(src.k, {
+                react_default.a.createElement(src.l, {
                   name: 'age',
                   type: 'number',
                   label: 'Age',
                   required: 'Age Required'
                 }),
-                react_default.a.createElement(src.k, {
+                react_default.a.createElement(src.l, {
                   name: 'phone',
                   label: 'Phone',
                   formatter: '+1 (###)-###-####'
                 }),
                 react_default.a.createElement(
-                  src.s,
+                  src.t,
                   { name: 'car', label: 'Car', initialValue: 'ms' },
                   react_default.a.createElement(
                     'option',
@@ -15397,7 +15938,7 @@
               react_default.a.createElement(
                 src.f,
                 { schema: schema, onSubmit: onSubmit },
-                react_default.a.createElement(src.q, null),
+                react_default.a.createElement(src.r, null),
                 react_default.a.createElement(
                   'button',
                   { type: 'submit' },
@@ -15458,7 +15999,7 @@
                   react_default.a.createElement(
                     'div',
                     { style: { flex: 1, marginRight: '2rem' } },
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       name: 'name',
                       label: 'First name',
                       validate: validate
@@ -15496,7 +16037,7 @@
             return react_default.a.createElement(
               src.f,
               null,
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'name',
                 label: 'First Name'
               }),
@@ -15519,7 +16060,7 @@
               react_default.a.createElement(
                 src.f,
                 { formApiRef: formApiRef },
-                react_default.a.createElement(src.k, {
+                react_default.a.createElement(src.l, {
                   name: 'name',
                   label: 'First Name:'
                 }),
@@ -15550,7 +16091,7 @@
           './stories/Intro/FormApi/RenderProp/index.js'
         ),
         UseFormApi_RandomSetterButton = function RandomSetterButton() {
-          var formApi = Object(src.B)();
+          var formApi = Object(src.C)();
           return react_default.a.createElement(
             'button',
             {
@@ -15576,7 +16117,7 @@
               react_default.a.createElement(
                 'div',
                 null,
-                react_default.a.createElement(src.k, {
+                react_default.a.createElement(src.l, {
                   name: 'name',
                   label: 'First Name:'
                 }),
@@ -15616,7 +16157,7 @@
         });
       var Complex = __webpack_require__('./stories/Form/Complex/index.js'),
         DynamicArrays_Reset = function Reset() {
-          var formApi = Object(src.B)();
+          var formApi = Object(src.C)();
           return react_default.a.createElement(
             'button',
             { type: 'button', onClick: formApi.reset },
@@ -15642,7 +16183,7 @@
                     'label',
                     null,
                     'Your Name: ',
-                    react_default.a.createElement(src.k, { name: 'name' })
+                    react_default.a.createElement(src.l, { name: 'name' })
                   ),
                   react_default.a.createElement('h5', null, 'Siblings:'),
                   react_default.a.createElement(
@@ -15673,7 +16214,7 @@
                             return react_default.a.createElement(
                               react_default.a.Fragment,
                               null,
-                              react_default.a.createElement(src.k, {
+                              react_default.a.createElement(src.l, {
                                 label: 'Name',
                                 name: name
                               }),
@@ -15738,7 +16279,7 @@
         esm = (Object(withDocs.a)(
           '### useForm Hook\n\nHooks are all the rage these days, and some people want to "hook things up themselves" :)\nHere is an example where you can use the `useFormHook`.\n\n\x3c!-- STORY --\x3e\n\n```jsx\nimport { Form, Input } from \'informed\';\n\nconst validate = value => {\n  if (!value || value.length < 5)\n    return \'Field must be at least five characters\';\n};\n\nconst onSubmit = ({ values }) =>\n  window.alert(`Form successfully submitted with ${JSON.stringify(values)}`);\n\nconst UseFormExample = () => {\n  const { formController, formState, render } = useForm({\n    onSubmit\n  });\n\n  return render(\n    <form\n      onReset={formController.reset}\n      onSubmit={formController.submitForm}\n      onKeyDown={formController.keyDown}>\n      <label>\n        First name:\n        <Input field="name" validate={validate} />\n        <small style={{ color: \'red\' }}>{formState.errors.name}</small>\n      </label>\n      <button type="submit">Submit</button>\n      <pre>\n        <code>{JSON.stringify(formState, null, 2)}</code>\n      </pre>\n    </form>\n  );\n};\n```\n\n<br/>\n',
           function UseForm() {
-            var _useForm = Object(src.A)({ onSubmit: onSubmit }),
+            var _useForm = Object(src.B)({ onSubmit: onSubmit }),
               formController = _useForm.formController,
               formState = _useForm.formState;
             return (0, _useForm.render)(
@@ -15762,7 +16303,7 @@
                         'label',
                         null,
                         'First name:',
-                        react_default.a.createElement(src.k, {
+                        react_default.a.createElement(src.l, {
                           name: 'name',
                           validate: UseForm_validate
                         }),
@@ -15862,24 +16403,24 @@
                   react_default.a.createElement(
                     'div',
                     { style: { flex: '1' } },
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       name: 'name',
                       label: 'Name',
                       placeholder: 'Elon'
                     }),
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       name: 'age',
                       type: 'number',
                       label: 'Age',
                       required: 'Age Required'
                     }),
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       name: 'phone',
                       label: 'Phone',
                       formatter: '+1 (###)-###-####'
                     }),
                     react_default.a.createElement(
-                      src.s,
+                      src.t,
                       { name: 'car', label: 'Car', initialValue: 'ms' },
                       react_default.a.createElement(
                         'option',
@@ -15909,13 +16450,13 @@
                       react_default.a.createElement(src.b, { name: 'married' })
                     ),
                     react_default.a.createElement(
-                      src.p,
+                      src.q,
                       {
                         when: function when(_ref2) {
                           return _ref2.formState.values.married;
                         }
                       },
-                      react_default.a.createElement(src.k, {
+                      react_default.a.createElement(src.l, {
                         name: 'spouse',
                         label: 'Spouse'
                       })
@@ -16037,7 +16578,7 @@
       var CustomIntro_Form = function Form(_ref) {
           var children = _ref.children,
             rest = _objectWithoutProperties(_ref, _excluded),
-            _useForm = Object(src.A)(rest),
+            _useForm = Object(src.B)(rest),
             formController = _useForm.formController,
             render = _useForm.render,
             userProps = _useForm.userProps;
@@ -16052,7 +16593,7 @@
           );
         },
         CustomIntro_Input = function Input(props) {
-          var _useField = Object(src.x)(_objectSpread({ type: 'text' }, props)),
+          var _useField = Object(src.y)(_objectSpread({ type: 'text' }, props)),
             render = _useField.render,
             informed = _useField.informed,
             userProps = _useField.userProps,
@@ -16073,7 +16614,7 @@
           );
         },
         CustomIntro_Checkbox = function Checkbox(props) {
-          var _useField2 = Object(src.x)(
+          var _useField2 = Object(src.y)(
               _objectSpread({ type: 'checkbox' }, props)
             ),
             render = _useField2.render,
@@ -16096,7 +16637,7 @@
           );
         },
         CustomIntro_ErrorInput = function ErrorInput(props) {
-          var _useField3 = Object(src.x)(
+          var _useField3 = Object(src.y)(
               _objectSpread({ type: 'text' }, props)
             ),
             render = _useField3.render,
@@ -16128,7 +16669,7 @@
           );
         },
         CustomIntro_Select = function Select(props) {
-          var _useField4 = Object(src.x)(
+          var _useField4 = Object(src.y)(
               _objectSpread({ type: 'select' }, props)
             ),
             render = _useField4.render,
@@ -16213,7 +16754,7 @@
                     label: 'Married: '
                   }),
                   react_default.a.createElement(
-                    src.p,
+                    src.q,
                     {
                       when: function when(_ref3) {
                         return _ref3.formState.values.married;
@@ -16342,7 +16883,7 @@
         return arr2;
       }
       var Actions_Info = function Info() {
-          var next = Object(src.D)().next,
+          var next = Object(src.G)().next,
             _useState2 = _slicedToArray(Object(react.useState)(!1), 2),
             loading = _useState2[0],
             setLoading = _useState2[1],
@@ -16371,14 +16912,14 @@
               });
             };
           return react_default.a.createElement(
-            src.l.Step,
+            src.m.Step,
             { step: 'info' },
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'first',
               label: 'First Name',
               required: !0
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'last',
               label: 'First Name',
               required: !0
@@ -16411,18 +16952,18 @@
           );
         },
         Actions_Favorite = function Favorite() {
-          var _useMultistepApi2 = Object(src.D)(),
+          var _useMultistepApi2 = Object(src.G)(),
             next = _useMultistepApi2.next,
             previous = _useMultistepApi2.previous;
           return react_default.a.createElement(
-            src.l.Step,
+            src.m.Step,
             { step: 'favorite' },
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'color',
               label: 'Favorite Color:',
               required: !0
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'food',
               label: 'Favorite Food:',
               required: !0
@@ -16444,16 +16985,16 @@
           );
         },
         Actions_Additional = function Additional() {
-          var previous = Object(src.D)().previous;
+          var previous = Object(src.G)().previous;
           return react_default.a.createElement(
-            src.l.Step,
+            src.m.Step,
             { step: 'additional' },
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'height',
               label: 'Height:',
               required: !0
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'weight',
               label: 'Weight:',
               required: !0
@@ -16490,7 +17031,7 @@
                   'div',
                   { style: { flex: 1, marginRight: '2rem' } },
                   react_default.a.createElement(
-                    src.l,
+                    src.m,
                     null,
                     react_default.a.createElement(
                       'div',
@@ -16523,16 +17064,16 @@
         withDocs = __webpack_require__('./stories/utils/withDocs.js'),
         src = __webpack_require__('./src/index.js'),
         Basic_Info = function Info() {
-          var next = Object(src.D)().next;
+          var next = Object(src.G)().next;
           return react_default.a.createElement(
-            src.l.Step,
+            src.m.Step,
             { step: 'info' },
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'first',
               label: 'First Name',
               required: !0
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'last',
               label: 'First Name',
               required: !0
@@ -16545,18 +17086,18 @@
           );
         },
         Basic_Favorite = function Favorite() {
-          var _useMultistepApi2 = Object(src.D)(),
+          var _useMultistepApi2 = Object(src.G)(),
             next = _useMultistepApi2.next,
             previous = _useMultistepApi2.previous;
           return react_default.a.createElement(
-            src.l.Step,
+            src.m.Step,
             { step: 'favorite' },
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'color',
               label: 'Favorite Color:',
               required: !0
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'food',
               label: 'Favorite Food:',
               required: !0
@@ -16578,16 +17119,16 @@
           );
         },
         Basic_Additional = function Additional() {
-          var previous = Object(src.D)().previous;
+          var previous = Object(src.G)().previous;
           return react_default.a.createElement(
-            src.l.Step,
+            src.m.Step,
             { step: 'additional' },
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'height',
               label: 'Height:',
               required: !0
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'weight',
               label: 'Weight:',
               required: !0
@@ -16624,7 +17165,7 @@
                   'div',
                   { style: { flex: 1, marginRight: '2rem' } },
                   react_default.a.createElement(
-                    src.l,
+                    src.m,
                     null,
                     react_default.a.createElement(
                       'div',
@@ -16716,16 +17257,16 @@
         return arr2;
       }
       var Complex_Info = function Info() {
-          var next = Object(src.D)().next;
+          var next = Object(src.G)().next;
           return react_default.a.createElement(
-            src.l.Step,
+            src.m.Step,
             { step: 'info' },
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'first',
               label: 'First Name',
               required: !0
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'last',
               label: 'First Name',
               required: !0
@@ -16738,11 +17279,11 @@
           );
         },
         Complex_Allergic = function Allergic() {
-          var _useMultistepApi2 = Object(src.D)(),
+          var _useMultistepApi2 = Object(src.G)(),
             next = _useMultistepApi2.next,
             previous = _useMultistepApi2.previous;
           return react_default.a.createElement(
-            src.l.Step,
+            src.m.Step,
             { step: 'allergies' },
             react_default.a.createElement(
               'h5',
@@ -16774,11 +17315,11 @@
           );
         },
         Complex_EpiPen = function EpiPen() {
-          var _useMultistepApi3 = Object(src.D)(),
+          var _useMultistepApi3 = Object(src.G)(),
             next = _useMultistepApi3.next,
             previous = _useMultistepApi3.previous;
           return react_default.a.createElement(
-            src.l.Step,
+            src.m.Step,
             {
               step: 'treatment',
               relevant: function relevant(_ref2) {
@@ -16796,13 +17337,13 @@
               null,
               'Do you have an epipen?:',
               react_default.a.createElement(
-                src.o,
+                src.p,
                 { name: 'epipen', required: !0 },
-                react_default.a.createElement(src.n, {
+                react_default.a.createElement(src.o, {
                   value: 'yes',
                   label: 'Yes'
                 }),
-                react_default.a.createElement(src.n, {
+                react_default.a.createElement(src.o, {
                   value: 'no',
                   label: 'No'
                 })
@@ -16825,19 +17366,19 @@
           );
         },
         Complex_Color = function Color() {
-          var _useMultistepApi4 = Object(src.D)(),
+          var _useMultistepApi4 = Object(src.G)(),
             next = _useMultistepApi4.next,
             previous = _useMultistepApi4.previous,
-            nextStep = Object(src.E)().nextStep;
+            nextStep = Object(src.H)().nextStep;
           return react_default.a.createElement(
-            src.l.Step,
+            src.m.Step,
             { step: 'favorite' },
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'color',
               label: 'Favorite Color:',
               required: !0
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'food',
               label: 'Favorite Food:',
               required: !0
@@ -16872,9 +17413,9 @@
           );
         },
         Complex_Dog = function Dog() {
-          var previous = Object(src.D)().previous;
+          var previous = Object(src.G)().previous;
           return react_default.a.createElement(
-            src.l.Step,
+            src.m.Step,
             {
               step: 'pets',
               previous: 'color',
@@ -16888,7 +17429,7 @@
               label: 'Do you have a dog?'
             }),
             react_default.a.createElement(
-              src.p,
+              src.q,
               {
                 when: function when(_ref4) {
                   var formApi = _ref4.formApi,
@@ -16896,7 +17437,7 @@
                   return formApi.getValue(''.concat(scope, '.hasDog'));
                 }
               },
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'dogName',
                 label: 'Whats your dogs name?',
                 required: !0
@@ -16906,7 +17447,7 @@
               name: 'hasCat',
               label: 'Do you have a cat?'
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'catName',
               label: 'Whats your cats name?',
               required: !0,
@@ -16933,7 +17474,7 @@
           );
         },
         Complex_Buttons = function Buttons() {
-          var setCurrent = Object(src.D)().setCurrent;
+          var setCurrent = Object(src.G)().setCurrent;
           return react_default.a.createElement(
             'div',
             null,
@@ -17008,7 +17549,7 @@
                   'div',
                   { style: { flex: 1, marginRight: '2rem' } },
                   react_default.a.createElement(
-                    src.l,
+                    src.m,
                     { multistepApiRef: multistepApiRef },
                     react_default.a.createElement(
                       'div',
@@ -17051,19 +17592,19 @@
           : string;
       }
       var MultistepState_Info = function Info() {
-          var _useMultistepApi = Object(src.D)(),
+          var _useMultistepApi = Object(src.G)(),
             next = _useMultistepApi.next,
             nextStep = (_useMultistepApi.getCurrentStep,
-            Object(src.E)().nextStep);
+            Object(src.H)().nextStep);
           return react_default.a.createElement(
-            src.l.Step,
+            src.m.Step,
             { step: 'info' },
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'first',
               label: 'First Name',
               required: !0
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'last',
               label: 'First Name',
               required: !0
@@ -17076,22 +17617,22 @@
           );
         },
         MultistepState_Favorite = function Favorite() {
-          var _useMultistepApi2 = Object(src.D)(),
+          var _useMultistepApi2 = Object(src.G)(),
             next = _useMultistepApi2.next,
             previous = _useMultistepApi2.previous,
             _useMultistepState2 = (_useMultistepApi2.getCurrentStep,
-            Object(src.E)()),
+            Object(src.H)()),
             nextStep = _useMultistepState2.nextStep,
             previousStep = _useMultistepState2.previousStep;
           return react_default.a.createElement(
-            src.l.Step,
+            src.m.Step,
             { step: 'favorite' },
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'color',
               label: 'Favorite Color:',
               required: !0
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'food',
               label: 'Favorite Food:',
               required: !0
@@ -17113,17 +17654,17 @@
           );
         },
         MultistepState_Additional = function Additional() {
-          var previous = Object(src.D)().previous,
-            previousStep = Object(src.E)().previousStep;
+          var previous = Object(src.G)().previous,
+            previousStep = Object(src.H)().previousStep;
           return react_default.a.createElement(
-            src.l.Step,
+            src.m.Step,
             { step: 'additional' },
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'height',
               label: 'Height:',
               required: !0
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'weight',
               label: 'Weight:',
               required: !0
@@ -17145,7 +17686,7 @@
           );
         },
         MultistepState_StepIndicator = function StepIndicator() {
-          var current = Object(src.E)().current;
+          var current = Object(src.H)().current;
           return react_default.a.createElement('h3', null, capitalize(current));
         };
       __webpack_exports__.a = Object(withDocs.a)(
@@ -17164,7 +17705,7 @@
                   'div',
                   { style: { flex: 1, marginRight: '2rem' } },
                   react_default.a.createElement(
-                    src.l,
+                    src.m,
                     null,
                     react_default.a.createElement(
                       'div',
@@ -17356,7 +17897,7 @@
               label: 'Show Info?',
               name: 'showInfo'
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               label: 'Favorite Food',
               name: 'food',
               relevanceWhen: ['showInfo'],
@@ -17370,7 +17911,7 @@
                 );
               }
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               label: 'Favorite Movie',
               name: 'movie',
               relevant: function relevant2(_ref2) {
@@ -17404,7 +17945,7 @@
           return react_default.a.createElement(
             src.f,
             null,
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'name',
               label: 'First name:'
             }),
@@ -17412,7 +17953,7 @@
               name: 'married',
               label: 'Are you married?'
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'spouse',
               label: 'Spouse name:',
               relevant: function relevant(_ref) {
@@ -17440,7 +17981,7 @@
           return react_default.a.createElement(
             src.f,
             null,
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'name',
               label: 'First name:'
             }),
@@ -17449,13 +17990,13 @@
               label: 'Are you married?'
             }),
             react_default.a.createElement(
-              src.p,
+              src.q,
               {
                 when: function when(_ref) {
                   return _ref.formState.values.married;
                 }
               },
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'spouse',
                 label: 'Spouse name:'
               })
@@ -17558,7 +18099,7 @@
               react_default.a.createElement(
                 'div',
                 { style: { flex: '1' } },
-                react_default.a.createElement(src.q, null),
+                react_default.a.createElement(src.r, null),
                 react_default.a.createElement(
                   'button',
                   { type: 'submit' },
@@ -17720,7 +18261,7 @@
               react_default.a.createElement(
                 'div',
                 { style: { flex: '1' } },
-                react_default.a.createElement(src.q, null),
+                react_default.a.createElement(src.r, null),
                 react_default.a.createElement(
                   'button',
                   { type: 'submit' },
@@ -17837,7 +18378,7 @@
               react_default.a.createElement(
                 'div',
                 { style: { flex: '1' } },
-                react_default.a.createElement(src.q, null),
+                react_default.a.createElement(src.r, null),
                 react_default.a.createElement(
                   'button',
                   { type: 'submit' },
@@ -17927,7 +18468,7 @@
           return react_default.a.createElement(
             src.f,
             { schema: schema },
-            react_default.a.createElement(src.q, null),
+            react_default.a.createElement(src.r, null),
             react_default.a.createElement(
               'button',
               { type: 'submit' },
@@ -18000,7 +18541,7 @@
               schema: schema,
               components: { DivComp: ConditionalSchema_DivComp }
             },
-            react_default.a.createElement(src.q, null),
+            react_default.a.createElement(src.r, null),
             react_default.a.createElement(
               'button',
               { type: 'submit' },
@@ -18132,7 +18673,7 @@
           return react_default.a.createElement(
             src.f,
             { schema: schema },
-            react_default.a.createElement(src.q, null),
+            react_default.a.createElement(src.r, null),
             react_default.a.createElement(
               'button',
               { type: 'submit' },
@@ -18249,7 +18790,7 @@
       var CustomSchema_Form = function Form(_ref) {
           var children = _ref.children,
             rest = _objectWithoutProperties(_ref, _excluded),
-            _useForm = Object(src.A)(rest),
+            _useForm = Object(src.B)(rest),
             formController = _useForm.formController,
             render = _useForm.render,
             userProps = _useForm.userProps;
@@ -18262,7 +18803,7 @@
           );
         },
         CustomSchema_AddButton = function AddButton() {
-          var add = Object(src.u)().add;
+          var add = Object(src.v)().add;
           return react_default.a.createElement(
             'button',
             {
@@ -18275,7 +18816,7 @@
           );
         },
         CustomSchema_RemoveButton = function RemoveButton() {
-          var remove = Object(src.v)().remove;
+          var remove = Object(src.w)().remove;
           return react_default.a.createElement(
             'button',
             {
@@ -18293,7 +18834,7 @@
               children = _ref4.children,
               options = _ref4.options,
               props = _objectWithoutProperties(_ref4, _excluded4),
-              _useField3 = Object(src.x)(
+              _useField3 = Object(src.y)(
                 _objectSpread({ type: 'select' }, props)
               ),
               render = _useField3.render,
@@ -18328,7 +18869,7 @@
           input: function Input(_ref2) {
             var label = _ref2.label,
               props = _objectWithoutProperties(_ref2, _excluded2),
-              _useField = Object(src.x)(_objectSpread({ type: 'text' }, props)),
+              _useField = Object(src.y)(_objectSpread({ type: 'text' }, props)),
               render = _useField.render,
               informed = _useField.informed,
               userProps = _useField.userProps,
@@ -18348,7 +18889,7 @@
           checkbox: function Checkbox(_ref3) {
             var label = _ref3.label,
               props = _objectWithoutProperties(_ref3, _excluded3),
-              _useField2 = Object(src.x)(
+              _useField2 = Object(src.y)(
                 _objectSpread({ type: 'checkbox' }, props)
               ),
               render = _useField2.render,
@@ -18451,7 +18992,7 @@
           return react_default.a.createElement(
             CustomSchema_Form,
             { schema: schema, adapter: adapter },
-            react_default.a.createElement(src.q, null),
+            react_default.a.createElement(src.r, null),
             react_default.a.createElement(
               'button',
               { type: 'submit' },
@@ -18509,7 +19050,7 @@
             react_default.a.createElement('br', null),
             react_default.a.createElement('h5', null, 'Brothers Info:'),
             react_default.a.createElement(
-              src.r,
+              src.s,
               { scope: 'brother' },
               react_default.a.createElement(src.g, { name: 'name' }),
               react_default.a.createElement(src.g, { name: 'age' })
@@ -18614,7 +19155,7 @@
           return react_default.a.createElement(
             src.f,
             { schema: schema },
-            react_default.a.createElement(src.q, null),
+            react_default.a.createElement(src.r, null),
             react_default.a.createElement(
               'button',
               { type: 'submit' },
@@ -18667,7 +19208,7 @@
           return react_default.a.createElement(
             src.f,
             { schema: schema },
-            react_default.a.createElement(src.q, null),
+            react_default.a.createElement(src.r, null),
             react_default.a.createElement(
               'button',
               { type: 'submit' },
@@ -18751,7 +19292,7 @@
               schema: schema,
               components: { PurpleBorder: SchemaComponents_PurpleBorder }
             },
-            react_default.a.createElement(src.q, null),
+            react_default.a.createElement(src.r, null),
             react_default.a.createElement(
               'button',
               { type: 'submit' },
@@ -18784,24 +19325,24 @@
             src.f,
             { initialValues: initialValues },
             react_default.a.createElement('h3', null, 'Your Info'),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'name',
               label: 'First name:'
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'age',
               label: 'Age:',
               type: 'number'
             }),
             react_default.a.createElement(
-              src.r,
+              src.s,
               { scope: 'spouse' },
               react_default.a.createElement('h3', null, 'Spouses Info'),
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'name',
                 label: 'First name:'
               }),
-              react_default.a.createElement(src.k, {
+              react_default.a.createElement(src.l, {
                 name: 'age',
                 label: 'Age:',
                 type: 'number'
@@ -18918,7 +19459,7 @@
       var GettingStarted_Form = function Form(_ref) {
           var children = _ref.children,
             rest = _objectWithoutProperties(_ref, _excluded),
-            _useForm = Object(src.A)(rest),
+            _useForm = Object(src.B)(rest),
             formController = _useForm.formController,
             render = _useForm.render,
             userProps = _useForm.userProps;
@@ -18933,7 +19474,7 @@
           );
         },
         GettingStarted_Input = function Input(props) {
-          var _useField = Object(src.x)(_objectSpread({ type: 'text' }, props)),
+          var _useField = Object(src.y)(_objectSpread({ type: 'text' }, props)),
             render = _useField.render,
             informed = _useField.informed,
             userProps = _useField.userProps,
@@ -18963,7 +19504,7 @@
           );
         },
         GettingStarted_Checkbox = function Checkbox(props) {
-          var _useField2 = Object(src.x)(
+          var _useField2 = Object(src.y)(
               _objectSpread({ type: 'checkbox' }, props)
             ),
             render = _useField2.render,
@@ -18986,7 +19527,7 @@
           );
         },
         GettingStarted_Select = function Select(props) {
-          var _useField3 = Object(src.x)(
+          var _useField3 = Object(src.y)(
               _objectSpread({ type: 'select' }, props)
             ),
             render = _useField3.render,
@@ -19071,7 +19612,7 @@
                     label: 'Married? '
                   }),
                   react_default.a.createElement(
-                    src.p,
+                    src.q,
                     {
                       when: function when(_ref3) {
                         return _ref3.formState.values.married;
@@ -19235,7 +19776,7 @@
                 return window.alert(JSON.stringify(values, null, 2));
               }
             },
-            react_default.a.createElement(src.q, null),
+            react_default.a.createElement(src.r, null),
             react_default.a.createElement(
               'button',
               { type: 'submit' },
@@ -19285,16 +19826,16 @@
                 return window.alert(JSON.stringify(values, null, 2));
               }
             },
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'name',
               label: 'First name:'
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'age',
               label: 'Age:',
               type: 'number'
             }),
-            react_default.a.createElement(src.k, {
+            react_default.a.createElement(src.l, {
               name: 'friend',
               label: 'Friend:'
             }),
@@ -19354,7 +19895,7 @@
                 react_default.a.createElement(
                   'div',
                   { style: { flex: 2, marginRight: '2rem' } },
-                  react_default.a.createElement(src.k, {
+                  react_default.a.createElement(src.l, {
                     name: 'username',
                     label: 'Username',
                     autocomplete: 'off',
@@ -19565,36 +20106,36 @@
                         react_default.a.createElement(
                           'div',
                           { style: { flex: 1, marginRight: '2rem' } },
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             name: 'name',
                             label: 'First name:',
                             validate: basicValidation
                           }),
                           react_default.a.createElement(
-                            src.r,
+                            src.s,
                             { scope: 'favorite' },
-                            react_default.a.createElement(src.k, {
+                            react_default.a.createElement(src.l, {
                               name: 'color',
                               label: 'Favorite color:',
                               validate: basicValidation
                             }),
-                            react_default.a.createElement(src.k, {
+                            react_default.a.createElement(src.l, {
                               name: 'food',
                               label: 'Favorite food:',
                               validate: basicValidation
                             })
                           ),
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             name: 'friends[0]',
                             label: 'Friend 1:',
                             validate: friendValidation
                           }),
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             name: 'friends[1]',
                             label: 'Friend 2:',
                             validate: friendValidation
                           }),
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             name: 'friends[2]',
                             label: 'Friend 3:',
                             validate: friendValidation
@@ -19805,7 +20346,7 @@
                           'div',
                           { style: { flex: 1, marginRight: '2rem' } },
                           react_default.a.createElement(
-                            src.s,
+                            src.t,
                             {
                               label: 'Country',
                               name: 'country',
@@ -19822,7 +20363,7 @@
                               'Canada'
                             )
                           ),
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             label: 'Some field',
                             name: 'some-field',
                             validate: validate
@@ -20037,16 +20578,16 @@
                         react_default.a.createElement(
                           'div',
                           { style: { flex: 1, marginRight: '2rem' } },
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             name: 'firstName',
                             label: 'First Name:'
                           }),
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             name: 'lastName',
                             label: 'Last Name:',
                             yupSchema: lastNameSchema
                           }),
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             name: 'email',
                             label: 'Email:'
                           }),
@@ -20274,7 +20815,7 @@
                               { htmlFor: 'notify-password' },
                               'Password:'
                             ),
-                            react_default.a.createElement(src.k, {
+                            react_default.a.createElement(src.l, {
                               name: 'password',
                               id: 'notify-password',
                               validate: validatePassword,
@@ -20286,7 +20827,7 @@
                               { htmlFor: 'notify-confirm-password' },
                               'Confirm password:'
                             ),
-                            react_default.a.createElement(src.k, {
+                            react_default.a.createElement(src.l, {
                               name: 'confirmPassword',
                               id: 'notify-confirm-password',
                               validate: validateConfim,
@@ -20499,92 +21040,92 @@
                       react_default.a.createElement(
                         'div',
                         { style: { flex: 1, marginRight: '2rem' } },
-                        react_default.a.createElement(src.k, {
+                        react_default.a.createElement(src.l, {
                           name: 'name',
                           label: 'First name:',
                           required: !0
                         }),
-                        react_default.a.createElement(src.k, {
+                        react_default.a.createElement(src.l, {
                           name: 'favorite.color',
                           label: 'Favorite color:',
                           required: !0
                         }),
                         react_default.a.createElement(
-                          src.r,
+                          src.s,
                           { scope: 'favorite' },
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             name: 'food',
                             label: 'Favorite food:',
                             required: !0
                           }),
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             name: 'animal',
                             label: 'Favorite animal:',
                             required: !0
                           })
                         ),
-                        react_default.a.createElement(src.k, {
+                        react_default.a.createElement(src.l, {
                           name: 'friends[0]',
                           label: 'Friend 1:',
                           required: !0
                         }),
-                        react_default.a.createElement(src.k, {
+                        react_default.a.createElement(src.l, {
                           name: 'friends[1]',
                           label: 'Friend 2:',
                           required: !0
                         }),
-                        react_default.a.createElement(src.k, {
+                        react_default.a.createElement(src.l, {
                           name: 'friends[2]',
                           label: 'Friend 3:',
                           required: !0
                         }),
-                        react_default.a.createElement(src.t, {
+                        react_default.a.createElement(src.u, {
                           name: 'bio',
                           label: 'Bio',
                           required: !0
                         }),
                         react_default.a.createElement(
-                          src.o,
+                          src.p,
                           { name: 'gender', label: 'Gender', required: !0 },
-                          react_default.a.createElement(src.n, {
+                          react_default.a.createElement(src.o, {
                             value: 'male',
                             label: 'Male:'
                           }),
-                          react_default.a.createElement(src.n, {
+                          react_default.a.createElement(src.o, {
                             value: 'female',
                             label: 'Female:'
                           })
                         ),
                         react_default.a.createElement(
-                          src.s,
+                          src.t,
                           {
                             name: 'status',
                             label: 'Relationship status:',
                             required: !0
                           },
                           react_default.a.createElement(
-                            src.m,
+                            src.n,
                             { value: '', disabled: !0 },
                             'Select One...'
                           ),
                           react_default.a.createElement(
-                            src.m,
+                            src.n,
                             { value: 'single' },
                             'Single'
                           ),
                           react_default.a.createElement(
-                            src.m,
+                            src.n,
                             { value: 'relationship' },
                             'Relationship'
                           ),
                           react_default.a.createElement(
-                            src.m,
+                            src.n,
                             { value: 'complicated' },
                             'Complicated'
                           )
                         ),
                         react_default.a.createElement(
-                          src.s,
+                          src.t,
                           {
                             name: 'colors',
                             label: 'Colors:',
@@ -20593,32 +21134,32 @@
                             style: { height: '100px', width: '200px' }
                           },
                           react_default.a.createElement(
-                            src.m,
+                            src.n,
                             { value: 'red' },
                             'Red'
                           ),
                           react_default.a.createElement(
-                            src.m,
+                            src.n,
                             { value: 'green' },
                             'Green'
                           ),
                           react_default.a.createElement(
-                            src.m,
+                            src.n,
                             { value: 'blue' },
                             'Blue'
                           ),
                           react_default.a.createElement(
-                            src.m,
+                            src.n,
                             { value: 'yellow' },
                             'Yellow'
                           ),
                           react_default.a.createElement(
-                            src.m,
+                            src.n,
                             { value: 'orange' },
                             'Orange'
                           ),
                           react_default.a.createElement(
-                            src.m,
+                            src.n,
                             { value: 'purple' },
                             'Purple'
                           )
@@ -20824,17 +21365,17 @@
                         react_default.a.createElement(
                           'div',
                           { style: { flex: 1, marginRight: '2rem' } },
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             name: 'color',
                             label: 'Color:',
                             validate: validate
                           }),
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             name: 'food',
                             label: 'Food:',
                             validate: validate
                           }),
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             name: 'car',
                             label: 'Car:',
                             validate: validate
@@ -20928,7 +21469,7 @@
                       null,
                       'validateOn="blur" ( default )'
                     ),
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       name: 'username1',
                       label: 'Username1',
                       required: !0,
@@ -20940,7 +21481,7 @@
                       null,
                       'validateOn="change"'
                     ),
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       name: 'username2',
                       label: 'Username2',
                       validateOn: 'change',
@@ -20953,7 +21494,7 @@
                       null,
                       'validateOn="change" && showErrorIfDirty'
                     ),
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       name: 'username3',
                       label: 'Username3',
                       validateOn: 'change',
@@ -20967,7 +21508,7 @@
                       null,
                       'validateOn="change-blur"'
                     ),
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       name: 'username4',
                       label: 'Username4',
                       validateOn: 'change-blur',
@@ -20980,7 +21521,7 @@
                       null,
                       'validateOn="change-submit"'
                     ),
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       name: 'username5',
                       label: 'Username5',
                       validateOn: 'change-submit',
@@ -20993,7 +21534,7 @@
                       null,
                       'validateOn="blur-submit"'
                     ),
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       name: 'username6',
                       label: 'Username6',
                       validateOn: 'blur-submit',
@@ -21006,7 +21547,7 @@
                       null,
                       'validateOn="submit"'
                     ),
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       name: 'username7',
                       label: 'Username7',
                       validateOn: 'submit',
@@ -21019,7 +21560,7 @@
                       null,
                       'validateOnMount'
                     ),
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       name: 'username8',
                       label: 'Username8',
                       validateOnMount: !0,
@@ -21032,7 +21573,7 @@
                       null,
                       'validateOnMount && showErrorIfError'
                     ),
-                    react_default.a.createElement(src.k, {
+                    react_default.a.createElement(src.l, {
                       name: 'username9',
                       label: 'Username9',
                       validateOnMount: !0,
@@ -21160,7 +21701,7 @@
                   return window.alert(JSON.stringify(values, null, 2));
                 }
               },
-              react_default.a.createElement(src.q, null),
+              react_default.a.createElement(src.r, null),
               react_default.a.createElement(
                 'button',
                 { type: 'submit' },
@@ -21316,19 +21857,19 @@
                         react_default.a.createElement(
                           'div',
                           { style: { flex: 1, marginRight: '2rem' } },
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             name: 'first',
                             label: 'First name:',
                             required: !0,
                             errorMessage: 'There is a problem with this field!'
                           }),
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             name: 'last',
                             label: 'Last name:',
                             required: !0,
                             errorMessage: { required: 'Last name is required!' }
                           }),
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             name: 'favoriteColor',
                             label: 'Favorite color:',
                             required: !0
@@ -21565,15 +22106,15 @@
                         react_default.a.createElement(
                           'div',
                           { style: { flex: 1, marginRight: '2rem' } },
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             name: 'firstName',
                             label: 'First Name:'
                           }),
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             name: 'lastName',
                             label: 'Last Name:'
                           }),
-                          react_default.a.createElement(src.k, {
+                          react_default.a.createElement(src.l, {
                             name: 'email',
                             label: 'Email:'
                           }),
@@ -21743,88 +22284,91 @@
             _Validation_Elon__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(
               './stories/Validation/Elon/index.js'
             ),
-            _Validation_Notifications__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(
+            _GlobalForms_Intro__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(
+              './stories/GlobalForms/Intro/index.js'
+            ),
+            _Validation_Notifications__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(
               './stories/Validation/Notifications/index.js'
             ),
-            _Validation_AjvValidation__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(
+            _Validation_AjvValidation__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(
               './stories/Validation/AjvValidation/index.js'
             ),
-            _Validation_AjvValidationNoRender__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(
+            _Validation_AjvValidationNoRender__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(
               './stories/Validation/AjvValidationNoRender/index.js'
             ),
-            _Validation_AsyncValidation__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(
+            _Validation_AsyncValidation__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(
               './stories/Validation/AsyncValidation/index.js'
             ),
-            _Playground_RickRoll__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(
+            _Playground_RickRoll__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(
               './stories/Playground/RickRoll.js'
             ),
-            _Formatting_Formatter__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(
+            _Formatting_Formatter__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(
               './stories/Formatting/Formatter/index.js'
             ),
-            _Formatting_FormatterFunctions__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(
+            _Formatting_FormatterFunctions__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(
               './stories/Formatting/FormatterFunctions/index.js'
             ),
-            _Gotchas_Scope__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(
+            _Gotchas_Scope__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(
               './stories/Gotchas/Scope/index.js'
             ),
-            _Gotchas_ChangingInitialValues__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(
+            _Gotchas_ChangingInitialValues__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(
               './stories/Gotchas/ChangingInitialValues/index.js'
             ),
-            _Gotchas_InitialvsDefault__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(
+            _Gotchas_InitialvsDefault__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(
               './stories/Gotchas/InitialvsDefault/index.js'
             ),
-            _Gotchas_InitializeIfPristine__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(
+            _Gotchas_InitializeIfPristine__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(
               './stories/Gotchas/InitializeIfPristine/index.js'
             ),
-            _Dynamic_DynamicFields__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(
+            _Dynamic_DynamicFields__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(
               './stories/Dynamic/DynamicFields/index.js'
             ),
-            _CustomInputs__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(
+            _CustomInputs__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(
               './stories/CustomInputs/index.js'
             ),
-            _Inputs__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(
+            _Inputs__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(
               './stories/Inputs/index.js'
             ),
-            _Arrays__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(
+            _Arrays__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(
               './stories/Arrays/index.js'
             ),
-            _Relevance_RelevantComponent__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(
+            _Relevance_RelevantComponent__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(
               './stories/Relevance/RelevantComponent/index.js'
             ),
-            _Relevance_RelevanceProp__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(
+            _Relevance_RelevanceProp__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(
               './stories/Relevance/RelevanceProp/index.js'
             ),
-            _Relevance_ComplexRelevance__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(
+            _Relevance_ComplexRelevance__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(
               './stories/Relevance/ComplexRelevance/index.js'
             ),
-            _Scope_ScopeComponent__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(
+            _Scope_ScopeComponent__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(
               './stories/Scope/ScopeComponent/index.js'
             ),
-            _Hooks__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(
+            _Hooks__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(
               './stories/Hooks/index.js'
             ),
-            _Schema_ConditionalSchema__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(
+            _Schema_ConditionalSchema__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(
               './stories/Schema/ConditionalSchema/index.js'
             ),
-            _Schema_ConditionalSchemaControl__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(
+            _Schema_ConditionalSchemaControl__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(
               './stories/Schema/ConditionalSchemaControl/index.js'
             ),
-            _Schema_ConditionalOptions__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(
+            _Schema_ConditionalOptions__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(
               './stories/Schema/ConditionalOptions/index.js'
             ),
-            _Schema_SchemaComponents__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(
+            _Schema_SchemaComponents__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(
               './stories/Schema/SchemaComponents/index.js'
             ),
-            _Form_FormatDependent__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(
+            _Form_FormatDependent__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(
               './stories/Form/FormatDependent/index.js'
             ),
-            _CustomInputs_FormattedObjectInput__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(
+            _CustomInputs_FormattedObjectInput__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(
               './stories/CustomInputs/FormattedObjectInput/index.js'
             ),
-            _CustomInputs_ObjectInput__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(
+            _CustomInputs_ObjectInput__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(
               './stories/CustomInputs/ObjectInput/index.js'
             ),
-            _Formatting_NumberFormatter__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(
+            _Formatting_NumberFormatter__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(
               './stories/Formatting/NumberFormatter/index.js'
             );
           Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.addDecorator)(
@@ -21890,11 +22434,11 @@
               .add('Props', _Form_Props__WEBPACK_IMPORTED_MODULE_24__.a)
               .add(
                 'Dynamic',
-                _Dynamic_DynamicFields__WEBPACK_IMPORTED_MODULE_49__.a
+                _Dynamic_DynamicFields__WEBPACK_IMPORTED_MODULE_50__.a
               )
               .add(
                 'Dependent Fields',
-                _Form_FormatDependent__WEBPACK_IMPORTED_MODULE_62__.a
+                _Form_FormatDependent__WEBPACK_IMPORTED_MODULE_63__.a
               )
               .add('Path', _Form_Path__WEBPACK_IMPORTED_MODULE_10__.a)
               .add(
@@ -21911,42 +22455,42 @@
               'Inputs',
               module
             )
-              .add('Intro', _Inputs__WEBPACK_IMPORTED_MODULE_51__.b)
-              .add('Input', _Inputs__WEBPACK_IMPORTED_MODULE_51__.h)
-              .add('Text Area', _Inputs__WEBPACK_IMPORTED_MODULE_51__.g)
-              .add('Radio Input', _Inputs__WEBPACK_IMPORTED_MODULE_51__.e)
-              .add('Checkbox Input', _Inputs__WEBPACK_IMPORTED_MODULE_51__.a)
-              .add('Select Input', _Inputs__WEBPACK_IMPORTED_MODULE_51__.f)
+              .add('Intro', _Inputs__WEBPACK_IMPORTED_MODULE_52__.b)
+              .add('Input', _Inputs__WEBPACK_IMPORTED_MODULE_52__.h)
+              .add('Text Area', _Inputs__WEBPACK_IMPORTED_MODULE_52__.g)
+              .add('Radio Input', _Inputs__WEBPACK_IMPORTED_MODULE_52__.e)
+              .add('Checkbox Input', _Inputs__WEBPACK_IMPORTED_MODULE_52__.a)
+              .add('Select Input', _Inputs__WEBPACK_IMPORTED_MODULE_52__.f)
               .add(
                 'Multi Select Input',
-                _Inputs__WEBPACK_IMPORTED_MODULE_51__.c
+                _Inputs__WEBPACK_IMPORTED_MODULE_52__.c
               )
-              .add('Number Input', _Inputs__WEBPACK_IMPORTED_MODULE_51__.d),
+              .add('Number Input', _Inputs__WEBPACK_IMPORTED_MODULE_52__.d),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'CustomInputs',
               module
             )
               .add(
                 'Creating Custom Inputs',
-                _CustomInputs__WEBPACK_IMPORTED_MODULE_50__.a
+                _CustomInputs__WEBPACK_IMPORTED_MODULE_51__.a
               )
               .add(
                 'Creating Object Inputs',
-                _CustomInputs_ObjectInput__WEBPACK_IMPORTED_MODULE_64__.a
+                _CustomInputs_ObjectInput__WEBPACK_IMPORTED_MODULE_65__.a
               )
               .add(
                 'Creating Formatted Object Inputs',
-                _CustomInputs_FormattedObjectInput__WEBPACK_IMPORTED_MODULE_63__.a
+                _CustomInputs_FormattedObjectInput__WEBPACK_IMPORTED_MODULE_64__.a
               ),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Arrays',
               module
             )
-              .add('Array Field', _Arrays__WEBPACK_IMPORTED_MODULE_52__.e)
-              .add('Flat Array Field', _Arrays__WEBPACK_IMPORTED_MODULE_52__.a)
-              .add('Array Field Item', _Arrays__WEBPACK_IMPORTED_MODULE_52__.b)
-              .add('Dependent Fields', _Arrays__WEBPACK_IMPORTED_MODULE_52__.c)
-              .add('Huge Array Form', _Arrays__WEBPACK_IMPORTED_MODULE_52__.d),
+              .add('Array Field', _Arrays__WEBPACK_IMPORTED_MODULE_53__.e)
+              .add('Flat Array Field', _Arrays__WEBPACK_IMPORTED_MODULE_53__.a)
+              .add('Array Field Item', _Arrays__WEBPACK_IMPORTED_MODULE_53__.b)
+              .add('Dependent Fields', _Arrays__WEBPACK_IMPORTED_MODULE_53__.c)
+              .add('Huge Array Form', _Arrays__WEBPACK_IMPORTED_MODULE_53__.d),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Validation',
               module
@@ -21957,7 +22501,7 @@
               )
               .add(
                 'Async Validation',
-                _Validation_AsyncValidation__WEBPACK_IMPORTED_MODULE_41__.a
+                _Validation_AsyncValidation__WEBPACK_IMPORTED_MODULE_42__.a
               )
               .add(
                 'Complex Validation',
@@ -21977,7 +22521,7 @@
               )
               .add(
                 'Paired Validation',
-                _Validation_Notifications__WEBPACK_IMPORTED_MODULE_38__.a
+                _Validation_Notifications__WEBPACK_IMPORTED_MODULE_39__.a
               )
               .add(
                 'Yup Validation',
@@ -21989,11 +22533,11 @@
               )
               .add(
                 'JSON Schema Validation + Rendering',
-                _Validation_AjvValidation__WEBPACK_IMPORTED_MODULE_39__.a
+                _Validation_AjvValidation__WEBPACK_IMPORTED_MODULE_40__.a
               )
               .add(
                 'Only JSON Schema Validation',
-                _Validation_AjvValidationNoRender__WEBPACK_IMPORTED_MODULE_40__.a
+                _Validation_AjvValidationNoRender__WEBPACK_IMPORTED_MODULE_41__.a
               )
               .add('Elon', _Validation_Elon__WEBPACK_IMPORTED_MODULE_37__.a),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
@@ -22002,22 +22546,22 @@
             )
               .add(
                 'Relevant Comonent',
-                _Relevance_RelevantComponent__WEBPACK_IMPORTED_MODULE_53__.a
+                _Relevance_RelevantComponent__WEBPACK_IMPORTED_MODULE_54__.a
               )
               .add(
                 'Relevance Prop',
-                _Relevance_RelevanceProp__WEBPACK_IMPORTED_MODULE_54__.a
+                _Relevance_RelevanceProp__WEBPACK_IMPORTED_MODULE_55__.a
               )
               .add(
                 'Relevance Optimization',
-                _Relevance_ComplexRelevance__WEBPACK_IMPORTED_MODULE_55__.a
+                _Relevance_ComplexRelevance__WEBPACK_IMPORTED_MODULE_56__.a
               ),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Scope',
               module
             ).add(
               'Scope Comonent',
-              _Scope_ScopeComponent__WEBPACK_IMPORTED_MODULE_56__.a
+              _Scope_ScopeComponent__WEBPACK_IMPORTED_MODULE_57__.a
             ),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Schema',
@@ -22038,15 +22582,15 @@
               )
               .add(
                 'Conditional Schema',
-                _Schema_ConditionalSchema__WEBPACK_IMPORTED_MODULE_58__.a
+                _Schema_ConditionalSchema__WEBPACK_IMPORTED_MODULE_59__.a
               )
               .add(
                 'Conditional Schema Control',
-                _Schema_ConditionalSchemaControl__WEBPACK_IMPORTED_MODULE_59__.a
+                _Schema_ConditionalSchemaControl__WEBPACK_IMPORTED_MODULE_60__.a
               )
               .add(
                 'Conditional Options',
-                _Schema_ConditionalOptions__WEBPACK_IMPORTED_MODULE_60__.a
+                _Schema_ConditionalOptions__WEBPACK_IMPORTED_MODULE_61__.a
               )
               .add(
                 'Custom Schema',
@@ -22054,7 +22598,7 @@
               )
               .add(
                 'Schema Components',
-                _Schema_SchemaComponents__WEBPACK_IMPORTED_MODULE_61__.a
+                _Schema_SchemaComponents__WEBPACK_IMPORTED_MODULE_62__.a
               )
               .add(
                 'Nested Array Fields',
@@ -22074,26 +22618,26 @@
             )
               .add(
                 'Formatter',
-                _Formatting_Formatter__WEBPACK_IMPORTED_MODULE_43__.a
+                _Formatting_Formatter__WEBPACK_IMPORTED_MODULE_44__.a
               )
               .add(
                 'Number Formatter',
-                _Formatting_NumberFormatter__WEBPACK_IMPORTED_MODULE_65__.a
+                _Formatting_NumberFormatter__WEBPACK_IMPORTED_MODULE_66__.a
               )
               .add(
                 'Formatter Functions',
-                _Formatting_FormatterFunctions__WEBPACK_IMPORTED_MODULE_44__.a
+                _Formatting_FormatterFunctions__WEBPACK_IMPORTED_MODULE_45__.a
               ),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Hooks!',
               module
             )
-              .add('useFormApi', _Hooks__WEBPACK_IMPORTED_MODULE_57__.e)
-              .add('useFormState', _Hooks__WEBPACK_IMPORTED_MODULE_57__.f)
-              .add('useFieldApi', _Hooks__WEBPACK_IMPORTED_MODULE_57__.b)
-              .add('useFieldState', _Hooks__WEBPACK_IMPORTED_MODULE_57__.c)
-              .add('useForm', _Hooks__WEBPACK_IMPORTED_MODULE_57__.d)
-              .add('useField', _Hooks__WEBPACK_IMPORTED_MODULE_57__.a),
+              .add('useFormApi', _Hooks__WEBPACK_IMPORTED_MODULE_58__.e)
+              .add('useFormState', _Hooks__WEBPACK_IMPORTED_MODULE_58__.f)
+              .add('useFieldApi', _Hooks__WEBPACK_IMPORTED_MODULE_58__.b)
+              .add('useFieldState', _Hooks__WEBPACK_IMPORTED_MODULE_58__.c)
+              .add('useForm', _Hooks__WEBPACK_IMPORTED_MODULE_58__.d)
+              .add('useField', _Hooks__WEBPACK_IMPORTED_MODULE_58__.a),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Multistep Forms',
               module
@@ -22120,35 +22664,39 @@
             )
               .add(
                 'Initial Vs Default',
-                _Gotchas_InitialvsDefault__WEBPACK_IMPORTED_MODULE_47__.a
+                _Gotchas_InitialvsDefault__WEBPACK_IMPORTED_MODULE_48__.a
               )
               .add(
                 'Change initialValues',
-                _Gotchas_ChangingInitialValues__WEBPACK_IMPORTED_MODULE_46__.a
+                _Gotchas_ChangingInitialValues__WEBPACK_IMPORTED_MODULE_47__.a
               )
               .add(
                 'Initialize If Pristine',
-                _Gotchas_InitializeIfPristine__WEBPACK_IMPORTED_MODULE_48__.a
+                _Gotchas_InitializeIfPristine__WEBPACK_IMPORTED_MODULE_49__.a
               )
-              .add('Scope', _Gotchas_Scope__WEBPACK_IMPORTED_MODULE_45__.a),
+              .add('Scope', _Gotchas_Scope__WEBPACK_IMPORTED_MODULE_46__.a),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Dynamic Forms',
               module
             )
               .add(
                 'Dynamic Fields',
-                _Dynamic_DynamicFields__WEBPACK_IMPORTED_MODULE_49__.a
+                _Dynamic_DynamicFields__WEBPACK_IMPORTED_MODULE_50__.a
               )
               .add(
                 'Dynamic Rendering',
                 _Form_Dynamic__WEBPACK_IMPORTED_MODULE_12__.a
               ),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
+              'GlobalForms',
+              module
+            ).add('Intro', _GlobalForms_Intro__WEBPACK_IMPORTED_MODULE_38__.a),
+            Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Cool Examples',
               module
             ).add(
               'Cool Example',
-              _Playground_RickRoll__WEBPACK_IMPORTED_MODULE_42__.a
+              _Playground_RickRoll__WEBPACK_IMPORTED_MODULE_43__.a
             );
         }.call(
           this,

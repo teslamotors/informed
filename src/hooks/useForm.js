@@ -122,7 +122,7 @@ export const useForm = ({
     const listener = target => {
       setFormState({ ...formController.getFormState() });
       if (informed) {
-        informed.inform(name, target, { ...formController.getFormState() });
+        informed.inform(name, target);
       }
     };
 

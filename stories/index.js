@@ -37,6 +37,8 @@ import ValidationControl from './Validation/ValidationControl';
 import ValidationMessages from './Validation/ValidationMessages';
 import Elon from './Validation/Elon';
 
+import GlobalIntro from './GlobalForms/Intro';
+
 // import ArrayFieldValidation from './Validation/ArrayFieldValidation';
 // import ComplexArrayFieldValidation from './Validation/ComplexArrayFieldValidation';
 import Notifications from './Validation/Notifications';
@@ -292,6 +294,8 @@ storiesOf('Gotchas', module)
 storiesOf('Dynamic Forms', module)
   .add('Dynamic Fields', DynamicFields)
   .add('Dynamic Rendering', Dynamic);
+
+storiesOf('GlobalForms', module).add('Intro', GlobalIntro);
 
 // storiesOf('Playground', module)
 //   .add('Format Example', FormatPlayground)

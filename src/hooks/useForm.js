@@ -6,6 +6,7 @@ import {
   FormStateContext
 } from '../Context';
 import { useUpdateEffect } from './useUpdateEffect';
+import { useInformed } from './useInformed';
 // import { SchemaFields } from '../components/SchemaFields';
 import { Debug } from '../debug';
 const logger = Debug('informed:useForm' + '\t');
@@ -36,6 +37,7 @@ export const useForm = ({
   errorMessage,
   fieldMap,
   adapter,
+  name,
   ...userProps
 }) => {
   const formControllerOptions = {
@@ -66,6 +68,9 @@ export const useForm = ({
 
   // Create form controller
   const [formController] = useState(() => new FormController(optionsRef));
+
+  // Register this controler by name if we are in global context
+  const informed = useInformed();
 
   // Register for events
   useEffect(
@@ -103,8 +108,11 @@ export const useForm = ({
 
   // Register for events for ALL fields!
   useEffect(() => {
-    const listener = () => {
+    const listener = target => {
       setFormState({ ...formController.getFormState() });
+      if (informed) {
+        informed.inform(name, target, { ...formController.getFormState() });
+      }
     };
 
     formController.emitter.on('field', listener);
@@ -112,8 +120,16 @@ export const useForm = ({
     // Need initial state
     setFormState({ ...formController.getFormState() });
 
+    //Register this form if we need to
+    if (name && informed) {
+      informed.register(name, formController);
+    }
+
     return () => {
       formController.emitter.removeListener('field', listener);
+      // if (name && informed) {
+      //   informed.deregister(name);
+      // }
     };
   }, []);
 

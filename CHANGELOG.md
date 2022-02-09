@@ -1,3 +1,9 @@
+## 4.1.0 (Feb 8th, 2022)
+
+### Fixed
+
+- Ability to use state across multiple forms
+
 ## 4.0.35 (Feb 8th, 2022)
 
 ### Fixed

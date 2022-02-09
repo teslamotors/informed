@@ -16,7 +16,7 @@ export const useForm = ({
   onReset,
   onChange,
   onSubmitFailure,
-  initialValues,
+  initialValues: userInitialValues,
   validateFields,
   autocomplete,
   showErrorIfError,
@@ -40,6 +40,20 @@ export const useForm = ({
   name,
   ...userProps
 }) => {
+  // Register this controler by name if we are in global context
+  const informed = useInformed();
+
+  const initialValues = useMemo(
+    () => {
+      if (informed && name) {
+        logger('Checking for saved values', informed.getSavedValues(name));
+        return informed.getSavedValues(name) ?? userInitialValues;
+      }
+      return userInitialValues;
+    },
+    [userInitialValues]
+  );
+
   const formControllerOptions = {
     initialValues,
     validateFields,
@@ -68,9 +82,6 @@ export const useForm = ({
 
   // Create form controller
   const [formController] = useState(() => new FormController(optionsRef));
-
-  // Register this controler by name if we are in global context
-  const informed = useInformed();
 
   // Register for events
   useEffect(
@@ -127,9 +138,10 @@ export const useForm = ({
 
     return () => {
       formController.emitter.removeListener('field', listener);
-      // if (name && informed) {
-      //   informed.deregister(name);
-      // }
+      if (name && informed) {
+        // informed.deregister(name);
+        informed.setSavedValues(name, formController.getFormState().values);
+      }
     };
   }, []);
 

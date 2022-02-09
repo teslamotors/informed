@@ -81,7 +81,7 @@ const Example = () => {
       <PurpleBorder>
         <Form autocomplete="off" name="questions">
           <h3>Questions</h3>
-          <Select name="color" label="Color" initialValue="blue">
+          <Select name="color" label="Color" defaultValue="blue">
             <option value="red">Red</option>
             <option value="green">Green</option>
             <option value="blue">Blue</option>

@@ -54,6 +54,10 @@ class InformedController {
     // Val => fieldMetaRef
     // Why? so the form knows about field meta
     this.formMap = new Map();
+
+    // For saving values
+    this.savedValues = new Map();
+
     this.getController = this.getController.bind(this);
     this.register = this.register.bind(this);
     this.deregister = this.deregister.bind(this);
@@ -83,6 +87,14 @@ class InformedController {
 
   inform(name, target) {
     this.emitter.emit(name, target);
+  }
+
+  getSavedValues(name) {
+    return this.savedValues.get(name);
+  }
+
+  setSavedValues(name, values) {
+    return this.savedValues.set(name, values);
   }
 }
 

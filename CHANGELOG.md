@@ -1,6 +1,12 @@
-## 4.1.0 (Feb 8th, 2022)
+## 4.1.1 (Feb 9th, 2022)
 
 ### Fixed
+
+- Stupid issue with safari throwing a type error when trying to check for selectionStart on event.target
+
+## 4.1.0 (Feb 8th, 2022)
+
+### Added
 
 - Ability to use state across multiple forms
 

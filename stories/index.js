@@ -14,6 +14,7 @@ import Dynamic from './Form/Dynamic';
 import Schema from './Schema/Intro';
 import FormattedSchema from './Schema/FormattedSchema';
 import NestedSchema from './Schema/NestedSchema';
+import SubSchema from './Schema/SubSchema';
 import ArrayFieldSchema from './Schema/ArrayFieldSchema';
 import ArrayFieldSchemaRelevant from './Schema/ArrayFieldSchemaRelevant';
 import ArrayFieldSchemaNested from './Schema/ArrayFieldSchemaNested';
@@ -247,6 +248,7 @@ storiesOf('Scope', module).add('Scope Comonent', ScopeComponent);
 storiesOf('Schema', module)
   .add('Schema', Schema)
   .add('Nested Schema', NestedSchema)
+  .add('Sub Schema', SubSchema)
   .add('Formatted Schema', FormattedSchema)
   .add('Array Field Schema', ArrayFieldSchema)
   .add('Conditional Schema', ConditionalSchema)

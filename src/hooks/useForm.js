@@ -38,6 +38,8 @@ export const useForm = ({
   fieldMap,
   adapter,
   name,
+  keepState,
+  keepStateIfRelevant,
   ...userProps
 }) => {
   // Register this controler by name if we are in global context
@@ -74,7 +76,9 @@ export const useForm = ({
     components,
     errorMessage,
     fieldMap,
-    adapter
+    adapter,
+    keepState,
+    keepStateIfRelevant
   };
 
   const optionsRef = useRef();

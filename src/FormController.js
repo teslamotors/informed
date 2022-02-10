@@ -202,8 +202,16 @@ export class FormController {
     const meta = this.fieldsMap.get(name)?.current || {};
 
     // Remember Cursor position!
-    if (e && e.target && e.target.selectionStart) {
-      meta.setCursor(e.target.selectionStart, key);
+    // Need try catch because of Safari Bullshit issue
+    try {
+      if (e && e.target && e.target.selectionStart) {
+        meta.setCursor(e.target.selectionStart, key);
+      }
+    } catch (e) {
+      // Need try catch because of Safari Bullshit issue
+      if (!(e instanceof TypeError)) {
+        throw e;
+      }
     }
 
     if (value === '') {

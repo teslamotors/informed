@@ -13,6 +13,9 @@ const FlatArrayfield = ({ formApiRef, initialValues }) => {
             <button onClick={add} type="button">
               Add Sibling
             </button>
+            <button onClick={() => add(3)} type="button">
+              Add 3 Siblings
+            </button>
             <button onClick={reset} type="button">
               Reset Siblings
             </button>
@@ -159,6 +162,27 @@ describe('ArrayField', () => {
   
       let keys = queryAllByTestId('key');
       expect(keys.length).toBe(2);
+    });
+
+    it('should add 3 unique fields when add \'3 siblings\' is clicked', () => {
+
+      const formApiRef = {};
+  
+      const { queryAllByLabelText, getByText } = render(
+        <FlatArrayfield formApiRef={formApiRef}/>
+      );
+  
+      let inputs = queryAllByLabelText('Name');
+      expect(inputs.length).toBe(0);
+  
+      const add = getByText('Add 3 Siblings');
+      fireEvent.click(add);
+  
+      inputs = queryAllByLabelText('Name');
+      expect(inputs.length).toBe(3);
+      expect(inputs[0]).toHaveAttribute('name', 'siblings[0]');
+      expect(inputs[1]).toHaveAttribute('name', 'siblings[1]');
+      expect(inputs[2]).toHaveAttribute('name', 'siblings[2]');
     });
   
     it('should update state when user deletes 1 index [ a, b ] ---> [ a ]', () => {

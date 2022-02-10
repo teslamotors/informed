@@ -1,3 +1,9 @@
+## 4.2.0 (Feb 10th, 2022)
+
+### Added
+
+- Ability to add n items to array field by passing add(3) a number to add
+
 ## 4.1.2 (Feb 10th, 2022)
 
 ### Fixed

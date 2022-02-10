@@ -1,3 +1,9 @@
+## 4.1.2 (Feb 10th, 2022)
+
+### Fixed
+
+- Missing form level option for keepState and keepStateIfRelevant
+
 ## 4.1.1 (Feb 9th, 2022)
 
 ### Fixed

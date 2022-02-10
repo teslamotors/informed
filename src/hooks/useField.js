@@ -40,8 +40,8 @@ export const useField = ({
   yupSchema,
   multiple,
   field,
-  keepState,
-  keepStateIfRelevant,
+  keepState: userKeepState,
+  keepStateIfRelevant: userKeepStateIfRelevant,
   debug,
   inputRef,
   inputRefs,
@@ -102,6 +102,10 @@ export const useField = ({
     userValidateOnMount ?? formController.options.current.validateOnMount;
   const validateOn =
     userValidateOn ?? formController.options.current.validateOn;
+  const keepState = userKeepState ?? formController.options.current.keepState;
+  const keepStateIfRelevant =
+    userKeepStateIfRelevant ??
+    formController.options.current.keepStateIfRelevant;
 
   // For getting initialValue
   const getInitialValue = () =>

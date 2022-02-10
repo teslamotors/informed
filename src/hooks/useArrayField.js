@@ -101,9 +101,12 @@ export const useArrayField = ({
     setKeys(newKeys);
   };
 
-  const add = () => {
+  const add = (amount = 1) => {
+    if (amount <= 0) return;
     const ks = getKeys();
-    ks.push(uuidv4());
+    for (let i = 0; i < amount; i++) {
+      ks.push(uuidv4());
+    }
     setKeys([...ks]);
   };
 

@@ -17,6 +17,7 @@ import { FormField } from './components/FormField';
 import { FormComponents } from './components/FormComponents';
 import { FormFields } from './components/FormFields';
 import { Multistep } from './components/Multistep';
+import { Informed } from './components/Informed';
 
 import { FormStateAccessor } from './components/FormStateAccessor';
 
@@ -36,6 +37,8 @@ import { useMultistepState } from './hooks/useMultistepState';
 import { useScope } from './hooks/useScope';
 import { useScoper } from './hooks/useScoper';
 import { useRelevance } from './hooks/useRelevance';
+import { useInformedState } from './hooks/useInformedState';
+import { useInformedField } from './hooks/useInformedField';
 
 import * as utils from './utils';
 import { Elon } from './utils';
@@ -53,6 +56,8 @@ export {
   useArrayFieldItemState,
   useMultistepApi,
   useMultistepState,
+  useInformedState,
+  useInformedField,
   useScope,
   useScoper,
   useRelevance,
@@ -78,5 +83,6 @@ export {
   FormComponents,
   FormFields,
   Multistep,
-  Elon
+  Elon,
+  Informed
 };

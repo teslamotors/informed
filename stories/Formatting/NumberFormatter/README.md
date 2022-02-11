@@ -45,11 +45,11 @@ const FormattedField = () => {
   return (
     <Text
       field="localeMask"
-      label="Locale Masked Field (EUR currency)"
+      label={`Locale Masked Field (${currency} currency)`}
       formatter={formatter}
       parser={parser}
       formatterDependencies={[locale, currency]}
-      initialValue={3000}
+      initialValue={3000.25}
     />
   );
 };
@@ -61,13 +61,13 @@ const FormatParse = () => (
         label="Locale"
         field="locale"
         options={localeOptions}
-        initialValue="nl-NL"
+        initialValue="en-US"
       />
       <Select
         label="Currency"
         field="currency"
         options={currencyOptions}
-        initialValue="EUR"
+        initialValue="USD"
       />
       <FormattedField />
       <button type="submit">Submit</button>

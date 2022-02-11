@@ -14,6 +14,7 @@ import Dynamic from './Form/Dynamic';
 import Schema from './Schema/Intro';
 import FormattedSchema from './Schema/FormattedSchema';
 import NestedSchema from './Schema/NestedSchema';
+import SubSchema from './Schema/SubSchema';
 import ArrayFieldSchema from './Schema/ArrayFieldSchema';
 import ArrayFieldSchemaRelevant from './Schema/ArrayFieldSchemaRelevant';
 import ArrayFieldSchemaNested from './Schema/ArrayFieldSchemaNested';
@@ -36,6 +37,8 @@ import ComplexValidation from './Validation/ComplexValidation';
 import ValidationControl from './Validation/ValidationControl';
 import ValidationMessages from './Validation/ValidationMessages';
 import Elon from './Validation/Elon';
+
+import GlobalIntro from './GlobalForms/Intro';
 
 // import ArrayFieldValidation from './Validation/ArrayFieldValidation';
 // import ComplexArrayFieldValidation from './Validation/ComplexArrayFieldValidation';
@@ -245,6 +248,7 @@ storiesOf('Scope', module).add('Scope Comonent', ScopeComponent);
 storiesOf('Schema', module)
   .add('Schema', Schema)
   .add('Nested Schema', NestedSchema)
+  .add('Sub Schema', SubSchema)
   .add('Formatted Schema', FormattedSchema)
   .add('Array Field Schema', ArrayFieldSchema)
   .add('Conditional Schema', ConditionalSchema)
@@ -292,6 +296,8 @@ storiesOf('Gotchas', module)
 storiesOf('Dynamic Forms', module)
   .add('Dynamic Fields', DynamicFields)
   .add('Dynamic Rendering', Dynamic);
+
+storiesOf('GlobalForms', module).add('Intro', GlobalIntro);
 
 // storiesOf('Playground', module)
 //   .add('Format Example', FormatPlayground)

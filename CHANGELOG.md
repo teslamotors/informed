@@ -1,3 +1,119 @@
+## 4.2.0 (Feb 10th, 2022)
+
+### Added
+
+- Ability to add n items to array field by passing add(3) a number to add
+
+## 4.1.2 (Feb 10th, 2022)
+
+### Fixed
+
+- Missing form level option for keepState and keepStateIfRelevant
+
+## 4.1.1 (Feb 9th, 2022)
+
+### Fixed
+
+- Stupid issue with safari throwing a type error when trying to check for selectionStart on event.target
+
+## 4.1.0 (Feb 8th, 2022)
+
+### Added
+
+- Ability to use state across multiple forms
+
+## 4.0.35 (Feb 8th, 2022)
+
+### Fixed
+
+- missing types for multistep and formApi
+
+## 4.0.34 (Feb 4th, 2022)
+
+### Fixed
+
+- issue with INTL formatter when used with `EUR` and `en-DE`
+
+## 4.0.33 (Feb 3rd, 2022)
+
+### Fixed
+
+- issue with formatter function not allowing full value
+
+## 4.0.32 (January 26th, 2022)
+
+### Fixed
+
+- issue with FormField not allowing conditional fields
+
+## 4.0.31 (January 25th, 2022)
+
+### Fixes https://github.com/teslamotors/informed/issues/381
+
+- autoFocus on Input throws error
+
+## 4.0.30 (January 24th, 2022)
+
+### Added
+
+- propertyOrder back to schema
+
+## 4.0.29 (January 20th, 2022)
+
+### Added
+
+- asyncValidate to formApi
+
+## 4.0.28 (January 18th, 2022)
+
+### Fixed
+
+- issue with cursor offsets when suffix is added
+
+## 4.0.27 (January 14th, 2022)
+
+### Fixed
+
+- issue with negative cursor offsets
+
+### Fixed
+
+- issue with off by one cursor locations on formatter
+
+## 4.0.25 (January 14th, 2022)
+
+### Fixed
+
+- createIntlNumberFormatter not working with negative numbers
+
+## 4.0.24 (January 7th, 2022)
+
+### Added
+
+- clearValue() function to form and field apis
+
+### Fixed
+
+- Issue where validateOnMount would NOT trigger validation when a field was re-rendered
+
+## 4.0.23 (January 5th, 2022)
+
+### Fixed
+
+- issue with array field items being memoized
+
+## 4.0.22 (January 5th, 2022)
+
+### Fixed
+
+- issue with createIntlNumber mask adding random "[]" sometimes
+
+## 4.0.21 (January 5th, 2022)
+
+### Fixed
+
+- issue where returning "" from validation function would not show error state
+
 ## 4.0.20 (January 4th, 2022)
 
 ### Fixed

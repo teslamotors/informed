@@ -6,6 +6,7 @@ import {
   FormStateContext
 } from '../Context';
 import { useUpdateEffect } from './useUpdateEffect';
+import { useInformed } from './useInformed';
 // import { SchemaFields } from '../components/SchemaFields';
 import { Debug } from '../debug';
 const logger = Debug('informed:useForm' + '\t');
@@ -15,7 +16,7 @@ export const useForm = ({
   onReset,
   onChange,
   onSubmitFailure,
-  initialValues,
+  initialValues: userInitialValues,
   validateFields,
   autocomplete,
   showErrorIfError,
@@ -36,8 +37,25 @@ export const useForm = ({
   errorMessage,
   fieldMap,
   adapter,
+  name,
+  keepState,
+  keepStateIfRelevant,
   ...userProps
 }) => {
+  // Register this controler by name if we are in global context
+  const informed = useInformed();
+
+  const initialValues = useMemo(
+    () => {
+      if (informed && name) {
+        logger('Checking for saved values', informed.getSavedValues(name));
+        return informed.getSavedValues(name) ?? userInitialValues;
+      }
+      return userInitialValues;
+    },
+    [userInitialValues]
+  );
+
   const formControllerOptions = {
     initialValues,
     validateFields,
@@ -58,7 +76,9 @@ export const useForm = ({
     components,
     errorMessage,
     fieldMap,
-    adapter
+    adapter,
+    keepState,
+    keepStateIfRelevant
   };
 
   const optionsRef = useRef();
@@ -103,8 +123,11 @@ export const useForm = ({
 
   // Register for events for ALL fields!
   useEffect(() => {
-    const listener = () => {
+    const listener = target => {
       setFormState({ ...formController.getFormState() });
+      if (informed) {
+        informed.inform(name, target);
+      }
     };
 
     formController.emitter.on('field', listener);
@@ -112,8 +135,17 @@ export const useForm = ({
     // Need initial state
     setFormState({ ...formController.getFormState() });
 
+    //Register this form if we need to
+    if (name && informed) {
+      informed.register(name, formController);
+    }
+
     return () => {
       formController.emitter.removeListener('field', listener);
+      if (name && informed) {
+        // informed.deregister(name);
+        informed.setSavedValues(name, formController.getFormState().values);
+      }
     };
   }, []);
 

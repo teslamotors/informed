@@ -487,6 +487,7 @@ const Basic = () => (
       <option value="red">Red</option>
       <option value="green">Green</option>
       <option value="blue">Blue</option>
+      <option value="pink">Pink</option>
     </Select>
     <button type="submit">Submit</button>
     <Debug values />

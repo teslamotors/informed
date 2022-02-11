@@ -155,17 +155,17 @@ const ArrayFieldItem = ({
     [arrayFieldItemState.name, arrayFieldItemState.index]
   );
 
-  const memoizedChildren = useMemo(
-    () => {
-      debug('Rendering');
-      return children({
-        ...arrayFieldItemApiValue,
-        name: arrayFieldItemState.name,
-        index: arrayFieldItemState.index
-      });
-    },
-    [arrayFieldItemState.name, arrayFieldItemState.index]
-  );
+  // const memoizedChildren = useMemo(
+  //   () => {
+  //     debug('Rendering');
+  //     return children({
+  //       ...arrayFieldItemApiValue,
+  //       name: arrayFieldItemState.name,
+  //       index: arrayFieldItemState.index
+  //     });
+  //   },
+  //   [arrayFieldItemState.name, arrayFieldItemState.index]
+  // );
 
   if (typeof children === 'function') {
     return (
@@ -174,7 +174,12 @@ const ArrayFieldItem = ({
           <ArrayFieldItemStateContext.Provider value={arrayFieldStateValue}>
             <ScopeContext.Provider value={arrayFieldItemState.name}>
               {/* <h3>{arrayFieldItemState.key}</h3> */}
-              {memoizedChildren}
+              {/* {memoizedChildren} */}
+              {children({
+                ...arrayFieldItemApiValue,
+                name: arrayFieldItemState.name,
+                index: arrayFieldItemState.index
+              })}
             </ScopeContext.Provider>
           </ArrayFieldItemStateContext.Provider>
         </ArrayFieldItemApiContext.Provider>

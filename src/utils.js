@@ -1,4 +1,6 @@
 import { ObjectMap } from './ObjectMap';
+import { Debug } from './debug';
+const debug = Debug('informed:utils' + '\t');
 
 // https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
 export const uuidv4 = () => {
@@ -362,7 +364,7 @@ const formatterFromString = formatter => {
 
 /* -------------------------- Formatter ----------------------------- */
 
-const getFormatter = (formatter, value) => {
+const getFormatter = (formatter, value, full) => {
   // If mask is a string turn it into an array;
   if (typeof formatter === 'string') {
     return formatterFromString(formatter);
@@ -370,7 +372,7 @@ const getFormatter = (formatter, value) => {
 
   // If mask is a function use it to genreate current mask
   if (typeof formatter === 'function') {
-    const frmtr = formatter(value);
+    const frmtr = formatter(value, full);
 
     if (typeof frmtr === 'string') {
       return formatterFromString(frmtr);
@@ -431,7 +433,7 @@ export const informedParse = (val, parser) => {
   return parser(val);
 };
 
-export const informedFormat = (val, frmtr) => {
+export const informedFormat = (val, frmtr, old) => {
   // Our formatter is an object! so we must format for each key
   // Example:
   //
@@ -445,7 +447,13 @@ export const informedFormat = (val, frmtr) => {
     Object.keys(val).forEach(key => {
       // Only try to format if we have formatter for this key!!!
       if (frmtr[key]) {
-        const { value, offset } = informedFormatter(val[key], frmtr[key]);
+        // console.log('Old', old);
+        const { value, offset } = informedFormatter(
+          val[key],
+          frmtr[key],
+          old ? old[val] : undefined,
+          val
+        );
         formattedVal[key] = value;
         formattedOffset[key] = offset;
       } else {
@@ -459,11 +467,13 @@ export const informedFormat = (val, frmtr) => {
     };
   }
   // Simply pass along if its a flat formatter
-  return informedFormatter(val, frmtr);
+  return informedFormatter(val, frmtr, old, val);
 };
 
-export const informedFormatter = (val, frmtr) => {
+export const informedFormatter = (val, frmtr, old, full) => {
   // console.log('Formatting', val);
+  debug('Formatting', val);
+  debug('Full Value', full);
 
   // Null check
   if (!val) {
@@ -476,7 +486,7 @@ export const informedFormatter = (val, frmtr) => {
   const value = `${val}`;
 
   // Generate formatter array
-  const formatter = getFormatter(frmtr, value);
+  const formatter = getFormatter(frmtr, value, full);
 
   // Start to fill in the array
   // Example: phone formatter
@@ -489,6 +499,10 @@ export const informedFormatter = (val, frmtr) => {
   // "1"				 ----> +1 1
   // "1234"			 ----> +1 123-4
   // "123a"      ----> +1 123
+
+  // console.log('New', value);
+  // console.log('Old', old);
+  // console.log('Formatter', formatter);
 
   // Determine prefix length and suffix start
   const prefixLength = formatter.findIndex(v => typeof v != 'string');
@@ -601,9 +615,40 @@ export const informedFormatter = (val, frmtr) => {
     }
   }
 
+  // console.log('FORMATTEDARR', formatted);
+  // console.log('VALUE', value, value.length);
+  const formattedString = formatted.join('');
+  // console.log('FORMATTED', formattedString, formattedString.length);
+
+  let offset = value ? formattedString.length - value.length : 0;
+
+  // console.log('OFFSET', offset);
+
+  // Special case,
+  // Suffix is '-'
+  // user typed backspace
+  // +1 123-123-1234-|
+  // +1 123-123-1234|-
+  //                ^
+  //           suffixStart (15)
+  // New: +1 123-123-1234
+  // Old: +1 123-123-1234-
+  //
+  // New length is less than old length
+  // And length of new is greater than or equal two suffix start
+  if (
+    value &&
+    old &&
+    value.length < old.length &&
+    value.length >= suffixStart
+  ) {
+    offset = 0;
+    // console.log('OFFSET OVERRIDE', offset);
+  }
+
   return {
-    value: formatted.join(''),
-    offset: value ? formatted.length - value.length : 0
+    value: formattedString,
+    offset
   };
 };
 
@@ -611,11 +656,18 @@ export const informedFormatter = (val, frmtr) => {
 
 export const createIntlNumberFormatter = (locale, opts) => {
   const numberFormatter = new Intl.NumberFormat(locale, opts);
-  const numberFormatterWithoutOpts = new Intl.NumberFormat(locale);
+  const numberFormatterWithoutOpts = new Intl.NumberFormat(locale, {
+    style: opts?.style,
+    currency: opts?.currency
+  });
   const decimalChar =
     numberFormatterWithoutOpts
       .formatToParts(0.1)
       .find(({ type }) => type === 'decimal')?.value ?? '.';
+
+  const minusChar =
+    numberFormatter.formatToParts(-1).find(({ type }) => type === 'minusSign')
+      ?.value ?? '-';
 
   function isRegexEqual(x, y) {
     return (
@@ -671,14 +723,36 @@ export const createIntlNumberFormatter = (locale, opts) => {
   }
 
   function mask(value) {
+    // value = -3000.25
+    // console.log('decChar', decimalChar);
+    // console.log('VAL', value);
+
+    const isNegative = value.includes(minusChar);
+
     const float = toNumberString(value);
 
-    // if (!float) {
-    //   return [];
-    // }
+    // float = 3000.25
+    // console.log('float', float);
 
     const fraction = `${float}`.split('.')[1];
-    const numberParts = numberFormatter.formatToParts(Number(float));
+
+    // fraction = 25
+    // console.log('fraction', fraction);
+    // console.log('--------------\n');
+
+    const number = isNegative ? -Number(float) : Number(float);
+
+    const numberParts = numberFormatter.formatToParts(number);
+
+    // number-parts =
+    // 0: {type: 'minusSign', value: '-'}
+    // 1: {type: 'currency', value: '$'}
+    // 2: {type: 'integer', value: '3'}
+    // 3: {type: 'group', value: ','}
+    // 4: {type: 'integer', value: '000'}
+    // 5: {type: 'decimal', value: '.'}
+    // 6: {type: 'fraction', value: '25'}
+    // console.log('number-parts', numberParts);
 
     if (fraction === '0') {
       numberParts.push(
@@ -688,6 +762,15 @@ export const createIntlNumberFormatter = (locale, opts) => {
     }
 
     let maskArray = numberParts.reduce((pv, { type, value: partValue }) => {
+      // PV [] minusSign -
+      // PV ['-'] currency $
+      // PV ['-', '$'] integer 3
+      // PV ['-', '$', /\d/] group ,
+      // PV ['-', '$', /\d/, ','] integer 000
+      // PV ['-', '$', /\d/, ',', /\d/, /\d/, /\d/] decimal .
+      // PV ['-', '$', /\d/, ',', /\d/, /\d/, /\d/, '.'] fraction 25
+      // console.log('PV', pv, type, partValue);
+
       if (['decimal', 'fraction'].includes(type) && fraction == null) {
         return pv;
       }
@@ -705,7 +788,7 @@ export const createIntlNumberFormatter = (locale, opts) => {
         ];
       }
 
-      if (type === 'currency') {
+      if (type === 'currency' || type === 'minusSign') {
         return [...pv, ...partValue.split('')];
       }
 
@@ -720,7 +803,7 @@ export const createIntlNumberFormatter = (locale, opts) => {
       maskArray.indexOf(decimalChar) === -1 &&
       `${value}`.indexOf(decimalChar) !== -1
     ) {
-      maskArray = insert(maskArray, lastDigitIndex + 1, [decimalChar, '[]']);
+      maskArray = insert(maskArray, lastDigitIndex + 1, [decimalChar]);
       lastDigitIndex += 2; // we want to insert a new number after the decimal
     }
 
@@ -735,7 +818,11 @@ export const createIntlNumberFormatter = (locale, opts) => {
       return undefined;
     }
 
-    return toFloat(value);
+    const isNegative = value.includes(minusChar);
+
+    // console.log('TOPARSE', value);
+
+    return isNegative ? -toFloat(value) : toFloat(value);
   };
 
   return { formatter: mask, parser };
@@ -853,13 +940,23 @@ export const computeFieldsFromSchema = (schema, onlyValidateSchema) => {
   }
 
   // Grab properties and items off of schema
-  const { properties = {}, allOf } = schema;
+  const { properties = {}, allOf, propertyOrder = [] } = schema;
 
   if (Object.keys(properties).length > 0) {
     // Attempt to generate fields from properties
-    const fields = Object.keys(properties).map(propertyName => {
-      return propertyName;
-    });
+    const fields = Object.keys(properties)
+      .sort((a, b) => {
+        const aIndex = propertyOrder.indexOf(a);
+        const bIndex = propertyOrder.indexOf(b);
+
+        return (
+          (aIndex > -1 ? aIndex : propertyOrder.length + 1) -
+          (bIndex > -1 ? bIndex : propertyOrder.length + 1)
+        );
+      })
+      .map(propertyName => {
+        return propertyName;
+      });
 
     let conditions = [];
     let components = [];

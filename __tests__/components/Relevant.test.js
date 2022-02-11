@@ -327,4 +327,110 @@ describe('Relevant', () => {
 
   });
 
+  it('should NOT keep the state if keepState was NOT passed at form level or field level', () => {
+
+    const relevant = ({ formState }) => {
+      return formState.values.name === 'joe';
+    };
+
+    const formApiRef = {};
+
+    const { getByLabelText } = render(
+      <Form formApiRef={formApiRef}>
+        <Input name="name" label="First name:" required initialValue="joe"/>
+        <Input name="foo" label="Foo field:" relevant={relevant} required />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const input1 = getByLabelText('First name:');
+    const input2 = getByLabelText('Foo field:');
+
+    // userEvent.type(input1, 'joe');
+    userEvent.type(input2, 'bar');
+
+    expect(formApiRef.current.getFormState().values).toEqual({
+      name: 'joe',
+      foo: 'bar'
+    });
+
+    userEvent.type(input1, 'y');
+
+    expect(formApiRef.current.getFormState().values).toEqual({
+      name: 'joey',
+    });
+
+  });
+
+  it('should keep the state if keepState was passed at form level', () => {
+
+    const relevant = ({ formState }) => {
+      return formState.values.name === 'joe';
+    };
+
+    const formApiRef = {};
+
+    const { getByLabelText } = render(
+      <Form formApiRef={formApiRef} keepState>
+        <Input name="name" label="First name:" required initialValue="joe"/>
+        <Input name="foo" label="Foo field:" relevant={relevant} required />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const input1 = getByLabelText('First name:');
+    const input2 = getByLabelText('Foo field:');
+
+    // userEvent.type(input1, 'joe');
+    userEvent.type(input2, 'bar');
+
+    expect(formApiRef.current.getFormState().values).toEqual({
+      name: 'joe',
+      foo: 'bar'
+    });
+
+    userEvent.type(input1, 'y');
+
+    expect(formApiRef.current.getFormState().values).toEqual({
+      name: 'joey',
+      foo: 'bar'
+    });
+
+  });
+
+  it('should NOT keep the state if keepStateIfRelevant was passed at form level', () => {
+
+    const relevant = ({ formState }) => {
+      return formState.values.name === 'joe';
+    };
+
+    const formApiRef = {};
+
+    const { getByLabelText } = render(
+      <Form formApiRef={formApiRef} keepStateIfRelevant>
+        <Input name="name" label="First name:" required initialValue="joe"/>
+        <Input name="foo" label="Foo field:" relevant={relevant} required />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const input1 = getByLabelText('First name:');
+    const input2 = getByLabelText('Foo field:');
+
+    // userEvent.type(input1, 'joe');
+    userEvent.type(input2, 'bar');
+
+    expect(formApiRef.current.getFormState().values).toEqual({
+      name: 'joe',
+      foo: 'bar'
+    });
+
+    userEvent.type(input1, 'y');
+
+    expect(formApiRef.current.getFormState().values).toEqual({
+      name: 'joey',
+    });
+
+  });
+
 });

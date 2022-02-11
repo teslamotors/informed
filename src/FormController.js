@@ -157,6 +157,7 @@ export class FormController {
     this.getOptions = this.getOptions.bind(this);
     this.validateField = this.validateField.bind(this);
     this.getErrorMessage = this.getErrorMessage.bind(this);
+    this.clearValue = this.clearValue.bind(this);
   }
 
   getOptions() {
@@ -195,12 +196,22 @@ export class FormController {
   }
 
   setValue(name, value, e, key) {
+    debug(`setValue ${name}`, value);
+
     // Get meta for field
     const meta = this.fieldsMap.get(name)?.current || {};
 
     // Remember Cursor position!
-    if (e && e.target && e.target.selectionStart) {
-      meta.setCursor(e.target.selectionStart, key);
+    // Need try catch because of Safari Bullshit issue
+    try {
+      if (e && e.target && e.target.selectionStart) {
+        meta.setCursor(e.target.selectionStart, key);
+      }
+    } catch (e) {
+      // Need try catch because of Safari Bullshit issue
+      if (!(e instanceof TypeError)) {
+        throw e;
+      }
     }
 
     if (value === '') {
@@ -217,7 +228,11 @@ export class FormController {
 
       // Call formatter and parser if passed
       if (meta.formatter) {
-        const res = informedFormat(val, meta.formatter);
+        const res = informedFormat(
+          val,
+          meta.formatter,
+          this.getMaskedValue(name)
+        );
         meta.setCursorOffset(res.offset, key);
         maskedVal = res.value;
         val = maskedVal;
@@ -228,10 +243,10 @@ export class FormController {
         val = val != null ? informedParse(val, meta.parser) : val;
       }
 
-      debug(`Setting ${name}'s value to ${val}`);
+      debug(`Setting ${name}'s value to`, val);
       ObjectMap.set(this.state.values, name, val);
 
-      debug(`Setting ${name}'s maskedValue to ${maskedVal}`);
+      debug(`Setting ${name}'s maskedValue to`, maskedVal);
       ObjectMap.set(this.state.maskedValues, name, maskedVal);
     }
 
@@ -348,7 +363,7 @@ export class FormController {
     debug(`Setting ${name}'s focused to ${value}`);
 
     // Get meta for field
-    const meta = this.fieldsMap.get(name)?.current;
+    const meta = this.fieldsMap.get(name)?.current || {};
 
     // Update the state
     ObjectMap.set(this.state.focused, name, value);
@@ -464,6 +479,10 @@ export class FormController {
     return this.state;
   }
 
+  clearValue(name) {
+    this.setValue(name, undefined);
+  }
+
   getFormApi() {
     return {
       getValue: this.getValue,
@@ -486,9 +505,11 @@ export class FormController {
       getInitialValue: this.getInitialValue,
       touchAllFields: this.touchAllFields,
       validate: this.validate,
+      asyncValidate: this.asyncValidate,
       setValues: this.setValues,
       setTheseValues: this.setTheseValues,
-      submitForm: this.submitForm
+      submitForm: this.submitForm,
+      clearValue: this.clearValue
     };
   }
 
@@ -610,12 +631,9 @@ export class FormController {
     // Initialize value if needed
     // If we already have value i.e "saved"
     // use that ( it was not removed on purpose! )
-    if (this.getValue(name)) {
-      this.emit('field', name);
-      return;
-    }
     // Otherwise use the fields initial value
     if (
+      !this.getValue(name) &&
       meta.current.initialValue != null &&
       (meta.current.initializeValueIfPristine ? this.state.pristine : true)
     ) {
@@ -971,7 +989,7 @@ export class FormController {
       const meta = fieldMeta.current;
       const value = this.getValue(meta.name);
       const error = meta.validate ? meta.validate(value, values) : undefined;
-      if (error) {
+      if (error != null) {
         ObjectMap.set(errors, meta.name, error);
       }
     });

@@ -101,9 +101,16 @@ export const useArrayField = ({
     setKeys(newKeys);
   };
 
-  const add = () => {
+  const add = (amount = 1) => {
     const ks = getKeys();
-    ks.push(uuidv4());
+    // if 'amount' is not defined, run the default behavior to add 1 field
+    if (typeof amount !== 'number' || !Number(amount) || amount <= 0) {
+      ks.push(uuidv4());
+    } else {
+      for (let i = 0; i < amount; i++) {
+        ks.push(uuidv4());
+      }
+    }
     setKeys([...ks]);
   };
 

@@ -17,7 +17,8 @@ const buildFieldApi = (formApi, name) => {
     validate: () => formApi.validateField(name),
     getDirty: () => formApi.getDirty(name),
     getPristine: () => formApi.getPristine(name),
-    getMaskedValue: () => formApi.getMaskedValue(name)
+    getMaskedValue: () => formApi.getMaskedValue(name),
+    clearValue: () => formApi.clearValue(name)
   };
 };
 

@@ -1,10 +1,15 @@
 import React, { useMemo, useEffect, useState } from 'react';
-import { computeFieldFromProperty, getSchemaPathFromJsonPath } from '../utils';
+import {
+  computeFieldFromProperty,
+  getSchemaPathFromJsonPath,
+  checkCondition
+} from '../utils';
 import { ObjectMap } from '../ObjectMap';
 import { useFormController } from '../hooks/useFormController';
 import { useScope } from '../hooks/useScope';
 import { Debug } from '../debug';
 import { FormFields } from './FormFields';
+import { Relevant } from './Relevant';
 import { ScopeContext } from '../Context';
 // import { useForceUpdate } from '../hooks/useForceUpdate';
 const logger = Debug('informed:FormField' + '\t');
@@ -33,7 +38,7 @@ const FormField = ({ name, schema, ...rest }) => {
   // field = "brother.name" ---> properties.brother.properties.name
   // field = "brother.siblings[1].friend.name" ---> properties.brother.properties.siblings.items.properties.friend.properties.name
   const path = getSchemaPathFromJsonPath(lookupName);
-  const property = ObjectMap.get(lookupSchema, path);
+  let property = ObjectMap.get(lookupSchema, path);
 
   // console.log(
   //   'Lookup Name:',
@@ -44,9 +49,21 @@ const FormField = ({ name, schema, ...rest }) => {
   //   lookupSchema
   // );
 
-  // If property was not found return null
+  // If property was not found try to find it in conditions
+  let condition;
   if (!property) {
-    return null;
+    if (lookupSchema.allOf) {
+      lookupSchema.allOf.forEach(item => {
+        if (item.if) {
+          property = ObjectMap.get(item.then, path);
+          condition = item.if;
+        }
+      });
+    }
+    // If property was still not found return null
+    if (!property) {
+      return null;
+    }
   }
 
   // Next compute the field from property
@@ -185,6 +202,29 @@ const FormField = ({ name, schema, ...rest }) => {
   // If no component return null ( dont render )
   if (!Component) {
     return null;
+  }
+
+  if (condition) {
+    const { properties: conditions } = condition;
+    const when = ({ formApi, scope }) => {
+      // Example key "married, Example condition: "{ const: 'yes' }"
+      return Object.entries(conditions).every(([propertyName, condition]) => {
+        return checkCondition(
+          condition,
+          formApi.getValue(scope ? `${scope}.${propertyName}` : propertyName)
+        );
+      });
+    };
+
+    const Comp = () => (
+      <Relevant when={when}>
+        <Component name={name} {...props} />
+      </Relevant>
+    );
+
+    // console.log('WTF', Component);
+
+    return <Comp />;
   }
 
   // Note we DONT pass in scoped name here because useField is already scoped

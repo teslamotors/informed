@@ -67,13 +67,13 @@ const options = {
 
 const ProductSelect = () => {
   const { value, dirty } = useFieldState('type');
-  const { reset } = useFieldApi('product');
+  const { clearValue } = useFieldApi('product');
 
   const opts = useMemo(() => options[value] || [], [value]);
 
   useEffect(
     () => {
-      if (dirty) reset();
+      if (dirty) clearValue();
     },
     [value]
   );

@@ -159,8 +159,21 @@ describe('Utils', () => {
     });
 
     it('"1234567812345678" ----> "1234-5678-1234-5678" with formatter ####-####-####-####', () => {
-      const { value } = informedFormat('1234567812345678', '####-####-####-####');
+      const { value, offset } = informedFormat('1234567812345678', '####-####-####-####');
       expect(value).toEqual('1234-5678-1234-5678');
+      expect(offset).toEqual(3);
+    });
+
+    it('"1234-5678-1234-567" ----> "1234-5678-1234-5678" with formatter ####-####-####-####--', () => {
+      const { value, offset } = informedFormat('1234-5678-1234-5678', '####-####-####-####--', '1234-5678-1234-567');
+      expect(value).toEqual('1234-5678-1234-5678--');
+      expect(offset).toEqual(2);
+    });
+
+    it('"1234-5678-1234-5678--" ----> "1234-5678-1234-5678-" with formatter ####-####-####-####--', () => {
+      const { value, offset } = informedFormat('1234-5678-1234-5678-', '####-####-####-####--', '1234-5678-1234-5678--');
+      expect(value).toEqual('1234-5678-1234-5678--');
+      expect(offset).toEqual(0);
     });
 
     it('"3000" ----> "$3,000.00&" with formatter $#,###.00&', () => {
@@ -175,7 +188,7 @@ describe('Utils', () => {
 
 
     it('{ a: "1234", b: "1" }  ----> { a: "+1 123-4", b: "+1 1" }', () => {
-      const { value } = informedFormat({ a: '1234', b: '1' }, {a: fmtr, b: fmtr });
+      const { value } = informedFormat({ a: '1234', b: '1' }, {a: fmtr, b: fmtr }, {a: fmtr, b: fmtr });
       expect(value).toEqual({ a: '+1 123-4', b: '+1 1' });
     });
 

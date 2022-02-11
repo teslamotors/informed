@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form, Input } from '../../jest/components';
+import { utils } from '../../src';
 
 // prettier-ignore
 describe('useField', () => {
@@ -182,6 +183,31 @@ describe('useField', () => {
     input2.focus();
   
     expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'});
+  });
+
+  it('should call validate that was passed on blur and be in error state even when "" is returned', () => {
+
+    const validate = () => '';
+
+    const formApiRef = {};
+
+    const { getByLabelText } = render(
+      <Form formApiRef={formApiRef} >
+        <Input 
+          name="greeting1" 
+          label="input1" 
+          initialValue="Hello"
+          validate={validate} />
+        <Input name="greeting2" label="input2" />
+      </Form>
+    );
+
+    const input1 = getByLabelText('input1');
+    const input2 = getByLabelText('input2');
+    input1.focus();
+    input2.focus();
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting1: '' });
   });
 
   it('should NOT call validate that was passed on blur when validateOn="submit" at field level', () => {
@@ -439,6 +465,89 @@ describe('useField', () => {
     expect(input).toHaveAttribute('value', 'Hello');
     expect(input).toHaveValue('Hello');
     expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hello' });
+  });
+
+  it('should run intl formatter and parser when user types', () => {
+    const formApiRef = {};
+
+    const { formatter, parser } = utils.createIntlNumberFormatter('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    });
+
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="number" label="input1" formatter={formatter} parser={parser} />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+
+    userEvent.type(input, '-');  
+    expect(input).toHaveValue('-');
+    expect(formApiRef.current.getFormState().values).toEqual({ number: NaN });
+    expect(formApiRef.current.getFormState().maskedValues).toEqual({ number: '-' });
+
+    userEvent.type(input, '3');  
+    expect(input).toHaveValue('-$3');
+    expect(formApiRef.current.getFormState().values).toEqual({ number: -3 });
+    expect(formApiRef.current.getFormState().maskedValues).toEqual({ number: '-$3' });
+
+    userEvent.type(input, '0');  
+    expect(input).toHaveValue('-$30');
+    expect(formApiRef.current.getFormState().values).toEqual({ number: -30 });
+    expect(formApiRef.current.getFormState().maskedValues).toEqual({ number: '-$30' });
+
+    userEvent.type(input, '0');  
+    expect(input).toHaveValue('-$300');
+    expect(formApiRef.current.getFormState().values).toEqual({ number: -300 });
+    expect(formApiRef.current.getFormState().maskedValues).toEqual({ number: '-$300' });
+
+    userEvent.type(input, '0');  
+    expect(input).toHaveValue('-$3,000');
+    expect(formApiRef.current.getFormState().values).toEqual({ number: -3000 });
+    expect(formApiRef.current.getFormState().maskedValues).toEqual({ number: '-$3,000' });
+
+    userEvent.type(input, '.');  
+    expect(input).toHaveValue('-$3,000.');
+    expect(formApiRef.current.getFormState().values).toEqual({ number: -3000 });
+    expect(formApiRef.current.getFormState().maskedValues).toEqual({ number: '-$3,000.' });
+
+    userEvent.type(input, '2');  
+    expect(input).toHaveValue('-$3,000.2');
+    expect(formApiRef.current.getFormState().values).toEqual({ number: -3000.2 });
+    expect(formApiRef.current.getFormState().maskedValues).toEqual({ number: '-$3,000.2' });
+
+    userEvent.type(input, '5');  
+    expect(input).toHaveValue('-$3,000.25');
+    expect(formApiRef.current.getFormState().values).toEqual({ number: -3000.25 });
+    expect(formApiRef.current.getFormState().maskedValues).toEqual({ number: '-$3,000.25' });
+
+
+  });
+
+  it('should run formatter and parser when user types +1 1', () => {
+    const formApiRef = {};
+
+    const formatter = '+1 ###-###-####';
+  
+    const parser = value => {
+      return value.replace('+1 ', '').replace(/-/g, '');
+    };
+
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="phone" label="input1" formatter={formatter} parser={parser} />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+
+    userEvent.type(input, '+1 1');  
+    expect(input).toHaveValue('+1 1');
+    expect(formApiRef.current.getFormState().values).toEqual({ phone: '1' });
   });
 
   it('should run formatter and parser when user types', () => {

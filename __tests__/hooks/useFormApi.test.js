@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import { Form, Input } from '../../jest/components';
 import { useFormApi } from '../../src';
@@ -302,6 +303,13 @@ describe('useFormApi', () => {
       </Form>
     );
 
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      pristine: true,
+      dirty: false,
+      values: {},
+      maskedValues: {}
+    }));
+
     const button = getByText('Click Me');
     fireEvent.click(button);
 
@@ -329,7 +337,6 @@ describe('useFormApi', () => {
       );
     };
 
-
     const { getByText } = render(
       <Form formApiRef={formApiRef} initialValues={{ greeting: '123' }}>
         <Input name="greeting" label="input1" validate={value => !!Number(value)} validateOn="change" />
@@ -341,6 +348,28 @@ describe('useFormApi', () => {
       formApiRef.current.setValue('greeting', 'bar');
     });
 
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      pristine: false,
+      dirty: true,
+      invalid: true,
+      valid: false,
+      errors: {
+        greeting: false,
+      },
+      dirt: {
+        greeting: true
+      },
+      values: {
+        greeting: 'bar'
+      },
+      maskedValues: {
+        greeting: 'bar'
+      },
+      initialValues: {
+        greeting: '123'
+      }
+    }));
+
     const button = getByText('Click Me');
     fireEvent.click(button);
 
@@ -348,6 +377,7 @@ describe('useFormApi', () => {
       pristine: false,
       dirty: true,
       invalid: true,
+      valid: false,
       errors: {
         greeting: false
       },
@@ -360,8 +390,117 @@ describe('useFormApi', () => {
       initialValues: {
         greeting: '123',
       },
-      valid: false,
     }));
 
+  });
+
+  it('should update state correctly when resetField is called on field with resetTouched set to false', () => {
+    const formApiRef = {};
+
+    const Button = () => {
+      const formApi = useFormApi();
+
+      return (
+        <button type="button" onClick={() => formApi.resetField('greeting', { resetTouched: false })}>Click Me</button>
+      );
+    };
+
+    const { getByLabelText, getByText } = render(
+      <Form formApiRef={formApiRef}>
+        <Input name="greeting" label="input1" />
+        <Button />
+        <button>submit</button>
+      </Form>
+    );
+
+    userEvent.type(getByLabelText('input1'), 'elon');
+
+    const submitButton = getByText('submit');
+    fireEvent.click(submitButton);
+
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      submitted: true,
+      pristine: false,
+      dirty: true,
+      focused: {
+        greeting: true
+      },
+      touched: {
+        greeting: true
+      },
+      dirt: {
+        greeting: true
+      },
+      values: {
+        greeting: 'elon'
+      },
+      maskedValues: {
+        greeting: 'elon'
+      }
+    }));
+
+    const button = getByText('Click Me');
+    fireEvent.click(button);
+
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      submitted: true,
+      pristine: false,
+      dirty: true,
+      focused: {
+        greeting: true
+      },
+      touched: {
+        greeting: true
+      },
+    }));
+
+  });
+
+  it('should update state correctly when resetField is called on field with resetDirt set to false', () => {
+    const formApiRef = {};
+
+    const Button = () => {
+      const formApi = useFormApi();
+
+      return (
+        <button type="button" onClick={() => formApi.resetField('greeting', { resetDirt: false })}>Click Me</button>
+      );
+    };
+
+    const { getByText } = render(
+      <Form formApiRef={formApiRef}>
+        <Input name="greeting" label="input1" />
+        <Button />
+      </Form>
+    );
+
+    act(() => {
+      formApiRef.current.setValue('greeting', 'bar');
+    });
+    
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      pristine: false,
+      dirty: true,
+      dirt: {
+        greeting: true,
+      },
+      values: {
+        greeting: 'bar'
+      },
+      maskedValues: {
+        greeting: 'bar'
+      }
+    }));
+
+    const button = getByText('Click Me');
+    fireEvent.click(button);
+
+    expect(formApiRef.current.getFormState()).toEqual(getState({
+      pristine: false,
+      dirty: true,
+      dirt: {
+        greeting: true,
+      },
+    }));
   });
 });

@@ -838,8 +838,14 @@ export class FormController {
     } = options;
 
     if (value) {
-      debug(`Resetting ${name}'s value to ${options.value}`);
-      ObjectMap.set(this.state.values, name, value);
+      const initializedValue = initializeValue(value, {
+        formatter,
+        parser,
+        initialize
+      });
+
+      debug(`Resetting ${name}'s value to ${initializedValue}`);
+      ObjectMap.set(this.state.values, name, initializedValue);
 
       const maskedValue = initializeMask(value, { formatter, parser });
       debug(`Resetting ${name}'s maskedValue to ${maskedValue}`);

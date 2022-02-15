@@ -120,6 +120,7 @@ export type InformedProps<UserProps> = {
   onSubmit?: (values: Record<string, unknown>) => void;
   onReset?: (formState: FormState) => void;
   onChange?: (formState: FormState) => void;
+  onValueChange?: (formState: FormState) => void;
   onSubmitFailure?: (errors: Record<string, unknown>) => void;
   initialValues?: Record<string, unknown>;
   validateFields?: Function;

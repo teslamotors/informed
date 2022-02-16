@@ -193,6 +193,67 @@ describe('useForm', () => {
     }));
   });
 
+  it('should call onValueModified that was passed', () => {
+
+    const onValueModified = jest.fn();
+
+    const { getByLabelText } = render(
+      <Form onValueChange={onValueModified}>
+        <Input name="greeting" label="input1"  />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+    userEvent.type(input, 'Hi!');
+  
+    expect(onValueModified).toHaveBeenCalledWith( getState({
+      pristine: false,
+      dirty: true,
+      values: {
+        greeting: 'Hi!'
+      },
+      maskedValues: {
+        greeting: 'Hi!'
+      },
+      touched: {},
+      dirt: {
+        greeting: true
+      },
+      focused: {
+        greeting: true
+      },
+    }));
+
+  });
+
+  it('should NOT call onValueModified that was passed when touched', () => {
+
+    const onValueModified = jest.fn();
+
+    const { getByLabelText } = render(
+      <Form onValueModified={onValueModified}>
+        <Input name="greeting1" label="input1" />
+        <Input name="greeting2" label="input2" />
+      </Form>
+    );
+
+
+    const input1 = getByLabelText('input1');
+    const input2 = getByLabelText('input2');
+    input1.focus();
+    input2.focus();
+
+    expect(onValueModified).not.toHaveBeenCalledWith(getState({
+      touched: {
+        greeting1: true
+      },
+      focused: {
+        greeting1: true,
+        greeting2: true
+      },
+    }));
+  });
+
 
   it('should update state correctly when user blurs', () => {
 

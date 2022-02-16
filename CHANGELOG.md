@@ -1,3 +1,9 @@
+## 4.5.0 (Feb 16th, 2022)
+
+### Added
+
+- onValueModified prop to useForm
+
 ## 4.4.0 (Feb 15th, 2022)
 
 ### Added

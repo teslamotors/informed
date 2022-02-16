@@ -317,6 +317,7 @@ export class FormController {
 
     // Special event when fields value changes
     this.emit('field-value', name);
+    this.emit('field-modified', name);
   }
 
   validateField(name) {
@@ -576,6 +577,7 @@ export class FormController {
       this.emit('field', name);
       // Special event when fields value changes
       this.emit('field-value', name);
+      this.emit('field-modified', name);
     } else {
       debug('Removal locked so NOT removing', name);
     }
@@ -681,6 +683,7 @@ export class FormController {
 
     // Special event when fields value changes ( this if first time so its technically a change to initial value)
     this.emit('field-value', name);
+    // Specifically did NOT call field-modified here
   }
 
   validated(name, res) {
@@ -898,6 +901,7 @@ export class FormController {
 
     // Special event when fields value changes ( its a reset so it changes )
     this.emit('field-value', name);
+    this.emit('field-modified', name);
   }
 
   reformat(name) {
@@ -929,6 +933,7 @@ export class FormController {
 
     // Special event when fields value changes
     this.emit('field-value', name);
+    this.emit('field-modified', name);
   }
 
   lockRemoval(i) {

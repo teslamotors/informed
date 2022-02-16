@@ -17,6 +17,7 @@ export const useForm = ({
   onChange,
   onSubmitFailure,
   onValueChange,
+  onValueModified,
   initialValues: userInitialValues,
   validateFields,
   autocomplete,
@@ -101,6 +102,8 @@ export const useForm = ({
         onSubmitFailure && onSubmitFailure(formController.getFormState());
       const onValueChangeHandler = () =>
         onValueChange && onValueChange(formController.getFormState());
+      const onValueModifiedHandler = () =>
+        onValueModified && onValueModified(formController.getFormState());
 
       // Register for events
       formController.on('field', onChangeHandler);
@@ -108,6 +111,7 @@ export const useForm = ({
       formController.on('submit', onSubmitHandler);
       formController.on('failure', onFailureHandler);
       formController.on('field-value', onValueChangeHandler);
+      formController.on('field-modified', onValueModifiedHandler);
 
       // Unregister events
       return () => {
@@ -116,9 +120,17 @@ export const useForm = ({
         formController.removeListener('submit', onSubmitHandler);
         formController.removeListener('failure', onFailureHandler);
         formController.removeListener('field-value', onValueChangeHandler);
+        formController.removeListener('field-modified', onValueModifiedHandler);
       };
     },
-    [onChange, onReset, onSubmit, onSubmitFailure]
+    [
+      onChange,
+      onReset,
+      onSubmit,
+      onSubmitFailure,
+      onValueChange,
+      onValueModified
+    ]
   );
 
   // Form state will be used to trigger rerenders

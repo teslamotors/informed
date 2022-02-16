@@ -1,3 +1,9 @@
+## 4.4.0 (Feb 15th, 2022)
+
+### Added
+
+- ability to pass reset options to reset field
+
 ## 4.3.0 (Feb 15th, 2022)
 
 ### Added

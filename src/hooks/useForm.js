@@ -16,6 +16,7 @@ export const useForm = ({
   onReset,
   onChange,
   onSubmitFailure,
+  onValueChange,
   initialValues: userInitialValues,
   validateFields,
   autocomplete,
@@ -98,12 +99,15 @@ export const useForm = ({
         onSubmit && onSubmit(formController.getFormState());
       const onFailureHandler = () =>
         onSubmitFailure && onSubmitFailure(formController.getFormState());
+      const onValueChangeHandler = () =>
+        onValueChange && onValueChange(formController.getFormState());
 
       // Register for events
       formController.on('field', onChangeHandler);
       formController.on('reset', onResetHandler);
       formController.on('submit', onSubmitHandler);
       formController.on('failure', onFailureHandler);
+      formController.on('field-value', onValueChangeHandler);
 
       // Unregister events
       return () => {
@@ -111,6 +115,7 @@ export const useForm = ({
         formController.removeListener('reset', onResetHandler);
         formController.removeListener('submit', onSubmitHandler);
         formController.removeListener('failure', onFailureHandler);
+        formController.removeListener('field-value', onValueChangeHandler);
       };
     },
     [onChange, onReset, onSubmit, onSubmitFailure]

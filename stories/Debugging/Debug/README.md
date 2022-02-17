@@ -26,6 +26,16 @@ In addition to the exported helpers, informed also comes with internal logging t
 localStorage.debug = 'informed:.*';
 ```
 
+#### When running in React Native ( development )
+
+We attempt to read informed logging namespace via `react-native-config`'s `Config` object.
+
+To set the logging namespace add the following line to your `.env` file. Make sure to restart the bundler after making the change.
+
+```env
+DEBUG = 'informed:.*';
+```
+
 #### When running in node ( unit tests )
 
 ```js

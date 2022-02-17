@@ -1,3 +1,9 @@
+## 4.5.2 (Feb 16th, 2022)
+
+### Fixed
+
+- Issue with debugger in react native
+
 ## 4.5.0 (Feb 16th, 2022)
 
 ### Added

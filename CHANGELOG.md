@@ -1,3 +1,9 @@
+## 4.5.2 (Feb 18th, 2022)
+
+### Fixed
+
+- Another Issue with debugger in react native that caused crash
+
 ## 4.5.1 (Feb 16th, 2022)
 
 ### Fixed

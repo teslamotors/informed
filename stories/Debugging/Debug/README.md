@@ -18,7 +18,7 @@ import { Form, Input, Debug, DebugField } from 'informed';
 
 ## Debugging Logs
 
-In addition to the exported helpers, informed also comes with internal logging that can be enabled in one of two ways.
+In addition to the exported helpers, informed also comes with internal logging that can be enabled in following ways:
 
 #### When running in a browser ( development )
 
@@ -28,12 +28,11 @@ localStorage.debug = 'informed:.*';
 
 #### When running in React Native ( development )
 
-We attempt to read informed logging namespace via `react-native-config`'s `Config` object.
-
-To set the logging namespace add the following line to your `.env` file. Make sure to restart the bundler after making the change.
-
-```env
-DEBUG = 'informed:.*';
+```js
+// only enable this in __DEV__ environment
+if (__DEV__) {
+  global.DEBUG_INFORMED = 'informed:.*';
+}
 ```
 
 #### When running in node ( unit tests )
@@ -41,3 +40,5 @@ DEBUG = 'informed:.*';
 ```js
 DEBUG = 'informed:.*';
 ```
+
+To reset debugging just set the flag back to an empty string.

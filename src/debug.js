@@ -78,18 +78,6 @@ function formatBrowserArgs(args, config) {
   args.splice(lastC, 0, c);
 }
 
-function hasReactNativeConfigPackage() {
-  try {
-    require.resolve('react-native-config');
-    return true;
-  } catch (err) {
-    console.warn(
-      'informed:debug could not package: \'react-native-config\'. Install it as a dev dependency in your ReactNative project'
-    );
-    return false;
-  }
-}
-
 const browserColors = [
   '#0000CC',
   '#0000FF',
@@ -273,27 +261,25 @@ export const Debug = prefix => {
   } else if (
     typeof window !== 'undefined' &&
     typeof window.navigator !== 'undefined' &&
-    window.navigator.product === 'ReactNative'
+    window.navigator.product === 'ReactNative' &&
+    typeof global !== 'undefined' &&
+    __DEV__ === true
   ) {
     console.log('informed:debug: Detected React Native Environment');
-
-    if (!hasReactNativeConfigPackage()) {
-      console.log('informed:debug: Detected React Native Environment, b');
-      // return simple logger (a.k.a OG console.log)
-      return console.log;
-    }
-
-    const Config = require('react-native-config');
 
     // https://github.com/debug-js/debug/issues/640#issuecomment-441263230
     // Shim process and window.localStorage to enable logging via react native debugger
     process.type = 'renderer';
-    window.localStorage = {
-      debug: Config.DEBUG || '*',
-      getItem: () => {
-        return Config.DEBUG || '*';
-      }
-    };
+    // only override localStorage if missing
+    if (!window.localStorage || !window.localStorage.getItem) {
+      window.localStorage = {
+        debug: global.DEBUG_INFORMED || '',
+        getItem: () => {
+          // we only expect 1 key in logger, always return that
+          return global.DEBUG_INFORMED || '';
+        }
+      };
+    }
     return browserLogger(prefix);
   } else {
     return nodeLogger(prefix);

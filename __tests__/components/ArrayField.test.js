@@ -253,6 +253,27 @@ describe('ArrayField', () => {
       let keys = queryAllByTestId('key');
       expect(keys.length).toBe(2);
     });
+
+    it('should set all fields to touched when touchAllFields is called', () => {
+  
+      const formApiRef = {};
+      const initialValues = { siblings: ['Hello', 'World'] };
+  
+      const { queryAllByLabelText } = render(
+        <FlatArrayfield formApiRef={formApiRef} initialValues={initialValues}/>
+      );
+  
+      let inputs = queryAllByLabelText('Name');
+      expect(inputs.length).toBe(2);
+  
+      expect(inputs[0]).toHaveValue('Hello');
+      expect(inputs[1]).toHaveValue('World');
+
+      formApiRef.current.touchAllFields();
+
+      expect(formApiRef.current.getFormState().touched).toEqual({ siblings: [ true, true ]});
+  
+    });
   
     it('should update state when user deletes 0 index [ a, b ] ---> [ b ]', () => {
   

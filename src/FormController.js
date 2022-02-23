@@ -1152,8 +1152,12 @@ export class FormController {
     // Touch all the fields
     // TODO maybe do this all at once !?
     this.fieldsMap.forEach(meta => {
-      debug(`Submit - setting ${meta.current.name}'s touched to true`);
-      ObjectMap.set(this.state.touched, meta.current.name, true);
+      if (!meta.current.arrayField) {
+        debug(
+          `TouchAllFields - setting ${meta.current.name}'s touched to true`
+        );
+        ObjectMap.set(this.state.touched, meta.current.name, true);
+      }
     });
   }
 
@@ -1169,11 +1173,7 @@ export class FormController {
     this.validate();
 
     // Touch all the fields
-    // TODO maybe do this all at once !?
-    this.fieldsMap.forEach(meta => {
-      debug(`Submit - setting ${meta.current.name}'s touched to true`);
-      ObjectMap.set(this.state.touched, meta.current.name, true);
-    });
+    this.touchAllFields();
 
     // Let everyone know!
     this.emit('field', '_ALL_');

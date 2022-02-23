@@ -146,7 +146,8 @@ export const useArrayField = ({
     fieldApi: {
       ...fieldApi,
       reset
-    }
+    },
+    arrayField: true
   };
   const metaRef = useRef(meta);
   metaRef.current = meta;

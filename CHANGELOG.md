@@ -1,3 +1,9 @@
+## 4.5.3 (Feb 22th, 2022)
+
+### Fixed
+
+- issue with touchAllFields not touching fields within an array
+
 ## 4.5.2 (Feb 18th, 2022)
 
 ### Fixed

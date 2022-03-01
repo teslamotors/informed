@@ -1,3 +1,9 @@
+## 4.5.4 (Feb 28th, 2022)
+
+### Fixed
+
+- issue where multistep steps would not clean up after themselves
+
 ## 4.5.3 (Feb 22th, 2022)
 
 ### Fixed

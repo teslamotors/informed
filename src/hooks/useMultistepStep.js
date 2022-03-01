@@ -65,6 +65,13 @@ const useMultistepStep = ({
     [goal, active]
   );
 
+  useEffect(() => {
+    return () => {
+      logger('MULTISTEP REMOVING', step);
+      formController.remove(step);
+    };
+  }, []);
+
   const render = children => {
     return (
       <MultistepStepContext.Provider value={active}>

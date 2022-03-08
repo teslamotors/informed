@@ -18,7 +18,7 @@ const useMultistepStep = ({
 }) => {
   const formController = useFormController();
   const { current, goal } = useMultistepState();
-  const { register, next, metGoal } = useMultistepApi();
+  const { register, deregister, next, metGoal } = useMultistepApi();
 
   const active = step === current;
 
@@ -69,6 +69,7 @@ const useMultistepStep = ({
     return () => {
       logger('MULTISTEP REMOVING', step);
       formController.remove(step);
+      deregister(step);
     };
   }, []);
 

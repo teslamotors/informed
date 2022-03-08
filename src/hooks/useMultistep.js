@@ -82,6 +82,26 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
       });
     };
 
+    const deregister = step => {
+      const stepMeta = stepsMap.get(step);
+      // Remove step at index
+      steps.splice(stepMeta.index, 1);
+      // Update indexes
+      steps.forEach((s, i) => (s.index = i));
+      // Remove step to named map
+      stepsMap.delete(step);
+      // Dec number of steps
+      nSteps.current = steps.length;
+      // console.log('WTF', name);
+      // Update the state
+      setState(prev => {
+        return {
+          ...prev,
+          steps
+        };
+      });
+    };
+
     const getNextStep = () => {
       // Get current step meta
       const stepMeta = stepsMap.get(currentStep.current);
@@ -234,6 +254,7 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
     // ---------- Define the api ----------
     const api = {
       register,
+      deregister,
       next,
       previous,
       getNextStep,

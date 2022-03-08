@@ -1,3 +1,9 @@
+## 4.5.5 (March 8th, 2022)
+
+### Fixed
+
+- issue where multistep steps would not deregister
+
 ## 4.5.4 (Feb 28th, 2022)
 
 ### Fixed

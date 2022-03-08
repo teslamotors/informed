@@ -163,7 +163,7 @@ export const useField = ({
         pattern,
         getErrorMessage: key => formController.getErrorMessage(key, name)
       }),
-    []
+    [required, minimum, maximum, minLength, maxLength, pattern]
   );
 
   // Create meta object

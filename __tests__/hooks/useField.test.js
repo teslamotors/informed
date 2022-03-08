@@ -1315,6 +1315,48 @@ describe('useField', () => {
     expect(getByText('Field must be at least five characters')).toBeInTheDocument();
   });
 
+  it('should show required error message after required prop changes', () => {
+
+    const formApiRef = {};
+
+    const Comp = () => {
+      const [required, setRequired] = useState(false);
+      return (
+        <>
+          <Form formApiRef={formApiRef}>
+            <Input 
+              name="greeting"  
+              label="input1" 
+              required={required} />
+            <button type="submit">Submit</button>
+            <button type="button" onClick={() => setRequired(true)}>
+              Change
+            </button>
+          </Form>
+        </>
+      );
+    };
+
+    const { getByText }  = render(
+      <Comp />
+    );
+
+    const submit = getByText('Submit');
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({});
+
+    // act(()=>{
+    const button = getByText('Change');
+    fireEvent.click(button);
+    // });
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'This field is required' });
+    expect(getByText('This field is required')).toBeInTheDocument();
+  });
+
   it('should show correct default required error message', () => {
 
     const formApiRef = {};

@@ -1,3 +1,9 @@
+## 4.5.6 (March 8th, 2022)
+
+### Fixed
+
+- issue where changing validation params would not rebuild validation function
+
 ## 4.5.5 (March 8th, 2022)
 
 ### Fixed

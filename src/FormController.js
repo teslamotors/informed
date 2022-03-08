@@ -108,6 +108,7 @@ export class FormController {
       maskedValues: {},
       dirt: {},
       focused: {},
+      modified: {},
       initialValues: this.options.current.initialValues || {}
     };
 
@@ -217,10 +218,12 @@ export class FormController {
     if (value === '') {
       debug(`Setting ${name}'s value to undefiend`);
       ObjectMap.set(this.state.values, name, undefined);
+      ObjectMap.set(this.state.modified, name, undefined);
       ObjectMap.set(this.state.maskedValues, name, undefined);
     } else if (meta?.type === 'number' && value !== undefined) {
       debug(`Setting ${name}'s value to ${+value}`);
       ObjectMap.set(this.state.values, name, +value);
+      ObjectMap.set(this.state.modified, name, +value);
       ObjectMap.set(this.state.maskedValues, name, +value);
     } else {
       let val = value;
@@ -245,6 +248,9 @@ export class FormController {
 
       debug(`Setting ${name}'s value to`, val);
       ObjectMap.set(this.state.values, name, val);
+
+      debug(`Setting ${name}'s modified to`, val);
+      ObjectMap.set(this.state.modified, name, val);
 
       debug(`Setting ${name}'s maskedValue to`, maskedVal);
       ObjectMap.set(this.state.maskedValues, name, maskedVal);
@@ -558,6 +564,8 @@ export class FormController {
     if (!this.removalLocked) {
       debug('Delete Value', name);
       ObjectMap.delete(this.state.values, name);
+      debug('Delete Modified', name);
+      ObjectMap.delete(this.state.modified, name);
       debug('Delete Masked', name);
       ObjectMap.delete(this.state.maskedValues, name);
       debug('Delete Touched', name);
@@ -586,6 +594,7 @@ export class FormController {
   swap(name, a, b) {
     debug('Swap', name, a, b);
     ObjectMap.swap(this.state.values, name, a, b);
+    ObjectMap.swap(this.state.modified, name, a, b);
     ObjectMap.swap(this.state.maskedValues, name, a, b);
     ObjectMap.swap(this.state.touched, name, a, b);
     ObjectMap.swap(this.state.errors, name, a, b);
@@ -600,6 +609,7 @@ export class FormController {
   pullOut(name) {
     debug('Pull', name);
     ObjectMap.delete(this.state.values, name);
+    ObjectMap.delete(this.state.modified, name);
     ObjectMap.delete(this.state.maskedValues, name);
     ObjectMap.delete(this.state.touched, name);
     ObjectMap.delete(this.state.errors, name);
@@ -817,6 +827,7 @@ export class FormController {
       maskedValues: {},
       dirt: {},
       focused: {},
+      modified: {},
       initialValues: this.options.current.initialValues || {}
     };
 
@@ -837,7 +848,8 @@ export class FormController {
       value,
       resetError = true,
       resetTouched = true,
-      resetDirt = true
+      resetDirt = true,
+      resetModified = true
     } = options;
 
     if (value) {
@@ -891,6 +903,11 @@ export class FormController {
     if (resetDirt) {
       debug(`Resetting ${name}'s dirt`);
       ObjectMap.delete(this.state.dirt, name);
+    }
+
+    if (resetModified) {
+      debug(`Resetting ${name}'s modified`);
+      ObjectMap.delete(this.state.modified, name);
     }
 
     // Check if the form is valid

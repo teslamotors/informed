@@ -2,7 +2,8 @@ import React, { useMemo, useEffect, useState } from 'react';
 import {
   computeFieldFromProperty,
   getSchemaPathFromJsonPath,
-  checkCondition
+  checkCondition,
+  sanitize
 } from '../utils';
 import { ObjectMap } from '../ObjectMap';
 import { useFormController } from '../hooks/useFormController';
@@ -98,7 +99,10 @@ const FormField = ({ name, schema, ...rest }) => {
         //   }
 
         if (target === name) {
-          logger('Updating field props for', target);
+          logger(
+            `Updating field props for ${target}`,
+            computeFieldFromProperty(name, property)
+          );
           setCondProp(computeFieldFromProperty(name, property));
         }
       };
@@ -127,9 +131,12 @@ const FormField = ({ name, schema, ...rest }) => {
       const condProps = condProp.props;
 
       // Lay those on top of existing ones
-      const newProps = { ...schemaProps, ...condProps, ...rest };
-
-      logger(`New Props for ${name}`, condProps);
+      const newSchemaProps = sanitize(schemaProps);
+      const newCondProps = sanitize(condProps);
+      const newProps = { ...newSchemaProps, ...newCondProps, ...rest };
+      logger(`Schema Props for ${name}`, newSchemaProps);
+      logger(`Cond Props for ${name}`, newCondProps);
+      logger(`New Props for ${name}`, newProps);
       return newProps;
     },
     [condProp]

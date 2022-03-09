@@ -172,6 +172,18 @@ export const generateValue = ({ fieldType, maskedValue, multiple, value }) => {
   }
 };
 
+export const sanitize = obj => {
+  if (obj) {
+    const cleaned = JSON.parse(
+      JSON.stringify(obj, (key, value) => {
+        return value === undefined ? undefined : value;
+      })
+    );
+    return cleaned;
+  }
+  return obj;
+};
+
 /* -------------------------- Error Utils ----------------------------- */
 
 export const yupToFormErrors = yupError => {

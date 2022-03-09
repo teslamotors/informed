@@ -1,3 +1,9 @@
+## 4.5.7 (March 9th, 2022)
+
+### Fixed
+
+- issue with changing options on schema fields ( undefined would clobber defined values in option merge )
+
 ## 4.5.6 (March 8th, 2022)
 
 ### Fixed

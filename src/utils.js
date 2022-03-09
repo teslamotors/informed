@@ -172,15 +172,14 @@ export const generateValue = ({ fieldType, maskedValue, multiple, value }) => {
   }
 };
 
+// https://stackoverflow.com/questions/52367849/remove-empty-null-values-from-nested-object-es6-clean-nested-objects
 export const sanitize = obj => {
-  if (obj) {
-    const cleaned = JSON.parse(
-      JSON.stringify(obj, (key, value) => {
-        return value === undefined ? undefined : value;
-      })
-    );
-    return cleaned;
-  }
+  if (!obj) return obj;
+  Object.keys(obj).forEach(
+    key =>
+      (obj[key] && typeof obj[key] === 'object' && sanitize(obj[key])) ||
+      (obj[key] === undefined && delete obj[key])
+  );
   return obj;
 };
 

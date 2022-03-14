@@ -48,9 +48,8 @@ import AjvValidation from './Validation/AjvValidation';
 import AjvValidationNoRender from './Validation/AjvValidationNoRender';
 import AsyncValidation from './Validation/AsyncValidation';
 // import AsyncValidationControl from './Validation/AsyncValidationControl';
-// import FormatPlayground from './Playground/Format';
-// import SchemaPlayground from './Playground/Schema';
-import RickRoll from './Playground/RickRoll';
+import FormatPlayground from './Playground/Format';
+import SchemaPlayground from './Playground/Schema';
 
 // import FormatParse from './Formatting/FormatParse';
 import Formatter from './Formatting/Formatter';
@@ -297,10 +296,8 @@ storiesOf('Dynamic Forms', module)
   .add('Dynamic Fields', DynamicFields)
   .add('Dynamic Rendering', Dynamic);
 
-storiesOf('GlobalForms', module).add('Intro', GlobalIntro);
+storiesOf('Global Forms', module).add('Intro', GlobalIntro);
 
-// storiesOf('Playground', module)
-//   .add('Format Example', FormatPlayground)
-//   .add('Schema Example', SchemaPlayground);
-
-storiesOf('Cool Examples', module).add('Cool Example', RickRoll);
+storiesOf('Playground', module)
+  .add('Format Example', FormatPlayground)
+  .add('Schema Example', SchemaPlayground);

@@ -4,7 +4,7 @@ import React from 'react';
 // import logo from '../../src/assets/logo_torch.svg';
 
 export default story => (
-  <div class="informed-container">
+  <div className="informed-container">
     {/* <img
       alt={'Torch UI'}
       src={logo}

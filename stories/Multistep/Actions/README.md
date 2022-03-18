@@ -58,7 +58,7 @@ const Info = () => {
       <button type="button" onClick={() => next(doSomething)}>
         Next
       </button>
-      {loading ? <div class="loader">Loading...</div> : null}
+      {loading ? <div className="loader">Loading...</div> : null}
       {error ? <div style={{ color: 'red' }}>Error: {error}</div> : null}
     </Multistep.Step>
   );

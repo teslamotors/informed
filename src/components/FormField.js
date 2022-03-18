@@ -11,7 +11,7 @@ import { useScope } from '../hooks/useScope';
 import { Debug } from '../debug';
 import { FormFields } from './FormFields';
 import { Relevant } from './Relevant';
-import { ScopeContext } from '../Context';
+import { Scope } from './Scope';
 // import { useForceUpdate } from '../hooks/useForceUpdate';
 const logger = Debug('informed:FormField' + '\t');
 
@@ -163,20 +163,20 @@ const FormField = ({ name, schema, ...rest }) => {
   // Scope for nested
   if (!Component && type === 'object' && properties) {
     return (
-      <ScopeContext.Provider value={name}>
+      <Scope scope={name}>
         <FormFields schema={schemaField} />
-      </ScopeContext.Provider>
+      </Scope>
     );
   }
 
   // Just component
   if (Component && type === 'object' && properties) {
     return (
-      <ScopeContext.Provider value={name}>
+      <Scope scope={name}>
         <Component {...props}>
           <FormFields schema={schemaField} />
         </Component>
-      </ScopeContext.Provider>
+      </Scope>
     );
   }
 

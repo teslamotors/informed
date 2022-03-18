@@ -333,7 +333,7 @@ declare function Multistep({
 }): JSX.Element;
 
 declare namespace Multistep {
-  function Step({ children }: { children: () => JSX.Element }): JSX.Element;
+  function Step({ children }: { children: React.ReactNode }): JSX.Element;
 }
 
 declare namespace utils {

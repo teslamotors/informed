@@ -1,3 +1,10 @@
+## 4.5.8 (March 18th, 2022)
+
+### Fixed
+
+- issue with more than double nested schemas
+- issue with Multistep.Step types
+
 ## 4.5.7 (March 9th, 2022)
 
 ### Fixed

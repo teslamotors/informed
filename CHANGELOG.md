@@ -1,3 +1,9 @@
+## 4.5.10 (March 18th, 2022)
+
+### Fixed
+
+- issue where `step` was missing from multistep type
+
 ## 4.5.9 (March 18th, 2022)
 
 ### Fixed

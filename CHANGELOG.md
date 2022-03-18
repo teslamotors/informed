@@ -1,3 +1,9 @@
+## 4.5.9 (March 18th, 2022)
+
+### Fixed
+
+- issue with propertyOrder in nested schemas
+
 ## 4.5.8 (March 18th, 2022)
 
 ### Fixed

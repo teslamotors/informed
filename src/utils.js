@@ -873,7 +873,8 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
     required,
     type,
     properties: subProperties,
-    allOf
+    allOf,
+    propertyOrder
   } = property;
 
   // Set Id if not passed
@@ -891,6 +892,7 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
     uiAfter,
     properties: type === 'object' ? subProperties : undefined,
     allOf: type === 'object' ? allOf : undefined,
+    propertyOrder: type === 'object' ? propertyOrder : undefined,
     items: type === 'array' ? items : undefined,
     propertyName,
     required,

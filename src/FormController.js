@@ -215,9 +215,15 @@ export class FormController {
     }
 
     if (value === '') {
-      debug(`Setting ${name}'s value to undefiend`);
-      ObjectMap.set(this.state.values, name, undefined);
-      ObjectMap.set(this.state.maskedValues, name, undefined);
+      if (meta.allowEmptyString) {
+        debug(`Setting ${name}'s value to '' because allowEmptyString is set`);
+        ObjectMap.set(this.state.values, name, value);
+        ObjectMap.set(this.state.maskedValues, name, value);
+      } else {
+        debug(`Setting ${name}'s value to undefiend`);
+        ObjectMap.set(this.state.values, name, undefined);
+        ObjectMap.set(this.state.maskedValues, name, undefined);
+      }
     } else if (meta?.type === 'number' && value !== undefined) {
       debug(`Setting ${name}'s value to ${+value}`);
       ObjectMap.set(this.state.values, name, +value);

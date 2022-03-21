@@ -31,6 +31,82 @@ describe('useField', () => {
     expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hi!' });
   });
 
+  it('should clear out the value when user backspaces', () => {
+    const formApiRef = {};
+
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="greeting" label="input1" />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+    userEvent.type(input, 'Hi!');
+  
+    expect(input).toHaveAttribute('value', 'Hi!');
+    expect(input).toHaveValue('Hi!');
+    expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hi!' });
+
+    input.setSelectionRange(0, 3);
+    userEvent.type(input, '{backspace}');
+
+    expect(input).toHaveAttribute('value', '');
+    expect(input).toHaveValue('');
+    expect(formApiRef.current.getFormState().values).toEqual({});
+  });
+
+  it('should clear out the value to empty string when user backspaces and allowEmptyString is passed', () => {
+    const formApiRef = {};
+
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="greeting" label="input1" allowEmptyString/>
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+    userEvent.type(input, 'Hi!');
+  
+    expect(input).toHaveAttribute('value', 'Hi!');
+    expect(input).toHaveValue('Hi!');
+    expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hi!' });
+
+    input.setSelectionRange(0, 3);
+    userEvent.type(input, '{backspace}');
+
+    expect(input).toHaveAttribute('value', '');
+    expect(input).toHaveValue('');
+    expect(formApiRef.current.getFormState().values).toEqual({ greeting: '' });
+  });
+
+  it('should clear out the value to empty string when user backspaces and allowEmptyStrings is passed to form', () => {
+    const formApiRef = {};
+
+    const { getByLabelText } = render(
+      <Form
+        allowEmptyStrings
+        formApiRef={formApiRef}>
+        <Input name="greeting" label="input1"/>
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+    userEvent.type(input, 'Hi!');
+  
+    expect(input).toHaveAttribute('value', 'Hi!');
+    expect(input).toHaveValue('Hi!');
+    expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hi!' });
+
+    input.setSelectionRange(0, 3);
+    userEvent.type(input, '{backspace}');
+
+    expect(input).toHaveAttribute('value', '');
+    expect(input).toHaveValue('');
+    expect(formApiRef.current.getFormState().values).toEqual({ greeting: '' });
+  });
+
   it('placeholder should end up on input', () => {
 
     const { getByLabelText } = render(

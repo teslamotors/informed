@@ -61,6 +61,7 @@ export const useField = ({
   minLength,
   maxLength,
   pattern,
+  allowEmptyString: userAllowEmptyString,
   validateOnMount: userValidateOnMount,
   validateOn: userValidateOn,
   validateWhen = [],
@@ -106,6 +107,8 @@ export const useField = ({
   const keepStateIfRelevant =
     userKeepStateIfRelevant ??
     formController.options.current.keepStateIfRelevant;
+  const allowEmptyString =
+    userAllowEmptyString ?? formController.options.current.allowEmptyStrings;
 
   // For getting initialValue
   const getInitialValue = () =>
@@ -193,7 +196,8 @@ export const useField = ({
     showErrorIfDirty,
     asyncValidate,
     initialize,
-    errorMessage
+    errorMessage,
+    allowEmptyString
   };
   const metaRef = useRef(meta);
   metaRef.current = meta;

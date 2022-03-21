@@ -1,3 +1,9 @@
+## 4.5.11 (March 20th, 2022)
+
+### Fixed
+
+- issue where allowEmptyString and allowEmptyStrings where broken
+
 ## 4.5.10 (March 18th, 2022)
 
 ### Fixed

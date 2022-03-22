@@ -15,6 +15,7 @@ const buildScopedFormApi = (scope, formApi) => {
       formApi.setFocused(`${scope}.${field}`, value),
     getError: field => formApi.getError(`${scope}.${field}`),
     setError: (field, value) => formApi.setError(`${scope}.${field}`, value),
+    getInfo: field => formApi.getInfo(`${scope}.${field}`),
     resetField: field => formApi.resetField(`${scope}.${field}`),
     validate: field => formApi.validate(`${scope}.${field}`),
     getDirty: field => formApi.getDirty(`${scope}.${field}`),

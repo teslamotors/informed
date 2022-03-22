@@ -17,6 +17,8 @@ const getState = state => {
     maskedValues: {},
     errors: {},
     focused: {},
+    gathering: 0,
+    info: {},
     touched: {},
     initialValues: {},
     dirt: {}

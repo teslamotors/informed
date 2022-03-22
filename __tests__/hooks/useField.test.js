@@ -175,6 +175,8 @@ describe('useField', () => {
       showError: false,
       validating: false,
       focused: true,
+      gathering: false,
+      info: undefined
     }, expect.anything());
 
   });
@@ -207,6 +209,8 @@ describe('useField', () => {
       showError: false,
       validating: false,
       focused: true,
+      gathering: false,
+      info: undefined
     }, expect.anything());
   });
 
@@ -235,6 +239,8 @@ describe('useField', () => {
       showError: false,
       validating: false,
       focused: true,
+      gathering: false,
+      info: undefined
     }, expect.anything());
   });
 

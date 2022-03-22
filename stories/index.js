@@ -74,7 +74,8 @@ import {
   CheckboxInput,
   SelectInput,
   MultiSelectInput,
-  Intro as InputIntro
+  Intro as InputIntro,
+  GoogleApi
 } from './Inputs';
 
 import {
@@ -201,7 +202,8 @@ storiesOf('Inputs', module)
   .add('Checkbox Input', CheckboxInput)
   .add('Select Input', SelectInput)
   .add('Multi Select Input', MultiSelectInput)
-  .add('Number Input', NumberInput);
+  .add('Number Input', NumberInput)
+  .add('GoogleApi', GoogleApi);
 
 storiesOf('CustomInputs', module)
   .add('Creating Custom Inputs', CustomInputs)

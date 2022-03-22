@@ -37,6 +37,7 @@ export const useField = ({
   onFocus,
   validate: validationFunc,
   asyncValidate,
+  gatherInfo,
   yupSchema,
   multiple,
   field,
@@ -195,6 +196,7 @@ export const useField = ({
     showErrorIfTouched,
     showErrorIfDirty,
     asyncValidate,
+    gatherInfo,
     initialize,
     errorMessage,
     allowEmptyString

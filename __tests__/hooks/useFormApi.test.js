@@ -18,6 +18,8 @@ const getState = state => {
     maskedValues: {},
     errors: {},
     focused: {},
+    gathering: 0,
+    info: {},
     touched: {},
     initialValues: {},
     dirt: {}
@@ -79,6 +81,8 @@ describe('useFormApi', () => {
       showError: false,
       validating: false,
       focused: false,
+      gathering: false,
+      info: undefined
     });
   });
 

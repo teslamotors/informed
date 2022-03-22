@@ -28,7 +28,7 @@ export type FormApi = {
   setError: (name: string, value: unknown) => void;
   getFocused: (name: string) => unknown;
   setFocused: (name: string, value: boolean) => void;
-  resetField: (name: string, options: FieldResetOptions) => void;
+  resetField: (name: string, options?: FieldResetOptions) => void;
   reset: () => void;
   getFormState: () => FormState;
   getPristine: () => boolean;
@@ -192,6 +192,7 @@ export type FieldProps<UserProps> = {
   showErrorIfDirty?: boolean;
   relevanceWhen?: string[];
   relevanceDeps?: unknown[];
+  required?: string | boolean;
   formatter?:
     | Array<string | RegExp | Function>
     | string
@@ -199,7 +200,7 @@ export type FieldProps<UserProps> = {
     | ((value: unknown) => Array<string | RegExp | Function>);
 } & Omit<
   UserProps,
-  'onChange' | 'onBlur' | 'onFocus' | 'value' | 'defaultValue'
+  'onChange' | 'onBlur' | 'onFocus' | 'value' | 'defaultValue' | 'required'
 >;
 
 export type FormController = {
@@ -451,3 +452,55 @@ declare namespace utils {
   };
   function getSchemaPathFromJsonPath(scopedName: string): string;
 }
+
+/* ------------------------------- Inputs ------------------------------ */
+
+/* ------------------------------- Form ------------------------------- */
+type FormProps = React.FormHTMLAttributes<HTMLFormElement>;
+
+export function Form(props: InformedProps<FormProps>): JSX.Element;
+
+/* ------------------------------- Input ------------------------------- */
+type InputProps = {
+  label?: string;
+} & React.InputHTMLAttributes<HTMLInputElement>;
+
+export function Input(props: FieldProps<InputProps>): JSX.Element;
+
+/* ------------------------------- TextArea ------------------------------- */
+type TextAreaProps = {
+  label?: string;
+} & React.InputHTMLAttributes<HTMLTextAreaElement>;
+
+export function TextArea(props: FieldProps<TextAreaProps>): JSX.Element;
+
+/* ------------------------------- Checkbox ------------------------------- */
+type CheckboxProps = {
+  label?: string;
+} & React.InputHTMLAttributes<HTMLInputElement>;
+
+export function Checkbox(props: FieldProps<CheckboxProps>): JSX.Element;
+
+/* ------------------------------- Radio Group ------------------------------- */
+type RadioGroupProps = {
+  label?: string;
+  options?: Array<{ value: string; label: string; disabled?: boolean }>;
+} & React.InputHTMLAttributes<HTMLInputElement>;
+
+export function RadioGroup(props: FieldProps<RadioGroupProps>): JSX.Element;
+
+/* --------------------------------- Radio ---------------------------------- */
+type RadioProps = {
+  label?: string;
+  value: string;
+  disabled?: boolean;
+};
+export function Radio(props: RadioProps): JSX.Element;
+
+/* -------------------------------- Select --------------------------------- */
+type SelectProps = {
+  label?: string;
+  options?: Array<{ value: string; label: string; disabled?: boolean }>;
+} & React.InputHTMLAttributes<HTMLSelectElement>;
+
+export function Select(props: FieldProps<SelectProps>): JSX.Element;

@@ -1,3 +1,10 @@
+## 4.5.12 (March 22nd, 2022)
+
+### Fixed
+
+- Missing types for default exported fields
+- Missing type for `required`
+
 ## 4.5.11 (March 20th, 2022)
 
 ### Fixed

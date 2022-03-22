@@ -149,6 +149,7 @@ const InputPropsTest = () => {
         showErrorIfTouched
         showErrorIfDirty
         formatter="###-###"
+        required="Is required"
         // Custom Props
         label="Name:" 
         // Input Props
@@ -401,6 +402,7 @@ export const OtherShitTest = () => {
         relevanceWhen={['showInfo']}
         relevanceDeps={[externalDep]}
         relevant={relevant1}
+        required={true}
       />
       <Input label="Favorite Movie" name="movie" relevant={relevant2} />
     </Form>

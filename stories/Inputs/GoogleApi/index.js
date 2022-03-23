@@ -32,7 +32,7 @@ const googleAutocomplete = async text =>
   });
 
 const AddressSearch = () => {
-  const { info } = useFieldState('address');
+  const { data } = useFieldState('address');
 
   return (
     <>
@@ -40,11 +40,11 @@ const AddressSearch = () => {
         list="addresses"
         name="address"
         label="Address:"
-        gatherInfo={googleAutocomplete}
+        gatherData={googleAutocomplete}
       />
-      {info && (
+      {data && (
         <datalist id="addresses">
-          {info.map(p => {
+          {data.map(p => {
             return <option key={p} value={p} />;
           })}
         </datalist>
@@ -58,9 +58,9 @@ const InputExample = () => (
     <AddressSearch />
     <button type="submit">Submit</button>
     <h3>Form State:</h3>
-    <Debug values info gathering />
+    <Debug values data gathering />
     <h3>Field State:</h3>
-    <DebugField name="address" gathering info value />
+    <DebugField name="address" gathering data value />
   </Form>
 );
 

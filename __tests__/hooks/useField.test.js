@@ -176,7 +176,7 @@ describe('useField', () => {
       validating: false,
       focused: true,
       gathering: false,
-      info: undefined
+      data: undefined
     }, expect.anything());
 
   });
@@ -210,7 +210,7 @@ describe('useField', () => {
       validating: false,
       focused: true,
       gathering: false,
-      info: undefined
+      data: undefined
     }, expect.anything());
   });
 
@@ -240,7 +240,7 @@ describe('useField', () => {
       validating: false,
       focused: true,
       gathering: false,
-      info: undefined
+      data: undefined
     }, expect.anything());
   });
 

@@ -72,7 +72,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: true,
-      info: undefined
+      data: undefined
     }));
     expect(states[1].textContent).toBe(getState({
       touched: false,
@@ -84,7 +84,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: false,
-      info: undefined
+      data: undefined
     }));
 
     userEvent.type(first, 'oe');
@@ -103,7 +103,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: true,
-      info: undefined
+      data: undefined
     }));
     expect(states[1].textContent).toBe(getState({
       touched: false,
@@ -115,7 +115,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: false,
-      info: undefined
+      data: undefined
     }));
 
     // NOTE: when user starts typing in this field it will blur first field and cause a re-render!
@@ -135,7 +135,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: true,
-      info: undefined
+      data: undefined
     }));
     expect(states[1].textContent).toBe(getState({
       value: 'Puzz',
@@ -149,7 +149,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: true,
-      info: undefined
+      data: undefined
     }));
 
   });
@@ -185,7 +185,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: false,
-      info: undefined
+      data: undefined
     }));
     expect(states[1].textContent).toBe(getState({
       value: 'Puzzo',
@@ -199,7 +199,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: false,
-      info: undefined
+      data: undefined
     }));
 
   });
@@ -240,7 +240,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: false,
-      info: undefined
+      data: undefined
     }));
     expect(states[1].textContent).toBe(getState({
       value: 'Puzzo',
@@ -254,7 +254,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: false,
-      info: undefined
+      data: undefined
     }));
 
   });
@@ -298,7 +298,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: false,
-      info: undefined
+      data: undefined
     }));
     expect(states[1].textContent).toBe(getState({
       touched: false,
@@ -310,7 +310,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: false,
-      info: undefined
+      data: undefined
     }));
 
     fireEvent.click(submit);
@@ -333,7 +333,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: false,
-      info: undefined
+      data: undefined
     }));
 
     expect(states[1].textContent).toBe(getState({
@@ -347,7 +347,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: false,
-      info: undefined
+      data: undefined
     }));
 
     userEvent.type(last, 'P');
@@ -369,7 +369,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: false,
-      info: undefined
+      data: undefined
     }));
 
     expect(states[1].textContent).toBe(getState({
@@ -385,7 +385,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: true,
-      info: undefined
+      data: undefined
     }));
 
     fireEvent.click(submit);
@@ -407,7 +407,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: false,
-      info: undefined
+      data: undefined
     }));
 
     expect(states[1].textContent).toBe(getState({
@@ -423,7 +423,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: true,
-      info: undefined
+      data: undefined
     }));
 
   });
@@ -467,7 +467,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: false,
-      info: undefined
+      data: undefined
     }));
     expect(states[1].textContent).toBe(getState({
       touched: false,
@@ -479,7 +479,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: false,
-      info: undefined
+      data: undefined
     }));
 
     fireEvent.click(submit);
@@ -502,7 +502,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: false,
-      info: undefined
+      data: undefined
     }));
 
     expect(states[1].textContent).toBe(getState({
@@ -516,7 +516,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: false,
-      info: undefined
+      data: undefined
     }));
 
     userEvent.type(last, 'P');
@@ -538,7 +538,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: false,
-      info: undefined
+      data: undefined
     }));
 
     expect(states[1].textContent).toBe(getState({
@@ -554,7 +554,7 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: true,
-      info: undefined
+      data: undefined
     }));
 
   });

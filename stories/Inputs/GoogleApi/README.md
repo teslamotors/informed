@@ -1,6 +1,6 @@
 # GoogleApi
 
-This example shows how you can use informd's `gatherInfo` to make api calls via google api.
+This example shows how you can use informed's `gatherData` to make api calls via google api.
 
 <!-- STORY -->
 
@@ -60,7 +60,7 @@ const googleAutocomplete = async text =>
   });
 
 const AddressSearch = () => {
-  const { info } = useFieldState('address');
+  const { data } = useFieldState('address');
 
   return (
     <>
@@ -68,11 +68,11 @@ const AddressSearch = () => {
         list="addresses"
         name="address"
         label="Address:"
-        gatherInfo={googleAutocomplete}
+        gatherData={googleAutocomplete}
       />
-      {info && (
+      {data && (
         <datalist id="addresses">
-          {info.map(p => {
+          {data.map(p => {
             return <option key={p} value={p} />;
           })}
         </datalist>
@@ -85,8 +85,8 @@ const InputExample = () => (
   <Form>
     <AddressSearch />
     <button type="submit">Submit</button>
-    <Debug values info gathering />
-    <DebugField name="address" gathering info value />
+    <Debug values data gathering />
+    <DebugField name="address" gathering data value />
   </Form>
 );
 ```

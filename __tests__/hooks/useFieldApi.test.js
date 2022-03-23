@@ -28,7 +28,7 @@ const getState = state => {
     validating: false,
     focused: false,
     gathering: false,
-    info: undefined
+    data: undefined
   };
   return Object.assign({}, defaultState, state);
 };

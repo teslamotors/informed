@@ -1,8 +1,14 @@
+## 4.6.1 (March 22nd, 2022)
+
+### Fixed
+
+- misnamed `gatherData` prop
+
 ## 4.6.0 (March 22nd, 2022)
 
 ### Added
 
-- `gatherInfo` prop to allow user to get asnyc information for a field
+- `gatherData` prop to allow user to get asnyc information for a field
 
 ## 4.5.12 (March 22nd, 2022)
 

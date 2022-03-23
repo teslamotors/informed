@@ -19,7 +19,7 @@ const getState = state => {
     errors: {},
     focused: {},
     gathering: 0,
-    info: {},
+    data: {},
     touched: {},
     initialValues: {},
     dirt: {}
@@ -82,7 +82,7 @@ describe('useFormApi', () => {
       validating: false,
       focused: false,
       gathering: false,
-      info: undefined
+      data: undefined
     });
   });
 

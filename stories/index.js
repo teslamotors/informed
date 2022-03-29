@@ -65,6 +65,7 @@ import InitializeIfPristine from './Gotchas/InitializeIfPristine';
 
 // import Optimization from './Gotchas/Optimization';
 import DynamicFields from './Dynamic/DynamicFields';
+import AsyncDependentFields from './Dynamic/AsyncDependentFields';
 import CustomInputs from './CustomInputs';
 import {
   TextInput,
@@ -296,6 +297,7 @@ storiesOf('Gotchas', module)
 
 storiesOf('Dynamic Forms', module)
   .add('Dynamic Fields', DynamicFields)
+  .add('Async Dependent Fields', AsyncDependentFields)
   .add('Dynamic Rendering', Dynamic);
 
 storiesOf('Global Forms', module).add('Intro', GlobalIntro);

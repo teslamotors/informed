@@ -1,3 +1,9 @@
+## 4.7.0 (March 29th, 2022)
+
+### Added
+
+- ability to pass gatherOnMount to a field
+
 ## 4.6.1 (March 22nd, 2022)
 
 ### Fixed

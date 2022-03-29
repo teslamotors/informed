@@ -63,6 +63,7 @@ export const useField = ({
   maxLength,
   pattern,
   allowEmptyString: userAllowEmptyString,
+  gatherOnMount,
   validateOnMount: userValidateOnMount,
   validateOn: userValidateOn,
   validateWhen = [],
@@ -199,7 +200,8 @@ export const useField = ({
     gatherData,
     initialize,
     errorMessage,
-    allowEmptyString
+    allowEmptyString,
+    gatherOnMount
   };
   const metaRef = useRef(meta);
   metaRef.current = meta;

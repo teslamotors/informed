@@ -8,6 +8,7 @@ import {
 import { ObjectMap } from '../ObjectMap';
 import { useFormController } from '../hooks/useFormController';
 import { useScope } from '../hooks/useScope';
+import { useConditional } from '../hooks/useConditional';
 import { Debug } from '../debug';
 import { FormFields } from './FormFields';
 import { Relevant } from './Relevant';
@@ -124,6 +125,13 @@ const FormField = ({ name, schema, ...rest }) => {
     [name]
   );
 
+  const hookProps = useConditional({
+    name: schemaProps.name,
+    conditional: schemaProps.conditional,
+    evaluateWhen: schemaProps.evaluateWhen,
+    dependsOn: schemaProps.dependsOn
+  });
+
   // Combine any conditional props with the schema props
   const props = useMemo(
     () => {
@@ -133,13 +141,20 @@ const FormField = ({ name, schema, ...rest }) => {
       // Lay those on top of existing ones
       const newSchemaProps = sanitize(schemaProps);
       const newCondProps = sanitize(condProps);
-      const newProps = { ...newSchemaProps, ...newCondProps, ...rest };
+      const newHookProps = sanitize(hookProps);
+      const newProps = {
+        ...newSchemaProps,
+        ...newCondProps,
+        ...newHookProps,
+        ...rest
+      };
       logger(`Schema Props for ${name}`, newSchemaProps);
       logger(`Cond Props for ${name}`, newCondProps);
+      logger(`Hook Props for ${name}`, newHookProps);
       logger(`New Props for ${name}`, newProps);
       return newProps;
     },
-    [condProp]
+    [condProp, hookProps]
   );
 
   // Component is either on field map or components list passed in

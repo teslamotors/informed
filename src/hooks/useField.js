@@ -74,6 +74,10 @@ export const useField = ({
   initializeValueIfPristine,
   relevanceWhen = [],
   relevanceDeps = [],
+  // eslint-disable-next-line no-unused-vars
+  conditional,
+  // eslint-disable-next-line no-unused-vars
+  evaluateWhen,
   ...userProps
 }) => {
   // For backwards compatability

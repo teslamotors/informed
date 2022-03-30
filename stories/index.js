@@ -121,6 +121,8 @@ import FormatDependent from './Form/FormatDependent';
 import FormattedObjectInput from './CustomInputs/FormattedObjectInput';
 import ObjectInput from './CustomInputs/ObjectInput';
 import NumberFormatter from './Formatting/NumberFormatter';
+import ConditionalProps from './Conditionals/ConditionalProps';
+import ConditionalPropsSchema from './Conditionals/ConditionalPropsSchema';
 
 addDecorator(StoryWrapper);
 
@@ -299,6 +301,10 @@ storiesOf('Dynamic Forms', module)
   .add('Dynamic Fields', DynamicFields)
   .add('Async Dependent Fields', AsyncDependentFields)
   .add('Dynamic Rendering', Dynamic);
+
+storiesOf('Conditionals', module)
+  .add('Conditional Props', ConditionalProps)
+  .add('Conditional Props Schema', ConditionalPropsSchema);
 
 storiesOf('Global Forms', module).add('Intro', GlobalIntro);
 

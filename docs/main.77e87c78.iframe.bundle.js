@@ -1045,7 +1045,7 @@
         (module.exports = exports);
     },
     './package.json': function(module) {
-      module.exports = JSON.parse('{"a":"4.7.0"}');
+      module.exports = JSON.parse('{"a":"4.8.0"}');
     },
     './src/Context.js': function(
       module,
@@ -1340,22 +1340,22 @@
       __webpack_require__
     ) {
       'use strict';
-      __webpack_require__.d(__webpack_exports__, 'B', function() {
+      __webpack_require__.d(__webpack_exports__, 'C', function() {
         return useForm_useForm;
       }),
-        __webpack_require__.d(__webpack_exports__, 'y', function() {
+        __webpack_require__.d(__webpack_exports__, 'z', function() {
           return useField_useField;
         }),
-        __webpack_require__.d(__webpack_exports__, 'z', function() {
+        __webpack_require__.d(__webpack_exports__, 'A', function() {
           return useFieldApi;
         }),
-        __webpack_require__.d(__webpack_exports__, 'A', function() {
+        __webpack_require__.d(__webpack_exports__, 'B', function() {
           return useFieldState_useFieldState;
         }),
-        __webpack_require__.d(__webpack_exports__, 'C', function() {
+        __webpack_require__.d(__webpack_exports__, 'D', function() {
           return useFormApi;
         }),
-        __webpack_require__.d(__webpack_exports__, 'D', function() {
+        __webpack_require__.d(__webpack_exports__, 'E', function() {
           return useFormState;
         }),
         __webpack_require__.d(__webpack_exports__, 'v', function() {
@@ -1367,17 +1367,20 @@
         __webpack_require__.d(__webpack_exports__, 'x', function() {
           return useArrayFieldItemState;
         }),
-        __webpack_require__.d(__webpack_exports__, 'G', function() {
+        __webpack_require__.d(__webpack_exports__, 'H', function() {
           return useMultistepApi;
         }),
-        __webpack_require__.d(__webpack_exports__, 'H', function() {
+        __webpack_require__.d(__webpack_exports__, 'I', function() {
           return useMultistepState;
         }),
-        __webpack_require__.d(__webpack_exports__, 'F', function() {
+        __webpack_require__.d(__webpack_exports__, 'G', function() {
           return useInformedState_useInformedState;
         }),
-        __webpack_require__.d(__webpack_exports__, 'E', function() {
+        __webpack_require__.d(__webpack_exports__, 'F', function() {
           return useInformedField_useInformedField;
+        }),
+        __webpack_require__.d(__webpack_exports__, 'y', function() {
+          return useConditional_useConditional;
         }),
         __webpack_require__.d(__webpack_exports__, 'a', function() {
           return ArrayField_ArrayField;
@@ -1418,7 +1421,7 @@
         __webpack_require__.d(__webpack_exports__, 'u', function() {
           return TextArea;
         }),
-        __webpack_require__.d(__webpack_exports__, 'I', function() {
+        __webpack_require__.d(__webpack_exports__, 'J', function() {
           return utils_namespaceObject;
         }),
         __webpack_require__.d(__webpack_exports__, 'j', function() {
@@ -4575,7 +4578,9 @@
           'errorMessage',
           'initializeValueIfPristine',
           'relevanceWhen',
-          'relevanceDeps'
+          'relevanceDeps',
+          'evaluate',
+          'evaluateWhen'
         ];
       function useField_ownKeys(object, enumerableOnly) {
         var keys = Object.keys(object);
@@ -4768,10 +4773,9 @@
             _ref$relevanceDeps = _ref.relevanceDeps,
             relevanceDeps =
               void 0 === _ref$relevanceDeps ? [] : _ref$relevanceDeps,
-            userProps = useField_objectWithoutProperties(
-              _ref,
-              useField_excluded
-            ),
+            userProps = (_ref.evaluate,
+            _ref.evaluateWhen,
+            useField_objectWithoutProperties(_ref, useField_excluded)),
             name = useScope(null != userName ? userName : field);
           name || console.warn('name is a required prop!!!!');
           var maintainCursor =
@@ -5796,19 +5800,173 @@
             path: 'src/components/form-fields/RemoveButton.js'
           });
       var FormComponents_FormComponents = function FormComponents(_ref) {
-          var components = _ref.components,
-            fieldMap = useFormController().fieldMap;
-          return components
-            ? components.map(function(comp, i) {
-                var componentType = comp['ui:control'],
-                  props = comp['ui:props'],
-                  Component = fieldMap[componentType];
-                return react_default.a.createElement(
-                  Component,
-                  FormComponents_extends({ key: 'ui-comp-'.concat(i) }, props)
+        var components = _ref.components,
+          fieldMap = useFormController().fieldMap;
+        return components
+          ? components.map(function(comp, i) {
+              var componentType = comp['ui:control'],
+                props = comp['ui:props'],
+                Component = fieldMap[componentType];
+              return react_default.a.createElement(
+                Component,
+                FormComponents_extends({ key: 'ui-comp-'.concat(i) }, props)
+              );
+            })
+          : null;
+      };
+      function useConditional_toConsumableArray(arr) {
+        return (
+          (function useConditional_arrayWithoutHoles(arr) {
+            if (Array.isArray(arr)) return useConditional_arrayLikeToArray(arr);
+          })(arr) ||
+          (function useConditional_iterableToArray(iter) {
+            if (
+              ('undefined' != typeof Symbol && null != iter[Symbol.iterator]) ||
+              null != iter['@@iterator']
+            )
+              return Array.from(iter);
+          })(arr) ||
+          useConditional_unsupportedIterableToArray(arr) ||
+          (function useConditional_nonIterableSpread() {
+            throw new TypeError(
+              'Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
+            );
+          })()
+        );
+      }
+      function useConditional_slicedToArray(arr, i) {
+        return (
+          (function useConditional_arrayWithHoles(arr) {
+            if (Array.isArray(arr)) return arr;
+          })(arr) ||
+          (function useConditional_iterableToArrayLimit(arr, i) {
+            var _i =
+              null == arr
+                ? null
+                : ('undefined' != typeof Symbol && arr[Symbol.iterator]) ||
+                  arr['@@iterator'];
+            if (null == _i) return;
+            var _s,
+              _e,
+              _arr = [],
+              _n = !0,
+              _d = !1;
+            try {
+              for (
+                _i = _i.call(arr);
+                !(_n = (_s = _i.next()).done) &&
+                (_arr.push(_s.value), !i || _arr.length !== i);
+                _n = !0
+              );
+            } catch (err) {
+              (_d = !0), (_e = err);
+            } finally {
+              try {
+                _n || null == _i.return || _i.return();
+              } finally {
+                if (_d) throw _e;
+              }
+            }
+            return _arr;
+          })(arr, i) ||
+          useConditional_unsupportedIterableToArray(arr, i) ||
+          (function useConditional_nonIterableRest() {
+            throw new TypeError(
+              'Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
+            );
+          })()
+        );
+      }
+      function useConditional_unsupportedIterableToArray(o, minLen) {
+        if (o) {
+          if ('string' == typeof o)
+            return useConditional_arrayLikeToArray(o, minLen);
+          var n = Object.prototype.toString.call(o).slice(8, -1);
+          return (
+            'Object' === n && o.constructor && (n = o.constructor.name),
+            'Map' === n || 'Set' === n
+              ? Array.from(o)
+              : 'Arguments' === n ||
+                /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)
+                ? useConditional_arrayLikeToArray(o, minLen)
+                : void 0
+          );
+        }
+      }
+      function useConditional_arrayLikeToArray(arr, len) {
+        (null == len || len > arr.length) && (len = arr.length);
+        for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+        return arr2;
+      }
+      var useConditional_logger = Object(src_debug.a)(
+          'informed:useConditional\t'
+        ),
+        useConditional_useConditional = function useConditional(_ref) {
+          var name = _ref.name,
+            evaluate = _ref.evaluate,
+            _ref$evaluateWhen = _ref.evaluateWhen,
+            evaluateWhen =
+              void 0 === _ref$evaluateWhen ? [] : _ref$evaluateWhen,
+            _ref$dependsOn = _ref.dependsOn,
+            dependsOn = void 0 === _ref$dependsOn ? [] : _ref$dependsOn,
+            formController = useFormController(),
+            scope = Object(react.useContext)(Context.n),
+            scopeRef = Object(react.useRef)(scope);
+          scopeRef.current = scope;
+          var _useState2 = useConditional_slicedToArray(
+              Object(react.useState)(function() {
+                return evaluate
+                  ? evaluate({
+                      formState: formController.getFormState(),
+                      formApi: formController.getFormApi(),
+                      scope: scope,
+                      dependsOn: dependsOn
+                    })
+                  : {};
+              }),
+              2
+            ),
+            props = _useState2[0],
+            setProps = _useState2[1],
+            check = 'function' == typeof evaluateWhen ? [] : evaluateWhen,
+            fields = Object(react.useMemo)(function() {
+              return 'function' == typeof evaluateWhen
+                ? evaluateWhen(scope)
+                : evaluateWhen;
+            }, [].concat(useConditional_toConsumableArray(check), [scope]));
+          return (
+            useFieldSubscription_useFieldSubscription(
+              'field-value',
+              fields,
+              function(target) {
+                useConditional_logger(
+                  're-evaluating conditional for '
+                    .concat(name, ' because of ')
+                    .concat(target)
                 );
-              })
-            : null;
+                var res = evaluate({
+                  formState: formController.getFormState(),
+                  formApi: formController.getFormApi(),
+                  scope: scopeRef.current,
+                  dependsOn: dependsOn
+                });
+                setProps(res);
+              },
+              !('function' == typeof evaluateWhen)
+            ),
+            Object(react.useEffect)(function() {
+              evaluate &&
+                setProps(
+                  evaluate({
+                    formState: formController.getFormState(),
+                    formApi: formController.getFormApi(),
+                    scope: scope,
+                    dependsOn: dependsOn
+                  })
+                );
+            }, [name].concat(useConditional_toConsumableArray(dependsOn))),
+            props
+          );
         },
         FormField_excluded = ['name', 'schema'];
       function FormField_extends() {
@@ -6030,15 +6188,25 @@
             },
             [name]
           );
-          var props = Object(react.useMemo)(
+          var hookProps = useConditional_useConditional({
+              name: schemaProps.name,
+              evaluate: schemaProps.evaluate,
+              evaluateWhen: schemaProps.evaluateWhen,
+              dependsOn: schemaProps.dependsOn
+            }),
+            props = Object(react.useMemo)(
               function() {
                 var condProps = condProp.props,
                   newSchemaProps = sanitize(schemaProps),
                   newCondProps = sanitize(condProps),
+                  newHookProps = sanitize(hookProps),
                   newProps = FormField_objectSpread(
                     FormField_objectSpread(
-                      FormField_objectSpread({}, newSchemaProps),
-                      newCondProps
+                      FormField_objectSpread(
+                        FormField_objectSpread({}, newSchemaProps),
+                        newCondProps
+                      ),
+                      newHookProps
                     ),
                     rest
                   );
@@ -6051,11 +6219,15 @@
                     'Cond Props for '.concat(name),
                     newCondProps
                   ),
+                  FormField_logger(
+                    'Hook Props for '.concat(name),
+                    newHookProps
+                  ),
                   FormField_logger('New Props for '.concat(name), newProps),
                   newProps
                 );
               },
-              [condProp]
+              [condProp, hookProps]
             ),
             Component =
               null !== (_fieldMap$componentTy = fieldMap[componentType]) &&
@@ -9629,7 +9801,7 @@
         },
         HugeArrayForm_FieldState = function FieldState(_ref) {
           var name = _ref.name,
-            nameState = Object(src.A)(name);
+            nameState = Object(src.B)(name);
           return react_default.a.createElement(
             react_default.a.Fragment,
             null,
@@ -9972,10 +10144,10 @@
           );
         },
         DependentFields_ProductSelect = function ProductSelect() {
-          var _useFieldState = Object(src.A)('type'),
+          var _useFieldState = Object(src.B)('type'),
             value = _useFieldState.value,
             dirty = _useFieldState.dirty,
-            clearValue = Object(src.z)('product').clearValue,
+            clearValue = Object(src.A)('product').clearValue,
             opts = Object(react.useMemo)(
               function() {
                 return options[value] || [];
@@ -10107,7 +10279,7 @@
         withDocs = __webpack_require__('./stories/utils/withDocs.js'),
         src = __webpack_require__('./src/index.js'),
         CarColor_SVG = function SVG() {
-          var value = Object(src.A)('color').value;
+          var value = Object(src.B)('color').value;
           return react_default.a.createElement(
             'div',
             { className: 'car-color-'.concat(value) },
@@ -10742,6 +10914,118 @@
         }
       );
     },
+    './stories/Conditionals/ConditionalProps/index.js': function(
+      module,
+      __webpack_exports__,
+      __webpack_require__
+    ) {
+      'use strict';
+      var react = __webpack_require__('./node_modules/react/index.js'),
+        react_default = __webpack_require__.n(react),
+        withDocs = __webpack_require__('./stories/utils/withDocs.js'),
+        src = __webpack_require__('./src/index.js'),
+        ConditionalProps_CarSelect = function CarSelect() {
+          var disabled = Object(src.y)({
+            evaluate: function evaluate(_ref) {
+              var formState = _ref.formState,
+                formApi = _ref.formApi;
+              return !formState.values.age || formState.values.age < 16
+                ? (formApi.clearValue('car'), { disabled: !0 })
+                : { disabled: !1 };
+            },
+            evaluateWhen: ['age']
+          }).disabled;
+          return react_default.a.createElement(
+            src.t,
+            {
+              name: 'car',
+              label: 'Car',
+              initialValue: 'ms',
+              disabled: disabled
+            },
+            react_default.a.createElement('option', { value: 'ms' }, 'Model S'),
+            react_default.a.createElement('option', { value: 'm3' }, 'Model 3'),
+            react_default.a.createElement('option', { value: 'mx' }, 'Model X'),
+            react_default.a.createElement('option', { value: 'my' }, 'Model Y')
+          );
+        };
+      __webpack_exports__.a = Object(withDocs.a)(
+        '# Conditional Props\n\nSometimes you need to conditionally change the props.\n\n\x3c!-- STORY --\x3e\n\n```jsx\nimport { Form, Input, Select, useConditional, Debug } from \'informed\';\n\nconst CarSelect = () => {\n  const evaluate = ({ formState, formApi }) => {\n    if (!formState.values.age || formState.values.age < 16) {\n      formApi.clearValue(\'car\');\n      return { disabled: true };\n    }\n    return { disabled: false };\n  };\n\n  const { disabled } = useConditional({\n    evaluate,\n    evaluateWhen: [\'age\']\n  });\n\n  return (\n    <Select name="car" label="Car" initialValue="ms" disabled={disabled}>\n      <option value="ms">Model S</option>\n      <option value="m3">Model 3</option>\n      <option value="mx">Model X</option>\n      <option value="my">Model Y</option>\n    </Select>\n  );\n};\n\nconst ConditionalProps = () => (\n  <Form>\n    <Input name="age" type="number" label="Age" />\n    <CarSelect />\n    <Debug values />\n  </Form>\n);\n```\n',
+        function ConditionalProps() {
+          return react_default.a.createElement(
+            src.f,
+            null,
+            react_default.a.createElement(src.l, {
+              name: 'age',
+              type: 'number',
+              label: 'Age'
+            }),
+            react_default.a.createElement(ConditionalProps_CarSelect, null),
+            react_default.a.createElement(src.c, { values: !0 })
+          );
+        }
+      );
+    },
+    './stories/Conditionals/ConditionalPropsSchema/index.js': function(
+      module,
+      __webpack_exports__,
+      __webpack_require__
+    ) {
+      'use strict';
+      var react = __webpack_require__('./node_modules/react/index.js'),
+        react_default = __webpack_require__.n(react),
+        withDocs = __webpack_require__('./stories/utils/withDocs.js'),
+        src = __webpack_require__('./src/index.js'),
+        schema = {
+          type: 'object',
+          properties: {
+            age: {
+              type: 'number',
+              title: 'Age',
+              'ui:control': 'input',
+              'ui:props': { type: 'number' }
+            },
+            car: {
+              type: 'string',
+              title: 'Car',
+              'ui:control': 'select',
+              oneOf: [
+                { const: 'ms', title: 'Model S' },
+                { const: 'm3', title: 'Model 3' },
+                { const: 'mx', title: 'Model X' },
+                { const: 'my', title: 'Model Y' }
+              ],
+              default: null,
+              'ui:props': {
+                evaluate: function evaluate(_ref) {
+                  var formState = _ref.formState,
+                    formApi = _ref.formApi;
+                  return !formState.values.age || formState.values.age < 16
+                    ? (formApi.clearValue('car'), { disabled: !0 })
+                    : { disabled: !1 };
+                },
+                evaluateWhen: ['age']
+              }
+            }
+          }
+        };
+      __webpack_exports__.a = Object(withDocs.a)(
+        "# Conditional Props\n\nSometimes you need to conditionally change the props.\n\n\x3c!-- STORY --\x3e\n\n```jsx\nimport { Form, SchemaFields, Debug } from 'informed';\n\nconst evaluate = ({ formState, formApi }) => {\n  if (!formState.values.age || formState.values.age < 16) {\n    formApi.clearValue('car');\n    return { disabled: true };\n  }\n  return { disabled: false };\n};\n\nconst schema = {\n  type: 'object',\n  properties: {\n    age: {\n      type: 'number',\n      title: 'Age',\n      'ui:control': 'input',\n      'ui:props': {\n        type: 'number'\n      }\n    },\n    car: {\n      type: 'string',\n      title: 'Car',\n      'ui:control': 'select',\n      oneOf: [\n        { const: 'ms', title: 'Model S' },\n        { const: 'm3', title: 'Model 3' },\n        { const: 'mx', title: 'Model X' },\n        { const: 'my', title: 'Model Y' }\n      ],\n      default: null,\n      'ui:props': {\n        evaluate,\n        evaluateWhen: ['age']\n      }\n    }\n  }\n};\n```\n",
+        function ConditionalProps() {
+          return react_default.a.createElement(
+            src.f,
+            { schema: schema },
+            react_default.a.createElement(src.r, null),
+            react_default.a.createElement(
+              'button',
+              { type: 'submit' },
+              'Submit'
+            ),
+            react_default.a.createElement(src.c, { values: !0 })
+          );
+        }
+      );
+    },
     './stories/CustomInputs/FormattedObjectInput/index.js': function(
       module,
       __webpack_exports__,
@@ -10842,7 +11126,7 @@
           obj
         );
       }
-      src.I.informedFormat;
+      src.J.informedFormat;
       var formatter = [
           '+',
           '1',
@@ -10868,7 +11152,7 @@
         ) {
           var refA = Object(react.useRef)(),
             refB = Object(react.useRef)(),
-            _useField = Object(src.y)(
+            _useField = Object(src.z)(
               _objectSpread(
                 _objectSpread({}, props),
                 {},
@@ -11094,7 +11378,7 @@
         return target;
       }
       var ObjectInput_ObjectInput = function ObjectInput(props) {
-        var _useField = Object(src.y)(props),
+        var _useField = Object(src.z)(props),
           fieldState = _useField.fieldState,
           fieldApi = _useField.fieldApi,
           render = _useField.render,
@@ -11263,7 +11547,7 @@
         ErrorTextField = react_default.a.memo(function(_ref) {
           var label = _ref.label,
             props = _objectWithoutProperties(_ref, _excluded),
-            _useField = Object(src.y)(
+            _useField = Object(src.z)(
               (function _objectSpread(target) {
                 for (var i = 1; i < arguments.length; i++) {
                   var source = null != arguments[i] ? arguments[i] : {};
@@ -11423,7 +11707,7 @@
               _ref,
               FromScratch_excluded
             ),
-            _useField = Object(src.y)(
+            _useField = Object(src.z)(
               (function FromScratch_objectSpread(target) {
                 for (var i = 1; i < arguments.length; i++) {
                   var source = null != arguments[i] ? arguments[i] : {};
@@ -11586,7 +11870,7 @@
         return target;
       }
       var UseField_CustomInput = function CustomInput(props) {
-          var _useField = Object(src.y)(props),
+          var _useField = Object(src.z)(props),
             fieldState = _useField.fieldState,
             fieldApi = _useField.fieldApi,
             render = _useField.render,
@@ -11732,7 +12016,7 @@
             max = _ref.max,
             step = _ref.step,
             props = Slider_objectWithoutProperties(_ref, Slider_excluded),
-            _useField = Object(src.y)(
+            _useField = Object(src.z)(
               (function Slider_objectSpread(target) {
                 for (var i = 1; i < arguments.length; i++) {
                   var source = null != arguments[i] ? arguments[i] : {};
@@ -11889,7 +12173,7 @@
         );
       }
       var UseFieldHooked_CustomInput = function CustomInput(props) {
-          var _useField = Object(src.y)(
+          var _useField = Object(src.z)(
               (function UseFieldHooked_objectSpread(target) {
                 for (var i = 1; i < arguments.length; i++) {
                   var source = null != arguments[i] ? arguments[i] : {};
@@ -12151,8 +12435,8 @@
           };
         })(),
         AsyncDependentFields_ProductSelect = function ProductSelect() {
-          var data = Object(src.A)('type').data,
-            clearValue = Object(src.z)('product').clearValue;
+          var data = Object(src.B)('type').data,
+            clearValue = Object(src.A)('product').clearValue;
           return (
             Object(react.useEffect)(
               function() {
@@ -12386,7 +12670,7 @@
           './stories/Intro/FormApi/RenderProp/index.js'
         ),
         UseFormApi_RandomSetterButton = function RandomSetterButton() {
-          var formApi = Object(src.C)();
+          var formApi = Object(src.D)();
           return react_default.a.createElement(
             'button',
             {
@@ -12404,7 +12688,7 @@
           );
         },
         UseFormApi_SetValuesButton = function SetValuesButton() {
-          var formApi = Object(src.C)();
+          var formApi = Object(src.D)();
           return react_default.a.createElement(
             'button',
             {
@@ -12417,7 +12701,7 @@
           );
         },
         UseFormApi_SetTheseValuesButton = function SetTheseValuesButton() {
-          var formApi = Object(src.C)();
+          var formApi = Object(src.D)();
           return react_default.a.createElement(
             'button',
             {
@@ -12536,7 +12820,7 @@
         withDocs = __webpack_require__('./stories/utils/withDocs.js'),
         src = __webpack_require__('./src/index.js'),
         Big_MyButton = function MyButton() {
-          var formApi = Object(src.C)();
+          var formApi = Object(src.D)();
           return react_default.a.createElement(
             'button',
             { type: 'button', onClick: formApi.reset },
@@ -12813,7 +13097,7 @@
         return arr2;
       }
       var Dynamic_JoesState = function JoesState() {
-          var fieldState = Object(src.A)('joe');
+          var fieldState = Object(src.B)('joe');
           return react_default.a.createElement(
             react_default.a.Fragment,
             null,
@@ -12830,7 +13114,7 @@
           );
         },
         Dynamic_ElonsState = function ElonsState() {
-          var fieldState = Object(src.A)('elon');
+          var fieldState = Object(src.B)('elon');
           return react_default.a.createElement(
             react_default.a.Fragment,
             null,
@@ -13099,7 +13383,7 @@
           ]
         },
         FeatureTester_Reset = function Reset() {
-          var formApi = Object(src.C)();
+          var formApi = Object(src.D)();
           return react_default.a.createElement(
             'button',
             { type: 'button', onClick: formApi.reset },
@@ -13151,7 +13435,7 @@
         },
         FeatureTester_FieldState = function FieldState(_ref2) {
           var name = _ref2.name,
-            fieldState = Object(src.A)(name);
+            fieldState = Object(src.B)(name);
           return react_default.a.createElement(
             react_default.a.Fragment,
             null,
@@ -13616,7 +13900,7 @@
           window.alert(JSON.stringify(values, null, 2));
         },
         FormProvider_SubmitButton = function SubmitButton() {
-          var formApi = Object(src.C)();
+          var formApi = Object(src.D)();
           return react_default.a.createElement(
             'button',
             { onClick: formApi.submitForm },
@@ -13687,10 +13971,10 @@
           ]
         },
         FormatDependent_ProductSelect = function ProductSelect() {
-          var _useFieldState = Object(src.A)('type'),
+          var _useFieldState = Object(src.B)('type'),
             value = _useFieldState.value,
             dirty = _useFieldState.dirty,
-            clearValue = Object(src.z)('product').clearValue,
+            clearValue = Object(src.A)('product').clearValue,
             opts = Object(react.useMemo)(
               function() {
                 return options[value] || [];
@@ -14596,12 +14880,12 @@
           { value: 'ZWL', label: 'ZWL' }
         ],
         NumberFormatter_FormattedField = function FormattedField() {
-          var locale = Object(src.A)('locale').value,
-            currency = Object(src.A)('currency').value,
+          var locale = Object(src.B)('locale').value,
+            currency = Object(src.B)('currency').value,
             _useMemo = Object(react.useMemo)(
               function() {
                 return locale && currency
-                  ? src.I.createIntlNumberFormatter(locale, {
+                  ? src.J.createIntlNumberFormatter(locale, {
                       style: 'currency',
                       currency: currency
                     })
@@ -14744,8 +15028,8 @@
             _questionState$values,
             renders = Object(react.useRef)(0);
           renders.current = renders.current + 1;
-          var infoState = Object(src.F)('info'),
-            questionState = Object(src.F)('questions');
+          var infoState = Object(src.G)('info'),
+            questionState = Object(src.G)('questions');
           return react_default.a.createElement(
             Intro_PurpleBorder,
             null,
@@ -14776,7 +15060,7 @@
         Intro_Color = function Color() {
           var renders = Object(react.useRef)(0);
           renders.current = renders.current + 1;
-          var colorState = Object(src.E)('questions', 'color');
+          var colorState = Object(src.F)('questions', 'color');
           return react_default.a.createElement(
             Intro_PurpleBorder,
             null,
@@ -15208,7 +15492,7 @@
         src = __webpack_require__('./src/index.js'),
         WithField_ScopedFieldState = function ScopedFieldState(_ref) {
           var name = _ref.name,
-            value = Object(src.A)(name).value;
+            value = Object(src.B)(name).value;
           return react_default.a.createElement(
             'pre',
             null,
@@ -15221,7 +15505,7 @@
         },
         WithField_UnScopedFieldState = function UnScopedFieldState(_ref2) {
           var name = _ref2.name,
-            value = Object(src.A)(name, !1).value;
+            value = Object(src.B)(name, !1).value;
           return react_default.a.createElement(
             'pre',
             null,
@@ -15309,7 +15593,7 @@
         withDocs = __webpack_require__('./stories/utils/withDocs.js'),
         src = __webpack_require__('./src/index.js'),
         useFormApi_ComponentUsingFormApi = function ComponentUsingFormApi() {
-          var formApi = Object(src.C)();
+          var formApi = Object(src.D)();
           return react_default.a.createElement(
             'button',
             {
@@ -15358,7 +15642,7 @@
           }
         ),
         useFormState_ComponentUsingFormState = function ComponentUsingFormState() {
-          var formState = Object(src.D)();
+          var formState = Object(src.E)();
           return react_default.a.createElement(
             'pre',
             null,
@@ -15397,7 +15681,7 @@
           }
         ),
         useFieldApi_ComponentUsingFieldApi = function ComponentUsingFieldApi() {
-          var fieldApi = Object(src.z)('name');
+          var fieldApi = Object(src.A)('name');
           return react_default.a.createElement(
             react_default.a.Fragment,
             null,
@@ -15459,7 +15743,7 @@
           _ref
         ) {
           var name = _ref.name,
-            fieldState = Object(src.A)(name);
+            fieldState = Object(src.B)(name);
           return react_default.a.createElement(
             react_default.a.Fragment,
             null,
@@ -15559,7 +15843,7 @@
       var useForm_CustomForm = function CustomForm(_ref) {
           var children = _ref.children,
             rest = _objectWithoutProperties(_ref, _excluded),
-            _useForm = Object(src.B)(rest),
+            _useForm = Object(src.C)(rest),
             formController = _useForm.formController,
             render = _useForm.render,
             userProps = _useForm.userProps;
@@ -15620,32 +15904,32 @@
         useFieldCustom_excluded = (Object(withDocs.a)(
           '# Use Field Without Custom Input\n\nIts NOT recomended to write forms this way but its totally doable. Below we hook up each field\nvia a call to useField.\n\nThe reason I say "NOT" is due to the fact that this hook is best used in a custom input. See the [custom inputs](/?path=/story/custominputs--creating-custom-inputs) section of the docs.\n\nAlso there is a great optimization that is made when using the render function that the `useField` hook returns.\n\n\x3c!-- STORY --\x3e\n\n\x3c!-- IDFK Strange issue where i need this commnet or code formatting is messed up --\x3e\n\n```jsx\nimport { useForm, useField } from \'informed\';\n\nconst onSubmit = ({ values }) =>\n  window.alert(`Form successfully submitted with ${JSON.stringify(values)}`);\n\nconst MyForm = () => {\n  const { formController, render } = useForm({\n    onSubmit\n  });\n\n  const { informed: informName } = useField({\n    formController,\n    field: \'name\',\n    fieldType: \'text\'\n  });\n  const { informed: informAge } = useField({\n    formController,\n    field: \'age\',\n    fieldType: \'number\'\n  });\n  const { informed: informStatus } = useField({\n    formController,\n    field: \'status\',\n    fieldType: \'select\'\n  });\n  const { informed: informColors } = useField({\n    formController,\n    field: \'colors\',\n    fieldType: \'select\',\n    multiple: true\n  });\n  const { informed: informAuthorize } = useField({\n    formController,\n    field: \'authorize\',\n    fieldType: \'checkbox\'\n  });\n\n  return render(\n    <form\n      onReset={formController.reset}\n      onSubmit={formController.submitForm}\n      onKeyDown={formController.keyDown}>\n      <>\n        <label>\n          First name: <input {...informName} />\n        </label>\n        <label>\n          Age: <input {...informAge} type="number" />\n        </label>\n        <label>\n          Relationship status:\n          <select {...informStatus}>\n            <option value="" disabled>\n              Select One...\n            </option>\n            <option value="single">Single</option>\n            <option value="relationship">Relationship</option>\n            <option value="complicated">Complicated</option>\n          </select>\n        </label>\n        <label>\n          Colors:\n          <select {...informColors} style={{ height: \'100px\', width: \'200px\' }}>\n            <option value="red">Red</option>\n            <option value="green">Green</option>\n            <option value="blue">Blue</option>\n            <option value="yellow">Yellow</option>\n            <option value="orange">Orange</option>\n            <option value="purple">Purple</option>\n          </select>\n        </label>\n        <label>\n          Authorize <input type="checkbox" {...informAuthorize} />\n        </label>\n      </>\n      <button type="submit">Submit</button>\n    </form>\n  );\n};\n```\n',
           function UseFieldDirect() {
-            var _useForm = Object(src.B)({ onSubmit: onSubmit }),
+            var _useForm = Object(src.C)({ onSubmit: onSubmit }),
               formController = _useForm.formController,
               render = _useForm.render,
               formState = _useForm.formState,
-              informName = Object(src.y)({
+              informName = Object(src.z)({
                 formController: formController,
                 field: 'name',
                 fieldType: 'text'
               }).informed,
-              informAge = Object(src.y)({
+              informAge = Object(src.z)({
                 formController: formController,
                 field: 'age',
                 fieldType: 'number'
               }).informed,
-              informStatus = Object(src.y)({
+              informStatus = Object(src.z)({
                 formController: formController,
                 field: 'status',
                 fieldType: 'select'
               }).informed,
-              informColors = Object(src.y)({
+              informColors = Object(src.z)({
                 formController: formController,
                 field: 'colors',
                 fieldType: 'select',
                 multiple: !0
               }).informed,
-              informAuthorize = Object(src.y)({
+              informAuthorize = Object(src.z)({
                 formController: formController,
                 field: 'authorize',
                 fieldType: 'checkbox'
@@ -15851,7 +16135,7 @@
         );
       }
       var useFieldCustom_CustomTextInput = function CustomTextInput(props) {
-          var _useField = Object(src.y)(
+          var _useField = Object(src.z)(
               (function _objectSpread(target) {
                 for (var i = 1; i < arguments.length; i++) {
                   var source = null != arguments[i] ? arguments[i] : {};
@@ -16316,7 +16600,7 @@
           };
         })(),
         GoogleApi_AddressSearch = function AddressSearch() {
-          var data = Object(src.A)('address').data;
+          var data = Object(src.B)('address').data;
           return react_default.a.createElement(
             react_default.a.Fragment,
             null,
@@ -16376,7 +16660,7 @@
       'use strict';
       var withDocs = __webpack_require__('./stories/utils/withDocs.js');
       __webpack_exports__.a = Object(withDocs.a)(
-        '## 4.7.0 (March 29th, 2022)\n\n### Added\n\n- ability to pass gatherOnMount to a field\n\n## 4.6.1 (March 22nd, 2022)\n\n### Fixed\n\n- misnamed `gatherData` prop\n\n## 4.6.0 (March 22nd, 2022)\n\n### Added\n\n- `gatherData` prop to allow user to get asnyc information for a field\n\n## 4.5.12 (March 22nd, 2022)\n\n### Fixed\n\n- Missing types for default exported fields\n- Missing type for `required`\n\n## 4.5.11 (March 20th, 2022)\n\n### Fixed\n\n- issue where allowEmptyString and allowEmptyStrings where broken\n\n## 4.5.10 (March 18th, 2022)\n\n### Fixed\n\n- issue where `step` was missing from multistep type\n\n## 4.5.9 (March 18th, 2022)\n\n### Fixed\n\n- issue with propertyOrder in nested schemas\n\n## 4.5.8 (March 18th, 2022)\n\n### Fixed\n\n- issue with more than double nested schemas\n- issue with Multistep.Step types\n\n## 4.5.7 (March 9th, 2022)\n\n### Fixed\n\n- issue with changing options on schema fields ( undefined would clobber defined values in option merge )\n\n## 4.5.6 (March 8th, 2022)\n\n### Fixed\n\n- issue where changing validation params would not rebuild validation function\n\n## 4.5.5 (March 8th, 2022)\n\n### Fixed\n\n- issue where multistep steps would not deregister\n\n## 4.5.4 (Feb 28th, 2022)\n\n### Fixed\n\n- issue where multistep steps would not clean up after themselves\n\n## 4.5.3 (Feb 22th, 2022)\n\n### Fixed\n\n- issue with touchAllFields not touching fields within an array\n\n## 4.5.2 (Feb 18th, 2022)\n\n### Fixed\n\n- Another Issue with debugger in react native that caused crash\n\n## 4.5.1 (Feb 16th, 2022)\n\n### Fixed\n\n- Issue with debugger in react native\n\n## 4.5.0 (Feb 16th, 2022)\n\n### Added\n\n- onValueModified prop to useForm\n\n## 4.4.0 (Feb 15th, 2022)\n\n### Added\n\n- ability to pass reset options to reset field\n\n## 4.3.0 (Feb 15th, 2022)\n\n### Added\n\n- onValueChange prop to useForm\n\n## 4.2.0 (Feb 10th, 2022)\n\n### Added\n\n- Ability to add n items to array field by passing add(3) a number to add\n\n## 4.1.2 (Feb 10th, 2022)\n\n### Fixed\n\n- Missing form level option for keepState and keepStateIfRelevant\n\n## 4.1.1 (Feb 9th, 2022)\n\n### Fixed\n\n- Stupid issue with safari throwing a type error when trying to check for selectionStart on event.target\n\n## 4.1.0 (Feb 8th, 2022)\n\n### Added\n\n- Ability to use state across multiple forms\n\n## 4.0.35 (Feb 8th, 2022)\n\n### Fixed\n\n- missing types for multistep and formApi\n\n## 4.0.34 (Feb 4th, 2022)\n\n### Fixed\n\n- issue with INTL formatter when used with `EUR` and `en-DE`\n\n## 4.0.33 (Feb 3rd, 2022)\n\n### Fixed\n\n- issue with formatter function not allowing full value\n\n## 4.0.32 (January 26th, 2022)\n\n### Fixed\n\n- issue with FormField not allowing conditional fields\n\n## 4.0.31 (January 25th, 2022)\n\n### Fixes https://github.com/teslamotors/informed/issues/381\n\n- autoFocus on Input throws error\n\n## 4.0.30 (January 24th, 2022)\n\n### Added\n\n- propertyOrder back to schema\n\n## 4.0.29 (January 20th, 2022)\n\n### Added\n\n- asyncValidate to formApi\n\n## 4.0.28 (January 18th, 2022)\n\n### Fixed\n\n- issue with cursor offsets when suffix is added\n\n## 4.0.27 (January 14th, 2022)\n\n### Fixed\n\n- issue with negative cursor offsets\n\n### Fixed\n\n- issue with off by one cursor locations on formatter\n\n## 4.0.25 (January 14th, 2022)\n\n### Fixed\n\n- createIntlNumberFormatter not working with negative numbers\n\n## 4.0.24 (January 7th, 2022)\n\n### Added\n\n- clearValue() function to form and field apis\n\n### Fixed\n\n- Issue where validateOnMount would NOT trigger validation when a field was re-rendered\n\n## 4.0.23 (January 5th, 2022)\n\n### Fixed\n\n- issue with array field items being memoized\n\n## 4.0.22 (January 5th, 2022)\n\n### Fixed\n\n- issue with createIntlNumber mask adding random "[]" sometimes\n\n## 4.0.21 (January 5th, 2022)\n\n### Fixed\n\n- issue where returning "" from validation function would not show error state\n\n## 4.0.20 (January 4th, 2022)\n\n### Fixed\n\n- issue where removing item from array field would not make the form dirty\n\n## 4.0.19 (December 31st, 2021)\n\n### Exposed\n\n- useRelevance hook and added type for it in types\n\n## 4.0.18 (December 23rd, 2021)\n\n### Fixed\n\n- issue where values would get cleared on un-mount\n\n## 4.0.17 (December 17th, 2021)\n\n### Fixed\n\n- issue where I forgot to deregister fields when they became irrelevant\n\n## 4.0.16 (December 17th, 2021)\n\n### Fixed\n\n- issue where I forgot to allow relevanceDeps to be passed to multistep step\n\n## 4.0.15 (December 15th, 2021)\n\n### Moved\n\n- The repo to tesla or go needed to re publish to get updated README to npm\n\n## 4.0.14 (December 15th, 2021)\n\n### Fixed\n\n- forgot to add getCurrentStep to multistepApi\n- forgot to add nextStep and previousStep to multistepState\n\n## 4.0.13 (December 15th, 2021)\n\n### Fixed\n\n- issue where set touched did not default meta when field is not there\n\n## 4.0.12 (December 15th, 2021)\n\n### Fixed\n\n- issue where `FormField` could not take field props\n\n## 4.0.11 (December 15th, 2021)\n\n### Fixed\n\n- missing type for Relevant\n\n## 4.0.10 (December 15th, 2021)\n\n### Fixed\n\n- issue where FormProvider was not exported\n\n## 4.0.9 (December 13th, 2021)\n\n### Fixed\n\n- issue where passing showErrorIfTouched={false} would not work\n\n## 4.0.8 (December 10th, 2021)\n\n### Removed\n\n- Empty dependencies object from package.json\n\n## 4.0.7 (December 10th, 2021)\n\n### Fixed\n\n- Issue with relevance subscription when no relevance function\n\n## 4.0.6 (December 9th, 2021)\n\n### Fixed\n\n- Missing functions setValues and setTheseValues\n\n## 4.0.5 (December 9th, 2021)\n\n### Fixed\n\n- Missing types for validate and validateField on FormApi\n\n## 4.0.4 (December 9th, 2021)\n\n### Fixed\n\n- Issue where we forgot to expose form validate\n- Missing utils types\n\n## Added\n\n- useScope and useScoper to exports\n\n## 4.0.3 (December 7th, 2021)\n\n### Fixed\n\n- Issue with forms valid and invalid when relevance changes\n\n## 4.0.2 (December 7th, 2021)\n\n### Fixed\n\n- Issue with schema path util `inverter[12].air_filter_ok` would not work\n\n## 4.0.1 (December 7th, 2021)\n\n### Fixed\n\n- Issue with initializing when becoming relevant\n\n## 4.0 !!!!\n\n### Breaking changes\n\n#### onSubmit signature\n\nOld\n\n```\nconst onSubmit = values => console.log( values );\n```\n\nNew\n\n```\nconst onSubmit = formState => console.log( formState.values );\n```\n\n#### Text --\x3e Input\n\nOld\n\n```jsx\n<Text field="name" />\n```\n\nNew\n\n```jsx\n<Input name="name" />\n```\n\n#### apiRef --\x3e formApiRef\n\nOld\n\n```jsx\n<Form apiRef={apiRef} />\n// OR\n<Form getApi={getApi} />\n```\n\nNew\n\n```jsx\n<Form formApiRef={formApiRef} />\n```\n\n#### informed:props ( schema )\n\n```\ninformed:props is now ui:props when using schema based forms\n```\n\n#### `asField` has been removed\n\nInstead of doing this\n\n```js\nconst CustomField = asField({ fieldState, fieldApi }) => {}\n```\n\nDo this\n\n```js\nconst CustomField = props => {\n  const { fieldState, fieldApi } = useField(props);\n};\n```\n\n#### Relevance\n\nThe when function for relevance now has this signature\n\n```\nwhen={({formState, formApi, scope}) => {...} }\n```\n\n#### yupSchema\n\n```\nvalidationSchema ---\x3e is now yupSchema\n```\n\n#### Array Fields\n\n##### Renamed `field` to `name`\n\n```jsx\n<ArrayField.Items>\n  {({ remove, field }) => (\n    <>\n      <Input name={field} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\nIs Now\n\n```jsx\n<ArrayField.Items>\n  {({ remove, name }) => (\n    <>\n      <Input name={name} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\n##### No more array field path prefixing\n\nOld:\n\n```jsx\n<ArrayField.Items>\n  {({ remove, field }) => (\n    <>\n      <Input name={`${field}.name`} />\n      <Input name={`${field}.age`} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\nNew:\n\n```jsx\n<ArrayField.Items>\n  {({ remove }) => (\n    <>\n      <Input name="name" />\n      <Input name="age" />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\n##### No more values in array field render prop\n\nOld:\n\n```jsx\n// Some component you need to use state of array field item\nconst FieldState = ({ values }) => {\n  return (\n    <pre>\n      <code>{JSON.stringify(values, null, 2)}</code>\n    </pre>\n  );\n};\n\n<ArrayField.Items>\n  {({ remove, values }) => (\n    <>\n      <Input name="name" />\n      <Input name="age" />\n      <FieldState values={values} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>;\n```\n\nNew:\n\n```jsx\n// Some component you need to use state of array field item\nconst FieldState = () => {\n  const { values } = useArrayFieldItemState();\n  return (\n    <pre>\n      <code>{JSON.stringify(values, null, 2)}</code>\n    </pre>\n  );\n};\n\n<ArrayField.Items>\n  {({ remove }) => (\n    <>\n      <Input name="name" />\n      <Input name="age" />\n      <FieldState />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>;\n```\n\n#### Debugging with `<FormState />`\n\nOld:\n\n```jsx\n<FormState values errors />\n```\n\nNew:\n\n```jsx\n<Debug values errors />\n```\n\n#### Custom Inputs\n\nMinor changes to custom inputs\n\nNew:\n\n```jsx\nconst CustomInput = props => {\n  const { fieldState, fieldApi, render, ref, userProps } = useField(props);\n\n  // The field state\n  const { value, error, showError } = fieldState;\n\n  // The field control\n  const { setValue, setTouched } = fieldApi;\n\n  // Everything else\n  const { label, id, ...rest } = userProps;\n\n  return render(\n    <>\n      {label ? <label htmlFor={id}>{label}</label> : null}\n      <input\n        {...rest}\n        id={id}\n        ref={ref}\n        value={!value && value !== 0 ? \'\' : value}\n        onChange={e => {\n          setValue(e.target.value, e);\n        }}\n        onBlur={e => {\n          setTouched(true, e);\n        }}\n        style={showError ? { border: \'solid 1px red\' } : null}\n      />\n      {showError ? <small style={{ color: \'red\' }}>{error}</small> : null}\n    </>\n  );\n};\n```\n\n#### Validation\n\nValidation is now controlled via validateOn="validationString"\n\nBy default fields will only validate on blur. To get\nmore granular validation, simply pass in `validateOn` props.\n\nSee table below for mapping:\n\n<br />\n\n| validateOn    | derived       | change       | blur         | submit       | default |\n| ------------- | ------------- | ------------ | ------------ | ------------ | ------- |\n| change        | change-change | sync + async | sync + async | sync + async |         |\n| blur          | blur-blur     | x            | sync + async | sync + async | x       |\n| change-blur   | change-blur   | sync         | sync + async | sync + async |         |\n| change-submit | change-submit | sync         | sync         | sync + async |         |\n| blur-submit   | submit-submit | x            | sync         | sync + async |         |\n| submit        | submit-submit | x            | x            | sync + async |         |\n\n<br />\n\nValidation is controlled via the `validateOn` prop, but in order to control when it shows,\nuse the `showErrorIfError` and `showErrorIfDirty` props. **This is because sometimes you may want the form to be invalid but not show the error to the user yet ( default is `showErrorIfTouched` )**\n\n| prop               | description                                                                                                  | default |\n| ------------------ | ------------------------------------------------------------------------------------------------------------ | ------- |\n| showErrorIfError   | will set `showError` for that field to true whenever there is an error (typically used with validateOnMount) |         |\n| showErrorIfTouched | will set `showError` for that field to true whenever there is an error and the field is touched              | x       |\n| showErrorIfDirty   | will set `showError` for that field to true whenever there is an error and the field is dirty                |         |\n\n<br />\n\nFinally we have a use case for validating right away ( on mount )\n\n| prop            | description                     | default |\n| --------------- | ------------------------------- | ------- |\n| validateOnMount | will trigger validation onMount | false   |\n\n<br />\n<br />\n\n---\n\n<br />\n\n## 3.34.0 (June 22, 2021)\n\n### Added\n\n- ability to control when async validation occurs with props\n\n## 3.33.0 (May 21, 2021)\n\n### Added\n\n- createIntlNumberFormatter\n\n## 3.32.3 (May 21, 2021)\n\n### Fixed\n\n- Issue with useFieldState, now returns empty object by default\n\n## 3.32.2 (May 21, 2021)\n\n### Fixed\n\n- Issue with mounting useFieldStates\n\n## 3.32.1 (May 21, 2021)\n\n### Fixed\n\n- Issue with layoutEffect in SSR\n\n## 3.32.0 (May 19, 2021)\n\n### Added\n\n- Ability to walk down a multistep with step selection.\n\n## 3.31.0 (April 26, 2021)\n\n### Added\n\n- formatter functions `formatter = [()=>{}, ()=>{}]`\n\n## 3.30.3 (April 2, 2021)\n\n### Added\n\n- memoized render back because I never should have removed it\n\n## 3.30.2 (March 15, 2021)\n\n### Refactored\n\n- To no longer use event emitter.\n\n## 3.30.1 (March 5, 2021)\n\n### Fixed\n\n- Issue where keep state in scope was not working.\n\n## 3.30.0 (March 2, 2021)\n\n### Added\n\n- Pristine and Dirty to formFieldState\n\n## 3.29.4 (February 24, 2021)\n\n### Updated\n\n- Peer deps to support react v 17\n\n## 3.29.3 (February 5, 2021)\n\n### Fixed\n\n- Issue where ObjectMap `has` would reference wrong get funciton fixes #327\n\n## 3.29.2 (February 4, 2021)\n\n### Fixed\n\n- Issue where carrot pos would be in the wrong place when formatting\n\n### Updated\n\n- `useField` hook to use the `useCarrotPosition` hook ( removed duplicate code )\n\n## 3.29.1 (February 4, 2021)\n\n### Added\n\n- Ability to call `setValue` function for custom formattedObject Inputs\n\n## 3.29.0 (February 2, 2021)\n\n### Added\n\n- Ability to pass `initialize` function for custom initialization of the initial value\n\n## 3.28.0 (February 2, 2021)\n\n### Exposed\n\n- Utils functions that can be used by end users\n\n## 3.27.0 (December 18, 2020)\n\n### Fixed\n\n- bug with update function in form controller where it would pull instead of delete on swap\n\n## 3.26.0 (December 17, 2020)\n\n### Added\n\n- `swap` to array fields\n\n### Rafactored\n\n- Internal state management\n\n## 3.25.0 (December 8, 2020)\n\n### Added\n\n- `onReset` to form props\n\n## 3.24.4 (December 5, 2020)\n\n### Updated\n\n- README and needed to get it to npm ... again again\n\n## 3.24.3 (December 5, 2020)\n\n### Updated\n\n- README and needed to get it to npm ... again\n\n## 3.24.2 (November 24, 2020)\n\n### Updated\n\n- README and needed to get it to npm\n\n## 3.24.1 (November 23, 2020)\n\n### Fixed\n\n- Type issue ( missing allow empty string from props def )\n\n## 3.24.0 (November 19, 2020)\n\n### Fixed\n\n- Issue where Id was not getting passed to default select field\n\n## 3.23.0 (November 18, 2020)\n\n### Removed\n\n- LODASH!!!!! SEE YA LATER NEVER\n\n## 3.22.0 (November 17, 2020)\n\n### Added\n\n- Ability to pass relevant to array fields!!!\n\n## 3.21.2 (November 14, 2020)\n\n### Fixed\n\n- Bug with field level relevant\n\n### Updated\n\n- Form to always evaluate relevance, and not force the user to pass notify.\n\n## 3.21.1 (November 12, 2020)\n\n### Fixed\n\n- Isssue where state would not update after submit\n\n## 3.21.0 (November 12, 2020)\n\n### Added\n\n- Ability to add async validation functions to inputs\n\n## 3.20.0 (November 11, 2020)\n\n### Added\n\n- Ability to not pass keep state to multistep fields, and also added docs for conditional relevant nested array fields\n\n## 3.19.0 (November 10, 2020)\n\n### Added\n\n- Ability to hide or show fields based on relevant, and notify relevant fields\n\n## 3.18.3 (November 10, 2020)\n\n### Fixed\n\n- bug with resetting array field items\n\n## 3.18.2 (November 9, 2020)\n\n### Fixed\n\n- bug with duplicate fields\n\n## 3.18.1 (November 9, 2020)\n\n### Fixed\n\n- bug with keep state registering phantom fields\n\n## 3.18.0 (November 5, 2020)\n\n### Added\n\n- ability to create custom schema fields\n\n## 3.17.1 (November 3, 2020)\n\n### Fixed\n\n- useField was not adding id to label by default\n\n## 3.17.0 (November 3, 2020)\n\n### Added\n\n- Required attribute to input and automatic type generation for useField hook\n\n## 3.16.1 (November 2, 2020)\n\n### Fixed\n\n- Issue where informed props were not passed down to array fields in schema\n\n## 3.16.0 (November 1, 2020)\n\n### Added\n\n- Ability to have conditional schemas!!!!\n\n## 3.15.0 (October 28, 2020)\n\n### Added\n\n- Ability to add array fields in schema!!!!\n\n## 3.14.0 (October 27, 2020)\n\n### Added\n\n- Formatter and Parser !!!!!\n\n## 3.13.2 (October 27, 2020)\n\n### Fixed\n\n- Issue with strict mode double registering\n\n## 3.13.1 (October 23, 2020)\n\n### Fixed\n\n- Bug where inforemd would crash if schema was missing field that was in JSX ( returns null )\n\n## 3.13.0 (October 23, 2020)\n\n### Added\n\n- Ability to render schema fields in specific paces within JSX!!\n\n## 3.12.0 (October 22, 2020)\n\n### Added\n\n- Added AJV Schema shit!!!\n\n## 3.11.0 (October 21, 2020)\n\n### Added\n\n- Schema shit\n\n## 3.10.1 (October 18, 2020)\n\n### Fixed\n\n- Array fields because I stupidly broke them\n\n#### Added\n\n- Tests for multistep fields\n- Better multistep form syntax\n- Better multistep docs\n\n## 3.10.0 (September 29, 2020)\n\n### Updated\n\n- internals to modify state direct to improve performance!\n\n## 3.9.0 (June 15, 2020)\n\n### Updated\n\n- useArray field to expose a reset that resets to initial values\n\n## 3.8.1 (May 11, 2020)\n\n### Fixed\n\n- Issue with back and next types for multistep fields\n\n## 3.8.0 (May 4, 2020)\n\n### Added\n\n- Array field Api control for ArrayFieldItems\n\n## 3.7.0 (May 4, 2020)\n\n### Refactored\n\n- To use field ids instead of names\n\n### Added\n\n- `<Relevant>` component\n\n## 3.6.1 (March 2, 2020)\n\n### Updated\n\n- Type file to include preventEnter on form props\n\n## 3.6.0 (March 1, 2020)\n\n### Added\n\n- Ability to pass formController to useField hook\n\n## 3.5.2 (February 28, 2020)\n\n### Fixed\n\n- [Issue](https://github.com/joepuzzo/informed/issues/275) where new version of react would throw warnings due to bad code\n\n## 3.5.1 (February 27, 2020)\n\n### Fixed\n\n- [Issue](https://github.com/joepuzzo/informed/issues/272) where dynamic nested array fields with keep state kept too much state :)\n\n## 3.5.0 (February 25, 2020)\n\n### Added\n\n- New multistep abilities via setCurrent in `formApi` and `Current` in `formState`. See compex multistep form in docs\n\n## 3.4.0 (February 22, 2020)\n\n### Added\n\n- Ability to spread `informed` object on inputs via the `useField` hook\n\n## 3.3.5 (February 22, 2020)\n\n### Updated\n\n- Readme to show useForm example\n\n## 3.3.4 (February 20, 2020)\n\n### Added\n\n- FormState component to assist when debugging!\n\n## 3.3.3 (February 18, 2020)\n\n### Added\n\n- Types for multisetp forms\n\n## 3.3.2 (February 16, 2020)\n\n### Added\n\n- Ability to use cursor position in mask function\n\n## 3.3.1 (February 16, 2020)\n\n### Updated\n\n- Intro examples to inculde on submit example\n\n## 3.3.0 (February 10, 2020)\n\n### Added\n\n- Field level Yup support\n\n## 3.2.1 (February 9, 2020)\n\n### Fixed\n\n- Typo in yup docs and readme\n\n## 3.2.0 (February 9, 2020)\n\n### Added\n\n- Yup support\n\n## 3.1.2 (February 9, 2020)\n\n### Updated\n\n- docs and readme to link to dicord channel\n\n## 3.1.1 (February 8, 2020)\n\n### Added\n\n- apiRef so you can just pass a ref to the form\n\n## 3.1.0 (February 5, 2020)\n\n### Added\n\n- Step functionality to support multistep forms\n\n## 3.0.2 (January 24, 2020)\n\n### Fixed\n\n- Issue https://github.com/joepuzzo/informed/issues/267\n\n## 3.0.1 (January 24, 2020)\n\n### Fixed\n\n- README ( I wish there was a way on npm to update readme without publishing version )\n\n## 3.0.0 (January 24, 2020)\n\n### Fixed\n\n- Issue with array field validation https://github.com/joepuzzo/informed/issues/259\n- Issue where informed would throw errors when fields were hidden but referenced\n\n### Added\n\n- Ability to ( in the near future ) add validations to scopes ( Enabled because of code refacotor... will add soon :)\n\n### Changed\n\n- The internals to no longer keep track of giant state object but instead generate it on demand\n\n### Removed\n\n- A bunch of useless code :)\n\n#### Cleaned up\n\n- Large portion of the code .. Mostly the formController!\n\n## 2.11.17 (January 21, 2020)\n\n## Update\n\n- useField to trigger validation when validation related props change\n\n## 2.11.16 (November 18, 2019)\n\n## Fixed\n\n- issue with array field where validation would fail\n\n## 2.11.15 (November 6, 2019)\n\n## Fixed\n\n- issue with array field where removing multiple fields did not remove the data from state\n\n## 2.11.14 (November 5, 2019)\n\n## Removed\n\n- removable prop to inputs because it was a bad idea... now it supports removal nativley\n\n## 2.11.13 (November 4, 2019)\n\n## Added\n\n- removable prop to inputs ( adds support for pairing keep state and array fields such that remove button actually removes field )\n\n## 2.11.12 (November 1, 2019)\n\n## Fixed\n\n- issue with keep state on array fields\n\n## 2.11.11 (November 1, 2019)\n\n## Added\n\n- comp name to useField hook\n\n## 2.11.10 (October 21, 2019)\n\n## Added\n\n- missing setFormError prop to FormApi interface\n\n## 2.11.9 (September 10, 2019)\n\n## Added\n\n- keepState to types\n\n## 2.11.8 (July 16, 2019)\n\n## Adds\n\n- allowEmptyStrings form level prop to types\n\n## 2.11.7 (July 8, 2019)\n\n## Fixes\n\n- issue 227 where allowEmptyStrings form level prop did not work\n\n## 2.11.6 (July 2, 2019)\n\n## Fixes\n\n- issue 219 where array fields would not work with scope\n\n## 2.11.5 (July 2, 2019)\n\n## Fixes\n\n- issue 225 where validation will occur on mount when there are initial values\n\n## 2.11.4 (July 1, 2019)\n\n## Fixes\n\n- issue 215 where selects dont work in Edge becase .. you know.. Microsoft\n\n## 2.11.3 (July 1, 2019)\n\n## Fixes\n\n- warning with useLayoutEffect when using SSR\n\n## 2.11.2 (June 27, 2019)\n\n## Updated\n\n- README file to include minzipped badge\n\n## 2.11.1 (June 18, 2019)\n\n## Fixed\n\n- Issue where initial values changing on multiselects caused looping .. oops\n\n## 2.11.0 (June 14, 2019)\n\n## Updated\n\n- useForm to return user props and a render method\n- Form provider to no longer render a `<form></form>` IT NEVER SHOULD HAVE.\n\n## 2.10.2 (June 13, 2019)\n\n## Fixed\n\n- Issue where initial values did not change when form was reset\n\n## 2.10.1 (June 11, 2019)\n\n## Fixed\n\n- Issue where array level validation would not trigger for complex nested fields within array field\n\n## Added\n\n- length as a second parameter to arrayFields validate function\n\n## 2.10.0 (June 7, 2019)\n\n## Added\n\n- ability to pass validation function to an array field\n- arrayFields are now treaded as "shadow" fields\n\n## 2.9.0 (June 6, 2019)\n\n## Added\n\n- useArrayField hook\n\n## 2.8.2 (June 5, 2019)\n\n## Added\n\n- ability to change out form options such as validateFields\n\n## 2.8.1 (June 5, 2019)\n\n## Fixed\n\n- issue with addWithInitialValue when using add and then addWithInitialValue\n\n## 2.8.0 (June 5, 2019)\n\n## Added\n\n- addWithInitialValue to the `ArrayField`\n\n## 2.7.8 (May 31, 2019)\n\n## Fixed\n\n- issue where initial values were not being formatted\n\n## 2.7.7 (May 30, 2019)\n\n## Fixed\n\n- issue where initial values were not being masked\n\n## 2.7.6 (May 29, 2019)\n\n## Updated\n\n- Types file to support validate on formApi\n\n## 2.7.5 (May 29, 2019)\n\n## Updated\n\n- Types file to support any type on form errors\n\n## 2.7.4 (May 23, 2019)\n\n### Fixed\n\n- documentation for creating custom inputs\n\n### Added\n\n- the ability to pass your own ref to inputs\n\n## 2.7.3 (May 22, 2019)\n\n### Fixed\n\n- issue with validation triggering when keep state and validate on blur\n\n## 2.7.2 (May 21, 2019)\n\n### Added\n\n- made `maskWithCursorOffset` optional in types\n\n## 2.7.1 (May 21, 2019)\n\n### Added\n\n- `maskWithCursorOffset` to the type defs\n\n## 2.7.0 (May 21, 2019)\n\n### Added\n\n- `maskWithCursorOffset` prop to inputs\n\n## 2.6.15 (May 20, 2019)\n\n### Added\n\n- maintainCursor to types\n\n## 2.6.14 (May 16, 2019)\n\n### Added\n\n- render and userProps to field context types\n\n## 2.6.13 (May 16, 2019)\n\n### Added\n\n- maskedValue to types\n\n## 2.6.12 (May 14, 2019)\n\n### Added\n\n- getters to useFields field api\n\n## 2.6.11 (May 11, 2019)\n\n### Added\n\n- useField hook to the docs\n\n### Updated\n\n- the interface for useField hook\n\n## 2.6.10 (May 10, 2019)\n\n### Fixed\n\n- issue where initialization code in useform was in the effect and not in constructor\n\n## 2.6.9 (May 10, 2019)\n\n### Fixed\n\n- attempting to fix issue that I think is caused by useEffect in useForm hook\n\n## 2.6.8 (May 10, 2019)\n\n### Fixed\n\n- issues cause by using `useMemo` instead of `useState` for initial render stuff\n\n## 2.6.7 (May 9, 2019)\n\n### Added\n\n- exists function to the field api types\n\n## 2.6.6 (May 9, 2019)\n\n### Added\n\n- exists function to the field api so you can check to see if that field exists\n\n## 2.6.5 (May 9, 2019)\n\n### Fixed\n\n- issue where inital render of useFieldApi would fail when field was not registered yet\n\n## 2.6.4 (May 9, 2019)\n\n### Updated\n\n- useForm hook so that the event handlers can change\n\n## 2.6.3 (May 7, 2019)\n\n### Removed\n\n- debug as a dependency and added my own :)\n\n## 2.6.2 (May 3, 2019)\n\n### Fixed\n\n- issue with default register context missin getField function\n\n## 2.6.1 (May 3, 2019)\n\n### Fixed\n\n- issue with `useFieldApi` hook and `withFieldApi` HOC where reset and validate were not there\n\n### Added\n\n- a few more tests to increase test coverage!!!! wooo\n\n## 2.6.0 (May 2, 2019)\n\n### Added\n\n- `useForm` hook!!! and `FormProvider` component!!!\n\n## 2.5.0 (April 30, 2019)\n\n### Updated\n\n- useField hook to useEffect instead of useLayoutEffect\n\n## 2.4.0 (April 30, 2019)\n\n### Added\n\n- preventEnter prop to the form so users can prevent enter key form submission\n\n## 2.3.2 (April 22, 2019)\n\n### Updated\n\n- Issue with dynamic arrays and initial values\n\n## 2.3.1 (April 12, 2019)\n\n### Updated\n\n- Babel build\n\n## 2.3.0 (April 3, 2019)\n\n### Added\n\n- `allowEmtyStrings` prop to the form\n- `allowEmtyString` prop to inputs\n\n### Fixed\n\n- issue where setValues would not allow empty strings\n\n## 2.2.0 (March 29, 2019)\n\n### Added\n\n- `setFormError` function to the form api\n- `validate` function to the form api\n\n## 2.1.15 (March 28, 2019)\n\n### Fixed\n\n- Issue with setValues missing from the default context\n\n## 2.1.14 (March 27, 2019)\n\n### Fixed\n\n- Issue where reset would call validation\n\n## 2.1.13 (March 18, 2019)\n\n### Updated\n\n- Allowing for optional generic on FormValue\n\n## 2.1.12 (March 13, 2019)\n\n### Updated\n\n- ref to be any type in typings\n\n## 2.1.11 (March 12, 2019)\n\n### Fixed\n\n- issue in typings for ref field on FieldContext\n\n## 2.1.10 (March 12, 2019)\n\n### Fixed\n\n- issue when using a field NOT in the context of a form\n\n## 2.1.9 (March 8, 2019)\n\n### Fixed\n\n- another issue where initial values did not work when keep state was passed\n\n## 2.1.8 (March 8, 2019)\n\n### Fixed\n\n- issue where initial values did not work when keep state was passed\n\n## 2.1.7 (March 3, 2019)\n\n### Fixed\n\n- issue where initial values did not work for `ArrayFields`\n\n## 2.1.6 (Feb 21, 2019)\n\n### Updated\n\n- typing files for type script users\n\n## 2.1.5 (Feb 19, 2019)\n\n### Fixed\n\n- Issue with text area input not setting typed value\n\n## 2.1.4 (Feb 19, 2019)\n\n### Added\n\n- `maskOnBlur` prop to inputs\n\n## 2.1.3 (Feb 14, 2019)\n\n### Added\n\n- `fieldExists` api function to check if field exists\n\n## 2.1.2 (Feb 14, 2019)\n\n### Fixed\n\n- Issue where form that is submitted through enter key would try to prevent default\n\n## 2.1.1 (Feb 14, 2019)\n\n### Fixed\n\n- Issue where form values would not get passed to validation function when touched\n\n## 2.1.0 (Feb 14, 2019)\n\n### Updated\n\n- Format and parse to set maskedValue instead of value\n\n## 2.0.5 (Feb 14, 2019)\n\n### Fixed\n\n- Issue where you could NOT set 0 null or false as initial values because they are falsey\n\n## 2.0.4 (Feb 13, 2019)\n\n### Added\n\n- validateFields function to the form!!!\n\n## 2.0.3 (Feb 13, 2019)\n\n### Fixed\n\n- Issue where reset would not work for scoped fields\n\n### Added\n\n- Set Values to the form api!!!\n\n## 2.0.2 (Feb 13, 2019)\n\n### Fixed\n\n- Issue where ArrayField was prefixing all fields with \'field\'\n- Issue where when input fields changed input did not rerender.\n\n## 2.0.1 (Feb 10, 2019)\n\n### Fixed\n\n- Issue where render and component props were getting passed to the dom form\n\n## 2.0.0 (Feb 7, 2019)\n\n### Added\n\n- useFieldApi\n- useFieldState\n- useFormApi\n- useFormState\n- useField\n- format\n- parse\n- maintianCursor ( fixes issue where cursor jumps to end on mask )\n- ArrayField ( Check out the docs! this is sick! )\n- Form Level validation ( function that can invalidate the form as a whole )\n- debug prop that allows you to visually view the rendering!\n\n### Changed\n\n- the field `"siblings.1"` now resolves to `values.siblings[1]`, it used to resolve to `values.siblings.1`\n- the field `"siblings[\'2\']"` now resolves to `values.siblings[2]`, it used to resolve to `values.siblings.2`\n- withFormApi will no longer trigger a rerender if the fomrs state changes. This is a great optimization for those who want to modify but dont care about the form state!\n- the `validate` prop now expects the validation function to return `undefined` if there is no error. Any other returned value (including falsey `null`, `0`, etc will be treated as an error for the field.\n\n### Removed\n\n- The Field Component\n- `fieldExists` not needed\n- `setState` will maybe add later but its complex and out of scope ATM\n- `setValues` will maybe add later but its complex and out of scope ATM ( as of V 2.0.3 its back! )\n- `preSubmit` was never needed.. developers can do this themselves\n- Async Validation. Async validation led to many issues that overcomplicated `informed`. We determined this is something that the developer could achive on there own for now but we may look into adding this in the future.\n\n## 1.10.12 ( December 4, 2018 )\n\n### Updated\n\n- typescript definition file\n\n## 1.10.11 & 1.10.10 I ran version patch twice lol ( December 4, 2018 )\n\n### Updated\n\n- Select forward ref\n\n## 1.10.9 ( November 16, 2018 )\n\n### Updated\n\n- files in package json to include typeigs\n\n## 1.10.8 ( November 8, 2018 )\n\n### Added\n\n- type file for typescript\n\n## 1.10.7 ( October 11, 2018 )\n\n### Updated\n\n- Name of withFormSate\n\n## 1.10.6 ( October 2, 2018 )\n\n### Fixed\n\n- Skipped test for select!!!\n\n### Updated\n\n- Select to use new ref interface\n\n## 1.10.5 ( September 14, 2018 )\n\n### Added\n\n- License\n\n## 1.10.4 ( August 13, 2018 )\n\n### Fixed\n\n- Issue with @babel/runtime was the dep when it should have ben @babel/runtime-corejs2\n\n## 1.10.3 ( August 13, 2018 )\n\n### Fixed\n\n- Issue with @babel/runtime for real this time\n\n## 1.10.2 ( August 13, 2018 )\n\n### Fixed\n\n- Issue with @babel/runtime\n\n## 1.10.1 ( August 13, 2018 )\n\n### Removed\n\n- mistakenly added dev deps that were deps... oops\n\n## 1.10.0 ( August 13, 2018 )\n\n### Added\n\n- submits to the form state\n\n## 1.9.0 ( August 8, 2018 )\n\n### Rebuilt\n\n- Added prettier so all the files have been changed... so i rebuilt to have source maps match code\n\n## 1.8.1 ( August 1, 2018 )\n\n### Rebuilt\n\n- Attempting to simply rebuild lib due to possible build issue\n\n## 1.8.0 ( August 1, 2018 )\n\n### Updated\n\n- initialValue to get exposed as prop to custom fields\n\n## 1.7.5 ( July 31, 2018 )\n\n### Added\n\n- Source maps\n\n## 1.7.4 ( July 26, 2018 )\n\n### Fixed\n\n- Issue where Basic radio group was not getting exported\n\n## 1.7.3 ( July 23, 2018 )\n\n### Fixed\n\n- issue where bind to field did not pass down the field prop.\n\n## 1.7.2 ( July 20, 2018 )\n\n### Fixed\n\n- Issue where element wont get removed from array when deregistering field... this is used when dynamically removing value\n\n## 1.7.1 ( July 20, 2018 )\n\n### Added\n\n- Field prop is now exposed to field elements and default inputs pass field as name to html inputs\n\n## 1.7.0 ( July 18, 2018 )\n\n### Added\n\n- fieldExists method to the formApi\n\n## 1.6.0 ( July 16, 2018 )\n\n### Added\n\n- onValueChange prop to inputs so you can tie into when values change!!\n\n## 1.5.2 ( July 13, 2018 )\n\n### Fixed\n\n- Issue where prop changes to fields would not get recognized\n\n## 1.5.1 ( July 13, 2018 )\n\n### Fixed\n\n- issue where i forgott to add @babel/runtime as dependency\n\n## 1.5.0 ( July 12, 2018 )\n\n### Added\n\n- asyncValidation prop to inputs\n- asyncValidateOnBlur prop to inputs\n\n## 1.4.0 ( July 5, 2018 )\n\n### Added\n\n- Basic input fields so users can more easily create custom inputs\n- Docs for creating custom inputs\n\n## 1.3.11 ( July 9, 2018 )\n\n### Fixed\n\n- issue where you could not nest scope\n\n## 1.3.10 ( July 5, 2018 )\n\n### Fixed\n\n- issue where you could not pass initialValue=false to checkbox\n\n## 1.3.9 ( July 5, 2018 )\n\n### Fixed\n\n- issue where mutable values were getting passed to onSubmit and getState\n\n## 1.3.8 ( July 2, 2018 )\n\n### Fixed\n\n- issue where path array was being build every get and set\n\n## 1.3.7 ( July 2, 2018 )\n\n### Fixed\n\n- issue where onChange was getting passed to internal form element\n\n## 1.3.6 ( June 28, 2018 )\n\n### Added\n\n- globalObject: \'this\' to the webpack dist config to support SSR\n\n## 1.3.5 ( June 28, 2018 )\n\n### Fixed\n\n- Issue with event emitter limit ( need to look into alternative solution )\n- Removed depricated sandbox sinon usage that was causing errors during tests\n\n## 1.3.3 ( June 28, 2018 )\n\n### Updated\n\n- Webpack dist configuration to keep class names\n\n## 1.3.2 ( June 28, 2018 )\n\n### Fixed\n\n- Issue were initialValue was getting passed all the way down to html input\n- Issue where form would not rerender when field was registered\n\n## 1.3.1 ( June 28, 2018 )\n\n### Fixed\n\n- Issue were validateOnMount was getting passed all the way down to html input\n\n## 1.3.0 ( June 28, 2018 )\n\n### Added\n\n- mask so you can mask values at field level. example `value => value + \'!!!\'`\n\n## 1.2.1 ( June 27, 2018 )\n\n### Added\n\n- hook so you can add a button with type=reset and it will reset the form\n\n## 1.2.0 ( June 27, 2018 )\n\n### Added\n\n- validateOnMount to input props\n\n## 1.1.2 ( June 25, 2018 )\n\n### Moved\n\n- React and React-Dom to dev dependencies\n\n## 1.1.1 ( June 18, 2018 )\n\n### Fixed\n\n- Bug where i did not do null check on event within on submit\n\n## 1.0.1 ( June 15, 2018 )\n\n### Added\n\n- Notify prop to inputs that allows you to notify other fields when your error state changes ( see docs )\n\n## 1.0.0 (June 12, 2018)\n\n### Added\n\n- Text\n- TextArea\n- Radio Group\n- Radio\n- Select\n- Select as Multiselect !!!\n- Checkbox\n- withRadioGroup\n- withFieldApi\n- withFieldState\n- withFormApi\n- withFormState\n- asField\n- Form\n- Field\n\n### Changed\n\n**\nNote: this was the first release but i wanted to include changes from\n`react-form` so here they are:\n**\n\n- `formApi` was split into two parts `formApi` ( contains just functions ) `formState` ( contains just form state )\n- Form level validation is gone. You do all validation via field validation.\n- `defaultValues` Form prop is now called `initialValues`\n- `onChange` Form prop only recieves the `formState`. It used to retrieve the form Api as well.\n- `preventDefault` Form prop is now `dontPreventDefault`\n- `getApi` Form prop just returns the formApi, not the state and the api.\n- `Form` component now renders the `form` element internally. So you dont have to "hook it up" anymore!!\n\n### Removed\n\n**\nNote: this was the first release but i wanted to include things that were removed from\n`react-form` so here they are:\n**\n\n- `NestedField` you can use `Scope` instead but all it does is scope internal fields to `scope="your-scope"`\n- validateOnSubmit was removed. Now the form always validates on submit by default and you can opt into sooner validation at field level.\n- `defaultValues` form prop is now called `initialValues`\n- `pure` Form prop. Its not needed anymore due to the use of `React.PureComponent` internally.\n- add, remove, and swap values. The developer can achive this on there own without the use of internal functionality.\n- Array Syntax. In order to keep things simple we now only support the string syntax for field names.\n- Async Validation. Async validation led to many issues that overcomplicated `react-form`. We determined this is something that the developer could achive on there own for now but we may look into adding this in the future.\n- Warning and Success have been removed for now to keep lib lean but we may add additional functions in the future.\n',
+        '## 4.8.0 (March 31st, 2022)\n\n### Added\n\n- useConditional hook and ability to pass `evaluate` and `evaluateWhen`\n\n## 4.7.0 (March 29th, 2022)\n\n### Added\n\n- ability to pass gatherOnMount to a field\n\n## 4.6.1 (March 22nd, 2022)\n\n### Fixed\n\n- misnamed `gatherData` prop\n\n## 4.6.0 (March 22nd, 2022)\n\n### Added\n\n- `gatherData` prop to allow user to get asnyc information for a field\n\n## 4.5.12 (March 22nd, 2022)\n\n### Fixed\n\n- Missing types for default exported fields\n- Missing type for `required`\n\n## 4.5.11 (March 20th, 2022)\n\n### Fixed\n\n- issue where allowEmptyString and allowEmptyStrings where broken\n\n## 4.5.10 (March 18th, 2022)\n\n### Fixed\n\n- issue where `step` was missing from multistep type\n\n## 4.5.9 (March 18th, 2022)\n\n### Fixed\n\n- issue with propertyOrder in nested schemas\n\n## 4.5.8 (March 18th, 2022)\n\n### Fixed\n\n- issue with more than double nested schemas\n- issue with Multistep.Step types\n\n## 4.5.7 (March 9th, 2022)\n\n### Fixed\n\n- issue with changing options on schema fields ( undefined would clobber defined values in option merge )\n\n## 4.5.6 (March 8th, 2022)\n\n### Fixed\n\n- issue where changing validation params would not rebuild validation function\n\n## 4.5.5 (March 8th, 2022)\n\n### Fixed\n\n- issue where multistep steps would not deregister\n\n## 4.5.4 (Feb 28th, 2022)\n\n### Fixed\n\n- issue where multistep steps would not clean up after themselves\n\n## 4.5.3 (Feb 22th, 2022)\n\n### Fixed\n\n- issue with touchAllFields not touching fields within an array\n\n## 4.5.2 (Feb 18th, 2022)\n\n### Fixed\n\n- Another Issue with debugger in react native that caused crash\n\n## 4.5.1 (Feb 16th, 2022)\n\n### Fixed\n\n- Issue with debugger in react native\n\n## 4.5.0 (Feb 16th, 2022)\n\n### Added\n\n- onValueModified prop to useForm\n\n## 4.4.0 (Feb 15th, 2022)\n\n### Added\n\n- ability to pass reset options to reset field\n\n## 4.3.0 (Feb 15th, 2022)\n\n### Added\n\n- onValueChange prop to useForm\n\n## 4.2.0 (Feb 10th, 2022)\n\n### Added\n\n- Ability to add n items to array field by passing add(3) a number to add\n\n## 4.1.2 (Feb 10th, 2022)\n\n### Fixed\n\n- Missing form level option for keepState and keepStateIfRelevant\n\n## 4.1.1 (Feb 9th, 2022)\n\n### Fixed\n\n- Stupid issue with safari throwing a type error when trying to check for selectionStart on event.target\n\n## 4.1.0 (Feb 8th, 2022)\n\n### Added\n\n- Ability to use state across multiple forms\n\n## 4.0.35 (Feb 8th, 2022)\n\n### Fixed\n\n- missing types for multistep and formApi\n\n## 4.0.34 (Feb 4th, 2022)\n\n### Fixed\n\n- issue with INTL formatter when used with `EUR` and `en-DE`\n\n## 4.0.33 (Feb 3rd, 2022)\n\n### Fixed\n\n- issue with formatter function not allowing full value\n\n## 4.0.32 (January 26th, 2022)\n\n### Fixed\n\n- issue with FormField not allowing conditional fields\n\n## 4.0.31 (January 25th, 2022)\n\n### Fixes https://github.com/teslamotors/informed/issues/381\n\n- autoFocus on Input throws error\n\n## 4.0.30 (January 24th, 2022)\n\n### Added\n\n- propertyOrder back to schema\n\n## 4.0.29 (January 20th, 2022)\n\n### Added\n\n- asyncValidate to formApi\n\n## 4.0.28 (January 18th, 2022)\n\n### Fixed\n\n- issue with cursor offsets when suffix is added\n\n## 4.0.27 (January 14th, 2022)\n\n### Fixed\n\n- issue with negative cursor offsets\n\n### Fixed\n\n- issue with off by one cursor locations on formatter\n\n## 4.0.25 (January 14th, 2022)\n\n### Fixed\n\n- createIntlNumberFormatter not working with negative numbers\n\n## 4.0.24 (January 7th, 2022)\n\n### Added\n\n- clearValue() function to form and field apis\n\n### Fixed\n\n- Issue where validateOnMount would NOT trigger validation when a field was re-rendered\n\n## 4.0.23 (January 5th, 2022)\n\n### Fixed\n\n- issue with array field items being memoized\n\n## 4.0.22 (January 5th, 2022)\n\n### Fixed\n\n- issue with createIntlNumber mask adding random "[]" sometimes\n\n## 4.0.21 (January 5th, 2022)\n\n### Fixed\n\n- issue where returning "" from validation function would not show error state\n\n## 4.0.20 (January 4th, 2022)\n\n### Fixed\n\n- issue where removing item from array field would not make the form dirty\n\n## 4.0.19 (December 31st, 2021)\n\n### Exposed\n\n- useRelevance hook and added type for it in types\n\n## 4.0.18 (December 23rd, 2021)\n\n### Fixed\n\n- issue where values would get cleared on un-mount\n\n## 4.0.17 (December 17th, 2021)\n\n### Fixed\n\n- issue where I forgot to deregister fields when they became irrelevant\n\n## 4.0.16 (December 17th, 2021)\n\n### Fixed\n\n- issue where I forgot to allow relevanceDeps to be passed to multistep step\n\n## 4.0.15 (December 15th, 2021)\n\n### Moved\n\n- The repo to tesla or go needed to re publish to get updated README to npm\n\n## 4.0.14 (December 15th, 2021)\n\n### Fixed\n\n- forgot to add getCurrentStep to multistepApi\n- forgot to add nextStep and previousStep to multistepState\n\n## 4.0.13 (December 15th, 2021)\n\n### Fixed\n\n- issue where set touched did not default meta when field is not there\n\n## 4.0.12 (December 15th, 2021)\n\n### Fixed\n\n- issue where `FormField` could not take field props\n\n## 4.0.11 (December 15th, 2021)\n\n### Fixed\n\n- missing type for Relevant\n\n## 4.0.10 (December 15th, 2021)\n\n### Fixed\n\n- issue where FormProvider was not exported\n\n## 4.0.9 (December 13th, 2021)\n\n### Fixed\n\n- issue where passing showErrorIfTouched={false} would not work\n\n## 4.0.8 (December 10th, 2021)\n\n### Removed\n\n- Empty dependencies object from package.json\n\n## 4.0.7 (December 10th, 2021)\n\n### Fixed\n\n- Issue with relevance subscription when no relevance function\n\n## 4.0.6 (December 9th, 2021)\n\n### Fixed\n\n- Missing functions setValues and setTheseValues\n\n## 4.0.5 (December 9th, 2021)\n\n### Fixed\n\n- Missing types for validate and validateField on FormApi\n\n## 4.0.4 (December 9th, 2021)\n\n### Fixed\n\n- Issue where we forgot to expose form validate\n- Missing utils types\n\n## Added\n\n- useScope and useScoper to exports\n\n## 4.0.3 (December 7th, 2021)\n\n### Fixed\n\n- Issue with forms valid and invalid when relevance changes\n\n## 4.0.2 (December 7th, 2021)\n\n### Fixed\n\n- Issue with schema path util `inverter[12].air_filter_ok` would not work\n\n## 4.0.1 (December 7th, 2021)\n\n### Fixed\n\n- Issue with initializing when becoming relevant\n\n## 4.0 !!!!\n\n### Breaking changes\n\n#### onSubmit signature\n\nOld\n\n```\nconst onSubmit = values => console.log( values );\n```\n\nNew\n\n```\nconst onSubmit = formState => console.log( formState.values );\n```\n\n#### Text --\x3e Input\n\nOld\n\n```jsx\n<Text field="name" />\n```\n\nNew\n\n```jsx\n<Input name="name" />\n```\n\n#### apiRef --\x3e formApiRef\n\nOld\n\n```jsx\n<Form apiRef={apiRef} />\n// OR\n<Form getApi={getApi} />\n```\n\nNew\n\n```jsx\n<Form formApiRef={formApiRef} />\n```\n\n#### informed:props ( schema )\n\n```\ninformed:props is now ui:props when using schema based forms\n```\n\n#### `asField` has been removed\n\nInstead of doing this\n\n```js\nconst CustomField = asField({ fieldState, fieldApi }) => {}\n```\n\nDo this\n\n```js\nconst CustomField = props => {\n  const { fieldState, fieldApi } = useField(props);\n};\n```\n\n#### Relevance\n\nThe when function for relevance now has this signature\n\n```\nwhen={({formState, formApi, scope}) => {...} }\n```\n\n#### yupSchema\n\n```\nvalidationSchema ---\x3e is now yupSchema\n```\n\n#### Array Fields\n\n##### Renamed `field` to `name`\n\n```jsx\n<ArrayField.Items>\n  {({ remove, field }) => (\n    <>\n      <Input name={field} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\nIs Now\n\n```jsx\n<ArrayField.Items>\n  {({ remove, name }) => (\n    <>\n      <Input name={name} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\n##### No more array field path prefixing\n\nOld:\n\n```jsx\n<ArrayField.Items>\n  {({ remove, field }) => (\n    <>\n      <Input name={`${field}.name`} />\n      <Input name={`${field}.age`} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\nNew:\n\n```jsx\n<ArrayField.Items>\n  {({ remove }) => (\n    <>\n      <Input name="name" />\n      <Input name="age" />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>\n```\n\n##### No more values in array field render prop\n\nOld:\n\n```jsx\n// Some component you need to use state of array field item\nconst FieldState = ({ values }) => {\n  return (\n    <pre>\n      <code>{JSON.stringify(values, null, 2)}</code>\n    </pre>\n  );\n};\n\n<ArrayField.Items>\n  {({ remove, values }) => (\n    <>\n      <Input name="name" />\n      <Input name="age" />\n      <FieldState values={values} />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>;\n```\n\nNew:\n\n```jsx\n// Some component you need to use state of array field item\nconst FieldState = () => {\n  const { values } = useArrayFieldItemState();\n  return (\n    <pre>\n      <code>{JSON.stringify(values, null, 2)}</code>\n    </pre>\n  );\n};\n\n<ArrayField.Items>\n  {({ remove }) => (\n    <>\n      <Input name="name" />\n      <Input name="age" />\n      <FieldState />\n      <button type="button" onClick={remove}>\n        Remove\n      </button>\n    </>\n  )}\n</ArrayField.Items>;\n```\n\n#### Debugging with `<FormState />`\n\nOld:\n\n```jsx\n<FormState values errors />\n```\n\nNew:\n\n```jsx\n<Debug values errors />\n```\n\n#### Custom Inputs\n\nMinor changes to custom inputs\n\nNew:\n\n```jsx\nconst CustomInput = props => {\n  const { fieldState, fieldApi, render, ref, userProps } = useField(props);\n\n  // The field state\n  const { value, error, showError } = fieldState;\n\n  // The field control\n  const { setValue, setTouched } = fieldApi;\n\n  // Everything else\n  const { label, id, ...rest } = userProps;\n\n  return render(\n    <>\n      {label ? <label htmlFor={id}>{label}</label> : null}\n      <input\n        {...rest}\n        id={id}\n        ref={ref}\n        value={!value && value !== 0 ? \'\' : value}\n        onChange={e => {\n          setValue(e.target.value, e);\n        }}\n        onBlur={e => {\n          setTouched(true, e);\n        }}\n        style={showError ? { border: \'solid 1px red\' } : null}\n      />\n      {showError ? <small style={{ color: \'red\' }}>{error}</small> : null}\n    </>\n  );\n};\n```\n\n#### Validation\n\nValidation is now controlled via validateOn="validationString"\n\nBy default fields will only validate on blur. To get\nmore granular validation, simply pass in `validateOn` props.\n\nSee table below for mapping:\n\n<br />\n\n| validateOn    | derived       | change       | blur         | submit       | default |\n| ------------- | ------------- | ------------ | ------------ | ------------ | ------- |\n| change        | change-change | sync + async | sync + async | sync + async |         |\n| blur          | blur-blur     | x            | sync + async | sync + async | x       |\n| change-blur   | change-blur   | sync         | sync + async | sync + async |         |\n| change-submit | change-submit | sync         | sync         | sync + async |         |\n| blur-submit   | submit-submit | x            | sync         | sync + async |         |\n| submit        | submit-submit | x            | x            | sync + async |         |\n\n<br />\n\nValidation is controlled via the `validateOn` prop, but in order to control when it shows,\nuse the `showErrorIfError` and `showErrorIfDirty` props. **This is because sometimes you may want the form to be invalid but not show the error to the user yet ( default is `showErrorIfTouched` )**\n\n| prop               | description                                                                                                  | default |\n| ------------------ | ------------------------------------------------------------------------------------------------------------ | ------- |\n| showErrorIfError   | will set `showError` for that field to true whenever there is an error (typically used with validateOnMount) |         |\n| showErrorIfTouched | will set `showError` for that field to true whenever there is an error and the field is touched              | x       |\n| showErrorIfDirty   | will set `showError` for that field to true whenever there is an error and the field is dirty                |         |\n\n<br />\n\nFinally we have a use case for validating right away ( on mount )\n\n| prop            | description                     | default |\n| --------------- | ------------------------------- | ------- |\n| validateOnMount | will trigger validation onMount | false   |\n\n<br />\n<br />\n\n---\n\n<br />\n\n## 3.34.0 (June 22, 2021)\n\n### Added\n\n- ability to control when async validation occurs with props\n\n## 3.33.0 (May 21, 2021)\n\n### Added\n\n- createIntlNumberFormatter\n\n## 3.32.3 (May 21, 2021)\n\n### Fixed\n\n- Issue with useFieldState, now returns empty object by default\n\n## 3.32.2 (May 21, 2021)\n\n### Fixed\n\n- Issue with mounting useFieldStates\n\n## 3.32.1 (May 21, 2021)\n\n### Fixed\n\n- Issue with layoutEffect in SSR\n\n## 3.32.0 (May 19, 2021)\n\n### Added\n\n- Ability to walk down a multistep with step selection.\n\n## 3.31.0 (April 26, 2021)\n\n### Added\n\n- formatter functions `formatter = [()=>{}, ()=>{}]`\n\n## 3.30.3 (April 2, 2021)\n\n### Added\n\n- memoized render back because I never should have removed it\n\n## 3.30.2 (March 15, 2021)\n\n### Refactored\n\n- To no longer use event emitter.\n\n## 3.30.1 (March 5, 2021)\n\n### Fixed\n\n- Issue where keep state in scope was not working.\n\n## 3.30.0 (March 2, 2021)\n\n### Added\n\n- Pristine and Dirty to formFieldState\n\n## 3.29.4 (February 24, 2021)\n\n### Updated\n\n- Peer deps to support react v 17\n\n## 3.29.3 (February 5, 2021)\n\n### Fixed\n\n- Issue where ObjectMap `has` would reference wrong get funciton fixes #327\n\n## 3.29.2 (February 4, 2021)\n\n### Fixed\n\n- Issue where carrot pos would be in the wrong place when formatting\n\n### Updated\n\n- `useField` hook to use the `useCarrotPosition` hook ( removed duplicate code )\n\n## 3.29.1 (February 4, 2021)\n\n### Added\n\n- Ability to call `setValue` function for custom formattedObject Inputs\n\n## 3.29.0 (February 2, 2021)\n\n### Added\n\n- Ability to pass `initialize` function for custom initialization of the initial value\n\n## 3.28.0 (February 2, 2021)\n\n### Exposed\n\n- Utils functions that can be used by end users\n\n## 3.27.0 (December 18, 2020)\n\n### Fixed\n\n- bug with update function in form controller where it would pull instead of delete on swap\n\n## 3.26.0 (December 17, 2020)\n\n### Added\n\n- `swap` to array fields\n\n### Rafactored\n\n- Internal state management\n\n## 3.25.0 (December 8, 2020)\n\n### Added\n\n- `onReset` to form props\n\n## 3.24.4 (December 5, 2020)\n\n### Updated\n\n- README and needed to get it to npm ... again again\n\n## 3.24.3 (December 5, 2020)\n\n### Updated\n\n- README and needed to get it to npm ... again\n\n## 3.24.2 (November 24, 2020)\n\n### Updated\n\n- README and needed to get it to npm\n\n## 3.24.1 (November 23, 2020)\n\n### Fixed\n\n- Type issue ( missing allow empty string from props def )\n\n## 3.24.0 (November 19, 2020)\n\n### Fixed\n\n- Issue where Id was not getting passed to default select field\n\n## 3.23.0 (November 18, 2020)\n\n### Removed\n\n- LODASH!!!!! SEE YA LATER NEVER\n\n## 3.22.0 (November 17, 2020)\n\n### Added\n\n- Ability to pass relevant to array fields!!!\n\n## 3.21.2 (November 14, 2020)\n\n### Fixed\n\n- Bug with field level relevant\n\n### Updated\n\n- Form to always evaluate relevance, and not force the user to pass notify.\n\n## 3.21.1 (November 12, 2020)\n\n### Fixed\n\n- Isssue where state would not update after submit\n\n## 3.21.0 (November 12, 2020)\n\n### Added\n\n- Ability to add async validation functions to inputs\n\n## 3.20.0 (November 11, 2020)\n\n### Added\n\n- Ability to not pass keep state to multistep fields, and also added docs for conditional relevant nested array fields\n\n## 3.19.0 (November 10, 2020)\n\n### Added\n\n- Ability to hide or show fields based on relevant, and notify relevant fields\n\n## 3.18.3 (November 10, 2020)\n\n### Fixed\n\n- bug with resetting array field items\n\n## 3.18.2 (November 9, 2020)\n\n### Fixed\n\n- bug with duplicate fields\n\n## 3.18.1 (November 9, 2020)\n\n### Fixed\n\n- bug with keep state registering phantom fields\n\n## 3.18.0 (November 5, 2020)\n\n### Added\n\n- ability to create custom schema fields\n\n## 3.17.1 (November 3, 2020)\n\n### Fixed\n\n- useField was not adding id to label by default\n\n## 3.17.0 (November 3, 2020)\n\n### Added\n\n- Required attribute to input and automatic type generation for useField hook\n\n## 3.16.1 (November 2, 2020)\n\n### Fixed\n\n- Issue where informed props were not passed down to array fields in schema\n\n## 3.16.0 (November 1, 2020)\n\n### Added\n\n- Ability to have conditional schemas!!!!\n\n## 3.15.0 (October 28, 2020)\n\n### Added\n\n- Ability to add array fields in schema!!!!\n\n## 3.14.0 (October 27, 2020)\n\n### Added\n\n- Formatter and Parser !!!!!\n\n## 3.13.2 (October 27, 2020)\n\n### Fixed\n\n- Issue with strict mode double registering\n\n## 3.13.1 (October 23, 2020)\n\n### Fixed\n\n- Bug where inforemd would crash if schema was missing field that was in JSX ( returns null )\n\n## 3.13.0 (October 23, 2020)\n\n### Added\n\n- Ability to render schema fields in specific paces within JSX!!\n\n## 3.12.0 (October 22, 2020)\n\n### Added\n\n- Added AJV Schema shit!!!\n\n## 3.11.0 (October 21, 2020)\n\n### Added\n\n- Schema shit\n\n## 3.10.1 (October 18, 2020)\n\n### Fixed\n\n- Array fields because I stupidly broke them\n\n#### Added\n\n- Tests for multistep fields\n- Better multistep form syntax\n- Better multistep docs\n\n## 3.10.0 (September 29, 2020)\n\n### Updated\n\n- internals to modify state direct to improve performance!\n\n## 3.9.0 (June 15, 2020)\n\n### Updated\n\n- useArray field to expose a reset that resets to initial values\n\n## 3.8.1 (May 11, 2020)\n\n### Fixed\n\n- Issue with back and next types for multistep fields\n\n## 3.8.0 (May 4, 2020)\n\n### Added\n\n- Array field Api control for ArrayFieldItems\n\n## 3.7.0 (May 4, 2020)\n\n### Refactored\n\n- To use field ids instead of names\n\n### Added\n\n- `<Relevant>` component\n\n## 3.6.1 (March 2, 2020)\n\n### Updated\n\n- Type file to include preventEnter on form props\n\n## 3.6.0 (March 1, 2020)\n\n### Added\n\n- Ability to pass formController to useField hook\n\n## 3.5.2 (February 28, 2020)\n\n### Fixed\n\n- [Issue](https://github.com/joepuzzo/informed/issues/275) where new version of react would throw warnings due to bad code\n\n## 3.5.1 (February 27, 2020)\n\n### Fixed\n\n- [Issue](https://github.com/joepuzzo/informed/issues/272) where dynamic nested array fields with keep state kept too much state :)\n\n## 3.5.0 (February 25, 2020)\n\n### Added\n\n- New multistep abilities via setCurrent in `formApi` and `Current` in `formState`. See compex multistep form in docs\n\n## 3.4.0 (February 22, 2020)\n\n### Added\n\n- Ability to spread `informed` object on inputs via the `useField` hook\n\n## 3.3.5 (February 22, 2020)\n\n### Updated\n\n- Readme to show useForm example\n\n## 3.3.4 (February 20, 2020)\n\n### Added\n\n- FormState component to assist when debugging!\n\n## 3.3.3 (February 18, 2020)\n\n### Added\n\n- Types for multisetp forms\n\n## 3.3.2 (February 16, 2020)\n\n### Added\n\n- Ability to use cursor position in mask function\n\n## 3.3.1 (February 16, 2020)\n\n### Updated\n\n- Intro examples to inculde on submit example\n\n## 3.3.0 (February 10, 2020)\n\n### Added\n\n- Field level Yup support\n\n## 3.2.1 (February 9, 2020)\n\n### Fixed\n\n- Typo in yup docs and readme\n\n## 3.2.0 (February 9, 2020)\n\n### Added\n\n- Yup support\n\n## 3.1.2 (February 9, 2020)\n\n### Updated\n\n- docs and readme to link to dicord channel\n\n## 3.1.1 (February 8, 2020)\n\n### Added\n\n- apiRef so you can just pass a ref to the form\n\n## 3.1.0 (February 5, 2020)\n\n### Added\n\n- Step functionality to support multistep forms\n\n## 3.0.2 (January 24, 2020)\n\n### Fixed\n\n- Issue https://github.com/joepuzzo/informed/issues/267\n\n## 3.0.1 (January 24, 2020)\n\n### Fixed\n\n- README ( I wish there was a way on npm to update readme without publishing version )\n\n## 3.0.0 (January 24, 2020)\n\n### Fixed\n\n- Issue with array field validation https://github.com/joepuzzo/informed/issues/259\n- Issue where informed would throw errors when fields were hidden but referenced\n\n### Added\n\n- Ability to ( in the near future ) add validations to scopes ( Enabled because of code refacotor... will add soon :)\n\n### Changed\n\n- The internals to no longer keep track of giant state object but instead generate it on demand\n\n### Removed\n\n- A bunch of useless code :)\n\n#### Cleaned up\n\n- Large portion of the code .. Mostly the formController!\n\n## 2.11.17 (January 21, 2020)\n\n## Update\n\n- useField to trigger validation when validation related props change\n\n## 2.11.16 (November 18, 2019)\n\n## Fixed\n\n- issue with array field where validation would fail\n\n## 2.11.15 (November 6, 2019)\n\n## Fixed\n\n- issue with array field where removing multiple fields did not remove the data from state\n\n## 2.11.14 (November 5, 2019)\n\n## Removed\n\n- removable prop to inputs because it was a bad idea... now it supports removal nativley\n\n## 2.11.13 (November 4, 2019)\n\n## Added\n\n- removable prop to inputs ( adds support for pairing keep state and array fields such that remove button actually removes field )\n\n## 2.11.12 (November 1, 2019)\n\n## Fixed\n\n- issue with keep state on array fields\n\n## 2.11.11 (November 1, 2019)\n\n## Added\n\n- comp name to useField hook\n\n## 2.11.10 (October 21, 2019)\n\n## Added\n\n- missing setFormError prop to FormApi interface\n\n## 2.11.9 (September 10, 2019)\n\n## Added\n\n- keepState to types\n\n## 2.11.8 (July 16, 2019)\n\n## Adds\n\n- allowEmptyStrings form level prop to types\n\n## 2.11.7 (July 8, 2019)\n\n## Fixes\n\n- issue 227 where allowEmptyStrings form level prop did not work\n\n## 2.11.6 (July 2, 2019)\n\n## Fixes\n\n- issue 219 where array fields would not work with scope\n\n## 2.11.5 (July 2, 2019)\n\n## Fixes\n\n- issue 225 where validation will occur on mount when there are initial values\n\n## 2.11.4 (July 1, 2019)\n\n## Fixes\n\n- issue 215 where selects dont work in Edge becase .. you know.. Microsoft\n\n## 2.11.3 (July 1, 2019)\n\n## Fixes\n\n- warning with useLayoutEffect when using SSR\n\n## 2.11.2 (June 27, 2019)\n\n## Updated\n\n- README file to include minzipped badge\n\n## 2.11.1 (June 18, 2019)\n\n## Fixed\n\n- Issue where initial values changing on multiselects caused looping .. oops\n\n## 2.11.0 (June 14, 2019)\n\n## Updated\n\n- useForm to return user props and a render method\n- Form provider to no longer render a `<form></form>` IT NEVER SHOULD HAVE.\n\n## 2.10.2 (June 13, 2019)\n\n## Fixed\n\n- Issue where initial values did not change when form was reset\n\n## 2.10.1 (June 11, 2019)\n\n## Fixed\n\n- Issue where array level validation would not trigger for complex nested fields within array field\n\n## Added\n\n- length as a second parameter to arrayFields validate function\n\n## 2.10.0 (June 7, 2019)\n\n## Added\n\n- ability to pass validation function to an array field\n- arrayFields are now treaded as "shadow" fields\n\n## 2.9.0 (June 6, 2019)\n\n## Added\n\n- useArrayField hook\n\n## 2.8.2 (June 5, 2019)\n\n## Added\n\n- ability to change out form options such as validateFields\n\n## 2.8.1 (June 5, 2019)\n\n## Fixed\n\n- issue with addWithInitialValue when using add and then addWithInitialValue\n\n## 2.8.0 (June 5, 2019)\n\n## Added\n\n- addWithInitialValue to the `ArrayField`\n\n## 2.7.8 (May 31, 2019)\n\n## Fixed\n\n- issue where initial values were not being formatted\n\n## 2.7.7 (May 30, 2019)\n\n## Fixed\n\n- issue where initial values were not being masked\n\n## 2.7.6 (May 29, 2019)\n\n## Updated\n\n- Types file to support validate on formApi\n\n## 2.7.5 (May 29, 2019)\n\n## Updated\n\n- Types file to support any type on form errors\n\n## 2.7.4 (May 23, 2019)\n\n### Fixed\n\n- documentation for creating custom inputs\n\n### Added\n\n- the ability to pass your own ref to inputs\n\n## 2.7.3 (May 22, 2019)\n\n### Fixed\n\n- issue with validation triggering when keep state and validate on blur\n\n## 2.7.2 (May 21, 2019)\n\n### Added\n\n- made `maskWithCursorOffset` optional in types\n\n## 2.7.1 (May 21, 2019)\n\n### Added\n\n- `maskWithCursorOffset` to the type defs\n\n## 2.7.0 (May 21, 2019)\n\n### Added\n\n- `maskWithCursorOffset` prop to inputs\n\n## 2.6.15 (May 20, 2019)\n\n### Added\n\n- maintainCursor to types\n\n## 2.6.14 (May 16, 2019)\n\n### Added\n\n- render and userProps to field context types\n\n## 2.6.13 (May 16, 2019)\n\n### Added\n\n- maskedValue to types\n\n## 2.6.12 (May 14, 2019)\n\n### Added\n\n- getters to useFields field api\n\n## 2.6.11 (May 11, 2019)\n\n### Added\n\n- useField hook to the docs\n\n### Updated\n\n- the interface for useField hook\n\n## 2.6.10 (May 10, 2019)\n\n### Fixed\n\n- issue where initialization code in useform was in the effect and not in constructor\n\n## 2.6.9 (May 10, 2019)\n\n### Fixed\n\n- attempting to fix issue that I think is caused by useEffect in useForm hook\n\n## 2.6.8 (May 10, 2019)\n\n### Fixed\n\n- issues cause by using `useMemo` instead of `useState` for initial render stuff\n\n## 2.6.7 (May 9, 2019)\n\n### Added\n\n- exists function to the field api types\n\n## 2.6.6 (May 9, 2019)\n\n### Added\n\n- exists function to the field api so you can check to see if that field exists\n\n## 2.6.5 (May 9, 2019)\n\n### Fixed\n\n- issue where inital render of useFieldApi would fail when field was not registered yet\n\n## 2.6.4 (May 9, 2019)\n\n### Updated\n\n- useForm hook so that the event handlers can change\n\n## 2.6.3 (May 7, 2019)\n\n### Removed\n\n- debug as a dependency and added my own :)\n\n## 2.6.2 (May 3, 2019)\n\n### Fixed\n\n- issue with default register context missin getField function\n\n## 2.6.1 (May 3, 2019)\n\n### Fixed\n\n- issue with `useFieldApi` hook and `withFieldApi` HOC where reset and validate were not there\n\n### Added\n\n- a few more tests to increase test coverage!!!! wooo\n\n## 2.6.0 (May 2, 2019)\n\n### Added\n\n- `useForm` hook!!! and `FormProvider` component!!!\n\n## 2.5.0 (April 30, 2019)\n\n### Updated\n\n- useField hook to useEffect instead of useLayoutEffect\n\n## 2.4.0 (April 30, 2019)\n\n### Added\n\n- preventEnter prop to the form so users can prevent enter key form submission\n\n## 2.3.2 (April 22, 2019)\n\n### Updated\n\n- Issue with dynamic arrays and initial values\n\n## 2.3.1 (April 12, 2019)\n\n### Updated\n\n- Babel build\n\n## 2.3.0 (April 3, 2019)\n\n### Added\n\n- `allowEmtyStrings` prop to the form\n- `allowEmtyString` prop to inputs\n\n### Fixed\n\n- issue where setValues would not allow empty strings\n\n## 2.2.0 (March 29, 2019)\n\n### Added\n\n- `setFormError` function to the form api\n- `validate` function to the form api\n\n## 2.1.15 (March 28, 2019)\n\n### Fixed\n\n- Issue with setValues missing from the default context\n\n## 2.1.14 (March 27, 2019)\n\n### Fixed\n\n- Issue where reset would call validation\n\n## 2.1.13 (March 18, 2019)\n\n### Updated\n\n- Allowing for optional generic on FormValue\n\n## 2.1.12 (March 13, 2019)\n\n### Updated\n\n- ref to be any type in typings\n\n## 2.1.11 (March 12, 2019)\n\n### Fixed\n\n- issue in typings for ref field on FieldContext\n\n## 2.1.10 (March 12, 2019)\n\n### Fixed\n\n- issue when using a field NOT in the context of a form\n\n## 2.1.9 (March 8, 2019)\n\n### Fixed\n\n- another issue where initial values did not work when keep state was passed\n\n## 2.1.8 (March 8, 2019)\n\n### Fixed\n\n- issue where initial values did not work when keep state was passed\n\n## 2.1.7 (March 3, 2019)\n\n### Fixed\n\n- issue where initial values did not work for `ArrayFields`\n\n## 2.1.6 (Feb 21, 2019)\n\n### Updated\n\n- typing files for type script users\n\n## 2.1.5 (Feb 19, 2019)\n\n### Fixed\n\n- Issue with text area input not setting typed value\n\n## 2.1.4 (Feb 19, 2019)\n\n### Added\n\n- `maskOnBlur` prop to inputs\n\n## 2.1.3 (Feb 14, 2019)\n\n### Added\n\n- `fieldExists` api function to check if field exists\n\n## 2.1.2 (Feb 14, 2019)\n\n### Fixed\n\n- Issue where form that is submitted through enter key would try to prevent default\n\n## 2.1.1 (Feb 14, 2019)\n\n### Fixed\n\n- Issue where form values would not get passed to validation function when touched\n\n## 2.1.0 (Feb 14, 2019)\n\n### Updated\n\n- Format and parse to set maskedValue instead of value\n\n## 2.0.5 (Feb 14, 2019)\n\n### Fixed\n\n- Issue where you could NOT set 0 null or false as initial values because they are falsey\n\n## 2.0.4 (Feb 13, 2019)\n\n### Added\n\n- validateFields function to the form!!!\n\n## 2.0.3 (Feb 13, 2019)\n\n### Fixed\n\n- Issue where reset would not work for scoped fields\n\n### Added\n\n- Set Values to the form api!!!\n\n## 2.0.2 (Feb 13, 2019)\n\n### Fixed\n\n- Issue where ArrayField was prefixing all fields with \'field\'\n- Issue where when input fields changed input did not rerender.\n\n## 2.0.1 (Feb 10, 2019)\n\n### Fixed\n\n- Issue where render and component props were getting passed to the dom form\n\n## 2.0.0 (Feb 7, 2019)\n\n### Added\n\n- useFieldApi\n- useFieldState\n- useFormApi\n- useFormState\n- useField\n- format\n- parse\n- maintianCursor ( fixes issue where cursor jumps to end on mask )\n- ArrayField ( Check out the docs! this is sick! )\n- Form Level validation ( function that can invalidate the form as a whole )\n- debug prop that allows you to visually view the rendering!\n\n### Changed\n\n- the field `"siblings.1"` now resolves to `values.siblings[1]`, it used to resolve to `values.siblings.1`\n- the field `"siblings[\'2\']"` now resolves to `values.siblings[2]`, it used to resolve to `values.siblings.2`\n- withFormApi will no longer trigger a rerender if the fomrs state changes. This is a great optimization for those who want to modify but dont care about the form state!\n- the `validate` prop now expects the validation function to return `undefined` if there is no error. Any other returned value (including falsey `null`, `0`, etc will be treated as an error for the field.\n\n### Removed\n\n- The Field Component\n- `fieldExists` not needed\n- `setState` will maybe add later but its complex and out of scope ATM\n- `setValues` will maybe add later but its complex and out of scope ATM ( as of V 2.0.3 its back! )\n- `preSubmit` was never needed.. developers can do this themselves\n- Async Validation. Async validation led to many issues that overcomplicated `informed`. We determined this is something that the developer could achive on there own for now but we may look into adding this in the future.\n\n## 1.10.12 ( December 4, 2018 )\n\n### Updated\n\n- typescript definition file\n\n## 1.10.11 & 1.10.10 I ran version patch twice lol ( December 4, 2018 )\n\n### Updated\n\n- Select forward ref\n\n## 1.10.9 ( November 16, 2018 )\n\n### Updated\n\n- files in package json to include typeigs\n\n## 1.10.8 ( November 8, 2018 )\n\n### Added\n\n- type file for typescript\n\n## 1.10.7 ( October 11, 2018 )\n\n### Updated\n\n- Name of withFormSate\n\n## 1.10.6 ( October 2, 2018 )\n\n### Fixed\n\n- Skipped test for select!!!\n\n### Updated\n\n- Select to use new ref interface\n\n## 1.10.5 ( September 14, 2018 )\n\n### Added\n\n- License\n\n## 1.10.4 ( August 13, 2018 )\n\n### Fixed\n\n- Issue with @babel/runtime was the dep when it should have ben @babel/runtime-corejs2\n\n## 1.10.3 ( August 13, 2018 )\n\n### Fixed\n\n- Issue with @babel/runtime for real this time\n\n## 1.10.2 ( August 13, 2018 )\n\n### Fixed\n\n- Issue with @babel/runtime\n\n## 1.10.1 ( August 13, 2018 )\n\n### Removed\n\n- mistakenly added dev deps that were deps... oops\n\n## 1.10.0 ( August 13, 2018 )\n\n### Added\n\n- submits to the form state\n\n## 1.9.0 ( August 8, 2018 )\n\n### Rebuilt\n\n- Added prettier so all the files have been changed... so i rebuilt to have source maps match code\n\n## 1.8.1 ( August 1, 2018 )\n\n### Rebuilt\n\n- Attempting to simply rebuild lib due to possible build issue\n\n## 1.8.0 ( August 1, 2018 )\n\n### Updated\n\n- initialValue to get exposed as prop to custom fields\n\n## 1.7.5 ( July 31, 2018 )\n\n### Added\n\n- Source maps\n\n## 1.7.4 ( July 26, 2018 )\n\n### Fixed\n\n- Issue where Basic radio group was not getting exported\n\n## 1.7.3 ( July 23, 2018 )\n\n### Fixed\n\n- issue where bind to field did not pass down the field prop.\n\n## 1.7.2 ( July 20, 2018 )\n\n### Fixed\n\n- Issue where element wont get removed from array when deregistering field... this is used when dynamically removing value\n\n## 1.7.1 ( July 20, 2018 )\n\n### Added\n\n- Field prop is now exposed to field elements and default inputs pass field as name to html inputs\n\n## 1.7.0 ( July 18, 2018 )\n\n### Added\n\n- fieldExists method to the formApi\n\n## 1.6.0 ( July 16, 2018 )\n\n### Added\n\n- onValueChange prop to inputs so you can tie into when values change!!\n\n## 1.5.2 ( July 13, 2018 )\n\n### Fixed\n\n- Issue where prop changes to fields would not get recognized\n\n## 1.5.1 ( July 13, 2018 )\n\n### Fixed\n\n- issue where i forgott to add @babel/runtime as dependency\n\n## 1.5.0 ( July 12, 2018 )\n\n### Added\n\n- asyncValidation prop to inputs\n- asyncValidateOnBlur prop to inputs\n\n## 1.4.0 ( July 5, 2018 )\n\n### Added\n\n- Basic input fields so users can more easily create custom inputs\n- Docs for creating custom inputs\n\n## 1.3.11 ( July 9, 2018 )\n\n### Fixed\n\n- issue where you could not nest scope\n\n## 1.3.10 ( July 5, 2018 )\n\n### Fixed\n\n- issue where you could not pass initialValue=false to checkbox\n\n## 1.3.9 ( July 5, 2018 )\n\n### Fixed\n\n- issue where mutable values were getting passed to onSubmit and getState\n\n## 1.3.8 ( July 2, 2018 )\n\n### Fixed\n\n- issue where path array was being build every get and set\n\n## 1.3.7 ( July 2, 2018 )\n\n### Fixed\n\n- issue where onChange was getting passed to internal form element\n\n## 1.3.6 ( June 28, 2018 )\n\n### Added\n\n- globalObject: \'this\' to the webpack dist config to support SSR\n\n## 1.3.5 ( June 28, 2018 )\n\n### Fixed\n\n- Issue with event emitter limit ( need to look into alternative solution )\n- Removed depricated sandbox sinon usage that was causing errors during tests\n\n## 1.3.3 ( June 28, 2018 )\n\n### Updated\n\n- Webpack dist configuration to keep class names\n\n## 1.3.2 ( June 28, 2018 )\n\n### Fixed\n\n- Issue were initialValue was getting passed all the way down to html input\n- Issue where form would not rerender when field was registered\n\n## 1.3.1 ( June 28, 2018 )\n\n### Fixed\n\n- Issue were validateOnMount was getting passed all the way down to html input\n\n## 1.3.0 ( June 28, 2018 )\n\n### Added\n\n- mask so you can mask values at field level. example `value => value + \'!!!\'`\n\n## 1.2.1 ( June 27, 2018 )\n\n### Added\n\n- hook so you can add a button with type=reset and it will reset the form\n\n## 1.2.0 ( June 27, 2018 )\n\n### Added\n\n- validateOnMount to input props\n\n## 1.1.2 ( June 25, 2018 )\n\n### Moved\n\n- React and React-Dom to dev dependencies\n\n## 1.1.1 ( June 18, 2018 )\n\n### Fixed\n\n- Bug where i did not do null check on event within on submit\n\n## 1.0.1 ( June 15, 2018 )\n\n### Added\n\n- Notify prop to inputs that allows you to notify other fields when your error state changes ( see docs )\n\n## 1.0.0 (June 12, 2018)\n\n### Added\n\n- Text\n- TextArea\n- Radio Group\n- Radio\n- Select\n- Select as Multiselect !!!\n- Checkbox\n- withRadioGroup\n- withFieldApi\n- withFieldState\n- withFormApi\n- withFormState\n- asField\n- Form\n- Field\n\n### Changed\n\n**\nNote: this was the first release but i wanted to include changes from\n`react-form` so here they are:\n**\n\n- `formApi` was split into two parts `formApi` ( contains just functions ) `formState` ( contains just form state )\n- Form level validation is gone. You do all validation via field validation.\n- `defaultValues` Form prop is now called `initialValues`\n- `onChange` Form prop only recieves the `formState`. It used to retrieve the form Api as well.\n- `preventDefault` Form prop is now `dontPreventDefault`\n- `getApi` Form prop just returns the formApi, not the state and the api.\n- `Form` component now renders the `form` element internally. So you dont have to "hook it up" anymore!!\n\n### Removed\n\n**\nNote: this was the first release but i wanted to include things that were removed from\n`react-form` so here they are:\n**\n\n- `NestedField` you can use `Scope` instead but all it does is scope internal fields to `scope="your-scope"`\n- validateOnSubmit was removed. Now the form always validates on submit by default and you can opt into sooner validation at field level.\n- `defaultValues` form prop is now called `initialValues`\n- `pure` Form prop. Its not needed anymore due to the use of `React.PureComponent` internally.\n- add, remove, and swap values. The developer can achive this on there own without the use of internal functionality.\n- Array Syntax. In order to keep things simple we now only support the string syntax for field names.\n- Async Validation. Async validation led to many issues that overcomplicated `react-form`. We determined this is something that the developer could achive on there own for now but we may look into adding this in the future.\n- Warning and Success have been removed for now to keep lib lean but we may add additional functions in the future.\n',
         function() {
           return null;
         }
@@ -16705,7 +16989,7 @@
           './stories/Intro/FormApi/RenderProp/index.js'
         ),
         UseFormApi_RandomSetterButton = function RandomSetterButton() {
-          var formApi = Object(src.C)();
+          var formApi = Object(src.D)();
           return react_default.a.createElement(
             'button',
             {
@@ -16771,7 +17055,7 @@
         });
       var Complex = __webpack_require__('./stories/Form/Complex/index.js'),
         DynamicArrays_Reset = function Reset() {
-          var formApi = Object(src.C)();
+          var formApi = Object(src.D)();
           return react_default.a.createElement(
             'button',
             { type: 'button', onClick: formApi.reset },
@@ -16893,7 +17177,7 @@
         CodeBlock = (Object(withDocs.a)(
           '### useForm Hook\n\nHooks are all the rage these days, and some people want to "hook things up themselves" :)\nHere is an example where you can use the `useFormHook`.\n\n\x3c!-- STORY --\x3e\n\n```jsx\nimport { Form, Input } from \'informed\';\n\nconst validate = value => {\n  if (!value || value.length < 5)\n    return \'Field must be at least five characters\';\n};\n\nconst onSubmit = ({ values }) =>\n  window.alert(`Form successfully submitted with ${JSON.stringify(values)}`);\n\nconst UseFormExample = () => {\n  const { formController, formState, render } = useForm({\n    onSubmit\n  });\n\n  return render(\n    <form\n      onReset={formController.reset}\n      onSubmit={formController.submitForm}\n      onKeyDown={formController.keyDown}>\n      <label>\n        First name:\n        <Input field="name" validate={validate} />\n        <small style={{ color: \'red\' }}>{formState.errors.name}</small>\n      </label>\n      <button type="submit">Submit</button>\n      <pre>\n        <code>{JSON.stringify(formState, null, 2)}</code>\n      </pre>\n    </form>\n  );\n};\n```\n\n<br/>\n',
           function UseForm() {
-            var _useForm = Object(src.B)({ onSubmit: onSubmit }),
+            var _useForm = Object(src.C)({ onSubmit: onSubmit }),
               formController = _useForm.formController,
               formState = _useForm.formState;
             return (0, _useForm.render)(
@@ -17155,7 +17439,7 @@
       var CustomIntro_Form = function Form(_ref) {
           var children = _ref.children,
             rest = _objectWithoutProperties(_ref, _excluded),
-            _useForm = Object(src.B)(rest),
+            _useForm = Object(src.C)(rest),
             formController = _useForm.formController,
             render = _useForm.render,
             userProps = _useForm.userProps;
@@ -17170,7 +17454,7 @@
           );
         },
         CustomIntro_Input = function Input(props) {
-          var _useField = Object(src.y)(_objectSpread({ type: 'text' }, props)),
+          var _useField = Object(src.z)(_objectSpread({ type: 'text' }, props)),
             render = _useField.render,
             informed = _useField.informed,
             userProps = _useField.userProps,
@@ -17191,7 +17475,7 @@
           );
         },
         CustomIntro_Checkbox = function Checkbox(props) {
-          var _useField2 = Object(src.y)(
+          var _useField2 = Object(src.z)(
               _objectSpread({ type: 'checkbox' }, props)
             ),
             render = _useField2.render,
@@ -17214,7 +17498,7 @@
           );
         },
         CustomIntro_ErrorInput = function ErrorInput(props) {
-          var _useField3 = Object(src.y)(
+          var _useField3 = Object(src.z)(
               _objectSpread({ type: 'text' }, props)
             ),
             render = _useField3.render,
@@ -17246,7 +17530,7 @@
           );
         },
         CustomIntro_Select = function Select(props) {
-          var _useField4 = Object(src.y)(
+          var _useField4 = Object(src.z)(
               _objectSpread({ type: 'select' }, props)
             ),
             render = _useField4.render,
@@ -17460,7 +17744,7 @@
         return arr2;
       }
       var Actions_Info = function Info() {
-          var next = Object(src.G)().next,
+          var next = Object(src.H)().next,
             _useState2 = _slicedToArray(Object(react.useState)(!1), 2),
             loading = _useState2[0],
             setLoading = _useState2[1],
@@ -17529,7 +17813,7 @@
           );
         },
         Actions_Favorite = function Favorite() {
-          var _useMultistepApi2 = Object(src.G)(),
+          var _useMultistepApi2 = Object(src.H)(),
             next = _useMultistepApi2.next,
             previous = _useMultistepApi2.previous;
           return react_default.a.createElement(
@@ -17562,7 +17846,7 @@
           );
         },
         Actions_Additional = function Additional() {
-          var previous = Object(src.G)().previous;
+          var previous = Object(src.H)().previous;
           return react_default.a.createElement(
             src.m.Step,
             { step: 'additional' },
@@ -17641,7 +17925,7 @@
         withDocs = __webpack_require__('./stories/utils/withDocs.js'),
         src = __webpack_require__('./src/index.js'),
         Basic_Info = function Info() {
-          var next = Object(src.G)().next;
+          var next = Object(src.H)().next;
           return react_default.a.createElement(
             src.m.Step,
             { step: 'info' },
@@ -17663,7 +17947,7 @@
           );
         },
         Basic_Favorite = function Favorite() {
-          var _useMultistepApi2 = Object(src.G)(),
+          var _useMultistepApi2 = Object(src.H)(),
             next = _useMultistepApi2.next,
             previous = _useMultistepApi2.previous;
           return react_default.a.createElement(
@@ -17696,7 +17980,7 @@
           );
         },
         Basic_Additional = function Additional() {
-          var previous = Object(src.G)().previous;
+          var previous = Object(src.H)().previous;
           return react_default.a.createElement(
             src.m.Step,
             { step: 'additional' },
@@ -17834,7 +18118,7 @@
         return arr2;
       }
       var Complex_Info = function Info() {
-          var next = Object(src.G)().next;
+          var next = Object(src.H)().next;
           return react_default.a.createElement(
             src.m.Step,
             { step: 'info' },
@@ -17856,7 +18140,7 @@
           );
         },
         Complex_Allergic = function Allergic() {
-          var _useMultistepApi2 = Object(src.G)(),
+          var _useMultistepApi2 = Object(src.H)(),
             next = _useMultistepApi2.next,
             previous = _useMultistepApi2.previous;
           return react_default.a.createElement(
@@ -17892,7 +18176,7 @@
           );
         },
         Complex_EpiPen = function EpiPen() {
-          var _useMultistepApi3 = Object(src.G)(),
+          var _useMultistepApi3 = Object(src.H)(),
             next = _useMultistepApi3.next,
             previous = _useMultistepApi3.previous;
           return react_default.a.createElement(
@@ -17943,10 +18227,10 @@
           );
         },
         Complex_Color = function Color() {
-          var _useMultistepApi4 = Object(src.G)(),
+          var _useMultistepApi4 = Object(src.H)(),
             next = _useMultistepApi4.next,
             previous = _useMultistepApi4.previous,
-            nextStep = Object(src.H)().nextStep;
+            nextStep = Object(src.I)().nextStep;
           return react_default.a.createElement(
             src.m.Step,
             { step: 'favorite' },
@@ -17990,7 +18274,7 @@
           );
         },
         Complex_Dog = function Dog() {
-          var previous = Object(src.G)().previous;
+          var previous = Object(src.H)().previous;
           return react_default.a.createElement(
             src.m.Step,
             {
@@ -18051,7 +18335,7 @@
           );
         },
         Complex_Buttons = function Buttons() {
-          var setCurrent = Object(src.G)().setCurrent;
+          var setCurrent = Object(src.H)().setCurrent;
           return react_default.a.createElement(
             'div',
             null,
@@ -18169,10 +18453,10 @@
           : string;
       }
       var MultistepState_Info = function Info() {
-          var _useMultistepApi = Object(src.G)(),
+          var _useMultistepApi = Object(src.H)(),
             next = _useMultistepApi.next,
             nextStep = (_useMultistepApi.getCurrentStep,
-            Object(src.H)().nextStep);
+            Object(src.I)().nextStep);
           return react_default.a.createElement(
             src.m.Step,
             { step: 'info' },
@@ -18194,11 +18478,11 @@
           );
         },
         MultistepState_Favorite = function Favorite() {
-          var _useMultistepApi2 = Object(src.G)(),
+          var _useMultistepApi2 = Object(src.H)(),
             next = _useMultistepApi2.next,
             previous = _useMultistepApi2.previous,
             _useMultistepState2 = (_useMultistepApi2.getCurrentStep,
-            Object(src.H)()),
+            Object(src.I)()),
             nextStep = _useMultistepState2.nextStep,
             previousStep = _useMultistepState2.previousStep;
           return react_default.a.createElement(
@@ -18231,8 +18515,8 @@
           );
         },
         MultistepState_Additional = function Additional() {
-          var previous = Object(src.G)().previous,
-            previousStep = Object(src.H)().previousStep;
+          var previous = Object(src.H)().previous,
+            previousStep = Object(src.I)().previousStep;
           return react_default.a.createElement(
             src.m.Step,
             { step: 'additional' },
@@ -18263,7 +18547,7 @@
           );
         },
         MultistepState_StepIndicator = function StepIndicator() {
-          var current = Object(src.H)().current;
+          var current = Object(src.I)().current;
           return react_default.a.createElement('h3', null, capitalize(current));
         };
       __webpack_exports__.a = Object(withDocs.a)(
@@ -19350,7 +19634,7 @@
       var CustomSchema_Form = function Form(_ref) {
           var children = _ref.children,
             rest = _objectWithoutProperties(_ref, _excluded),
-            _useForm = Object(src.B)(rest),
+            _useForm = Object(src.C)(rest),
             formController = _useForm.formController,
             render = _useForm.render,
             userProps = _useForm.userProps;
@@ -19394,7 +19678,7 @@
               children = _ref4.children,
               options = _ref4.options,
               props = _objectWithoutProperties(_ref4, _excluded4),
-              _useField3 = Object(src.y)(
+              _useField3 = Object(src.z)(
                 _objectSpread({ type: 'select' }, props)
               ),
               render = _useField3.render,
@@ -19429,7 +19713,7 @@
           input: function Input(_ref2) {
             var label = _ref2.label,
               props = _objectWithoutProperties(_ref2, _excluded2),
-              _useField = Object(src.y)(_objectSpread({ type: 'text' }, props)),
+              _useField = Object(src.z)(_objectSpread({ type: 'text' }, props)),
               render = _useField.render,
               informed = _useField.informed,
               userProps = _useField.userProps,
@@ -19449,7 +19733,7 @@
           checkbox: function Checkbox(_ref3) {
             var label = _ref3.label,
               props = _objectWithoutProperties(_ref3, _excluded3),
-              _useField2 = Object(src.y)(
+              _useField2 = Object(src.z)(
                 _objectSpread({ type: 'checkbox' }, props)
               ),
               render = _useField2.render,
@@ -20069,7 +20353,7 @@
       var GettingStarted_Form = function Form(_ref) {
           var children = _ref.children,
             rest = _objectWithoutProperties(_ref, _excluded),
-            _useForm = Object(src.B)(rest),
+            _useForm = Object(src.C)(rest),
             formController = _useForm.formController,
             render = _useForm.render,
             userProps = _useForm.userProps;
@@ -20084,7 +20368,7 @@
           );
         },
         GettingStarted_Input = function Input(props) {
-          var _useField = Object(src.y)(_objectSpread({ type: 'text' }, props)),
+          var _useField = Object(src.z)(_objectSpread({ type: 'text' }, props)),
             render = _useField.render,
             informed = _useField.informed,
             userProps = _useField.userProps,
@@ -20114,7 +20398,7 @@
           );
         },
         GettingStarted_Checkbox = function Checkbox(props) {
-          var _useField2 = Object(src.y)(
+          var _useField2 = Object(src.z)(
               _objectSpread({ type: 'checkbox' }, props)
             ),
             render = _useField2.render,
@@ -20137,7 +20421,7 @@
           );
         },
         GettingStarted_Select = function Select(props) {
-          var _useField3 = Object(src.y)(
+          var _useField3 = Object(src.z)(
               _objectSpread({ type: 'select' }, props)
             ),
             render = _useField3.render,
@@ -22989,6 +23273,12 @@
             ),
             _Formatting_NumberFormatter__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(
               './stories/Formatting/NumberFormatter/index.js'
+            ),
+            _Conditionals_ConditionalProps__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(
+              './stories/Conditionals/ConditionalProps/index.js'
+            ),
+            _Conditionals_ConditionalPropsSchema__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(
+              './stories/Conditionals/ConditionalPropsSchema/index.js'
             );
           Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.addDecorator)(
             _utils_StoryWrapper__WEBPACK_IMPORTED_MODULE_3__.a
@@ -23314,6 +23604,18 @@
               .add(
                 'Dynamic Rendering',
                 _Form_Dynamic__WEBPACK_IMPORTED_MODULE_12__.a
+              ),
+            Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
+              'Conditionals',
+              module
+            )
+              .add(
+                'Conditional Props',
+                _Conditionals_ConditionalProps__WEBPACK_IMPORTED_MODULE_70__.a
+              )
+              .add(
+                'Conditional Props Schema',
+                _Conditionals_ConditionalPropsSchema__WEBPACK_IMPORTED_MODULE_71__.a
               ),
             Object(_storybook_react__WEBPACK_IMPORTED_MODULE_1__.storiesOf)(
               'Global Forms',

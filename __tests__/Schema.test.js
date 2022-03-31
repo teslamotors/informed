@@ -83,6 +83,83 @@ describe('Schema', () => {
     expect(formApiRef.current.getFormState().values).toEqual({ age: 27 });
   });
 
+  it('should re evaluate conditional', () => {
+    const formApiRef = {};
+
+    const evaluate = ({ formState, formApi }) => {
+      if (!formState.values.age || formState.values.age < 16) {
+        formApi.clearValue('car');
+        return { disabled: true };
+      }
+      return { disabled: false };
+    };
+    
+    const schema = {
+      type: 'object',
+      properties: {
+        age: {
+          type: 'number',
+          title: 'Age',
+          'ui:control': 'input',
+          'ui:props': {
+            type: 'number'
+          }
+        },
+        car: {
+          type: 'string',
+          title: 'Car',
+          'ui:control': 'select',
+          oneOf: [
+            { const: 'ms', title: 'Model S' },
+            { const: 'm3', title: 'Model 3' },
+            { const: 'mx', title: 'Model X' },
+            { const: 'my', title: 'Model Y' }
+          ],
+          default: null,
+          'ui:props': {
+            evaluate,
+            evaluateWhen: ['age']
+          }
+        }
+      }
+    };
+
+    const { getByLabelText } = render(
+      <Form schema={schema} formApiRef={formApiRef} >
+        <SchemaFields />
+        <button type="submit">Submit</button>
+      </Form>
+    );
+
+    const age = getByLabelText('Age');
+    const car = getByLabelText('Car');
+    userEvent.type(age, '2');
+  
+    expect(age).toHaveValue(2);
+    expect(car).toHaveValue(undefined);
+    expect(car).toHaveAttribute('disabled');
+    expect(formApiRef.current.getFormState().values).toEqual({ age: 2 });
+
+    userEvent.type(age, '7');
+    expect(age).toHaveValue(27);
+    expect(car).toHaveValue(undefined);
+    expect(car).not.toHaveAttribute('disabled');
+    expect(formApiRef.current.getFormState().values).toEqual({ age: 27 });
+
+    // Select Model3 
+    fireEvent.change(car, { target: { value: 'm3' } });
+    expect(car).toHaveValue('m3');
+    expect(formApiRef.current.getFormState().values).toEqual({ age: 27, car: 'm3' });
+
+    // Backspace to make person 2 years old
+    userEvent.type(age, '{backspace}');
+    expect(age).toHaveValue(2);
+    expect(car).toHaveValue(undefined);
+    expect(car).toHaveAttribute('disabled');
+    expect(formApiRef.current.getFormState().values).toEqual({ age: 2 });
+
+  });
+
   it('should call onChange that was passed', () => {
 
     const onChange = jest.fn();

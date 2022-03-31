@@ -75,7 +75,7 @@ export const useField = ({
   relevanceWhen = [],
   relevanceDeps = [],
   // eslint-disable-next-line no-unused-vars
-  conditional,
+  evaluate,
   // eslint-disable-next-line no-unused-vars
   evaluateWhen,
   ...userProps

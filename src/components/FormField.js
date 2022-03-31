@@ -127,7 +127,7 @@ const FormField = ({ name, schema, ...rest }) => {
 
   const hookProps = useConditional({
     name: schemaProps.name,
-    conditional: schemaProps.conditional,
+    evaluate: schemaProps.evaluate,
     evaluateWhen: schemaProps.evaluateWhen,
     dependsOn: schemaProps.dependsOn
   });

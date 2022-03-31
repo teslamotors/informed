@@ -4,8 +4,9 @@ import readme from './README.md';
 
 import { Form, SchemaFields, Debug } from '../../../src';
 
-const conditional = ({ formState }) => {
+const evaluate = ({ formState, formApi }) => {
   if (!formState.values.age || formState.values.age < 16) {
+    formApi.clearValue('car');
     return { disabled: true };
   }
   return { disabled: false };
@@ -16,15 +17,15 @@ const schema = {
   properties: {
     age: {
       type: 'number',
-      title: 'First name',
+      title: 'Age',
       'ui:control': 'input',
       'ui:props': {
         type: 'number'
       }
     },
-    model: {
+    car: {
       type: 'string',
-      title: 'Model',
+      title: 'Car',
       'ui:control': 'select',
       oneOf: [
         { const: 'ms', title: 'Model S' },
@@ -34,7 +35,7 @@ const schema = {
       ],
       default: null,
       'ui:props': {
-        conditional,
+        evaluate,
         evaluateWhen: ['age']
       }
     }

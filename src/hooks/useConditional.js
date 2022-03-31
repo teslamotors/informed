@@ -8,7 +8,7 @@ const logger = Debug('informed:useConditional' + '\t');
 /* ----------------------- useDepends ----------------------- */
 export const useConditional = ({
   name,
-  conditional,
+  evaluate,
   evaluateWhen = [],
   dependsOn = []
 }) => {
@@ -24,8 +24,8 @@ export const useConditional = ({
 
   // Conditional state
   const [props, setProps] = useState(() => {
-    if (conditional) {
-      return conditional({
+    if (evaluate) {
+      return evaluate({
         formState: formController.getFormState(),
         formApi: formController.getFormApi(),
         scope,
@@ -56,7 +56,7 @@ export const useConditional = ({
     fields,
     target => {
       logger(`re-evaluating conditional for ${name} because of ${target}`);
-      const res = conditional({
+      const res = evaluate({
         formState: formController.getFormState(),
         formApi: formController.getFormApi(),
         scope: scopeRef.current,
@@ -71,10 +71,10 @@ export const useConditional = ({
 
   useEffect(
     () => {
-      if (conditional) {
+      if (evaluate) {
         // When name changes we always check if relevant
         setProps(
-          conditional({
+          evaluate({
             formState: formController.getFormState(),
             formApi: formController.getFormApi(),
             scope,

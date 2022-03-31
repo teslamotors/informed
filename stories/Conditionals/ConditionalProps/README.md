@@ -8,15 +8,16 @@ Sometimes you need to conditionally change the props.
 import { Form, Input, Select, useConditional, Debug } from 'informed';
 
 const CarSelect = () => {
-  const conditional = ({ formState }) => {
+  const evaluate = ({ formState, formApi }) => {
     if (!formState.values.age || formState.values.age < 16) {
+      formApi.clearValue('car');
       return { disabled: true };
     }
     return { disabled: false };
   };
 
   const { disabled } = useConditional({
-    conditional,
+    evaluate,
     evaluateWhen: ['age']
   });
 
@@ -32,7 +33,7 @@ const CarSelect = () => {
 
 const ConditionalProps = () => (
   <Form>
-    <Input name="age" type="number" label="Age:" />
+    <Input name="age" type="number" label="Age" />
     <CarSelect />
     <Debug values />
   </Form>

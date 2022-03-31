@@ -1,3 +1,9 @@
+## 4.8.0 (March 31st, 2022)
+
+### Added
+
+- useConditional hook and ability to pass `evaluate` and `evaluateWhen`
+
 ## 4.7.0 (March 29th, 2022)
 
 ### Added

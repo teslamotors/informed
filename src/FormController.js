@@ -164,6 +164,7 @@ export class FormController {
     this.validateField = this.validateField.bind(this);
     this.getErrorMessage = this.getErrorMessage.bind(this);
     this.clearValue = this.clearValue.bind(this);
+    this.clearError = this.clearError.bind(this);
     this.getData = this.getData.bind(this);
   }
 
@@ -477,7 +478,8 @@ export class FormController {
   setError(name, value) {
     debug(`Setting ${name}'s error to ${value}`);
     ObjectMap.set(this.state.errors, name, value);
-    // TODO maybe evaluate vaid for form here
+    this.state.valid = ObjectMap.empty(this.state.errors);
+    this.state.invalid = !this.state.valid;
     this.emit('field', name);
   }
 
@@ -504,6 +506,10 @@ export class FormController {
 
   clearValue(name) {
     this.setValue(name, undefined);
+  }
+
+  clearError(name) {
+    this.setError(name, undefined);
   }
 
   getFormApi() {
@@ -533,7 +539,8 @@ export class FormController {
       setValues: this.setValues,
       setTheseValues: this.setTheseValues,
       submitForm: this.submitForm,
-      clearValue: this.clearValue
+      clearValue: this.clearValue,
+      clearError: this.clearError
     };
   }
 

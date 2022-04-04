@@ -1,3 +1,9 @@
+## 4.8.1 (April 4th, 2022)
+
+### Fixed
+
+- Issue where errors would get kept when going to previous multistep step
+
 ## 4.8.0 (March 31st, 2022)
 
 ### Added

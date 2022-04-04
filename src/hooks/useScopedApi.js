@@ -21,7 +21,8 @@ const buildScopedFormApi = (scope, formApi) => {
     getDirty: field => formApi.getDirty(`${scope}.${field}`),
     getPristine: field => formApi.getPristine(`${scope}.${field}`),
     getMaskedValue: field => formApi.getMaskedValue(`${scope}.${field}`),
-    clearValue: field => formApi.clearValue(`${scope}.${field}`)
+    clearValue: field => formApi.clearValue(`${scope}.${field}`),
+    clearError: field => formApi.clearError(`${scope}.${field}`)
   };
 };
 

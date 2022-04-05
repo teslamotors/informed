@@ -94,6 +94,7 @@ import {
 import RelevantComonent from './Relevance/RelevantComponent';
 import RelevanceProp from './Relevance/RelevanceProp';
 import ComplexRelevance from './Relevance/ComplexRelevance';
+import ScopedRelevance from './Relevance/ScopedRelevance';
 
 import ScopeComponent from './Scope/ScopeComponent';
 
@@ -245,7 +246,8 @@ storiesOf('Validation', module)
 storiesOf('Relevance', module)
   .add('Relevant Comonent', RelevantComonent)
   .add('Relevance Prop', RelevanceProp)
-  .add('Relevance Optimization', ComplexRelevance);
+  .add('Relevance Optimization', ComplexRelevance)
+  .add('Scoped Relevance', ScopedRelevance);
 
 storiesOf('Scope', module).add('Scope Comonent', ScopeComponent);
 

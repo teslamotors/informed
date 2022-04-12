@@ -12,6 +12,7 @@ export type FormState = {
   maskedValues: Record<string, unknown>;
   errors: Record<string, unknown>;
   touched: Record<string, unknown>;
+  modified: Record<string, unknown>;
   dirt: Record<string, unknown>;
   focused: Record<string, unknown>;
   initialValues: Record<string, unknown>;
@@ -43,6 +44,7 @@ export type FieldState = {
   value: unknown;
   maskedValue: unknown;
   error: unknown;
+  modified: boolean;
   touched: boolean;
   pristine: boolean;
   dirty: boolean;

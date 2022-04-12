@@ -1,3 +1,10 @@
+## 4.9.0 (April 12th, 2022)
+
+### Added
+
+- `formState.modified`
+- `fieldState.modified`
+
 ## 4.8.1 (April 4th, 2022)
 
 ### Fixed

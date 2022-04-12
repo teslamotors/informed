@@ -16,6 +16,7 @@ const getState = state => {
     validating: 0,
     values: {},
     maskedValues: {},
+    modified: {},
     errors: {},
     focused: {},
     gathering: 0,
@@ -64,6 +65,9 @@ describe('useFormApi', () => {
       maskedValues: {
         greeting: 'Hello World!'
       },
+      modified: {
+        greeting: 'Hello World!'
+      },
       dirt: {
         greeting: true
       }
@@ -73,6 +77,7 @@ describe('useFormApi', () => {
       value: 'Hello World!',
       maskedValue: 'Hello World!',
       error: undefined,
+      modified: true,
       touched: false,
       pristine: false,
       dirty: true,
@@ -116,6 +121,9 @@ describe('useFormApi', () => {
         foo: 'bar'
       },
       maskedValues: {
+        foo: 'bar'
+      },
+      modified: {
         foo: 'bar'
       },
       dirt: {
@@ -167,6 +175,10 @@ describe('useFormApi', () => {
         bar: 'b-a-z'
       },
       maskedValues: {
+        foo: 'bar',
+        bar: 'b-a-z'
+      },
+      modified: {
         foo: 'bar',
         bar: 'b-a-z'
       },
@@ -226,6 +238,10 @@ describe('useFormApi', () => {
         bar: 'b-a-z',
         baz: 'joe'
       },
+      modified: {
+        foo: 'bar',
+        bar: 'b-a-z',
+      },
       dirt: {
         foo: true,
         bar: true,
@@ -269,6 +285,9 @@ describe('useFormApi', () => {
       maskedValues: {
         foo: 'bar'
       },
+      modified: {
+        foo: 'bar'
+      },
       dirt: {
         foo: true
       }
@@ -284,6 +303,7 @@ describe('useFormApi', () => {
       dirty: true,
       values: {},
       maskedValues: {},
+      modified: {},
       dirt: {}
     }));
 
@@ -369,6 +389,9 @@ describe('useFormApi', () => {
       maskedValues: {
         greeting: 'bar'
       },
+      modified: {
+        greeting: 'bar'
+      },
       initialValues: {
         greeting: '123'
       }
@@ -440,6 +463,9 @@ describe('useFormApi', () => {
       },
       maskedValues: {
         greeting: 'elon'
+      },
+      modified: {
+        greeting: 'elon'
       }
     }));
 
@@ -492,6 +518,9 @@ describe('useFormApi', () => {
         greeting: 'bar'
       },
       maskedValues: {
+        greeting: 'bar'
+      },
+      modified: {
         greeting: 'bar'
       }
     }));

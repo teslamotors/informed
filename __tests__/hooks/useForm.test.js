@@ -15,6 +15,7 @@ const getState = state => {
     validating: 0,
     values: {},
     maskedValues: {},
+    modified: {},
     errors: {},
     focused: {},
     gathering: 0,
@@ -64,6 +65,9 @@ describe('useForm', () => {
       maskedValues: {
         greeting: 'Hi!'
       },
+      modified: {
+        greeting: 'Hi!'
+      },
       dirt: {
         greeting: true
       },
@@ -93,6 +97,9 @@ describe('useForm', () => {
         greeting: 'Hi!'
       },
       maskedValues: {
+        greeting: 'Hi!'
+      },
+      modified: {
         greeting: 'Hi!'
       },
       touched: {},
@@ -126,6 +133,9 @@ describe('useForm', () => {
         greeting: 'Hi!'
       },
       maskedValues: {
+        greeting: 'Hi!'
+      },
+      modified: {
         greeting: 'Hi!'
       },
       touched: {},
@@ -215,6 +225,9 @@ describe('useForm', () => {
         greeting: 'Hi!'
       },
       maskedValues: {
+        greeting: 'Hi!'
+      },
+      modified: {
         greeting: 'Hi!'
       },
       touched: {},
@@ -315,6 +328,9 @@ describe('useForm', () => {
       maskedValues: {
         greeting: 'Hi!'
       },
+      modified: {
+        greeting: 'Hi!'
+      },
       touched: {
         greeting: true
       },
@@ -334,6 +350,9 @@ describe('useForm', () => {
         greeting: 'Hi!'
       },
       maskedValues: {
+        greeting: 'Hi!'
+      },
+      modified: {
         greeting: 'Hi!'
       },
       touched: {
@@ -372,6 +391,9 @@ describe('useForm', () => {
         greeting: 'Hi!'
       },
       maskedValues: {
+        greeting: 'Hi!'
+      },
+      modified: {
         greeting: 'Hi!'
       },
       dirt: {
@@ -421,6 +443,9 @@ describe('useForm', () => {
         greeting: 'Hello World'
       },
       maskedValues: {
+        greeting: 'Hello World'
+      },
+      modified: {
         greeting: 'Hello World'
       },
       dirt: {
@@ -491,6 +516,9 @@ describe('useForm', () => {
         greeting: 'Hello World'
       },
       maskedValues: {
+        greeting: 'Hello World'
+      },
+      modified: {
         greeting: 'Hello World'
       },
       dirt: {
@@ -640,6 +668,9 @@ describe('useForm', () => {
         age: 47,
         name: 'Kimbal!'
       },
+      modified: {
+        name: 'Kimbal!'
+      },
       initialValues: profiles[1],
       pristine: false,
       dirty: true,
@@ -662,6 +693,9 @@ describe('useForm', () => {
       },
       maskedValues: {
         age: 47,
+        name: 'Kimbal!'
+      },
+      modified: {
         name: 'Kimbal!'
       },
       initialValues: profiles[1],
@@ -792,6 +826,9 @@ describe('useForm', () => {
         age: 47,
         name: 'Kimbal!'
       },
+      modified: {
+        name: 'Kimbal!'
+      },
       initialValues: profiles[1],
       pristine: false,
       dirty: true,
@@ -853,6 +890,9 @@ describe('useForm', () => {
       maskedValues: {
         greeting: 'Hi!'
       },
+      modified: {
+        greeting: 'Hi!'
+      },
       dirt: {
         greeting: true
       },
@@ -903,6 +943,9 @@ describe('useForm', () => {
         greeting: 'Hi!'
       },
       maskedValues: {
+        greeting: 'Hi!'
+      },
+      modified: {
         greeting: 'Hi!'
       },
       errors: {

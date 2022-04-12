@@ -167,6 +167,7 @@ export class FormController {
     this.clearValue = this.clearValue.bind(this);
     this.clearError = this.clearError.bind(this);
     this.getData = this.getData.bind(this);
+    this.getModified = this.getModified.bind(this);
   }
 
   getOptions() {
@@ -238,7 +239,7 @@ export class FormController {
     } else if (meta?.type === 'number' && value !== undefined) {
       debug(`Setting ${name}'s value to ${+value}`);
       ObjectMap.set(this.state.values, name, +value);
-      if (meta.getInitialValue() != value) {
+      if (meta.getInitialValue && meta.getInitialValue() != value) {
         ObjectMap.set(this.state.modified, name, +value);
       } else {
         debug(`Removing ${name}'s modified`);
@@ -269,7 +270,8 @@ export class FormController {
       debug(`Setting ${name}'s value to`, val);
       ObjectMap.set(this.state.values, name, val);
 
-      if (meta.getInitialValue() != val) {
+      // We want to set even if field is not on screen ( does not have getter for initial )
+      if (!meta.getInitialValue || meta.getInitialValue() != val) {
         debug(`Setting ${name}'s modified to`, val);
         ObjectMap.set(this.state.modified, name, val);
       } else {
@@ -390,6 +392,10 @@ export class FormController {
     this.state.invalid = !this.state.valid;
 
     this.emit('field', name);
+  }
+
+  getModified(name) {
+    return ObjectMap.get(this.state.modified, name);
   }
 
   getFocused(name) {
@@ -542,6 +548,7 @@ export class FormController {
       getFocused: this.getFocused,
       setFocused: this.setFocused,
       getData: this.getData,
+      getModified: this.getModified,
       resetField: this.resetField,
       reset: this.reset,
       getFormState: this.getFormState,
@@ -566,6 +573,7 @@ export class FormController {
     const meta = this.fieldsMap.get(name)?.current || {};
     const error = this.getError(name);
     const focused = !!this.getFocused(name);
+    const modified = !!this.getModified(name);
     const dirty = this.getDirty(name);
     const valid = this.getValid(name);
     const touched = !!this.getTouched(name);
@@ -588,6 +596,7 @@ export class FormController {
     return {
       value: this.getValue(name),
       maskedValue: this.getMaskedValue(name),
+      modified,
       touched,
       error: this.getError(name),
       data: this.getData(name),

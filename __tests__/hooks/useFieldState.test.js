@@ -22,7 +22,8 @@ const ComponentUsingFieldState = ({ name }) => {
 };
 
 const getState = state => {
-  return JSON.stringify(state, null, 2);
+  // return JSON.stringify(state, null, 2);
+  return state;
 };
 
 // prettier-ignore
@@ -60,9 +61,10 @@ describe('useFieldState', () => {
 
     expect(renders[0].textContent).toBe('Rendered: 4');
     expect(renders[1].textContent).toBe('Rendered: 2');
-    expect(states[0].textContent).toBe(getState({
+    expect(JSON.parse(states[0].textContent)).toEqual(getState({
       value: 'J',
       maskedValue: 'J',
+      modified: true,
       touched: false,
       pristine: false,
       dirty: true,
@@ -72,9 +74,9 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: true,
-      data: undefined
     }));
-    expect(states[1].textContent).toBe(getState({
+    expect(JSON.parse(states[1].textContent)).toEqual(getState({
+      modified: false,
       touched: false,
       pristine: true,
       dirty: false,
@@ -84,16 +86,16 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: false,
-      data: undefined
     }));
 
     userEvent.type(first, 'oe');
 
     expect(renders[0].textContent).toBe('Rendered: 6');
     expect(renders[1].textContent).toBe('Rendered: 2');
-    expect(states[0].textContent).toBe(getState({
+    expect(JSON.parse(states[0].textContent)).toEqual(getState({
       value: 'Joe',
       maskedValue: 'Joe',
+      modified: true,
       touched: false,
       pristine: false,
       dirty: true,
@@ -103,9 +105,9 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: true,
-      data: undefined
     }));
-    expect(states[1].textContent).toBe(getState({
+    expect(JSON.parse(states[1].textContent)).toEqual(getState({
+      modified: false,
       touched: false,
       pristine: true,
       dirty: false,
@@ -115,7 +117,6 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: false,
-      data: undefined
     }));
 
     // NOTE: when user starts typing in this field it will blur first field and cause a re-render!
@@ -123,9 +124,10 @@ describe('useFieldState', () => {
 
     expect(renders[0].textContent).toBe('Rendered: 7');
     expect(renders[1].textContent).toBe('Rendered: 7');
-    expect(states[0].textContent).toBe(getState({
+    expect(JSON.parse(states[0].textContent)).toEqual(getState({
       value: 'Joe',
       maskedValue: 'Joe',
+      modified: true,
       touched: true,
       pristine: false,
       dirty: true,
@@ -135,11 +137,11 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: true,
-      data: undefined
     }));
-    expect(states[1].textContent).toBe(getState({
+    expect(JSON.parse(states[1].textContent)).toEqual(getState({
       value: 'Puzz',
       maskedValue: 'Puzz',
+      modified: true,
       touched: false,
       pristine: false,
       dirty: true,
@@ -149,7 +151,6 @@ describe('useFieldState', () => {
       validating: false,
       gathering: false,
       focused: true,
-      data: undefined
     }));
 
   });
@@ -173,9 +174,10 @@ describe('useFieldState', () => {
     expect(renders[0].textContent).toBe('Rendered: 2');
     expect(renders[1].textContent).toBe('Rendered: 2');
 
-    expect(states[0].textContent).toBe(getState({
+    expect(JSON.parse(states[0].textContent)).toEqual(getState({
       value: 'Joe',
       maskedValue: 'Joe',
+      modified: false,
       touched: false,
       pristine: true,
       dirty: false,
@@ -187,9 +189,10 @@ describe('useFieldState', () => {
       focused: false,
       data: undefined
     }));
-    expect(states[1].textContent).toBe(getState({
+    expect(JSON.parse(states[1].textContent)).toEqual(getState({
       value: 'Puzzo',
       maskedValue: 'Puzzo',
+      modified: false,
       touched: false,
       pristine: true,
       dirty: false,
@@ -228,9 +231,10 @@ describe('useFieldState', () => {
     expect(renders[0].textContent).toBe('Rendered: 2');
     expect(renders[1].textContent).toBe('Rendered: 2');
 
-    expect(states[0].textContent).toBe(getState({
+    expect(JSON.parse(states[0].textContent)).toEqual(getState({
       value: 'Joe',
       maskedValue: 'Joe',
+      modified: false,
       touched: false,
       pristine: true, 
       dirty: false,
@@ -242,9 +246,10 @@ describe('useFieldState', () => {
       focused: false,
       data: undefined
     }));
-    expect(states[1].textContent).toBe(getState({
+    expect(JSON.parse(states[1].textContent)).toEqual(getState({
       value: 'Puzzo',
       maskedValue: 'Puzzo',
+      modified: false,
       touched: false,
       pristine: true, 
       dirty: false,
@@ -286,9 +291,10 @@ describe('useFieldState', () => {
 
     expect(renders[0].textContent).toBe('Rendered: 2');
     expect(renders[1].textContent).toBe('Rendered: 2');
-    expect(states[0].textContent).toBe(getState({
+    expect(JSON.parse(states[0].textContent)).toEqual(getState({
       value: 'Joe',
       maskedValue: 'Joe',
+      modified: false,
       touched: false,
       pristine: true,
       dirty: false,
@@ -300,7 +306,8 @@ describe('useFieldState', () => {
       focused: false,
       data: undefined
     }));
-    expect(states[1].textContent).toBe(getState({
+    expect(JSON.parse(states[1].textContent)).toEqual(getState({
+      modified: false,
       touched: false,
       pristine: true,
       dirty: false,
@@ -320,9 +327,10 @@ describe('useFieldState', () => {
     expect(renders[0].textContent).toBe('Rendered: 3');
     expect(renders[1].textContent).toBe('Rendered: 3');
 
-    expect(states[0].textContent).toBe(getState({
+    expect(JSON.parse(states[0].textContent)).toEqual(getState({
       value: 'Joe',
       maskedValue: 'Joe',
+      modified: false,
       touched: true,
       error: 'Field must be at least five characters',
       pristine: true,
@@ -336,7 +344,8 @@ describe('useFieldState', () => {
       data: undefined
     }));
 
-    expect(states[1].textContent).toBe(getState({
+    expect(JSON.parse(states[1].textContent)).toEqual(getState({
+      modified: false,
       touched: true,
       error: 'This field is required',
       pristine: true,
@@ -356,9 +365,10 @@ describe('useFieldState', () => {
 
     expect(renders[0].textContent).toBe('Rendered: 3');
     expect(renders[1].textContent).toBe('Rendered: 5');
-    expect(states[0].textContent).toBe(getState({
+    expect(JSON.parse(states[0].textContent)).toEqual(getState({
       value: 'Joe',
       maskedValue: 'Joe',
+      modified: false,
       touched: true,
       error: 'Field must be at least five characters',
       pristine: true,
@@ -372,9 +382,10 @@ describe('useFieldState', () => {
       data: undefined
     }));
 
-    expect(states[1].textContent).toBe(getState({
+    expect(JSON.parse(states[1].textContent)).toEqual(getState({
       value: 'P',
       maskedValue: 'P',
+      modified: true,
       touched: true,
       error: 'This field is required', // Note because by default only validate on blur
       pristine: false,
@@ -394,10 +405,11 @@ describe('useFieldState', () => {
 
     expect(renders[0].textContent).toBe('Rendered: 4');
     expect(renders[1].textContent).toBe('Rendered: 6');
-    expect(states[0].textContent).toBe(getState({
+    expect(JSON.parse(states[0].textContent)).toEqual(getState({
       value: 'Joe',
       maskedValue: 'Joe',
       touched: true,
+      modified: false,
       error: 'Field must be at least five characters',
       pristine: true,
       dirty: false,
@@ -410,9 +422,10 @@ describe('useFieldState', () => {
       data: undefined
     }));
 
-    expect(states[1].textContent).toBe(getState({
+    expect(JSON.parse(states[1].textContent)).toEqual(getState({
       value: 'P',
       maskedValue: 'P',
+      modified: true,
       touched: true,
       error: 'Field must be at least five characters',
       pristine: false,
@@ -455,9 +468,10 @@ describe('useFieldState', () => {
 
     expect(renders[0].textContent).toBe('Rendered: 2');
     expect(renders[1].textContent).toBe('Rendered: 2');
-    expect(states[0].textContent).toBe(getState({
+    expect(JSON.parse(states[0].textContent)).toEqual(getState({
       value: 'Joe',
       maskedValue: 'Joe',
+      modified: false,
       touched: false,
       pristine: true,
       dirty: false,
@@ -469,7 +483,8 @@ describe('useFieldState', () => {
       focused: false,
       data: undefined
     }));
-    expect(states[1].textContent).toBe(getState({
+    expect(JSON.parse(states[1].textContent)).toEqual(getState({
+      modified: false,
       touched: false,
       pristine: true,
       dirty: false,
@@ -489,9 +504,10 @@ describe('useFieldState', () => {
     expect(renders[0].textContent).toBe('Rendered: 3');
     expect(renders[1].textContent).toBe('Rendered: 3');
 
-    expect(states[0].textContent).toBe(getState({
+    expect(JSON.parse(states[0].textContent)).toEqual(getState({
       value: 'Joe',
       maskedValue: 'Joe',
+      modified: false,
       touched: true,
       error: 'Field must be at least five characters',
       pristine: true,
@@ -505,7 +521,8 @@ describe('useFieldState', () => {
       data: undefined
     }));
 
-    expect(states[1].textContent).toBe(getState({
+    expect(JSON.parse(states[1].textContent)).toEqual(getState({
+      modified: false,
       touched: true,
       error: 'This field is required',
       pristine: true,
@@ -525,9 +542,10 @@ describe('useFieldState', () => {
 
     expect(renders[0].textContent).toBe('Rendered: 3');
     expect(renders[1].textContent).toBe('Rendered: 5');
-    expect(states[0].textContent).toBe(getState({
+    expect(JSON.parse(states[0].textContent)).toEqual(getState({
       value: 'Joe',
       maskedValue: 'Joe',
+      modified: false,
       touched: true,
       error: 'Field must be at least five characters',
       pristine: true,
@@ -541,9 +559,10 @@ describe('useFieldState', () => {
       data: undefined
     }));
 
-    expect(states[1].textContent).toBe(getState({
+    expect(JSON.parse(states[1].textContent)).toEqual(getState({
       value: 'P',
       maskedValue: 'P',
+      modified: true,
       touched: true,
       error: 'Field must be at least five characters', // Changed because validateOnChange
       pristine: false,

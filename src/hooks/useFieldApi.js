@@ -14,6 +14,7 @@ const buildFieldApi = (formApi, name) => {
     getFocused: () => formApi.getFocused(name),
     setFocused: (value, e) => formApi.setFocused(name, value, e),
     getData: () => formApi.getData(name),
+    getModified: () => formApi.getModified(name),
     reset: options => formApi.resetField(name, options),
     validate: () => formApi.validateField(name),
     getDirty: () => formApi.getDirty(name),

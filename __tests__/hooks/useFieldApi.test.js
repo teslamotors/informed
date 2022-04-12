@@ -19,6 +19,7 @@ const ComponentUsingFieldApi = ({ name }) => {
 const getState = state => {
   const defaultState = {
     error: undefined,
+    modified: false,
     touched: false,
     pristine: true,
     dirty: false,
@@ -58,6 +59,7 @@ describe('useFieldApi', () => {
       maskedValue: 'Hello World!',
       pristine: false,
       dirty: true,
+      modified: true
     }));
     expect(formApiRef.current.getFieldState('last')).toEqual(getState());
 
@@ -68,12 +70,14 @@ describe('useFieldApi', () => {
       maskedValue: 'Hello World!',
       pristine: false,
       dirty: true,
+      modified: true
     }));
     expect(formApiRef.current.getFieldState('last')).toEqual(getState({
       value: 'Hello World!',
       maskedValue: 'Hello World!',
       pristine: false,
       dirty: true,
+      modified: true
     }));
 
   });

@@ -238,7 +238,12 @@ export class FormController {
     } else if (meta?.type === 'number' && value !== undefined) {
       debug(`Setting ${name}'s value to ${+value}`);
       ObjectMap.set(this.state.values, name, +value);
-      ObjectMap.set(this.state.modified, name, +value);
+      if (meta.getInitialValue() != value) {
+        ObjectMap.set(this.state.modified, name, +value);
+      } else {
+        debug(`Removing ${name}'s modified`);
+        ObjectMap.delete(this.state.modified, name);
+      }
       ObjectMap.set(this.state.maskedValues, name, +value);
     } else {
       let val = value;
@@ -264,8 +269,13 @@ export class FormController {
       debug(`Setting ${name}'s value to`, val);
       ObjectMap.set(this.state.values, name, val);
 
-      debug(`Setting ${name}'s modified to`, val);
-      ObjectMap.set(this.state.modified, name, val);
+      if (meta.getInitialValue() != val) {
+        debug(`Setting ${name}'s modified to`, val);
+        ObjectMap.set(this.state.modified, name, val);
+      } else {
+        debug(`Removing ${name}'s modified`);
+        ObjectMap.delete(this.state.modified, name);
+      }
 
       debug(`Setting ${name}'s maskedValue to`, maskedVal);
       ObjectMap.set(this.state.maskedValues, name, maskedVal);

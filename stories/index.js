@@ -7,6 +7,7 @@ import TLDR from './TLDR';
 import CarColor from './CarColor';
 import Changelog from './Intro/Changelog';
 import Basic from './Form/Basic';
+import Modified from './Form/Modified';
 import FormProvider from './Form/FormProvider';
 import Path from './Form/Path';
 import FeatureTester from './Form/FeatureTester';
@@ -192,6 +193,7 @@ storiesOf('Form', module)
   .add('Props', Props)
   .add('Dynamic', DynamicFields)
   .add('Dependent Fields', FormatDependent)
+  .add('Modified', Modified)
   .add('Path', Path)
   .add('Features', FeatureTester)
   .add('Inputs', Complex)

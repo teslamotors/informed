@@ -1,3 +1,9 @@
+## 4.9.1 (April 12th, 2022)
+
+### Fixed
+
+- issue where modified would NOT be correct when allowEmptyString was passed
+
 ## 4.9.0 (April 12th, 2022)
 
 ### Added

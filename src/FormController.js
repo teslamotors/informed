@@ -228,7 +228,13 @@ export class FormController {
       if (meta.allowEmptyString) {
         debug(`Setting ${name}'s value to '' because allowEmptyString is set`);
         ObjectMap.set(this.state.values, name, value);
-        ObjectMap.set(this.state.modified, name, value);
+        // Special if check for modified
+        if (meta.getInitialValue && meta.getInitialValue() != value) {
+          ObjectMap.set(this.state.modified, name, value);
+        } else {
+          debug(`Removing ${name}'s modified`);
+          ObjectMap.delete(this.state.modified, name);
+        }
         ObjectMap.set(this.state.maskedValues, name, value);
       } else {
         debug(`Setting ${name}'s value to undefiend`);
@@ -239,6 +245,7 @@ export class FormController {
     } else if (meta?.type === 'number' && value !== undefined) {
       debug(`Setting ${name}'s value to ${+value}`);
       ObjectMap.set(this.state.values, name, +value);
+      // Special if check for modified
       if (meta.getInitialValue && meta.getInitialValue() != value) {
         ObjectMap.set(this.state.modified, name, +value);
       } else {
@@ -270,6 +277,7 @@ export class FormController {
       debug(`Setting ${name}'s value to`, val);
       ObjectMap.set(this.state.values, name, val);
 
+      // Special if check for modified
       // We want to set even if field is not on screen ( does not have getter for initial )
       if (!meta.getInitialValue || meta.getInitialValue() != val) {
         debug(`Setting ${name}'s modified to`, val);

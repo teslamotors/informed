@@ -1,6 +1,6 @@
 {
   "name": "informed",
-  "version": "4.5.5",
+  "version": "4.8.1",
   "description": "A lightweight framework and utility for building powerful forms in React applications",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -10,8 +10,11 @@
     "index.d.ts"
   ],
   "exports": {
-    "import": "./dist/esm/index.js",
-    "require": "./dist/cjs/index.js"
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./package.json": "./package.json"
   },
   "scripts": {
     "start": "npm run storybook -s public",
@@ -80,7 +83,7 @@
     "@rollup/plugin-node-resolve": "^13.0.4",
     "@storybook/addon-options": "^5.3.21",
     "@storybook/addons": "^6.3.12",
-    "@storybook/react": "^6.4.9",
+    "@storybook/react": "^6.4.19",
     "@storybook/theming": "^6.3.12",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
@@ -129,7 +132,7 @@
     "webpack": "^4.29.6",
     "webpack-bundle-analyzer": "^3.7.0",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^4.1.1",
+    "webpack-dev-server": "^4.7.4",
     "webpack-node-externals": "^1.7.2",
     "yup": "^0.28.1"
   },

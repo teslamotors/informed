@@ -1,6 +1,3 @@
-# Playground
-
-<br/>
-<br/>
+# Playground - Schema
 
 <!-- STORY -->

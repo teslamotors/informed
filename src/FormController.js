@@ -90,6 +90,8 @@ export class FormController {
     // 6. It wipes out sync error
     this.validationRequests = new Map();
 
+    this.dataRequests = new Map();
+
     // For array fields lol
     this.removalLocked = undefined;
 
@@ -102,6 +104,7 @@ export class FormController {
       valid: true,
       submitting: false,
       validating: 0,
+      gathering: 0,
       values: {},
       errors: {},
       touched: {},
@@ -109,6 +112,7 @@ export class FormController {
       dirt: {},
       focused: {},
       modified: {},
+      data: {},
       initialValues: this.options.current.initialValues || {}
     };
 
@@ -153,12 +157,16 @@ export class FormController {
     this.touchAllFields = this.touchAllFields.bind(this);
     this.keyDown = this.keyDown.bind(this);
     this.validateAsync = this.validateAsync.bind(this);
+    this.gatherData = this.gatherData.bind(this);
     this.validated = this.validated.bind(this);
     this.debouncedValidateAsync = debounceByName(this.validateAsync);
+    this.debouncedGatherInfo = debounceByName(this.gatherData);
     this.getOptions = this.getOptions.bind(this);
     this.validateField = this.validateField.bind(this);
     this.getErrorMessage = this.getErrorMessage.bind(this);
     this.clearValue = this.clearValue.bind(this);
+    this.clearError = this.clearError.bind(this);
+    this.getData = this.getData.bind(this);
   }
 
   getOptions() {
@@ -216,10 +224,17 @@ export class FormController {
     }
 
     if (value === '') {
-      debug(`Setting ${name}'s value to undefiend`);
-      ObjectMap.set(this.state.values, name, undefined);
-      ObjectMap.set(this.state.modified, name, undefined);
-      ObjectMap.set(this.state.maskedValues, name, undefined);
+      if (meta.allowEmptyString) {
+        debug(`Setting ${name}'s value to '' because allowEmptyString is set`);
+        ObjectMap.set(this.state.values, name, value);
+        ObjectMap.set(this.state.modified, name, value);
+        ObjectMap.set(this.state.maskedValues, name, value);
+      } else {
+        debug(`Setting ${name}'s value to undefiend`);
+        ObjectMap.set(this.state.values, name, undefined);
+        ObjectMap.set(this.state.modified, name, undefined);
+        ObjectMap.set(this.state.maskedValues, name, undefined);
+      }
     } else if (meta?.type === 'number' && value !== undefined) {
       debug(`Setting ${name}'s value to ${+value}`);
       ObjectMap.set(this.state.values, name, +value);
@@ -316,6 +331,11 @@ export class FormController {
     if (meta.onChange) {
       const fieldState = this.getFieldState(name);
       meta.onChange(fieldState, e);
+    }
+
+    if (meta.gatherData) {
+      // Get error to determine if we even want to validateAsync
+      this.debouncedGatherInfo(name);
     }
 
     // Normal field event
@@ -454,6 +474,10 @@ export class FormController {
     this.emit('field', name);
   }
 
+  getData(name) {
+    return ObjectMap.get(this.state.data, name);
+  }
+
   getError(name) {
     return ObjectMap.get(this.state.errors, name);
   }
@@ -461,7 +485,8 @@ export class FormController {
   setError(name, value) {
     debug(`Setting ${name}'s error to ${value}`);
     ObjectMap.set(this.state.errors, name, value);
-    // TODO maybe evaluate vaid for form here
+    this.state.valid = ObjectMap.empty(this.state.errors);
+    this.state.invalid = !this.state.valid;
     this.emit('field', name);
   }
 
@@ -490,6 +515,10 @@ export class FormController {
     this.setValue(name, undefined);
   }
 
+  clearError(name) {
+    this.setError(name, undefined);
+  }
+
   getFormApi() {
     return {
       getValue: this.getValue,
@@ -502,6 +531,7 @@ export class FormController {
       setError: this.setError,
       getFocused: this.getFocused,
       setFocused: this.setFocused,
+      getData: this.getData,
       resetField: this.resetField,
       reset: this.reset,
       getFormState: this.getFormState,
@@ -516,7 +546,8 @@ export class FormController {
       setValues: this.setValues,
       setTheseValues: this.setTheseValues,
       submitForm: this.submitForm,
-      clearValue: this.clearValue
+      clearValue: this.clearValue,
+      clearError: this.clearError
     };
   }
 
@@ -530,6 +561,7 @@ export class FormController {
     const touched = !!this.getTouched(name);
     const pristine = !dirty;
     const validating = !!this.validationRequests.get(name);
+    const gathering = !!this.dataRequests.get(name);
 
     let showError = false;
     if (meta && meta.showErrorIfError) {
@@ -548,12 +580,14 @@ export class FormController {
       maskedValue: this.getMaskedValue(name),
       touched,
       error: this.getError(name),
+      data: this.getData(name),
       pristine,
       dirty,
       valid,
       invalid: !valid,
       showError,
       validating,
+      gathering,
       focused
     };
   }
@@ -576,6 +610,8 @@ export class FormController {
       ObjectMap.delete(this.state.dirt, name);
       debug('Delete Focused', name);
       ObjectMap.delete(this.state.focused, name);
+      debug('Delete Info', name);
+      ObjectMap.delete(this.state.data, name);
 
       // Remember to update valid
       this.state.valid = ObjectMap.empty(this.state.errors);
@@ -600,6 +636,7 @@ export class FormController {
     ObjectMap.swap(this.state.errors, name, a, b);
     ObjectMap.swap(this.state.dirt, name, a, b);
     ObjectMap.swap(this.state.focused, name, a, b);
+    ObjectMap.swap(this.state.data, name, a, b);
     // DO NOT emit event here we want to delay it on purpose because otherwise relevance will trigger with bad state
     // this.emit("field", name);
     this.state.pristine = false;
@@ -615,6 +652,7 @@ export class FormController {
     ObjectMap.delete(this.state.errors, name);
     ObjectMap.delete(this.state.dirt, name);
     ObjectMap.delete(this.state.focused, name);
+    ObjectMap.delete(this.state.data, name);
     // DO NOT emit event here we want to delay it on purpose because otherwise relevance will trigger with bad state
     // this.emit("field", name);
     this.state.pristine = false;
@@ -689,6 +727,11 @@ export class FormController {
     this.state.valid = ObjectMap.empty(this.state.errors);
     this.state.invalid = !this.state.valid;
 
+    if (meta.current.gatherData && meta.current.gatherOnMount === true) {
+      // Get error to determine if we even want to validateAsync
+      this.debouncedGatherInfo(name);
+    }
+
     this.emit('field', name);
 
     // Special event when fields value changes ( this if first time so its technically a change to initial value)
@@ -743,6 +786,21 @@ export class FormController {
       // Then always clear
       this.done = undefined;
     }
+
+    // Always update
+    this.emit('field', name);
+  }
+
+  gathered(name, res) {
+    debug(
+      `Setting ${name}'s data to ${res} with ${
+        this.state.gathering
+      } gatherers left`
+    );
+    ObjectMap.set(this.state.data, name, res);
+
+    // Clear out validating
+    this.dataRequests.delete(name);
 
     // Always update
     this.emit('field', name);
@@ -812,6 +870,65 @@ export class FormController {
     }
   }
 
+  gatherData(name) {
+    debug('EXECUTING INFO ASYNC', name);
+    // Get meta for field
+    const meta = this.fieldsMap.get(name)?.current;
+
+    // Get the value
+    const value = this.getValue(name);
+
+    if (meta && meta.gatherData) {
+      this.state.gathering = this.state.gathering + 1;
+      const uuid = uuidv4();
+      debug('DATA REQUEST', uuid);
+      this.dataRequests.set(name, { uuid, value });
+
+      // Because we may have been debounced need to update field here
+      this.emit('field', name);
+
+      meta
+        .gatherData(value, this.state)
+        .then(res => {
+          this.state.gathering = this.state.gathering - 1;
+          const stale = this.dataRequests.get(name).uuid !== uuid;
+
+          // What in the hell is invalid and why do I need it??
+          // because the value can be outdated
+          const invalid =
+            this.dataRequests.get(name).value !== this.getValue(name);
+          if (!stale && !invalid) {
+            debug('DATA FINISH', uuid);
+            this.gathered(name, res);
+          } else {
+            debug(
+              `${stale ? 'STALE' : 'INVALID'} THEN`,
+              uuid,
+              value,
+              this.getValue(name)
+            );
+          }
+        })
+        .catch(err => {
+          this.state.gathering = this.state.gathering - 1;
+          const stale = this.dataRequests.get(name).uuid !== uuid;
+          const invalid =
+            this.dataRequests.get(name).value !== this.getValue(name);
+          if (!stale && !invalid) {
+            debug('DATA FINISH', uuid);
+            this.gathered(name, err.message);
+          } else {
+            debug(
+              `${stale ? 'STALE' : 'INVALID'} THEN`,
+              uuid,
+              value,
+              this.getValue(name)
+            );
+          }
+        });
+    }
+  }
+
   reset() {
     this.state = {
       pristine: true,
@@ -821,6 +938,7 @@ export class FormController {
       valid: true,
       submitting: false,
       validating: 0,
+      gathering: 0,
       values: {},
       errors: {},
       touched: {},
@@ -828,6 +946,7 @@ export class FormController {
       dirt: {},
       focused: {},
       modified: {},
+      data: {},
       initialValues: this.options.current.initialValues || {}
     };
 

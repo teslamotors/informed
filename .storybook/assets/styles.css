@@ -67,6 +67,17 @@ input {
   margin-bottom: 1rem;
 }
 
+.address-option {
+  width: 100%;
+  background-color: #f4f4f4;
+  padding: 10px 20px;
+}
+
+.address-option:hover {
+  background-color: #9d9c9c;
+  cursor: pointer;
+}
+
 input:not([type='checkbox']):not([type='radio']),
 textarea,
 select {
@@ -176,7 +187,8 @@ button {
   border-radius: 20px;
   padding: 5px 40px;
   color: white;
-  background-color: #3e6ae1;
+  /* background-color: #3e6ae1; */
+  background-color: rebeccapurple;
   margin-bottom: 1rem;
   margin-top: 1rem;
   margin-right: 1rem;
@@ -372,6 +384,16 @@ strong {
 .informed-black {
   background-color: black;
   color: white !important;
+}
+
+.informed-black .address-option {
+  background-color: rgb(58, 60, 65);
+  color: white;
+}
+
+.informed-black .address-option:hover {
+  background-color: rgb(82, 84, 89);
+  cursor: pointer;
 }
 
 .informed-black input:not([type='checkbox']):not([type='radio']),

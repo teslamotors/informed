@@ -15,12 +15,14 @@ const buildScopedFormApi = (scope, formApi) => {
       formApi.setFocused(`${scope}.${field}`, value),
     getError: field => formApi.getError(`${scope}.${field}`),
     setError: (field, value) => formApi.setError(`${scope}.${field}`, value),
+    getData: field => formApi.getData(`${scope}.${field}`),
     resetField: field => formApi.resetField(`${scope}.${field}`),
     validate: field => formApi.validate(`${scope}.${field}`),
     getDirty: field => formApi.getDirty(`${scope}.${field}`),
     getPristine: field => formApi.getPristine(`${scope}.${field}`),
     getMaskedValue: field => formApi.getMaskedValue(`${scope}.${field}`),
-    clearValue: field => formApi.clearValue(`${scope}.${field}`)
+    clearValue: field => formApi.clearValue(`${scope}.${field}`),
+    clearError: field => formApi.clearError(`${scope}.${field}`)
   };
 };
 

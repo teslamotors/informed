@@ -2,15 +2,17 @@ import React, { useMemo, useEffect, useState } from 'react';
 import {
   computeFieldFromProperty,
   getSchemaPathFromJsonPath,
-  checkCondition
+  checkCondition,
+  sanitize
 } from '../utils';
 import { ObjectMap } from '../ObjectMap';
 import { useFormController } from '../hooks/useFormController';
 import { useScope } from '../hooks/useScope';
+import { useConditional } from '../hooks/useConditional';
 import { Debug } from '../debug';
 import { FormFields } from './FormFields';
 import { Relevant } from './Relevant';
-import { ScopeContext } from '../Context';
+import { Scope } from './Scope';
 // import { useForceUpdate } from '../hooks/useForceUpdate';
 const logger = Debug('informed:FormField' + '\t');
 
@@ -98,7 +100,10 @@ const FormField = ({ name, schema, ...rest }) => {
         //   }
 
         if (target === name) {
-          logger('Updating field props for', target);
+          logger(
+            `Updating field props for ${target}`,
+            computeFieldFromProperty(name, property)
+          );
           setCondProp(computeFieldFromProperty(name, property));
         }
       };
@@ -120,6 +125,13 @@ const FormField = ({ name, schema, ...rest }) => {
     [name]
   );
 
+  const hookProps = useConditional({
+    name: schemaProps.name,
+    evaluate: schemaProps.evaluate,
+    evaluateWhen: schemaProps.evaluateWhen,
+    dependsOn: schemaProps.dependsOn
+  });
+
   // Combine any conditional props with the schema props
   const props = useMemo(
     () => {
@@ -127,12 +139,22 @@ const FormField = ({ name, schema, ...rest }) => {
       const condProps = condProp.props;
 
       // Lay those on top of existing ones
-      const newProps = { ...schemaProps, ...condProps, ...rest };
-
-      logger(`New Props for ${name}`, condProps);
+      const newSchemaProps = sanitize(schemaProps);
+      const newCondProps = sanitize(condProps);
+      const newHookProps = sanitize(hookProps);
+      const newProps = {
+        ...newSchemaProps,
+        ...newCondProps,
+        ...newHookProps,
+        ...rest
+      };
+      logger(`Schema Props for ${name}`, newSchemaProps);
+      logger(`Cond Props for ${name}`, newCondProps);
+      logger(`Hook Props for ${name}`, newHookProps);
+      logger(`New Props for ${name}`, newProps);
       return newProps;
     },
-    [condProp]
+    [condProp, hookProps]
   );
 
   // Component is either on field map or components list passed in
@@ -156,20 +178,20 @@ const FormField = ({ name, schema, ...rest }) => {
   // Scope for nested
   if (!Component && type === 'object' && properties) {
     return (
-      <ScopeContext.Provider value={name}>
+      <Scope scope={name}>
         <FormFields schema={schemaField} />
-      </ScopeContext.Provider>
+      </Scope>
     );
   }
 
   // Just component
   if (Component && type === 'object' && properties) {
     return (
-      <ScopeContext.Provider value={name}>
+      <Scope scope={name}>
         <Component {...props}>
           <FormFields schema={schemaField} />
         </Component>
-      </ScopeContext.Provider>
+      </Scope>
     );
   }
 

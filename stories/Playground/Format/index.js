@@ -1,30 +1,21 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import * as Informed from '../../../src';
-import dracula from 'prism-react-renderer/themes/dracula';
-
-import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
-
-const imports = {
-  informed: Informed,
-  react: React
-};
-
-const scope = { imports };
+import { CodeBlock } from '../../utils/CodeBlock';
 
 let code = `
-const { Form, Text, Select, RadioGroup, Radio, Debug } = imports['informed'];
+import { Form, Input, Text, Select, RadioGroup, Radio, Debug } from 'informed';
+import './style.css';
 
 const onSubmit = ({values}) => {
   window.alert(JSON.stringify(values));
 }
 
-const Component = () => {
+export default function App() {
   return (
     <Form onSubmit={onSubmit}>
       <Input field="name" label="First Name" placeholder="Elon"/>
-      <Select field="color" label="Color">
+      <Select field="color" label="Color" required>
           <option value="" disabled>
             - Select -
           </option>
@@ -41,28 +32,13 @@ const Component = () => {
       <button type="submit">
         Submit
       </button>
-      <Debug/>
     </Form>
   );
 };
-
-render( <Component /> );
 `;
 
 const Playground = () => {
-  return (
-    <LiveProvider code={code} scope={scope} noInline={true} theme={dracula}>
-      <div style={{ display: 'flex' }}>
-        <div style={{ marginRight: '2rem', flex: 2 }}>
-          <LiveEditor />
-        </div>
-        <div style={{ marginRight: '2rem', flex: 1 }}>
-          <LiveError className="language-none" />
-          <LivePreview />
-        </div>
-      </div>
-    </LiveProvider>
-  );
+  return <CodeBlock code={code} />;
 };
 
 export default withDocs(readme, Playground);

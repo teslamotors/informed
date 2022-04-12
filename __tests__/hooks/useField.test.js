@@ -31,6 +31,82 @@ describe('useField', () => {
     expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hi!' });
   });
 
+  it('should clear out the value when user backspaces', () => {
+    const formApiRef = {};
+
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="greeting" label="input1" />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+    userEvent.type(input, 'Hi!');
+  
+    expect(input).toHaveAttribute('value', 'Hi!');
+    expect(input).toHaveValue('Hi!');
+    expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hi!' });
+
+    input.setSelectionRange(0, 3);
+    userEvent.type(input, '{backspace}');
+
+    expect(input).toHaveAttribute('value', '');
+    expect(input).toHaveValue('');
+    expect(formApiRef.current.getFormState().values).toEqual({});
+  });
+
+  it('should clear out the value to empty string when user backspaces and allowEmptyString is passed', () => {
+    const formApiRef = {};
+
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="greeting" label="input1" allowEmptyString/>
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+    userEvent.type(input, 'Hi!');
+  
+    expect(input).toHaveAttribute('value', 'Hi!');
+    expect(input).toHaveValue('Hi!');
+    expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hi!' });
+
+    input.setSelectionRange(0, 3);
+    userEvent.type(input, '{backspace}');
+
+    expect(input).toHaveAttribute('value', '');
+    expect(input).toHaveValue('');
+    expect(formApiRef.current.getFormState().values).toEqual({ greeting: '' });
+  });
+
+  it('should clear out the value to empty string when user backspaces and allowEmptyStrings is passed to form', () => {
+    const formApiRef = {};
+
+    const { getByLabelText } = render(
+      <Form
+        allowEmptyStrings
+        formApiRef={formApiRef}>
+        <Input name="greeting" label="input1"/>
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+    userEvent.type(input, 'Hi!');
+  
+    expect(input).toHaveAttribute('value', 'Hi!');
+    expect(input).toHaveValue('Hi!');
+    expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hi!' });
+
+    input.setSelectionRange(0, 3);
+    userEvent.type(input, '{backspace}');
+
+    expect(input).toHaveAttribute('value', '');
+    expect(input).toHaveValue('');
+    expect(formApiRef.current.getFormState().values).toEqual({ greeting: '' });
+  });
+
   it('placeholder should end up on input', () => {
 
     const { getByLabelText } = render(
@@ -99,6 +175,8 @@ describe('useField', () => {
       showError: false,
       validating: false,
       focused: true,
+      gathering: false,
+      data: undefined
     }, expect.anything());
 
   });
@@ -131,6 +209,8 @@ describe('useField', () => {
       showError: false,
       validating: false,
       focused: true,
+      gathering: false,
+      data: undefined
     }, expect.anything());
   });
 
@@ -159,6 +239,8 @@ describe('useField', () => {
       showError: false,
       validating: false,
       focused: true,
+      gathering: false,
+      data: undefined
     }, expect.anything());
   });
 
@@ -1313,6 +1395,48 @@ describe('useField', () => {
 
     userEvent.type(input, 'Hi!');
     expect(getByText('Field must be at least five characters')).toBeInTheDocument();
+  });
+
+  it('should show required error message after required prop changes', () => {
+
+    const formApiRef = {};
+
+    const Comp = () => {
+      const [required, setRequired] = useState(false);
+      return (
+        <>
+          <Form formApiRef={formApiRef}>
+            <Input 
+              name="greeting"  
+              label="input1" 
+              required={required} />
+            <button type="submit">Submit</button>
+            <button type="button" onClick={() => setRequired(true)}>
+              Change
+            </button>
+          </Form>
+        </>
+      );
+    };
+
+    const { getByText }  = render(
+      <Comp />
+    );
+
+    const submit = getByText('Submit');
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({});
+
+    // act(()=>{
+    const button = getByText('Change');
+    fireEvent.click(button);
+    // });
+
+    fireEvent.click(submit);
+
+    expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'This field is required' });
+    expect(getByText('This field is required')).toBeInTheDocument();
   });
 
   it('should show correct default required error message', () => {

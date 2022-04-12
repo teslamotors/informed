@@ -6,6 +6,7 @@ import CheckboxInput from './CheckboxInput';
 import SelectInput from './SelectInput';
 import MultiSelectInput from './MultiSelectInput';
 import Intro from './Intro';
+import GoogleApi from './GoogleApi';
 
 export {
   TextInput,
@@ -15,5 +16,6 @@ export {
   SelectInput,
   MultiSelectInput,
   Intro,
-  NumberInput
+  NumberInput,
+  GoogleApi
 };

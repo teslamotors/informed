@@ -48,9 +48,8 @@ import AjvValidation from './Validation/AjvValidation';
 import AjvValidationNoRender from './Validation/AjvValidationNoRender';
 import AsyncValidation from './Validation/AsyncValidation';
 // import AsyncValidationControl from './Validation/AsyncValidationControl';
-// import FormatPlayground from './Playground/Format';
-// import SchemaPlayground from './Playground/Schema';
-import RickRoll from './Playground/RickRoll';
+import FormatPlayground from './Playground/Format';
+import SchemaPlayground from './Playground/Schema';
 
 // import FormatParse from './Formatting/FormatParse';
 import Formatter from './Formatting/Formatter';
@@ -66,6 +65,7 @@ import InitializeIfPristine from './Gotchas/InitializeIfPristine';
 
 // import Optimization from './Gotchas/Optimization';
 import DynamicFields from './Dynamic/DynamicFields';
+import AsyncDependentFields from './Dynamic/AsyncDependentFields';
 import CustomInputs from './CustomInputs';
 import {
   TextInput,
@@ -75,7 +75,8 @@ import {
   CheckboxInput,
   SelectInput,
   MultiSelectInput,
-  Intro as InputIntro
+  Intro as InputIntro,
+  GoogleApi
 } from './Inputs';
 
 import {
@@ -93,6 +94,7 @@ import {
 import RelevantComonent from './Relevance/RelevantComponent';
 import RelevanceProp from './Relevance/RelevanceProp';
 import ComplexRelevance from './Relevance/ComplexRelevance';
+import ScopedRelevance from './Relevance/ScopedRelevance';
 
 import ScopeComponent from './Scope/ScopeComponent';
 
@@ -120,6 +122,8 @@ import FormatDependent from './Form/FormatDependent';
 import FormattedObjectInput from './CustomInputs/FormattedObjectInput';
 import ObjectInput from './CustomInputs/ObjectInput';
 import NumberFormatter from './Formatting/NumberFormatter';
+import ConditionalProps from './Conditionals/ConditionalProps';
+import ConditionalPropsSchema from './Conditionals/ConditionalPropsSchema';
 
 addDecorator(StoryWrapper);
 
@@ -202,7 +206,8 @@ storiesOf('Inputs', module)
   .add('Checkbox Input', CheckboxInput)
   .add('Select Input', SelectInput)
   .add('Multi Select Input', MultiSelectInput)
-  .add('Number Input', NumberInput);
+  .add('Number Input', NumberInput)
+  .add('GoogleApi', GoogleApi);
 
 storiesOf('CustomInputs', module)
   .add('Creating Custom Inputs', CustomInputs)
@@ -241,7 +246,8 @@ storiesOf('Validation', module)
 storiesOf('Relevance', module)
   .add('Relevant Comonent', RelevantComonent)
   .add('Relevance Prop', RelevanceProp)
-  .add('Relevance Optimization', ComplexRelevance);
+  .add('Relevance Optimization', ComplexRelevance)
+  .add('Scoped Relevance', ScopedRelevance);
 
 storiesOf('Scope', module).add('Scope Comonent', ScopeComponent);
 
@@ -295,12 +301,15 @@ storiesOf('Gotchas', module)
 
 storiesOf('Dynamic Forms', module)
   .add('Dynamic Fields', DynamicFields)
+  .add('Async Dependent Fields', AsyncDependentFields)
   .add('Dynamic Rendering', Dynamic);
 
-storiesOf('GlobalForms', module).add('Intro', GlobalIntro);
+storiesOf('Conditionals', module)
+  .add('Conditional Props', ConditionalProps)
+  .add('Conditional Props Schema', ConditionalPropsSchema);
 
-// storiesOf('Playground', module)
-//   .add('Format Example', FormatPlayground)
-//   .add('Schema Example', SchemaPlayground);
+storiesOf('Global Forms', module).add('Intro', GlobalIntro);
 
-storiesOf('Cool Examples', module).add('Cool Example', RickRoll);
+storiesOf('Playground', module)
+  .add('Format Example', FormatPlayground)
+  .add('Schema Example', SchemaPlayground);

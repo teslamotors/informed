@@ -80,7 +80,7 @@ button {
   border-radius: 20px;
   padding: 5px 40px;
   color: white;
-  background-color: #3e6ae1;
+  background-color: rebeccapurple;
   margin-bottom: 1rem;
   margin-top: 1rem;
   margin-right: 1rem;

@@ -1,3 +1,77 @@
+## 4.8.1 (April 4th, 2022)
+
+### Fixed
+
+- Issue where errors would get kept when going to previous multistep step
+
+## 4.8.0 (March 31st, 2022)
+
+### Added
+
+- useConditional hook and ability to pass `evaluate` and `evaluateWhen`
+
+## 4.7.0 (March 29th, 2022)
+
+### Added
+
+- ability to pass gatherOnMount to a field
+
+## 4.6.1 (March 22nd, 2022)
+
+### Fixed
+
+- misnamed `gatherData` prop
+
+## 4.6.0 (March 22nd, 2022)
+
+### Added
+
+- `gatherData` prop to allow user to get asnyc information for a field
+
+## 4.5.12 (March 22nd, 2022)
+
+### Fixed
+
+- Missing types for default exported fields
+- Missing type for `required`
+
+## 4.5.11 (March 20th, 2022)
+
+### Fixed
+
+- issue where allowEmptyString and allowEmptyStrings where broken
+
+## 4.5.10 (March 18th, 2022)
+
+### Fixed
+
+- issue where `step` was missing from multistep type
+
+## 4.5.9 (March 18th, 2022)
+
+### Fixed
+
+- issue with propertyOrder in nested schemas
+
+## 4.5.8 (March 18th, 2022)
+
+### Fixed
+
+- issue with more than double nested schemas
+- issue with Multistep.Step types
+
+## 4.5.7 (March 9th, 2022)
+
+### Fixed
+
+- issue with changing options on schema fields ( undefined would clobber defined values in option merge )
+
+## 4.5.6 (March 8th, 2022)
+
+### Fixed
+
+- issue where changing validation params would not rebuild validation function
+
 ## 4.5.5 (March 8th, 2022)
 
 ### Fixed

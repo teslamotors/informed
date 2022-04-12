@@ -172,6 +172,17 @@ export const generateValue = ({ fieldType, maskedValue, multiple, value }) => {
   }
 };
 
+// https://stackoverflow.com/questions/52367849/remove-empty-null-values-from-nested-object-es6-clean-nested-objects
+export const sanitize = obj => {
+  if (!obj) return obj;
+  Object.keys(obj).forEach(
+    key =>
+      (obj[key] && typeof obj[key] === 'object' && sanitize(obj[key])) ||
+      (obj[key] === undefined && delete obj[key])
+  );
+  return obj;
+};
+
 /* -------------------------- Error Utils ----------------------------- */
 
 export const yupToFormErrors = yupError => {
@@ -862,7 +873,8 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
     required,
     type,
     properties: subProperties,
-    allOf
+    allOf,
+    propertyOrder
   } = property;
 
   // Set Id if not passed
@@ -880,6 +892,7 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
     uiAfter,
     properties: type === 'object' ? subProperties : undefined,
     allOf: type === 'object' ? allOf : undefined,
+    propertyOrder: type === 'object' ? propertyOrder : undefined,
     items: type === 'array' ? items : undefined,
     propertyName,
     required,

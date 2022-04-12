@@ -37,6 +37,7 @@ export const useField = ({
   onFocus,
   validate: validationFunc,
   asyncValidate,
+  gatherData,
   yupSchema,
   multiple,
   field,
@@ -61,6 +62,8 @@ export const useField = ({
   minLength,
   maxLength,
   pattern,
+  allowEmptyString: userAllowEmptyString,
+  gatherOnMount,
   validateOnMount: userValidateOnMount,
   validateOn: userValidateOn,
   validateWhen = [],
@@ -71,6 +74,10 @@ export const useField = ({
   initializeValueIfPristine,
   relevanceWhen = [],
   relevanceDeps = [],
+  // eslint-disable-next-line no-unused-vars
+  evaluate,
+  // eslint-disable-next-line no-unused-vars
+  evaluateWhen,
   ...userProps
 }) => {
   // For backwards compatability
@@ -106,6 +113,8 @@ export const useField = ({
   const keepStateIfRelevant =
     userKeepStateIfRelevant ??
     formController.options.current.keepStateIfRelevant;
+  const allowEmptyString =
+    userAllowEmptyString ?? formController.options.current.allowEmptyStrings;
 
   // For getting initialValue
   const getInitialValue = () =>
@@ -163,7 +172,7 @@ export const useField = ({
         pattern,
         getErrorMessage: key => formController.getErrorMessage(key, name)
       }),
-    []
+    [required, minimum, maximum, minLength, maxLength, pattern]
   );
 
   // Create meta object
@@ -192,8 +201,11 @@ export const useField = ({
     showErrorIfTouched,
     showErrorIfDirty,
     asyncValidate,
+    gatherData,
     initialize,
-    errorMessage
+    errorMessage,
+    allowEmptyString,
+    gatherOnMount
   };
   const metaRef = useRef(meta);
   metaRef.current = meta;

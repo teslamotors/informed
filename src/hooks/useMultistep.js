@@ -206,6 +206,12 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
     const previous = () => {
       // Get the next step
       const previousStep = getPreviousStep();
+
+      // Clean up all multistep errors
+      steps.forEach(step => {
+        formApi.clearError(step.name);
+      });
+
       // Update the current step
       if (previousStep) {
         // Update the current step

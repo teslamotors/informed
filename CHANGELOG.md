@@ -1,3 +1,9 @@
+## 4.9.3 (April 13th, 2022)
+
+### Fixed
+
+- issue where after a gather data the field-value event would not get triggered so evaluate would never get called
+
 ## 4.9.2 (April 13th, 2022)
 
 ### Fixed

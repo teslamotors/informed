@@ -1,3 +1,9 @@
+## 4.9.2 (April 13th, 2022)
+
+### Fixed
+
+- issue where FormComponents was not rendering from components option
+
 ## 4.9.1 (April 12th, 2022)
 
 ### Fixed

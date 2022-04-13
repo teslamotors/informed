@@ -831,6 +831,7 @@ export class FormController {
 
     // Always update
     this.emit('field', name);
+    this.emit('field-value', name);
   }
 
   validateAsync(name) {

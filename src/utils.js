@@ -665,12 +665,9 @@ export const informedFormatter = (val, frmtr, old, full) => {
 
 /* --------------------------------------- createIntlNumberFormatter --------------------------------------- */
 
-export const createIntlNumberFormatter = (locale, opts) => {
+export const createIntlNumberFormatter = (locale, opts = {}) => {
   const numberFormatter = new Intl.NumberFormat(locale, opts);
-  const numberFormatterWithoutOpts = new Intl.NumberFormat(locale, {
-    style: opts?.style,
-    currency: opts?.currency
-  });
+  const numberFormatterWithoutOpts = new Intl.NumberFormat(locale, opts);
   const decimalChar =
     numberFormatterWithoutOpts
       .formatToParts(0.1)

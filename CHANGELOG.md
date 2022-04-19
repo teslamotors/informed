@@ -1,3 +1,9 @@
+## 4.9.4 (April 19th, 2022)
+
+### Fixed
+
+- issue where we would not pass all options to intl formatter
+
 ## 4.9.3 (April 13th, 2022)
 
 ### Fixed

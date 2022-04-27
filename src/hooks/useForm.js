@@ -17,6 +17,8 @@ export const useForm = ({
   onChange,
   onSubmitFailure,
   onValueChange,
+  onValid,
+  onInvalid,
   onValueModified,
   initialValues: userInitialValues,
   validateFields,
@@ -104,6 +106,10 @@ export const useForm = ({
         onValueChange && onValueChange(formController.getFormState());
       const onValueModifiedHandler = () =>
         onValueModified && onValueModified(formController.getFormState());
+      const onValidHandler = () =>
+        onValid && onValid(formController.getFormState());
+      const onInvalidHandler = () =>
+        onInvalid && onInvalid(formController.getFormState());
 
       // Register for events
       formController.on('field', onChangeHandler);
@@ -112,6 +118,8 @@ export const useForm = ({
       formController.on('failure', onFailureHandler);
       formController.on('field-value', onValueChangeHandler);
       formController.on('field-modified', onValueModifiedHandler);
+      formController.on('valid', onValidHandler);
+      formController.on('invalid', onInvalidHandler);
 
       // Unregister events
       return () => {

@@ -168,6 +168,7 @@ export class FormController {
     this.clearError = this.clearError.bind(this);
     this.getData = this.getData.bind(this);
     this.getModified = this.getModified.bind(this);
+    this.updateValid = this.updateValid.bind(this);
   }
 
   getOptions() {
@@ -184,6 +185,23 @@ export class FormController {
 
   setMaskedValue(name, value) {
     return ObjectMap.set(this.state.maskedValues, name, value);
+  }
+
+  updateValid() {
+    // Store previous state
+    const prevValid = this.state.valid;
+
+    // Now update
+    this.state.valid = ObjectMap.empty(this.state.errors);
+    this.state.invalid = !this.state.valid;
+
+    // Call change handlers if needed
+    if (prevValid && !this.state.valid) {
+      this.emit('invalid');
+    }
+    if (!prevValid && this.state.valid) {
+      this.emit('valid');
+    }
   }
 
   setValues(values) {
@@ -344,8 +362,7 @@ export class FormController {
     ObjectMap.set(this.state.dirt, name, true);
 
     // Remember to update valid
-    this.state.valid = ObjectMap.empty(this.state.errors);
-    this.state.invalid = !this.state.valid;
+    this.updateValid();
 
     // Call users onChange if it exists
     if (meta.onChange) {
@@ -396,8 +413,7 @@ export class FormController {
     // TODO maybe do async validation here !?!?!?!
 
     // Remember to update valid
-    this.state.valid = ObjectMap.empty(this.state.errors);
-    this.state.invalid = !this.state.valid;
+    this.updateValid();
 
     this.emit('field', name);
   }
@@ -486,8 +502,7 @@ export class FormController {
     }
 
     // Remember to update valid
-    this.state.valid = ObjectMap.empty(this.state.errors);
-    this.state.invalid = !this.state.valid;
+    this.updateValid();
 
     // Call users onBlur if it exists
     if (meta.onBlur) {
@@ -641,8 +656,7 @@ export class FormController {
       ObjectMap.delete(this.state.data, name);
 
       // Remember to update valid
-      this.state.valid = ObjectMap.empty(this.state.errors);
-      this.state.invalid = !this.state.valid;
+      this.updateValid();
 
       // Final field change
       this.emit('field', name);
@@ -775,8 +789,7 @@ export class FormController {
     ObjectMap.set(this.state.errors, name, res);
 
     // Remember to update valid
-    this.state.valid = ObjectMap.empty(this.state.errors);
-    this.state.invalid = !this.state.valid;
+    this.updateValid();
 
     // Clear out validating
     this.validationRequests.delete(name);
@@ -1173,8 +1186,7 @@ export class FormController {
     this.state.errors = errors;
 
     // Remember to update valid
-    this.state.valid = ObjectMap.empty(this.state.errors);
-    this.state.invalid = !this.state.valid;
+    this.updateValid();
 
     // Let everyone know!
     this.emit('field', '_ALL_');

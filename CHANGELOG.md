@@ -1,3 +1,9 @@
+## 4.10.0 (April 27th, 2022)
+
+### Added
+
+- onValid and onInvalid to useForm
+
 ## 4.9.4 (April 19th, 2022)
 
 ### Fixed

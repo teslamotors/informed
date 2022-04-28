@@ -5,27 +5,14 @@ export const Select = props => {
   const { render, userProps, fieldState, fieldApi, ref } = useField(props);
   const { setValue, setTouched } = fieldApi;
   const { value, showError, error } = fieldState;
-  const {
-    id,
-    onBlur,
-    onChange,
-    multiple,
-    label,
-    options,
-    children,
-    ...rest
-  } = userProps;
+  const { id, onBlur, multiple, label, options, children, ...rest } = userProps;
 
   const handleChange = e => {
     let selected = Array.from(ref.current)
       .filter(option => option.selected)
       .map(option => option.value);
 
-    setValue(multiple ? selected : selected[0] || '');
-
-    if (onChange && e) {
-      onChange(e);
-    }
+    setValue(multiple ? selected : selected[0] || '', e);
   };
 
   return render(

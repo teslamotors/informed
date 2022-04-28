@@ -5,7 +5,7 @@ export const Checkbox = props => {
   const { render, userProps, fieldState, fieldApi } = useField(props);
   const { setValue, setTouched } = fieldApi;
   const { value, error, showError } = fieldState;
-  const { onBlur, onChange, id, label, ...rest } = userProps;
+  const { id, label, ...rest } = userProps;
   return render(
     <>
       {label ? <label htmlFor={id}>{label}</label> : null}
@@ -16,16 +16,10 @@ export const Checkbox = props => {
         aria-invalid={!!showError}
         aria-describedby={`${id}-error`}
         onChange={e => {
-          setValue(e.target.checked);
-          if (onChange) {
-            onChange(e);
-          }
+          setValue(e.target.checked, e);
         }}
         onBlur={e => {
-          setTouched(true);
-          if (onBlur) {
-            onBlur(e);
-          }
+          setTouched(true, e);
         }}
         type="checkbox"
       />

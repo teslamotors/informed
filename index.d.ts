@@ -174,6 +174,10 @@ export type FieldProps<UserProps> = {
   defaultValue?: unknown;
   validate?: (value: unknown, values: Record<string, unknown>) => unknown;
   relevant?: (relevantParams: RelevantParams) => boolean;
+  onNativeChange?: (
+    fieldState: FieldState,
+    event: React.SyntheticEvent
+  ) => void;
   onChange?: (fieldState: FieldState, event: React.SyntheticEvent) => void;
   onBlur?: (fieldState: FieldState, event: React.SyntheticEvent) => void;
   onFocus?: (fieldState: FieldState, event: React.SyntheticEvent) => void;

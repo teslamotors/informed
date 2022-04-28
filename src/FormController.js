@@ -370,6 +370,12 @@ export class FormController {
       meta.onChange(fieldState, e);
     }
 
+    // Call users onNativeChange if we had native event and func
+    if (e && meta.onNativeChange) {
+      const fieldState = this.getFieldState(name);
+      meta.onNativeChange(fieldState, e);
+    }
+
     if (meta.gatherData) {
       // Get error to determine if we even want to validateAsync
       this.debouncedGatherInfo(name);

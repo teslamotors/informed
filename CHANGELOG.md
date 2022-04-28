@@ -1,3 +1,9 @@
+## 4.11.0 (April 28th, 2022)
+
+### Added
+
+- onNativeChange handler to useField
+
 ## 4.10.0 (April 27th, 2022)
 
 ### Added

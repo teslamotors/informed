@@ -1,13 +1,8 @@
 import React from 'react';
 import { useRadioGroup } from '../../hooks/useRadioGroup';
 
-export const Radio = ({ label, value, onChange, onBlur, ...props }) => {
-  const {
-    radioGroupApi,
-    radioGroupState,
-    onChange: groupOnChange,
-    onBlur: groupOnBlur
-  } = useRadioGroup();
+export const Radio = ({ label, value, ...props }) => {
+  const { radioGroupApi, radioGroupState } = useRadioGroup();
 
   const { setValue, setTouched } = radioGroupApi;
 
@@ -25,22 +20,10 @@ export const Radio = ({ label, value, onChange, onBlur, ...props }) => {
           if (!e.target.checked) {
             return;
           }
-          setValue(value);
-          if (onChange) {
-            onChange(e);
-          }
-          if (groupOnChange) {
-            groupOnChange(e);
-          }
+          setValue(value, e);
         }}
         onBlur={e => {
-          setTouched(true);
-          if (onBlur) {
-            onBlur(e);
-          }
-          if (groupOnBlur) {
-            groupOnBlur(e);
-          }
+          setTouched(true, e);
         }}
         type="radio"
       />

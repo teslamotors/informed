@@ -1,3 +1,9 @@
+## 4.11.1 (April 28th, 2022)
+
+### Fixed
+
+-issue where zero ( 0 ) would not work for minimum and maximum due to bad falsey check lol classic
+
 ## 4.11.0 (April 28th, 2022)
 
 ### Added

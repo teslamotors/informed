@@ -322,19 +322,19 @@ export const generateValidationFunction = (
     error = validateRequired(val, required, getErrorMessage);
     if (error !== undefined) return error;
   }
-  if (minimum) {
+  if (minimum != null) {
     error = validateMin(val, minimum, getErrorMessage);
     if (error !== undefined) return error;
   }
-  if (maximum) {
+  if (maximum != null) {
     error = validateMax(val, maximum, getErrorMessage);
     if (error !== undefined) return error;
   }
-  if (minLength) {
+  if (minLength != null) {
     error = validateMinLength(val, minLength, getErrorMessage);
     if (error !== undefined) return error;
   }
-  if (maxLength) {
+  if (maxLength != null) {
     error = validateMaxLength(val, maxLength, getErrorMessage);
     if (error !== undefined) return error;
   }

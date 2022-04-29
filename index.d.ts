@@ -461,6 +461,9 @@ declare namespace utils {
   function getSchemaPathFromJsonPath(scopedName: string): string;
 }
 
+export function SchemaFields(): JSX.Element;
+export function Debug(): JSX.Element;
+
 /* ------------------------------- Inputs ------------------------------ */
 
 /* ------------------------------- Form ------------------------------- */

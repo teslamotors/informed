@@ -1272,9 +1272,10 @@ export class FormController {
       while (name !== '') {
         debug(`Looking for message at ${name}`);
         const path = getSchemaPathFromJsonPath(name);
+        debug(`Looking for message at schema path ${path}`);
         const property = ObjectMap.get(this.options.current.schema, path);
         // If the property has an error message use that
-        if (property.errorMessage) {
+        if (property && property.errorMessage) {
           const message =
             typeof property.errorMessage === 'string'
               ? property.errorMessage
@@ -1304,7 +1305,7 @@ export class FormController {
     }
 
     // Next we check the errorMessage option if it was passed explicitly to an input
-    const meta = this.fieldsMap.get(name)?.current;
+    const meta = this.fieldsMap.get(n)?.current;
 
     if (meta && meta.errorMessage) {
       const message =

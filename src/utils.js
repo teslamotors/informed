@@ -871,7 +871,8 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
     type,
     properties: subProperties,
     allOf,
-    propertyOrder
+    propertyOrder,
+    errorMessage
   } = property;
 
   // Set Id if not passed
@@ -901,6 +902,7 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
       minLength,
       maxLength,
       pattern,
+      errorMessage,
       ...inputProps
     }
   };
@@ -977,7 +979,7 @@ export const computeFieldsFromSchema = (schema, onlyValidateSchema) => {
         if (item.if) {
           // Determine if the "then" properties are new or already in fields
           const newItem = { ...item };
-          newItem.then = { properties: {} };
+          newItem.then = { ...item.then, properties: {} };
           newItem.thenProps = {};
           Object.keys(item.then.properties).forEach(name => {
             if (!fields.includes(name)) {

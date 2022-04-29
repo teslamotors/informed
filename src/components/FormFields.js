@@ -78,6 +78,7 @@ const FormFields = ({ schema, onlyValidateSchema }) => {
         //   }
         // }
         const subSchema = conditional.then;
+        // console.log('SUBSCHEMA', subSchema);
         const $id = conditional.$id;
         const thenProps = conditional.thenProps;
 

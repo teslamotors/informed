@@ -1,3 +1,10 @@
+## 4.11.2 (April 29th, 2022)
+
+### Fixed
+
+- issue where custom error messages did not work in allOf
+- issue where required:[] on allOf was not working
+
 ## 4.11.1 (April 28th, 2022)
 
 ### Fixed

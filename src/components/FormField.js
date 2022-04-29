@@ -142,6 +142,16 @@ const FormField = ({ name, schema, ...rest }) => {
       const newSchemaProps = sanitize(schemaProps);
       const newCondProps = sanitize(condProps);
       const newHookProps = sanitize(hookProps);
+
+      // Temp fix
+      if (
+        schemaProps?.required ||
+        newCondProps?.required ||
+        newHookProps?.required
+      ) {
+        rest.required = true;
+      }
+
       const newProps = {
         ...newSchemaProps,
         ...newCondProps,

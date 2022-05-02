@@ -1,3 +1,9 @@
+## 4.11.3 (May 2nd, 2022)
+
+### Fixed
+
+- issue where nested array fields removal would break
+
 ## 4.11.2 (April 29th, 2022)
 
 ### Fixed

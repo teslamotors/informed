@@ -143,6 +143,7 @@ export class FormController {
     this.removeListener = this.removeListener.bind(this);
     this.remove = this.remove.bind(this);
     this.swap = this.swap.bind(this);
+    this.pullOut = this.pullOut.bind(this);
     this.register = this.register.bind(this);
     this.deregister = this.deregister.bind(this);
     this.getInitialValue = this.getInitialValue.bind(this);

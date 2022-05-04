@@ -8,6 +8,9 @@ export const Relevant = ({ when, relevanceWhen, relevanceDeps, children }) => {
 
   const scope = useContext(ScopeContext);
 
+  // If we live in `Relevant`
+  const parentRelevantContext = useContext(RelevanceContext);
+
   const isRelevant = useRelevance({
     relevant: when,
     relevanceWhen,
@@ -18,13 +21,19 @@ export const Relevant = ({ when, relevanceWhen, relevanceDeps, children }) => {
     () => {
       return {
         isRelevant,
-        relevant: () =>
-          when({
+        relevant: () => {
+          // We might have parent
+          if (parentRelevantContext && !parentRelevantContext.relevant()) {
+            return false;
+          }
+
+          return when({
             formState: formController.getFormState(),
             formApi: formController.getFormApi(),
             scope,
             relevanceDeps
-          })
+          });
+        }
       };
     },
     [isRelevant, scope, relevanceDeps]

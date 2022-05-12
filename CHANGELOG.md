@@ -1,3 +1,9 @@
+## 4.12.1 (May 12th, 2022)
+
+### Fixed
+
+- issue with missing types Debug and Schema Fields
+
 ## 4.12.0 (May 12th, 2022)
 
 ### Fixed

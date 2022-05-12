@@ -123,6 +123,7 @@ export class FormController {
     this.setTheseValues = this.setTheseValues.bind(this);
     this.getMaskedValue = this.getMaskedValue.bind(this);
     this.setMaskedValue = this.setMaskedValue.bind(this);
+    this.setModifiedValue = this.setModifiedValue.bind(this);
     this.getTouched = this.getTouched.bind(this);
     this.setTouched = this.setTouched.bind(this);
     this.getFocused = this.getFocused.bind(this);
@@ -186,6 +187,10 @@ export class FormController {
 
   setMaskedValue(name, value) {
     return ObjectMap.set(this.state.maskedValues, name, value);
+  }
+
+  setModifiedValue(name, value) {
+    return ObjectMap.set(this.state.modified, name, value);
   }
 
   updateValid() {
@@ -571,6 +576,7 @@ export class FormController {
       setValue: this.setValue,
       getMaskedValue: this.getMaskedValue,
       setMaskedValue: this.setMaskedValue,
+      setModifiedValue: this.setModifiedValue,
       getTouched: this.getTouched,
       setTouched: this.setTouched,
       getError: this.getError,

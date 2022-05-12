@@ -83,31 +83,18 @@ export const isChild = (parent, child) => {
   // Example1
   // parent = "friends[1]"
   // child = "friends[1].foo"
-  // child.slice(0, parent.length)
-  // ==> "friends[1]"
-  // "friends[1]" === "friends[1]"
+  // child.startsWith(`${parent}.`)
+  // "friends[1].foo".startsWith("friends[1]")
   // ==> true
 
   // Example2
   // parent = "friends[1].foo.friends[1]"
   // child = "friends[1].foo"
-  // child.slice(0, parent.length)
-  // ==> "friends[1].foo"
-  // "friends[1].foo" === "friends[1]"
+  // child.startsWith(`${parent}.`)
+  // "friends[1].foo".startsWith("friends[1].foo.friends[1]")
   // ==> false
 
-  // Example3 ( Edge Case )
-  // parent = "f"
-  // child = "friends[0].f"
-  // child.slice(0, parent.length)
-  // ==> "f"
-  // "f" === "f"
-  // ==> true << BAD
-  if (parent.length < child.length) {
-    return false;
-  }
-
-  return child.slice(0, parent.length) === parent;
+  return child.startsWith(`${parent}.`);
 };
 
 export const generateOnChange = ({ fieldType, setValue, multiple, ref }) => {

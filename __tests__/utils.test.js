@@ -1,7 +1,8 @@
 import {
   informedFormat,
   getParentPath,
-  getSchemaPathFromJsonPath
+  getSchemaPathFromJsonPath,
+  isChild
 } from '../src/utils';
 
 // prettier-ignore
@@ -65,6 +66,61 @@ describe('Utils', () => {
 
     it('inverter[12].air_filter_ok ----> properties.inverter.items.properties.air_filter_ok', () => {
       expect(getSchemaPathFromJsonPath('inverter[12].air_filter_ok')).toEqual('properties.inverter.items.properties.air_filter_ok');
+    });
+
+  });
+
+
+  describe('isChild', () => {
+
+    it('friends[1] is parent of friends[1].foo', () => {
+      const actual = isChild('friends[1]', 'friends[1].foo');
+      expect(actual).toEqual(true);
+    });
+
+    it('f is NOT a parent of friends[1].foo', () => {
+      const actual = isChild('f', 'friends[1].foo');
+      expect(actual).toEqual(false);
+    });
+
+    it('friends[0] is NOT a parent of friends[1].foo', () => {
+      const actual = isChild('friends[0]', 'friends[1].foo');
+      expect(actual).toEqual(false);
+    });
+
+    it('friendz[1] is NOT a parent of friends[1].foo', () => {
+      const actual = isChild('friendz[1]', 'friends[1].foo');
+      expect(actual).toEqual(false);
+    });
+
+    it('a.b.c is a parent of a.b.c.d', () => {
+      const actual = isChild('a.b.c', 'a.b.c.d');
+      expect(actual).toEqual(true);
+    });
+
+    it('a.b.c.d is NOT a parent of a.b.c', () => {
+      const actual = isChild('a.b.c.d', 'a.b.c');
+      expect(actual).toEqual(false);
+    });
+
+    it('a.b.c is NOT a parent of a.b.c', () => {
+      const actual = isChild('a.b.c', 'a.b.c');
+      expect(actual).toEqual(false);
+    });
+
+    it('abc is NOT a parent of a.b.c', () => {
+      const actual = isChild('abc', 'a.b.c');
+      expect(actual).toEqual(false);
+    });
+
+    it('a.b.c is NOT a parent of abc', () => {
+      const actual = isChild('a.b.c', 'abc');
+      expect(actual).toEqual(false);
+    });
+
+    it('friends[1].foo.friends[1] is NOT a parent of friends[1].foo', () => {
+      const actual = isChild('friends[1].foo.friends[1]', 'friends[1].foo');
+      expect(actual).toEqual(false);
     });
 
   });

@@ -5,6 +5,7 @@ import { FormFields } from '../FormFields';
 
 const ArrayField = ({ name, items, uiBefore, uiAfter, ...props }) => {
   // const ArrayField = ({ name, items, ...props }) => {
+  // const { 'ui:props': uiProps = {} } = items;
   return (
     <InformedArrayField name={name} {...props}>
       <FormComponents components={uiBefore} />

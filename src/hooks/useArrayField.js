@@ -19,6 +19,7 @@ export const useArrayField = ({
   initialValue,
   // validate,
   arrayFieldApiRef
+  // hidden
   // ...props
 }) => {
   // Name might be scoped
@@ -198,6 +199,7 @@ export const useArrayField = ({
   const arrayFieldState = {
     fields,
     name
+    // hidden
   };
 
   // Wrap the updater to update array fields references

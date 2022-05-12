@@ -1,6 +1,7 @@
 import React, { useContext, useMemo, useState, useCallback } from 'react';
 import { Relevant } from './Relevant';
 import { useArrayField } from '../hooks/useArrayField';
+// import { useFieldSubscription } from '../hooks/useFieldSubscription';
 import {
   ArrayFieldStateContext,
   ArrayFieldItemApiContext,
@@ -58,6 +59,7 @@ const ArrayFieldItem = ({
   arrayFieldItemState,
   arrayFieldItemApi,
   children
+  // hidden
 }) => {
   const formController = useFormController();
 
@@ -72,6 +74,24 @@ const ArrayFieldItem = ({
 
   // Get scoped api for item api
   const itemApi = useScopedApi(arrayFieldItemState.name);
+
+  // Example evaluateWhen = ["name", "age"]
+  // TODO maybe add this
+  // useFieldSubscription(
+  //   'field-modified',
+  //   [arrayFieldItemState.name],
+  //   target => {
+  //     debug(`updating hidden field ${hidden} for ${name} because of ${target}`);
+  //     formController.setModifiedValue(
+  //       `${arrayFieldItemState.name}.${hidden}`,
+  //       formController.getValue(`${arrayFieldItemState.name}.${hidden}`)
+  //     );
+  //     console.log(
+  //       `updating hidden field ${hidden} for ${name} because of ${target}`
+  //     );
+  //   },
+  //   false
+  // );
 
   // Need to memoize to prevent re renders
   const wrappedController = useMemo(
@@ -201,6 +221,7 @@ const ArrayFieldItem = ({
 };
 
 ArrayField.Items = ({ children }) => {
+  // TODO maybe add this { hidden, fields } =
   const { fields } = useContext(ArrayFieldStateContext);
   // console.log("FIELDS", fields);
   return fields.map(({ arrayFieldItemState, arrayFieldItemApi }) => {
@@ -208,6 +229,7 @@ ArrayField.Items = ({ children }) => {
     return (
       <ArrayFieldItem
         key={key}
+        // hidden={hidden}
         arrayFieldItemApi={arrayFieldItemApi}
         arrayFieldItemState={arrayFieldItemState}>
         {children}

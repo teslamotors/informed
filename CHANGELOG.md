@@ -1,3 +1,13 @@
+## 4.12.0 (May 12th, 2022)
+
+### Fixed
+
+- issue with isChild
+
+### Added
+
+- hidden field back to default exported components
+
 ## 4.11.4 (May 4th, 2022)
 
 ### Fixed

@@ -6,6 +6,7 @@ import { RadioGroup } from './components/form-fields/RadioGroup';
 import { AddButton } from './components/form-fields/AddButton';
 import { RemoveButton } from './components/form-fields/RemoveButton';
 import { ArrayField } from './components/form-fields/ArrayField';
+import { Hidden } from './components/form-fields/Hidden';
 
 export const FieldMap = {
   string: Input,
@@ -18,6 +19,7 @@ export const FieldMap = {
   radio: RadioGroup,
   add: AddButton,
   remove: RemoveButton,
+  hidden: Hidden,
   array: ArrayField,
   withOptions: {
     string: Select

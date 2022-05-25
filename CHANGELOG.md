@@ -1,3 +1,18 @@
+## 4.12.2 (May 25th, 2022)
+
+### Fixed
+
+- issue where decimal was getting added when formatter explicitly was told not to add
+
+```js
+utils.createIntlNumberFormatter('en-US', {
+  style: 'decimal',
+  signDisplay: 'never',
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0
+});
+```
+
 ## 4.12.1 (May 12th, 2022)
 
 ### Fixed

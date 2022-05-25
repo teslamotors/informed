@@ -2,7 +2,8 @@ import {
   informedFormat,
   getParentPath,
   getSchemaPathFromJsonPath,
-  isChild
+  isChild,
+  createIntlNumberFormatter
 } from '../src/utils';
 
 // prettier-ignore
@@ -255,6 +256,30 @@ describe('Utils', () => {
 
       const { value } = informedFormat('abcdefgh', formatter);
       expect(value).toEqual('AB-CD-EFGH');
+    });
+
+    it('createIntlNumberMask should format currency', () => {
+
+      const { formatter } = createIntlNumberFormatter('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      });
+
+      const { value } = informedFormat('3000.25', formatter);
+      expect(value).toEqual('$3,000.25');
+    });
+
+    it('createIntlNumberMask should format currency when no decimal is specified in format', () => {
+
+      const { formatter } = createIntlNumberFormatter('en-US', {
+        style: 'decimal',
+        signDisplay: 'never',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      });
+
+      const { value } = informedFormat('3000.25', formatter);
+      expect(value).toEqual('3,000');
     });
     
   });

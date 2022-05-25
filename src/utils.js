@@ -718,6 +718,8 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
   }
 
   function mask(value) {
+    // console.log('--------------\n');
+
     // value = -3000.25
     // console.log('decChar', decimalChar);
     // console.log('VAL', value);
@@ -733,11 +735,13 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
 
     // fraction = 25
     // console.log('fraction', fraction);
-    // console.log('--------------\n');
 
     const number = isNegative ? -Number(float) : Number(float);
 
     const numberParts = numberFormatter.formatToParts(number);
+
+    // Special case, if number parts does not contain a "decimal" than we want to throw out the decimal from the value
+    const hasDecimal = numberParts.find(part => part.type === 'decimal');
 
     // number-parts =
     // 0: {type: 'minusSign', value: '-'}
@@ -790,13 +794,18 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
       return [...pv, partValue];
     }, []);
 
+    // console.log('PV', maskArray);
+
     let lastDigitIndex = findLastIndex(maskArray, maskChar => {
       return isRegexEqual(maskChar, /\d/);
     });
 
+    // console.log('lastDigitIndex', lastDigitIndex);
+
     if (
       maskArray.indexOf(decimalChar) === -1 &&
-      `${value}`.indexOf(decimalChar) !== -1
+      `${value}`.indexOf(decimalChar) !== -1 &&
+      hasDecimal
     ) {
       maskArray = insert(maskArray, lastDigitIndex + 1, [decimalChar]);
       lastDigitIndex += 2; // we want to insert a new number after the decimal

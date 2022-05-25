@@ -1090,7 +1090,14 @@ const FormattedField = () => {
   );
 
   // const { formatter, parser } = useMemo(() => {
-  //   return utils.createIntlNumberFormatter('en-US', {});
+  //   // return utils.createIntlNumberFormatter('en-US', {});
+
+  //   return utils.createIntlNumberFormatter('en-US', {
+  //     style: 'decimal',
+  //     signDisplay: 'never',
+  //     minimumFractionDigits: 0,
+  //     maximumFractionDigits: 0
+  //   });
   // }, []);
 
   return (

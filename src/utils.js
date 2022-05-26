@@ -315,7 +315,7 @@ export const generateValidationFunction = (
 ) => (val, values) => {
   let error;
 
-  if (validateModified && !fieldApi.getModified()) {
+  if (validateModified && fieldApi.getModified() === undefined) {
     return;
   }
 

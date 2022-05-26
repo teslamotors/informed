@@ -33,6 +33,7 @@ export const useForm = ({
   yupSchema,
   allowEmptyStrings,
   preventEnter,
+  validateModified,
   schema,
   ajv,
   ajvErrors,
@@ -82,7 +83,8 @@ export const useForm = ({
     fieldMap,
     adapter,
     keepState,
-    keepStateIfRelevant
+    keepStateIfRelevant,
+    validateModified
   };
 
   const optionsRef = useRef();

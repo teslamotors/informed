@@ -38,6 +38,7 @@ export const useField = ({
   onNativeChange,
   validate: validationFunc,
   asyncValidate,
+  validateModified: userValidateModified,
   gatherData,
   yupSchema,
   multiple,
@@ -116,6 +117,8 @@ export const useField = ({
     formController.options.current.keepStateIfRelevant;
   const allowEmptyString =
     userAllowEmptyString ?? formController.options.current.allowEmptyStrings;
+  const validateModified =
+    userValidateModified ?? formController.options.current.validateModified;
 
   // For getting initialValue
   const getInitialValue = () =>
@@ -171,7 +174,9 @@ export const useField = ({
         minLength,
         maxLength,
         pattern,
-        getErrorMessage: key => formController.getErrorMessage(key, name)
+        getErrorMessage: key => formController.getErrorMessage(key, name),
+        validateModified,
+        fieldApi
       }),
     [required, minimum, maximum, minLength, maxLength, pattern]
   );

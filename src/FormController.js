@@ -1159,8 +1159,13 @@ export class FormController {
 
   validate() {
     debug('Validating all fields');
+    let values = this.state.values;
 
-    const values = this.state.values;
+    const validateModified = this.options.current.validateModified;
+
+    if (validateModified) {
+      values = this.state.modified;
+    }
     let errors = {};
 
     // Validate schema if needed

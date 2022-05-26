@@ -301,9 +301,23 @@ const validatePattern = (value, pattern, getErrorMessage) => {
 export const generateValidationFunction = (
   validationFunc,
   yupSchema,
-  { required, minimum, maximum, minLength, maxLength, pattern, getErrorMessage }
+  {
+    required,
+    minimum,
+    maximum,
+    minLength,
+    maxLength,
+    pattern,
+    getErrorMessage,
+    validateModified,
+    fieldApi
+  }
 ) => (val, values) => {
   let error;
+
+  if (validateModified && !fieldApi.getModified()) {
+    return;
+  }
 
   if (required) {
     error = validateRequired(val, required, getErrorMessage);

@@ -17,13 +17,16 @@ invalid is derived from the errors attribute and therefore cannot be set directl
 | errors        | `{name:'Invalid'}` | `{}`          | Key value pair where key is the form field and value is the error associated with that field.                                                            |
 | dirt          | `{name:true}`      | `{}`          | Key value pair where key is the form field and value is true or undefined ( dirty or pristine ).                                                         |
 | focused       | `{name:true}`      | `{}`          | Key value pair where key is the form field and value is true or undefined ( focused or unfocused ). PAST TENSE! ( true if it was focused at one point)   |
+| modified      | `{name:true}`      | `{}`          | Key value pairs of fields which differ from their initial values where key is the form field and value is the current value of the field                 |
+| data          | `{address:['foo']}`| `{}`          | Data returned by inputs asynchronous `gatherData`calls (see GoogleApi Input)                                                                             |
 | invalid       | `true`             | `false`       | Boolean that is true when form is invalid. A form is invalid when any of its inputs fails its validation function ( if there are errors ).               |
 | valid         | `true`             | `true`        | Opposite of invalid                                                                                                                                      |
 | pristine      | `true`             | `true`        | Boolean that is true when form is pristine. A form is pristine when no values have changed                                                               |
 | dirty         | `true`             | `false`       | Boolean that is true when pristine is false                                                                                                              |
 | submitted     | `true`             | `false`       | Boolean that is true when the form has been successfully submitted                                                                                       |
 | submitting    | `true`             | `false`       | Boolean that is true when the form is submitting ( may happen during async validation)                                                                   |
-| validating    | 1                  | 0             | Integer that represents how many fields are currently asynchronously validating                                                                          |  |
+| validating    | 1                  | 0             | Integer that represents how many fields are currently asynchronously validating                                                                          |
+| gathering     | 1                  | 0             | Integer that represents how many fields are currently asynchronously gathering data (see GoogleApi Input)                                                |  |
 
 **"Ok so informed takes care of state so I dont have to.. but how do i get my hands
 on this state??**

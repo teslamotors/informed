@@ -1,3 +1,9 @@
+## 4.14.0 (May 26th, 2022)
+
+### Added
+
+- `validateModified` prop to form so lib will only perform validation on modified fields
+
 ## 4.13.1 (May 25th, 2022)
 
 ### Fixed

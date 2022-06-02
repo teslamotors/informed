@@ -265,7 +265,7 @@ describe('Schema', () => {
     input1.focus();
     input2.focus();
   
-    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'});
+    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'}, expect.anything());
   });
 
   it('should render a form with all types of fields', () => {

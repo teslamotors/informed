@@ -1,9 +1,10 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useContext } from 'react';
 import { useFormController } from './useFormController';
 // import { useForceUpdate } from './useForceUpdate';
 import { isChild } from '../utils';
 import { Debug } from '../debug';
 import { useScoper } from './useScoper';
+import { ScopeContext } from '../Context';
 
 const debug = Debug('informed:useFieldSubscription' + '\t');
 
@@ -12,15 +13,33 @@ export const useFieldSubscription = (event, fields, cb, scoped = true) => {
   // Create scoper function
   const scope = useScoper();
 
+  const scopedContext = useContext(ScopeContext);
+
+  // Determine what fields is ( might be function )
+  const check = typeof fields === 'function' ? [] : fields;
+
+  const builtFields = useMemo(
+    () => {
+      if (typeof fields === 'function') {
+        // Generate fields array with scope
+        // Example: fields = scope => [`${scope}.foo`, `${scope}.bar`]
+        return fields(scopedContext);
+      }
+      // Example relevanceWhen = ["name", "age"]
+      return fields;
+    },
+    [...check, scope]
+  );
+
   // Generate scoped fields
   const scopedFields = useMemo(
     () => {
-      if (scoped) {
-        return fields.map(field => scope(field));
+      if (scoped && typeof fields != 'function') {
+        return builtFields.map(field => scope(field));
       }
-      return fields;
+      return builtFields;
     },
-    [fields]
+    [builtFields]
   );
 
   // Grab the form controller

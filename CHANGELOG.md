@@ -1,3 +1,13 @@
+## 4.15.0 (June 2nd, 2022)
+
+### Added
+
+- ability to pass a function as validateWhen
+
+```js
+validateWhen={ scope => `${scope.fieldName}`}
+```
+
 ## 4.14.0 (May 26th, 2022)
 
 ### Added

@@ -267,7 +267,7 @@ describe('useField', () => {
     input1.focus();
     input2.focus();
   
-    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'});
+    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'},  expect.anything());
   });
 
   it('should call validate that was passed on blur and be in error state even when "" is returned', () => {
@@ -316,7 +316,7 @@ describe('useField', () => {
     input1.focus();
     input2.focus();
   
-    expect(validate).not.toBeCalledWith('Hello', {greeting1: 'Hello'});
+    expect(validate).not.toBeCalledWith('Hello', {greeting1: 'Hello'}, expect.anything());
   });
 
   it('should NOT call validate that was passed on blur when validateOn="submit" at form level', () => {
@@ -339,7 +339,7 @@ describe('useField', () => {
     input1.focus();
     input2.focus();
   
-    expect(validate).not.toBeCalledWith('Hello', {greeting1: 'Hello'});
+    expect(validate).not.toBeCalledWith('Hello', {greeting1: 'Hello'}, expect.anything());
   });
 
   it('should call validate that was passed on blur when validateOn="change" at field level', () => {
@@ -363,7 +363,7 @@ describe('useField', () => {
     input1.focus();
     input2.focus();
   
-    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'});
+    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'}, expect.anything());
   });
 
   it('should call validate that was passed on blur when validateOn="change" at form level', () => {
@@ -386,7 +386,7 @@ describe('useField', () => {
     input1.focus();
     input2.focus();
   
-    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'});
+    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'}, expect.anything());
   });
 
 
@@ -441,7 +441,7 @@ describe('useField', () => {
 
     await waitFor(() => expect(asyncValidate).toHaveBeenCalledTimes(1));
   
-    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'});
+    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'}, expect.anything());
     expect(asyncValidate).toBeCalledWith('Hello', {greeting1: 'Hello'});
   });
 
@@ -471,7 +471,7 @@ describe('useField', () => {
 
     await waitFor(() => expect(asyncValidate).toHaveBeenCalledTimes(1));
   
-    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'});
+    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'}, expect.anything());
     expect(asyncValidate).toBeCalledWith('Hello', {greeting1: 'Hello'});
   });
 
@@ -501,7 +501,7 @@ describe('useField', () => {
 
     await waitFor(() => expect(asyncValidate).toHaveBeenCalledTimes(0));
   
-    expect(validate).not.toBeCalledWith('Hello', {greeting1: 'Hello'});
+    expect(validate).not.toBeCalledWith('Hello', {greeting1: 'Hello'}, expect.anything());
     expect(asyncValidate).not.toBeCalledWith('Hello', {greeting1: 'Hello'});
   });
 
@@ -531,7 +531,7 @@ describe('useField', () => {
 
     await waitFor(() => expect(asyncValidate).toHaveBeenCalledTimes(0));
   
-    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'});
+    expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'}, expect.anything());
     expect(asyncValidate).not.toBeCalledWith('Hello', {greeting1: 'Hello'});
   });
 
@@ -1244,7 +1244,7 @@ describe('useField', () => {
       </Form>
     );
   
-    expect(validateSpy).toHaveBeenCalledWith('Hello!', {greeting: 'Hello!'});
+    expect(validateSpy).toHaveBeenCalledWith('Hello!', {greeting: 'Hello!'}, expect.anything());
 
   });
 
@@ -1258,7 +1258,7 @@ describe('useField', () => {
       </Form>
     );
   
-    expect(validateSpy).toHaveBeenCalledWith('Hello!', {greeting: 'Hello!'});
+    expect(validateSpy).toHaveBeenCalledWith('Hello!', {greeting: 'Hello!'}, expect.anything());
 
   });
 

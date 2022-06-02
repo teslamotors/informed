@@ -310,7 +310,9 @@ export const generateValidationFunction = (
     pattern,
     getErrorMessage,
     validateModified,
-    fieldApi
+    fieldApi,
+    formController,
+    scope
   }
 ) => (val, values) => {
   let error;
@@ -348,7 +350,11 @@ export const generateValidationFunction = (
     if (error !== undefined) return error;
   }
   if (validationFunc) {
-    error = validationFunc(val, values);
+    error = validationFunc(val, values, {
+      formState: formController.getFormState(),
+      formApi: formController.getFormApi(),
+      scope
+    });
     if (error !== undefined) return error;
   }
 

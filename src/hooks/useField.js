@@ -11,7 +11,12 @@ import { useRelevance } from './useRelevance';
 import { useFieldState } from './useFieldState';
 import { useFormController } from './useFormController';
 import { useCursorPosition } from './useCursorPosition';
-import { MultistepStepContext, RelevanceContext } from '../Context';
+import {
+  MultistepStepContext,
+  RelevanceContext,
+  ScopeContext
+} from '../Context';
+
 import {
   uuidv4,
   generateOnBlur,
@@ -87,6 +92,9 @@ export const useField = ({
 
   // Because it could be scoped
   const name = useScope(n);
+
+  // Get scoped context
+  const scope = useContext(ScopeContext);
 
   if (!name) {
     console.warn('name is a required prop!!!!');
@@ -176,7 +184,9 @@ export const useField = ({
         pattern,
         getErrorMessage: key => formController.getErrorMessage(key, name),
         validateModified,
-        fieldApi
+        fieldApi,
+        formController,
+        scope
       }),
     [required, minimum, maximum, minLength, maxLength, pattern]
   );

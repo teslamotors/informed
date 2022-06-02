@@ -1,3 +1,9 @@
+## 4.16.0 (June 2nd, 2022)
+
+### Added
+
+- ability get formApi formState and scope in validate function
+
 ## 4.15.0 (June 2nd, 2022)
 
 ### Added

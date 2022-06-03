@@ -13,6 +13,8 @@ import { Debug } from '../debug';
 import { FormFields } from './FormFields';
 import { Relevant } from './Relevant';
 import { Scope } from './Scope';
+import { useFieldApi } from '../hooks/useFieldApi';
+import { useUpdateEffect } from '../hooks/useUpdateEffect';
 // import { useForceUpdate } from '../hooks/useForceUpdate';
 const logger = Debug('informed:FormField' + '\t');
 
@@ -25,6 +27,9 @@ const FormField = ({ name, schema, ...rest }) => {
 
   // Grab the schema
   const options = getOptions();
+
+  // Grap api
+  const fieldApi = useFieldApi(name);
 
   // For conditional props
   const [condProp, setCondProp] = useState({});
@@ -165,6 +170,16 @@ const FormField = ({ name, schema, ...rest }) => {
       return newProps;
     },
     [condProp, hookProps]
+  );
+
+  useUpdateEffect(
+    () => {
+      if (props.options) {
+        logger('options changed', props.options);
+        fieldApi.reset();
+      }
+    },
+    [props.options]
   );
 
   // Component is either on field map or components list passed in

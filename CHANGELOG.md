@@ -1,3 +1,9 @@
+## 4.16.1 (June 3rd, 2022)
+
+### Fixed
+
+- issue where changing schema options would not reset value
+
 ## 4.16.0 (June 2nd, 2022)
 
 ### Added

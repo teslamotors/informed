@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
+import { useEffectOnce } from './useEffectOnce';
 
 // TODO figure out if this is bad?
 // https://github.com/facebook/react/issues/14543
@@ -14,7 +15,7 @@ function useStateWithGetter(initial) {
   const get = () => {
     return ref.current;
   };
-  useEffect(() => {
+  useEffectOnce(() => {
     return () => {
       mounted.current = false;
     };

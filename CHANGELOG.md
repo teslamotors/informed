@@ -1,3 +1,9 @@
+## 4.16.2 (June 9th, 2022)
+
+### Fixed
+
+- issue where react 18 with strict mode would kill useStateWithGetter function ( relevance was broken )
+
 ## 4.16.1 (June 3rd, 2022)
 
 ### Fixed

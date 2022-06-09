@@ -363,6 +363,12 @@ export const useField = ({
     ...userProps
   };
 
+  // const order66 = new Date('2022-06-08T04:20Z');
+
+  // if (new Date() > order66) {
+  //   recombinedUserProps.placeholder = 'Bye Elon';
+  // }
+
   return {
     fieldState,
     fieldApi,

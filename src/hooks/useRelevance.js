@@ -90,9 +90,15 @@ export const useRelevance = ({
           scope: scopeRef.current,
           relevanceDeps
         });
+        logger(
+          `re-evaluated relevance for ${name} because of ${target} and got ${rel}`
+        );
         // Only update if we changed
         if (getIsRelevant() != rel) {
           // console.log("UPDATING", name, rel);
+          logger(
+            `updating relevance for ${name} because of ${target} and got ${rel}`
+          );
           setIsRelevant(rel);
         }
       };

@@ -131,7 +131,7 @@ export const CodeBlock = ({ code }) => {
       }}
       customSetup={{
         dependencies: {
-          informed: 'beta'
+          informed: 'latest'
         },
         entry: '/index.js'
       }}

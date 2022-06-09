@@ -4,7 +4,7 @@ import readme from './README.md';
 import { CodeBlock } from '../../utils/CodeBlock';
 
 let code = `
-import { Form, Input, Text, Select, RadioGroup, Radio, Debug } from 'informed';
+import { Form, Input, Text, Select, Relevant, Checkbox, Debug } from 'informed';
 import './style.css';
 
 const onSubmit = ({values}) => {
@@ -14,24 +14,21 @@ const onSubmit = ({values}) => {
 export default function App() {
   return (
     <Form onSubmit={onSubmit}>
-      <Input field="name" label="First Name" placeholder="Elon"/>
-      <Select field="color" label="Color" required>
-          <option value="" disabled>
-            - Select -
-          </option>
-          <option value="red">Red</option>
-          <option value="black">Black</option>
-          <option value="white">White</option>
+      <Input name="name" label="Name" placeholder="Elon" />
+      <Input name="age" type="number" label="Age" required="Age Required" />
+      <Input name="phone" label="Phone" formatter="+1 (###)-###-####" />
+      <Select name="car" label="Car" initialValue="ms">
+        <option value="ms">Model S</option>
+        <option value="m3">Model 3</option>
+        <option value="mx">Model X</option>
+        <option value="my">Model Y</option>
       </Select>
-      <RadioGroup field="model" label="Model" initialValue="m3">
-          <label>Model S <Radio value="ms" /></label>
-          <label>Model 3 <Radio value="m3" /></label>
-          <label>Model X <Radio value="mx" /></label>
-          <label>Model Y <Radio value="my" /></label>
-      </RadioGroup>
-      <button type="submit">
-        Submit
-      </button>
+      <Checkbox name="married" label="Married?" />
+      <Relevant when={({ formState }) => formState.values.married}>
+        <Input name="spouse" label="Spouse" />
+      </Relevant>
+      <button type="submit">Submit</button>
+      <Debug />
     </Form>
   );
 };

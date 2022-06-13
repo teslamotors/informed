@@ -36973,7 +36973,7 @@
       /***/ function(module, __webpack_exports__, __webpack_require__) {
         'use strict';
         /* harmony default export */ __webpack_exports__['a'] =
-          '# Scope Component\n\nSometimes you need to scope specific fields ( group them ). This is easily achieved with the use of `Scope`.\n\n<!-- STORY -->\n\n```jsx\nimport { Form, Input, Scope } from \'informed\';\n\nconst initialValues = {\n  name: \'Elon\',\n  age: 50,\n  spouse: {\n    name: \'Talulah\',\n    age: 36\n  }\n}\n\nconst ScopeComonent = () => (\n  <Form initialValues={}>\n    <h3>Your Info</h3>\n    <Input name="name" label="First name:" />\n    <Input name="age" label="Age:" type="number" />\n    <Scope scope="spouse">\n      <h3>Spouses Info</h3>\n      <Input name="name" label="First name:" />\n      <Input name="age" label="Age:" type="number" />\n    </Scope>\n    <Debug values />\n  </Form>\n);\n```\n';
+          '# Scope Component\n\nSometimes you need to scope specific fields ( group them ). This is easily achieved with the use of `Scope`.\n\n<!-- STORY -->\n\n```jsx\nimport { Form, Input, Scope } from \'informed\';\n\nconst initialValues = {\n  name: \'Elon\',\n  age: 50,\n  spouse: {\n    name: \'Talulah\',\n    age: 36\n  }\n};\n\nconst ScopeComonent = () => (\n  <Form initialValues={initialValues}>\n    <h3>Your Info</h3>\n    <Input name="name" label="First name:" />\n    <Input name="age" label="Age:" type="number" />\n    <Scope scope="spouse">\n      <h3>Spouses Info</h3>\n      <Input name="name" label="First name:" />\n      <Input name="age" label="Age:" type="number" />\n    </Scope>\n    <Debug values />\n  </Form>\n);\n```\n';
 
         /***/
       },
@@ -37012,18 +37012,13 @@
         };
 
         var ScopeComonent = function ScopeComonent() {
-          var formApiRef = Object(
-            react__WEBPACK_IMPORTED_MODULE_0__['useRef']
-          )();
-
-          var onClick = function onClick() {
-            formApiRef.current.resetPath('spouse');
-          };
-
+          // const formApiRef = useRef();
+          // const onClick = () => {
+          //   formApiRef.current.resetPath('spouse');
+          // };
           return /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             _src__WEBPACK_IMPORTED_MODULE_3__[/* Form */ 'f'],
             {
-              formApiRef: formApiRef,
               initialValues: initialValues
             },
             /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
@@ -37071,14 +37066,6 @@
                   type: 'number'
                 }
               )
-            ),
-            /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              'button',
-              {
-                type: 'button',
-                onClick: onClick
-              },
-              'Reset Spouse'
             ),
             /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
               _src__WEBPACK_IMPORTED_MODULE_3__[/* Debug */ 'c'],
@@ -43075,4 +43062,4 @@
   },
   [[0, 'runtime~main', 'vendors~main']]
 ]);
-//# sourceMappingURL=main.1ef71db7.iframe.bundle.js.map
+//# sourceMappingURL=main.49af0e29.iframe.bundle.js.map

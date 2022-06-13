@@ -14,14 +14,14 @@ const initialValues = {
 };
 
 const ScopeComonent = () => {
-  const formApiRef = useRef();
+  // const formApiRef = useRef();
 
-  const onClick = () => {
-    formApiRef.current.resetPath('spouse');
-  };
+  // const onClick = () => {
+  //   formApiRef.current.resetPath('spouse');
+  // };
 
   return (
-    <Form formApiRef={formApiRef} initialValues={initialValues}>
+    <Form initialValues={initialValues}>
       <h3>Your Info</h3>
       <Input name="name" label="First name:" />
       <Input name="age" label="Age:" type="number" />
@@ -30,9 +30,9 @@ const ScopeComonent = () => {
         <Input name="name" label="First name:" />
         <Input name="age" label="Age:" type="number" />
       </Scope>
-      <button type="button" onClick={onClick}>
+      {/* <button type="button" onClick={onClick}>
         Reset Spouse
-      </button>
+      </button> */}
       <Debug values />
     </Form>
   );

@@ -1,3 +1,9 @@
+## 4.17.0 (June 12th, 2022)
+
+### Added
+
+- resetPath to form api to allow user to pass in path to reset all fields that live under that path
+
 ## 4.16.2 (June 9th, 2022)
 
 ### Fixed

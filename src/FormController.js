@@ -9,7 +9,8 @@ import {
   validateAjvSchema,
   validateYupField,
   validateYupSchema,
-  getSchemaPathFromJsonPath
+  getSchemaPathFromJsonPath,
+  isChild
 } from './utils';
 const debug = Debug('informed:FormController' + '\t');
 
@@ -121,6 +122,7 @@ export class FormController {
     this.setValue = this.setValue.bind(this);
     this.setValues = this.setValues.bind(this);
     this.setTheseValues = this.setTheseValues.bind(this);
+    this.resetPath = this.resetPath.bind(this);
     this.getMaskedValue = this.getMaskedValue.bind(this);
     this.setMaskedValue = this.setMaskedValue.bind(this);
     this.setModifiedValue = this.setModifiedValue.bind(this);
@@ -225,6 +227,15 @@ export class FormController {
       // Only set if it is there
       if (val != null) {
         fieldMeta.current.fieldApi.setValue(val);
+      }
+    });
+  }
+
+  resetPath(path) {
+    this.fieldsMap.forEach(fieldMeta => {
+      // Only reset if parent path
+      if (isChild(path, fieldMeta.current.name)) {
+        fieldMeta.current.fieldApi.reset();
       }
     });
   }
@@ -598,6 +609,7 @@ export class FormController {
       asyncValidate: this.asyncValidate,
       setValues: this.setValues,
       setTheseValues: this.setTheseValues,
+      resetPath: this.resetPath,
       submitForm: this.submitForm,
       clearValue: this.clearValue,
       clearError: this.clearError

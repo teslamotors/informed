@@ -1,3 +1,9 @@
+## 4.18.0 (June15th, 2022)
+
+### Added
+
+- ability to `if: { properties: { status: {const: ["active"]} } },` in schema ( support array conditions )
+
 ## 4.17.0 (June 12th, 2022)
 
 ### Added

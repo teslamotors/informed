@@ -1,3 +1,9 @@
+## 4.18.1 (June 21st, 2022)
+
+### Updated
+
+- README to have correct urls
+
 ## 4.18.0 (June15th, 2022)
 
 ### Added

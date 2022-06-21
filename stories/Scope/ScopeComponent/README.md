@@ -14,10 +14,10 @@ const initialValues = {
     name: 'Talulah',
     age: 36
   }
-}
+};
 
 const ScopeComonent = () => (
-  <Form initialValues={}>
+  <Form initialValues={initialValues}>
     <h3>Your Info</h3>
     <Input name="name" label="First name:" />
     <Input name="age" label="Age:" type="number" />

@@ -1027,7 +1027,11 @@ export function checkCondition(condition, propertyValue) {
   return Object.entries(condition).every(([keyword, value]) => {
     switch (keyword) {
       case 'const':
-        return propertyValue === value;
+        if (Array.isArray(propertyValue) && value) {
+          return propertyValue.sort().toString() == value.sort().toString();
+        } else {
+          return propertyValue === value;
+        }
       case 'minimum':
         return propertyValue >= value;
       case 'exclusiveMinimum':

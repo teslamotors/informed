@@ -125,6 +125,7 @@ import ObjectInput from './CustomInputs/ObjectInput';
 import NumberFormatter from './Formatting/NumberFormatter';
 import ConditionalProps from './Conditionals/ConditionalProps';
 import ConditionalPropsSchema from './Conditionals/ConditionalPropsSchema';
+import ChangingSchema from './Schema/ChangingSchema';
 
 addDecorator(StoryWrapper);
 
@@ -265,7 +266,9 @@ storiesOf('Schema', module)
   .add('Custom Schema', CustomSchema)
   .add('Schema Components', SchemaComponents)
   .add('Nested Array Fields', ArrayFieldSchemaNested)
-  .add('Relevant ArrayField Schema', ArrayFieldSchemaRelevant);
+  .add('Relevant ArrayField Schema', ArrayFieldSchemaRelevant)
+  .add('Changing Schema', ChangingSchema);
+
 // .add('Huge Schema', HugeSchema);
 
 storiesOf('Debugging', module).add('Debug', Debug);

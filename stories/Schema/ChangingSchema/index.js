@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 
@@ -49,9 +49,15 @@ const Schema = () => {
   const onClick = useCallback(() => {
     // Set new schema
     setSchema(prev => (prev === schema1 ? schema2 : schema1));
-    // Reset the form
-    formApiRef.current.reset();
   }, []);
+
+  useEffect(
+    () => {
+      // Reset the form
+      formApiRef.current?.reset();
+    },
+    [schema]
+  );
 
   return (
     <Form schema={schema} formApiRef={formApiRef}>

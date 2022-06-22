@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useFormController } from '../hooks/useFormController';
-import { checkCondition, computeFieldsFromSchema } from '../utils';
+import { checkCondition, computeFieldsFromSchema, uuidv4 } from '../utils';
 import { FormField } from './FormField';
 import { Relevant } from './Relevant';
 import { UpdateFields } from './UpdateFields';
@@ -19,7 +19,7 @@ const FormFields = ({ schema, onlyValidateSchema }) => {
         onlyValidateSchema
       );
 
-      let mappedProperties = properties.map((name, i) => {
+      let mappedProperties = properties.map(name => {
         // Not for
         // ui:component:id ---> foobar
         // Only for
@@ -34,11 +34,13 @@ const FormFields = ({ schema, onlyValidateSchema }) => {
         const required =
           schema.required && schema.required.includes(name) ? true : undefined;
 
+        const uuid = uuidv4();
+
         const Component = (
           <FormField
             name={name}
             schema={schema}
-            key={`schema-field-${name}-${i}`}
+            key={`schema-field-${name}-${uuid}`}
             required={required}
           />
         );
@@ -136,7 +138,7 @@ const FormFields = ({ schema, onlyValidateSchema }) => {
           } else if (component) {
             mappedFields.push(component.Component);
           } else {
-            console.log('MappedConditionals', mappedConditionals);
+            console.error('MappedConditionals', mappedConditionals);
             throw new Error(`Unable to find mapping for ${$id}`);
           }
         } else {

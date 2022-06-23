@@ -41,6 +41,7 @@ export const useField = ({
   onChange,
   onFocus,
   onNativeChange,
+  onValueChange,
   validate: validationFunc,
   asyncValidate,
   validateModified: userValidateModified,
@@ -313,6 +314,12 @@ export const useField = ({
   useFieldSubscription('field-value', validateWhen, target => {
     logger(`revalidating for ${metaRef.current.name} because of ${target}`);
     formController.validateField(metaRef.current.name);
+  });
+
+  useFieldSubscription('field-value', [name], target => {
+    if (onValueChange) {
+      onValueChange(formController.getFieldState(target));
+    }
   });
 
   useLayoutEffect(() => {

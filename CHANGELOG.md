@@ -1,3 +1,9 @@
+## 4.19.0 (June 22nd, 2022)
+
+### Added
+
+- onValueChange prop to fields
+
 ## 4.18.2 (June 22nd, 2022)
 
 ### Fixed

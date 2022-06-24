@@ -1,3 +1,9 @@
+## 4.19.1 (June 24th, 2022)
+
+### Fixed
+
+- issue whith useArray field where if initial value was not array it would crash
+
 ## 4.19.0 (June 22nd, 2022)
 
 ### Added

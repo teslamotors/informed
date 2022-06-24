@@ -51,7 +51,9 @@ export const useArrayField = ({
   });
 
   // TODO Need to use saved state to initialize ( after being re rendered )
-  const initialKeys = initialValues ? initialValues.map(() => uuidv4()) : [];
+  const initialKeys = Array.isArray(initialValues)
+    ? initialValues.map(() => uuidv4())
+    : [];
 
   const [keys, setKeys, getKeys] = useStateWithGetter(initialKeys);
 

@@ -1,3 +1,9 @@
+## 4.19.2 (July 5th, 2022)
+
+### Updated
+
+- package.json to allow react 18 as peer dep
+
 ## 4.19.1 (June 24th, 2022)
 
 ### Fixed

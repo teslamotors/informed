@@ -127,7 +127,7 @@ export type ArrayFieldItemState = {
 };
 
 export type InformedProps<UserProps> = {
-  onSubmit?: (values: Record<string, unknown>) => void;
+  onSubmit?: (formState: FormState) => void;
   onReset?: (formState: FormState) => void;
   onChange?: (formState: FormState) => void;
   onValid?: (formState: FormState) => void;

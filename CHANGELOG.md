@@ -1,3 +1,9 @@
+## 4.19.3 (July 5th, 2022)
+
+### Fixed
+
+- bad type definition for onSubmit
+
 ## 4.19.2 (July 5th, 2022)
 
 ### Updated

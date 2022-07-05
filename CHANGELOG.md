@@ -2,7 +2,7 @@
 
 ### Fixed
 
-- bad type definition for onSubmit
+- fixes #411 bad type definition for onSubmit
 
 ## 4.19.2 (July 5th, 2022)
 

@@ -1025,6 +1025,7 @@ export function checkCondition(condition, propertyValue) {
   // }
 
   return Object.entries(condition).every(([keyword, value]) => {
+    // console.log('KEYWORD', keyword, value, propertyValue);
     switch (keyword) {
       case 'const':
         if (Array.isArray(propertyValue) && value) {
@@ -1041,7 +1042,21 @@ export function checkCondition(condition, propertyValue) {
       case 'exclusiveMaximum':
         return propertyValue < value;
       case 'enum':
-        return Array.isArray(value) ? value.includes(propertyValue) : false;
+        if (Array.isArray(value) && !Array.isArray(propertyValue)) {
+          return value.includes(propertyValue);
+        }
+        if (Array.isArray(value) && Array.isArray(propertyValue)) {
+          return propertyValue.every(a => value.includes(a));
+        }
+        return false;
+      case 'oneOf':
+        if (Array.isArray(value) && !Array.isArray(propertyValue)) {
+          return value.includes(propertyValue);
+        }
+        if (Array.isArray(value) && Array.isArray(propertyValue)) {
+          return value.find(a => propertyValue.includes(a));
+        }
+        return false;
       case 'pattern':
         return new RegExp(value).test(propertyValue);
       // case 'properties':

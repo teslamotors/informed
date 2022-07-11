@@ -1,3 +1,32 @@
+## 4.20.0 (July 11th, 2022)
+
+### Added
+
+- ability to pass oneOf as an if condition to schemas
+- ability to match fields whos values are arrays with enum in schema conditions
+
+```js
+allOf: [
+  {
+    if: {
+      properties: {
+        cars: { oneOf: ['tesla', 'jeep'] }
+      },
+      required: ['cars']
+    },
+    then: {
+      properties: {
+        carName: {
+          type: 'string',
+          title: 'Cars name',
+          'ui:control': 'input'
+        }
+      }
+    }
+  }
+];
+```
+
 ## 4.19.3 (July 5th, 2022)
 
 ### Fixed

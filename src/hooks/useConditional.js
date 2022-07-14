@@ -86,5 +86,27 @@ export const useConditional = ({
     [name, ...dependsOn]
   );
 
+  // Trigger evaluate on a reset of form
+  useEffect(() => {
+    const listener = () => {
+      if (evaluate) {
+        setProps(
+          evaluate({
+            formState: formController.getFormState(),
+            formApi: formController.getFormApi(),
+            scope,
+            dependsOn
+          })
+        );
+      }
+    };
+
+    formController.emitter.on('reset', listener);
+
+    return () => {
+      formController.emitter.removeListener('reset', listener);
+    };
+  }, []);
+
   return props;
 };

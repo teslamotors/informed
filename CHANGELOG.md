@@ -1,3 +1,7 @@
+## 4.20.1 (July 14th, 2022)
+
+- Fixed issue where evaluate in useConditional would not trigger when form was reset
+
 ## 4.20.0 (July 11th, 2022)
 
 ### Added

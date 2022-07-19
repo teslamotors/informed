@@ -1,3 +1,7 @@
+## 4.21.0 (July 19th, 2022)
+
+- Added ability to pass clean function to inputs
+
 ## 4.20.1 (July 14th, 2022)
 
 - Fixed issue where evaluate in useConditional would not trigger when form was reset

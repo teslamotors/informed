@@ -612,6 +612,25 @@ describe('useField', () => {
 
   });
 
+  it('should run clean when user types Joe!@#$Puzzo', () => {
+    const formApiRef = {};
+
+    const clean = value => value.replace(/[!@#$%^&*()]/g, '');
+  
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="name" label="input1" clean={clean} />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+
+    userEvent.type(input, 'Joe!@#$Puzzo');  
+    expect(input).toHaveValue('JoePuzzo');
+    expect(formApiRef.current.getFormState().values).toEqual({ name: 'JoePuzzo' });
+  });
+
   it('should run formatter and parser when user types +1 1', () => {
     const formApiRef = {};
 

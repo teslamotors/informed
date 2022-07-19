@@ -292,6 +292,12 @@ export class FormController {
       let val = value;
       let maskedVal = value;
 
+      // Only clean if clean was passed
+      if (meta.clean) {
+        val = meta.clean(val);
+        maskedVal = val;
+      }
+
       // Call formatter and parser if passed
       if (meta.formatter) {
         const res = informedFormat(
@@ -753,14 +759,19 @@ export class FormController {
       meta.current.initialValue != null &&
       (meta.current.initializeValueIfPristine ? this.state.pristine : true)
     ) {
-      const { formatter, parser, initialize } = meta.current;
+      const { formatter, parser, initialize, clean } = meta.current;
 
-      const initialValue = initializeValue(meta.current.initialValue, {
+      // Clean value if we have clean function
+      const cleanedValue = clean
+        ? clean(meta.current.initialValue)
+        : meta.current.initialValue;
+
+      const initialValue = initializeValue(cleanedValue, {
         formatter,
         parser,
         initialize
       });
-      const initialMask = initializeMask(meta.current.initialValue, {
+      const initialMask = initializeMask(cleanedValue, {
         formatter,
         initialize
       });

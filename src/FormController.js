@@ -173,6 +173,7 @@ export class FormController {
     this.getData = this.getData.bind(this);
     this.getModified = this.getModified.bind(this);
     this.updateValid = this.updateValid.bind(this);
+    this.focusFirstError = this.focusFirstError.bind(this);
   }
 
   getOptions() {
@@ -618,7 +619,8 @@ export class FormController {
       resetPath: this.resetPath,
       submitForm: this.submitForm,
       clearValue: this.clearValue,
-      clearError: this.clearError
+      clearError: this.clearError,
+      focusFirstError: this.focusFirstError
     };
   }
 
@@ -848,7 +850,10 @@ export class FormController {
         this.emit('field', name);
         this.emit('submit');
       } else {
-        debug('Submit', this.state);
+        debug('Fail', this.state);
+        if (this.options.current.focusOnInvalid) {
+          this.focusFirstError();
+        }
         this.emit('field', name);
         this.emit('failure');
       }
@@ -1032,6 +1037,33 @@ export class FormController {
     });
 
     this.emit('reset');
+  }
+
+  focusFirstError() {
+    if (this.options.current.focusOnInvalid) {
+      // Itterate through and call validate on every field
+
+      Array.from(this.fieldsMap.values()).some(fieldMeta => {
+        // Get meta off field
+        const meta = fieldMeta.current;
+
+        // Get ref to input
+        const formFieldRef = meta.fieldRef;
+
+        // Get error for that field
+        const err = this.getError(meta.name);
+
+        // Only focus if we can
+        if (err && formFieldRef) {
+          if (typeof formFieldRef.current.focus === 'function') {
+            debug('Focusing onto', meta.name);
+            formFieldRef.current.focus();
+          }
+          return true;
+        }
+        return false;
+      });
+    }
   }
 
   resetField(name, options = {}) {
@@ -1407,6 +1439,9 @@ export class FormController {
       this.emit('submit');
     } else {
       debug('Fail', this.state);
+      if (this.options.current.focusOnInvalid) {
+        this.focusFirstError();
+      }
       this.emit('failure');
     }
 

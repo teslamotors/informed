@@ -45,6 +45,7 @@ export const useForm = ({
   name,
   keepState,
   keepStateIfRelevant,
+  focusOnInvalid,
   ...userProps
 }) => {
   // Register this controler by name if we are in global context
@@ -84,7 +85,8 @@ export const useForm = ({
     adapter,
     keepState,
     keepStateIfRelevant,
-    validateModified
+    validateModified,
+    focusOnInvalid
   };
 
   const optionsRef = useRef();

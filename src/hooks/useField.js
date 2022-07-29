@@ -225,7 +225,8 @@ export const useField = ({
     initialize,
     errorMessage,
     allowEmptyString,
-    gatherOnMount
+    gatherOnMount,
+    fieldRef: ref
   };
   const metaRef = useRef(meta);
   metaRef.current = meta;

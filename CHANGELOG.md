@@ -1,3 +1,7 @@
+## 4.22.0 (July 29th, 2022)
+
+- Added ability to pass focusOnInvalid to the form and also added focusFirstError to formApi
+
 ## 4.21.0 (July 19th, 2022)
 
 - Added ability to pass clean function to inputs

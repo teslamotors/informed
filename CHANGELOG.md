@@ -1,3 +1,7 @@
+## 4.23.0 (July 31st, 2022)
+
+- Added useArrayFieldState
+
 ## 4.22.0 (July 29th, 2022)
 
 - Added ability to pass focusOnInvalid to the form and also added focusFirstError to formApi

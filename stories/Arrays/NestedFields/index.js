@@ -6,7 +6,7 @@ import {
   Input,
   ArrayField,
   Debug,
-  useArrayFieldItemState
+  useArrayFieldState
 } from '../../../src';
 
 const initialValues = {
@@ -21,6 +21,12 @@ const initialValues = {
     }
   ]
 };
+
+// const Test = () => {
+//   const st = useArrayFieldState();
+
+//   return <pre>{JSON.stringify(st, null, 2)}</pre>;
+// };
 
 const NestedForm = () => (
   <div>
@@ -38,6 +44,7 @@ const NestedForm = () => (
                     type="button">
                     Add
                   </button>
+                  {/* <Test /> */}
                   <ArrayField.Items>
                     {({ remove, name }) => (
                       <label>

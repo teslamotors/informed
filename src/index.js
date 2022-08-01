@@ -30,6 +30,7 @@ import { useFormState } from './hooks/useFormState';
 import { useArrayField } from './hooks/useArrayField';
 import { useCursorPosition } from './hooks/useCursorPosition';
 import { useArrayFieldApi } from './hooks/useArrayFieldApi';
+import { useArrayFieldState } from './hooks/useArrayFieldState';
 import { useArrayFieldItemApi } from './hooks/useArrayFieldItemApi';
 import { useArrayFieldItemState } from './hooks/useArrayFieldItemState';
 import { useMultistepApi } from './hooks/useMultistepApi';
@@ -52,6 +53,7 @@ export {
   useFormApi,
   useFormState,
   useCursorPosition,
+  useArrayFieldState,
   useArrayFieldApi,
   useArrayFieldItemApi,
   useArrayFieldItemState,

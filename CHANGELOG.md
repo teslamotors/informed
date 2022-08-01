@@ -1,3 +1,7 @@
+## 4.24.0 (August 1st, 2022)
+
+- Added useInformed to get access to any controller
+
 ## 4.23.0 (July 31st, 2022)
 
 - Added useArrayFieldState

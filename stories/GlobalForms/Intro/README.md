@@ -16,6 +16,7 @@ import {
   Debug,
   useInformedState,
   useInformedField,
+  useInformed,
   Informed
 } from 'informed';
 
@@ -67,6 +68,32 @@ const Color = () => {
   );
 };
 
+const IntroControl = () => {
+  const informed = useInformed();
+
+  const renders = useRef(0);
+  renders.current = renders.current + 1;
+
+  const onClick = useCallback(
+    () => {
+      informed
+        .getController('info')
+        ?.getFormApi()
+        .setValue('name', 'Joe Puzzo');
+    },
+    [informed]
+  );
+
+  return (
+    <PurpleBorder>
+      <h4>Renders {renders.current} </h4>
+      <button type="button" onClick={onClick}>
+        Set First Name
+      </button>
+    </PurpleBorder>
+  );
+};
+
 const Example = () => {
   return (
     <Informed>
@@ -78,6 +105,7 @@ const Example = () => {
           <Debug values />
         </Form>
       </PurpleBorder>
+      <IntroControl />
       <PurpleBorder>
         <Form autocomplete="off" name="questions">
           <h3>Questions</h3>

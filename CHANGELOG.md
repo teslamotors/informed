@@ -1,3 +1,7 @@
+## 4.25.0 (August 2nd, 2022)
+
+- Added disabled prop back onto form props
+
 ## 4.24.0 (August 1st, 2022)
 
 - Added useInformed to get access to any controller

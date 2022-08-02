@@ -72,6 +72,7 @@ export const useField = ({
   maxLength,
   pattern,
   allowEmptyString: userAllowEmptyString,
+  disabled: userDisabled,
   gatherOnMount,
   validateOnMount: userValidateOnMount,
   validateOn: userValidateOn,
@@ -129,6 +130,8 @@ export const useField = ({
     userAllowEmptyString ?? formController.options.current.allowEmptyStrings;
   const validateModified =
     userValidateModified ?? formController.options.current.validateModified;
+
+  const disabled = userDisabled ?? formController.options.current.disabled;
 
   // For getting initialValue
   const getInitialValue = () =>
@@ -364,6 +367,7 @@ export const useField = ({
     type,
     multiple,
     autoComplete: autocomplete,
+    disabled,
     required,
     min: minimum,
     max: maximum,

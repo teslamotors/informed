@@ -1,3 +1,7 @@
+## 4.26.0 (August 3rd, 2022)
+
+- Added ability to get field name from onValueModified and onValueChange props to form
+
 ## 4.25.0 (August 2nd, 2022)
 
 - Added disabled prop back onto form props

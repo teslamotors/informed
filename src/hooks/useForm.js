@@ -108,10 +108,10 @@ export const useForm = ({
         onSubmit && onSubmit(formController.getFormState());
       const onFailureHandler = () =>
         onSubmitFailure && onSubmitFailure(formController.getFormState());
-      const onValueChangeHandler = () =>
-        onValueChange && onValueChange(formController.getFormState());
-      const onValueModifiedHandler = () =>
-        onValueModified && onValueModified(formController.getFormState());
+      const onValueChangeHandler = n =>
+        onValueChange && onValueChange(formController.getFormState(), n);
+      const onValueModifiedHandler = n =>
+        onValueModified && onValueModified(formController.getFormState(), n);
       const onValidHandler = () =>
         onValid && onValid(formController.getFormState());
       const onInvalidHandler = () =>

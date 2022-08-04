@@ -1070,3 +1070,6 @@ export function checkCondition(condition, propertyValue) {
     }
   });
 }
+
+// expose proxy utils
+export { unwrap } from './proxy';

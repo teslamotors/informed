@@ -113,7 +113,8 @@ import {
   UseFieldApi,
   UseFieldState,
   UseForm,
-  UseField
+  UseField,
+  UseFormStateSelector
 } from './Hooks';
 import ConditionalSchema from './Schema/ConditionalSchema';
 import ConditionalSchemaControl from './Schema/ConditionalSchemaControl';
@@ -289,7 +290,8 @@ storiesOf('Hooks!', module)
   .add('useFieldApi', UseFieldApi)
   .add('useFieldState', UseFieldState)
   .add('useForm', UseForm)
-  .add('useField', UseField);
+  .add('useField', UseField)
+  .add('useFormStateSelector', UseFormStateSelector);
 
 storiesOf('Multistep Forms', module)
   .add('BasicMultistep', BasicMultistep)

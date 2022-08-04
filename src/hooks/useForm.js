@@ -32,6 +32,7 @@ export const useForm = ({
   dontPreventDefault,
   yupSchema,
   allowEmptyStrings,
+  disabled,
   preventEnter,
   validateModified,
   schema,
@@ -45,6 +46,7 @@ export const useForm = ({
   name,
   keepState,
   keepStateIfRelevant,
+  focusOnInvalid,
   ...userProps
 }) => {
   // Register this controler by name if we are in global context
@@ -74,6 +76,7 @@ export const useForm = ({
     dontPreventDefault,
     yupSchema,
     allowEmptyStrings,
+    disabled,
     preventEnter,
     schema,
     ajv,
@@ -84,7 +87,8 @@ export const useForm = ({
     adapter,
     keepState,
     keepStateIfRelevant,
-    validateModified
+    validateModified,
+    focusOnInvalid
   };
 
   const optionsRef = useRef();
@@ -104,10 +108,10 @@ export const useForm = ({
         onSubmit && onSubmit(formController.getFormState());
       const onFailureHandler = () =>
         onSubmitFailure && onSubmitFailure(formController.getFormState());
-      const onValueChangeHandler = () =>
-        onValueChange && onValueChange(formController.getFormState());
-      const onValueModifiedHandler = () =>
-        onValueModified && onValueModified(formController.getFormState());
+      const onValueChangeHandler = n =>
+        onValueChange && onValueChange(formController.getFormState(), n);
+      const onValueModifiedHandler = n =>
+        onValueModified && onValueModified(formController.getFormState(), n);
       const onValidHandler = () =>
         onValid && onValid(formController.getFormState());
       const onInvalidHandler = () =>

@@ -54,6 +54,7 @@ import SchemaPlayground from './Playground/Schema';
 
 // import FormatParse from './Formatting/FormatParse';
 import Formatter from './Formatting/Formatter';
+import Clean from './Formatting/Clean';
 // import Mask from './Formatting/Mask';
 import FormatterFunctions from './Formatting/FormatterFunctions';
 // // import MaskWithCursor from './Formatting/MaskWithCursor';
@@ -275,10 +276,10 @@ storiesOf('Schema', module)
 storiesOf('Debugging', module).add('Debug', Debug);
 
 storiesOf('Formatting', module)
-  //   .add('Mask', Mask)
   .add('Formatter', Formatter)
   .add('Number Formatter', NumberFormatter)
-  .add('Formatter Functions', FormatterFunctions);
+  .add('Formatter Functions', FormatterFunctions)
+  .add('Clean', Clean);
 // // .add('Mask With Cursor', MaskWithCursor)
 // // .add('Mask With Cursor Offset', MaskWithCursorOffset)
 // // .add('Format and Parse', FormatParse);

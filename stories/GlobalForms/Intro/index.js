@@ -1,7 +1,14 @@
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import { Form, Input, Select, Debug, Informed } from '../../../src';
+import {
+  Form,
+  Input,
+  Select,
+  Debug,
+  Informed,
+  useInformed
+} from '../../../src';
 import { useInformedState, useInformedField } from '../../../src';
 
 const PurpleBorder = ({ children }) => {
@@ -52,6 +59,32 @@ const Color = () => {
   );
 };
 
+const IntroControl = () => {
+  const informed = useInformed();
+
+  const renders = useRef(0);
+  renders.current = renders.current + 1;
+
+  const onClick = useCallback(
+    () => {
+      informed
+        .getController('info')
+        ?.getFormApi()
+        .setValue('name', 'Joe Puzzo');
+    },
+    [informed]
+  );
+
+  return (
+    <PurpleBorder>
+      <h4>Renders {renders.current} </h4>
+      <button type="button" onClick={onClick}>
+        Set First Name
+      </button>
+    </PurpleBorder>
+  );
+};
+
 const Example = () => {
   const [show, setShow] = useState(true);
   return (
@@ -64,6 +97,7 @@ const Example = () => {
           <Debug values />
         </Form>
       </PurpleBorder>
+      <IntroControl />
       <button onClick={() => setShow(!show)}>Toggle</button>
       {show ? (
         <PurpleBorder>

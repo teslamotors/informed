@@ -8,6 +8,10 @@ const onSubmit = ({ values }) => {
   window.alert(JSON.stringify(values, null, 2));
 };
 
+// const onValueChange = (formState, name) => {
+//   console.log(name, formState);
+// };
+
 const Basic = () => (
   <Form onSubmit={onSubmit} autocomplete="off">
     <Input name="name" label="First name:" />

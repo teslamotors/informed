@@ -31,6 +31,7 @@ import { useFormStateSelector } from './hooks/useFormStateSelector';
 import { useArrayField } from './hooks/useArrayField';
 import { useCursorPosition } from './hooks/useCursorPosition';
 import { useArrayFieldApi } from './hooks/useArrayFieldApi';
+import { useArrayFieldState } from './hooks/useArrayFieldState';
 import { useArrayFieldItemApi } from './hooks/useArrayFieldItemApi';
 import { useArrayFieldItemState } from './hooks/useArrayFieldItemState';
 import { useMultistepApi } from './hooks/useMultistepApi';
@@ -39,6 +40,7 @@ import { useScope } from './hooks/useScope';
 import { useScoper } from './hooks/useScoper';
 import { useRelevance } from './hooks/useRelevance';
 import { useConditional } from './hooks/useConditional';
+import { useInformed } from './hooks/useInformed';
 import { useInformedState } from './hooks/useInformedState';
 import { useInformedField } from './hooks/useInformedField';
 
@@ -54,6 +56,7 @@ export {
   useFormState,
   useFormStateSelector,
   useCursorPosition,
+  useArrayFieldState,
   useArrayFieldApi,
   useArrayFieldItemApi,
   useArrayFieldItemState,
@@ -61,6 +64,7 @@ export {
   useMultistepState,
   useInformedState,
   useInformedField,
+  useInformed,
   useScope,
   useScoper,
   useRelevance,

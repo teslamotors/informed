@@ -1,3 +1,27 @@
+## 4.26.0 (August 3rd, 2022)
+
+- Added ability to get field name from onValueModified and onValueChange props to form
+
+## 4.25.0 (August 2nd, 2022)
+
+- Added disabled prop back onto form props
+
+## 4.24.0 (August 1st, 2022)
+
+- Added useInformed to get access to any controller
+
+## 4.23.0 (July 31st, 2022)
+
+- Added useArrayFieldState
+
+## 4.22.0 (July 29th, 2022)
+
+- Added ability to pass focusOnInvalid to the form and also added focusFirstError to formApi
+
+## 4.21.0 (July 19th, 2022)
+
+- Added ability to pass clean function to inputs
+
 ## 4.20.1 (July 14th, 2022)
 
 - Fixed issue where evaluate in useConditional would not trigger when form was reset

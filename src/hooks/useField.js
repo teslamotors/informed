@@ -63,6 +63,7 @@ export const useField = ({
   showErrorIfDirty: userShowErrorIfDirty,
   formatter,
   parser,
+  clean,
   maintainCursor: userMaintainCursor,
   required,
   minimum,
@@ -71,6 +72,7 @@ export const useField = ({
   maxLength,
   pattern,
   allowEmptyString: userAllowEmptyString,
+  disabled: userDisabled,
   gatherOnMount,
   validateOnMount: userValidateOnMount,
   validateOn: userValidateOn,
@@ -128,6 +130,8 @@ export const useField = ({
     userAllowEmptyString ?? formController.options.current.allowEmptyStrings;
   const validateModified =
     userValidateModified ?? formController.options.current.validateModified;
+
+  const disabled = userDisabled ?? formController.options.current.disabled;
 
   // For getting initialValue
   const getInitialValue = () =>
@@ -208,6 +212,7 @@ export const useField = ({
     getInitialValue,
     formatter,
     parser,
+    clean,
     setCursorOffset,
     setCursor,
     validate,
@@ -223,7 +228,8 @@ export const useField = ({
     initialize,
     errorMessage,
     allowEmptyString,
-    gatherOnMount
+    gatherOnMount,
+    fieldRef: ref
   };
   const metaRef = useRef(meta);
   metaRef.current = meta;
@@ -361,6 +367,7 @@ export const useField = ({
     type,
     multiple,
     autoComplete: autocomplete,
+    disabled,
     required,
     min: minimum,
     max: maximum,

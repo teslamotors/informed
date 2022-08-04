@@ -145,7 +145,7 @@ describe('useForm', () => {
       focused: {
         greeting: true
       },
-    }));
+    }), 'greeting');
 
   });
 
@@ -237,7 +237,7 @@ describe('useForm', () => {
       focused: {
         greeting: true
       },
-    }));
+    }), 'greeting');
 
   });
 

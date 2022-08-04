@@ -4,6 +4,7 @@ import UseFieldApi from './useFieldApi';
 import UseFieldState from './useFieldState';
 import UseForm from './useForm';
 import UseField from './useField';
+import UseFormStateSelector from './useFormStateSelector';
 
 export {
   UseFormApi,
@@ -11,5 +12,6 @@ export {
   UseFieldApi,
   UseFieldState,
   UseForm,
-  UseField
+  UseField,
+  UseFormStateSelector
 };

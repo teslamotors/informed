@@ -1,4 +1,4 @@
-import ObjectMap from './ObjectMap';
+import { ObjectMap } from './ObjectMap';
 
 const OWN_KEYS_SYMBOL = Symbol('own keys');
 const ORIG_SYMBOL = Symbol('original object');

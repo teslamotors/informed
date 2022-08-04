@@ -1,3 +1,7 @@
+## 4.27.0 (August 4th, 2022)
+
+- Added `useFormStateSelector` hook
+
 ## 4.26.0 (August 3rd, 2022)
 
 - Added ability to get field name from onValueModified and onValueChange props to form

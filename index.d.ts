@@ -272,6 +272,8 @@ export function useFormApi(): FormApi;
 
 export function useFormState(): FormState;
 
+export function useFormStateSelector<T>(selector: (formState: FormState) => T): T;
+
 export function useFieldApi(name: string, scoped?: boolean): FieldApi;
 
 export function useFieldState(name: string, scoped?: boolean): FieldState;

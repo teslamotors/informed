@@ -1,4 +1,4 @@
-import { useMemo, useRef, useEffect, useLayoutEffect } from 'react';
+import { useMemo, useRef, useEffect } from 'react';
 import { useFormController } from './useFormController';
 import { createDeepProxy, isDeepChanged } from '../proxy';
 import { useForceUpdate } from './useForceUpdate';
@@ -22,10 +22,10 @@ export function useFormStateSelector(selector) {
   const selectorStateRef = useRef(
     selector(createDeepProxy(prevState.current, affected, proxyCache))
   );
+  const selectorRef = useRef();
 
-  useLayoutEffect(() => {
-    lastAffected.current = affected;
-  });
+  selectorRef.current = selector;
+  lastAffected.current = affected;
 
   useEffect(() => {
     const callback = () => {
@@ -38,7 +38,7 @@ export function useFormStateSelector(selector) {
       ) {
         prevState.current = structuredClone(formController.state);
 
-        selectorStateRef.current = selector(
+        selectorStateRef.current = selectorRef.current(
           createDeepProxy(prevState.current, affected, proxyCache)
         );
 

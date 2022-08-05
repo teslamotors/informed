@@ -17,6 +17,7 @@ const logger = Debug('informed:useArrayField' + '\t');
 export const useArrayField = ({
   name: userName,
   initialValue,
+  defaultValue,
   // validate,
   arrayFieldApiRef
   // hidden
@@ -47,7 +48,9 @@ export const useArrayField = ({
     if (formController.getValue(name)) {
       return formController.getValue(name);
     }
-    return initialValue || formController.getInitialValue(name) || [];
+    return (
+      initialValue || formController.getInitialValue(name) || defaultValue || []
+    );
   });
 
   // TODO Need to use saved state to initialize ( after being re rendered )

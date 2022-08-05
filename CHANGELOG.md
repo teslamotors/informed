@@ -1,3 +1,7 @@
+## 4.28.0 (August 5th, 2022)
+
+- Added ability to pass default values to array fields
+
 ## 4.27.0 (August 4th, 2022)
 
 - Added `useFormStateSelector` hook

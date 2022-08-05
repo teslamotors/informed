@@ -16,6 +16,21 @@ const initialValue = [
   }
 ];
 
+// const defaultValue = [
+//   {
+//     name: 'foo',
+//     age: '100'
+//   },
+//   {
+//     name: 'Bar',
+//     age: '100'
+//   }
+// ];
+
+// const initialValues = {
+//   siblings: initialValue
+// };
+
 const schema = {
   type: 'object',
   required: ['name', 'siblings'],
@@ -30,6 +45,9 @@ const schema = {
       minItems: 2,
       'ui:control': 'array',
       'ui:props': {
+        // initialValue
+        // initialValue: defaultValue
+        // defaultValue
         initialValue
       },
       'ui:before': [{ 'ui:control': 'add' }],
@@ -82,6 +100,7 @@ const Schema = () => (
   <Form
     ajv={Ajv}
     schema={schema}
+    // initialValues={initialValues}
     onSubmit={({ values }) => window.alert(JSON.stringify(values, null, 2))}>
     <div style={{ display: 'flex' }}>
       <div style={{ flex: '1' }}>

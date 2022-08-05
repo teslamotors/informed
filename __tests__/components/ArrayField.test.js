@@ -4,10 +4,18 @@ import userEvent from '@testing-library/user-event';
 import { Form, Input, Checkbox } from '../../jest/components';
 import { ArrayField, Relevant } from '../../src';
 
-const FlatArrayfield = ({ formApiRef, initialValues }) => {
+const FlatArrayfield = ({
+  formApiRef,
+  initialValues,
+  initialValue,
+  defaultValue
+}) => {
   return (
     <Form formApiRef={formApiRef} initialValues={initialValues}>
-      <ArrayField name="siblings">
+      <ArrayField
+        name="siblings"
+        initialValue={initialValue}
+        defaultValue={defaultValue}>
         {({ add, reset }) => (
           <>
             <button onClick={add} type="button">
@@ -241,6 +249,65 @@ describe('ArrayField', () => {
   
       const { queryAllByLabelText, queryAllByTestId } = render(
         <FlatArrayfield formApiRef={formApiRef} initialValues={initialValues}/>
+      );
+  
+      let inputs = queryAllByLabelText('Name');
+      expect(inputs.length).toBe(2);
+  
+      expect(inputs[0]).toHaveValue('Hello');
+      expect(inputs[1]).toHaveValue('World');
+      expect(formApiRef.current.getFormState().values).toEqual({ siblings: ['Hello', 'World'] });
+  
+      let keys = queryAllByTestId('key');
+      expect(keys.length).toBe(2);
+    });
+
+    it('should initialize array field with initialValue from field', () => {
+  
+      const formApiRef = {};
+      const initialValues = { siblings: ['Hello', 'World'] };
+  
+      const { queryAllByLabelText, queryAllByTestId } = render(
+        <FlatArrayfield formApiRef={formApiRef} initialValues={initialValues} initialValue={['Foo', 'Bar']}/>
+      );
+  
+      let inputs = queryAllByLabelText('Name');
+      expect(inputs.length).toBe(2);
+  
+      expect(inputs[0]).toHaveValue('Foo');
+      expect(inputs[1]).toHaveValue('Bar');
+      expect(formApiRef.current.getFormState().values).toEqual({ siblings: ['Foo', 'Bar'] });
+  
+      let keys = queryAllByTestId('key');
+      expect(keys.length).toBe(2);
+    });
+
+    it('should initialize array field with defaultValue passed to field', () => {
+  
+      const formApiRef = {};
+  
+      const { queryAllByLabelText, queryAllByTestId } = render(
+        <FlatArrayfield formApiRef={formApiRef} defaultValue={['Foo', 'Bar']}/>
+      );
+  
+      let inputs = queryAllByLabelText('Name');
+      expect(inputs.length).toBe(2);
+  
+      expect(inputs[0]).toHaveValue('Foo');
+      expect(inputs[1]).toHaveValue('Bar');
+      expect(formApiRef.current.getFormState().values).toEqual({ siblings: ['Foo', 'Bar'] });
+  
+      let keys = queryAllByTestId('key');
+      expect(keys.length).toBe(2);
+    });
+
+    it('should initialize array field with form level initialValues even when defaultValue from field is passed', () => {
+  
+      const formApiRef = {};
+      const initialValues = { siblings: ['Hello', 'World'] };
+  
+      const { queryAllByLabelText, queryAllByTestId } = render(
+        <FlatArrayfield formApiRef={formApiRef} initialValues={initialValues} defaultValue={['Foo', 'Bar']}/>
       );
   
       let inputs = queryAllByLabelText('Name');

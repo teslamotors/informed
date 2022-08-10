@@ -842,7 +842,7 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
       return undefined;
     }
 
-    const isNegative = value.includes(minusChar);
+    const isNegative = `${value}`.includes(minusChar);
 
     // console.log('TOPARSE', value);
 

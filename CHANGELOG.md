@@ -1,3 +1,7 @@
+## 4.28.2 (August 10th, 2022)
+
+- Added mising types https://github.com/teslamotors/informed/pull/415
+
 ## 4.28.1 (August 10th, 2022)
 
 - Fixed issue with number formatter when inititial value is number

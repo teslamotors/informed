@@ -51,7 +51,7 @@ Don't fret! This is also very simple. You have two options:
 ```
 
 <br/>
-2) Use the Forms `formApiRef` prop, and then use the apis `getState` function.
+2) Use the Forms `formApiRef` prop, and then use the apis `getFormState` function.
 
 ```jsx
 import React, { useRef } from 'react';
@@ -61,7 +61,7 @@ const MyAwesomeForm = () => {
   const formApiRef = useRef();
 
   const handleClick = () => {
-    console.log(apiRef.current.getState());
+    console.log(apiRef.current.getFormState());
   };
 
   return (

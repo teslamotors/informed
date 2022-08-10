@@ -8,25 +8,25 @@ Below is a table that describes each value within a forms state.
 whether or not the attribute is derived from other attributes. For example,
 invalid is derived from the errors attribute and therefore cannot be set directly.
 
-| Attribute     | Example            | Initial Value | Description                                                                                                                                              |
-| ------------- | ------------------ | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| values        | `{name:'Joe'}`     | `{}`          | Key value pair where key is the form field and value is the value entered or selected.                                                                   |
-| maskedValues  | `{name:'Joe'}`     | `{}`          | Key value pair where key is the form field and value is the value entered or selected after formatting has occurred.                                     |
-| initialValues | `{name:'Joe'}`     | `{}`          | Key value pair where key is the form field and value is an initial value for that field                                                                  |
-| touched       | `{name:true}`      | `{}`          | Key value pair where key is the form field and value is true or undefined ( touched or untouched ). Submitting form will cause all fields to be touched. |
-| errors        | `{name:'Invalid'}` | `{}`          | Key value pair where key is the form field and value is the error associated with that field.                                                            |
-| dirt          | `{name:true}`      | `{}`          | Key value pair where key is the form field and value is true or undefined ( dirty or pristine ).                                                         |
-| focused       | `{name:true}`      | `{}`          | Key value pair where key is the form field and value is true or undefined ( focused or unfocused ). PAST TENSE! ( true if it was focused at one point)   |
-| modified      | `{name:true}`      | `{}`          | Key value pairs of fields which differ from their initial values where key is the form field and value is the current value of the field                 |
-| data          | `{address:['foo']}`| `{}`          | Data returned by inputs asynchronous `gatherData`calls (see GoogleApi Input)                                                                             |
-| invalid       | `true`             | `false`       | Boolean that is true when form is invalid. A form is invalid when any of its inputs fails its validation function ( if there are errors ).               |
-| valid         | `true`             | `true`        | Opposite of invalid                                                                                                                                      |
-| pristine      | `true`             | `true`        | Boolean that is true when form is pristine. A form is pristine when no values have changed                                                               |
-| dirty         | `true`             | `false`       | Boolean that is true when pristine is false                                                                                                              |
-| submitted     | `true`             | `false`       | Boolean that is true when the form has been successfully submitted                                                                                       |
-| submitting    | `true`             | `false`       | Boolean that is true when the form is submitting ( may happen during async validation)                                                                   |
-| validating    | 1                  | 0             | Integer that represents how many fields are currently asynchronously validating                                                                          |
-| gathering     | 1                  | 0             | Integer that represents how many fields are currently asynchronously gathering data (see GoogleApi Input)                                                |  |
+| Attribute     | Example             | Initial Value | Description                                                                                                                                              |
+| ------------- | ------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| values        | `{name:'Joe'}`      | `{}`          | Key value pair where key is the form field and value is the value entered or selected.                                                                   |
+| maskedValues  | `{name:'Joe'}`      | `{}`          | Key value pair where key is the form field and value is the value entered or selected after formatting has occurred.                                     |
+| initialValues | `{name:'Joe'}`      | `{}`          | Key value pair where key is the form field and value is an initial value for that field                                                                  |
+| touched       | `{name:true}`       | `{}`          | Key value pair where key is the form field and value is true or undefined ( touched or untouched ). Submitting form will cause all fields to be touched. |
+| errors        | `{name:'Invalid'}`  | `{}`          | Key value pair where key is the form field and value is the error associated with that field.                                                            |
+| dirt          | `{name:true}`       | `{}`          | Key value pair where key is the form field and value is true or undefined ( dirty or pristine ).                                                         |
+| focused       | `{name:true}`       | `{}`          | Key value pair where key is the form field and value is true or undefined ( focused or unfocused ). PAST TENSE! ( true if it was focused at one point)   |
+| modified      | `{name:true}`       | `{}`          | Key value pairs of fields which differ from their initial values where key is the form field and value is the current value of the field                 |
+| data          | `{address:['foo']}` | `{}`          | Data returned by inputs asynchronous `gatherData`calls (see GoogleApi Input)                                                                             |
+| invalid       | `true`              | `false`       | Boolean that is true when form is invalid. A form is invalid when any of its inputs fails its validation function ( if there are errors ).               |
+| valid         | `true`              | `true`        | Opposite of invalid                                                                                                                                      |
+| pristine      | `true`              | `true`        | Boolean that is true when form is pristine. A form is pristine when no values have changed                                                               |
+| dirty         | `true`              | `false`       | Boolean that is true when pristine is false                                                                                                              |
+| submitted     | `true`              | `false`       | Boolean that is true when the form has been successfully submitted                                                                                       |
+| submitting    | `true`              | `false`       | Boolean that is true when the form is submitting ( may happen during async validation)                                                                   |
+| validating    | 1                   | 0             | Integer that represents how many fields are currently asynchronously validating                                                                          |
+| gathering     | 1                   | 0             | Integer that represents how many fields are currently asynchronously gathering data (see GoogleApi Input)                                                |  |
 
 **"Ok so informed takes care of state so I dont have to.. but how do i get my hands
 on this state??**
@@ -154,7 +154,7 @@ Don't fret! This is also very simple. You have two options:
 ```
 
   <br/>
-  2. Use the Forms `formApiRef` prop, and then use the apis `getState` function.
+  2. Use the Forms `formApiRef` prop, and then use the apis `getFormState` function.
   <br/>
 
 ```jsx
@@ -165,7 +165,7 @@ const MyAwesomeForm = () => {
   const formApiRef = useRef();
 
   const handleClick = () => {
-    console.log(formApiRef.current.getState());
+    console.log(formApiRef.current.getFormState());
   };
 
   return (

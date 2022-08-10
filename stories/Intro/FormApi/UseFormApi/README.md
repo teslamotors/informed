@@ -5,7 +5,7 @@
 Informed also gives you access to a `formApi`. This api allows you to grab
 and manipulate values using getters and setters. In the previous example, we
 actually used a prop called `formApiRef` in order to getAccess to informed's api
-externally. Then we used the `getState` function to log out the state when
+externally. Then we used the `getFormState` function to log out the state when
 our external button was clicked.
 
 Below is an example where you can access the formApi via hooks. Then use it

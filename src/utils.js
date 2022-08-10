@@ -744,7 +744,7 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
     // console.log('decChar', decimalChar);
     // console.log('VAL', value);
 
-    const isNegative = value.includes(minusChar);
+    const isNegative = `${value}`.includes(minusChar);
 
     const float = toNumberString(value);
 

@@ -1,3 +1,7 @@
+## 4.28.1 (August 10th, 2022)
+
+- Fixed issue with number formatter when inititial value is number
+
 ## 4.28.0 (August 5th, 2022)
 
 - Added ability to pass default values to array fields

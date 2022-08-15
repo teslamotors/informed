@@ -1,3 +1,7 @@
+## 4.28.3 (August 15th, 2022)
+
+- Fixed issue where user would type the decimalChar in intl number formatter
+
 ## 4.28.2 (August 10th, 2022)
 
 - Added mising types https://github.com/teslamotors/informed/pull/415

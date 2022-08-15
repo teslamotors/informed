@@ -283,7 +283,9 @@ export function useFormApi(): FormApi;
 
 export function useFormState(): FormState;
 
-export function useFormStateSelector<T>(selector: (formState: FormState) => T): T;
+export function useFormStateSelector<T>(
+  selector: (formState: FormState) => T
+): T;
 
 export function useFieldApi(name: string, scoped?: boolean): FieldApi;
 
@@ -478,6 +480,10 @@ declare namespace utils {
 
 export function SchemaFields(): JSX.Element;
 export function Debug(): JSX.Element;
+
+// export class Elon {
+//   static inspect([any]): any;
+// }
 
 /* ------------------------------- Inputs ------------------------------ */
 

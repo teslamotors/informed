@@ -12,7 +12,7 @@ import {
   InformedProps,
   FormState,
   ArrayField,
-  Relevant
+  Relevant,
 } from '.';
 
 import {expectType} from 'tsd';
@@ -129,6 +129,11 @@ const UseFormApiTest = () => (
 
 const InputPropsTest = () => {
   const ref = useRef();
+
+  // const elonValidate = Elon.inspect([
+  //   (val: any, values: any) => val === 'Foo' || values.name === 'Bar' ? 'Ahh!!' : undefined
+  // ]);
+
   return (
     <Form>
       <Input 

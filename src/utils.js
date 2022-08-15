@@ -635,7 +635,7 @@ export const informedFormatter = (val, frmtr, old, full) => {
 
   // console.log('FORMATTEDARR', formatted);
   // console.log('VALUE', value, value.length);
-  const formattedString = formatted.join('');
+  let formattedString = formatted.join('');
   // console.log('FORMATTED', formattedString, formattedString.length);
 
   let offset = value ? formattedString.length - value.length : 0;
@@ -662,6 +662,14 @@ export const informedFormatter = (val, frmtr, old, full) => {
   ) {
     offset = 0;
     // console.log('OFFSET OVERRIDE', offset);
+    // Special case, we want to diable keeping suffix on backspace in react native
+    if (
+      typeof navigator !== 'undefined' &&
+      navigator.product === 'ReactNative'
+    ) {
+      // I'm in react-native
+      formattedString = formattedString.slice(0, suffixStart);
+    }
   }
 
   return {
@@ -720,7 +728,12 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
     return `${str}`.replace(/\D/g, '');
   }
 
-  function toNumberString(str) {
+  function toNumberString(str, decimalChar = '.') {
+    // Special case if user types the decimal char
+    if (str === decimalChar) {
+      return '';
+    }
+
     return `${str}`
       .split(decimalChar)
       .map(splitStr => stripNonNumeric(splitStr))
@@ -734,6 +747,7 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
 
     const float = parseFloat(toNumberString(str));
 
+    // console.log('ISNAN', Number.isNaN(float));
     return !Number.isNaN(float) ? float : undefined;
   }
 
@@ -746,7 +760,7 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
 
     const isNegative = `${value}`.includes(minusChar);
 
-    const float = toNumberString(value);
+    const float = toNumberString(value, decimalChar);
 
     // float = 3000.25
     // console.log('float', float);

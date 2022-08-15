@@ -1100,6 +1100,21 @@ const FormattedField = () => {
   //   });
   // }, []);
 
+  // const { formatter, parser } = useMemo(() => {
+  //   // return utils.createIntlNumberFormatter('de-DE', {
+  //   //   style: 'decimal',
+  //   //   currency: 'USD',
+  //   //   minimumFractionDigits: 2
+  //   // });
+
+  //   return utils.createIntlNumberFormatter(locale, {
+  //     style: 'decimal',
+  //     currency: 'USD',
+  //     minimumFractionDigits: 2,
+  //     maximumFractionDigits: 2
+  //   });
+  // }, []);
+
   return (
     <Input
       field="localeMask"

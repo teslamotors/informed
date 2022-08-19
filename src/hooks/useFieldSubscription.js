@@ -9,7 +9,7 @@ import { ScopeContext } from '../Context';
 const debug = Debug('informed:useFieldSubscription' + '\t');
 
 /* ----------------------- useFieldSubscription ----------------------- */
-export const useFieldSubscription = (event, fields, cb, scoped = true) => {
+export const useFieldSubscription = (event, fields = [], cb, scoped = true) => {
   // Create scoper function
   const scope = useScoper();
 
@@ -79,6 +79,6 @@ export const useFieldSubscription = (event, fields, cb, scoped = true) => {
         formController.emitter.removeListener(event, listener);
       };
     },
-    [fields]
+    [...fields]
   );
 };

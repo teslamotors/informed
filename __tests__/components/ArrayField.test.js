@@ -111,8 +111,8 @@ const RelevantArrayfield = ({ formApiRef, initialValues }) => {
                     label="Favorite Food"
                     name="food"
                     relevanceWhen={['showInfo']}
-                    relevant={({ formApi }) =>
-                      formApi.getValue(`${name}.showInfo`)
+                    relevant={({ formApi, scope }) =>
+                      formApi.getValue(`${scope}.showInfo`)
                     }
                   />
                   <button type="button" onClick={remove}>

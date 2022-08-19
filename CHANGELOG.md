@@ -1,3 +1,7 @@
+## 4.28.4 (August 19th, 2022)
+
+- Fixed issue where useFieldSubscription would not spread fields to the useEffect causing potential infinate loops
+
 ## 4.28.3 (August 15th, 2022)
 
 - Fixed issue where user would type the decimalChar in intl number formatter

@@ -1,3 +1,7 @@
+## 4.28.5 (August 22nd, 2022)
+
+- Fixed issue where showErrorIfDirty would not show error if touched
+
 ## 4.28.4 (August 19th, 2022)
 
 - Fixed issue where useFieldSubscription would not spread fields to the useEffect causing potential infinate loops

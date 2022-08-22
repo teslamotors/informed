@@ -641,7 +641,7 @@ export class FormController {
     if (meta && meta.showErrorIfError) {
       showError = error !== undefined;
     } else if (meta && meta.showErrorIfDirty) {
-      showError = error !== undefined && dirty;
+      showError = error !== undefined && (dirty || touched);
     } else if (meta && meta.showErrorIfTouched) {
       showError = error !== undefined && touched;
     }

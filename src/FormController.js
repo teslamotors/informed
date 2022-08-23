@@ -171,6 +171,7 @@ export class FormController {
     this.clearValue = this.clearValue.bind(this);
     this.clearError = this.clearError.bind(this);
     this.getData = this.getData.bind(this);
+    this.setData = this.setData.bind(this);
     this.getModified = this.getModified.bind(this);
     this.updateValid = this.updateValid.bind(this);
     this.focusFirstError = this.focusFirstError.bind(this);
@@ -547,6 +548,12 @@ export class FormController {
     return ObjectMap.get(this.state.data, name);
   }
 
+  setData(name, value) {
+    debug(`Setting ${name}'s data to ${value}`);
+    ObjectMap.set(this.state.data, name, value);
+    this.emit('field', name);
+  }
+
   getError(name) {
     return ObjectMap.get(this.state.errors, name);
   }
@@ -602,6 +609,7 @@ export class FormController {
       getFocused: this.getFocused,
       setFocused: this.setFocused,
       getData: this.getData,
+      setData: this.setData,
       getModified: this.getModified,
       resetField: this.resetField,
       reset: this.reset,

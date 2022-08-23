@@ -136,7 +136,12 @@ export const useArrayField = ({
     // ^^ By this I mean in form level reset we first wipe the form state :) so we can do same thing here!
     formController.remove(name);
     // When resetting we reset to the users initial value not the one tracked by this hook
-    const initVals = initialValue || formController.getInitialValue(name) || [];
+    const initVals =
+      initialValue ||
+      formController.getInitialValue(name) ||
+      defaultValue ||
+      [];
+
     // Set our initial values back to what the user set at beginning
     setInitialValues(initVals);
     // Build a new set of keys because everything is new !!!

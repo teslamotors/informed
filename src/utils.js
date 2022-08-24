@@ -734,24 +734,32 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
       return '';
     }
 
+    // If its a number we always use dot notation
+    if (typeof str === 'number') {
+      return `${str}`
+        .split('.')
+        .map(splitStr => stripNonNumeric(splitStr))
+        .join('.');
+    }
+
     return `${str}`
       .split(decimalChar)
       .map(splitStr => stripNonNumeric(splitStr))
       .join('.');
   }
 
-  function toFloat(str) {
+  function toFloat(str, decimalChar = '.') {
     if (typeof str === 'number') {
       return str;
     }
 
-    const float = parseFloat(toNumberString(str));
+    const float = parseFloat(toNumberString(str, decimalChar));
 
     // console.log('ISNAN', Number.isNaN(float));
     return !Number.isNaN(float) ? float : undefined;
   }
 
-  function mask(value) {
+  function mask(value, ogValue) {
     // console.log('--------------\n');
 
     // value = -3000.25
@@ -760,7 +768,8 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
 
     const isNegative = `${value}`.includes(minusChar);
 
-    const float = toNumberString(value, decimalChar);
+    // In case the value is a number from initial value we want to pass the OG value ( not the one we turned into a string in informedFormatter )
+    const float = toNumberString(ogValue, decimalChar);
 
     // float = 3000.25
     // console.log('float', float);
@@ -860,7 +869,9 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
 
     // console.log('TOPARSE', value);
 
-    return isNegative ? -toFloat(value) : toFloat(value);
+    return isNegative
+      ? -toFloat(value, decimalChar)
+      : toFloat(value, decimalChar);
   };
 
   return { formatter: mask, parser };

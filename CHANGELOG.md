@@ -1,3 +1,7 @@
+## 4.28.7 (August 24th, 2022)
+
+- Fixed issue where locales that use comma instead of dot for fractions would not properly format for thousands
+
 ## 4.28.6 (August 23nd, 2022)
 
 - Fixed issue where if form was reset array field with defualt values would not reset to the default values

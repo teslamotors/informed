@@ -267,10 +267,10 @@ export const useField = ({
       }
 
       if (isRelevant) {
-        logger('RELEVANT Initialize', metaInfo.name);
-        formController.initialize(metaInfo.name, metaRef);
         logger('RELEVANT register', metaInfo.name);
         formController.register(metaInfo.name, metaRef);
+        logger('RELEVANT Initialize', metaInfo.name);
+        formController.initialize(metaInfo.name, metaRef);
       }
     },
     [isRelevant]

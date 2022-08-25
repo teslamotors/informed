@@ -1,3 +1,7 @@
+## 4.28.8 (August 25th, 2022)
+
+- Fixed issue where async validate would not trigger when you pass relevance prop to input and input becomes relevant
+
 ## 4.28.7 (August 24th, 2022)
 
 - Fixed issue where locales that use comma instead of dot for fractions would not properly format for thousands

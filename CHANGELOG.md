@@ -1,3 +1,7 @@
+## 4.28.9 (August 30th, 2022)
+
+- Fixed issue where validateOnMount would not trigger when the fields were reset to their initial state
+
 ## 4.28.8 (August 25th, 2022)
 
 - Fixed issue where async validate would not trigger when you pass relevance prop to input and input becomes relevant

@@ -1146,6 +1146,20 @@ export class FormController {
       ObjectMap.delete(this.state.modified, name);
     }
 
+    // Might need to set initial error
+    if (meta.validate && meta.validateOnMount) {
+      const val = ObjectMap.get(this.state.values, name);
+      debug(
+        `Validating on reset because of validateOnMount ${name} ${val}`,
+        this.state
+      );
+      ObjectMap.set(
+        this.state.errors,
+        name,
+        meta.validate(val, this.state.values)
+      );
+    }
+
     // Check if the form is valid
     this.state.valid = ObjectMap.empty(this.state.errors);
     this.state.invalid = !this.state.valid;

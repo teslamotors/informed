@@ -17,6 +17,7 @@ export const useForm = ({
   onChange,
   onSubmitFailure,
   onValueChange,
+  onValueSet,
   onValid,
   onInvalid,
   onValueModified,
@@ -112,6 +113,8 @@ export const useForm = ({
         onValueChange && onValueChange(formController.getFormState(), n);
       const onValueModifiedHandler = n =>
         onValueModified && onValueModified(formController.getFormState(), n);
+      const onValueSetHandler = n =>
+        onValueSet && onValueSet(formController.getFormState(), n);
       const onValidHandler = () =>
         onValid && onValid(formController.getFormState());
       const onInvalidHandler = () =>
@@ -124,6 +127,7 @@ export const useForm = ({
       formController.on('failure', onFailureHandler);
       formController.on('field-value', onValueChangeHandler);
       formController.on('field-modified', onValueModifiedHandler);
+      formController.on('field-value-set', onValueSetHandler);
       formController.on('valid', onValidHandler);
       formController.on('invalid', onInvalidHandler);
 

@@ -1,3 +1,7 @@
+## 4.29.0 (August 30th, 2022)
+
+- added onValueSet to form that only gets called when the value is explicitly set
+
 ## 4.28.9 (August 30th, 2022)
 
 - Fixed issue where validateOnMount would not trigger when the fields were reset to their initial state

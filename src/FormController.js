@@ -412,6 +412,7 @@ export class FormController {
     // Special event when fields value changes
     this.emit('field-value', name);
     this.emit('field-modified', name);
+    this.emit('field-value-set', name);
   }
 
   validateField(name) {

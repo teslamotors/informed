@@ -55,7 +55,8 @@ import SchemaPlayground from './Playground/Schema';
 // import FormatParse from './Formatting/FormatParse';
 import Formatter from './Formatting/Formatter';
 import Clean from './Formatting/Clean';
-// import Mask from './Formatting/Mask';
+import Mask from './Formatting/Mask';
+import Parse from './Formatting/Parse';
 import FormatterFunctions from './Formatting/FormatterFunctions';
 // // import MaskWithCursor from './Formatting/MaskWithCursor';
 // import MaskWithCursorOffset from './Formatting/MaskWithCursorOffset';
@@ -279,7 +280,9 @@ storiesOf('Formatting', module)
   .add('Formatter', Formatter)
   .add('Number Formatter', NumberFormatter)
   .add('Formatter Functions', FormatterFunctions)
-  .add('Clean', Clean);
+  .add('Clean', Clean)
+  .add('Mask', Mask)
+  .add('Parse', Parse);
 // // .add('Mask With Cursor', MaskWithCursor)
 // // .add('Mask With Cursor Offset', MaskWithCursorOffset)
 // // .add('Format and Parse', FormatParse);

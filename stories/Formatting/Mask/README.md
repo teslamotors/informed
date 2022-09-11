@@ -1,8 +1,6 @@
 # Mask
 
-Masking values is made simple with the use of the `mask` function. Please NOTE!
-the use of the `maintainCursor` prop. This is not always necessary, but in the following
-example was needed! If you remove it the cursor will jump to the end every time the user types.
+Masking values is made simple with the use of the `mask` function. Please note, in addition to mask you sometimes want to pair it with a parser function see example below:
 
 <!-- STORY -->
 
@@ -10,12 +8,16 @@ example was needed! If you remove it the cursor will jump to the end every time 
 import { Form, Text } from 'informed';
 
 const mask = value => value.toUpperCase();
+const parser = value => value.toLowerCase();
 
 <Form>
-  <label>
-    First name:
-    <Input field="name" mask={mask} maintainCursor />
-  </label>
+  <Input name="field1" label="Field 1 ( no parser )" mask={mask} />
+  <Input
+    name="field2"
+    label="Field 2 ( with parser )"
+    mask={mask}
+    parser={parser}
+  />
   <button type="submit">Submit</button>
 </Form>;
 ```

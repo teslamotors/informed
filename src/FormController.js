@@ -14,7 +14,7 @@ import {
 } from './utils';
 const debug = Debug('informed:FormController' + '\t');
 
-const initializeValue = (value, { formatter, parser, initialize }) => {
+const initializeValue = (value, { formatter, parser, initialize, mask }) => {
   if (value != null) {
     // Call users initialize if it was passed
     if (initialize && !parser) {
@@ -24,13 +24,16 @@ const initializeValue = (value, { formatter, parser, initialize }) => {
       const res = informedFormat(value, formatter);
       return res.value;
     }
+    if (mask && !parser) {
+      return mask(value);
+    }
     return value;
   }
   // Not needed but called out specifically
   return undefined;
 };
 
-const initializeMask = (value, { formatter, initialize }) => {
+const initializeMask = (value, { formatter, initialize, mask }) => {
   if (initialize) {
     return initialize(value);
   }
@@ -38,6 +41,9 @@ const initializeMask = (value, { formatter, initialize }) => {
   if (formatter) {
     const res = informedFormat(value, formatter);
     return res.value;
+  }
+  if (mask) {
+    return mask(value);
   }
 
   return value;
@@ -280,16 +286,32 @@ export class FormController {
         ObjectMap.set(this.state.maskedValues, name, undefined);
       }
     } else if (meta?.type === 'number' && value !== undefined) {
-      debug(`Setting ${name}'s value to ${+value}`);
-      ObjectMap.set(this.state.values, name, +value);
+      let val = value;
+      let maskedVal = value;
+
+      // call mask if passed
+      if (meta.mask) {
+        maskedVal = meta.mask(val);
+      }
+
+      // // Only parse if parser was passed
+      if (meta.parser) {
+        val = val != null ? informedParse(val, meta.parser) : val;
+      }
+
+      debug(`Setting ${name}'s value to ${+val}`);
+      ObjectMap.set(this.state.values, name, +val);
+
       // Special if check for modified
-      if (meta.getInitialValue && meta.getInitialValue() != value) {
-        ObjectMap.set(this.state.modified, name, +value);
+      if (meta.getInitialValue && meta.getInitialValue() != val) {
+        ObjectMap.set(this.state.modified, name, +val);
       } else {
         debug(`Removing ${name}'s modified`);
         ObjectMap.delete(this.state.modified, name);
       }
-      ObjectMap.set(this.state.maskedValues, name, +value);
+
+      debug(`Setting ${name}'s maskedValue to`, +maskedVal);
+      ObjectMap.set(this.state.maskedValues, name, +maskedVal);
     } else {
       let val = value;
       let maskedVal = value;
@@ -300,7 +322,7 @@ export class FormController {
         maskedVal = val;
       }
 
-      // Call formatter and parser if passed
+      // Call formatter parser if passed
       if (meta.formatter) {
         const res = informedFormat(
           val,
@@ -310,6 +332,11 @@ export class FormController {
         meta.setCursorOffset(res.offset, key);
         maskedVal = res.value;
         val = maskedVal;
+      }
+
+      // call mask if passed
+      if (meta.mask) {
+        maskedVal = meta.mask(val);
       }
 
       // // Only parse if parser was passed
@@ -770,7 +797,7 @@ export class FormController {
       meta.current.initialValue != null &&
       (meta.current.initializeValueIfPristine ? this.state.pristine : true)
     ) {
-      const { formatter, parser, initialize, clean } = meta.current;
+      const { formatter, parser, initialize, clean, mask } = meta.current;
 
       // Clean value if we have clean function
       const cleanedValue = clean
@@ -780,11 +807,13 @@ export class FormController {
       const initialValue = initializeValue(cleanedValue, {
         formatter,
         parser,
-        initialize
+        initialize,
+        mask
       });
       const initialMask = initializeMask(cleanedValue, {
         formatter,
-        initialize
+        initialize,
+        mask
       });
 
       debug(`Initializing ${name}'s value to ${initialValue}`);
@@ -1080,7 +1109,7 @@ export class FormController {
     // Get meta for field
     const meta = this.fieldsMap.get(name)?.current || {};
 
-    const { formatter, parser, initialize } = meta;
+    const { formatter, parser, initialize, mask } = meta;
     const {
       value,
       resetError = true,
@@ -1093,13 +1122,14 @@ export class FormController {
       const initializedValue = initializeValue(value, {
         formatter,
         parser,
-        initialize
+        initialize,
+        mask
       });
 
       debug(`Resetting ${name}'s value to ${initializedValue}`);
       ObjectMap.set(this.state.values, name, initializedValue);
 
-      const maskedValue = initializeMask(value, { formatter, parser });
+      const maskedValue = initializeMask(value, { formatter, parser, mask });
       debug(`Resetting ${name}'s maskedValue to ${maskedValue}`);
       ObjectMap.set(this.state.maskedValues, name, maskedValue);
     } else {
@@ -1108,7 +1138,8 @@ export class FormController {
         {
           formatter,
           parser,
-          initialize
+          initialize,
+          mask
         }
       );
 
@@ -1116,7 +1147,8 @@ export class FormController {
         meta.getInitialValue && meta.getInitialValue(),
         {
           formatter,
-          initialize
+          initialize,
+          mask
         }
       );
 

@@ -631,6 +631,89 @@ describe('useField', () => {
     expect(formApiRef.current.getFormState().values).toEqual({ name: 'JoePuzzo' });
   });
 
+  it('should run mask when user types "hello"', () => {
+    const formApiRef = {};
+
+    const mask = value => value != null ? value.toUpperCase() : value;
+  
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="name" label="input1" mask={mask} />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+
+    userEvent.type(input, 'hello ');  
+    expect(input).toHaveValue('HELLO ');
+    expect(formApiRef.current.getFormState().values).toEqual({ name: 'HELLO ' });
+    expect(formApiRef.current.getFormState().maskedValues).toEqual({ name: 'HELLO ' });
+  });
+
+  it('should run mask and parser when user types "hello"', () => {
+    const formApiRef = {};
+
+    const mask = value => value != null ? value.toUpperCase() : value;
+    const parser = value => value != null ? value.toLowerCase() : value;
+
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="name" label="input1" mask={mask} parser={parser} />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+
+    userEvent.type(input, 'hello ');  
+    expect(input).toHaveValue('HELLO ');
+    expect(formApiRef.current.getFormState().values).toEqual({ name: 'hello ' });
+    expect(formApiRef.current.getFormState().maskedValues).toEqual({ name: 'HELLO ' });
+  });
+
+  it('should run parser when user types 5', () => {
+    const formApiRef = {};
+
+    // Example 5 = 1 ( i.e a user typed the number ) 10  but we want to store a 2 .. 10 / 5 = 2
+    const parser = value => (value != null ? value / 5 : value);
+
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="name" type="number" label="input1" parser={parser} />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+
+    userEvent.type(input, '5');  
+    expect(input).toHaveValue(5);
+    expect(formApiRef.current.getFormState().values).toEqual({ name: 1 });
+    expect(formApiRef.current.getFormState().maskedValues).toEqual({ name: 5 });
+  });
+
+  it('should run parser when user passes an initial value and initialize function', () => {
+    const formApiRef = {};
+
+    // Example 5 = 1 ( i.e a user typed the number ) 10  but we want to store a 2 .. 10 / 5 = 2
+    const parser = value => (value != null ? value / 5 : value);
+    const initialize = value => (value != null ? value * 5 : value);
+
+    const { getByLabelText } = render(
+      <Form
+        formApiRef={formApiRef}>
+        <Input name="name" type="number" label="input1" parser={parser} initialize={initialize} initialValue={2}/>
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+
+    expect(input).toHaveValue(10);
+    expect(formApiRef.current.getFormState().values).toEqual({ name: 2 });
+    expect(formApiRef.current.getFormState().maskedValues).toEqual({ name: 10 });
+  });
+
   it('should run formatter and parser when user types +1 1', () => {
     const formApiRef = {};
 

@@ -1,3 +1,11 @@
+## 4.30.0 (Sep 11th, 2022)
+
+- Added mask prop back to inputs!!!!!
+
+## 4.29.1 (Sep 8th, 2022)
+
+- Fixed useFormStateSelector when using SSR
+
 ## 4.29.0 (August 30th, 2022)
 
 - added onValueSet to form that only gets called when the value is explicitly set

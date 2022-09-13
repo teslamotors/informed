@@ -336,7 +336,9 @@ export class FormController {
 
       // call mask if passed
       if (meta.mask) {
-        maskedVal = meta.mask(val);
+        console.log('HERE', meta.mask(val));
+        val = meta.mask(val);
+        maskedVal = val;
       }
 
       // // Only parse if parser was passed

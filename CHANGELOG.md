@@ -1,3 +1,7 @@
+## 4.30.1 (Sep 12th, 2022)
+
+- Fixed issue with mask prop not masking last character
+
 ## 4.30.0 (Sep 11th, 2022)
 
 - Added mask prop back to inputs!!!!!

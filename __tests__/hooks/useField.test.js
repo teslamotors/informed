@@ -645,10 +645,10 @@ describe('useField', () => {
 
     const input = getByLabelText('input1');
 
-    userEvent.type(input, 'hello ');  
-    expect(input).toHaveValue('HELLO ');
-    expect(formApiRef.current.getFormState().values).toEqual({ name: 'HELLO ' });
-    expect(formApiRef.current.getFormState().maskedValues).toEqual({ name: 'HELLO ' });
+    userEvent.type(input, 'hello');  
+    expect(input).toHaveValue('HELLO');
+    expect(formApiRef.current.getFormState().values).toEqual({ name: 'HELLO' });
+    expect(formApiRef.current.getFormState().maskedValues).toEqual({ name: 'HELLO' });
   });
 
   it('should run mask and parser when user types "hello"', () => {
@@ -666,10 +666,10 @@ describe('useField', () => {
 
     const input = getByLabelText('input1');
 
-    userEvent.type(input, 'hello ');  
-    expect(input).toHaveValue('HELLO ');
-    expect(formApiRef.current.getFormState().values).toEqual({ name: 'hello ' });
-    expect(formApiRef.current.getFormState().maskedValues).toEqual({ name: 'HELLO ' });
+    userEvent.type(input, 'hello');  
+    expect(input).toHaveValue('HELLO');
+    expect(formApiRef.current.getFormState().values).toEqual({ name: 'hello' });
+    expect(formApiRef.current.getFormState().maskedValues).toEqual({ name: 'HELLO' });
   });
 
   it('should run parser when user types 5', () => {

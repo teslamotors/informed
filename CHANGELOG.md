@@ -1,3 +1,7 @@
+## 4.31.0 (Sep 14th, 2022)
+
+- Form now gets set to dirty when a user performs an add operation on an array field
+
 ## 4.30.1 (Sep 12th, 2022)
 
 - Fixed issue with mask prop not masking last character

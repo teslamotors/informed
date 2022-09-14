@@ -181,6 +181,7 @@ export class FormController {
     this.getModified = this.getModified.bind(this);
     this.updateValid = this.updateValid.bind(this);
     this.focusFirstError = this.focusFirstError.bind(this);
+    this.setPristine = this.setPristine.bind(this);
   }
 
   getOptions() {
@@ -625,6 +626,14 @@ export class FormController {
     this.setError(name, undefined);
   }
 
+  setPristine(pristine) {
+    this.state.pristine = pristine;
+    this.state.dirty = !this.state.pristine;
+
+    // Just need to trigger a form state update
+    this.emit('field');
+  }
+
   getFormApi() {
     return {
       getValue: this.getValue,
@@ -658,7 +667,8 @@ export class FormController {
       submitForm: this.submitForm,
       clearValue: this.clearValue,
       clearError: this.clearError,
-      focusFirstError: this.focusFirstError
+      focusFirstError: this.focusFirstError,
+      setPristine: this.setPristine
     };
   }
 

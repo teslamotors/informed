@@ -11,6 +11,7 @@ import { uuidv4 } from '../utils';
 import { ObjectMap } from '../ObjectMap';
 import { useFieldApi } from './useFieldApi';
 import { useScope } from './useScope';
+import { useFormApi } from './useFormApi';
 
 const logger = Debug('informed:useArrayField' + '\t');
 
@@ -31,6 +32,9 @@ export const useArrayField = ({
 
   // Hook onto the field api
   const fieldApi = useFieldApi(name);
+
+  // Gook onto the form api
+  const formApi = useFormApi();
 
   // Map will store all fields by name
   // Key => name
@@ -118,6 +122,9 @@ export const useArrayField = ({
       }
     }
     setKeys([...ks]);
+
+    // If we added a new field we are no longer pristine
+    formApi.setPristine(false);
   };
 
   const addWithInitialValue = initialValue => {

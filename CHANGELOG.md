@@ -1,3 +1,16 @@
+## 4.31.1 (Sep 19th, 2022)
+
+- When formatting using createIntlNumberFormatter and currencySign being accounting () would not trigger negative
+
+```js
+// When user types -2 or ($2) it would not format correctly
+const { formatter, parser } = utils.createIntlNumberFormatter('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  currencySign: 'accounting'
+});
+```
+
 ## 4.31.0 (Sep 14th, 2022)
 
 - Form now gets set to dirty when a user performs an add operation on an array field

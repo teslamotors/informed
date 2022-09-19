@@ -688,9 +688,20 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
       .formatToParts(0.1)
       .find(({ type }) => type === 'decimal')?.value ?? '.';
 
-  const minusChar =
-    numberFormatter.formatToParts(-1).find(({ type }) => type === 'minusSign')
-      ?.value ?? '-';
+  // console.log('-1 number parts', numberFormatter.formatToParts(-1));
+
+  // Try to find minus sign
+  let minusChar = numberFormatter
+    .formatToParts(-1)
+    .find(({ type }) => type === 'minusSign')?.value;
+
+  // special case if we did not find it then look one more time but for a literal ( accounting will lead to this case where "(" is neg symbol )
+  if (!minusChar) {
+    minusChar =
+      numberFormatter.formatToParts(-1).find(({ type }) => {
+        return type === 'literal';
+      })?.value ?? '-';
+  }
 
   function isRegexEqual(x, y) {
     return (
@@ -764,9 +775,11 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
 
     // value = -3000.25
     // console.log('decChar', decimalChar);
+    // console.log('minusChar', minusChar);
     // console.log('VAL', value);
 
-    const isNegative = `${value}`.includes(minusChar);
+    const isNegative =
+      `${value}`.includes(minusChar) || `${value}`.includes('-');
 
     // In case the value is a number from initial value we want to pass the OG value ( not the one we turned into a string in informedFormatter )
     const float = toNumberString(ogValue, decimalChar);

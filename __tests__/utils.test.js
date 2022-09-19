@@ -269,6 +269,39 @@ describe('Utils', () => {
       expect(value).toEqual('$3,000.25');
     });
 
+    it('createIntlNumberMask should format negative currency', () => {
+
+      const { formatter } = createIntlNumberFormatter('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      });
+
+      const { value } = informedFormat('-3000.25', formatter);
+      expect(value).toEqual('-$3,000.25');
+    });
+
+    it('createIntlNumberMask should format currency for "nl-BE" "EUR"', () => {
+
+      const { formatter } = createIntlNumberFormatter('nl-BE', {
+        style: 'currency',
+        currency: 'EUR'
+      });
+
+      const { value } = informedFormat(3000.25, formatter);
+      expect(value).toEqual('€ 3.000,25');
+    });
+
+    it('createIntlNumberMask should format negative currency for "nl-BE" "EUR"', () => {
+
+      const { formatter } = createIntlNumberFormatter('nl-BE', {
+        style: 'currency',
+        currency: 'EUR'
+      });
+
+      const { value } = informedFormat(-3000.25, formatter);
+      expect(value).toEqual('€ -3.000,25');
+    });
+
     it('createIntlNumberMask should format currency when no decimal is specified in format', () => {
 
       const { formatter } = createIntlNumberFormatter('en-US', {
@@ -281,6 +314,59 @@ describe('Utils', () => {
       const { value } = informedFormat('3000.25', formatter);
       expect(value).toEqual('3,000');
     });
+
+    it('createIntlNumberMask should format currency for accounting US', () => {
+
+      const { formatter, parser } = createIntlNumberFormatter('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        currencySign: 'accounting'
+      });
+
+      const { value } = informedFormat('3000.25', formatter);
+      expect(value).toEqual('$3,000.25');
+      expect( parser(value)).toEqual(3000.25);
+    });
+
+    it('createIntlNumberMask should format negative currency for accounting US', () => {
+
+      const { formatter, parser } = createIntlNumberFormatter('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        currencySign: 'accounting'
+      });
+
+      const { value } = informedFormat('-3000.25', formatter);
+      expect(value).toEqual('($3,000.25)');
+      expect( parser(value)).toEqual(-3000.25);
+    });
+
+    it('createIntlNumberMask should format negative currency with () for accounting US', () => {
+
+      const { formatter, parser } = createIntlNumberFormatter('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        currencySign: 'accounting'
+      });
+
+      const { value } = informedFormat('($3000.25)', formatter);
+      expect(value).toEqual('($3,000.25)');
+      expect( parser(value)).toEqual(-3000.25);
+    });
+
+    it('createIntlNumberMask should format negative currency for accounting "nl-BE" "EUR"', () => {
+
+      const { formatter, parser } = createIntlNumberFormatter('nl-BE', {
+        style: 'currency',
+        currency: 'EUR',
+        currencySign: 'accounting'
+      });
+
+      const { value } = informedFormat(-3000.25, formatter);
+      expect(value).toEqual('(€ 3.000,25)');
+      expect( parser(value)).toEqual(-3000.25);
+    });
+
     
   });
 });

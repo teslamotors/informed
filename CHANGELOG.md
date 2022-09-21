@@ -1,3 +1,7 @@
+## 4.31.2 (Sep 20th, 2022)
+
+- Fixed issue where reseting array fields with new initial values would still use old ones
+
 ## 4.31.1 (Sep 19th, 2022)
 
 - When formatting using createIntlNumberFormatter and currencySign being accounting () would not trigger negative

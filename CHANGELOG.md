@@ -1,3 +1,7 @@
+## 4.31.4 (Sep 22nd, 2022)
+
+- array fields dirt now gets set when a user adds or removes
+
 ## 4.31.3 (Sep 22nd, 2022)
 
 - Fixed issue where react strict mode and 18 would not cleanup fields values when they were unmounted

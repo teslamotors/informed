@@ -142,6 +142,7 @@ export class FormController {
     this.validate = this.validate.bind(this);
     this.asyncValidate = this.asyncValidate.bind(this);
     this.getDirty = this.getDirty.bind(this);
+    this.setDirt = this.setDirt.bind(this);
     this.getPristine = this.getPristine.bind(this);
     this.getFormState = this.getFormState.bind(this);
     this.getFormApi = this.getFormApi.bind(this);
@@ -605,6 +606,10 @@ export class FormController {
     return !!ObjectMap.get(this.state.dirt, name);
   }
 
+  setDirt(name, value) {
+    return ObjectMap.set(this.state.dirt, name, value);
+  }
+
   getPristine(name) {
     return !this.getDirty(name);
   }
@@ -655,6 +660,7 @@ export class FormController {
       getFormState: this.getFormState,
       getPristine: this.getPristine,
       getDirty: this.getDirty,
+      setDirt: this.setDirt,
       validateField: this.validateField,
       getFieldState: this.getFieldState,
       getInitialValue: this.getInitialValue,

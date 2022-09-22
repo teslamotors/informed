@@ -206,6 +206,7 @@ export const useForm = ({
 
   useEffect(() => {
     logger('Mount');
+    formController.lockRemoval(false);
     return () => {
       // Important so we dont clear values!!!
       formController.lockRemoval(true);

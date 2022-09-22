@@ -1,3 +1,7 @@
+## 4.31.3 (Sep 22nd, 2022)
+
+- Fixed issue where react strict mode and 18 would not cleanup fields values when they were unmounted
+
 ## 4.31.2 (Sep 20th, 2022)
 
 - Fixed issue where reseting array fields with new initial values would still use old ones

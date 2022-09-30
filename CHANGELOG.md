@@ -1,3 +1,7 @@
+## 4.32.0 (Sep 30th, 2022)
+
+- added ability to disable and enable the form via formApi
+
 ## 4.31.4 (Sep 22nd, 2022)
 
 - array fields dirt now gets set when a user adds or removes

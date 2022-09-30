@@ -21,6 +21,12 @@ const FormApi = () => (
         <button type="button" onClick={() => formApi.setValue('foo', 'Bar')}>
           Set Foo to "Bar"
         </button>
+        <button type="button" onClick={() => formApi.disable()}>
+          Disable
+        </button>
+        <button type="button" onClick={() => formApi.enable()}>
+          Enable
+        </button>
         <button type="submit">Submit</button>
         <Debug />
       </div>

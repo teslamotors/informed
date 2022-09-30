@@ -132,7 +132,10 @@ export const useField = ({
   const validateModified =
     userValidateModified ?? formController.options.current.validateModified;
 
-  const disabled = userDisabled ?? formController.options.current.disabled;
+  const disabled =
+    userDisabled ??
+    formController.disabled ??
+    formController.options.current.disabled;
 
   // For getting initialValue
   const getInitialValue = () =>

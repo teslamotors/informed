@@ -23,6 +23,8 @@ This api allows you to grab and manipulate values using getters and setters. Bel
 | setTheseValues | `setTheseValues(values)`                | Function that will set some form values                                                                                                                                                                                                                                                                                   |
 | fieldExists    | `fieldExists('fieldName')`              | Function that when given a field name will return whether or not it exists (i.e. the component is rendered).                                                                                                                                                                                                              |
 | resetPath      | `resetPath("brothers.friend")`          | Function that will reset all fields under given path                                                                                                                                                                                                                                                                      |
+| disable        | `disable()`                             | Function that will disable the form                                                                                                                                                                                                                                                                                       |
+| enable         | `enable()`                              | Function that will enable the form PLEASE NOTE if you pass in disabled prop that will override this                                                                                                                                                                                                                       |
 
 **"Ok so informed gives us access to this formApi.. but how do i get my hands
 on it??**
@@ -52,6 +54,12 @@ import { Form, Text } from 'informed';
       </button>
       <button type="button" onClick={() => formApi.setValue('foo', 'Bar')}>
         Set Foo to "Bar"
+      </button>
+      <button type="button" onClick={() => formApi.disable()}>
+        Disable
+      </button>
+      <button type="button" onClick={() => formApi.enable()}>
+        Enable
       </button>
       <button type="submit">Submit</button>
     </div>

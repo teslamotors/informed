@@ -183,6 +183,8 @@ export class FormController {
     this.updateValid = this.updateValid.bind(this);
     this.focusFirstError = this.focusFirstError.bind(this);
     this.setPristine = this.setPristine.bind(this);
+    this.disableForm = this.disableForm.bind(this);
+    this.enableForm = this.enableForm.bind(this);
   }
 
   getOptions() {
@@ -228,6 +230,18 @@ export class FormController {
       const val = ObjectMap.get(values, fieldMeta.current.name);
       fieldMeta.current.fieldApi.setValue(val);
     });
+  }
+
+  disableForm() {
+    this.disabled = true;
+    // This will make all fields re render with updated value
+    this.emit('field', '_ALL_');
+  }
+
+  enableForm() {
+    this.disabled = undefined;
+    // This will make all fields re render with updated value
+    this.emit('field', '_ALL_');
   }
 
   setTheseValues(values) {
@@ -674,7 +688,9 @@ export class FormController {
       clearValue: this.clearValue,
       clearError: this.clearError,
       focusFirstError: this.focusFirstError,
-      setPristine: this.setPristine
+      setPristine: this.setPristine,
+      disable: this.disableForm,
+      enable: this.enableForm
     };
   }
 

@@ -109,6 +109,7 @@ export type MultistepState = {
 
 export type ArrayFieldApi = {
   add: (amount?: number) => void;
+  remove: (index: number) => void;
   reset: () => void;
   swap: (a: number, b: number) => void;
   addWithInitialValue: (value: any) => void;

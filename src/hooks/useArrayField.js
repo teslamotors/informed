@@ -208,6 +208,7 @@ export const useArrayField = ({
   const arrayFieldApi = useMemo(() => {
     return {
       add,
+      remove,
       swap,
       addWithInitialValue,
       reset

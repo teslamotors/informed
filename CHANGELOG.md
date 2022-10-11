@@ -1,3 +1,7 @@
+## 4.33.0 (Oct 11th, 2022)
+
+- added ability to remove specific index from array field api
+
 ## 4.32.0 (Sep 30th, 2022)
 
 - added ability to disable and enable the form via formApi

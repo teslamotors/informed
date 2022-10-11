@@ -16,7 +16,7 @@ const FlatArrayfield = ({
         name="siblings"
         initialValue={initialValue}
         defaultValue={defaultValue}>
-        {({ add, reset }) => (
+        {({ add, reset, remove: removeIndex }) => (
           <>
             <button onClick={add} type="button">
               Add Sibling
@@ -26,6 +26,9 @@ const FlatArrayfield = ({
             </button>
             <button onClick={reset} type="button">
               Reset Siblings
+            </button>
+            <button type="button" onClick={() => removeIndex(1)}>
+              Remove Index
             </button>
             <ArrayField.Items>
               {({ remove, name, key }) => (
@@ -232,6 +235,55 @@ describe('ArrayField', () => {
       expect(removeButtons.length).toBe(2);
   
       fireEvent.click(removeButtons[1]);
+  
+      inputs = queryAllByLabelText('Name');
+      expect(inputs[0]).toHaveValue('Hello');
+      expect(formApiRef.current.getFormState().values).toEqual({ siblings: ['Hello'] });
+  
+      keys = queryAllByTestId('key');
+      expect(keys.length).toBe(1);
+  
+    });
+
+    it('should update state when user deletes 1 via api remove index [ a, b ] ---> [ a ]', () => {
+  
+      const formApiRef = {};
+  
+      const { queryAllByLabelText, getByText, queryAllByTestId, queryAllByText } = render(
+        <FlatArrayfield formApiRef={formApiRef}/>
+      );
+  
+      let inputs = queryAllByLabelText('Name');
+      expect(inputs.length).toBe(0);
+  
+      const add = getByText('Add Sibling');
+      fireEvent.click(add);
+  
+      inputs = queryAllByLabelText('Name');
+      expect(inputs.length).toBe(1);
+      expect(inputs[0]).toHaveAttribute('name', 'siblings[0]');
+  
+      fireEvent.click(add);
+  
+      inputs = queryAllByLabelText('Name');
+      expect(inputs.length).toBe(2);
+      expect(inputs[0]).toHaveAttribute('name', 'siblings[0]');
+      expect(inputs[1]).toHaveAttribute('name', 'siblings[1]');
+  
+      userEvent.type(inputs[0], 'Hello');  
+      userEvent.type(inputs[1], 'World');  
+  
+      expect(inputs[0]).toHaveValue('Hello');
+      expect(inputs[1]).toHaveValue('World');
+      expect(formApiRef.current.getFormState().values).toEqual({ siblings: ['Hello', 'World'] });
+  
+      let keys = queryAllByTestId('key');
+      expect(keys.length).toBe(2);
+  
+      const removeButtons = queryAllByText('Remove Index');
+      expect(removeButtons.length).toBe(1);
+  
+      fireEvent.click(removeButtons[0]);
   
       inputs = queryAllByLabelText('Name');
       expect(inputs[0]).toHaveValue('Hello');

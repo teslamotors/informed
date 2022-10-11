@@ -26,6 +26,7 @@ There are many cool features these give you:
 | Function            | Example                               | Description                           |
 | ------------------- | ------------------------------------- | ------------------------------------- |
 | add                 | add()                                 | Adds a new item                       |
+| remove              | remove(1)                             | Removes item at index                 |
 | reset               | reset()                               | Resets the array field                |
 | swap                | swap(1,2)                             | Swaps two array fields                |
 | addWithInitialValue | addWithInitialValue({ name: 'test' }) | Adds a new item with an initial value |

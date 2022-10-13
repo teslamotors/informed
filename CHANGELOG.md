@@ -1,3 +1,7 @@
+## 4.34.0 (Oct 13th, 2022)
+
+- added useInformedApi that will allow user to manipulate multiple forms
+
 ## 4.33.0 (Oct 11th, 2022)
 
 - added ability to remove specific index from array field api

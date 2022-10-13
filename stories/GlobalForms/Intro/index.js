@@ -7,7 +7,7 @@ import {
   Select,
   Debug,
   Informed,
-  useInformed
+  useInformedApi
 } from '../../../src';
 import { useInformedState, useInformedField } from '../../../src';
 
@@ -60,20 +60,14 @@ const Color = () => {
 };
 
 const IntroControl = () => {
-  const informed = useInformed();
+  const informedApi = useInformedApi();
 
   const renders = useRef(0);
   renders.current = renders.current + 1;
 
-  const onClick = useCallback(
-    () => {
-      informed
-        .getController('info')
-        ?.getFormApi()
-        .setValue('name', 'Joe Puzzo');
-    },
-    [informed]
-  );
+  const onClick = useCallback(() => {
+    informedApi.getFormApi('info').setValue('name', 'Joe Puzzo');
+  }, []);
 
   return (
     <PurpleBorder>

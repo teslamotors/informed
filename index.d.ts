@@ -18,6 +18,10 @@ export type FormState = {
   initialValues: Record<string, unknown>;
 };
 
+export type InformedApi = {
+  getFormApi: (name: string) => FormApi;
+};
+
 export type FormApi = {
   getValue: (name: string) => unknown;
   setValue: (name: string, value: unknown) => void;
@@ -279,6 +283,8 @@ export function Relevant({
   relevanceDeps?: unknown[];
   children: React.ReactNode;
 }): JSX.Element;
+
+export function useInformedApi(): InformedApi;
 
 export function useFormApi(): FormApi;
 

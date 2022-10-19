@@ -43,7 +43,7 @@ describe('useForm', () => {
     expect(formApiRef.current.getFormState()).toEqual(getState());
   });
 
-  it('should update state correctly when user types', () => {
+  it('should update state correctly when user types', async () => {
     const formApiRef = {};
 
     const { getByLabelText } = render(
@@ -54,7 +54,7 @@ describe('useForm', () => {
     );
 
     const input = getByLabelText('input1');
-    userEvent.type(input, 'Hi!');
+    await userEvent.type(input, 'Hi!');
   
     expect(formApiRef.current.getFormState()).toEqual(getState({
       pristine: false,
@@ -77,7 +77,7 @@ describe('useForm', () => {
     }));
   });
 
-  it('should call onChange that was passed', () => {
+  it('should call onChange that was passed', async () => {
 
     const onChange = jest.fn();
 
@@ -88,7 +88,7 @@ describe('useForm', () => {
     );
 
     const input = getByLabelText('input1');
-    userEvent.type(input, 'Hi!');
+    await userEvent.type(input, 'Hi!');
   
     expect(onChange).toHaveBeenCalledWith( getState({
       pristine: false,
@@ -113,7 +113,7 @@ describe('useForm', () => {
 
   });
 
-  it('should call onValueChange that was passed', () => {
+  it('should call onValueChange that was passed', async () => {
 
     const onValueChange = jest.fn();
 
@@ -124,7 +124,7 @@ describe('useForm', () => {
     );
 
     const input = getByLabelText('input1');
-    userEvent.type(input, 'Hi!');
+    await userEvent.type(input, 'Hi!');
   
     expect(onValueChange).toHaveBeenCalledWith( getState({
       pristine: false,
@@ -205,7 +205,7 @@ describe('useForm', () => {
     }));
   });
 
-  it('should call onValueModified that was passed', () => {
+  it('should call onValueModified that was passed', async () => {
 
     const onValueModified = jest.fn();
 
@@ -216,7 +216,7 @@ describe('useForm', () => {
     );
 
     const input = getByLabelText('input1');
-    userEvent.type(input, 'Hi!');
+    await userEvent.type(input, 'Hi!');
   
     expect(onValueModified).toHaveBeenCalledWith( getState({
       pristine: false,
@@ -298,7 +298,7 @@ describe('useForm', () => {
   
   });
 
-  it('should submit the form with the values on valid submission', () => {
+  it('should submit the form with the values on valid submission', async () => {
     const formApiRef = {};
     const onSubmit = jest.fn();
 
@@ -314,7 +314,7 @@ describe('useForm', () => {
     const input = getByLabelText('input1');
     const submit = getByText('Submit');
 
-    userEvent.type(input, 'Hi!');
+    await userEvent.type(input, 'Hi!');
 
     fireEvent.click(submit);
 
@@ -368,7 +368,7 @@ describe('useForm', () => {
 
   });
 
-  it('should reset the form when reset button is called', () => {
+  it('should reset the form when reset button is called', async () => {
     const formApiRef = {};
 
     const { getByLabelText, getByText } = render(
@@ -382,7 +382,7 @@ describe('useForm', () => {
     const input = getByLabelText('input1');
     const reset = getByText('Reset');
 
-    userEvent.type(input, 'Hi!');
+    await userEvent.type(input, 'Hi!');
 
     expect(formApiRef.current.getFormState()).toEqual(getState({
       pristine: false,
@@ -410,7 +410,7 @@ describe('useForm', () => {
 
   });
 
-  it('should resetField should reset the field to its field level initial value', () => {
+  it('should resetField should reset the field to its field level initial value', async () => {
     const formApiRef = {};
 
     const { getByLabelText } = render(
@@ -432,7 +432,7 @@ describe('useForm', () => {
       },
     }));
 
-    userEvent.type(input, ' World');
+    await userEvent.type(input, ' World');
 
     expect(input).toHaveValue('Hello World');
 
@@ -478,7 +478,7 @@ describe('useForm', () => {
 
   });
 
-  it('should resetField should reset the field to its form level initial value', () => {
+  it('should resetField should reset the field to its form level initial value', async () => {
     const formApiRef = {};
     const initialValues = {
       greeting: 'Hello'
@@ -505,7 +505,7 @@ describe('useForm', () => {
       initialValues,
     }));
 
-    userEvent.type(input, ' World');
+    await userEvent.type(input, ' World');
 
     expect(input).toHaveValue('Hello World');
 
@@ -553,7 +553,7 @@ describe('useForm', () => {
 
   });
 
-  it('reset should reset the the form to new initial values when they change and form is pristine', () => {
+  it('reset should reset the the form to new initial values when they change and form is pristine', async () => {
     const formApiRef = {};
    
     // Use your imagination and pretend these came from an api call :)
@@ -656,7 +656,7 @@ describe('useForm', () => {
       pristine: true
     }));
 
-    userEvent.type(input1, '!');
+    await userEvent.type(input1, '!');
 
     // Should be non pristine
     expect(formApiRef.current.getFormState()).toEqual(getState({
@@ -711,7 +711,7 @@ describe('useForm', () => {
 
   });
 
-  it('reset should reset the the form to new initial values when they change regardless of pristine if manually reset', () => {
+  it('reset should reset the the form to new initial values when they change regardless of pristine if manually reset', async () => {
     const formApiRef = {};
    
     // Use your imagination and pretend these came from an api call :)
@@ -814,7 +814,7 @@ describe('useForm', () => {
       pristine: true
     }));
 
-    userEvent.type(input1, '!');
+    await userEvent.type(input1, '!');
 
     // Should be non pristine
     expect(formApiRef.current.getFormState()).toEqual(getState({
@@ -858,7 +858,7 @@ describe('useForm', () => {
 
   });
 
-  it('should update the state when field level validation occurs and validateOnChange is passed', () => {
+  it('should update the state when field level validation occurs and validateOnChange is passed', async () => {
     const formApiRef = {};
 
     const validate = value => {
@@ -877,7 +877,7 @@ describe('useForm', () => {
 
     const input = getByLabelText('input1');
 
-    userEvent.type(input, 'Hi!');
+    await userEvent.type(input, 'Hi!');
 
     expect(formApiRef.current.getFormState()).toEqual(getState({
       pristine: false,
@@ -906,7 +906,7 @@ describe('useForm', () => {
 
   });
 
-  it('should NOT submit the form when form is invalid due to field level validation failure', () => {
+  it('should NOT submit the form when form is invalid due to field level validation failure', async () => {
     const formApiRef = {};
     const onSubmit = jest.fn();
 
@@ -928,7 +928,7 @@ describe('useForm', () => {
     const input = getByLabelText('input1');
     const submit = getByText('Submit');
 
-    userEvent.type(input, 'Hi!');
+    await userEvent.type(input, 'Hi!');
 
     fireEvent.click(submit);
 

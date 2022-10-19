@@ -26,7 +26,7 @@ describe('useFormStateSelector', () => {
     field2: state.values.field2
   });
 
-  it('should update computed state when user types in selected field', () => {
+  it('should update computed state when user types in selected field', async () => {
     const formApiRef = {};
 
     const { getByLabelText, getByText, queryByTestId } = render(
@@ -46,11 +46,11 @@ describe('useFormStateSelector', () => {
     const field1 = getByLabelText('Field 1');
     const field2 = getByLabelText('Field 2');
 
-    userEvent.type(field1, 'a');
+    await userEvent.type(field1, 'a');
 
     expect($render.textContent).toBe('Rendered: 2');
 
-    userEvent.type(field2, 'a');
+    await userEvent.type(field2, 'a');
 
     expect($render.textContent).toBe('Rendered: 3');
 
@@ -67,7 +67,7 @@ describe('useFormStateSelector', () => {
     expect($render.textContent).toBe('Rendered: 3');
   });
 
-  it('should NOT update computed state when user types in a non-selected field', () => {
+  it('should NOT update computed state when user types in a non-selected field', async () => {
     const formApiRef = {};
 
     const { getByLabelText, getByText, queryByTestId } = render(
@@ -88,21 +88,21 @@ describe('useFormStateSelector', () => {
     const field1 = getByLabelText('Field 1');
     const field3 = getByLabelText('Field 3');
 
-    userEvent.type(field1, 'a');
+    await userEvent.type(field1, 'a');
 
     expect($render.textContent).toBe('Rendered: 2');
 
-    userEvent.type(field3, 'a');
-    userEvent.type(field3, 'b');
-    userEvent.type(field3, 'c');
-    userEvent.type(field3, 'd');
+    await userEvent.type(field3, 'a');
+    await userEvent.type(field3, 'b');
+    await userEvent.type(field3, 'c');
+    await userEvent.type(field3, 'd');
 
     // should be same amount of renders as before typing in field3!
     expect($render.textContent).toBe('Rendered: 2');
 
-    userEvent.type(field1, 'b');
-    userEvent.type(field1, 'c');
-    userEvent.type(field1, 'd');
+    await userEvent.type(field1, 'b');
+    await userEvent.type(field1, 'c');
+    await userEvent.type(field1, 'd');
 
     expect($render.textContent).toBe('Rendered: 5');
 

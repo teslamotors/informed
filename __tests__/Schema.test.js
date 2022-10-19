@@ -13,7 +13,7 @@ describe('Schema', () => {
   //     : undefined;
   // };
 
-  it('should pass props to input', () => {
+  it('should pass props to input', async () => {
     const formApiRef = {};
 
     const schema = {
@@ -45,14 +45,14 @@ describe('Schema', () => {
     expect(input).toHaveValue('Hello');
     expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hello' });
 
-    userEvent.type(input, ' World');
+    await userEvent.type(input, ' World');
   
     expect(input).toHaveValue('Hello World');
     expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hello World' });
   });
   
 
-  it('should update value when user types in number input', () => {
+  it('should update value when user types in number input', async () => {
     const formApiRef = {};
 
     const schema = {
@@ -77,13 +77,13 @@ describe('Schema', () => {
     );
 
     const input = getByLabelText('input1');
-    userEvent.type(input, '27');
+    await userEvent.type(input, '27');
   
     expect(input).toHaveValue(27);
     expect(formApiRef.current.getFormState().values).toEqual({ age: 27 });
   });
 
-  it('should re evaluate conditional', () => {
+  it('should re evaluate conditional', async () => {
     const formApiRef = {};
 
     const evaluate = ({ formState, formApi }) => {
@@ -133,14 +133,14 @@ describe('Schema', () => {
 
     const age = getByLabelText('Age');
     const car = getByLabelText('Car');
-    userEvent.type(age, '2');
+    await userEvent.type(age, '2');
   
     expect(age).toHaveValue(2);
     expect(car).toHaveValue(undefined);
     expect(car).toHaveAttribute('disabled');
     expect(formApiRef.current.getFormState().values).toEqual({ age: 2 });
 
-    userEvent.type(age, '7');
+    await userEvent.type(age, '7');
     expect(age).toHaveValue(27);
     expect(car).toHaveValue(undefined);
     expect(car).not.toHaveAttribute('disabled');
@@ -152,7 +152,7 @@ describe('Schema', () => {
     expect(formApiRef.current.getFormState().values).toEqual({ age: 27, car: 'm3' });
 
     // Backspace to make person 2 years old
-    userEvent.type(age, '{backspace}');
+    await userEvent.type(age, '{backspace}');
     expect(age).toHaveValue(2);
     expect(car).toHaveValue(undefined);
     expect(car).toHaveAttribute('disabled');
@@ -160,7 +160,7 @@ describe('Schema', () => {
 
   });
 
-  it('should call onChange that was passed', () => {
+  it('should call onChange that was passed', async () => {
 
     const onChange = jest.fn();
 
@@ -186,7 +186,7 @@ describe('Schema', () => {
     );
 
     const input = getByLabelText('input1');
-    userEvent.type(input, 'Hi!');
+    await userEvent.type(input, 'Hi!');
   
     expect(onChange).toHaveBeenCalled();
   });
@@ -483,7 +483,7 @@ describe('Schema', () => {
 
   });
 
-  it('should conditionally render fields based on relevant prop', () => {
+  it('should conditionally render fields based on relevant prop', async () => {
     const formApiRef = {};
 
     const schema = {
@@ -539,13 +539,13 @@ describe('Schema', () => {
     // Validate everything is there
     spouse = queryByLabelText('Spouse name');
     expect(spouse).not.toBeNull();
-    userEvent.type(spouse, 'Hope');
+    await userEvent.type(spouse, 'Hope');
   
     expect(spouse).toHaveValue('Hope');
     expect(formApiRef.current.getFormState().values).toEqual({ married: 'yes', spouse: 'Hope' });
   });
 
-  it('should conditionally render fields based on schema if conditions', () => {
+  it('should conditionally render fields based on schema if conditions', async () => {
     const formApiRef = {};
 
     const schema = {
@@ -609,7 +609,7 @@ describe('Schema', () => {
     // Validate everything is there
     spouse = queryByLabelText('Spouse name');
     expect(spouse).not.toBeNull();
-    userEvent.type(spouse, 'Hope');
+    await userEvent.type(spouse, 'Hope');
   
     expect(spouse).toHaveValue('Hope');
     expect(formApiRef.current.getFormState().values).toEqual({ married: 'yes', spouse: 'Hope' });
@@ -707,7 +707,7 @@ describe('Schema', () => {
 
   });
 
-  it('should update error messages according to schema error message', () => {
+  it('should update error messages according to schema error message', async () => {
     const formApiRef = {};
 
     const schema = {
@@ -806,8 +806,8 @@ describe('Schema', () => {
     });
 
     // Trigger other validations
-    userEvent.type(brotherHeight, '9');
-    userEvent.type(brotherWeight, '70');
+    await userEvent.type(brotherHeight, '9');
+    await userEvent.type(brotherWeight, '70');
     
     fireEvent.click(submit);
 

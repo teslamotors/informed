@@ -322,6 +322,18 @@ export const useField = ({
     [...formatterDependencies]
   );
 
+  // Note im not adding this yet as I need to figure out how to solve issue with array fields when you remove 1 [0, 1, 2] and 2 becomes 1
+  // useUpdateEffect(
+  //   () => {
+  //     // If the form is pristine then reset it when we get new initial values !
+  //     const pristine = fieldApi.getPristine();
+  //     if (pristine) {
+  //       fieldApi.reset();
+  //     }
+  //   },
+  //   [userInitialValue, defaultValue]
+  // );
+
   useFieldSubscription('field-value', validateWhen, target => {
     logger(`revalidating for ${metaRef.current.name} because of ${target}`);
     formController.validateField(metaRef.current.name);

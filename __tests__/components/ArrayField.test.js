@@ -139,7 +139,7 @@ describe('ArrayField', () => {
   /* ------------------------------------ Flat Array Field ------------------------------------ */
   describe('Flat Array Field', () => {
 
-    it('should add unique fields when add is clicked', () => {
+    it('should add unique fields when add is clicked', async () => {
 
       const formApiRef = {};
   
@@ -164,8 +164,8 @@ describe('ArrayField', () => {
       expect(inputs[0]).toHaveAttribute('name', 'siblings[0]');
       expect(inputs[1]).toHaveAttribute('name', 'siblings[1]');
   
-      userEvent.type(inputs[0], 'Hello');  
-      userEvent.type(inputs[1], 'World');  
+      await userEvent.type(inputs[0], 'Hello');  
+      await userEvent.type(inputs[1], 'World');  
   
       expect(inputs[0]).toHaveValue('Hello');
       expect(inputs[1]).toHaveValue('World');
@@ -196,7 +196,7 @@ describe('ArrayField', () => {
       expect(inputs[2]).toHaveAttribute('name', 'siblings[2]');
     });
   
-    it('should update state when user deletes 1 index [ a, b ] ---> [ a ]', () => {
+    it('should update state when user deletes 1 index [ a, b ] ---> [ a ]', async () => {
   
       const formApiRef = {};
   
@@ -221,8 +221,8 @@ describe('ArrayField', () => {
       expect(inputs[0]).toHaveAttribute('name', 'siblings[0]');
       expect(inputs[1]).toHaveAttribute('name', 'siblings[1]');
   
-      userEvent.type(inputs[0], 'Hello');  
-      userEvent.type(inputs[1], 'World');  
+      await userEvent.type(inputs[0], 'Hello');  
+      await userEvent.type(inputs[1], 'World');  
   
       expect(inputs[0]).toHaveValue('Hello');
       expect(inputs[1]).toHaveValue('World');
@@ -245,7 +245,7 @@ describe('ArrayField', () => {
   
     });
 
-    it('should update state when user deletes 1 via api remove index [ a, b ] ---> [ a ]', () => {
+    it('should update state when user deletes 1 via api remove index [ a, b ] ---> [ a ]', async () => {
   
       const formApiRef = {};
   
@@ -270,8 +270,8 @@ describe('ArrayField', () => {
       expect(inputs[0]).toHaveAttribute('name', 'siblings[0]');
       expect(inputs[1]).toHaveAttribute('name', 'siblings[1]');
   
-      userEvent.type(inputs[0], 'Hello');  
-      userEvent.type(inputs[1], 'World');  
+      await userEvent.type(inputs[0], 'Hello');  
+      await userEvent.type(inputs[1], 'World');  
   
       expect(inputs[0]).toHaveValue('Hello');
       expect(inputs[1]).toHaveValue('World');
@@ -523,7 +523,7 @@ describe('ArrayField', () => {
   /* ------------------------------------ Object Array Field ------------------------------------ */
   describe('Object Array Field', () => {
 
-    it('should add unique fields when add is clicked', () => {
+    it('should add unique fields when add is clicked', async () => {
 
       const formApiRef = {};
   
@@ -553,10 +553,10 @@ describe('ArrayField', () => {
       expect(first[1]).toHaveAttribute('name', 'siblings[1].first');
       expect(last[1]).toHaveAttribute('name', 'siblings[1].last');
   
-      userEvent.type(first[0], 'Hello');  
-      userEvent.type(last[0], 'World');  
-      userEvent.type(first[1], 'Foo');  
-      userEvent.type(last[1], 'Bar');  
+      await userEvent.type(first[0], 'Hello');  
+      await userEvent.type(last[0], 'World');  
+      await userEvent.type(first[1], 'Foo');  
+      await userEvent.type(last[1], 'Bar');  
   
       expect(first[0]).toHaveValue('Hello');
       expect(last[0]).toHaveValue('World');
@@ -574,7 +574,7 @@ describe('ArrayField', () => {
       expect(keys.length).toBe(2);
     });
   
-    it('should update state when user deletes 1 index [ a, b ] ---> [ a ]', () => {
+    it('should update state when user deletes 1 index [ a, b ] ---> [ a ]', async () => {
   
       const formApiRef = {};
   
@@ -604,10 +604,10 @@ describe('ArrayField', () => {
       expect(first[1]).toHaveAttribute('name', 'siblings[1].first');
       expect(last[1]).toHaveAttribute('name', 'siblings[1].last');
   
-      userEvent.type(first[0], 'Hello');  
-      userEvent.type(last[0], 'World');  
-      userEvent.type(first[1], 'Foo');  
-      userEvent.type(last[1], 'Bar');  
+      await userEvent.type(first[0], 'Hello');  
+      await userEvent.type(last[0], 'World');  
+      await userEvent.type(first[1], 'Foo');  
+      await userEvent.type(last[1], 'Bar');  
   
       expect(first[0]).toHaveValue('Hello');
       expect(last[0]).toHaveValue('World');
@@ -902,7 +902,7 @@ describe('ArrayField', () => {
   describe('Relevant Array Field', () => {
 
   
-    it('should initialize array field with initialValues from from', () => {
+    it('should initialize array field with initialValues from from', async () => {
   
       const formApiRef = {};
       const initialValues = { 
@@ -982,7 +982,7 @@ describe('ArrayField', () => {
   
     });
 
-    const fillOneAndTwo = () => {
+    const fillOneAndTwo = async () => {
       const formApiRef = {};
       const initialValues = { 
         siblings: [
@@ -1019,9 +1019,9 @@ describe('ArrayField', () => {
       expect(color.length).toBe(1);
       expect(food.length).toBe(1);
 
-      userEvent.type(age[0], '27');
-      userEvent.type(color[0], 'Green');
-      userEvent.type(food[0], 'Apples');
+      await userEvent.type(age[0], '27');
+      await userEvent.type(color[0], 'Green');
+      await userEvent.type(food[0], 'Apples');
 
       expect(age[0]).toHaveAttribute('name', 'siblings[1].age');
       expect(color[0]).toHaveAttribute('name', 'siblings[1].color');
@@ -1065,9 +1065,9 @@ describe('ArrayField', () => {
       expect(color.length).toBe(2);
       expect(food.length).toBe(2);
 
-      userEvent.type(age[1], '20');
-      userEvent.type(color[1], 'Blue');
-      userEvent.type(food[1], 'Berries');
+      await userEvent.type(age[1], '20');
+      await userEvent.type(color[1], 'Blue');
+      await userEvent.type(food[1], 'Berries');
 
       expect(age[1]).toHaveAttribute('name', 'siblings[2].age');
       expect(color[1]).toHaveAttribute('name', 'siblings[2].color');
@@ -1108,8 +1108,8 @@ describe('ArrayField', () => {
     };
 
 
-    it('should update correctly when hiding and showing', () => {
-      const { formApiRef, queryAllByLabelText } = fillOneAndTwo();
+    it('should update correctly when hiding and showing', async () => {
+      const { formApiRef, queryAllByLabelText } = await fillOneAndTwo();
 
       let show = queryAllByLabelText('Show Info?');
 
@@ -1236,8 +1236,8 @@ describe('ArrayField', () => {
     });
 
 
-    it('should update correctly when removing last index', () => {
-      const { formApiRef, queryAllByLabelText, queryAllByText, getByText } = fillOneAndTwo();
+    it('should update correctly when removing last index', async () => {
+      const { formApiRef, queryAllByLabelText, queryAllByText, getByText } = await fillOneAndTwo();
 
       let removeButtons = queryAllByText('Remove');
       expect(removeButtons.length).toBe(3);
@@ -1316,8 +1316,8 @@ describe('ArrayField', () => {
     });
 
 
-    it('should update correctly when removing middle index', () => {
-      const { formApiRef, queryAllByLabelText, queryAllByText, getByText } = fillOneAndTwo();
+    it('should update correctly when removing middle index', async () => {
+      const { formApiRef, queryAllByLabelText, queryAllByText, getByText } = await fillOneAndTwo();
 
       let removeButtons = queryAllByText('Remove');
       expect(removeButtons.length).toBe(3);
@@ -1395,8 +1395,8 @@ describe('ArrayField', () => {
 
     });
 
-    it('should update correctly when removing first index', () => {
-      const { formApiRef, queryAllByLabelText, queryAllByText, getByText } = fillOneAndTwo();
+    it('should update correctly when removing first index', async () => {
+      const { formApiRef, queryAllByLabelText, queryAllByText, getByText } = await fillOneAndTwo();
 
       let removeButtons = queryAllByText('Remove');
       expect(removeButtons.length).toBe(3);

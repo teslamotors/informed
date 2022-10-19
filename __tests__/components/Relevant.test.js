@@ -45,7 +45,7 @@ const SchemaFieldRelevanceComp = ({ formApiRef, schema }) => {
 // prettier-ignore
 describe('Relevant', () => {
 
-  it('should show fields after fields become relevant and have correct state', () => {
+  it('should show fields after fields become relevant and have correct state', async () => {
 
     const formApiRef = {};
 
@@ -99,10 +99,10 @@ describe('Relevant', () => {
     expect(formApiRef.current.getFormState().values).toEqual({ showInfo: true });
 
     // Enter values and make sure they get set
-    userEvent.type(age, '27');
-    userEvent.type(color, 'Green');
-    userEvent.type(food, 'Apples');
-    userEvent.type(movie, 'StarWars');
+    await userEvent.type(age, '27');
+    await userEvent.type(color, 'Green');
+    await userEvent.type(food, 'Apples');
+    await userEvent.type(movie, 'StarWars');
 
     age = queryByLabelText('Age');
     color = queryByLabelText('Favorite Color');
@@ -288,7 +288,7 @@ describe('Relevant', () => {
     expect(formApiRef.current.getFormState().errors).toEqual({});
   });
 
-  it('should not have an error for a field thats irrelevant', () => {
+  it('should not have an error for a field thats irrelevant', async () => {
 
     const relevant = ({ formState }) => {
       return formState.values.name === 'joe';
@@ -313,7 +313,7 @@ describe('Relevant', () => {
       name: 'This field is required'
     });
 
-    userEvent.type(input, 'joe');
+    await userEvent.type(input, 'joe');
 
     expect(formApiRef.current.getFormState().errors).toEqual({
       name: 'This field is required'
@@ -327,7 +327,7 @@ describe('Relevant', () => {
 
   });
 
-  it('should NOT keep the state if keepState was NOT passed at form level or field level', () => {
+  it('should NOT keep the state if keepState was NOT passed at form level or field level', async () => {
 
     const relevant = ({ formState }) => {
       return formState.values.name === 'joe';
@@ -346,15 +346,15 @@ describe('Relevant', () => {
     const input1 = getByLabelText('First name:');
     const input2 = getByLabelText('Foo field:');
 
-    // userEvent.type(input1, 'joe');
-    userEvent.type(input2, 'bar');
+    // await userEvent.type(input1, 'joe');
+    await userEvent.type(input2, 'bar');
 
     expect(formApiRef.current.getFormState().values).toEqual({
       name: 'joe',
       foo: 'bar'
     });
 
-    userEvent.type(input1, 'y');
+    await userEvent.type(input1, 'y');
 
     expect(formApiRef.current.getFormState().values).toEqual({
       name: 'joey',
@@ -362,7 +362,7 @@ describe('Relevant', () => {
 
   });
 
-  it('should keep the state if keepState was passed at form level', () => {
+  it('should keep the state if keepState was passed at form level', async () => {
 
     const relevant = ({ formState }) => {
       return formState.values.name === 'joe';
@@ -381,15 +381,15 @@ describe('Relevant', () => {
     const input1 = getByLabelText('First name:');
     const input2 = getByLabelText('Foo field:');
 
-    // userEvent.type(input1, 'joe');
-    userEvent.type(input2, 'bar');
+    // await userEvent.type(input1, 'joe');
+    await userEvent.type(input2, 'bar');
 
     expect(formApiRef.current.getFormState().values).toEqual({
       name: 'joe',
       foo: 'bar'
     });
 
-    userEvent.type(input1, 'y');
+    await userEvent.type(input1, 'y');
 
     expect(formApiRef.current.getFormState().values).toEqual({
       name: 'joey',
@@ -398,7 +398,7 @@ describe('Relevant', () => {
 
   });
 
-  it('should NOT keep the state if keepStateIfRelevant was passed at form level', () => {
+  it('should NOT keep the state if keepStateIfRelevant was passed at form level', async () => {
 
     const relevant = ({ formState }) => {
       return formState.values.name === 'joe';
@@ -417,15 +417,15 @@ describe('Relevant', () => {
     const input1 = getByLabelText('First name:');
     const input2 = getByLabelText('Foo field:');
 
-    // userEvent.type(input1, 'joe');
-    userEvent.type(input2, 'bar');
+    // await userEvent.type(input1, 'joe');
+    await userEvent.type(input2, 'bar');
 
     expect(formApiRef.current.getFormState().values).toEqual({
       name: 'joe',
       foo: 'bar'
     });
 
-    userEvent.type(input1, 'y');
+    await userEvent.type(input1, 'y');
 
     expect(formApiRef.current.getFormState().values).toEqual({
       name: 'joey',

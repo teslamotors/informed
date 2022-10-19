@@ -421,7 +421,7 @@ describe('useFormApi', () => {
 
   });
 
-  it('should update state correctly when resetField is called on field with resetTouched set to false', () => {
+  it('should update state correctly when resetField is called on field with resetTouched set to false', async () => {
     const formApiRef = {};
 
     const Button = () => {
@@ -440,7 +440,7 @@ describe('useFormApi', () => {
       </Form>
     );
 
-    userEvent.type(getByLabelText('input1'), 'elon');
+    await userEvent.type(getByLabelText('input1'), 'elon');
 
     const submitButton = getByText('submit');
     fireEvent.click(submitButton);

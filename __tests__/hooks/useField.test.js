@@ -13,7 +13,7 @@ describe('useField', () => {
       : undefined;
   };
 
-  it('should update value when user types', () => {
+  it('should update value when user types', async () => {
     const formApiRef = {};
 
     const { getByLabelText } = render(
@@ -24,14 +24,14 @@ describe('useField', () => {
     );
 
     const input = getByLabelText('input1');
-    userEvent.type(input, 'Hi!');
+    await userEvent.type(input, 'Hi!');
   
     expect(input).toHaveAttribute('value', 'Hi!');
     expect(input).toHaveValue('Hi!');
     expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hi!' });
   });
 
-  it('should clear out the value when user backspaces', () => {
+  it('should clear out the value when user backspaces', async () => {
     const formApiRef = {};
 
     const { getByLabelText } = render(
@@ -42,21 +42,21 @@ describe('useField', () => {
     );
 
     const input = getByLabelText('input1');
-    userEvent.type(input, 'Hi!');
+    await userEvent.type(input, 'Hi!');
   
     expect(input).toHaveAttribute('value', 'Hi!');
     expect(input).toHaveValue('Hi!');
     expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hi!' });
 
     input.setSelectionRange(0, 3);
-    userEvent.type(input, '{backspace}');
+    await userEvent.keyboard('{Backspace}');
 
     expect(input).toHaveAttribute('value', '');
     expect(input).toHaveValue('');
     expect(formApiRef.current.getFormState().values).toEqual({});
   });
 
-  it('should clear out the value to empty string when user backspaces and allowEmptyString is passed', () => {
+  it('should clear out the value to empty string when user backspaces and allowEmptyString is passed', async () => {
     const formApiRef = {};
 
     const { getByLabelText } = render(
@@ -67,21 +67,21 @@ describe('useField', () => {
     );
 
     const input = getByLabelText('input1');
-    userEvent.type(input, 'Hi!');
+    await userEvent.type(input, 'Hi!');
   
     expect(input).toHaveAttribute('value', 'Hi!');
     expect(input).toHaveValue('Hi!');
     expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hi!' });
 
     input.setSelectionRange(0, 3);
-    userEvent.type(input, '{backspace}');
+    await userEvent.keyboard('{Backspace}');
 
     expect(input).toHaveAttribute('value', '');
     expect(input).toHaveValue('');
     expect(formApiRef.current.getFormState().values).toEqual({ greeting: '' });
   });
 
-  it('should clear out the value to empty string when user backspaces and allowEmptyStrings is passed to form', () => {
+  it('should clear out the value to empty string when user backspaces and allowEmptyStrings is passed to form', async () => {
     const formApiRef = {};
 
     const { getByLabelText } = render(
@@ -93,14 +93,14 @@ describe('useField', () => {
     );
 
     const input = getByLabelText('input1');
-    userEvent.type(input, 'Hi!');
+    await userEvent.type(input, 'Hi!');
   
     expect(input).toHaveAttribute('value', 'Hi!');
     expect(input).toHaveValue('Hi!');
     expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hi!' });
 
     input.setSelectionRange(0, 3);
-    userEvent.type(input, '{backspace}');
+    await userEvent.keyboard('{Backspace}');
 
     expect(input).toHaveAttribute('value', '');
     expect(input).toHaveValue('');
@@ -133,7 +133,7 @@ describe('useField', () => {
     expect(input).toHaveAttribute('id', '1234567');
   });
 
-  it('should update value when user types in number input', () => {
+  it('should update value when user types in number input', async () => {
     const formApiRef = {};
 
     const { getByLabelText } = render(
@@ -144,13 +144,13 @@ describe('useField', () => {
     );
 
     const input = getByLabelText('input1');
-    userEvent.type(input, '27');
+    await userEvent.type(input, '27');
   
     expect(input).toHaveValue(27);
     expect(formApiRef.current.getFormState().values).toEqual({ age: 27 });
   });
 
-  it('should call onChange that was passed', () => {
+  it('should call onChange that was passed', async () => {
 
     const onChange = jest.fn();
 
@@ -161,7 +161,7 @@ describe('useField', () => {
     );
 
     const input = getByLabelText('input1');
-    userEvent.type(input, 'Hi!');
+    await userEvent.type(input, 'Hi!');
   
     expect(onChange).toHaveBeenCalledWith({
       value: 'Hi!',
@@ -552,7 +552,7 @@ describe('useField', () => {
     expect(formApiRef.current.getFormState().values).toEqual({ greeting: 'Hello' });
   });
 
-  it('should run intl formatter and parser when user types', () => {
+  it('should run intl formatter and parser when user types', async () => {
     const formApiRef = {};
 
     const { formatter, parser } = utils.createIntlNumberFormatter('en-US', {
@@ -569,42 +569,42 @@ describe('useField', () => {
 
     const input = getByLabelText('input1');
 
-    userEvent.type(input, '-');  
+    await userEvent.type(input, '-');  
     expect(input).toHaveValue('-');
     expect(formApiRef.current.getFormState().values).toEqual({ number: NaN });
     expect(formApiRef.current.getFormState().maskedValues).toEqual({ number: '-' });
 
-    userEvent.type(input, '3');  
+    await userEvent.type(input, '3');  
     expect(input).toHaveValue('-$3');
     expect(formApiRef.current.getFormState().values).toEqual({ number: -3 });
     expect(formApiRef.current.getFormState().maskedValues).toEqual({ number: '-$3' });
 
-    userEvent.type(input, '0');  
+    await userEvent.type(input, '0');  
     expect(input).toHaveValue('-$30');
     expect(formApiRef.current.getFormState().values).toEqual({ number: -30 });
     expect(formApiRef.current.getFormState().maskedValues).toEqual({ number: '-$30' });
 
-    userEvent.type(input, '0');  
+    await userEvent.type(input, '0');  
     expect(input).toHaveValue('-$300');
     expect(formApiRef.current.getFormState().values).toEqual({ number: -300 });
     expect(formApiRef.current.getFormState().maskedValues).toEqual({ number: '-$300' });
 
-    userEvent.type(input, '0');  
+    await userEvent.type(input, '0');  
     expect(input).toHaveValue('-$3,000');
     expect(formApiRef.current.getFormState().values).toEqual({ number: -3000 });
     expect(formApiRef.current.getFormState().maskedValues).toEqual({ number: '-$3,000' });
 
-    userEvent.type(input, '.');  
+    await userEvent.type(input, '.');  
     expect(input).toHaveValue('-$3,000.');
     expect(formApiRef.current.getFormState().values).toEqual({ number: -3000 });
     expect(formApiRef.current.getFormState().maskedValues).toEqual({ number: '-$3,000.' });
 
-    userEvent.type(input, '2');  
+    await userEvent.type(input, '2');  
     expect(input).toHaveValue('-$3,000.2');
     expect(formApiRef.current.getFormState().values).toEqual({ number: -3000.2 });
     expect(formApiRef.current.getFormState().maskedValues).toEqual({ number: '-$3,000.2' });
 
-    userEvent.type(input, '5');  
+    await userEvent.type(input, '5');  
     expect(input).toHaveValue('-$3,000.25');
     expect(formApiRef.current.getFormState().values).toEqual({ number: -3000.25 });
     expect(formApiRef.current.getFormState().maskedValues).toEqual({ number: '-$3,000.25' });
@@ -612,7 +612,7 @@ describe('useField', () => {
 
   });
 
-  it('should run clean when user types Joe!@#$Puzzo', () => {
+  it('should run clean when user types Joe!@#$Puzzo', async () => {
     const formApiRef = {};
 
     const clean = value => value.replace(/[!@#$%^&*()]/g, '');
@@ -626,12 +626,12 @@ describe('useField', () => {
 
     const input = getByLabelText('input1');
 
-    userEvent.type(input, 'Joe!@#$Puzzo');  
+    await userEvent.type(input, 'Joe!@#$Puzzo');  
     expect(input).toHaveValue('JoePuzzo');
     expect(formApiRef.current.getFormState().values).toEqual({ name: 'JoePuzzo' });
   });
 
-  it('should run mask when user types "hello"', () => {
+  it('should run mask when user types "hello"', async () => {
     const formApiRef = {};
 
     const mask = value => value != null ? value.toUpperCase() : value;
@@ -645,13 +645,13 @@ describe('useField', () => {
 
     const input = getByLabelText('input1');
 
-    userEvent.type(input, 'hello');  
+    await userEvent.type(input, 'hello');  
     expect(input).toHaveValue('HELLO');
     expect(formApiRef.current.getFormState().values).toEqual({ name: 'HELLO' });
     expect(formApiRef.current.getFormState().maskedValues).toEqual({ name: 'HELLO' });
   });
 
-  it('should run mask and parser when user types "hello"', () => {
+  it('should run mask and parser when user types "hello"', async () => {
     const formApiRef = {};
 
     const mask = value => value != null ? value.toUpperCase() : value;
@@ -666,13 +666,13 @@ describe('useField', () => {
 
     const input = getByLabelText('input1');
 
-    userEvent.type(input, 'hello');  
+    await userEvent.type(input, 'hello');  
     expect(input).toHaveValue('HELLO');
     expect(formApiRef.current.getFormState().values).toEqual({ name: 'hello' });
     expect(formApiRef.current.getFormState().maskedValues).toEqual({ name: 'HELLO' });
   });
 
-  it('should run parser when user types 5', () => {
+  it('should run parser when user types 5', async () => {
     const formApiRef = {};
 
     // Example 5 = 1 ( i.e a user typed the number ) 10  but we want to store a 2 .. 10 / 5 = 2
@@ -687,7 +687,7 @@ describe('useField', () => {
 
     const input = getByLabelText('input1');
 
-    userEvent.type(input, '5');  
+    await userEvent.type(input, '5');  
     expect(input).toHaveValue(5);
     expect(formApiRef.current.getFormState().values).toEqual({ name: 1 });
     expect(formApiRef.current.getFormState().maskedValues).toEqual({ name: 5 });
@@ -714,7 +714,7 @@ describe('useField', () => {
     expect(formApiRef.current.getFormState().maskedValues).toEqual({ name: 10 });
   });
 
-  it('should run formatter and parser when user types +1 1', () => {
+  it('should run formatter and parser when user types +1 1', async () => {
     const formApiRef = {};
 
     const formatter = '+1 ###-###-####';
@@ -732,12 +732,12 @@ describe('useField', () => {
 
     const input = getByLabelText('input1');
 
-    userEvent.type(input, '+1 1');  
+    await userEvent.type(input, '+1 1');  
     expect(input).toHaveValue('+1 1');
     expect(formApiRef.current.getFormState().values).toEqual({ phone: '1' });
   });
 
-  it('should run formatter and parser when user types', () => {
+  it('should run formatter and parser when user types', async () => {
     const formApiRef = {};
 
     const formatter = [
@@ -771,24 +771,24 @@ describe('useField', () => {
 
     const input = getByLabelText('input1');
 
-    userEvent.type(input, '1');  
+    await userEvent.type(input, '1');  
     expect(input).toHaveValue('+1 1');
     expect(formApiRef.current.getFormState().values).toEqual({ phone: '1' });
 
-    userEvent.type(input, '2');  
+    await userEvent.type(input, '2');  
     expect(input).toHaveValue('+1 12');
     expect(formApiRef.current.getFormState().values).toEqual({ phone: '12' });
 
-    userEvent.type(input, '3');  
+    await userEvent.type(input, '3');  
     expect(input).toHaveValue('+1 123');
     expect(formApiRef.current.getFormState().values).toEqual({ phone: '123' });
 
-    userEvent.type(input, '4');  
+    await userEvent.type(input, '4');  
     expect(input).toHaveValue('+1 123-4');
     expect(formApiRef.current.getFormState().values).toEqual({ phone: '1234' });
   });
 
-  it('should run formatter and parser when user types +1 1', () => {
+  it('should run formatter and parser when user types +1 1', async () => {
     const formApiRef = {};
 
     const formatter = '+1 ###-###-####';
@@ -806,12 +806,12 @@ describe('useField', () => {
 
     const input = getByLabelText('input1');
 
-    userEvent.type(input, '+1 1');  
+    await userEvent.type(input, '+1 1');  
     expect(input).toHaveValue('+1 1');
     expect(formApiRef.current.getFormState().values).toEqual({ phone: '1' });
   });
 
-  it('should run formatter and parser when user types "+1 123a"', () => {
+  it('should run formatter and parser when user types "+1 123a"', async () => {
     const formApiRef = {};
 
     const formatter = '+1 ###-###-####';
@@ -829,12 +829,12 @@ describe('useField', () => {
 
     const input = getByLabelText('input1');
 
-    userEvent.type(input, '+1 123a');  
+    await userEvent.type(input, '+1 123a');  
     expect(input).toHaveValue('+1 123-');
     expect(formApiRef.current.getFormState().values).toEqual({ phone: '123' });
   });
 
-  it('should run formatter and parser when user types "+1 123abc"', () => {
+  it('should run formatter and parser when user types "+1 123abc"', async () => {
     const formApiRef = {};
 
     const formatter = '+1 ###-###-####';
@@ -852,12 +852,12 @@ describe('useField', () => {
 
     const input = getByLabelText('input1');
 
-    userEvent.type(input, '+1 123abc');  
+    await userEvent.type(input, '+1 123abc');  
     expect(input).toHaveValue('+1 123-');
     expect(formApiRef.current.getFormState().values).toEqual({ phone: '123' });
   });
 
-  it('should run formatter when user types and only formatter is passed', () => {
+  it('should run formatter when user types and only formatter is passed', async () => {
     const formApiRef = {};
 
     const formatter = '+1 ###-###-####';
@@ -871,19 +871,19 @@ describe('useField', () => {
 
     const input = getByLabelText('input1');
 
-    userEvent.type(input, '1');  
+    await userEvent.type(input, '1');  
     expect(input).toHaveValue('+1 1');
     expect(formApiRef.current.getFormState().values).toEqual({ phone: '+1 1' });
 
-    userEvent.type(input, '2');  
+    await userEvent.type(input, '2');  
     expect(input).toHaveValue('+1 12');
     expect(formApiRef.current.getFormState().values).toEqual({ phone: '+1 12' });
 
-    userEvent.type(input, '3');  
+    await userEvent.type(input, '3');  
     expect(input).toHaveValue('+1 123');
     expect(formApiRef.current.getFormState().values).toEqual({ phone: '+1 123' });
 
-    userEvent.type(input, '4');  
+    await userEvent.type(input, '4');  
     expect(input).toHaveValue('+1 123-4');
     expect(formApiRef.current.getFormState().values).toEqual({ phone: '+1 123-4' });
   });
@@ -1080,7 +1080,7 @@ describe('useField', () => {
   });
 
 
-  it('should update state when field name changes', () => {
+  it('should update state when field name changes', async () => {
     const formApiRef = {};
 
     const Component = () => {
@@ -1101,7 +1101,7 @@ describe('useField', () => {
     );
 
     const input = getByLabelText('input1');
-    userEvent.type(input, 'Hello');
+    await userEvent.type(input, 'Hello');
   
     expect(input).toHaveAttribute('value', 'Hello');
     expect(input).toHaveAttribute('name', 'foo');
@@ -1116,7 +1116,7 @@ describe('useField', () => {
     expect(input).toHaveValue('');
     expect(formApiRef.current.getFormState().values).toEqual({ foo: 'Hello' });
 
-    userEvent.type(input, 'World!');
+    await userEvent.type(input, 'World!');
 
     expect(input).toHaveAttribute('value', 'World!');
     expect(input).toHaveAttribute('name', 'bar');
@@ -1126,7 +1126,7 @@ describe('useField', () => {
 
   /* ----------------------------------- Error Tests ----------------------------------- */
 
-  it('should show error message when blurred by default', () => {
+  it('should show error message when blurred by default', async () => {
     const { getByLabelText, getByText }  = render(
       <Form>
         <Input 
@@ -1142,13 +1142,13 @@ describe('useField', () => {
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
 
-    userEvent.type(input1, 'Hi!');
-    input2.focus();
+    await userEvent.type(input1, 'Hi!');
+    await input2.focus();
 
     expect(getByText('Field must be at least five characters')).toBeInTheDocument();
   });
 
-  it('should NOT show error message when blurred and showErrorIfTouched={false} at field level', () => {
+  it('should NOT show error message when blurred and showErrorIfTouched={false} at field level', async () => {
     const { getByLabelText, queryByText }  = render(
       <Form>
         <Input 
@@ -1165,13 +1165,13 @@ describe('useField', () => {
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
 
-    userEvent.type(input1, 'Hi!');
+    await userEvent.type(input1, 'Hi!');
     input2.focus();
 
     expect(queryByText('Field must be at least five characters')).not.toBeInTheDocument();
   });
 
-  it('should NOT show error message when blurred and showErrorIfTouched={false} at form level', () => {
+  it('should NOT show error message when blurred and showErrorIfTouched={false} at form level', async () => {
     const { getByLabelText, queryByText }  = render(
       <Form showErrorIfTouched={false}>
         <Input 
@@ -1187,7 +1187,7 @@ describe('useField', () => {
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
 
-    userEvent.type(input1, 'Hi!');
+    await userEvent.type(input1, 'Hi!');
     input2.focus();
 
     expect(queryByText('Field must be at least five characters')).not.toBeInTheDocument();
@@ -1212,7 +1212,7 @@ describe('useField', () => {
     expect(getByText('Field must be at least five characters')).toBeInTheDocument();
   });
 
-  it('should NOT show error message when blurred and form validateOn="submit"', () => {
+  it('should NOT show error message when blurred and form validateOn="submit"', async () => {
 
     const formApiRef = {};
 
@@ -1231,7 +1231,7 @@ describe('useField', () => {
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
 
-    userEvent.type(input1, 'Hi!');
+    await userEvent.type(input1, 'Hi!');
     input2.focus();
 
     expect(formApiRef.current.getFormState().errors).toEqual({});
@@ -1239,7 +1239,7 @@ describe('useField', () => {
     expect(queryByText('Field must be at least five characters')).not.toBeInTheDocument();
   });
 
-  it('should show error message when blurred and form validateOn="submit" when submitted', () => {
+  it('should show error message when blurred and form validateOn="submit" when submitted', async () => {
 
     const formApiRef = {};
 
@@ -1259,7 +1259,7 @@ describe('useField', () => {
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
 
-    userEvent.type(input1, 'Hi!');
+    await userEvent.type(input1, 'Hi!');
     input2.focus();
 
     const submit = getByText('Submit');
@@ -1446,7 +1446,7 @@ describe('useField', () => {
     expect(queryByText('Field must be at least five characters')).toBeInTheDocument();
   });
 
-  it('should NOT show error message when validateOn="change" and its only been changed', () => {
+  it('should NOT show error message when validateOn="change" and its only been changed', async () => {
     const formApiRef = {};
 
     const { getByLabelText, queryByText }  = render(
@@ -1461,14 +1461,14 @@ describe('useField', () => {
 
     const input = getByLabelText('input1');
 
-    userEvent.type(input, 'Hi!');
+    await userEvent.type(input, 'Hi!');
 
     expect(formApiRef.current.getFormState().errors).toEqual({ greeting: 'Field must be at least five characters' });
 
     expect(queryByText('Field must be at least five characters')).not.toBeInTheDocument();
   });
 
-  it('should show error message when validateOn="change" + showErrorIfDirty at field', () => {
+  it('should show error message when validateOn="change" + showErrorIfDirty at field', async () => {
     const { getByLabelText, getByText }  = render(
       <Form>
         <Input 
@@ -1482,11 +1482,11 @@ describe('useField', () => {
 
     const input = getByLabelText('input1');
 
-    userEvent.type(input, 'Hi!');
+    await userEvent.type(input, 'Hi!');
     expect(getByText('Field must be at least five characters')).toBeInTheDocument();
   });
 
-  it('should show error message when validateOn="change" + showErrorIfDirty at form', () => {
+  it('should show error message when validateOn="change" + showErrorIfDirty at form', async () => {
     const { getByLabelText, getByText }  = render(
       <Form validateOn="change" showErrorIfDirty >
         <Input 
@@ -1498,7 +1498,7 @@ describe('useField', () => {
 
     const input = getByLabelText('input1');
 
-    userEvent.type(input, 'Hi!');
+    await userEvent.type(input, 'Hi!');
     expect(getByText('Field must be at least five characters')).toBeInTheDocument();
   });
 

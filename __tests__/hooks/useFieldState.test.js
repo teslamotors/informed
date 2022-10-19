@@ -35,7 +35,7 @@ describe('useFieldState', () => {
       : undefined;
   };
 
-  it('should update state when user types', () => {
+  it('should update state when user types', async () => {
     const formApiRef = {};
 
     const { getByLabelText, queryAllByTestId } = render(
@@ -57,7 +57,7 @@ describe('useFieldState', () => {
     const first = getByLabelText('First Name');
     const last = getByLabelText('Last Name');
 
-    userEvent.type(first, 'J');
+    await userEvent.type(first, 'J');
 
     expect(renders[0].textContent).toBe('Rendered: 4');
     expect(renders[1].textContent).toBe('Rendered: 2');
@@ -88,7 +88,7 @@ describe('useFieldState', () => {
       focused: false,
     }));
 
-    userEvent.type(first, 'oe');
+    await userEvent.type(first, 'oe');
 
     expect(renders[0].textContent).toBe('Rendered: 6');
     expect(renders[1].textContent).toBe('Rendered: 2');
@@ -120,7 +120,7 @@ describe('useFieldState', () => {
     }));
 
     // NOTE: when user starts typing in this field it will blur first field and cause a re-render!
-    userEvent.type(last, 'Puzz');
+    await userEvent.type(last, 'Puzz');
 
     expect(renders[0].textContent).toBe('Rendered: 7');
     expect(renders[1].textContent).toBe('Rendered: 7');
@@ -264,7 +264,7 @@ describe('useFieldState', () => {
 
   });
 
-  it('should correctly update state when user submits --> types --> submits with defaultBehavior', () => {
+  it('should correctly update state when user submits --> types --> submits with defaultBehavior', async () => {
     const formApiRef = {};
 
     const { getByLabelText, queryAllByTestId, getByText } = render(
@@ -359,7 +359,7 @@ describe('useFieldState', () => {
       data: undefined
     }));
 
-    userEvent.type(last, 'P');
+    await userEvent.type(last, 'P');
 
     // After second field has some input -------------------------------------
 
@@ -441,7 +441,7 @@ describe('useFieldState', () => {
 
   });
 
-  it('should correctly update state when user submits --> types --> submits with validateOn="change" passed to inputs', () => {
+  it('should correctly update state when user submits --> types --> submits with validateOn="change" passed to inputs', async () => {
     const formApiRef = {};
 
     const { getByLabelText, queryAllByTestId, getByText } = render(
@@ -536,7 +536,7 @@ describe('useFieldState', () => {
       data: undefined
     }));
 
-    userEvent.type(last, 'P');
+    await userEvent.type(last, 'P');
 
     // After second field has some input -------------------------------------
 

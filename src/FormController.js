@@ -126,6 +126,7 @@ export class FormController {
     // Bind functions that will be called externally
     this.getValue = this.getValue.bind(this);
     this.setValue = this.setValue.bind(this);
+    this.setValueQuietly = this.setValueQuietly.bind(this);
     this.setValues = this.setValues.bind(this);
     this.setTheseValues = this.setTheseValues.bind(this);
     this.resetPath = this.resetPath.bind(this);
@@ -264,7 +265,11 @@ export class FormController {
     });
   }
 
-  setValue(name, value, e, key) {
+  setValueQuietly(name, value) {
+    this.setValue(name, value, undefined, undefined, true);
+  }
+
+  setValue(name, value, e, key, quiet) {
     debug(`setValue ${name}`, value);
 
     // Get meta for field
@@ -427,9 +432,11 @@ export class FormController {
     }
 
     // Always remember to update pristine and valid here
-    this.state.pristine = false;
-    this.state.dirty = !this.state.pristine;
-    ObjectMap.set(this.state.dirt, name, true);
+    if (!quiet) {
+      this.state.pristine = false;
+      this.state.dirty = !this.state.pristine;
+      ObjectMap.set(this.state.dirt, name, true);
+    }
 
     // Remember to update valid
     this.updateValid();
@@ -657,6 +664,7 @@ export class FormController {
     return {
       getValue: this.getValue,
       setValue: this.setValue,
+      setValueQuietly: this.setValueQuietly,
       getMaskedValue: this.getMaskedValue,
       setMaskedValue: this.setMaskedValue,
       setModifiedValue: this.setModifiedValue,

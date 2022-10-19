@@ -12,6 +12,7 @@ import FormProvider from './Form/FormProvider';
 import Path from './Form/Path';
 import FeatureTester from './Form/FeatureTester';
 import Dynamic from './Form/Dynamic';
+import Dependent from './Dynamic/Dependent';
 import Schema from './Schema/Intro';
 import FormattedSchema from './Schema/FormattedSchema';
 import NestedSchema from './Schema/NestedSchema';
@@ -313,7 +314,8 @@ storiesOf('Gotchas', module)
 storiesOf('Dynamic Forms', module)
   .add('Dynamic Fields', DynamicFields)
   .add('Async Dependent Fields', AsyncDependentFields)
-  .add('Dynamic Rendering', Dynamic);
+  .add('Dynamic Rendering', Dynamic)
+  .add('Dependent Fields', Dependent);
 
 storiesOf('Conditionals', module)
   .add('Conditional Props', ConditionalProps)

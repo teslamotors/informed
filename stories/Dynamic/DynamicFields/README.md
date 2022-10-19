@@ -1,7 +1,7 @@
 # Dynamic Fields
 
 Sometimes you need to conditionally render fields. Below is a simple
-example the shows or hides a spouce depending on the radio selected!
+example the shows or hides a spouse depending on the radio selected!
 
 <!-- STORY -->
 

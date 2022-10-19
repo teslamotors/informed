@@ -20,7 +20,8 @@ const buildFieldApi = (formApi, name) => {
     getDirty: () => formApi.getDirty(name),
     getPristine: () => formApi.getPristine(name),
     getMaskedValue: () => formApi.getMaskedValue(name),
-    clearValue: () => formApi.clearValue(name)
+    clearValue: () => formApi.clearValue(name),
+    setValueQuietly: value => formApi.setValueQuietly(name, value)
   };
 };
 

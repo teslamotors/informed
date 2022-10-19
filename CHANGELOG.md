@@ -1,3 +1,7 @@
+## 4.35.0 (Oct 19th, 2022)
+
+- form fields will reset when new initial values are passed in
+
 ## 4.34.0 (Oct 13th, 2022)
 
 - added useInformedApi that will allow user to manipulate multiple forms

@@ -30,11 +30,54 @@ const profiles = [
   }
 ];
 
-const ProfileForm = ({ profile: initialValues }) => {
-  // Ref to the form api
+const ProfileForm1 = ({ profile: initialValues }) => {
+  return (
+    <Form initialValues={initialValues}>
+      <Input name="name" label="First Name" />
+      <Input type="number" name="age" label="Age" />
+      <button type="submit">submit</button>
+      <Debug values initialValues dirty />
+    </Form>
+  );
+};
+
+const ProfileForm2 = ({ profile: initialValues }) => {
+  return (
+    <Form>
+      <Input name="name" label="First Name" initialValue={initialValues.name} />
+      <Input
+        type="number"
+        name="age"
+        label="Age"
+        initialValue={initialValues.age}
+      />
+      <button type="submit">submit</button>
+      <Debug values initialValues dirty />
+    </Form>
+  );
+};
+
+const ProfileForm3 = ({ profile: defaultValues }) => {
+  return (
+    <Form>
+      <Input name="name" label="First Name" defaultValue={defaultValues.name} />
+      <Input
+        type="number"
+        name="age"
+        label="Age"
+        defaultValue={defaultValues.age}
+      />
+      <button type="submit">submit</button>
+      <Debug values initialValues dirty />
+    </Form>
+  );
+};
+
+const ProfileForm4 = ({ profile: initialValues }) => {
+  // Need this so we can reset
   const formApiRef = useRef();
 
-  // Reset the form whenever initial values change ( happens when user selects profile )
+  // Reset the form whenever initial values change ( happens when user selects profile ) we need to reset if we are not pristine
   useEffect(
     () => {
       formApiRef.current.reset();
@@ -42,13 +85,17 @@ const ProfileForm = ({ profile: initialValues }) => {
     [initialValues]
   );
 
+  // Deliberately make it dirty
+  useEffect(() => {
+    formApiRef.current.setValue('name', 'Dirty');
+  }, []);
+
   return (
-    // Remember to get access to the formApi and pass in the initial values
     <Form formApiRef={formApiRef} initialValues={initialValues}>
       <Input name="name" label="First Name" />
       <Input type="number" name="age" label="Age" />
       <button type="submit">submit</button>
-      <Debug values />
+      <Debug values initialValues dirty />
     </Form>
   );
 };
@@ -71,7 +118,10 @@ const Profiles = () => {
         </Select>
       </Form>
       <h2>Edit {selectedProfile.name}</h2>
-      <ProfileForm profile={selectedProfile} />
+      <ProfileForm1 profile={selectedProfile} />
+      <ProfileForm2 profile={selectedProfile} />
+      <ProfileForm3 profile={selectedProfile} />
+      <ProfileForm4 profile={selectedProfile} />{' '}
     </React.Fragment>
   );
 };

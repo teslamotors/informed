@@ -51,6 +51,11 @@ const NestedForm = () => (
                         <h5>{name}</h5>
                         <Input name="name" label="Name" required />
                         <Input name="age" label="Age" type="number" />
+                        {/* <Input
+                          label="Foo"
+                          name="foo"
+                          initialValue={`foo-${name}`}
+                        /> */}
                         <button type="button" onClick={remove}>
                           Remove
                         </button>

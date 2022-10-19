@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import Code from '../../utils/Code';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
@@ -49,24 +49,41 @@ const ObjectInput = props => {
   );
 };
 
-const Example = () => (
-  <div>
-    <Form>
-      {({ formApi, formState }) => (
-        <React.Fragment>
-          <label>
-            Double Input
-            <ObjectInput field="doubleInput" />
-          </label>
-          <button type="submit">Submit</button>
-          <label>Values:</label>
-          <Code language="language-js">
-            {JSON.stringify(formState.values, null, 2)}
-          </Code>
-        </React.Fragment>
-      )}
-    </Form>
-  </div>
-);
+const Example = () => {
+  const [time, setTime] = useState(0);
+
+  useEffect(() => {
+    setInterval(() => {
+      setTime(t => t + 1);
+    }, 1000);
+  }, []);
+
+  return (
+    <div>
+      <Form>
+        {({ formApi, formState }) => (
+          <React.Fragment>
+            Time: {time}
+            <label>
+              Double Input
+              <ObjectInput
+                field="doubleInput"
+                // initialValue={{
+                //   a: 'sadf',
+                //   b: 'asdf'
+                // }}
+              />
+            </label>
+            <button type="submit">Submit</button>
+            <label>Values:</label>
+            <Code language="language-js">
+              {JSON.stringify(formState.values, null, 2)}
+            </Code>
+          </React.Fragment>
+        )}
+      </Form>
+    </div>
+  );
+};
 
 export default withDocs(readme, Example);

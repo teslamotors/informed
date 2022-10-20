@@ -3,37 +3,35 @@ import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 import { Form, Input, Debug, useFieldState, useFieldApi } from '../../../src';
 
-const MoneyFactor = () => {
+const Multiplyer = () => {
   return (
     <Input
-      name="moneyFactor"
-      label="Money Factor"
+      name="multiplyer"
+      label="Multiplyer"
       type="number"
       defaultValue={0.02}
     />
   );
 };
 
-const InterestRate = () => {
-  const { value: moneyFactor, dirty } = useFieldState('moneyFactor');
-  const { setValueQuietly, setValue } = useFieldApi('interestRate');
+const Rate = () => {
+  const { value: multiplyer, dirty } = useFieldState('multiplyer');
+  const { setValueQuietly, setValue } = useFieldApi('rate');
 
   useEffect(
     () => {
-      dirty
-        ? setValue(moneyFactor * 2400)
-        : setValueQuietly(moneyFactor * 2400);
+      dirty ? setValue(multiplyer * 2) : setValueQuietly(multiplyer * 2);
     },
-    [moneyFactor]
+    [multiplyer]
   );
 
-  return <Input name="interestRate" label="Interest Rate" type="number" />;
+  return <Input name="rate" label="Rate" type="number" />;
 };
 
 const DependentFields = () => (
   <Form>
-    <MoneyFactor />
-    <InterestRate />
+    <Multiplyer />
+    <Rate />
     <button type="submit">Submit</button>
     <Debug values dirty pristine dirt />
   </Form>

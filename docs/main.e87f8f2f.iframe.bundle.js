@@ -21953,7 +21953,7 @@
       /***/ function(module, __webpack_exports__, __webpack_require__) {
         'use strict';
         /* harmony default export */ __webpack_exports__['a'] =
-          '# Dependent Fields\n\nSometimes fields values depend on what you input in other parts of the form.\n\n<!-- STORY -->\n\n```jsx\nimport { Form, Input, Debug, useFieldState, useFieldApi } from \'informed\';\n\nconst MoneyFactor = () => {\n  return (\n    <Input\n      name="moneyFactor"\n      label="Money Factor"\n      type="number"\n      defaultValue={0.02}\n    />\n  );\n};\n\nconst InterestRate = () => {\n  const { value: moneyFactor, dirty } = useFieldState(\'moneyFactor\');\n  const { setValueQuietly, setValue } = useFieldApi(\'interestRate\');\n\n  useEffect(\n    () => {\n      // Why do we check dirty? because we dont want to make the interestRate field dirty if this is initial load\n      dirty\n        ? setValue(moneyFactor * 2400)\n        : setValueQuietly(moneyFactor * 2400);\n    },\n    [moneyFactor]\n  );\n\n  return <Input name="interestRate" label="Interest Rate" type="number" />;\n};\n\nconst DependentFields = () => (\n  <Form>\n    <MoneyFactor />\n    <InterestRate />\n    <button type="submit">Submit</button>\n    <Debug values dirty pristine dirt />\n  </Form>\n);\n```\n';
+          '# Dependent Fields\n\nSometimes fields values depend on what you input in other parts of the form.\n\n<!-- STORY -->\n\n```jsx\nimport { Form, Input, Debug, useFieldState, useFieldApi } from \'informed\';\n\nconst Multiplyer = () => {\n  return (\n    <Input\n      name="multiplyer"\n      label="Multiplyer"\n      type="number"\n      defaultValue={0.02}\n    />\n  );\n};\n\nconst Rate = () => {\n  const { value: multiplyer, dirty } = useFieldState(\'multiplyer\');\n  const { setValueQuietly, setValue } = useFieldApi(\'rate\');\n\n  useEffect(\n    () => {\n      dirty ? setValue(multiplyer * 2) : setValueQuietly(multiplyer * 2);\n    },\n    [multiplyer]\n  );\n\n  return <Input name="rate" label="Rate" type="number" />;\n};\n\nconst DependentFields = () => (\n  <Form>\n    <Multiplyer />\n    <Rate />\n    <button type="submit">Submit</button>\n    <Debug values dirty pristine dirt />\n  </Form>\n);\n```\n';
 
         /***/
       },
@@ -21982,44 +21982,44 @@
           /*! ../../../src */ './src/index.js'
         );
 
-        var MoneyFactor = function MoneyFactor() {
+        var Multiplyer = function Multiplyer() {
           return /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             _src__WEBPACK_IMPORTED_MODULE_3__[/* Input */ 'l'],
             {
-              name: 'moneyFactor',
-              label: 'Money Factor',
+              name: 'multiplyer',
+              label: 'Multiplyer',
               type: 'number',
               defaultValue: 0.02
             }
           );
         };
 
-        var InterestRate = function InterestRate() {
+        var Rate = function Rate() {
           var _useFieldState = Object(
               _src__WEBPACK_IMPORTED_MODULE_3__[/* useFieldState */ 'B']
-            )('moneyFactor'),
-            moneyFactor = _useFieldState.value,
+            )('multiplyer'),
+            multiplyer = _useFieldState.value,
             dirty = _useFieldState.dirty;
 
           var _useFieldApi = Object(
               _src__WEBPACK_IMPORTED_MODULE_3__[/* useFieldApi */ 'A']
-            )('interestRate'),
+            )('rate'),
             setValueQuietly = _useFieldApi.setValueQuietly,
             setValue = _useFieldApi.setValue;
 
           Object(react__WEBPACK_IMPORTED_MODULE_0__['useEffect'])(
             function() {
               dirty
-                ? setValue(moneyFactor * 2400)
-                : setValueQuietly(moneyFactor * 2400);
+                ? setValue(multiplyer * 2)
+                : setValueQuietly(multiplyer * 2);
             },
-            [moneyFactor]
+            [multiplyer]
           );
           return /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             _src__WEBPACK_IMPORTED_MODULE_3__[/* Input */ 'l'],
             {
-              name: 'interestRate',
-              label: 'Interest Rate',
+              name: 'rate',
+              label: 'Rate',
               type: 'number'
             }
           );
@@ -22030,11 +22030,11 @@
             _src__WEBPACK_IMPORTED_MODULE_3__[/* Form */ 'f'],
             null,
             /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              MoneyFactor,
+              Multiplyer,
               null
             ),
             /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              InterestRate,
+              Rate,
               null
             ),
             /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
@@ -44619,4 +44619,4 @@
   },
   [[0, 'runtime~main', 'vendors~main']]
 ]);
-//# sourceMappingURL=main.3d29a367.iframe.bundle.js.map
+//# sourceMappingURL=main.e87f8f2f.iframe.bundle.js.map

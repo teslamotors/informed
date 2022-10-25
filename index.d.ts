@@ -307,6 +307,8 @@ export function useScoper(name: string): (name: string) => string;
 
 export function useMultistepApi(): MultistepApi;
 
+export function useMultistepState(): MultistepState;
+
 export function useForm<UserProps>(
   formProps: InformedProps<UserProps>
 ): {
@@ -365,7 +367,7 @@ declare namespace ArrayField {
 declare function Multistep({
   children
 }: {
-  children: (props: MultistepApi & MultistepState) => JSX.Element;
+  children: JSX.Element|JSX.Element[];
 }): JSX.Element;
 
 declare namespace Multistep {

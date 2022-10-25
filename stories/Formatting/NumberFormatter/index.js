@@ -1076,18 +1076,18 @@ const FormattedField = () => {
   const { value: currency } = useFieldState('currency');
 
   // Generate mask from locale and currency
-  const { formatter, parser } = useMemo(
-    () => {
-      if (locale && currency) {
-        return utils.createIntlNumberFormatter(locale, {
-          style: 'currency',
-          currency
-        });
-      }
-      return {};
-    },
-    [currency, locale]
-  );
+  // const { formatter, parser } = useMemo(
+  //   () => {
+  //     if (locale && currency) {
+  //       return utils.createIntlNumberFormatter(locale, {
+  //         style: 'currency',
+  //         currency
+  //       });
+  //     }
+  //     return {};
+  //   },
+  //   [currency, locale]
+  // );
 
   // const { formatter, parser } = useMemo(() => {
   //   // return utils.createIntlNumberFormatter('en-US', {});
@@ -1100,20 +1100,26 @@ const FormattedField = () => {
   //   });
   // }, []);
 
-  // const { formatter, parser } = useMemo(() => {
-  //   // return utils.createIntlNumberFormatter('de-DE', {
-  //   //   style: 'decimal',
-  //   //   currency: 'USD',
-  //   //   minimumFractionDigits: 2
-  //   // });
+  const { formatter, parser } = useMemo(() => {
+    // return utils.createIntlNumberFormatter('de-DE', {
+    //   style: 'currency',
+    //   currency: 'EUR',
+    //   minimumFractionDigits: 2
+    // });
 
-  //   return utils.createIntlNumberFormatter(locale, {
-  //     style: 'decimal',
-  //     currency: 'USD',
-  //     minimumFractionDigits: 2,
-  //     maximumFractionDigits: 2
-  //   });
-  // }, []);
+    // return utils.createIntlNumberFormatter(locale, {
+    //   style: 'decimal',
+    //   currency: 'USD',
+    //   minimumFractionDigits: 2,
+    //   maximumFractionDigits: 2
+    // });
+
+    return utils.createIntlNumberFormatter('en-US', {
+      style: 'percent',
+      // minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }, []);
 
   return (
     <Input
@@ -1122,7 +1128,7 @@ const FormattedField = () => {
       formatter={formatter}
       parser={parser}
       formatterDependencies={[locale, currency]}
-      initialValue={3000.25}
+      initialValue={0.25}
     />
   );
 };

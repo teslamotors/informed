@@ -745,6 +745,8 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
       return '';
     }
 
+    console.log('HERE', str);
+
     // If its a number we always use dot notation
     if (typeof str === 'number') {
       return `${str}`
@@ -771,26 +773,28 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
   }
 
   function mask(value, ogValue) {
-    // console.log('--------------\n');
+    console.log('--------------\n');
 
     // value = -3000.25
-    // console.log('decChar', decimalChar);
-    // console.log('minusChar', minusChar);
-    // console.log('VAL', value);
+    console.log('decChar', decimalChar);
+    console.log('minusChar', minusChar);
+    console.log('VAL', value);
+    console.log('OG', ogValue);
 
     const isNegative =
       `${value}`.includes(minusChar) || `${value}`.includes('-');
 
     // In case the value is a number from initial value we want to pass the OG value ( not the one we turned into a string in informedFormatter )
-    const float = toNumberString(ogValue, decimalChar);
+    let float = toNumberString(ogValue, decimalChar);
+    float = opts.style === 'percent' ? float / 100 : float;
 
     // float = 3000.25
-    // console.log('float', float);
+    console.log('float', float);
 
     const fraction = `${float}`.split('.')[1];
 
     // fraction = 25
-    // console.log('fraction', fraction);
+    console.log('fraction', fraction);
 
     const number = isNegative ? -Number(float) : Number(float);
 
@@ -807,7 +811,7 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
     // 4: {type: 'integer', value: '000'}
     // 5: {type: 'decimal', value: '.'}
     // 6: {type: 'fraction', value: '25'}
-    // console.log('number-parts', numberParts);
+    console.log('number-parts', numberParts);
 
     if (fraction === '0') {
       numberParts.push(
@@ -824,7 +828,7 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
       // PV ['-', '$', /\d/, ','] integer 000
       // PV ['-', '$', /\d/, ',', /\d/, /\d/, /\d/] decimal .
       // PV ['-', '$', /\d/, ',', /\d/, /\d/, /\d/, '.'] fraction 25
-      // console.log('PV', pv, type, partValue);
+      console.log('PV', pv, type, partValue);
 
       if (['decimal', 'fraction'].includes(type) && fraction == null) {
         return pv;
@@ -850,13 +854,13 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
       return [...pv, partValue];
     }, []);
 
-    // console.log('PV', maskArray);
+    console.log('PV', maskArray);
 
     let lastDigitIndex = findLastIndex(maskArray, maskChar => {
       return isRegexEqual(maskChar, /\d/);
     });
 
-    // console.log('lastDigitIndex', lastDigitIndex);
+    console.log('lastDigitIndex', lastDigitIndex);
 
     if (
       maskArray.indexOf(decimalChar) === -1 &&
@@ -880,11 +884,13 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
 
     const isNegative = `${value}`.includes(minusChar);
 
-    // console.log('TOPARSE', value);
+    console.log('TOPARSE', value);
 
-    return isNegative
+    const ret = isNegative
       ? -toFloat(value, decimalChar)
       : toFloat(value, decimalChar);
+
+    return ret != null && opts.style === 'percent' ? ret / 100 : ret;
   };
 
   return { formatter: mask, parser };

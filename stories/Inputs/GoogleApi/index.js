@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 
@@ -6,6 +6,8 @@ import { Form, Input, Debug, DebugField, useFieldState } from '../../../src';
 
 const googleAutocomplete = async text =>
   new Promise((resolve, reject) => {
+    // console.log('GATHER', text);
+
     if (!text) {
       return reject('Need valid text input');
     }
@@ -40,6 +42,7 @@ const AddressSearch = () => {
         list="addresses"
         name="address"
         label="Address:"
+        // gatherOnMount
         gatherData={googleAutocomplete}
       />
       {data && (
@@ -53,15 +56,28 @@ const AddressSearch = () => {
   );
 };
 
-const InputExample = () => (
-  <Form autoComplete="off">
-    <AddressSearch />
-    <button type="submit">Submit</button>
-    <h3>Form State:</h3>
-    <Debug values data gathering />
-    <h3>Field State:</h3>
-    <DebugField name="address" gathering data value />
-  </Form>
-);
+const InputExample = () => {
+  // const [initialValues, setInitialValues] = useState();
+
+  return (
+    <Form autoComplete="off">
+      <AddressSearch />
+      {/* <button
+        type="button"
+        onClick={() =>
+          setInitialValues({
+            address: '111'
+          })
+        }>
+        Change
+      </button> */}
+      <button type="submit">Submit</button>
+      <h3>Form State:</h3>
+      <Debug values data gathering />
+      <h3>Field State:</h3>
+      <DebugField name="address" gathering data value />
+    </Form>
+  );
+};
 
 export default withDocs(readme, InputExample);

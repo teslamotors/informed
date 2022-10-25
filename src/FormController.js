@@ -1239,6 +1239,11 @@ export class FormController {
     this.state.valid = ObjectMap.empty(this.state.errors);
     this.state.invalid = !this.state.valid;
 
+    if (meta.gatherData && meta.gatherOnMount === true) {
+      // Get error to determine if we even want to validateAsync
+      this.debouncedGatherInfo(name);
+    }
+
     this.emit('field', name);
 
     // Special event when fields value changes ( its a reset so it changes )

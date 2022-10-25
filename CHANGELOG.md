@@ -1,3 +1,7 @@
+## 4.35.1 (Oct 25th, 2022)
+
+- fixed issue where gatherOnMount would not gather after a reset
+
 ## 4.35.0 (Oct 19th, 2022)
 
 - added ability to setValueQuietly

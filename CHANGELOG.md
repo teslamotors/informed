@@ -1,3 +1,7 @@
+## 4.35.2 (Oct 26th, 2022)
+
+- multistep type improvements
+
 ## 4.35.1 (Oct 25th, 2022)
 
 - fixed issue where gatherOnMount would not gather after a reset

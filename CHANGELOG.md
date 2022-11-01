@@ -1,3 +1,7 @@
+## 4.36.0 (Nov 1st, 2022)
+
+- array fields add and remove now trigger onValueSet
+
 ## 4.35.2 (Oct 26th, 2022)
 
 - multistep type improvements

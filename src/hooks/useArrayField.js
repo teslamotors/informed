@@ -86,6 +86,7 @@ export const useArrayField = ({
     // We need to manually do a pull from the form state
     formController.pullOut(`${name}[${i}]`);
     formApi.setDirt(name, []);
+    formController.emitter.emit('field-value-set', name);
   };
 
   const swap = (a, b) => {
@@ -127,6 +128,7 @@ export const useArrayField = ({
     // If we added a new field we are no longer pristine
     formApi.setPristine(false);
     formApi.setDirt(name, []);
+    formController.emitter.emit('field-value-set', name);
   };
 
   const addWithInitialValue = initialValue => {

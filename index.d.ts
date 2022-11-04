@@ -309,6 +309,8 @@ export function useMultistepApi(): MultistepApi;
 
 export function useMultistepState(): MultistepState;
 
+export function useArrayFieldItemState(): ArrayFieldItemState;
+
 export function useForm<UserProps>(
   formProps: InformedProps<UserProps>
 ): {

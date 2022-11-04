@@ -1,3 +1,7 @@
+## 4.36.1 (Nov 3rd, 2022)
+
+- added missing type for useArrayFieldItemState
+
 ## 4.36.0 (Nov 1st, 2022)
 
 - array fields add and remove now trigger onValueSet

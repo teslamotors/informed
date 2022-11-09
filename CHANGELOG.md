@@ -1,3 +1,7 @@
+## 4.36.2 (Nov 9th, 2022)
+
+- removed console log from FormController
+
 ## 4.36.1 (Nov 3rd, 2022)
 
 - added missing type for useArrayFieldItemState

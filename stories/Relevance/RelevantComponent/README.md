@@ -11,7 +11,7 @@ import { Form, Input, Checkbox, Relevant } from 'informed';
 const RelevantComonent = () => (
   <Form>
     <Input name="name" label="First name:" />
-    <Input name="married" label="First name:" />
+    <Checkbox name="married" label="Are you married?" />
     <Relevant when={({ formState }) => formState.values.married}>
       <Input name="spouse" label="Spouse name:" />
     </Relevant>

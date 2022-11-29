@@ -100,6 +100,8 @@ import RelevanceProp from './Relevance/RelevanceProp';
 import ComplexRelevance from './Relevance/ComplexRelevance';
 import ScopedRelevance from './Relevance/ScopedRelevance';
 
+import KeepState from './KeepState/KeepState';
+
 import ScopeComponent from './Scope/ScopeComponent';
 
 // import {
@@ -130,6 +132,8 @@ import NumberFormatter from './Formatting/NumberFormatter';
 import ConditionalProps from './Conditionals/ConditionalProps';
 import ConditionalPropsSchema from './Conditionals/ConditionalPropsSchema';
 import ChangingSchema from './Schema/ChangingSchema';
+import KeepStateIfRelevant from './KeepState/KeepStateIfRelevant';
+import Keep from './KeepState/Keep';
 
 addDecorator(StoryWrapper);
 
@@ -255,6 +259,11 @@ storiesOf('Relevance', module)
   .add('Relevance Prop', RelevanceProp)
   .add('Relevance Optimization', ComplexRelevance)
   .add('Scoped Relevance', ScopedRelevance);
+
+storiesOf('KeepState', module)
+  .add('KeepState', KeepState)
+  .add('Keep State If Relevant', KeepStateIfRelevant)
+  .add('Keep', Keep);
 
 storiesOf('Scope', module).add('Scope Comonent', ScopeComponent);
 

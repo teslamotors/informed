@@ -49,6 +49,7 @@ export const useField = ({
   yupSchema,
   multiple,
   field,
+  keep,
   keepState: userKeepState,
   keepStateIfRelevant: userKeepStateIfRelevant,
   debug,
@@ -209,6 +210,7 @@ export const useField = ({
     onFocus,
     onNativeChange,
     initialValue,
+    keep,
     keepState,
     keepStateIfRelevant,
     initializeValueIfPristine,
@@ -266,7 +268,7 @@ export const useField = ({
 
       if (!isRelevant && !keepState) {
         logger('RELEVANT REMOVING', metaInfo.name);
-        formController.remove(metaInfo.name);
+        formController.remove(metaInfo.name, metaInfo.keep);
         logger('RELEVANT De-Register', metaInfo.name);
         formController.deregister(metaInfo.name);
       }
@@ -310,7 +312,7 @@ export const useField = ({
       }
 
       if (!keepIt) {
-        formController.remove(metaInfo.name);
+        formController.remove(metaInfo.name, metaInfo.keep);
       }
     };
   }, []);

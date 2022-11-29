@@ -1,3 +1,13 @@
+## 4.37.0 (Nov 29th, 2022)
+
+- added ability to pass `keep` to form fields such that users can specify specific state to keep
+
+```js
+// Example where we only keep value
+
+<Input name="spouse" label="Spouse name:" required keep={{ value: true }} />
+```
+
 ## 4.36.2 (Nov 9th, 2022)
 
 - removed console log from FormController

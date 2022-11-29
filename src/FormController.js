@@ -744,20 +744,32 @@ export class FormController {
     };
   }
 
-  remove(name) {
+  remove(name, options = {}) {
     debug('Remove', name);
 
     if (!this.removalLocked) {
-      debug('Delete Value', name);
-      ObjectMap.delete(this.state.values, name);
-      debug('Delete Modified', name);
-      ObjectMap.delete(this.state.modified, name);
-      debug('Delete Masked', name);
-      ObjectMap.delete(this.state.maskedValues, name);
-      debug('Delete Touched', name);
-      ObjectMap.delete(this.state.touched, name);
-      debug('Delete Errors', name);
-      ObjectMap.delete(this.state.errors, name);
+      const {
+        value: keepValue = false,
+        error: keepError = false,
+        touched: keepTouched = false
+      } = options;
+
+      if (!keepValue) {
+        debug('Delete Value', name);
+        ObjectMap.delete(this.state.values, name);
+        debug('Delete Modified', name);
+        ObjectMap.delete(this.state.modified, name);
+        debug('Delete Masked', name);
+        ObjectMap.delete(this.state.maskedValues, name);
+      }
+      if (!keepTouched) {
+        debug('Delete Touched', name);
+        ObjectMap.delete(this.state.touched, name);
+      }
+      if (!keepError) {
+        debug('Delete Errors', name);
+        ObjectMap.delete(this.state.errors, name);
+      }
       debug('Delete Dirt', name);
       ObjectMap.delete(this.state.dirt, name);
       debug('Delete Focused', name);

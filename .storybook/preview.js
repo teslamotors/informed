@@ -94,6 +94,9 @@ addParameters({
     dark: { ...theme, ...themes.dark },
     // Override the default light theme
     light: { ...themes.light, ...theme }
+  },
+  options: {
+    showPanel: false
   }
 });
 

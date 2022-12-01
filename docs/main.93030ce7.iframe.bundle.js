@@ -1102,6 +1102,9 @@
               ),
               theme
             )
+          },
+          options: {
+            showPanel: false
           }
         }); // configureReadme({
         //   StoryPreview: ({ children }) => (
@@ -45205,4 +45208,4 @@
   },
   [[0, 'runtime~main', 'vendors~main']]
 ]);
-//# sourceMappingURL=main.d979381b.iframe.bundle.js.map
+//# sourceMappingURL=main.93030ce7.iframe.bundle.js.map

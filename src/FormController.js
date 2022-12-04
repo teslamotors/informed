@@ -1513,14 +1513,9 @@ export class FormController {
 
   touchAllFields() {
     // Touch all the fields
-    // TODO maybe do this all at once !?
-    this.fieldsMap.forEach(meta => {
-      if (!meta.current.arrayField) {
-        debug(
-          `TouchAllFields - setting ${meta.current.name}'s touched to true`
-        );
-        ObjectMap.set(this.state.touched, meta.current.name, true);
-      }
+    Object.keys(this.fieldsMap).forEach(name => {
+      debug(`TouchAllFields - setting ${name}'s touched to true`);
+      ObjectMap.set(this.state.touched, name, true);
     });
   }
 

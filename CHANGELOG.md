@@ -1,3 +1,7 @@
+## 4.37.1 (Dec 13th, 2022)
+
+- added missing types to formApi
+
 ## 4.37.0 (Nov 29th, 2022)
 
 - added ability to pass `keep` to form fields such that users can specify specific state to keep

@@ -55,6 +55,9 @@ export type FormApi = {
   touchAllFields: () => void;
   asyncValidate: () => void;
   focusFirstError: () => void;
+  disable: () => void;
+  enable: () => void;
+  fieldExists: (fieldName: string) => boolean;
 };
 
 export type FieldState = {
@@ -369,7 +372,7 @@ declare namespace ArrayField {
 declare function Multistep({
   children
 }: {
-  children: JSX.Element|JSX.Element[];
+  children: JSX.Element | JSX.Element[];
 }): JSX.Element;
 
 declare namespace Multistep {

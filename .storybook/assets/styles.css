@@ -666,3 +666,29 @@ strong {
     transform: rotate(360deg);
   }
 }
+
+table,
+th,
+td {
+  border: 1px solid;
+}
+
+.field-table table {
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+.field-table td {
+  padding: 10px;
+}
+
+.field-table th {
+  padding: 10px;
+}
+
+.field-table td input {
+  width: 120px !important;
+  border-radius: 0px !important;
+  margin: 0px !important;
+  margin-bottom: 0px !important;
+}

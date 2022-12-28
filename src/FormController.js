@@ -452,6 +452,11 @@ export class FormController {
       meta.onNativeChange(fieldState, e);
     }
 
+    // Emit native event
+    if (e) {
+      this.emit('field-native', name);
+    }
+
     if (meta.gatherData) {
       // Get error to determine if we even want to validateAsync
       this.debouncedGatherInfo(name);

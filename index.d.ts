@@ -347,6 +347,21 @@ export function useRelevance(params: {
   relevanceDeps?: unknown[];
 }): boolean;
 
+export type EvaluateParams = {
+  formState: FormState;
+  formApi: FormApi;
+  scope: string;
+  dependsOn?: unknown[];
+};
+
+export function useConditional(params: {
+  name: string;
+  evaluate: (params: EvaluateParams) => unknown;
+  evaluateWhen: string[];
+  dependsOn?: unknown[];
+  native: boolean;
+}): unknown;
+
 export function FormStateAccessor({
   children
 }: {

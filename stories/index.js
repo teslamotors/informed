@@ -134,6 +134,7 @@ import ConditionalPropsSchema from './Conditionals/ConditionalPropsSchema';
 import ChangingSchema from './Schema/ChangingSchema';
 import KeepStateIfRelevant from './KeepState/KeepStateIfRelevant';
 import Keep from './KeepState/Keep';
+import TableFields from './Conditionals/TableFields';
 
 addDecorator(StoryWrapper);
 
@@ -328,7 +329,8 @@ storiesOf('Dynamic Forms', module)
 
 storiesOf('Conditionals', module)
   .add('Conditional Props', ConditionalProps)
-  .add('Conditional Props Schema', ConditionalPropsSchema);
+  .add('Conditional Props Schema', ConditionalPropsSchema)
+  .add('Table Fields', TableFields);
 
 storiesOf('Global Forms', module).add('Intro', GlobalIntro);
 

@@ -10,7 +10,8 @@ export const useConditional = ({
   name,
   evaluate,
   evaluateWhen = [],
-  dependsOn = []
+  dependsOn = [],
+  native = false
 }) => {
   // Grab the form controller
   const formController = useFormController();
@@ -50,9 +51,11 @@ export const useConditional = ({
     [...check, scope]
   );
 
+  const event = native ? 'field-native' : 'field-value';
+
   // Example evaluateWhen = ["name", "age"]
   useFieldSubscription(
-    'field-value',
+    event,
     fields,
     target => {
       logger(`re-evaluating conditional for ${name} because of ${target}`);
@@ -60,7 +63,8 @@ export const useConditional = ({
         formState: formController.getFormState(),
         formApi: formController.getFormApi(),
         scope: scopeRef.current,
-        dependsOn
+        dependsOn,
+        target
       });
       setProps(res);
     },

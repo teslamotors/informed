@@ -1,3 +1,9 @@
+## 4.38.0 (Dec 28th, 2022)
+
+### Added
+
+- Ability to pass `native` boolean to `useConditional` hook. Best explained in the conditional docs.
+
 ## 4.37.1 (Dec 13th, 2022)
 
 - added missing types to formApi

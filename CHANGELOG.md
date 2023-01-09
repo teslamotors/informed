@@ -1,3 +1,9 @@
+## 4.38.2 (January 9th, 2023)
+
+### Fixed
+
+- Issue where old ( no longer used ) useLayoutEffect would throw errors in next js apps ( SSR apps )
+
 ## 4.38.1 (January 9th, 2023)
 
 ### Fixed

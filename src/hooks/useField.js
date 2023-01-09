@@ -1,11 +1,4 @@
-import React, {
-  useState,
-  useRef,
-  useLayoutEffect,
-  useEffect,
-  useContext,
-  useMemo
-} from 'react';
+import React, { useState, useRef, useEffect, useContext, useMemo } from 'react';
 import { useFieldApi } from './useFieldApi';
 import { useRelevance } from './useRelevance';
 import { useFieldState } from './useFieldState';
@@ -52,7 +45,6 @@ export const useField = ({
   keep,
   keepState: userKeepState,
   keepStateIfRelevant: userKeepStateIfRelevant,
-  debug,
   inputRef,
   inputRefs,
   relevant,
@@ -350,17 +342,6 @@ export const useField = ({
   useFieldSubscription('field-value', [name], target => {
     if (onValueChange) {
       onValueChange(formController.getFieldState(target));
-    }
-  });
-
-  useLayoutEffect(() => {
-    if (debug && ref && ref.current) {
-      ref.current.style.background = 'orange';
-      setTimeout(() => {
-        if (ref.current) {
-          ref.current.style.background = 'grey';
-        }
-      }, 300);
     }
   });
 

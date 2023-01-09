@@ -1,3 +1,9 @@
+## 4.38.0 (January 9th, 2023)
+
+### Fixed
+
+- Issue where form fields values would not be initialized until after the first render.
+
 ## 4.38.0 (Dec 28th, 2022)
 
 ### Added

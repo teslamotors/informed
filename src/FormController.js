@@ -844,7 +844,8 @@ export class FormController {
     }
   }
 
-  initialize(name, meta) {
+  // Third parameter is to prevent any form renders when it first gets initialized
+  initialize(name, meta, emit = true) {
     debug('Initialize', name, this.state);
     // Initialize value if needed
     // If we already have value i.e "saved"
@@ -907,10 +908,10 @@ export class FormController {
       this.debouncedGatherInfo(name);
     }
 
-    this.emit('field', name);
+    if (emit) this.emit('field', name);
 
     // Special event when fields value changes ( this if first time so its technically a change to initial value)
-    this.emit('field-value', name);
+    if (emit) this.emit('field-value', name);
     // Specifically did NOT call field-modified here
   }
 

@@ -143,11 +143,9 @@ export const useField = ({
     userInitialValue ?? formController.getInitialValue(name) ?? defaultValue;
 
   // Grab the initial value
-  const [initialValue] = useState(() => getInitialValue());
-
-  // Hook onto the field state
-  // Note: we already scoped above so we pass false here
-  const fieldState = useFieldState(name, false);
+  const [initialValue] = useState(() => {
+    return getInitialValue();
+  });
 
   // Hook onto the field api
   // Note: we already scoped above so we pass false here
@@ -173,14 +171,6 @@ export const useField = ({
 
   // Create Id for field
   const [fieldId] = useState(() => id || uuidv4());
-
-  // Setup cursor position tracking
-  const { setCursor, setCursorOffset } = useCursorPosition({
-    value: fieldState.value,
-    inputRef: ref,
-    maintainCursor,
-    inputRefs
-  });
 
   // Generate validation function
   const validate = useMemo(
@@ -220,8 +210,6 @@ export const useField = ({
     parser,
     clean,
     mask,
-    setCursorOffset,
-    setCursor,
     validate,
     yupSchema,
     validateOn: validateOn ?? 'blur',
@@ -241,6 +229,30 @@ export const useField = ({
   const metaRef = useRef(meta);
   metaRef.current = meta;
 
+  // Before we hook into field state initialize the field
+  useState(() => {
+    const metaInfo = metaRef.current;
+    logger('Initialize', metaInfo.name);
+    formController.initialize(metaInfo.name, metaRef, false);
+  });
+
+  // Hook onto the field state
+  // Note: we already scoped above so we pass false here
+  // Note: its important this call is here ( below where we call initialize ) so the state can be set up before we start using it
+  const fieldState = useFieldState(name, false);
+
+  // Setup cursor position tracking
+  const { setCursor, setCursorOffset } = useCursorPosition({
+    value: fieldState.value,
+    inputRef: ref,
+    maintainCursor,
+    inputRefs
+  });
+
+  // Add to meta
+  metaRef.current.setCursorOffset = setCursorOffset;
+  metaRef.current.setCursor = setCursor;
+
   // Register
   useEffect(
     () => {
@@ -253,12 +265,6 @@ export const useField = ({
     },
     [name]
   );
-
-  // Initialize
-  // useEffect(() => {
-  //   formController.initialize(name, metaRef);
-  //   logger('Initialize', name);
-  // }, []);
 
   // Cleanup on irrelivant
   useEffect(

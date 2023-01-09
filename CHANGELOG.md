@@ -1,4 +1,4 @@
-## 4.38.0 (January 9th, 2023)
+## 4.38.1 (January 9th, 2023)
 
 ### Fixed
 

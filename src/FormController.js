@@ -311,7 +311,7 @@ export class FormController {
       let maskedVal = value;
 
       // call mask if passed
-      if (meta.mask) {
+      if (meta.mask && !meta.maskOnBlur) {
         maskedVal = meta.mask(val);
       }
 
@@ -356,7 +356,7 @@ export class FormController {
       }
 
       // call mask if passed
-      if (meta.mask) {
+      if (meta.mask && !meta.maskOnBlur) {
         val = meta.mask(val);
         maskedVal = val;
       }
@@ -545,6 +545,23 @@ export class FormController {
 
     // Update the state
     ObjectMap.set(this.state.touched, name, value);
+
+    // Update value if maskOnBlur and we have mask
+    if (meta.mask && meta.maskOnBlur) {
+      let val = ObjectMap.get(this.state.values, name);
+      let maskedVal = val;
+      maskedVal = meta.mask(val);
+
+      // // Only parse if parser was passed
+      if (meta.parser) {
+        val = val != null ? informedParse(val, meta.parser) : val;
+      }
+
+      debug(`Setting ${name}'s value to`, maskedVal);
+      ObjectMap.set(this.state.values, name, maskedVal);
+      debug(`Setting ${name}'s maskedValue to`, maskedVal);
+      ObjectMap.set(this.state.maskedValues, name, maskedVal);
+    }
 
     // We only need to call validate if the user gave us one
     // and they want us to validate on blur

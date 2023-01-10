@@ -1,3 +1,9 @@
+## 4.39.0 (January 10th, 2023)
+
+### Added
+
+- maskOnBlur so users can trigger mask function only on blur
+
 ## 4.38.2 (January 9th, 2023)
 
 ### Fixed

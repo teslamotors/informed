@@ -22,6 +22,12 @@ const Mask = () => (
       mask={mask}
       parser={parser}
     />
+    <Input
+      name="field3"
+      label="Field 3 ( masks on blur )"
+      mask={mask}
+      maskOnBlur
+    />
     <button type="submit">Submit</button>
     <Debug values maskedValues />
   </Form>

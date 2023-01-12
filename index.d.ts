@@ -534,7 +534,10 @@ export function Input(props: FieldProps<InputProps>): JSX.Element;
 /* ------------------------------- TextArea ------------------------------- */
 type TextAreaProps = {
   label?: string;
-} & React.InputHTMLAttributes<HTMLTextAreaElement>;
+} & React.DetailedHTMLProps<
+  React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+  HTMLTextAreaElement
+>;
 
 export function TextArea(props: FieldProps<TextAreaProps>): JSX.Element;
 

@@ -385,9 +385,11 @@ declare namespace ArrayField {
 }
 
 declare function Multistep({
-  children
+  children,
+  initialStep
 }: {
   children: JSX.Element | JSX.Element[];
+  initialStep: string;
 }): JSX.Element;
 
 declare namespace Multistep {

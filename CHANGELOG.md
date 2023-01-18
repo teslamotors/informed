@@ -1,3 +1,9 @@
+## 4.39.1 (January 18th, 2023)
+
+### Added
+
+- missing types for multistep and text area
+
 ## 4.39.0 (January 10th, 2023)
 
 ### Added

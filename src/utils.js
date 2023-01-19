@@ -494,7 +494,7 @@ export const informedFormatter = (val, frmtr, old, full) => {
   debug('Full Value', full);
 
   // Null check
-  if (!val) {
+  if (val == null) {
     return {
       value: val,
       offset: 0

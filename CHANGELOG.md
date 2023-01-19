@@ -1,3 +1,9 @@
+## 4.39.2 (January 19th, 2023)
+
+### Fixed
+
+- issue where if the initial value was zero the formatter would not get called
+
 ## 4.39.1 (January 18th, 2023)
 
 ### Added

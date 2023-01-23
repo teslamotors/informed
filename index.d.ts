@@ -389,7 +389,7 @@ declare function Multistep({
   initialStep
 }: {
   children: JSX.Element | JSX.Element[];
-  initialStep: string;
+  initialStep?: string;
 }): JSX.Element;
 
 declare namespace Multistep {

@@ -1,3 +1,9 @@
+## 4.39.3 (January 23rd, 2023)
+
+### Fixed
+
+- type issue with multistep forms where initialStep was required
+
 ## 4.39.2 (January 19th, 2023)
 
 ### Fixed

@@ -1,3 +1,9 @@
+## 4.40.0 (Feb 6th, 2023)
+
+### Added
+
+- ability to skip a multistep step
+
 ## 4.39.3 (January 23rd, 2023)
 
 ### Fixed

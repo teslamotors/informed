@@ -99,6 +99,10 @@ const Favorite = () => {
         <button type="button" onClick={next}>
           Next
         </button>
+        {/* You can do this to skip this step */}
+        <button type="button" onClick={() => next(null, { skip: true })}>
+          Skip
+        </button>
       </div>
     </Multistep.Step>
   );

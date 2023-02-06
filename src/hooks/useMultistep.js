@@ -185,19 +185,19 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
       }
     };
 
-    const next = cb => {
+    const next = (cb, { skip } = {}) => {
       // Get the next step
       const nextStep = getNextStep();
       if (nextStep) {
         // Touch all the fields
-        formApi.touchAllFields();
+        if (!skip) formApi.touchAllFields();
         // Validate the form
-        validate();
+        if (!skip) validate();
         // Async validate the form
         // We pass in a callback to proceed if we succeed async validation!
-        asyncValidate(() => proceed(nextStep, cb));
+        if (!skip) asyncValidate(() => proceed(nextStep, cb));
         // Only proceed if we are valid and we are NOT currently async validating
-        if (getFormState().valid && getFormState().validating === 0) {
+        if (skip || (getFormState().valid && getFormState().validating === 0)) {
           proceed(nextStep, cb);
         }
       }

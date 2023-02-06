@@ -68,6 +68,9 @@ const Info = () => {
       <button type="button" onClick={next}>
         Next
       </button>
+      {/* <button type="button" onClick={() => next(null, { skip: true })}>
+        Next
+      </button> */}
     </Multistep.Step>
   );
 };

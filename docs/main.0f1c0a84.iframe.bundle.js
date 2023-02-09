@@ -1407,7 +1407,7 @@
         // Module
         exports.push([
           module.i,
-          ":root {\n  --informed-font-size--10: 10px;\n  --informed-font-size--20: 12px;\n  --informed-font-size--30: 14px;\n  --informed-font-size--40: 17px;\n  --informed-font-size--50: 20px;\n  --informed-font-size--55: 23px;\n  --informed-font-size--60: 24px;\n  --informed-font-size--70: 28px;\n  --informed-font-size--75: 34px;\n  --informed-font-size--80: 40px;\n  --informed-height--pill: 40px;\n  --informed-line-height--10: 18px;\n  --informed-line-height--20: 20px;\n  --informed-line-height--30: 21px;\n  --informed-line-height--40: 23px;\n  --informed-line-height--50: 24px;\n  --informed-line-height--60: 28px;\n  --informed-line-height--70: 36px;\n  --informed-line-height--75: 45px;\n  --informed-line-height--80: 48px;\n}\n\n.body {\n  font-family: Helvetica, sans-serif;\n}\n\na > img {\n  border-radius: 10px;\n}\n\nh1 {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--80, 40px);\n  line-height: var(--informed-line-height--80, 48px);\n}\n\nh2 {\n  letter-spacing: -0.5px;\n  font-size: var(--informed-font-size--70, 28px);\n  line-height: var(--informed-line-height--70, 36px);\n}\n\nh3 {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--60, 24px);\n  line-height: var(--informed-line-height--60, 28px);\n}\n\nh4 {\n  letter-spacing: -0.4px;\n  font-size: var(--informed-font-size--50, 20px);\n  line-height: var(--informed-line-height--60, 28px);\n}\n\nh5 {\n  font-size: var(--informed-font-size--40, 17px);\n  line-height: var(--informed-line-height--20, 20px);\n}\n\nh6 {\n  font-size: var(--informed-font-size--30, 14px);\n  line-height: var(--informed-line-height--30, 21px);\n}\n\ninput {\n  margin-bottom: 1rem;\n}\n\n.address-option {\n  width: 100%;\n  background-color: #f4f4f4;\n  padding: 10px 20px;\n}\n\n.address-option:hover {\n  background-color: #9d9c9c;\n  cursor: pointer;\n}\n\ninput:not([type='checkbox']):not([type='radio']),\ntextarea,\nselect {\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n  display: block;\n  border-radius: 20px;\n  width: 85%;\n  padding: 10px 20px;\n  font-weight: 500;\n  border: 1px solid transparent;\n  margin-right: 2rem;\n  /* max-width: 400px; */\n  background-color: #f4f4f4;\n}\n\ninput + small,\ntextarea + small,\nselect + small {\n  color: rgb(237, 78, 59);\n  padding-bottom: 1rem;\n  display: block;\n  font-weight: bold;\n}\n\nfieldset small[role='alert'] {\n  color: rgb(237, 78, 59);\n  padding-bottom: 1rem;\n  display: block;\n  font-weight: bold;\n}\n\ninput[aria-invalid='true']:not([type='checkbox']):not([type='radio']),\ntextarea[aria-invalid='true'],\nselect[aria-invalid='true'] {\n  border: 1px solid rgb(237, 78, 59) !important;\n}\n\ninput[aria-invalid='true'][type='radio'],\ninput[aria-invalid='true'][type='checkbox'] {\n  outline: 1px solid rgb(237, 78, 59) !important;\n}\n\n.radio-label {\n  display: block;\n}\n\ntextarea {\n  max-width: 100%;\n}\n\nfieldset {\n  border: none;\n}\n\nselect {\n  /* needed */\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  /* SVG background image */\n  background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23000000%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E');\n  background-size: 0.6em;\n  background-position: calc(100% - 1.3em) center;\n  background-repeat: no-repeat;\n}\n\n.select:before {\n  content: '';\n  position: absolute;\n  right: 10px;\n  top: 8px;\n  width: 0;\n  height: 0;\n  border-left: 10px solid transparent;\n  border-right: 10px solid transparent;\n  border-top: 10px solid #f00;\n}\n\n.select:after {\n  content: '';\n  position: absolute;\n  right: 10px;\n  top: 3px;\n  width: 0;\n  height: 0;\n  border-left: 10px solid transparent;\n  border-right: 10px solid transparent;\n  border-top: 10px solid #333;\n}\n\nlabel {\n  margin-bottom: 1rem;\n  display: block;\n}\n\nlegend {\n  margin-bottom: 1rem;\n  display: block;\n}\n\nbutton {\n  text-align: left;\n  display: inline-block;\n  height: var(--informed-height--pill);\n  border: 1px solid transparent;\n  border-radius: 20px;\n  padding: 5px 40px;\n  color: white;\n  /* background-color: #3e6ae1; */\n  background-color: rebeccapurple;\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n  margin-right: 1rem;\n}\n\nbutton[type='submit'] {\n  display: block;\n}\n\n.button-group {\n  display: flex;\n}\n\nhr {\n  border: none !important;\n  height: 2px !important;\n  /* Set the hr color */\n  color: #333; /* old IE */\n  background-color: #333; /* Modern Browsers */\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\npre {\n  font-size: 1em !important;\n}\n\n.markdown-body[class] {\n  font-size: inherit;\n  color: inherit;\n  border: inherit;\n}\n\n.markdown-body pre {\n  font-size: inherit;\n  color: inherit;\n  border: inherit;\n  border-radius: 10px;\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n}\n\n.markdown-body[class] h1,\n.markdown-body[class] h2,\n.markdown-body[class] h3,\n.markdown-body[class] h4,\n.markdown-body[class] h5,\n.markdown-body[class] h6 {\n  border: inherit;\n  margin: inherit;\n  padding: inherit;\n  margin-top: 2rem !important;\n  margin-bottom: 2rem !important;\n}\n\n.markdown-body[class] h1[id] {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--80, 40px);\n  line-height: var(--informed-line-height--80, 48px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h2[id] {\n  letter-spacing: -0.5px;\n  font-size: var(--informed-font-size--70, 28px);\n  line-height: var(--informed-line-height--70, 36px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h3[id] {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--60, 24px);\n  line-height: var(--informed-line-height--60, 28px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h4[id] {\n  letter-spacing: -0.4px;\n  font-size: var(--informed-font-size--50, 20px);\n  line-height: var(--informed-line-height--60, 28px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h5[id] {\n  font-size: var(--informed-font-size--40, 17px);\n  line-height: var(--informed-line-height--20, 20px);\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.markdown-body[class] h6[id] {\n  font-size: var(--informed-font-size--30, 14px);\n  line-height: var(--informed-line-height--30, 21px);\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.markdown-body p {\n  margin: inherit;\n}\n\n.markdown-body[class] p {\n}\n\n.markdown-body[class] ul {\n}\n\n.markdown-body[class] ol {\n}\n\n.markdown-body a:active,\n.markdown-body a:hover {\n  text-decoration: none !important;\n}\n\n.markdown-body[class] table {\n  display: table;\n}\n\n.markdown-body[class] table strong {\n  color: rgb(237, 78, 59);\n}\n\nstrong {\n  color: rgb(237, 78, 59);\n}\n\n/* .markdown-body[class] table {\n  display: table;\n}\n\n.markdown-body thead {\n}\n\n.markdown-body tbody {\n}\n\n.markdown-body table thead tr:nth-child(1n),\n.markdown-body table tbody tr:nth-child(1n) {\n  background: inherit;\n  border: inherit;\n}\n\n.markdown-body table thead tr:nth-child(1n):first-child th {\n}\n\n.markdown-body thead tr th:nth-child(1n),\n.markdown-body tbody tr th:nth-child(1n) {\n  padding: inherit;\n  border: inherit;\n}\n\n.markdown-body[class] thead tr th:nth-child(1n),\n.markdown-body[class] tbody tr th:nth-child(1n) {\n}\n\n.markdown-body thead tr td:nth-child(1n),\n.markdown-body tbody tr td:nth-child(1n) {\n  padding: inherit;\n  border: inherit;\n}\n\n.markdown-body[class] thead tr td:nth-child(1n),\n.markdown-body[class] tbody tr td:nth-child(1n) {\n}\n\n.markdown-body[class] thead tr th:nth-child(1n):first-child,\n.markdown-body[class] tbody tr th:nth-child(1n):first-child,\n.markdown-body[class] thead tr td:nth-child(1n):first-child,\n.markdown-body[class] tbody tr td:nth-child(1n):first-child {\n  padding-left: 0;\n}\n\n.markdown-body[class] thead tr th:nth-child(1n):last-child,\n.markdown-body[class] tbody tr th:nth-child(1n):last-child,\n.markdown-body[class] thead tr td:nth-child(1n):last-child,\n.markdown-body[class] tbody tr td:nth-child(1n):last-child {\n  padding-right: 0;\n} */\n\n.informed-container {\n  padding-left: 4rem;\n  padding-right: 4rem;\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n  max-width: 1060px;\n}\n\n.informed-black {\n  background-color: black;\n  color: white !important;\n}\n\n.informed-black .address-option {\n  background-color: rgb(58, 60, 65);\n  color: white;\n}\n\n.informed-black .address-option:hover {\n  background-color: rgb(82, 84, 89);\n  cursor: pointer;\n}\n\n.informed-black input:not([type='checkbox']):not([type='radio']),\n.informed-black select,\n.informed-black textarea {\n  background-color: rgb(58, 60, 65);\n  color: white;\n}\n\n.informed-black select {\n  background-image: url(\"data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Ctitle%3Edown-arrow%3C/title%3E%3Cg fill='%23000000'%3E%3Cpath d='M10.293,3.293,6,7.586,1.707,3.293A1,1,0,0,0,.293,4.707l5,5a1,1,0,0,0,1.414,0l5-5a1,1,0,1,0-1.414-1.414Z' fill='%23FFFFFF'%3E%3C/path%3E%3C/g%3E%3C/svg%3E\");\n  /* filter: invert(1); */\n}\n\n.informed-black .markdown-body[class] table {\n  background-color: #000;\n}\n\n.informed-black td {\n  background-color: #000;\n}\n\n.informed-black th {\n  background-color: #000;\n}\n\n.markdown-body > :first-child {\n  margin-top: 2rem !important;\n}\n\n.loader,\n.loader:after {\n  border-radius: 50%;\n  width: 10em;\n  height: 10em;\n}\n\n.loader {\n  top: 0px;\n  margin: 60px auto;\n  font-size: 10px;\n  position: fixed;\n  top: 50%;\n  right: 50%;\n  text-indent: -9999em;\n  border-top: 1.1em solid rgba(67, 64, 64, 0.2);\n  border-right: 1.1em solid rgba(67, 64, 64, 0.2);\n  border-bottom: 1.1em solid rgba(67, 64, 64, 0.2);\n  border-left: 1.1em solid red;\n  transform: translateZ(0);\n  -webkit-animation: load8 1.1s infinite linear;\n  animation: load8 1.1s infinite linear;\n}\n\n.informed-black .loader {\n  border-top: 1.1em solid rgba(255, 255, 255, 0.2);\n  border-right: 1.1em solid rgba(255, 255, 255, 0.2);\n  border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);\n  border-left: 1.1em solid red;\n}\n\n@-webkit-keyframes load8 {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@keyframes load8 {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n\n/* This is for Car!!! */\n\n.cls-1 {\n  fill: #fefefe;\n}\n\n.cls-1,\n.cls-10,\n.cls-11,\n.cls-12,\n.cls-13,\n.cls-14,\n.cls-15,\n.cls-2,\n.cls-3,\n.cls-4,\n.cls-5,\n.cls-6,\n.cls-7,\n.cls-8,\n.cls-9 {\n  fill-rule: evenodd;\n}\n\n.cls-2 {\n  fill: #cfd5cf;\n}\n\n.cls-11,\n.cls-12,\n.cls-3,\n.cls-5 {\n  fill: none;\n  stroke-linecap: round;\n  stroke-linejoin: round;\n}\n\n.cls-3,\n.cls-5 {\n  stroke: #212121;\n}\n\n.cls-11,\n.cls-3 {\n  stroke-width: 3px;\n}\n\n.cls-4 {\n  fill: #212121;\n}\n\n.cls-12,\n.cls-5 {\n  stroke-width: 2px;\n}\n\n.cls-6 {\n  fill: #194767;\n}\n\n.cls-7 {\n  fill: #1a3850;\n}\n\n.cls-8 {\n  fill: #e53046;\n}\n\n.cls-9 {\n  fill: #ae3b46;\n}\n\n.cls-10 {\n  fill: #e96650;\n}\n\n.car-color-red .cls-8 {\n  fill: #e53046;\n}\n\n.car-color-red .cls-9 {\n  fill: #ae3b46;\n}\n\n.car-color-red .cls-10 {\n  fill: #e96650;\n}\n\n.car-color-blue .cls-8 {\n  fill: #4a2eee;\n}\n\n.car-color-blue .cls-9 {\n  fill: #2540af;\n}\n\n.car-color-blue .cls-10 {\n  fill: #6a72d5;\n}\n\n.car-color-green .cls-8 {\n  fill: #0f4d1d;\n}\n\n.car-color-green .cls-9 {\n  fill: #126014;\n}\n\n.car-color-green .cls-10 {\n  fill: #0d5c18;\n}\n\n.car-color-pink .cls-8 {\n  fill: rgb(233, 36, 111);\n}\n\n.car-color-pink .cls-9 {\n  fill: rgb(145, 39, 80);\n}\n\n.car-color-pink .cls-10 {\n  fill: rgb(155, 18, 70);\n}\n\n.cls-11,\n.cls-12 {\n  stroke: #231f20;\n}\n\n.cls-13,\n.cls-16 {\n  fill: #848c93;\n}\n\n.cls-14 {\n  fill: #020303;\n}\n\n.cls-15 {\n  fill: #74848c;\n}\n\n.cls-16 {\n  font-size: 40px;\n  font-family: HelveticaNeue-Bold, Helvetica Neue;\n  font-weight: 700;\n}\n\n#Circleelement {\n  -webkit-animation-name: rotate;\n  -webkit-animation-duration: 2s;\n  -webkit-animation-iteration-count: infinite;\n  -webkit-animation-timing-function: linear;\n  -moz-animation-name: rotate;\n  -moz-animation-duration: 2s;\n  -moz-animation-iteration-count: infinite;\n  -moz-animation-timing-function: linear;\n  animation-name: rotate;\n  animation-duration: 2s;\n  animation-iteration-count: infinite;\n  animation-timing-function: linear;\n}\n@-webkit-keyframes rotate {\n  from {\n    -webkit-transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(360deg);\n  }\n}\n\n@keyframes rotate {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n\ntable,\nth,\ntd {\n  border: 1px solid;\n}\n\n.field-table table {\n  margin-top: 18px;\n  margin-bottom: 18px;\n}\n\n.field-table td {\n  padding: 10px;\n}\n\n.field-table th {\n  padding: 10px;\n}\n\n.field-table td input {\n  width: 120px !important;\n  border-radius: 0px !important;\n  margin: 0px !important;\n  margin-bottom: 0px !important;\n}\n",
+          ":root {\n  --informed-font-size--10: 10px;\n  --informed-font-size--20: 12px;\n  --informed-font-size--30: 14px;\n  --informed-font-size--40: 17px;\n  --informed-font-size--50: 20px;\n  --informed-font-size--55: 23px;\n  --informed-font-size--60: 24px;\n  --informed-font-size--70: 28px;\n  --informed-font-size--75: 34px;\n  --informed-font-size--80: 40px;\n  --informed-height--pill: 40px;\n  --informed-line-height--10: 18px;\n  --informed-line-height--20: 20px;\n  --informed-line-height--30: 21px;\n  --informed-line-height--40: 23px;\n  --informed-line-height--50: 24px;\n  --informed-line-height--60: 28px;\n  --informed-line-height--70: 36px;\n  --informed-line-height--75: 45px;\n  --informed-line-height--80: 48px;\n}\n\n.body {\n  font-family: Helvetica, sans-serif;\n}\n\na > img {\n  border-radius: 10px;\n}\n\nh1 {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--80, 40px);\n  line-height: var(--informed-line-height--80, 48px);\n}\n\nh2 {\n  letter-spacing: -0.5px;\n  font-size: var(--informed-font-size--70, 28px);\n  line-height: var(--informed-line-height--70, 36px);\n}\n\nh3 {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--60, 24px);\n  line-height: var(--informed-line-height--60, 28px);\n}\n\nh4 {\n  letter-spacing: -0.4px;\n  font-size: var(--informed-font-size--50, 20px);\n  line-height: var(--informed-line-height--60, 28px);\n}\n\nh5 {\n  font-size: var(--informed-font-size--40, 17px);\n  line-height: var(--informed-line-height--20, 20px);\n}\n\nh6 {\n  font-size: var(--informed-font-size--30, 14px);\n  line-height: var(--informed-line-height--30, 21px);\n}\n\ninput {\n  margin-bottom: 1rem;\n}\n\n.address-option {\n  width: 100%;\n  background-color: #f4f4f4;\n  padding: 10px 20px;\n}\n\n.address-option:hover {\n  background-color: #9d9c9c;\n  cursor: pointer;\n}\n\ninput:not([type='checkbox']):not([type='radio']),\ntextarea,\nselect {\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n  display: block;\n  border-radius: 20px;\n  width: 85%;\n  padding: 10px 20px;\n  font-weight: 500;\n  border: 1px solid transparent;\n  margin-right: 2rem;\n  /* max-width: 400px; */\n  background-color: #f4f4f4;\n}\n\ninput + small,\ntextarea + small,\nselect + small {\n  color: rgb(237, 78, 59);\n  padding-bottom: 1rem;\n  display: block;\n  font-weight: bold;\n}\n\nfieldset small[role='alert'] {\n  color: rgb(237, 78, 59);\n  padding-bottom: 1rem;\n  display: block;\n  font-weight: bold;\n}\n\ninput[aria-invalid='true']:not([type='checkbox']):not([type='radio']),\ntextarea[aria-invalid='true'],\nselect[aria-invalid='true'] {\n  border: 1px solid rgb(237, 78, 59) !important;\n}\n\ninput[aria-invalid='true'][type='radio'],\ninput[aria-invalid='true'][type='checkbox'] {\n  outline: 1px solid rgb(237, 78, 59) !important;\n}\n\n.radio-label {\n  display: block;\n}\n\ntextarea {\n  max-width: 100%;\n}\n\nfieldset {\n  border: none;\n}\n\nselect {\n  /* needed */\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  /* SVG background image */\n  background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Ctitle%3Edown-arrow%3C%2Ftitle%3E%3Cg%20fill%3D%22%23000000%22%3E%3Cpath%20d%3D%22M10.293%2C3.293%2C6%2C7.586%2C1.707%2C3.293A1%2C1%2C0%2C0%2C0%2C.293%2C4.707l5%2C5a1%2C1%2C0%2C0%2C0%2C1.414%2C0l5-5a1%2C1%2C0%2C1%2C0-1.414-1.414Z%22%20fill%3D%22%23000000%22%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E');\n  background-size: 0.6em;\n  background-position: calc(100% - 1.3em) center;\n  background-repeat: no-repeat;\n}\n\n.select:before {\n  content: '';\n  position: absolute;\n  right: 10px;\n  top: 8px;\n  width: 0;\n  height: 0;\n  border-left: 10px solid transparent;\n  border-right: 10px solid transparent;\n  border-top: 10px solid #f00;\n}\n\n.select:after {\n  content: '';\n  position: absolute;\n  right: 10px;\n  top: 3px;\n  width: 0;\n  height: 0;\n  border-left: 10px solid transparent;\n  border-right: 10px solid transparent;\n  border-top: 10px solid #333;\n}\n\nlabel {\n  margin-bottom: 1rem;\n  display: block;\n}\n\nlegend {\n  margin-bottom: 1rem;\n  display: block;\n}\n\nbutton {\n  text-align: left;\n  display: inline-block;\n  height: var(--informed-height--pill);\n  border: 1px solid transparent;\n  border-radius: 20px;\n  padding: 5px 40px;\n  color: white;\n  /* background-color: #3e6ae1; */\n  background-color: rebeccapurple;\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n  margin-right: 1rem;\n}\n\nbutton[type='submit'] {\n  display: block;\n}\n\n.button-group {\n  display: flex;\n}\n\nhr {\n  border: none !important;\n  height: 2px !important;\n  /* Set the hr color */\n  color: #333; /* old IE */\n  background-color: #333; /* Modern Browsers */\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\npre {\n  font-size: 1em !important;\n}\n\n.markdown-body[class] {\n  font-size: inherit;\n  color: inherit;\n  border: inherit;\n}\n\n.markdown-body pre {\n  font-size: inherit;\n  color: inherit;\n  border: inherit;\n  border-radius: 10px;\n  margin-bottom: 1rem;\n  margin-top: 1rem;\n}\n\n.markdown-body[class] h1,\n.markdown-body[class] h2,\n.markdown-body[class] h3,\n.markdown-body[class] h4,\n.markdown-body[class] h5,\n.markdown-body[class] h6 {\n  border: inherit;\n  margin: inherit;\n  padding: inherit;\n  margin-top: 2rem !important;\n  margin-bottom: 2rem !important;\n}\n\n.markdown-body[class] h1[id] {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--80, 40px);\n  line-height: var(--informed-line-height--80, 48px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h2[id] {\n  letter-spacing: -0.5px;\n  font-size: var(--informed-font-size--70, 28px);\n  line-height: var(--informed-line-height--70, 36px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h3[id] {\n  letter-spacing: -0.6px;\n  font-size: var(--informed-font-size--60, 24px);\n  line-height: var(--informed-line-height--60, 28px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h4[id] {\n  letter-spacing: -0.4px;\n  font-size: var(--informed-font-size--50, 20px);\n  line-height: var(--informed-line-height--60, 28px);\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n}\n\n.markdown-body[class] h5[id] {\n  font-size: var(--informed-font-size--40, 17px);\n  line-height: var(--informed-line-height--20, 20px);\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.markdown-body[class] h6[id] {\n  font-size: var(--informed-font-size--30, 14px);\n  line-height: var(--informed-line-height--30, 21px);\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.markdown-body p {\n  margin: inherit;\n}\n\n.markdown-body[class] p {\n}\n\n.markdown-body[class] ul {\n}\n\n.markdown-body[class] ol {\n}\n\n.markdown-body a:active,\n.markdown-body a:hover {\n  text-decoration: none !important;\n}\n\n.markdown-body[class] table {\n  display: table;\n}\n\n.markdown-body[class] table strong {\n  color: rgb(237, 78, 59);\n}\n\nstrong {\n  color: rgb(237, 78, 59);\n}\n\n/* .markdown-body[class] table {\n  display: table;\n}\n\n.markdown-body thead {\n}\n\n.markdown-body tbody {\n}\n\n.markdown-body table thead tr:nth-child(1n),\n.markdown-body table tbody tr:nth-child(1n) {\n  background: inherit;\n  border: inherit;\n}\n\n.markdown-body table thead tr:nth-child(1n):first-child th {\n}\n\n.markdown-body thead tr th:nth-child(1n),\n.markdown-body tbody tr th:nth-child(1n) {\n  padding: inherit;\n  border: inherit;\n}\n\n.markdown-body[class] thead tr th:nth-child(1n),\n.markdown-body[class] tbody tr th:nth-child(1n) {\n}\n\n.markdown-body thead tr td:nth-child(1n),\n.markdown-body tbody tr td:nth-child(1n) {\n  padding: inherit;\n  border: inherit;\n}\n\n.markdown-body[class] thead tr td:nth-child(1n),\n.markdown-body[class] tbody tr td:nth-child(1n) {\n}\n\n.markdown-body[class] thead tr th:nth-child(1n):first-child,\n.markdown-body[class] tbody tr th:nth-child(1n):first-child,\n.markdown-body[class] thead tr td:nth-child(1n):first-child,\n.markdown-body[class] tbody tr td:nth-child(1n):first-child {\n  padding-left: 0;\n}\n\n.markdown-body[class] thead tr th:nth-child(1n):last-child,\n.markdown-body[class] tbody tr th:nth-child(1n):last-child,\n.markdown-body[class] thead tr td:nth-child(1n):last-child,\n.markdown-body[class] tbody tr td:nth-child(1n):last-child {\n  padding-right: 0;\n} */\n\n.informed-container {\n  padding-left: 4rem;\n  padding-right: 4rem;\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n  max-width: 1060px;\n}\n\n.informed-black {\n  background-color: black;\n  color: white !important;\n}\n\n.informed-black .address-option {\n  background-color: rgb(58, 60, 65);\n  color: white;\n}\n\n.informed-black .address-option:hover {\n  background-color: rgb(82, 84, 89);\n  cursor: pointer;\n}\n\n.informed-black input:not([type='checkbox']):not([type='radio']),\n.informed-black select,\n.informed-black textarea {\n  background-color: rgb(58, 60, 65);\n  color: white;\n}\n\n.informed-black select {\n  background-image: url(\"data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Ctitle%3Edown-arrow%3C/title%3E%3Cg fill='%23000000'%3E%3Cpath d='M10.293,3.293,6,7.586,1.707,3.293A1,1,0,0,0,.293,4.707l5,5a1,1,0,0,0,1.414,0l5-5a1,1,0,1,0-1.414-1.414Z' fill='%23FFFFFF'%3E%3C/path%3E%3C/g%3E%3C/svg%3E\");\n  /* filter: invert(1); */\n}\n\n.informed-black .markdown-body[class] table {\n  background-color: #000;\n}\n\n.informed-black td {\n  background-color: #000;\n}\n\n.informed-black th {\n  background-color: #000;\n}\n\n.markdown-body > :first-child {\n  margin-top: 2rem !important;\n}\n\n.loader,\n.loader:after {\n  border-radius: 50%;\n  width: 10em;\n  height: 10em;\n}\n\n.loader {\n  top: 0px;\n  margin: 60px auto;\n  font-size: 10px;\n  position: fixed;\n  top: 50%;\n  right: 50%;\n  text-indent: -9999em;\n  border-top: 1.1em solid rgba(67, 64, 64, 0.2);\n  border-right: 1.1em solid rgba(67, 64, 64, 0.2);\n  border-bottom: 1.1em solid rgba(67, 64, 64, 0.2);\n  border-left: 1.1em solid red;\n  transform: translateZ(0);\n  -webkit-animation: load8 1.1s infinite linear;\n  animation: load8 1.1s infinite linear;\n}\n\n.informed-black .loader {\n  border-top: 1.1em solid rgba(255, 255, 255, 0.2);\n  border-right: 1.1em solid rgba(255, 255, 255, 0.2);\n  border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);\n  border-left: 1.1em solid red;\n}\n\n@-webkit-keyframes load8 {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@keyframes load8 {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n\n/* This is for Car!!! */\n\n.cls-1 {\n  fill: #fefefe;\n}\n\n.cls-1,\n.cls-10,\n.cls-11,\n.cls-12,\n.cls-13,\n.cls-14,\n.cls-15,\n.cls-2,\n.cls-3,\n.cls-4,\n.cls-5,\n.cls-6,\n.cls-7,\n.cls-8,\n.cls-9 {\n  fill-rule: evenodd;\n}\n\n.cls-2 {\n  fill: #cfd5cf;\n}\n\n.cls-11,\n.cls-12,\n.cls-3,\n.cls-5 {\n  fill: none;\n  stroke-linecap: round;\n  stroke-linejoin: round;\n}\n\n.cls-3,\n.cls-5 {\n  stroke: #212121;\n}\n\n.cls-11,\n.cls-3 {\n  stroke-width: 3px;\n}\n\n.cls-4 {\n  fill: #212121;\n}\n\n.cls-12,\n.cls-5 {\n  stroke-width: 2px;\n}\n\n.cls-6 {\n  fill: #194767;\n}\n\n.cls-7 {\n  fill: #1a3850;\n}\n\n.cls-8 {\n  fill: #e53046;\n}\n\n.cls-9 {\n  fill: #ae3b46;\n}\n\n.cls-10 {\n  fill: #e96650;\n}\n\n.car-color-red .cls-8 {\n  fill: #e53046;\n}\n\n.car-color-red .cls-9 {\n  fill: #ae3b46;\n}\n\n.car-color-red .cls-10 {\n  fill: #e96650;\n}\n\n.car-color-blue .cls-8 {\n  fill: #4a2eee;\n}\n\n.car-color-blue .cls-9 {\n  fill: #2540af;\n}\n\n.car-color-blue .cls-10 {\n  fill: #6a72d5;\n}\n\n.car-color-green .cls-8 {\n  fill: #0f4d1d;\n}\n\n.car-color-green .cls-9 {\n  fill: #126014;\n}\n\n.car-color-green .cls-10 {\n  fill: #0d5c18;\n}\n\n.car-color-pink .cls-8 {\n  fill: rgb(233, 36, 111);\n}\n\n.car-color-pink .cls-9 {\n  fill: rgb(145, 39, 80);\n}\n\n.car-color-pink .cls-10 {\n  fill: rgb(155, 18, 70);\n}\n\n.cls-11,\n.cls-12 {\n  stroke: #231f20;\n}\n\n.cls-13,\n.cls-16 {\n  fill: #848c93;\n}\n\n.cls-14 {\n  fill: #020303;\n}\n\n.cls-15 {\n  fill: #74848c;\n}\n\n.cls-16 {\n  font-size: 40px;\n  font-family: HelveticaNeue-Bold, Helvetica Neue;\n  font-weight: 700;\n}\n\n#Circleelement {\n  -webkit-animation-name: rotate;\n  -webkit-animation-duration: 2s;\n  -webkit-animation-iteration-count: infinite;\n  -webkit-animation-timing-function: linear;\n  -moz-animation-name: rotate;\n  -moz-animation-duration: 2s;\n  -moz-animation-iteration-count: infinite;\n  -moz-animation-timing-function: linear;\n  animation-name: rotate;\n  animation-duration: 2s;\n  animation-iteration-count: infinite;\n  animation-timing-function: linear;\n}\n@-webkit-keyframes rotate {\n  from {\n    -webkit-transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(360deg);\n  }\n}\n\n@keyframes rotate {\n  from {\n    transform: rotate(0deg);\n  }\n  to {\n    transform: rotate(360deg);\n  }\n}\n\ntable,\nth,\ntd {\n  border: 1px solid;\n}\n\n.field-table table {\n  margin-top: 18px;\n  margin-bottom: 18px;\n}\n\n.field-table td {\n  padding: 10px;\n}\n\n.field-table th {\n  padding: 10px;\n}\n\n.field-table td input {\n  width: 120px !important;\n  border-radius: 0px !important;\n  margin: 0px !important;\n  margin-bottom: 0px !important;\n}\n\n.stepper-wrapper {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}\n\n.stepper-item {\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-left: 10px;\n  margin-right: 10px;\n}\n\n.stepper-item:first-child::before {\n  content: none;\n}\n.stepper-item:last-child::after {\n  content: none;\n}\n\n.stepper-divider {\n  width: 100%;\n  height: 5px;\n  background-color: grey;\n  margin-top: 22px;\n}\n\n.stepper-counter {\n  border-radius: 50%;\n  background-color: grey;\n  width: 50px;\n  height: 50px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n}\n\n.stepper-counter:hover {\n  cursor: pointer;\n}\n\n.stepper-counter.complete {\n  background-color: rgb(10, 118, 29);\n}\n\n.stepper-counter.active {\n  background-color: rgb(155, 18, 29);\n}\n",
           ''
         ]);
         // Exports
@@ -35385,7 +35385,7 @@
       /***/ function(module, __webpack_exports__, __webpack_require__) {
         'use strict';
         /* harmony default export */ __webpack_exports__['a'] =
-          '# Multistep Forms\n\nSomtimes you need to create a form with multiple steps and the steps are dynamic, meaning the next\nsteps depend on the previous steps. This can easliy be done with informed.\nBelow is an example of a form that has four steps. It will not proceed to the next step,\nunless the previous step is valid. In addition it will only validate relevant fields where a fields "relevance"\ncan be defined by a `relevant` function.\n\nThis is hard to describe in words so hopefully the example below helps!\n\n**Hint:** Perform the user flow described below.\n\n1. Click the next button to trigger validation.\n1. Fill out the fields and click next.\n1. Select the checkbox because you\'re allergic to peanut butter, then click next.\n1. Select that you have an epipen, then click next.\n1. Type in your favorite color and food, DONT CLICK NEXT.\n1. You just remembered that you actually are NOT allergic to peanut butter. So Jump back to the allergies question.\n1. Uncheck the checkbox and note how the form state changes! The souse name goes away!\n1. Click next and note how you go to the favorite question instead of the epipen question.\n\n<!-- STORY -->\n\n```jsx\nimport {\n  Form,\n  Input,\n  Multistep,\n  Checkbox,\n  RadioGroup,\n  Radio,\n  Relevant,\n  Debug,\n  useMultistepApi,\n  useMultistepState\n} from \'informed\';\n\nconst validate = value =>\n  value == null ? \'This field is required\' : undefined;\n\nconst Info = () => {\n  const { next } = useMultistepApi();\n  return (\n    <Multistep.Step step="info">\n      <Input name="first" label="First Name" required />\n      <Input name="last" label="First Name" required />\n      <button type="button" onClick={next}>\n        Next\n      </button>\n    </Multistep.Step>\n  );\n};\n\nconst Allergic = () => {\n  const { next, previous } = useMultistepApi();\n  return (\n    <Multistep.Step step="allergies">\n      <h5>Are you allergic to any of the following?</h5>\n      <Checkbox name="peanuts" label="Peanut butter?:" />\n      <Checkbox name="shellfish" label="Shellfish:" />\n      <div className="button-group">\n        <button type="button" onClick={previous}>\n          Previous\n        </button>\n        <button type="button" onClick={next}>\n          Next\n        </button>\n      </div>\n    </Multistep.Step>\n  );\n};\n\nconst EpiPen = () => {\n  const { next, previous } = useMultistepApi();\n\n  // Only relevant if the person is allergic to something\n  const relevant = ({ formState }) => {\n    const { allergies } = formState.values;\n    return allergies && Object.values(allergies).some(a => !!a);\n  };\n\n  return (\n    <Multistep.Step step="treatment" relevant={relevant}>\n      <label>\n        Do you have an epipen?:\n        <RadioGroup name="epipen" required>\n          <Radio value="yes" label="Yes" />\n          <Radio value="no" label="No" />\n        </RadioGroup>\n      </label>\n      <div className="button-group">\n        <button type="button" onClick={previous}>\n          Previous\n        </button>\n        <button type="button" onClick={next}>\n          Next\n        </button>\n      </div>\n    </Multistep.Step>\n  );\n};\n\nconst Color = () => {\n  const { next, previous } = useMultistepApi();\n  const { nextStep } = useMultistepState();\n\n  return (\n    <Multistep.Step step="favorite">\n      <Input name="color" label="Favorite Color:" required />\n      <Input name="food" label="Favorite Food:" required />\n      <Checkbox name="pet" label="Do you have a pet?" />\n      <div className="button-group">\n        <button type="button" onClick={previous}>\n          Previous\n        </button>\n        {nextStep ? (\n          <button type="button" onClick={next}>\n            Next\n          </button>\n        ) : null}\n        {!nextStep ? <button type="submit">Submit</button> : null}\n      </div>\n    </Multistep.Step>\n  );\n};\n\nconst Dog = () => {\n  const { previous } = useMultistepApi();\n\n  // Only relevant if the person is has a pet\n  const relevant = ({ formState }) => {\n    const { favorite } = formState.values;\n    return favorite?.pet;\n  };\n\n  return (\n    <Multistep.Step step="pets" previous="color" relevant={relevant}>\n      <Checkbox name="hasDog" label="Do you have a dog?" />\n      <Relevant\n        when={({ formApi, scope }) => formApi.getValue(`${scope}.hasDog`)}>\n        <Input name="dogName" label="Whats your dogs name?" required />\n      </Relevant>\n      <Checkbox name="hasCat" label="Do you have a cat?" />\n      <Input\n        name="catName"\n        label="Whats your cats name?"\n        required\n        relevant={({ formApi, scope }) => formApi.getValue(`${scope}.hasCat`)}\n      />\n      <div className="button-group">\n        <button type="button" onClick={previous}>\n          Previous\n        </button>\n        <button type="submit">Submit</button>\n      </div>\n    </Multistep.Step>\n  );\n};\n\nconst Buttons = () => {\n  const { setCurrent } = useMultistepApi();\n\n  return (\n    <div>\n      <button type="button" onClick={() => setCurrent(\'info\')}>\n        Jump2 Info\n      </button>\n      <button type="button" onClick={() => setCurrent(\'allergies\')}>\n        Jump2 Allergic\n      </button>\n      <button type="button" onClick={() => setCurrent(\'treatment\')}>\n        Jump2 EpiPen\n      </button>\n      <button type="button" onClick={() => setCurrent(\'favorite\')}>\n        Jump2 Color\n      </button>\n      <button type="button" onClick={() => setCurrent(\'pets\')}>\n        Jump2 Dog\n      </button>\n    </div>\n  );\n};\n\nconst Example = () => {\n  return (\n    <Form autocomplete="off">\n      <Multistep>\n        <Info />\n        <Allergic />\n        <EpiPen />\n        <Color />\n        <Dog />\n        <Buttons />\n      </Multistep>\n      <Debug />\n    </Form>\n  );\n};\n```\n';
+          '# Multistep Forms\n\nSomtimes you need to create a form with multiple steps and the steps are dynamic, meaning the next\nsteps depend on the previous steps. This can easliy be done with informed.\nBelow is an example of a form that has four steps. It will not proceed to the next step,\nunless the previous step is valid. In addition it will only validate relevant fields where a fields "relevance"\ncan be defined by a `relevant` function.\n\nThis is hard to describe in words so hopefully the example below helps!\n\n**Hint:** Perform the user flow described below.\n\n1. Click the next button to trigger validation.\n1. Fill out the fields and click next.\n1. Select the checkbox because you\'re allergic to peanut butter, then click next.\n1. Select that you have an epipen, then click next.\n1. Type in your favorite color and food, DONT CLICK NEXT.\n1. You just remembered that you actually are NOT allergic to peanut butter. So Jump back to the allergies question.\n1. Uncheck the checkbox and note how the form state changes! The souse name goes away!\n1. Click next and note how you go to the favorite question instead of the epipen question.\n\n<!-- STORY -->\n\n```jsx\nimport {\n  Form,\n  Input,\n  Multistep,\n  Checkbox,\n  RadioGroup,\n  Radio,\n  Relevant,\n  Debug,\n  useMultistepApi,\n  useMultistepState,\n  useFieldState\n} from \'informed\';\n\nconst validate = value =>\n  value == null ? \'This field is required\' : undefined;\n\nconst Info = () => {\n  const { next } = useMultistepApi();\n  return (\n    <Multistep.Step step="info">\n      <Input name="first" label="First Name" required />\n      <Input name="last" label="First Name" required />\n      <button type="button" onClick={next}>\n        Next\n      </button>\n    </Multistep.Step>\n  );\n};\n\nconst Allergic = () => {\n  const { next, previous } = useMultistepApi();\n  return (\n    <Multistep.Step step="allergies">\n      <h5>Are you allergic to any of the following?</h5>\n      <Checkbox name="peanuts" label="Peanut butter?:" />\n      <Checkbox name="shellfish" label="Shellfish:" />\n      <div className="button-group">\n        <button type="button" onClick={previous}>\n          Previous\n        </button>\n        <button type="button" onClick={next}>\n          Next\n        </button>\n      </div>\n    </Multistep.Step>\n  );\n};\n\nconst EpiPen = () => {\n  const { next, previous } = useMultistepApi();\n\n  // Only relevant if the person is allergic to something\n  const relevant = ({ formState }) => {\n    const { allergies } = formState.values;\n    return allergies && Object.values(allergies).some(a => !!a);\n  };\n\n  return (\n    <Multistep.Step step="treatment" relevant={relevant}>\n      <label>\n        Do you have an epipen?:\n        <RadioGroup name="epipen" required>\n          <Radio value="yes" label="Yes" />\n          <Radio value="no" label="No" />\n        </RadioGroup>\n      </label>\n      <div className="button-group">\n        <button type="button" onClick={previous}>\n          Previous\n        </button>\n        <button type="button" onClick={next}>\n          Next\n        </button>\n      </div>\n    </Multistep.Step>\n  );\n};\n\nconst Color = () => {\n  const { next, previous } = useMultistepApi();\n  const { nextStep } = useMultistepState();\n\n  return (\n    <Multistep.Step step="favorite">\n      <Input name="color" label="Favorite Color:" required />\n      <Input name="food" label="Favorite Food:" required />\n      <Checkbox name="pet" label="Do you have a pet?" />\n      <div className="button-group">\n        <button type="button" onClick={previous}>\n          Previous\n        </button>\n        {nextStep ? (\n          <button type="button" onClick={next}>\n            Next\n          </button>\n        ) : null}\n        {!nextStep ? <button type="submit">Submit</button> : null}\n      </div>\n    </Multistep.Step>\n  );\n};\n\nconst Dog = () => {\n  const { previous } = useMultistepApi();\n\n  // Only relevant if the person is has a pet\n  const relevant = ({ formState }) => {\n    const { favorite } = formState.values;\n    return favorite?.pet;\n  };\n\n  return (\n    <Multistep.Step step="pets" previous="color" relevant={relevant}>\n      <Checkbox name="hasDog" label="Do you have a dog?" />\n      <Relevant\n        when={({ formApi, scope }) => formApi.getValue(`${scope}.hasDog`)}>\n        <Input name="name" label="Whats your dogs name?" required />\n      </Relevant>\n      <Checkbox name="hasCat" label="Do you have a cat?" />\n      <Input\n        name="name"\n        label="Whats your cats name?"\n        required\n        relevant={({ formApi, scope }) => formApi.getValue(`${scope}.hasCat`)}\n      />\n      <div className="button-group">\n        <button type="button" onClick={previous}>\n          Previous\n        </button>\n        <button type="submit">Submit</button>\n      </div>\n    </Multistep.Step>\n  );\n};\n\nconst StepperStep = ({ step, label, number, isComplete }) => {\n  const { current } = useMultistepState();\n  const { setCurrent } = useMultistepApi();\n  const state = useFieldState(step);\n\n  const active = current === step ? \'active\' : \'\';\n  const complete = isComplete(state) ? \'complete\' : \'\';\n\n  return (\n    <div className="stepper-item">\n      <div\n        className={`stepper-counter ${active} ${complete}`}\n        onClick={() => setCurrent(step)}>\n        {number}\n      </div>\n      <div className="step-name">{label}</div>\n    </div>\n  );\n};\n\nconst Stepper = () => {\n  return (\n    <div className="stepper-wrapper">\n      <StepperStep\n        label="Info"\n        step="info"\n        number="1"\n        isComplete={s => s.value?.first && s.value?.last}\n      />\n      <div className="stepper-divider" />\n      <StepperStep\n        label="Allergies"\n        step="allergies"\n        number="2"\n        isComplete={s => s.touched}\n      />\n      <div className="stepper-divider" />\n      <StepperStep\n        label="Treatment"\n        step="treatment"\n        number="3"\n        isComplete={s => s.value?.epipen != null}\n      />\n      <div className="stepper-divider" />\n      <StepperStep\n        label="Favorite"\n        step="favorite"\n        number="4"\n        isComplete={s => s.value?.color && s.value?.food}\n      />\n      <div className="stepper-divider" />\n      <StepperStep\n        label="Pets"\n        step="pets"\n        number="5"\n        isComplete={s => s.value?.name}\n      />\n    </div>\n  );\n};\n\nconst Example = () => {\n  return (\n    <Form autocomplete="off">\n      <Multistep>\n        <Stepper />\n        <Info />\n        <Allergic />\n        <EpiPen />\n        <Color />\n        <Dog />\n      </Multistep>\n      <Debug />\n    </Form>\n  );\n};\n```\n\n### The CSS used in this example is here\n\n```css\n.stepper-wrapper {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n}\n\n.stepper-item {\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-left: 10px;\n  margin-right: 10px;\n}\n\n.stepper-item:first-child::before {\n  content: none;\n}\n.stepper-item:last-child::after {\n  content: none;\n}\n\n.stepper-divider {\n  width: 100%;\n  height: 5px;\n  background-color: grey;\n  margin-top: 22px;\n}\n\n.stepper-counter {\n  border-radius: 50%;\n  background-color: grey;\n  width: 50px;\n  height: 50px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n}\n\n.stepper-counter:hover {\n  cursor: pointer;\n}\n\n.stepper-counter.complete {\n  background-color: rgb(10, 118, 29);\n}\n\n.stepper-counter.active {\n  background-color: rgb(155, 18, 29);\n}\n```\n';
 
         /***/
       },
@@ -35803,7 +35803,7 @@
               /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                 _src__WEBPACK_IMPORTED_MODULE_3__[/* Input */ 'l'],
                 {
-                  name: 'dogName',
+                  name: 'name',
                   label: 'Whats your dogs name?',
                   required: true
                 }
@@ -35819,7 +35819,7 @@
             /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
               _src__WEBPACK_IMPORTED_MODULE_3__[/* Input */ 'l'],
               {
-                name: 'catName',
+                name: 'name',
                 label: 'Whats your cats name?',
                 required: true,
                 relevant: function relevant(_ref5) {
@@ -35853,64 +35853,166 @@
           );
         };
 
-        var Buttons = function Buttons() {
+        var StepperStep = function StepperStep(_ref6) {
+          var step = _ref6.step,
+            label = _ref6.label,
+            number = _ref6.number,
+            isComplete = _ref6.isComplete;
+
+          var _useMultistepState2 = Object(
+              _src__WEBPACK_IMPORTED_MODULE_3__[/* useMultistepState */ 'K']
+            )(),
+            current = _useMultistepState2.current;
+
           var _useMultistepApi6 = Object(
               _src__WEBPACK_IMPORTED_MODULE_3__[/* useMultistepApi */ 'J']
             )(),
             setCurrent = _useMultistepApi6.setCurrent;
 
+          var state = Object(
+            _src__WEBPACK_IMPORTED_MODULE_3__[/* useFieldState */ 'B']
+          )(step);
+          var active = current === step ? 'active' : '';
+          var complete = isComplete(state) ? 'complete' : '';
           return /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
             'div',
-            null,
+            {
+              className: 'stepper-item'
+            },
             /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              'button',
+              'div',
               {
-                type: 'button',
+                className: 'stepper-counter '
+                  .concat(active, ' ')
+                  .concat(complete),
                 onClick: function onClick() {
-                  return setCurrent('info');
+                  return setCurrent(step);
                 }
               },
-              'Jump2 Info'
+              number
             ),
             /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              'button',
+              'div',
               {
-                type: 'button',
-                onClick: function onClick() {
-                  return setCurrent('allergies');
-                }
+                className: 'step-name'
               },
-              'Jump2 Allergic'
+              label
+            )
+          );
+        };
+
+        var Stepper = function Stepper() {
+          return /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+            'div',
+            {
+              className: 'stepper-wrapper'
+            },
+            /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              StepperStep,
+              {
+                label: 'Info',
+                step: 'info',
+                number: '1',
+                isComplete: function isComplete(s) {
+                  var _s$value, _s$value2;
+
+                  return (
+                    ((_s$value = s.value) === null || _s$value === void 0
+                      ? void 0
+                      : _s$value.first) &&
+                    ((_s$value2 = s.value) === null || _s$value2 === void 0
+                      ? void 0
+                      : _s$value2.last)
+                  );
+                }
+              }
             ),
             /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              'button',
+              'div',
               {
-                type: 'button',
-                onClick: function onClick() {
-                  return setCurrent('treatment');
-                }
-              },
-              'Jump2 EpiPen'
+                className: 'stepper-divider'
+              }
             ),
             /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              'button',
+              StepperStep,
               {
-                type: 'button',
-                onClick: function onClick() {
-                  return setCurrent('favorite');
+                label: 'Allergies',
+                step: 'allergies',
+                number: '2',
+                isComplete: function isComplete(s) {
+                  return s.touched;
                 }
-              },
-              'Jump2 Color'
+              }
             ),
             /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-              'button',
+              'div',
               {
-                type: 'button',
-                onClick: function onClick() {
-                  return setCurrent('pets');
+                className: 'stepper-divider'
+              }
+            ),
+            /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              StepperStep,
+              {
+                label: 'Treatment',
+                step: 'treatment',
+                number: '3',
+                isComplete: function isComplete(s) {
+                  var _s$value3;
+
+                  return (
+                    ((_s$value3 = s.value) === null || _s$value3 === void 0
+                      ? void 0
+                      : _s$value3.epipen) != null
+                  );
                 }
-              },
-              'Jump2 Dog'
+              }
+            ),
+            /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              'div',
+              {
+                className: 'stepper-divider'
+              }
+            ),
+            /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              StepperStep,
+              {
+                label: 'Favorite',
+                step: 'favorite',
+                number: '4',
+                isComplete: function isComplete(s) {
+                  var _s$value4, _s$value5;
+
+                  return (
+                    ((_s$value4 = s.value) === null || _s$value4 === void 0
+                      ? void 0
+                      : _s$value4.color) &&
+                    ((_s$value5 = s.value) === null || _s$value5 === void 0
+                      ? void 0
+                      : _s$value5.food)
+                  );
+                }
+              }
+            ),
+            /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              'div',
+              {
+                className: 'stepper-divider'
+              }
+            ),
+            /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+              StepperStep,
+              {
+                label: 'Pets',
+                step: 'pets',
+                number: '5',
+                isComplete: function isComplete(s) {
+                  var _s$value6;
+
+                  return (_s$value6 = s.value) === null || _s$value6 === void 0
+                    ? void 0
+                    : _s$value6.name;
+                }
+              }
             )
           );
         };
@@ -35953,25 +36055,19 @@
               },
               /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                 'div',
-                {
-                  style: {
-                    display: 'flex',
-                    flexWrap: 'wrap'
-                  }
-                },
+                null,
                 /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                   'div',
-                  {
-                    style: {
-                      flex: 1,
-                      marginRight: '2rem'
-                    }
-                  },
+                  null,
                   /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                     _src__WEBPACK_IMPORTED_MODULE_3__[/* Multistep */ 'm'], // initialStep="allergies"
                     {
                       multistepApiRef: multistepApiRef
                     },
+                    /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
+                      Stepper,
+                      null
+                    ),
                     /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                       'div',
                       {
@@ -36003,22 +36099,12 @@
                         Dog,
                         null
                       )
-                    ),
-                    /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
-                      Buttons,
-                      null
                     )
                   )
                 ),
                 /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                   'div',
-                  {
-                    style: {
-                      flex: 2,
-                      minWidth: '300px',
-                      marginLeft: '3rem'
-                    }
-                  },
+                  null,
                   /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                     _src__WEBPACK_IMPORTED_MODULE_3__[/* Debug */ 'c'],
                     null
@@ -45692,4 +45778,4 @@
   },
   [[0, 'runtime~main', 'vendors~main']]
 ]);
-//# sourceMappingURL=main.c9aae85d.iframe.bundle.js.map
+//# sourceMappingURL=main.0f1c0a84.iframe.bundle.js.map

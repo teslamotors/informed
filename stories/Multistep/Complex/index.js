@@ -159,11 +159,11 @@ const Dog = () => {
       <Checkbox name="hasDog" label="Do you have a dog?" />
       <Relevant
         when={({ formApi, scope }) => formApi.getValue(`${scope}.hasDog`)}>
-        <Input name="dogName" label="Whats your dogs name?" required />
+        <Input name="name" label="Whats your dogs name?" required />
       </Relevant>
       <Checkbox name="hasCat" label="Do you have a cat?" />
       <Input
-        name="catName"
+        name="name"
         label="Whats your cats name?"
         required
         relevant={({ formApi, scope }) => formApi.getValue(`${scope}.hasCat`)}
@@ -178,26 +178,63 @@ const Dog = () => {
   );
 };
 
-const Buttons = () => {
+const StepperStep = ({ step, label, number, isComplete }) => {
+  const { current } = useMultistepState();
   const { setCurrent } = useMultistepApi();
+  const state = useFieldState(step);
+
+  const active = current === step ? 'active' : '';
+  const complete = isComplete(state) ? 'complete' : '';
 
   return (
-    <div>
-      <button type="button" onClick={() => setCurrent('info')}>
-        Jump2 Info
-      </button>
-      <button type="button" onClick={() => setCurrent('allergies')}>
-        Jump2 Allergic
-      </button>
-      <button type="button" onClick={() => setCurrent('treatment')}>
-        Jump2 EpiPen
-      </button>
-      <button type="button" onClick={() => setCurrent('favorite')}>
-        Jump2 Color
-      </button>
-      <button type="button" onClick={() => setCurrent('pets')}>
-        Jump2 Dog
-      </button>
+    <div className="stepper-item">
+      <div
+        className={`stepper-counter ${active} ${complete}`}
+        onClick={() => setCurrent(step)}>
+        {number}
+      </div>
+      <div className="step-name">{label}</div>
+    </div>
+  );
+};
+
+const Stepper = () => {
+  return (
+    <div className="stepper-wrapper">
+      <StepperStep
+        label="Info"
+        step="info"
+        number="1"
+        isComplete={s => s.value?.first && s.value?.last}
+      />
+      <div className="stepper-divider" />
+      <StepperStep
+        label="Allergies"
+        step="allergies"
+        number="2"
+        isComplete={s => s.touched}
+      />
+      <div className="stepper-divider" />
+      <StepperStep
+        label="Treatment"
+        step="treatment"
+        number="3"
+        isComplete={s => s.value?.epipen != null}
+      />
+      <div className="stepper-divider" />
+      <StepperStep
+        label="Favorite"
+        step="favorite"
+        number="4"
+        isComplete={s => s.value?.color && s.value?.food}
+      />
+      <div className="stepper-divider" />
+      <StepperStep
+        label="Pets"
+        step="pets"
+        number="5"
+        isComplete={s => s.value?.name}
+      />
     </div>
   );
 };
@@ -238,12 +275,13 @@ const Basic = () => {
       </button> */}
 
       <Form autocomplete="off">
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          <div style={{ flex: 1, marginRight: '2rem' }}>
+        <div>
+          <div>
             {/* initialStep="info" */}
             <Multistep
               // initialStep="allergies"
               multistepApiRef={multistepApiRef}>
+              <Stepper />
               <div
                 style={{
                   // border: 'solid 1px',
@@ -256,10 +294,9 @@ const Basic = () => {
                 <Color />
                 <Dog />
               </div>
-              <Buttons />
             </Multistep>
           </div>
-          <div style={{ flex: 2, minWidth: '300px', marginLeft: '3rem' }}>
+          <div>
             <Debug />
           </div>
         </div>

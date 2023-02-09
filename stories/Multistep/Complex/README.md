@@ -32,7 +32,8 @@ import {
   Relevant,
   Debug,
   useMultistepApi,
-  useMultistepState
+  useMultistepState,
+  useFieldState
 } from 'informed';
 
 const validate = value =>
@@ -138,11 +139,11 @@ const Dog = () => {
       <Checkbox name="hasDog" label="Do you have a dog?" />
       <Relevant
         when={({ formApi, scope }) => formApi.getValue(`${scope}.hasDog`)}>
-        <Input name="dogName" label="Whats your dogs name?" required />
+        <Input name="name" label="Whats your dogs name?" required />
       </Relevant>
       <Checkbox name="hasCat" label="Do you have a cat?" />
       <Input
-        name="catName"
+        name="name"
         label="Whats your cats name?"
         required
         relevant={({ formApi, scope }) => formApi.getValue(`${scope}.hasCat`)}
@@ -157,26 +158,63 @@ const Dog = () => {
   );
 };
 
-const Buttons = () => {
+const StepperStep = ({ step, label, number, isComplete }) => {
+  const { current } = useMultistepState();
   const { setCurrent } = useMultistepApi();
+  const state = useFieldState(step);
+
+  const active = current === step ? 'active' : '';
+  const complete = isComplete(state) ? 'complete' : '';
 
   return (
-    <div>
-      <button type="button" onClick={() => setCurrent('info')}>
-        Jump2 Info
-      </button>
-      <button type="button" onClick={() => setCurrent('allergies')}>
-        Jump2 Allergic
-      </button>
-      <button type="button" onClick={() => setCurrent('treatment')}>
-        Jump2 EpiPen
-      </button>
-      <button type="button" onClick={() => setCurrent('favorite')}>
-        Jump2 Color
-      </button>
-      <button type="button" onClick={() => setCurrent('pets')}>
-        Jump2 Dog
-      </button>
+    <div className="stepper-item">
+      <div
+        className={`stepper-counter ${active} ${complete}`}
+        onClick={() => setCurrent(step)}>
+        {number}
+      </div>
+      <div className="step-name">{label}</div>
+    </div>
+  );
+};
+
+const Stepper = () => {
+  return (
+    <div className="stepper-wrapper">
+      <StepperStep
+        label="Info"
+        step="info"
+        number="1"
+        isComplete={s => s.value?.first && s.value?.last}
+      />
+      <div className="stepper-divider" />
+      <StepperStep
+        label="Allergies"
+        step="allergies"
+        number="2"
+        isComplete={s => s.touched}
+      />
+      <div className="stepper-divider" />
+      <StepperStep
+        label="Treatment"
+        step="treatment"
+        number="3"
+        isComplete={s => s.value?.epipen != null}
+      />
+      <div className="stepper-divider" />
+      <StepperStep
+        label="Favorite"
+        step="favorite"
+        number="4"
+        isComplete={s => s.value?.color && s.value?.food}
+      />
+      <div className="stepper-divider" />
+      <StepperStep
+        label="Pets"
+        step="pets"
+        number="5"
+        isComplete={s => s.value?.name}
+      />
     </div>
   );
 };
@@ -185,15 +223,71 @@ const Example = () => {
   return (
     <Form autocomplete="off">
       <Multistep>
+        <Stepper />
         <Info />
         <Allergic />
         <EpiPen />
         <Color />
         <Dog />
-        <Buttons />
       </Multistep>
       <Debug />
     </Form>
   );
 };
+```
+
+### The CSS used in this example is here
+
+```css
+.stepper-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.stepper-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.stepper-item:first-child::before {
+  content: none;
+}
+.stepper-item:last-child::after {
+  content: none;
+}
+
+.stepper-divider {
+  width: 100%;
+  height: 5px;
+  background-color: grey;
+  margin-top: 22px;
+}
+
+.stepper-counter {
+  border-radius: 50%;
+  background-color: grey;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.stepper-counter:hover {
+  cursor: pointer;
+}
+
+.stepper-counter.complete {
+  background-color: rgb(10, 118, 29);
+}
+
+.stepper-counter.active {
+  background-color: rgb(155, 18, 29);
+}
 ```

@@ -228,6 +228,8 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
       const goalIndex = stepsMap.get(step).index;
       const currIndex = stepsMap.get(currentStep.current).index;
 
+      // console.log('GOAL', goalIndex, 'CURRENT', currIndex);
+
       // If the goal is behind then just go straight there
       if (goalIndex < currIndex) {
         // Update the current step

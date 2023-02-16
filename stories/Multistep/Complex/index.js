@@ -239,6 +239,16 @@ const Stepper = () => {
   );
 };
 
+const MultistepState = () => {
+  const state = useMultistepState();
+
+  return (
+    <pre>
+      <code>{JSON.stringify(state, null, 2)}</code>
+    </pre>
+  );
+};
+
 const Basic = () => {
   const [state, setState] = useState(0);
   const multistepApiRef = useRef();
@@ -294,6 +304,7 @@ const Basic = () => {
                 <Color />
                 <Dog />
               </div>
+              {/* <MultistepState /> */}
             </Multistep>
           </div>
           <div>

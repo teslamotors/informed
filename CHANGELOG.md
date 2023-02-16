@@ -1,3 +1,9 @@
+## 4.40.0 (Feb 16th, 2023)
+
+### Fixed
+
+- Fixed issue with initialization code when value was empty string.
+
 ## 4.40.0 (Feb 6th, 2023)
 
 ### Added

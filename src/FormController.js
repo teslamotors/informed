@@ -869,7 +869,7 @@ export class FormController {
     // use that ( it was not removed on purpose! )
     // Otherwise use the fields initial value
     if (
-      !this.getValue(name) &&
+      this.getValue(name) === undefined &&
       meta.current.initialValue != null &&
       (meta.current.initializeValueIfPristine ? this.state.pristine : true)
     ) {

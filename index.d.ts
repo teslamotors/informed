@@ -513,7 +513,11 @@ declare namespace utils {
 }
 
 export function SchemaFields(): JSX.Element;
-export function Debug(): JSX.Element;
+
+type DebugProps = {
+  [FormStateKey in keyof FormState]?: boolean;
+};
+export function Debug(props: DebugProps): JSX.Element;
 
 // export class Elon {
 //   static inspect([any]): any;

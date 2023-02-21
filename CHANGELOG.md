@@ -1,3 +1,9 @@
+## 4.40.2 (Feb 21st, 2023)
+
+### Added
+
+- Missing type for Debug component.
+
 ## 4.40.1 (Feb 16th, 2023)
 
 ### Fixed

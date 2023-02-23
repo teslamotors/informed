@@ -20,5 +20,12 @@ export function useScope(name) {
   if (scope && name) {
     return `${scope}.${name}`;
   }
-  return name;
+
+  // Return what was passed
+  if (name) {
+    return name;
+  }
+
+  // If nothing passed reuturn the scope
+  return scope;
 }

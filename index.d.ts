@@ -304,7 +304,7 @@ export function useFieldApi(name: string, scoped?: boolean): FieldApi;
 
 export function useFieldState(name: string, scoped?: boolean): FieldState;
 
-export function useScope(name: string): string;
+export function useScope(name?: string): string;
 
 export function useScoper(name: string): (name: string) => string;
 

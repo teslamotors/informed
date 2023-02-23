@@ -1,3 +1,9 @@
+## 4.41.1 (Feb 23rd, 2023)
+
+### Added
+
+- `useScope` will now return current scope when nothing is passed in.
+
 ## 4.41.0 (Feb 23rd, 2023)
 
 ### Added

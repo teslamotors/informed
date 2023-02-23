@@ -136,6 +136,7 @@ import KeepStateIfRelevant from './KeepState/KeepStateIfRelevant';
 import Keep from './KeepState/Keep';
 import TableFields from './Conditionals/TableFields';
 import useScopedState from './Scope/useScopedState';
+import useScope from './Scope/useScope';
 
 addDecorator(StoryWrapper);
 
@@ -269,6 +270,7 @@ storiesOf('KeepState', module)
 
 storiesOf('Scope', module)
   .add('Scope Comonent', ScopeComponent)
+  .add('useScope', useScope)
   .add('useScopedState', useScopedState);
 
 storiesOf('Schema', module)
@@ -309,6 +311,7 @@ storiesOf('Hooks!', module)
   .add('useForm', UseForm)
   .add('useField', UseField)
   .add('useFormStateSelector', UseFormStateSelector)
+  .add('useScope', useScope)
   .add('useScopedState', useScopedState);
 
 storiesOf('Multistep Forms', module)

@@ -308,6 +308,8 @@ export function useScope(name: string): string;
 
 export function useScoper(name: string): (name: string) => string;
 
+export function useScopedState(): FieldState;
+
 export function useMultistepApi(): MultistepApi;
 
 export function useMultistepState(): MultistepState;
@@ -514,9 +516,7 @@ declare namespace utils {
 
 export function SchemaFields(): JSX.Element;
 
-type DebugProps = {
-  [FormStateKey in keyof FormState]?: boolean;
-};
+type DebugProps = { [FormStateKey in keyof FormState]?: boolean };
 export function Debug(props: DebugProps): JSX.Element;
 
 // export class Elon {

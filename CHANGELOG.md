@@ -1,3 +1,9 @@
+## 4.41.0 (Feb 23rd, 2023)
+
+### Added
+
+- `useScopedState` to allow users to get access to scoped values
+
 ## 4.40.2 (Feb 21st, 2023)
 
 ### Added

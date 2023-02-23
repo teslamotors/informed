@@ -135,6 +135,7 @@ import ChangingSchema from './Schema/ChangingSchema';
 import KeepStateIfRelevant from './KeepState/KeepStateIfRelevant';
 import Keep from './KeepState/Keep';
 import TableFields from './Conditionals/TableFields';
+import useScopedState from './Scope/useScopedState';
 
 addDecorator(StoryWrapper);
 
@@ -266,7 +267,9 @@ storiesOf('KeepState', module)
   .add('Keep State If Relevant', KeepStateIfRelevant)
   .add('Keep', Keep);
 
-storiesOf('Scope', module).add('Scope Comonent', ScopeComponent);
+storiesOf('Scope', module)
+  .add('Scope Comonent', ScopeComponent)
+  .add('useScopedState', useScopedState);
 
 storiesOf('Schema', module)
   .add('Schema', Schema)
@@ -305,7 +308,8 @@ storiesOf('Hooks!', module)
   .add('useFieldState', UseFieldState)
   .add('useForm', UseForm)
   .add('useField', UseField)
-  .add('useFormStateSelector', UseFormStateSelector);
+  .add('useFormStateSelector', UseFormStateSelector)
+  .add('useScopedState', useScopedState);
 
 storiesOf('Multistep Forms', module)
   .add('BasicMultistep', BasicMultistep)

@@ -223,6 +223,7 @@ export type FieldProps<UserProps> = {
   relevanceWhen?: string[];
   relevanceDeps?: unknown[];
   required?: string | boolean;
+  parser?: (value: any) => any;
   formatter?:
     | Array<string | RegExp | Function>
     | string

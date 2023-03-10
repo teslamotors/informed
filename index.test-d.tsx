@@ -154,6 +154,9 @@ const InputPropsTest = () => {
         showErrorIfTouched
         showErrorIfDirty
         formatter="###-###"
+        parser={(value) => {
+          return value.slice(0.3);
+        }}
         required="Is required"
         // Custom Props
         label="Name:" 

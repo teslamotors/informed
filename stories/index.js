@@ -137,6 +137,7 @@ import Keep from './KeepState/Keep';
 import TableFields from './Conditionals/TableFields';
 import useScopedState from './Scope/useScopedState';
 import useScope from './Scope/useScope';
+import CustomNumberFormatter from './Formatting/CustomNumberFormatter';
 
 addDecorator(StoryWrapper);
 
@@ -295,6 +296,7 @@ storiesOf('Debugging', module).add('Debug', Debug);
 storiesOf('Formatting', module)
   .add('Formatter', Formatter)
   .add('Number Formatter', NumberFormatter)
+  .add('Custom Number Formatter', CustomNumberFormatter)
   .add('Formatter Functions', FormatterFunctions)
   .add('Clean', Clean)
   .add('Mask', Mask)

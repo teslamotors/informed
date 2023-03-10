@@ -1,3 +1,9 @@
+## 4.42.0 (March 10th, 2023)
+
+### Added
+
+- ability to pass a custom `formatToParts` function to the `createIntlNumberFormatter` util.
+
 ## 4.41.1 (Feb 23rd, 2023)
 
 ### Added

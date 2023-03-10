@@ -367,6 +367,28 @@ describe('Utils', () => {
       expect( parser(value)).toEqual(-3000.25);
     });
 
+    it('createIntlNumberMask should format currency with passed in partFormatter', () => {
+
+      const formatToParts = (value, locale, opts) => {
+        const formatter = new Intl.NumberFormat(locale, opts);
+        const parts = formatter.formatToParts(value);
+        parts.forEach( p => {
+          if( p.type == 'group') p.value = '_';
+        });
+        return parts;
+      };
+
+      const { formatter } = createIntlNumberFormatter('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      }, {
+        formatToParts
+      });
+
+      const { value } = informedFormat('3000.25', formatter);
+      expect(value).toEqual('$3_000.25');
+    });
+
     
   });
 });

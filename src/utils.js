@@ -680,25 +680,34 @@ export const informedFormatter = (val, frmtr, old, full) => {
 
 /* --------------------------------------- createIntlNumberFormatter --------------------------------------- */
 
-export const createIntlNumberFormatter = (locale, opts = {}) => {
+export const createIntlNumberFormatter = (
+  locale,
+  opts = {},
+  { formatToParts } = {}
+) => {
   const numberFormatter = new Intl.NumberFormat(locale, opts);
-  const numberFormatterWithoutOpts = new Intl.NumberFormat(locale, opts);
+
+  // TODO at some point this was used to find the decimal char.. not sure why I stopped using it but kept in case i see future issue.
+  // const numberFormatterWithoutOpts = new Intl.NumberFormat(locale, opts);
+  let toParts = v => numberFormatter.formatToParts(v);
+
+  // If user passed in custom function use that instead
+  if (formatToParts) {
+    toParts = v => formatToParts(v, locale, opts);
+  }
+
   const decimalChar =
-    numberFormatterWithoutOpts
-      .formatToParts(0.1)
-      .find(({ type }) => type === 'decimal')?.value ?? '.';
+    toParts(0.1).find(({ type }) => type === 'decimal')?.value ?? '.';
 
   // console.log('-1 number parts', numberFormatter.formatToParts(-1));
 
   // Try to find minus sign
-  let minusChar = numberFormatter
-    .formatToParts(-1)
-    .find(({ type }) => type === 'minusSign')?.value;
+  let minusChar = toParts(-1).find(({ type }) => type === 'minusSign')?.value;
 
   // special case if we did not find it then look one more time but for a literal ( accounting will lead to this case where "(" is neg symbol )
   if (!minusChar) {
     minusChar =
-      numberFormatter.formatToParts(-1).find(({ type }) => {
+      toParts(-1).find(({ type }) => {
         return type === 'literal';
       })?.value ?? '-';
   }
@@ -794,7 +803,7 @@ export const createIntlNumberFormatter = (locale, opts = {}) => {
 
     const number = isNegative ? -Number(float) : Number(float);
 
-    const numberParts = numberFormatter.formatToParts(number);
+    const numberParts = toParts(number);
 
     // Special case, if number parts does not contain a "decimal" than we want to throw out the decimal from the value
     const hasDecimal = numberParts.find(part => part.type === 'decimal');

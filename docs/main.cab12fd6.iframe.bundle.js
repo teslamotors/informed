@@ -26594,7 +26594,7 @@
       /***/ function(module, __webpack_exports__, __webpack_require__) {
         'use strict';
         /* harmony default export */ __webpack_exports__['a'] =
-          "# Custom Number Formatter\n\nYou can customise the formatter by passing in a custom formatToParts. See below where we use the native one\nbut replace commas with underscores `$3,000.25 --> $3_000.25`\n\n<!-- STORY -->\n\n```jsx\nimport { Form, Select, Text, utils } from 'informed';\n\nconst FormattedField = () => {\n  // Generate the formatter and parser\n  const { formatter, parser } = useMemo(() => {\n    // Custom format to parts function ( replaces commas with underscores )\n    const formatToParts = (value, locale, opts) => {\n      const formatter = new Intl.NumberFormat(locale, opts);\n      const parts = formatter.formatToParts(value);\n      parts.forEach(p => {\n        if (p.type == 'group') p.value = '_';\n      });\n      return parts;\n    };\n\n    return utils.createIntlNumberFormatter(\n      'en-US',\n      {\n        style: 'currency',\n        currency: 'USD'\n      },\n      {\n        formatToParts\n      }\n    );\n  });\n\n  return (\n    <Input\n      field=\"localeMask\"\n      label={`Locale Masked Field USD currency)`}\n      formatter={formatter}\n      parser={parser}\n      initialValue={3000.25}\n    />\n  );\n};\n\nconst FormatParse = () => (\n  <Form>\n    <div>\n      <FormattedField />\n      <button type=\"submit\">Submit</button>\n      <Debug />\n    </div>\n  </Form>\n);\n```\n";
+          "# Custom Number Formatter\n\nYou can customise the formatter by passing in a custom formatToParts. See below where we use the native one\nbut replace commas with underscores `$3,000.25 --> $3_000.25`\n\n<!-- STORY -->\n\n```jsx\nimport { Form, Select, Text, utils } from 'informed';\n\nconst FormattedField = () => {\n  // Generate the formatter and parser\n  const { formatter, parser } = useMemo(() => {\n    // Custom format to parts function ( replaces commas with underscores )\n    const formatToParts = (value, locale, opts) => {\n      const formatter = new Intl.NumberFormat(locale, opts);\n      const parts = formatter.formatToParts(value);\n      parts.forEach(p => {\n        if (p.type == 'group') p.value = '_';\n      });\n      return parts;\n    };\n\n    return utils.createIntlNumberFormatter(\n      'en-US',\n      {\n        style: 'currency',\n        currency: 'USD'\n      },\n      {\n        formatToParts\n      }\n    );\n  });\n\n  return (\n    <Input\n      field=\"localeMask\"\n      label={`Locale Masked Field USD currency)`}\n      formatter={formatter}\n      parser={parser}\n      initialValue={3000.25}\n    />\n  );\n};\n\nconst FormatParse = () => (\n  <Form>\n    <div>\n      <FormattedField />\n      <button type=\"submit\">Submit</button>\n      <Debug values maskedValues />\n    </div>\n  </Form>\n);\n```\n";
 
         /***/
       },
@@ -26687,7 +26687,10 @@
               ),
               /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                 _src__WEBPACK_IMPORTED_MODULE_3__[/* Debug */ 'c'],
-                null
+                {
+                  values: true,
+                  maskedValues: true
+                }
               )
             )
           );
@@ -27001,7 +27004,7 @@
       /***/ function(module, __webpack_exports__, __webpack_require__) {
         'use strict';
         /* harmony default export */ __webpack_exports__['a'] =
-          "# Format and Parse\n\n<!-- STORY -->\n\n```jsx\nimport { Form, Select, Text, utils, useFieldState } from 'informed';\n\nconst localeOptions = [const localeOptions = [\n  { value: 'af-NA', label: 'Afrikaans (Namibia)' },\n  { value: 'af-ZA', label: 'Afrikaans (South Africa)' },\n  { value: 'af', label: 'Afrikaans' },\n  // ...rest, shortened for readability\n];\n\nconst currencyOptions = [\n  {\n    value: 'EUR',\n    label: 'EUR',\n  },\n  {\n    value: 'AED',\n    label: 'AED',\n  },\n  // ...rest, shortened for readability\n]\n\nconst FormattedField = () => {\n  const { value: locale } = useFieldState('locale');\n  const { value: currency } = useFieldState('currency');\n\n  // Generate mask from locale and currency\n  const { formatter, parser } = useMemo(\n    () => {\n      if (locale && currency) {\n        return utils.createIntlNumberFormatter(locale, {\n          style: 'currency',\n          currency\n        });\n      }\n      return {};\n    },\n    [currency, locale]\n  );\n\n  return (\n    <Text\n      field=\"localeMask\"\n      label={`Locale Masked Field (${currency} currency)`}\n      formatter={formatter}\n      parser={parser}\n      formatterDependencies={[locale, currency]}\n      initialValue={3000.25}\n    />\n  );\n};\n\nconst FormatParse = () => (\n  <Form>\n    <div>\n      <Select\n        label=\"Locale\"\n        field=\"locale\"\n        options={localeOptions}\n        initialValue=\"en-US\"\n      />\n      <Select\n        label=\"Currency\"\n        field=\"currency\"\n        options={currencyOptions}\n        initialValue=\"USD\"\n      />\n      <FormattedField />\n      <button type=\"submit\">Submit</button>\n      <Debug />\n    </div>\n  </Form>\n);\n```\n";
+          "# Format and Parse\n\n<!-- STORY -->\n\n```jsx\nimport { Form, Select, Text, utils, useFieldState } from 'informed';\n\nconst localeOptions = [const localeOptions = [\n  { value: 'af-NA', label: 'Afrikaans (Namibia)' },\n  { value: 'af-ZA', label: 'Afrikaans (South Africa)' },\n  { value: 'af', label: 'Afrikaans' },\n  // ...rest, shortened for readability\n];\n\nconst currencyOptions = [\n  {\n    value: 'EUR',\n    label: 'EUR',\n  },\n  {\n    value: 'AED',\n    label: 'AED',\n  },\n  // ...rest, shortened for readability\n]\n\nconst FormattedField = () => {\n  const { value: locale } = useFieldState('locale');\n  const { value: currency } = useFieldState('currency');\n\n  // Generate mask from locale and currency\n  const { formatter, parser } = useMemo(\n    () => {\n      if (locale && currency) {\n        return utils.createIntlNumberFormatter(locale, {\n          style: 'currency',\n          currency\n        });\n      }\n      return {};\n    },\n    [currency, locale]\n  );\n\n  return (\n    <Text\n      field=\"localeMask\"\n      label={`Locale Masked Field (${currency} currency)`}\n      formatter={formatter}\n      parser={parser}\n      formatterDependencies={[locale, currency]}\n      initialValue={3000.25}\n    />\n  );\n};\n\nconst FormatParse = () => (\n  <Form>\n    <div>\n      <Select\n        label=\"Locale\"\n        field=\"locale\"\n        options={localeOptions}\n        initialValue=\"en-US\"\n      />\n      <Select\n        label=\"Currency\"\n        field=\"currency\"\n        options={currencyOptions}\n        initialValue=\"USD\"\n      />\n      <FormattedField />\n      <button type=\"submit\">Submit</button>\n      <Debug values maskedValues />\n    </div>\n  </Form>\n);\n```\n";
 
         /***/
       },
@@ -29498,7 +29501,10 @@
               ),
               /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(
                 _src__WEBPACK_IMPORTED_MODULE_3__[/* Debug */ 'c'],
-                null
+                {
+                  values: true,
+                  maskedValues: true
+                }
               )
             )
           );
@@ -47714,4 +47720,4 @@
   },
   [[0, 'runtime~main', 'vendors~main']]
 ]);
-//# sourceMappingURL=main.6977cc91.iframe.bundle.js.map
+//# sourceMappingURL=main.cab12fd6.iframe.bundle.js.map

@@ -49,7 +49,7 @@ const FormatParse = () => (
     <div>
       <FormattedField />
       <button type="submit">Submit</button>
-      <Debug />
+      <Debug values maskedValues />
     </div>
   </Form>
 );

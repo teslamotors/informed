@@ -1144,7 +1144,7 @@ const FormatParse = () => (
       />
       <FormattedField />
       <button type="submit">Submit</button>
-      <Debug />
+      <Debug values maskedValues />
     </div>
   </Form>
 );

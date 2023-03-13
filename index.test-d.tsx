@@ -13,6 +13,8 @@ import {
   FormState,
   ArrayField,
   Relevant,
+  Informed,
+  FormProvider,
 } from '.';
 
 import {expectType} from 'tsd';
@@ -414,5 +416,19 @@ export const OtherShitTest = () => {
       />
       <Input label="Favorite Movie" name="movie" relevant={relevant2} />
     </Form>
+  );
+}
+
+export const ProviderTest = () => {
+
+  return (
+    <Informed>
+      <Form name="form1">
+        <Input name="name" label="Name:" />    
+      </Form>
+      <FormProvider name="form1">
+        <Input name="name" label="Name:" />    
+      </FormProvider>
+    </Informed>
   );
 }

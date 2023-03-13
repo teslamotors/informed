@@ -524,12 +524,21 @@ export function Debug(props: DebugProps): JSX.Element;
 //   static inspect([any]): any;
 // }
 
+/* ------------------------------- Informed ------------------------------- */
+export type InformedGlobalProps = {
+  children: React.ReactNode;
+};
+
+export function Informed(props: InformedGlobalProps): JSX.Element;
+
 /* ------------------------------- Inputs ------------------------------ */
 
-/* ------------------------------- Form ------------------------------- */
+/* -------------------------- Form/FormProvider ------------------------ */
 type FormProps = React.FormHTMLAttributes<HTMLFormElement>;
 
 export function Form(props: InformedProps<FormProps>): JSX.Element;
+
+export function FormProvider(props: InformedProps<FormProps>): JSX.Element;
 
 /* ------------------------------- Input ------------------------------- */
 type InputProps = {

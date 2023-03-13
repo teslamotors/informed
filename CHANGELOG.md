@@ -1,3 +1,9 @@
+## 4.42.1 (March 13th, 2023)
+
+### Added
+
+- Missing types for `Informed` and `FormProvider`
+
 ## 4.42.0 (March 10th, 2023)
 
 ### Added

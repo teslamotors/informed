@@ -22,5 +22,6 @@
     "semi": ["error", "always"],
     "react/jsx-uses-vars": [2],
     "react/jsx-uses-react": 1
-  }
+  },
+  "ignorePatterns": ["public/*", "vitedocs/*", "docs/*"]
 }

@@ -32,7 +32,10 @@
     "build:docs": "rm -r docs/ && build-storybook -c .storybook -o docs",
     "prettier": "prettier --write 'src/**/*.{js,md}' 'tests/**/*.{js,md}' 'stories/**/*.{js,md}'",
     "pretty-quick": "pretty-quick",
-    "lint:fix": "eslint src/** tests/** stories/** --fix"
+    "lint:fix": "eslint src/** tests/** stories/** --fix",
+    "dev": "vite",
+    "build:docs:vite": "vite build",
+    "preview": "vite preview"
   },
   "jest": {
     "verbose": true,
@@ -69,6 +72,7 @@
   ],
   "license": "ISC",
   "devDependencies": {
+    "@adobe/react-spectrum": "^3.24.1",
     "@babel/core": "^7.15.5",
     "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/preset-env": "^7.15.4",
@@ -78,6 +82,11 @@
     "@emotion/styled": "^10.0.10",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-node-resolve": "^13.0.4",
+    "@spectrum-css/page": "^5.0.15",
+    "@spectrum-css/sidenav": "^3.0.30",
+    "@spectrum-css/typography": "^4.0.25",
+    "@spectrum-css/vars": "^8.0.3",
+    "@spectrum-icons/workflow": "^4.1.0",
     "@storybook/addon-options": "^5.3.21",
     "@storybook/addons": "^6.5.12",
     "@storybook/react": "^6.5.12",
@@ -85,6 +94,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
+    "@vitejs/plugin-react": "^3.1.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.2.0",
     "ajv": "^6.12.6",
     "ajv-errors": "^1.0.1",
@@ -108,6 +118,7 @@
     "react-dom": "^18.2.0",
     "react-live": "^2.2.3",
     "react-prism": "^4.3.2",
+    "react-router-dom": "^6.9.0",
     "regenerator-runtime": "^0.13.9",
     "rollup": "^2.56.3",
     "storybook-dark-mode": "^1.1.2",
@@ -115,6 +126,7 @@
     "style-loader": "^0.22.1",
     "tsd": "^0.18.0",
     "universal-dotenv": "^1.8.3",
+    "vite": "^4.2.0",
     "webpack": "^4.46.0",
     "webpack-bundle-analyzer": "^3.7.0",
     "webpack-cli": "^3.3.11",
@@ -148,7 +160,6 @@
     "*.js": "eslint --cache --fix",
     "*.{js,css,md}": "prettier --write"
   },
-  "dependencies": {},
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   }

@@ -1,0 +1,13 @@
+{
+  "phone-only": "(max-width: 599px)",
+  "tablet-portrait-only": "(min-width: 600px) and (max-width: 899px)",
+  "tablet-portrait-up": "(min-width: 600px)",
+  "tablet-landscape-only": "(min-width: 900px) and (max-width: 1199px)",
+  "tablet-landscape-up": "(min-width: 900px)",
+  "desktop-only": "(min-width: 1200px) and (max-width: 1799px)",
+  "desktop-up": "(min-width: 1200px)",
+  "desktop-large-up": "(min-width: 1800px)",
+  "density--2x": "only screen and (-o-min-device-pixel-ratio: 5/4), only screen and (-webkit-min-device-pixel-ratio: 1.25), only screen and (min-device-pixel-ratio: 1.25), only screen and (min-resolution: 1.25dppx)",
+  "density--3x": "only screen and (-o-min-device-pixel-ratio: 9/4), only screen and (-webkit-min-device-pixel-ratio: 2.25), only screen and (min-device-pixel-ratio: 2.25), only screen and (min-resolution: 2.25dppx)",
+  "density--4x": "only screen and (-o-min-device-pixel-ratio: 13/4), only screen and (-webkit-min-device-pixel-ratio: 3.25), only screen and (min-device-pixel-ratio: 3.25), only screen and (min-resolution: 3.25dppx)"
+}

@@ -1,0 +1,33 @@
+/* -- Site 404 Page
+----------------------------------------------------------------------------- */
+.error-container {
+  display: flex;
+  block-size: 100%;
+
+  padding-inline-end: 0;
+}
+
+.error-text,
+.error-image {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  margin-block-end: 57px;
+}
+
+.error-text {
+  margin-inline-start: 8%;
+  margin-inline-end: 4%;
+}
+
+.error-code {
+  font-size: 130px;
+  line-height: 1;
+}
+
+.error-image {
+  align-items: center;
+  block-size: 100%;
+  inline-size: 100%;
+}

@@ -1,0 +1,127 @@
+body {
+  margin: 0px;
+}
+
+/* ---------- Main ---------- */
+
+main {
+  box-sizing: border-box;
+  min-height: 100vh;
+  flex-direction: column;
+  margin-left: 400px;
+  margin-right: 180px;
+  padding: 40px 52px 0;
+  display: flex;
+}
+
+@media (max-width: 1200px) {
+  main {
+    margin-top: 48px;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 40px 80px;
+    text-align: center;
+  }
+}
+
+/* ---------- Nav ---------- */
+
+.sidenav {
+  width: 400px;
+  background: var(--spectrum-global-color-gray-200);
+  box-sizing: border-box;
+  padding: 0 24px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  overflow-y: scroll;
+  display: block;
+}
+
+.spectrum-SideNav-item:hover {
+  background-color: var(
+    --spectrum-sidenav-item-background-color-hover,
+    var(--spectrum-alias-highlight-hover)
+  );
+  color: var(
+    --spectrum-sidenav-item-text-color-hover,
+    var(--spectrum-alias-text-color-hover)
+  );
+}
+
+@media (max-width: 1200px) {
+  .sidenav {
+    z-index: 100;
+    visibility: hidden;
+    outline: 0;
+    transition: transform 0.2s, visibility 0s 0.2s;
+    position: fixed;
+    inset: 0 100% 0 auto;
+  }
+  .sidenav-visible {
+    visibility: unset;
+    transition-delay: 0s;
+    transform: translate(100%);
+  }
+}
+
+/* ---------- Alert Pages ---------- */
+
+.doge {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ----------  ---------- */
+
+.pageHeader {
+  border-bottom: 1px solid var(--spectrum-global-color-gray-200);
+  background: var(--page-background);
+  z-index: 50;
+  width: 100%;
+  display: flex;
+  padding: 1rem;
+}
+
+@media (min-width: 1200px) {
+  .pageHeader {
+    margin-left: 400px;
+  }
+}
+
+footer {
+  border-top: 1px solid var(--spectrum-global-color-gray-200);
+  background: var(--page-background);
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+}
+
+footer span {
+  padding: 10px;
+}
+
+footer span {
+  padding: 10px;
+}
+
+/* ---------- basic overrides ---------- */
+
+button:hover {
+  cursor: pointer;
+}
+
+[class*='spectrum-Link'] {
+  text-decoration: none !important;
+}
+
+[class*='spectrum-Link']:hover {
+  text-decoration: underline !important;
+}

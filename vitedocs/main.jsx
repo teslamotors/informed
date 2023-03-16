@@ -20,6 +20,7 @@ import '@spectrum-css/page/dist/index-vars.css';
 import '@spectrum-css/typography/dist/index-vars.css';
 import '@spectrum-css/sidenav/dist/index-vars.css';
 
+import './prism.css';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(

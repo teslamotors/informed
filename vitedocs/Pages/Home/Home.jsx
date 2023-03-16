@@ -3,6 +3,8 @@ import { Debug } from 'informed';
 import Input from '../../Inputs/Input';
 import Form from '../../Inputs/Form';
 import { Button } from '@adobe/react-spectrum';
+import pageContent from './Home.jsx?raw';
+import Code from '../../Code';
 
 export const Home = () => {
   return (
@@ -16,6 +18,7 @@ export const Home = () => {
         <div style={{ textAlign: 'left' }}>
           <Debug />
         </div>
+        <Code input1={pageContent} />
       </Form>
     </>
   );

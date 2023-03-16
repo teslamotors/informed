@@ -24,7 +24,11 @@ export const Nav = () => {
         justifyContent="space-between"
         alignItems="center"
         gap="size-100">
-        <h1>My App</h1>
+        <img
+          style={{ paddingTop: '1rem', paddingBottom: '1rem' }}
+          src={'car-on-informed.png'}
+          width="200px"
+        />
         <ActionButton
           aria-label="Switch Theme"
           onClick={() => toggleColorScheme()}>

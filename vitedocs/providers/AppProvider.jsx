@@ -7,6 +7,7 @@ import AppContext from '../context/AppContext';
 const AppProvider = ({ children }) => {
   const [colorScheme, setColorScheme] = useState('dark');
   const [navOpen, setNavOpen] = useState(false);
+  const [lineNumbers, setLineNumbers] = useState(false);
 
   const toggleColorScheme = () => {
     setColorScheme(prev => (prev === 'dark' ? 'light' : 'dark'));
@@ -28,7 +29,9 @@ const AppProvider = ({ children }) => {
     toggleColorScheme,
     navOpen,
     closeNav,
-    toggleNav
+    toggleNav,
+    lineNumbers,
+    setLineNumbers
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

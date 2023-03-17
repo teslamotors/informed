@@ -38,7 +38,7 @@ export const Nav = () => {
         </ActionButton>
       </Flex>
       <Routes>
-        <Route path="/getting-started" element={<GettingStartedNav />} />
+        <Route path="/getting-started/:path" element={<GettingStartedNav />} />
       </Routes>
     </nav>
   );

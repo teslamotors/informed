@@ -156,3 +156,13 @@ hr {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
+
+.spectrum--light hr {
+  color: rgb(230, 230, 230); /* old IE */
+  background-color: rgb(230, 230, 230); /* Modern Browsers */
+}
+
+.flex {
+  display: flex;
+  gap: 3rem;
+}

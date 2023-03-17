@@ -7,6 +7,7 @@ import { NotFound } from '../Pages/NotFound/NotFound';
 import { NotAuthorized } from '../Pages/NotAuthorized/NotAuthorized';
 import { Home } from '../Pages/Home/Home';
 import Intro from '../Pages/GettingStarted/Intro/Intro';
+import InputExamples from '../Pages/GettingStarted/InputExamples/InputExamples';
 
 // Routes ------------------------------------------------------------
 export const Routes = () => {

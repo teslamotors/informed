@@ -1,7 +1,7 @@
 import React from 'react';
 import { Debug } from 'informed';
-import Input from '../../Inputs/Input';
-import Form from '../../Inputs/Form';
+import Input from '../../YourComponents/Input';
+import Form from '../../YourComponents/Form';
 import { Button } from '@adobe/react-spectrum';
 import pageContent from './Home.jsx?raw';
 import Code from '../../Code';

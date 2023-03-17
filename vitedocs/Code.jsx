@@ -28,6 +28,15 @@ function Code({
 
   const numberClass = lineNumbers ? 'line-numbers' : '';
 
+  const divContentRegex = /<div className="hide">\n((?:\s{2}.*\n)+?)\s{4}<\/div>/g;
+
+  input1 = input1.replace(divContentRegex, (_, content) => {
+    const outdentedContent = content.replace(/^ {4}/gm, '  ');
+    const firstLineFixed = outdentedContent.replace(/^\s{4}/, '');
+    const removeEmptyLine = firstLineFixed.replace(/\n$/, '');
+    return removeEmptyLine;
+  });
+
   if (!input2) {
     return (
       <div>

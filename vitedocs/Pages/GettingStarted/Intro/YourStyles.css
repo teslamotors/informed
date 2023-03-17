@@ -1,0 +1,43 @@
+/* Example.css */
+
+.your-styles,
+form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.your-styles input,
+textarea,
+select {
+  display: block;
+}
+
+.your-styles input + small {
+  display: block;
+  color: red;
+}
+
+.your-styles small[role='alert'] {
+  color: red;
+  font-weight: bold;
+}
+
+.your-styles label {
+  margin-top: 1rem;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.your-styles button {
+  display: inline-block;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  padding: 5px 30px;
+  color: white;
+  background-color: rebeccapurple;
+  margin-top: 1rem;
+}
+
+.your-styles pre {
+  min-width: 600px !important;
+}

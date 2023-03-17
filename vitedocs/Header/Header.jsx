@@ -24,7 +24,7 @@ export const Header = () => {
             <ShowMenu />
           </ActionButton>
         ) : null}
-        <NavLink href="/home">Home</NavLink>
+        <NavLink href="/getting-started">Getting Started</NavLink>
         <NavLink href="/admin">Admin</NavLink>
         <NavLink href="/unauthorized">Unauthorized</NavLink>
         <NavLink href="/asdf">404</NavLink>

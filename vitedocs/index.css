@@ -23,6 +23,9 @@ main {
     text-align: center;
   }
 }
+.site--app {
+  overflow: hidden;
+}
 
 .spectrum--darkest {
   background-color: rgb(27, 27, 27);
@@ -165,4 +168,13 @@ hr {
 .flex {
   display: flex;
   gap: 3rem;
+}
+
+.info-box {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.info-box > div {
+  width: 100%;
 }

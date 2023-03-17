@@ -14,7 +14,8 @@ function Code({
   language1 = 'jsx',
   language2 = 'jsx',
   minWidth1 = '600px',
-  minWidth2 = '600px'
+  minWidth2 = '600px',
+  children
 }) {
   const { lineNumbers } = useApp();
 
@@ -25,6 +26,8 @@ function Code({
     },
     [input1, input2, lineNumbers]
   );
+
+  input1 = input1 ?? children;
 
   const numberClass = lineNumbers ? 'line-numbers' : '';
 

@@ -1,9 +1,9 @@
-/* Example.css */
+/* YourStyles.css */
 
 .your-styles,
 form {
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between; */
 }
 
 .your-styles input,
@@ -39,5 +39,5 @@ select {
 }
 
 .your-styles pre {
-  min-width: 600px !important;
+  /* min-width: 600px !important; */
 }

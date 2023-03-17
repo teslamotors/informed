@@ -15,6 +15,7 @@ export const Routes = () => {
     <RouterRoutes>
       <Route path="/" element={<Navigate to="/getting-started/intro" />} />
       <Route path="/getting-started">
+        <Route path="" element={<Navigate to="/getting-started/intro" />} />
         <Route path="intro" element={<Intro />} />
         <Route path="setup" element={<Setup />} />
       </Route>

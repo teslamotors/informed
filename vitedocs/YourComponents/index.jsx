@@ -2,7 +2,8 @@ import Form from './Form';
 import Input from './Input';
 import Checkbox from './Checkbox';
 import Select from './Select';
-import Option from './Option';
-import { Button } from '@adobe/react-spectrum';
+import { Button, Item } from '@adobe/react-spectrum';
+
+const Option = Item;
 
 export { Form, Input, Checkbox, Select, Option, Button };

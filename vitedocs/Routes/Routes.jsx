@@ -7,7 +7,7 @@ import { NotFound } from '../Pages/NotFound/NotFound';
 import { NotAuthorized } from '../Pages/NotAuthorized/NotAuthorized';
 import { Home } from '../Pages/Home/Home';
 import Intro from '../Pages/GettingStarted/Intro/Intro';
-import InputExamples from '../Pages/GettingStarted/InputExamples/InputExamples';
+import Setup from '../Pages/GettingStarted/Setup/Setup';
 
 // Routes ------------------------------------------------------------
 export const Routes = () => {
@@ -16,6 +16,7 @@ export const Routes = () => {
       <Route path="/" element={<Navigate to="/getting-started/intro" />} />
       <Route path="/getting-started">
         <Route path="intro" element={<Intro />} />
+        <Route path="setup" element={<Setup />} />
       </Route>
       <Route path="/home" element={<Home />} />
       <Route path="/admin" element={<Admin />} />

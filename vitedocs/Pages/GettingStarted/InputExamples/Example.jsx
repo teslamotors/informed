@@ -19,15 +19,18 @@ const Form = ({ children, ...rest }) => {
 // Step 2. Build your input components --------------------
 
 const Input = props => {
-  const { render, informed, userProps, ref } = useField({
+  const { render, informed, userProps, fieldState, ref } = useField({
     type: 'text',
     ...props
   });
   const { label, id, ...rest } = userProps;
+  const { showError } = fieldState;
+  const style = showError ? { border: 'solid 1px red' } : null;
   return render(
     <>
       <label htmlFor={id}>{label}</label>
-      <input id={id} ref={ref} {...informed} {...rest} />
+      <input id={id} ref={ref} {...informed} {...rest} style={style} />
+      {showError && <small style={{ color: 'red' }}>{fieldState.error}</small>}
     </>
   );
 };
@@ -42,23 +45,6 @@ const Checkbox = props => {
     <>
       <label htmlFor={id}>{label}</label>
       <input id={id} ref={ref} {...informed} {...rest} />
-    </>
-  );
-};
-
-const ErrorInput = props => {
-  const { render, informed, userProps, fieldState, ref } = useField({
-    type: 'text',
-    ...props
-  });
-  const { label, id, ...rest } = userProps;
-  const { showError } = fieldState;
-  const style = showError ? { border: 'solid 1px red' } : null;
-  return render(
-    <>
-      <label htmlFor={id}>{label}</label>
-      <input id={id} ref={ref} {...informed} {...rest} style={style} />
-      {showError && <small style={{ color: 'red' }}>{fieldState.error}</small>}
     </>
   );
 };
@@ -86,13 +72,8 @@ const onSubmit = ({ values }) => console.log(values);
 const Example = () => (
   <Form onSubmit={onSubmit} className="your-styles">
     <div className="hide">
-      <Input name="name" label="Name" placeholder="Elon" />
-      <ErrorInput
-        name="age"
-        type="number"
-        label="Age"
-        required="Age Required"
-      />
+      <Input name="name" label="Name" placeholder="Elon" required />
+      <Input name="age" type="number" label="Age" required="Age Required" />
       <Input name="phone" label="Phone" formatter="+1 (###)-###-####" />
       <Select name="car" label="Car" initialValue="ms">
         <option value="ms">Model S</option>

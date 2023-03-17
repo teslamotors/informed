@@ -9,10 +9,6 @@ const onSubmit = ({ values }) => console.log(values);
 export default function InputExamples() {
   return (
     <>
-      <h1>Getting Started</h1>
-      <h2>Install</h2>
-      <code className="code-block">npm install informed</code>
-      <hr />
       <h2>Code:</h2>
       The first thing you need to do is create your own inputs. You do this once
       and then never have to do it again!

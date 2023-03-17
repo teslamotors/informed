@@ -146,3 +146,13 @@ button:hover {
 .spectrum--darkest .code-block {
   background-color: rgb(35, 36, 31);
 }
+
+hr {
+  width: 100%;
+  border: none !important;
+  height: 2px !important;
+  color: #333; /* old IE */
+  background-color: #333; /* Modern Browsers */
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}

@@ -10,9 +10,12 @@ const AppProvider = ({ children }) => {
   const [lineNumbers, setLineNumbers] = useState(false);
 
   const toggleColorScheme = () => {
-    setColorScheme(prev => (prev === 'dark' ? 'light' : 'dark'));
-    document.getElementById('app-html').classList.toggle('spectrum--light');
-    document.getElementById('app-html').classList.toggle('spectrum--darkest');
+    setColorScheme(prev => {
+      const theme = prev === 'dark' ? 'light' : 'dark';
+      document.getElementById('app-html').classList.toggle('spectrum--light');
+      document.getElementById('app-html').classList.toggle('spectrum--darkest');
+      return theme;
+    });
   };
 
   const toggleNav = () => {

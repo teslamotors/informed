@@ -14,7 +14,7 @@ const useMedia = () => {
     window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener(handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 

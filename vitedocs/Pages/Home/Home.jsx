@@ -15,9 +15,7 @@ export const Home = () => {
         <Input name="phone" label="Phone" formatter="+1 (###)-###-####" />
         <Input name="color" label="Favorite Color" defaultValue="Green" />
         <Button type="submit">submit</Button>
-        <div style={{ textAlign: 'left' }}>
-          <Debug />
-        </div>
+        <Debug />
         <Code input1={pageContent} />
       </Form>
     </>

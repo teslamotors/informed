@@ -23,7 +23,7 @@ const App = () => {
           <main>
             <Routes />
           </main>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </Provider>
     </Router>

@@ -37,6 +37,8 @@ pre[class*='language-'] {
   overflow-x: scroll !important;
   border-radius: 0.3em !important;
   border-radius: 0.5em;
+  width: 100%;
+  margin-top: 2rem !important;
   /* ADDED FOR BORDER */
   /* border: 0.3em solid hsl(0, 0%, 33%);
   box-shadow: 1px 1px 0.5em black inset;

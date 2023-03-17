@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useFormState } from '../hooks/useFormState';
 
 export const Debug = props => {
@@ -13,9 +13,20 @@ export const Debug = props => {
   } else {
     displayState = formState;
   }
+
+  useEffect(
+    () => {
+      // eslint-disable-next-line
+      if (Prism) Prism.highlightAll();
+    },
+    [displayState]
+  );
+
   return (
-    <pre>
-      <code>{JSON.stringify(displayState, null, 2)}</code>
+    <pre className="language-js">
+      <code className="language-js">
+        {JSON.stringify(displayState, null, 2)}
+      </code>
     </pre>
   );
 };

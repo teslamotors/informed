@@ -8,7 +8,7 @@ main {
   box-sizing: border-box;
   min-height: 100vh;
   flex-direction: column;
-  margin-left: 400px;
+  margin-left: 320px;
   margin-right: 180px;
   padding: 40px 52px 0;
   display: flex;
@@ -24,10 +24,18 @@ main {
   }
 }
 
+.spectrum--darkest {
+  background-color: rgb(27, 27, 27);
+}
+
+.spectrum--light {
+  background-color: white;
+}
+
 /* ---------- Nav ---------- */
 
 .sidenav {
-  width: 400px;
+  width: 320px;
   background: var(--spectrum-global-color-gray-200);
   box-sizing: border-box;
   padding: 0 24px;
@@ -90,7 +98,7 @@ main {
 
 @media (min-width: 1200px) {
   .pageHeader {
-    margin-left: 400px;
+    margin-left: 320px;
   }
 }
 

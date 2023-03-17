@@ -8,7 +8,14 @@ const trim = str => {
 };
 
 // @ts-ignore
-function Code({ input1, input2 }) {
+function Code({
+  input1,
+  input2,
+  language1 = 'jsx',
+  language2 = 'jsx',
+  minWidth1 = '600px',
+  minWidth2 = '600px'
+}) {
   const { lineNumbers } = useApp();
 
   useEffect(
@@ -24,38 +31,25 @@ function Code({ input1, input2 }) {
   if (!input2) {
     return (
       <div>
-        <pre className={`language-jsx ${numberClass}`}>
-          <code className="language-jsx">{input1}</code>
+        <pre className={`language-${language1} ${numberClass}`}>
+          <code className={`language-${language1}`}>{input1}</code>
         </pre>
       </div>
     );
   }
 
-  const nLinesInput1 = input1.split(/\r\n|\r|\n/).length + 2;
-  const nLinesInput2 = input2.split(/\r\n|\r|\n/).length + 2;
-  console.log('LINES', nLinesInput1);
-
-  input1 =
-    `// Number of lines: ${nLinesInput1}\n// Number of characters: ${
-      trim(input1).length
-    }\n\n` + input1;
-  input2 =
-    `// Number of lines: ${nLinesInput2}\n// Number of characters: ${
-      trim(input2).length
-    }\n\n` + input2;
-
   return (
     <div
       style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', width: '100%' }}>
       <pre
-        className={`language-tsx ${numberClass}`}
-        style={{ flex: '1', minWidth: '600px' }}>
-        <code className={`language-tsx ${numberClass}`}>{input1}</code>
+        className={`language-${language1} ${numberClass}`}
+        style={{ flex: '1', minWidth: minWidth1 }}>
+        <code className={`language-${language1} ${numberClass}`}>{input1}</code>
       </pre>
       <pre
-        className={`language-tsx ${numberClass}`}
-        style={{ flex: '1', minWidth: '600px' }}>
-        <code className={`language-tsx ${numberClass}`}>{input2}</code>
+        className={`language-${language2} ${numberClass}`}
+        style={{ flex: '1', minWidth: minWidth2 }}>
+        <code className={`language-${language2} ${numberClass}`}>{input2}</code>
       </pre>
     </div>
   );

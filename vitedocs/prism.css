@@ -58,6 +58,14 @@ pre[class*='language-'] {
   background: #272822 !important;
 }
 
+.spectrum--light code[class*='language-'],
+.spectrum--light pre[class*='language-'] {
+  /* background-color: rgb(243, 240, 238) !important; */
+  background-color: rgb(226, 226, 226) !important;
+  text-shadow: none !important;
+  color: black !important;
+}
+
 /* Inline code */
 :not(pre) > code[class*='language-'] {
   padding: 0.1em !important;
@@ -76,6 +84,10 @@ pre[class*='language-'] {
   color: #f8f8f2 !important;
 }
 
+.spectrum--light .token.punctuation {
+  color: rgb(145, 145, 145) !important;
+}
+
 .namespace {
   opacity: 0.7 !important;
 }
@@ -86,6 +98,14 @@ pre[class*='language-'] {
 .token.symbol,
 .token.deleted {
   color: #f92672 !important;
+}
+
+.spectrum--light .token.property,
+.spectrum--light .token.tag,
+.spectrum--light .token.constant,
+.spectrum--light .token.symbol,
+.spectrum--light .token.deleted {
+  color: rgb(132, 24, 74) !important;
 }
 
 .token.boolean,
@@ -102,6 +122,15 @@ pre[class*='language-'] {
   color: #a6e22e !important;
 }
 
+.spectrum--light .token.selector,
+.spectrum--light .token.attr-name,
+.spectrum--light .token.string,
+.spectrum--light .token.char,
+.spectrum--light .token.builtin,
+.spectrum--light .token.inserted {
+  color: #669900 !important;
+}
+
 .token.operator,
 .token.entity,
 .token.url,
@@ -111,14 +140,32 @@ pre[class*='language-'] {
   color: #f8f8f2 !important;
 }
 
+.spectrum--light .token.operator,
+.spectrum--light .token.entity,
+.spectrum--light .token.url,
+.spectrum--light .language-css .token.string,
+.spectrum--light .style .token.string,
+.spectrum--light .token.variable {
+  color: #9a6e3a !important;
+}
+
 .token.atrule,
 .token.attr-value,
 .token.function {
   color: #e6db74 !important;
 }
 
+.spectrum--light .token.atrule,
+.spectrum--light .token.attr-value,
+.spectrum--light .token.function {
+  color: #0077aa !important;
+}
+
 .token.keyword {
   color: #66d9ef !important;
+}
+.spectrum--light .token.keyword {
+  color: rgb(41, 104, 157) !important;
 }
 
 .token.regex,

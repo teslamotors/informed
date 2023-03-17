@@ -133,3 +133,16 @@ button:hover {
 [class*='spectrum-Link']:hover {
   text-decoration: underline !important;
 }
+
+.code-block {
+  background-color: rgb(226, 226, 226);
+  width: 100%;
+  padding: 10px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+
+.spectrum--darkest .code-block {
+  background-color: rgb(35, 36, 31);
+}

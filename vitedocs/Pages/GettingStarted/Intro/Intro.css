@@ -1,0 +1,33 @@
+/* Example.css */
+
+.my-styles input,
+textarea,
+select {
+  display: block;
+}
+
+.my-styles input + small {
+  display: block;
+  color: red;
+}
+
+.my-styles small[role='alert'] {
+  color: red;
+  font-weight: bold;
+}
+
+.my-styles label {
+  margin-top: 1rem;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.my-styles button {
+  display: inline-block;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  padding: 5px 30px;
+  color: white;
+  background-color: rebeccapurple;
+  margin-top: 1rem;
+}

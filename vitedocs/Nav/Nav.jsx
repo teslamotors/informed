@@ -5,8 +5,10 @@ import Contrast from '@spectrum-icons/workflow/Contrast';
 // Hooks
 import useApp from '../hooks/useApp';
 import useOutsideAlerter from '../hooks/useOutsideAlerter';
+import { Routes, Route } from 'react-router-dom';
 
 import { NavLink } from './NavLink';
+import { GettingStartedNav } from './GettingStartedNav';
 
 export const Nav = () => {
   const { toggleColorScheme, navOpen, closeNav } = useApp();
@@ -26,7 +28,7 @@ export const Nav = () => {
         gap="size-100">
         <img
           style={{ paddingTop: '1rem', paddingBottom: '1rem' }}
-          src={'car-on-informed.png'}
+          src={'/car-on-informed.png'}
           width="200px"
         />
         <ActionButton
@@ -35,12 +37,9 @@ export const Nav = () => {
           <Contrast />
         </ActionButton>
       </Flex>
-      <ul className="spectrum-SideNav">
-        <NavLink href="/home">Home</NavLink>
-        <NavLink href="/admin">Admin</NavLink>
-        <NavLink href="/unauthorized">Unauthorized</NavLink>
-        <NavLink href="/asdf">404</NavLink>
-      </ul>
+      <Routes>
+        <Route path="/getting-started" element={<GettingStartedNav />} />
+      </Routes>
     </nav>
   );
 };

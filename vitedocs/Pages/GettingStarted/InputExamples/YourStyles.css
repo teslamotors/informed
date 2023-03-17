@@ -1,11 +1,5 @@
 /* YourStyles.css */
 
-.your-styles,
-form {
-  /* display: flex;
-  justify-content: space-between; */
-}
-
 .your-styles input,
 textarea,
 select {
@@ -36,8 +30,4 @@ select {
   color: white;
   background-color: rebeccapurple;
   margin-top: 1rem;
-}
-
-.your-styles pre {
-  /* min-width: 600px !important; */
 }

@@ -8,7 +8,7 @@ import { Form, Input, Select, Checkbox, Option, Button } from 'YourComponents';
 const onSubmit = ({ values }) => window.alert(`Hello ${values.name}`);
 
 const Example = () => (
-  <Form onSubmit={onSubmit}>
+  <Form onSubmit={onSubmit} initialValues={{ phone: '1234567899' }}>
     <Input name="name" label="Name" placeholder="Elon" required />
     <Input name="age" type="number" label="Age" required="Age Required" />
     <Input name="phone" label="Phone" formatter="+1 (###)-###-####" />

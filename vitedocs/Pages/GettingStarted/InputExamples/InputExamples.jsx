@@ -11,13 +11,18 @@ import { SideBySide } from '../../../SideBySide';
 export default function InputExamples() {
   return (
     <>
-      <h2>Code:</h2>
+      <h2>Create Your Inputs</h2>
       <Info>
         The first thing you need to do is create your own inputs. You do this
         once and then never have to do it again!
       </Info>
       {/* <Code input1={simple} /> */}
-      <SideBySide left={<Simple />} right={<Code input1={simple} />} />
+      <SideBySide
+        leftHeader={<h3>Example:</h3>}
+        rightHeader={<h3>Code:</h3>}
+        left={<Simple />}
+        right={<Code input1={simple} />}
+      />
 
       <Info>
         Above is the most simplicitc informed input. You simply:
@@ -28,6 +33,7 @@ export default function InputExamples() {
         </ol>
         And walla! You have an informed input.
       </Info>
+      <hr />
       <Info>
         However most of the time you will want to hook up more than just the
         basics. Below shows how you can create your very owned inputs with
@@ -43,7 +49,12 @@ export default function InputExamples() {
       {/* <hr />
       <h2>Output:</h2>
       <Example /> */}
-      <SideBySide left={<Example />} right={<Code input1={code} />} />
+      <SideBySide
+        leftHeader={<h3>Example:</h3>}
+        rightHeader={<h3>Code:</h3>}
+        left={<Example />}
+        right={<Code input1={code} />}
+      />
     </>
   );
 }

@@ -1,15 +1,45 @@
-import { Form, Input, Select, Checkbox, Relevant, Debug } from 'informed';
+import { ContextualHelp, Heading, Flex, Content } from '@adobe/react-spectrum';
 import Code from '../../../Code';
 import { Info } from '../../../Info';
 import { SideBySide } from '../../../SideBySide';
-import InputExample from '../InputExample/InputExample';
-// import InputExample from '../InputExample/InputExample';
-// import Example from './Example';
 import FirstExample from './FirstExample';
 import firstExampleCode from './FirstExample.jsx?raw';
-// import css from './YourStyles.css?raw';
 
-const onSubmit = ({ values }) => console.log(values);
+const Hint = () => {
+  return (
+    <Flex alignItems="center">
+      <h3>Example: </h3>
+      <ContextualHelp variant="info">
+        <Heading>Info</Heading>
+        <Content>
+          On the left you see the output from the code on the right. Take note
+          of the Debug component and how as you play with the form the state
+          changes.
+          <br />
+          <br />
+          <strong>Hint:</strong> try to click submit and click on the married
+          field to see some of the cool features.
+        </Content>
+        {/* <Heading>Try This</Heading>
+        <Content>
+          <ol>
+            <li>Click on the submit button</li>
+            <li>Note errors and form state</li>
+            <li>Fill in the required fields</li>
+            <li>Click on the submit button</li>
+            <li>Alert dialog appears</li>
+            <li>Clear the alert dialog</li>
+            <li>Select Married</li>
+            <li>Fill out that new field</li>
+            <li>Take note of form state</li>
+            <li>De-Select Married</li>
+            <li>Take note of form state</li>
+          </ol>
+        </Content> */}
+      </ContextualHelp>
+    </Flex>
+  );
+};
 
 export default function Intro() {
   return (
@@ -18,9 +48,11 @@ export default function Intro() {
       <Info>
         First lets take a look at whats possible with informed. Below is an
         example where the inputs have wrapped adobes{' '}
-        <a href="https://spectrum.adobe.com/">desgin-system</a>
+        <a href="https://spectrum.adobe.com/">desgin-system</a>.{' '}
       </Info>
       <SideBySide
+        leftHeader={<Hint />}
+        rightHeader={<h3>Code:</h3>}
         left={<FirstExample />}
         right={<Code input1={firstExampleCode} />}
       />

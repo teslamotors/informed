@@ -20,22 +20,6 @@ const Hint = () => {
           <strong>Hint:</strong> try to click submit and click on the married
           field to see some of the cool features.
         </Content>
-        {/* <Heading>Try This</Heading>
-        <Content>
-          <ol>
-            <li>Click on the submit button</li>
-            <li>Note errors and form state</li>
-            <li>Fill in the required fields</li>
-            <li>Click on the submit button</li>
-            <li>Alert dialog appears</li>
-            <li>Clear the alert dialog</li>
-            <li>Select Married</li>
-            <li>Fill out that new field</li>
-            <li>Take note of form state</li>
-            <li>De-Select Married</li>
-            <li>Take note of form state</li>
-          </ol>
-        </Content> */}
       </ContextualHelp>
     </Flex>
   );

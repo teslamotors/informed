@@ -178,3 +178,198 @@ hr {
 .info-box > div {
   width: 100%;
 }
+
+/* This is for Car!!! */
+
+.cls-1 {
+  fill: #fefefe;
+}
+
+.cls-1,
+.cls-10,
+.cls-11,
+.cls-12,
+.cls-13,
+.cls-14,
+.cls-15,
+.cls-2,
+.cls-3,
+.cls-4,
+.cls-5,
+.cls-6,
+.cls-7,
+.cls-8,
+.cls-9 {
+  fill-rule: evenodd;
+}
+
+.cls-2 {
+  fill: #cfd5cf;
+}
+
+.cls-11,
+.cls-12,
+.cls-3,
+.cls-5 {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cls-3,
+.cls-5 {
+  stroke: #212121;
+}
+
+.cls-11,
+.cls-3 {
+  stroke-width: 3px;
+}
+
+.cls-4 {
+  fill: #212121;
+}
+
+.cls-12,
+.cls-5 {
+  stroke-width: 2px;
+}
+
+.cls-6 {
+  fill: #194767;
+}
+
+.cls-7 {
+  fill: #1a3850;
+}
+
+.cls-8 {
+  fill: #e53046;
+}
+
+.cls-9 {
+  fill: #ae3b46;
+}
+
+.cls-10 {
+  fill: #e96650;
+}
+
+.car-color-red .cls-8 {
+  fill: #e53046;
+}
+
+.car-color-red .cls-9 {
+  fill: #ae3b46;
+}
+
+.car-color-red .cls-10 {
+  fill: #e96650;
+}
+
+.car-color-blue .cls-8 {
+  fill: #4a2eee;
+}
+
+.car-color-blue .cls-9 {
+  fill: #2540af;
+}
+
+.car-color-blue .cls-10 {
+  fill: #6a72d5;
+}
+
+.car-color-green .cls-8 {
+  fill: #0f4d1d;
+}
+
+.car-color-green .cls-9 {
+  fill: #126014;
+}
+
+.car-color-green .cls-10 {
+  fill: #0d5c18;
+}
+
+.car-color-pink .cls-8 {
+  fill: rgb(233, 36, 111);
+}
+
+.car-color-pink .cls-9 {
+  fill: rgb(145, 39, 80);
+}
+
+.car-color-pink .cls-10 {
+  fill: rgb(155, 18, 70);
+}
+
+.cls-11,
+.cls-12 {
+  stroke: #231f20;
+}
+
+.cls-13,
+.cls-16 {
+  fill: #848c93;
+}
+
+.cls-14 {
+  fill: #020303;
+}
+
+.cls-15 {
+  fill: #74848c;
+}
+
+.cls-16 {
+  font-size: 60px;
+  font-family: HelveticaNeue-Bold, Helvetica Neue;
+  font-weight: 700;
+}
+
+#Circleelement {
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: rotate;
+  -moz-animation-duration: 2s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+  animation-name: rotate;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes rotate {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+table,
+th,
+td {
+  border: 1px solid;
+}

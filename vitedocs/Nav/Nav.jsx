@@ -9,6 +9,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import { NavLink } from './NavLink';
 import { GettingStartedNav } from './GettingStartedNav';
+import { Car } from './Car';
 
 export const Nav = () => {
   const { toggleColorScheme, navOpen, closeNav } = useApp();
@@ -26,11 +27,12 @@ export const Nav = () => {
         justifyContent="space-between"
         alignItems="center"
         gap="size-100">
-        <img
+        {/* <img
           style={{ paddingTop: '1rem', paddingBottom: '1rem' }}
           src={'/car-on-informed.png'}
           width="200px"
-        />
+        /> */}
+        <Car />
         <ActionButton
           aria-label="Switch Theme"
           onClick={() => toggleColorScheme()}>

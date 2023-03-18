@@ -1,5 +1,5 @@
 // Example.jsx
-import { Debug, Relevant, ArrayField, Scope } from 'informed';
+import { Debug, Relevant, ArrayField, Scope, FormFields } from 'informed';
 import { Form, Input, Select, Checkbox, Option, Button } from 'YourComponents';
 
 /* ----------------- On Submit Gets Entire Form State ------------------ */
@@ -16,13 +16,13 @@ const Example = () => (
     {/* ------------------ Built in validation props ------------------- */}
     <Input name="name" label="Name" required />
 
-    {/* --------------- Override default error messages --------------- */}
+    {/* --------------- Override default error messages ---------------- */}
     <Input name="age" type="number" label="Age" required="Age Required" />
 
-    {/* ----------------------- Format inputs ------------------------- */}
+    {/* ----------------------- Format inputs -------------------------- */}
     <Input name="phone" label="Phone" formatter="+1 (###)-###-####" />
 
-    {/* --------------------- Paried Validation ----------------------- */}
+    {/* --------------------- Paried Validation ------------------------ */}
     <Input
       name="password1"
       label="Password"
@@ -44,10 +44,10 @@ const Example = () => (
       validateWhen={['password1']}
     />
 
-    {/* -------------------- Field Level default value  --------------------- */}
+    {/* ------------------ Field Level default value  ------------------- */}
     <Checkbox name="love" label="Do you love Tesla?" defaultValue={true} />
 
-    {/* -------------------- Field Level initial value --------------------- */}
+    {/* ------------------- Field Level initial value ------------------- */}
     <Select name="car" label="Car" initialValue="ms">
       <Option key="ms">Model S</Option>
       <Option key="m3">Model 3</Option>
@@ -55,32 +55,32 @@ const Example = () => (
       <Option key="my">Model Y</Option>
     </Select>
 
-    {/* ---------------------------- Relevance ----------------------------- */}
+    {/* --------------------------- Relevance --------------------------- */}
     <Checkbox name="married" label="Are you Married?" />
     <Relevant when={({ formState }) => formState.values.married}>
       <Input name="spouse" label="Spouse" required />
     </Relevant>
 
-    {/* ---------------------------- Scope ----------------------------- */}
+    {/* ---------------------------- Scope ------------------------------ */}
     <Scope scope="mother">
       <Input name="name" label="First name:" initialValue="Maye" />
       <Input name="name" label="Last name:" initialValue="Musk" />
       <Input name="age" label="Age:" type="number" initialValue={74} />
     </Scope>
 
-    {/* ------------------------ Array Fields -------------------------- */}
+    {/* ------------------------- Array Fields -------------------------- */}
     <br />
-    <h3>Friends</h3>
+    <h3>Children</h3>
     <ArrayField
-      name="friends"
+      name="children"
       initialValue={[
         {
-          name: 'Joe',
-          age: '20'
+          name: 'Jake',
+          age: '18'
         },
         {
-          name: 'Jane',
-          age: '20'
+          name: 'Joy',
+          age: '15'
         }
       ]}>
       {({ add }) => (
@@ -93,6 +93,19 @@ const Example = () => (
               <>
                 <Input name="name" label="Name" required />
                 <Input name="age" label="Age" type="number" />
+
+                {/* ----------------- Scoped Relevance ------------------ */}
+                <Relevant
+                  when={({ formApi, scope }) =>
+                    formApi.getValue(`${scope}.age`) >= 16
+                  }>
+                  <Select name="car" label="What car do they drive?">
+                    <Option key="ms">Model S</Option>
+                    <Option key="m3">Model 3</Option>
+                    <Option key="mx">Model X</Option>
+                    <Option key="my">Model Y</Option>
+                  </Select>
+                </Relevant>
                 <Button type="button" onClick={remove} variant="negative">
                   Remove
                 </Button>
@@ -104,12 +117,34 @@ const Example = () => (
     </ArrayField>
     <br />
 
-    {/* --------- Automaically calls onSubmit for submit button ------------ */}
+    {/* ------------------- JSON Schema Rendering -------------------- */}
+    <FormFields
+      schema={{
+        type: 'object',
+        properties: {
+          bio: {
+            type: 'string',
+            title: 'Bio',
+            'ui:control': 'textarea'
+          },
+          birthday: {
+            type: 'text',
+            title: 'Birthday',
+            'ui:control': 'input',
+            'ui:props': {
+              type: 'date'
+            }
+          }
+        }
+      }}
+    />
+
+    {/* ------- Automaically calls onSubmit for submit button ---------- */}
     <Button type="submit" variant="accent" style="fill">
       Submit
     </Button>
 
-    {/* --------------------- Debug Component ----------------------- */}
+    {/* ----------------------- Debug Component ------------------------- */}
     <Debug valid pristine dirty values errors />
   </Form>
 );

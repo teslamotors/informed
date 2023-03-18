@@ -2,6 +2,7 @@ import { ContextualHelp, Heading, Flex, Content } from '@adobe/react-spectrum';
 import Code from '../../../Code';
 import { Info } from '../../../Info';
 import { SideBySide } from '../../../SideBySide';
+import Showoff from '../Showoff/Showoff';
 import FirstExample from './FirstExample';
 import firstExampleCode from './FirstExample.jsx?raw';
 
@@ -50,6 +51,13 @@ export default function Intro() {
         them on the page. This is the way, you should most of the time not even
         realize you are using a form library 😁
       </Info>
+      <hr />
+      <h1>Capabilities</h1>
+      <Info>
+        Informed is cabable of A LOT of cool things! The below example shows off
+        many of those cababilites in one form.
+      </Info>
+      <Showoff />
       <br />
       <br />
     </>

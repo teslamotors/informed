@@ -127,7 +127,7 @@ describe('Relevant', () => {
 
     // Check calls on relevance
     expect(call1).toBe(3);
-    expect(call2).toBe(42);
+    expect(call2).toBe(38);
 
     // Toggle off -------------------------------------------
     fireEvent.click(show);
@@ -180,7 +180,7 @@ describe('Relevant', () => {
 
     // Check calls on relevance
     expect(call1).toBe(5);
-    expect(call2).toBe(59);
+    expect(call2).toBe(51);
 
     // Toggle external dep  -------------------------------------------
 
@@ -213,7 +213,7 @@ describe('Relevant', () => {
 
     // Check calls on relevance
     expect(call1).toBe(6);
-    expect(call2).toBe(61);
+    expect(call2).toBe(53);
   });
 
   it('should update form state when a relevant field with errors unmounts', () => {

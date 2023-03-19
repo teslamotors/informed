@@ -14,8 +14,12 @@ import {
 } from '@adobe/react-spectrum';
 import Code from '../../../Code';
 import { Link } from '../../../Link';
+import { useEffect } from 'react';
 
 export default function Intro() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <h1>Hooks</h1>

@@ -1,6 +1,8 @@
 import { ContextualHelp, Heading, Flex, Content } from '@adobe/react-spectrum';
+import { useEffect } from 'react';
 import Code from '../../../Code';
 import { Info } from '../../../Info';
+import { Link } from '../../../Link';
 import { SideBySide } from '../../../SideBySide';
 import Showoff from '../Showoff/Showoff';
 import FirstExample from './FirstExample';
@@ -27,13 +29,19 @@ const Hint = () => {
 };
 
 export default function Intro() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <h1>Intro</h1>
       <Info>
         First lets take a look at whats possible with informed. Below is an
         example where the inputs have wrapped adobes{' '}
-        <a href="https://spectrum.adobe.com/">desgin-system</a>.{' '}
+        <a href="https://react-spectrum.adobe.com/react-spectrum/index.html">
+          desgin-system
+        </a>
+        .{' '}
       </Info>
       <SideBySide
         leftHeader={<Hint />}
@@ -58,6 +66,16 @@ export default function Intro() {
         many of those cababilites in one form.
       </Info>
       <Showoff />
+      <hr />
+      <h1>How do I start!?</h1>
+      <Info>
+        In order to use informed all you need to do is wrap your own inputs with
+        informed via a `useField` hook. You do this one time and then can use
+        your forms inputs as normal JSX! Lets get{' '}
+        <Link href="/getting-started/setup">SETUP</Link>
+      </Info>
+      {/* <Code>{` const { fieldApi, fieldState } = useField(props);
+<Input name="name" label="Name" required />`}</Code> */}
       <br />
       <br />
     </>

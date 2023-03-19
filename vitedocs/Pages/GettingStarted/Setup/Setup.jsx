@@ -1,6 +1,10 @@
+import { useEffect } from 'react';
 import InputExamples from '../InputExamples/InputExamples';
 
 export default function Setup() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <h1>Getting Started</h1>

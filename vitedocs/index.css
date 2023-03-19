@@ -36,6 +36,10 @@ main {
   background-color: white;
 }
 
+.info {
+  font-weight: bold;
+}
+
 /* ---------- Nav ---------- */
 
 .sidenav {

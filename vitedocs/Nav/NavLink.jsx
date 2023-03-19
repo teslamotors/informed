@@ -9,7 +9,7 @@ export const NavLink = ({ children, href, ...rest }) => {
   };
 
   let location = useLocation();
-  const isSelected = href === location.pathname;
+  const isSelected = location.pathname.includes(href);
 
   return (
     <li className={`spectrum-SideNav-item ${isSelected ? 'is-selected' : ''}`}>

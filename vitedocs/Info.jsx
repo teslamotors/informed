@@ -7,7 +7,7 @@ export const Info = ({ children }) => {
       <Well>
         <Flex gap="size-100">
           <InfoOutline size="S" color="informative" />
-          <div>{children}</div>
+          <div className="info">{children}</div>
         </Flex>
       </Well>
     </div>

@@ -35,6 +35,11 @@ export default function Intro() {
   return (
     <>
       <h1>Intro</h1>
+      {/* <h2>
+        Say hello to the best react form library you have ever used! Informed is
+        an extensive, simple, and efficient solution for creating basic to
+        complex forms in react.
+      </h2> */}
       <Info>
         First lets take a look at whats possible with informed. Below is an
         example where the inputs have wrapped adobes{' '}

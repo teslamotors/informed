@@ -12,6 +12,7 @@ main {
   margin-right: 180px;
   padding: 40px 52px 0;
   display: flex;
+  margin-top: 40px;
 }
 
 @media (max-width: 1200px) {
@@ -97,11 +98,24 @@ main {
   width: 100%;
   display: flex;
   padding: 1rem;
+  background-color: rgb(29, 29, 29);
+  position: fixed;
+}
+
+.spectrum--light .pageHeader {
+  background-color: white;
+}
+
+.toggle {
+  right: 40px;
 }
 
 @media (min-width: 1200px) {
   .pageHeader {
     margin-left: 320px;
+  }
+  .toggle {
+    right: 360px;
   }
 }
 

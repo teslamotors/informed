@@ -9,7 +9,13 @@ import { NavLink } from '../Nav/NavLink';
 export const Header = () => {
   // header contents modal open state when resize
   const { isDesktopUp } = useMedia();
-  const { toggleNav, lineNumbers, setLineNumbers } = useApp();
+  const {
+    toggleNav,
+    lineNumbers,
+    setLineNumbers,
+    comments,
+    toggleComments
+  } = useApp();
 
   // // For resizing header
   // window.addEventListener('resize', () => {
@@ -29,20 +35,26 @@ export const Header = () => {
         <NavLink href="/unauthorized">Unauthorized</NavLink>
         <NavLink href="/asdf">404</NavLink>
         <div
+          className="toggle"
           style={{
             position: 'absolute',
-            right: '30px',
             display: 'flex',
             alignItems: 'center',
             gap: '5px'
           }}>
-          <strong>Show Line Numbers</strong>
+          {/* <strong>Show Line Numbers</strong>
           <Switch
             aria-label="set-line-numbers"
             isSelected={lineNumbers}
             onChange={() => {
               setLineNumbers(prev => !prev);
             }}
+          /> */}
+          <strong>Show Comments</strong>
+          <Switch
+            aria-label="show-comments"
+            isSelected={comments}
+            onChange={toggleComments}
           />
         </div>
       </Flex>

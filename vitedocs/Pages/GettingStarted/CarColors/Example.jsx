@@ -32,7 +32,6 @@ const Example = () => (
     </Select>
     <Button type="submit">Submit</Button>
     <Debug values />
-    <br />
     <ColoredCars />
   </Form>
 );

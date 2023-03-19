@@ -17,7 +17,7 @@ function Code({
   minWidth2 = '600px',
   children
 }) {
-  const { lineNumbers } = useApp();
+  const { lineNumbers, comments } = useApp();
 
   useEffect(
     () => {
@@ -31,14 +31,17 @@ function Code({
 
   const numberClass = lineNumbers ? 'line-numbers' : '';
 
-  const divContentRegex = /<div className="hide">\n((?:\s{2}.*\n)+?)\s{4}<\/div>/g;
+  // const divContentRegex = /<div className="hide">\n((?:\s{2}.*\n)+?)\s{4}<\/div>/g;
 
-  input1 = input1.replace(divContentRegex, (_, content) => {
-    const outdentedContent = content.replace(/^ {4}/gm, '  ');
-    const firstLineFixed = outdentedContent.replace(/^\s{4}/, '');
-    const removeEmptyLine = firstLineFixed.replace(/\n$/, '');
-    return removeEmptyLine;
-  });
+  // input1 = input1.replace(divContentRegex, (_, content) => {
+  //   const outdentedContent = content.replace(/^ {4}/gm, '  ');
+  //   const firstLineFixed = outdentedContent.replace(/^\s{4}/, '');
+  //   const removeEmptyLine = firstLineFixed.replace(/\n$/, '');
+  //   return removeEmptyLine;
+  // });
+
+  const commentRegex = /(?:^(\r\n|\r|\n))?^.*\/\*.+\*\/.*(\r\n|\r|\n)?/gm;
+  if (!comments) input1 = input1.replace(commentRegex, '');
 
   if (!input2) {
     return (

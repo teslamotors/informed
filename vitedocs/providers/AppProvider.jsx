@@ -8,6 +8,7 @@ const AppProvider = ({ children }) => {
   const [colorScheme, setColorScheme] = useState('dark');
   const [navOpen, setNavOpen] = useState(false);
   const [lineNumbers, setLineNumbers] = useState(false);
+  const [comments, setComments] = useState(true);
 
   const toggleColorScheme = () => {
     setColorScheme(prev => {
@@ -26,6 +27,10 @@ const AppProvider = ({ children }) => {
     setNavOpen(false);
   };
 
+  const toggleComments = () => {
+    setComments(prev => !prev);
+  };
+
   const value = {
     colorScheme,
     setColorScheme,
@@ -34,7 +39,9 @@ const AppProvider = ({ children }) => {
     closeNav,
     toggleNav,
     lineNumbers,
-    setLineNumbers
+    setLineNumbers,
+    comments,
+    toggleComments
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

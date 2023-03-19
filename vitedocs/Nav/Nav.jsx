@@ -10,6 +10,7 @@ import { Routes, Route } from 'react-router-dom';
 import { NavLink } from './NavLink';
 import { GettingStartedNav } from './GettingStartedNav';
 import { Car } from './Car';
+import { ApiReferenceNav } from './ApiReferenceNav';
 
 export const Nav = () => {
   const { toggleColorScheme, navOpen, closeNav } = useApp();
@@ -41,6 +42,7 @@ export const Nav = () => {
       </Flex>
       <Routes>
         <Route path="/getting-started/:path" element={<GettingStartedNav />} />
+        <Route path="/api-reference/:path" element={<ApiReferenceNav />} />
       </Routes>
     </nav>
   );

@@ -9,6 +9,9 @@ import { Home } from '../Pages/Home/Home';
 import Intro from '../Pages/GettingStarted/Intro/Intro';
 import Setup from '../Pages/GettingStarted/Setup/Setup';
 import Hooks from '../Pages/GettingStarted/Hooks/Hooks';
+import UseField from '../Pages/ApiReference/UseField';
+import UseFieldState from '../Pages/ApiReference/UseFieldState';
+import UseFieldApi from '../Pages/ApiReference/UseFieldApi';
 
 // Routes ------------------------------------------------------------
 export const Routes = () => {
@@ -20,6 +23,12 @@ export const Routes = () => {
         <Route path="intro" element={<Intro />} />
         <Route path="setup" element={<Setup />} />
         <Route path="hooks" element={<Hooks />} />
+      </Route>
+      <Route path="/api-reference">
+        <Route path="" element={<Navigate to="/api-reference/useField" />} />
+        <Route path="useField" element={<UseField />} />
+        <Route path="useFieldState" element={<UseFieldState />} />
+        <Route path="useFieldApi" element={<UseFieldApi />} />
       </Route>
       <Route path="/home" element={<Home />} />
       <Route path="/admin" element={<Admin />} />

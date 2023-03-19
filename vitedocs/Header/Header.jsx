@@ -31,9 +31,9 @@ export const Header = () => {
           </ActionButton>
         ) : null}
         <NavLink href="/getting-started">Getting Started</NavLink>
-        <NavLink href="/admin">Admin</NavLink>
-        <NavLink href="/unauthorized">Unauthorized</NavLink>
-        <NavLink href="/asdf">404</NavLink>
+        <NavLink href="/api-reference">Api Reference</NavLink>
+        {/* <NavLink href="/unauthorized">Unauthorized</NavLink>
+        <NavLink href="/asdf">404</NavLink> */}
         <div
           className="toggle"
           style={{

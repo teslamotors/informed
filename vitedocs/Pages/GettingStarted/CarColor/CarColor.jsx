@@ -7,7 +7,9 @@ import { Info } from '../../../Info';
 export default function CarColor() {
   return (
     <>
-      <h2>Field State</h2>
+      <h1>
+        <code>useFieldState</code>
+      </h1>
       <Info>
         You can gain access to any fields state via the `useFieldState` hook.
       </Info>

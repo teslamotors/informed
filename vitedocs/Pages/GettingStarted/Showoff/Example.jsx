@@ -161,7 +161,7 @@ const Example = () => (
     </Button>
 
     {/* ----------------------- Debug Component ------------------------- */}
-    <Debug valid pristine dirty values errors />
+    <Debug />
   </Form>
 );
 

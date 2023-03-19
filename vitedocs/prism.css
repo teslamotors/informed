@@ -66,7 +66,7 @@ pre[class*='language-'] {
 .spectrum--light code[class*='language-'],
 .spectrum--light pre[class*='language-'] {
   /* background-color: rgb(243, 240, 238) !important; */
-  background-color: rgb(226, 226, 226) !important;
+  background-color: rgb(230, 230, 230) !important;
   text-shadow: none !important;
   color: black !important;
 }

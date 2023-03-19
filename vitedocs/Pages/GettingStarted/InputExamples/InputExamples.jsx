@@ -4,6 +4,9 @@ import Example from './Example';
 import code from './Example.jsx?raw';
 import simple from './SimpleInput.jsx?raw';
 import Simple from './SimpleInput';
+import Verbose from './VerboseInput';
+import verbose from './VerboseInput.jsx?raw';
+
 import { SideBySide } from '../../../SideBySide';
 import { ContextualHelp, Heading, Flex, Content } from '@adobe/react-spectrum';
 
@@ -38,7 +41,6 @@ export default function InputExamples() {
         left={<Simple />}
         right={<Code input1={simple} />}
       />
-
       <Info>
         Above is the most simplicitc informed input. You simply:
         <ol>
@@ -49,11 +51,22 @@ export default function InputExamples() {
         And walla! You have an informed input.
       </Info>
       <hr />
+      <h2>Do It yourself</h2>
+      <Info>
+        That was pretty simple but whats happening under the hood? To understand
+        this lets re-write the previous example in a more verbose way!
+      </Info>
+      <SideBySide
+        leftHeader={<Hint />}
+        rightHeader={<h3>Code:</h3>}
+        left={<Verbose />}
+        right={<Code input1={verbose} />}
+      />
+      <hr />
       <h2>Create More Inputs</h2>
       <Info>
-        However most of the time you will want to hook up more than just the
-        basics. Below shows how you can create your very owned inputs with
-        informed.
+        Most of the time you will want to hook up more than just the basics.
+        Below shows how you can create your very owned inputs with informed.
         <br />
         <br />
         <strong>Note: </strong>

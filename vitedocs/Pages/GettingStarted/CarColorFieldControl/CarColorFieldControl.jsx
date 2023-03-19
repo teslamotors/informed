@@ -7,9 +7,9 @@ import { Info } from '../../../Info';
 export default function CarColor() {
   return (
     <>
-      <h2>
+      <h1>
         <code>useFieldApi</code>
-      </h2>
+      </h1>
       <Info>
         You can gain access to a specific fields api via `useFieldApi`. Below we
         create a button to randomly set the color of our car using

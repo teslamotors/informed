@@ -7,7 +7,9 @@ import { Info } from '../../../Info';
 export default function CarColor() {
   return (
     <>
-      <h2>Form Api</h2>
+      <h1>
+        <code>useFormApi</code>
+      </h1>
       <Info>
         You can gain access to the forms api via `useFormApi`. Below we create a
         button to randomly set the color of our car using `formApi.setValue`

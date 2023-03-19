@@ -12,6 +12,8 @@ import Hooks from '../Pages/GettingStarted/Hooks/Hooks';
 import UseField from '../Pages/ApiReference/UseField';
 import UseFieldState from '../Pages/ApiReference/UseFieldState';
 import UseFieldApi from '../Pages/ApiReference/UseFieldApi';
+import UseFormState from '../Pages/ApiReference/UseFormState';
+import UseFormApi from '../Pages/ApiReference/UseFormApi';
 
 // Routes ------------------------------------------------------------
 export const Routes = () => {
@@ -29,6 +31,8 @@ export const Routes = () => {
         <Route path="useField" element={<UseField />} />
         <Route path="useFieldState" element={<UseFieldState />} />
         <Route path="useFieldApi" element={<UseFieldApi />} />
+        <Route path="useFormState" element={<UseFormState />} />
+        <Route path="useFormApi" element={<UseFormApi />} />
       </Route>
       <Route path="/home" element={<Home />} />
       <Route path="/admin" element={<Admin />} />

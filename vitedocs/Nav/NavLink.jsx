@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-export const NavLink = ({ children, href, ...rest }) => {
+export const NavLink = ({ children, href, exact = false, ...rest }) => {
   const navigate = useNavigate();
 
   const onClick = e => {
@@ -9,7 +9,10 @@ export const NavLink = ({ children, href, ...rest }) => {
   };
 
   let location = useLocation();
-  const isSelected = location.pathname.includes(href);
+
+  const isSelected = exact
+    ? location.pathname === href
+    : location.pathname.includes(href);
 
   return (
     <li className={`spectrum-SideNav-item ${isSelected ? 'is-selected' : ''}`}>

@@ -7,7 +7,9 @@ import { Info } from '../../../Info';
 export default function CarColor() {
   return (
     <>
-      <h2>Form State</h2>
+      <h1>
+        <code>useFormState</code>
+      </h1>
       <Info>
         You can gain access to anything in the forms state via `useFormState`
         hook.

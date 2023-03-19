@@ -5,6 +5,7 @@ export const GettingStartedNav = () => {
     <ul className="spectrum-SideNav">
       <NavLink href="/getting-started/intro">Intro</NavLink>
       <NavLink href="/getting-started/setup">Setup</NavLink>
+      <NavLink href="/getting-started/hooks">Hooks</NavLink>
     </ul>
   );
 };

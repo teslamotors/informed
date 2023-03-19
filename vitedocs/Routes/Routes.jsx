@@ -8,6 +8,7 @@ import { NotAuthorized } from '../Pages/NotAuthorized/NotAuthorized';
 import { Home } from '../Pages/Home/Home';
 import Intro from '../Pages/GettingStarted/Intro/Intro';
 import Setup from '../Pages/GettingStarted/Setup/Setup';
+import Hooks from '../Pages/GettingStarted/Hooks/Hooks';
 
 // Routes ------------------------------------------------------------
 export const Routes = () => {
@@ -18,6 +19,7 @@ export const Routes = () => {
         <Route path="" element={<Navigate to="/getting-started/intro" />} />
         <Route path="intro" element={<Intro />} />
         <Route path="setup" element={<Setup />} />
+        <Route path="hooks" element={<Hooks />} />
       </Route>
       <Route path="/home" element={<Home />} />
       <Route path="/admin" element={<Admin />} />

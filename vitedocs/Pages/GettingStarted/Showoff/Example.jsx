@@ -1,5 +1,12 @@
 // Example.jsx
-import { Debug, Relevant, ArrayField, Scope, FormFields } from 'informed';
+import {
+  Debug,
+  Relevant,
+  ArrayField,
+  Scope,
+  FormFields,
+  utils
+} from 'informed';
 import { Form, Input, Select, Checkbox, Option, Button } from 'YourComponents';
 
 /* ----------------- On Submit Gets Entire Form State ------------------ */
@@ -10,9 +17,17 @@ const validatePassword = (value, { password1, password2 }) => {
   if (password1 !== password2) return 'Passwords must match';
 };
 
+/* ----------------------- Intl Number Formatter ----------------------- */
+const { formatter, parser } = utils.createIntlNumberFormatter('en-US', {
+  style: 'currency',
+  currency: 'USD'
+});
+
 const Example = () => (
   /* -------------------- Form Level initialValues --------------------- */
-  <Form onSubmit={onSubmit} initialValues={{ phone: '1234567899' }}>
+  <Form
+    onSubmit={onSubmit}
+    initialValues={{ phone: '1234567899', salary: 80_000.25 }}>
     {/* ------------------ Built in validation props ------------------- */}
     <Input name="name" label="Name" required />
 
@@ -21,6 +36,7 @@ const Example = () => (
 
     {/* ----------------------- Format inputs -------------------------- */}
     <Input name="phone" label="Phone" formatter="+1 (###)-###-####" />
+    <Input name="salary" label="Salary" formatter={formatter} parser={parser} />
 
     {/* --------------------- Paried Validation ------------------------ */}
     <Input

@@ -2,7 +2,7 @@ export const Car = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="554.349"
+      width="232"
       height="131.889"
       viewBox="0 0 554.349 231.889">
       <g

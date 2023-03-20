@@ -286,6 +286,85 @@ useField({ formatter: "+1 (###)-###-####" })`}</Code>
   );
 };
 
+const ReturnValues = () => {
+  return (
+    <TableView aria-label="Custom type table" overflowMode="wrap">
+      <TableHeader>
+        <Column showDivider width={200}>
+          Name
+        </Column>
+        <Column showDivider>Type</Column>
+        <Column showDivider>Description</Column>
+      </TableHeader>
+      <TableBody>
+        <Row>
+          <Cell>
+            <code>fieldState</code>
+          </Cell>
+          <Cell>
+            <Code>{`const { fieldState } = useField({ name: "name" })
+const { value, error, touched } = fieldState;`}</Code>
+          </Cell>
+          <Cell>
+            The state of the field.{' '}
+            <Link href="/api-reference/fieldState">Docs</Link>
+          </Cell>
+        </Row>
+        <Row>
+          <Cell>
+            <code>fieldApi</code>
+          </Cell>
+          <Cell>
+            <Code>{`const { fieldState } = useField({ name: "name" })
+const { setValue, setTouched } = fieldApi;`}</Code>
+          </Cell>
+          <Cell>
+            The API for interacting with the field.{' '}
+            <Link href="/api-reference/fieldApi">Docs</Link>
+          </Cell>
+        </Row>
+        <Row>
+          <Cell>
+            <code>userProps</code>
+          </Cell>
+          <Cell>
+            <Code>{`const { userProps } = useField({ name: "name" })
+const { label, color } = userProps;`}</Code>
+          </Cell>
+          <Cell>User-defined props for the field.</Cell>
+        </Row>
+        <Row>
+          <Cell>
+            <code>informed</code>
+          </Cell>
+          <Cell>
+            <Code>{`const { informed } = useField({ name: "name" })`}</Code>
+          </Cell>
+          <Cell>An object containing event handlers and value.</Cell>
+        </Row>
+        <Row>
+          <Cell>
+            <code>render</code>
+          </Cell>
+          <Cell>
+            <Code>{`const { render } = useField({ name: "name" })`}</Code>
+          </Cell>
+          <Cell>A function to render the children.</Cell>
+        </Row>
+        <Row>
+          <Cell>
+            <code>ref</code>
+          </Cell>
+          <Cell>
+            <Code>{`const { ref } = useField({ name: "name" })`}</Code>
+          </Cell>
+          <Cell>A reference to the field component.</Cell>
+        </Row>
+      </TableBody>
+    </TableView>
+  );
+};
+
 export default function Intro() {
   // useEffect(() => {
   //   window.scrollTo(0, 0);
@@ -353,6 +432,10 @@ export default function Intro() {
 useField({ parameter: value })`}</Code>
       </Info>
       <FieldProps />
+      <hr />
+      <h2 id="useField-return">Return Values:</h2>
+      <Info>Here are all the values this hook returns.</Info>
+      <ReturnValues />
       <br />
       <br />
     </>

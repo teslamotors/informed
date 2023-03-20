@@ -49,19 +49,8 @@ export default function Intro() {
             </Cell>
             <Cell>
               Use this to build your own fields{' '}
-              <Link href="/getting-started/setup">(See setup docs)</Link>
+              <Link href="/api-reference/useField">( Docs )</Link>
             </Cell>
-          </Row>
-          <Row>
-            <Cell>
-              <code>useFieldApi</code>
-            </Cell>
-            <Cell>
-              <Code>{`const { setValue, reset } = useFieldApi();
-
-setValue('Hello World');`}</Code>
-            </Cell>
-            <Cell>Allows you to get access to specific fields api.</Cell>
           </Row>
           <Row>
             <Cell>
@@ -74,6 +63,7 @@ return <div>{value}<div/>;`}</Code>
             </Cell>
             <Cell>
               Allows you to get access to specific fields state.
+              <Link href="/api-reference/useFieldState">( Docs )</Link>
               <br />
               <br />
               <strong>Note:</strong> triggers re-render only when field state
@@ -89,7 +79,10 @@ return <div>{value}<div/>;`}</Code>
 
 setValue('Hello World');`}</Code>
             </Cell>
-            <Cell>Allows you to get access to specific fields api.</Cell>
+            <Cell>
+              Allows you to get access to specific fields api.{' '}
+              <Link href="/api-reference/useFieldApi">( Docs )</Link>
+            </Cell>
           </Row>
           <Row>
             <Cell>
@@ -102,6 +95,7 @@ return <div>{values.foo}<div/>;`}</Code>
             </Cell>
             <Cell>
               Allows you to get access to entire form state.
+              <Link href="/api-reference/useFormState">( Docs )</Link>
               <br />
               <br />
               <strong>Note:</strong> triggers re-render when anything in form
@@ -117,7 +111,10 @@ return <div>{values.foo}<div/>;`}</Code>
 
 setValue('greeting', 'Hello World');`}</Code>
             </Cell>
-            <Cell>Allows you to get access to entire form api.</Cell>
+            <Cell>
+              Allows you to get access to entire form api.{' '}
+              <Link href="/api-reference/useFormApi">( Docs )</Link>
+            </Cell>
           </Row>
         </TableBody>
       </TableView>

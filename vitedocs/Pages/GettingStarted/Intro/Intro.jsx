@@ -42,11 +42,15 @@ export default function Intro() {
       </h2> */}
       <Info>
         First lets take a look at whats possible with informed. Below is an
-        example where the inputs have wrapped adobes{' '}
+        example where we wrapped informed around adobes{' '}
         <a href="https://react-spectrum.adobe.com/react-spectrum/index.html">
           desgin-system
         </a>
-        .{' '}
+        .<br />
+        <br />
+        Those components got defined once inside `YourComponents` directory. You
+        will see how this was done later inside the{' '}
+        <Link href="/getting-started/setup">setup</Link> docs.
       </Info>
       <SideBySide
         leftHeader={<Hint />}

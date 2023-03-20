@@ -1,6 +1,7 @@
 import { useField } from 'informed';
 import { Form, Debug } from 'informed';
 
+/* ---------- Define Input Here Once! ----------- */
 const Input = props => {
   const { render, informed } = useField({
     type: 'text',
@@ -9,6 +10,7 @@ const Input = props => {
   return render(<input {...informed} />);
 };
 
+/* -------- Now use Input all you want! --------- */
 const Example = () => {
   return (
     <Form>

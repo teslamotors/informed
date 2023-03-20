@@ -1,6 +1,7 @@
 import { useField } from 'informed';
 import { Form, Debug } from 'informed';
 
+/* ---------- Define Input Here Once! ----------- */
 const Input = props => {
   // Calling useField makes this an informed input!
   const { fieldState, fieldApi, render, ref, userProps } = useField(props);
@@ -12,7 +13,7 @@ const Input = props => {
   const { setValue, setTouched } = fieldApi;
 
   // Everything else ( your personal props and native properties )
-  const { label, id, ...rest } = userProps;
+  const { id, ...rest } = userProps;
 
   // Now you simply call render and "hook" up your inputs state and handlers
   return render(
@@ -31,6 +32,7 @@ const Input = props => {
   );
 };
 
+/* -------- Now use Input all you want! --------- */
 const Example = () => {
   return (
     <Form>

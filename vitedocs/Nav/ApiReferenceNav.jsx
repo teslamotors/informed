@@ -19,6 +19,9 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/useformApi" exact>
         useformApi
       </NavLink>
+      <h3>State</h3>
+      <NavLink href="/api-reference/formState">FormState</NavLink>
+      <NavLink href="/api-reference/fieldState">FieldState</NavLink>
       <h3>Components</h3>
       <NavLink href="/api-reference/relevance">Relevance</NavLink>
       <NavLink href="/api-reference/scope">Scope</NavLink>

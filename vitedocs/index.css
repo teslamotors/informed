@@ -40,6 +40,10 @@ main {
   font-weight: bold;
 }
 
+strong {
+  color: rgb(237, 78, 59) !important;
+}
+
 /* ---------- Nav ---------- */
 
 .sidenav {

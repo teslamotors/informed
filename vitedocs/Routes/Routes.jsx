@@ -16,6 +16,8 @@ import UseFormState from '../Pages/ApiReference/UseFormState';
 import UseFormApi from '../Pages/ApiReference/UseFormApi';
 import FormState from '../Pages/ApiReference/FormState/FormState';
 import FieldState from '../Pages/ApiReference/FieldState';
+import FormApi from '../Pages/ApiReference/FormApi/FormApi';
+import { Relevance } from '../Pages/ApiReference/Relevance/Relevance';
 
 // Routes ------------------------------------------------------------
 export const Routes = () => {
@@ -37,7 +39,9 @@ export const Routes = () => {
         <Route path="useFormState" element={<UseFormState />} />
         <Route path="useFormApi" element={<UseFormApi />} />
         <Route path="formState" element={<FormState />} />
+        <Route path="formApi" element={<FormApi />} />
         <Route path="fieldState" element={<FieldState />} />
+        <Route path="relevant" element={<Relevance />} />
       </Route>
       <Route path="/home" element={<Home />} />
       <Route path="/admin" element={<Admin />} />

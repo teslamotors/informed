@@ -26,7 +26,7 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/formApi">FormApi</NavLink>
       <NavLink href="/api-reference/fieldApi">FieldApi</NavLink>
       <h3>Components</h3>
-      <NavLink href="/api-reference/relevance">Relevance</NavLink>
+      <NavLink href="/api-reference/relevant">Relevant</NavLink>
       <NavLink href="/api-reference/scope">Scope</NavLink>
     </ul>
   );

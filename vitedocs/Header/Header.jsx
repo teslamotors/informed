@@ -50,7 +50,7 @@ export const Header = () => {
               setLineNumbers(prev => !prev);
             }}
           /> */}
-          <strong>Show Comments</strong>
+          <span>Show Comments</span>
           <Switch
             aria-label="show-comments"
             isSelected={comments}

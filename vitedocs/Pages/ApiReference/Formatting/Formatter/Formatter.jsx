@@ -7,12 +7,11 @@ import {
   Row,
   Cell
 } from '@adobe/react-spectrum';
-import { Link } from '../../../Link';
 import Example from './Example';
 import exampleCode from './Example.jsx?raw';
-import Code from '../../../YourComponents/Code';
-import { SideBySide } from '../../../SideBySide';
-import { Info } from '../../../Info';
+import Code from '../../../../YourComponents/Code';
+import { SideBySide } from '../../../../SideBySide';
+import { Info } from '../../../../Info';
 
 export default function Formatter() {
   useEffect(() => {

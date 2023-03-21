@@ -23,11 +23,11 @@ import { UseScopedState } from '../Pages/ApiReference/UseScopedState/UseScopedSt
 import { ScopedComponent } from '../Pages/ApiReference/ScopeComponent/ScopeComponent';
 import FieldApi from '../Pages/ApiReference/FieldApi/FieldApi';
 import PathSyntax from '../Pages/ApiReference/PathSyntax/PathSyntax';
-import Formatter from '../Pages/ApiReference/Formatter/Formatter';
-import Clean from '../Pages/ApiReference/Clean/Clean';
-import Mask from '../Pages/ApiReference/Mask/Mask';
-import Parse from '../Pages/ApiReference/Parse/Parse';
-import NumberFormatter from '../Pages/ApiReference/NumberFormatter/NumberFormatter';
+import Formatter from '../Pages/ApiReference/Formatting/Formatter/Formatter';
+import Clean from '../Pages/ApiReference/Formatting/Clean/Clean';
+import Mask from '../Pages/ApiReference/Formatting/Mask/Mask';
+import Parse from '../Pages/ApiReference/Formatting/Parse/Parse';
+import NumberFormatter from '../Pages/ApiReference/Formatting/NumberFormatter/NumberFormatter';
 
 // Routes ------------------------------------------------------------
 export const Routes = () => {

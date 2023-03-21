@@ -28,15 +28,11 @@ const FormattedField = () => {
 
   // Generate mask from locale and currency
   const { formatter, parser } = useMemo(
-    () => {
-      if (locale && currency) {
-        return utils.createIntlNumberFormatter(locale, {
-          style: 'currency',
-          currency
-        });
-      }
-      return {};
-    },
+    () =>
+      utils.createIntlNumberFormatter(locale, {
+        style: 'currency',
+        currency
+      }),
     [currency, locale]
   );
 

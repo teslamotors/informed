@@ -1,21 +1,24 @@
 import { useEffect } from 'react';
-import { Link } from '../../../Link';
 import Example from './Example';
 import exampleCode from './Example.jsx?raw';
-import Code from '../../../YourComponents/Code';
-import { SideBySide } from '../../../SideBySide';
-import { Info } from '../../../Info';
+import { Code } from 'YourComponents';
+import { SideBySide } from '../../../../SideBySide';
+import { Info } from '../../../../Info';
 
-export default function Clean() {
+export default function Mask() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   return (
     <>
       <h1>
-        <code>Clean</code>
+        <code>Mask</code>
       </h1>
-      <Info>You can clean your values via a clean function</Info>
+      <Info>
+        Masking values is made simple with the use of the mask function. Please
+        note, in addition to mask you sometimes want to pair it with a parser
+        function see example below:
+      </Info>
       <SideBySide
         leftHeader={<h3>Example:</h3>}
         rightHeader={<h3>Code:</h3>}

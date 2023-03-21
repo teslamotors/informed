@@ -23,6 +23,11 @@ import { UseScopedState } from '../Pages/ApiReference/UseScopedState/UseScopedSt
 import { ScopedComponent } from '../Pages/ApiReference/ScopeComponent/ScopeComponent';
 import FieldApi from '../Pages/ApiReference/FieldApi/FieldApi';
 import PathSyntax from '../Pages/ApiReference/PathSyntax/PathSyntax';
+import Formatter from '../Pages/ApiReference/Formatter/Formatter';
+import Clean from '../Pages/ApiReference/Clean/Clean';
+import Mask from '../Pages/ApiReference/Mask/Mask';
+import Parse from '../Pages/ApiReference/Parse/Parse';
+import NumberFormatter from '../Pages/ApiReference/NumberFormatter/NumberFormatter';
 
 // Routes ------------------------------------------------------------
 export const Routes = () => {
@@ -56,6 +61,11 @@ export const Routes = () => {
         <Route path="relevant" element={<Relevance />} />
         <Route path="scope" element={<ScopedComponent />} />
         <Route path="path-syntax" element={<PathSyntax />} />
+        <Route path="formatting-formatter" element={<Formatter />} />
+        <Route path="formatting-number" element={<NumberFormatter />} />
+        <Route path="formatting-clean" element={<Clean />} />
+        <Route path="formatting-mask" element={<Mask />} />
+        <Route path="formatting-parse" element={<Parse />} />
       </Route>
       <Route path="/home" element={<Home />} />
       <Route path="/admin" element={<Admin />} />

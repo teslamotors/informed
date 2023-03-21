@@ -36,6 +36,14 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/scope">Scope</NavLink>
       <h3>Path</h3>
       <NavLink href="/api-reference/path-syntax">Syntax</NavLink>
+      <h3>Formatting</h3>
+      <NavLink href="/api-reference/formatting-formatter">Formatter</NavLink>
+      <NavLink href="/api-reference/formatting-number">
+        Number Formatter
+      </NavLink>
+      <NavLink href="/api-reference/formatting-clean">Clean</NavLink>
+      <NavLink href="/api-reference/formatting-mask">Mask</NavLink>
+      <NavLink href="/api-reference/formatting-parse">Parse</NavLink>
     </ul>
   );
 };

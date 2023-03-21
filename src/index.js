@@ -39,6 +39,7 @@ import { useMultistepState } from './hooks/useMultistepState';
 import { useScope } from './hooks/useScope';
 import { useScoper } from './hooks/useScoper';
 import { useScopedState } from './hooks/useScopedState';
+import { useSubState } from './hooks/useSubState';
 import { useRelevance } from './hooks/useRelevance';
 import { useConditional } from './hooks/useConditional';
 import { useInformed } from './hooks/useInformed';
@@ -71,6 +72,7 @@ export {
   useScope,
   useScoper,
   useScopedState,
+  useSubState,
   useRelevance,
   useConditional,
   ArrayField,

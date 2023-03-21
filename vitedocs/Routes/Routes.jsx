@@ -18,6 +18,7 @@ import FormState from '../Pages/ApiReference/FormState/FormState';
 import FieldState from '../Pages/ApiReference/FieldState/FieldState';
 import FormApi from '../Pages/ApiReference/FormApi/FormApi';
 import { Relevance } from '../Pages/ApiReference/Relevance/Relevance';
+import { UseSubState } from '../Pages/ApiReference/UseSubState.jsx/UseSubState';
 
 // Routes ------------------------------------------------------------
 export const Routes = () => {
@@ -36,6 +37,7 @@ export const Routes = () => {
         <Route path="" element={<Navigate to="/api-reference/useField" />} />
         <Route path="useField" element={<UseField />} />
         <Route path="useFieldState" element={<UseFieldState />} />
+        <Route path="useSubState" element={<UseSubState />} />
         <Route path="useFieldApi" element={<UseFieldApi />} />
         <Route path="useFormState" element={<UseFormState />} />
         <Route path="useFormApi" element={<UseFormApi />} />

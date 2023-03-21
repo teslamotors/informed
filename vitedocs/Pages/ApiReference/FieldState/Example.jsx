@@ -8,23 +8,22 @@ const ShowFieldState = ({ name }) => {
   renders.current += 1;
   return (
     <>
-      <h5>Component using fieldState: {name}</h5>
+      <h3>FieldState: {name}</h3>
       <strong>Rendered {renders.current} times.</strong>
-      <pre>
-        <Code>{JSON.stringify(fieldState, null, 2)}</Code>
-      </pre>
+      <Code>{JSON.stringify(fieldState, null, 2)}</Code>
     </>
   );
 };
 
 const Example = () => {
   return (
-    <Form>
+    <Form initialValues={{ firstName: 'Hello', lastName: 'World' }}>
       <Input label="First Name:" name="firstName" required />
       <ShowFieldState name="firstName" />
       <Input label="Last Name:" name="lastName" required />
       <ShowFieldState name="lastName" />
       <Button type="submit">Submit</Button>
+      <h3>FormState:</h3>
       <Debug />
     </Form>
   );

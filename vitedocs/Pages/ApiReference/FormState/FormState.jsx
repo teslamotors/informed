@@ -37,7 +37,7 @@ export default function FormState() {
       <h2>State Attributes</h2>
       <TableView aria-label="Custom data table" overflowMode="wrap">
         <TableHeader>
-          <Column showDivider width={150}>
+          <Column showDivider width={180}>
             Attribute
           </Column>
           <Column showDivider width={250}>

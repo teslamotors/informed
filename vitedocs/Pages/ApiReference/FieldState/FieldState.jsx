@@ -15,9 +15,9 @@ import { SideBySide } from '../../../SideBySide';
 import { Info } from '../../../Info';
 
 export default function FieldState() {
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <h1>
@@ -41,7 +41,7 @@ export default function FieldState() {
         aria-label="Example table for column dividers"
         overflowMode="wrap">
         <TableHeader>
-          <Column showDivider width={200}>
+          <Column showDivider width={180}>
             Attribute
           </Column>
           <Column showDivider>Examples</Column>

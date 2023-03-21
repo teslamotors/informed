@@ -159,6 +159,26 @@ button:hover {
   text-decoration: underline !important;
 }
 
+code {
+  background-color: rgb(230, 230, 230);
+  padding-left: 10px;
+  padding-right: 10px;
+  color: rgb(124, 159, 60);
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.spectrum--darkest code {
+  color: rgb(179, 224, 83);
+  background-color: rgb(35, 36, 31);
+}
+
+h1 > code {
+  color: inherit !important;
+  background-color: inherit !important;
+}
+
 .code-block {
   background-color: rgb(230, 230, 230);
   width: 100%;
@@ -394,4 +414,8 @@ table,
 th,
 td {
   border: 1px solid;
+}
+
+.button-group button {
+  width: 100%;
 }

@@ -16,18 +16,18 @@ const Buttons = () => {
   return (
     <ButtonGroup orientation="vertical" align="center">
       <Button type="button" onClick={() => formApi.setValue('name', 'Bill')}>
-        Set Name to "Bill"
+        Set Name
       </Button>
       <Button
         type="button"
         onClick={() => formApi.setValueQuietly('name', 'Kevin')}>
-        Set Name to "Kevin" Quietly
+        Set Name Quietly
       </Button>
       <Button type="button" onClick={() => formApi.reset()}>
         Reset
       </Button>
       <Button type="button" onClick={() => formApi.setValue('foo', 'Bar')}>
-        Set Foo to "Bar"
+        Set Hidden Field
       </Button>
       <Button type="button" onClick={() => formApi.disable()}>
         Disable
@@ -37,15 +37,15 @@ const Buttons = () => {
       </Button>
       <Button
         type="button"
-        onClick={() => formApi.setValues({ age: 26, phone: '1234567899' })}>
-        All
-      </Button>
-      <Button
-        type="button"
         onClick={() =>
           formApi.setTheseValues({ age: 30, phone: '6991234567' })
         }>
-        Age & Color
+        Set These Values
+      </Button>
+      <Button
+        type="button"
+        onClick={() => formApi.setValues({ age: 26, phone: '1234567899' })}>
+        Set Values
       </Button>
     </ButtonGroup>
   );
@@ -61,9 +61,6 @@ const Example = () => {
       <Buttons />
       <Button type="submit">Submit</Button>
       <Debug values />
-      <Button type="button" onClick={() => random(formApiRef.current)}>
-        Random Color via formApiRef
-      </Button>
     </Form>
   );
 };

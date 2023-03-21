@@ -18,9 +18,9 @@ import MoreExamples from './MoreExamples';
 import moreExampleCode from './MoreExamples.jsx?raw';
 
 export default function FormState() {
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <h1>

@@ -9,6 +9,8 @@ export const GettingStartedNav = () => {
       <NavLink href="/getting-started/formState">Form State</NavLink>
       <NavLink href="/getting-started/formApi">Form Api</NavLink>
       <NavLink href="/getting-started/fieldState">Field State</NavLink>
+      <NavLink href="/getting-started/fieldApi">Field Api</NavLink>
+      <NavLink href="/getting-started/path-syntax">Path Syntax</NavLink>
     </ul>
   );
 };

@@ -15,9 +15,9 @@ import { SideBySide } from '../../../SideBySide';
 import { Info } from '../../../Info';
 
 export default function FieldApi() {
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <h1>

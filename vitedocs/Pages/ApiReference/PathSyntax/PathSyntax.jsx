@@ -37,6 +37,67 @@ export default function PathSyntax() {
         values object. This syntax is commonly referred to as Java Script
         Property Access Notation or JSPAN.
       </Info>
+      <TableView
+        aria-label="Example table for column dividers"
+        overflowMode="wrap">
+        <TableHeader>
+          <Column showDivider width={220}>
+            Field
+          </Column>
+          <Column showDivider>Resolution</Column>
+        </TableHeader>
+        <TableBody>
+          <Row>
+            <Cell>
+              <Code>"username"</Code>
+            </Cell>
+            <Cell>
+              <Code>values.username</Code>
+            </Cell>
+          </Row>
+          <Row>
+            <Cell>
+              <Code>"mothers.mother"</Code>
+            </Cell>
+            <Cell>
+              <Code>values.mothers.mother</Code>
+            </Cell>
+          </Row>
+          <Row>
+            <Cell>
+              <Code>"friends[0]"</Code>
+            </Cell>
+            <Cell>
+              <Code>values.friends[0]</Code>
+            </Cell>
+          </Row>
+          <Row>
+            <Cell>
+              <Code>"siblings.1"</Code>
+            </Cell>
+            <Cell>
+              <Code>values.siblings[1]</Code>
+            </Cell>
+          </Row>
+          <Row>
+            <Cell>
+              <Code>"parents[0].name"</Code>
+            </Cell>
+            <Cell>
+              <Code>values.parents[0].name</Code>
+            </Cell>
+          </Row>
+          <Row>
+            <Cell>
+              <Code>"foo.bar[0].baz[1]"</Code>
+            </Cell>
+            <Cell>
+              <Code>values.foo.bar[0].baz[1]</Code>
+            </Cell>
+          </Row>
+        </TableBody>
+      </TableView>
+
       <SideBySide
         leftHeader={<h3>Example:</h3>}
         rightHeader={<h3>Code:</h3>}

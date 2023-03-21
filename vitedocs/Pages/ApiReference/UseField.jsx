@@ -366,9 +366,9 @@ const { label, color } = userProps;`}</Code>
 };
 
 export default function Intro() {
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <h1>

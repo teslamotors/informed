@@ -37,6 +37,8 @@ export const Routes = () => {
         <Route path="formState" element={<FormState />} />
         <Route path="formApi" element={<FormApi />} />
         <Route path="fieldState" element={<FieldState />} />
+        <Route path="fieldApi" element={<FieldApi />} />
+        <Route path="path-syntax" element={<PathSyntax />} />
       </Route>
       <Route path="/api-reference">
         <Route path="" element={<Navigate to="/api-reference/useField" />} />

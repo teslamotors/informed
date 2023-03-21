@@ -69,8 +69,6 @@ export const Relevance = () => {
         left={<ArrayExample />}
         right={<Code input1={arrayCode} />}
       />
-      <hr />
-      <h2>Api</h2>
       <br />
       <br />
     </>

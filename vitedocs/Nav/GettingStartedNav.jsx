@@ -11,6 +11,9 @@ export const GettingStartedNav = () => {
       <NavLink href="/getting-started/fieldState">Field State</NavLink>
       <NavLink href="/getting-started/fieldApi">Field Api</NavLink>
       <NavLink href="/getting-started/path-syntax">Path Syntax</NavLink>
+      <NavLink href="/getting-started/array-field">Array Field</NavLink>
+      <NavLink href="/getting-started/relevant">Relevant</NavLink>
+      <NavLink href="/getting-started/formatting">Formatting</NavLink>
     </ul>
   );
 };

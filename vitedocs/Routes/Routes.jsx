@@ -29,6 +29,8 @@ import Mask from '../Pages/ApiReference/Formatting/Mask/Mask';
 import Parse from '../Pages/ApiReference/Formatting/Parse/Parse';
 import NumberFormatter from '../Pages/ApiReference/Formatting/NumberFormatter/NumberFormatter';
 import ArrayFieldComponent from '../Pages/ApiReference/Arrays/ArrrayField/ArrayField';
+import { Formatting } from '../Pages/GettingStarted/Formatting/Formatting';
+import { Validation } from '../Pages/ApiReference/Validation/Validation/Validation';
 
 // Routes ------------------------------------------------------------
 export const Routes = () => {
@@ -45,6 +47,9 @@ export const Routes = () => {
         <Route path="fieldState" element={<FieldState />} />
         <Route path="fieldApi" element={<FieldApi />} />
         <Route path="path-syntax" element={<PathSyntax />} />
+        <Route path="array-field" element={<ArrayFieldComponent />} />
+        <Route path="relevant" element={<Relevance />} />
+        <Route path="formatting" element={<Formatting />} />
       </Route>
       <Route path="/api-reference">
         <Route path="" element={<Navigate to="/api-reference/useField" />} />
@@ -68,6 +73,7 @@ export const Routes = () => {
         <Route path="formatting-mask" element={<Mask />} />
         <Route path="formatting-parse" element={<Parse />} />
         <Route path="array-field" element={<ArrayFieldComponent />} />
+        <Route path="validation" element={<Validation />} />
       </Route>
       <Route path="/home" element={<Home />} />
       <Route path="/admin" element={<Admin />} />

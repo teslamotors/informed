@@ -45,6 +45,8 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/formatting-clean">Clean</NavLink>
       <NavLink href="/api-reference/formatting-mask">Mask</NavLink>
       <NavLink href="/api-reference/formatting-parse">Parse</NavLink>
+      <h3>Validation</h3>
+      <NavLink href="/api-reference/validation">Validation</NavLink>
     </ul>
   );
 };

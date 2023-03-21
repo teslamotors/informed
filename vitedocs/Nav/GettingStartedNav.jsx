@@ -7,6 +7,7 @@ export const GettingStartedNav = () => {
       <NavLink href="/getting-started/setup">Setup</NavLink>
       <NavLink href="/getting-started/hooks">Hooks</NavLink>
       <NavLink href="/getting-started/formState">Form State</NavLink>
+      <NavLink href="/getting-started/formApi">Form Api</NavLink>
     </ul>
   );
 };

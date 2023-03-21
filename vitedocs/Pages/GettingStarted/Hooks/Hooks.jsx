@@ -12,7 +12,7 @@ import {
   Row,
   Cell
 } from '@adobe/react-spectrum';
-import Code from '../../../Code';
+import Code from '../../../YourComponents/Code';
 import { Link } from '../../../Link';
 import { useEffect } from 'react';
 

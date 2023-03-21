@@ -9,8 +9,8 @@ import {
 } from '@adobe/react-spectrum';
 import { Link } from '../../../Link';
 import Example from './RelevanceExample';
-import code from './RelevanceExample.jsx?raw';
-import Code from '../../../Code';
+import exampleCode from './RelevanceExample.jsx?raw';
+import Code from '../../../YourComponents/Code';
 import { SideBySide } from '../../../SideBySide';
 import { Info } from '../../../Info';
 import ScopeExample from './RelevanceScopedExample';
@@ -37,7 +37,7 @@ export const Relevance = () => {
         leftHeader={<h3>Example: </h3>}
         rightHeader={<h3>Code:</h3>}
         left={<Example />}
-        right={<Code input1={code} />}
+        right={<Code input1={exampleCode} />}
       />
       <hr />
       <h2>Scoped Relevance</h2>

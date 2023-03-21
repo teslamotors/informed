@@ -4,7 +4,7 @@ import Input from '../../YourComponents/Input';
 import Form from '../../YourComponents/Form';
 import { Button } from '@adobe/react-spectrum';
 import pageContent from './Home.jsx?raw';
-import Code from '../../Code';
+import Code from '../../YourComponents/Code';
 
 export const Home = () => {
   return (

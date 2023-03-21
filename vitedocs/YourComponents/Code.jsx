@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 // @ts-ignore
-import useApp from './hooks/useApp';
+import useApp from '../hooks/useApp';
 
 // @ts-ignore
 const trim = str => {

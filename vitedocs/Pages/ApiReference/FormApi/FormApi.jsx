@@ -9,8 +9,8 @@ import {
 } from '@adobe/react-spectrum';
 import { Link } from '../../../Link';
 import Example from './Example';
-import code from './Example.jsx?raw';
-import Code from '../../../Code';
+import exampleCode from './Example.jsx?raw';
+import Code from '../../../YourComponents/Code';
 import { SideBySide } from '../../../SideBySide';
 import { Info } from '../../../Info';
 
@@ -32,7 +32,7 @@ export default function FormState() {
         leftHeader={<h3>Example: </h3>}
         rightHeader={<h3>Code:</h3>}
         left={<Example />}
-        right={<Code input1={code} />}
+        right={<Code input1={exampleCode} />}
       />
       <hr />
       <h2>Api</h2>

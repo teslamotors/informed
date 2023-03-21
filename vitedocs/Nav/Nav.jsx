@@ -9,7 +9,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import { NavLink } from './NavLink';
 import { GettingStartedNav } from './GettingStartedNav';
-import { Car } from './Car';
+import { Car } from 'YourComponents';
 import { ApiReferenceNav } from './ApiReferenceNav';
 
 export const Nav = () => {

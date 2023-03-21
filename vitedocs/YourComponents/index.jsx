@@ -4,7 +4,19 @@ import NumberInput from './NumberInput';
 import Checkbox from './Checkbox';
 import Select from './Select';
 import { Button, Item } from '@adobe/react-spectrum';
+import Code from './Code';
+import { Car } from './Car';
 
 const Option = Item;
 
-export { Form, Input, Checkbox, Select, Option, Button, NumberInput };
+export {
+  Form,
+  Input,
+  Checkbox,
+  Select,
+  Option,
+  Button,
+  NumberInput,
+  Code,
+  Car
+};

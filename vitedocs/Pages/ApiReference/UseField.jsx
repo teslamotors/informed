@@ -1,6 +1,6 @@
 import { ContextualHelp, Heading, Flex, Content } from '@adobe/react-spectrum';
 import { useEffect } from 'react';
-import Code from '../../Code';
+import Code from '../../YourComponents/Code';
 import { Info } from '../../Info';
 import { SideBySide } from '../../SideBySide';
 import Simple from '../GettingStarted/InputExamples/SimpleInput';

@@ -1,6 +1,5 @@
 import { Debug, DebugField, useFieldState } from 'informed';
-import { Form, Select, Option, Button } from 'YourComponents';
-import { Car } from '../../../Nav/Car';
+import { Form, Select, Option, Button, Car } from 'YourComponents';
 
 const ColoredCar = () => {
   /* ---------- Get acces to field state ----------- */

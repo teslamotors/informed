@@ -3,6 +3,7 @@ import { ContextualHelp, Heading, Flex, Content } from '@adobe/react-spectrum';
 import { SideBySide } from '../../../SideBySide';
 import Example from './Example';
 import exampleCode from './Example.jsx?raw';
+import { Info } from '../../../Info';
 
 const Hint = () => {
   return (
@@ -23,9 +24,13 @@ const Hint = () => {
   );
 };
 
-export default function Showoff() {
+export default function CarColor() {
   return (
     <>
+      <h2>Field State</h2>
+      <Info>
+        You can gain access to any fields state via the `useFieldState` hook.
+      </Info>
       <SideBySide
         leftHeader={<Hint />}
         rightHeader={<h3>Code:</h3>}

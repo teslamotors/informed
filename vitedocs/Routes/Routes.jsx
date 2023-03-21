@@ -15,7 +15,7 @@ import UseFieldApi from '../Pages/ApiReference/UseFieldApi';
 import UseFormState from '../Pages/ApiReference/UseFormState';
 import UseFormApi from '../Pages/ApiReference/UseFormApi';
 import FormState from '../Pages/ApiReference/FormState/FormState';
-import FieldState from '../Pages/ApiReference/FieldState';
+import FieldState from '../Pages/ApiReference/FieldState/FieldState';
 import FormApi from '../Pages/ApiReference/FormApi/FormApi';
 import { Relevance } from '../Pages/ApiReference/Relevance/Relevance';
 
@@ -30,6 +30,7 @@ export const Routes = () => {
         <Route path="setup" element={<Setup />} />
         <Route path="hooks" element={<Hooks />} />
         <Route path="formState" element={<FormState />} />
+        <Route path="formApi" element={<FormApi />} />
       </Route>
       <Route path="/api-reference">
         <Route path="" element={<Navigate to="/api-reference/useField" />} />

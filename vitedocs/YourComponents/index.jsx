@@ -3,7 +3,7 @@ import Input from './Input';
 import NumberInput from './NumberInput';
 import Checkbox from './Checkbox';
 import Select from './Select';
-import { Button, Item } from '@adobe/react-spectrum';
+import { Button, ButtonGroup, Item } from '@adobe/react-spectrum';
 import Code from './Code';
 import { Car } from './Car';
 
@@ -18,5 +18,6 @@ export {
   Button,
   NumberInput,
   Code,
-  Car
+  Car,
+  ButtonGroup
 };

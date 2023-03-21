@@ -14,10 +14,13 @@ import Code from '../../../YourComponents/Code';
 import { SideBySide } from '../../../SideBySide';
 import { Info } from '../../../Info';
 
+import MoreExamples from './MoreExamples';
+import moreExampleCode from './MoreExamples.jsx?raw';
+
 export default function FormState() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
   return (
     <>
       <h1>
@@ -252,6 +255,17 @@ export default function FormState() {
           </Row>
         </TableBody>
       </TableView>
+      <hr />
+      <h2>
+        <code>More Examples</code>
+      </h2>
+      <Info>Here is some more examples of the api in action!</Info>
+      <SideBySide
+        leftHeader={<h3>Example: </h3>}
+        rightHeader={<h3>Code:</h3>}
+        left={<MoreExamples />}
+        right={<Code input1={moreExampleCode} />}
+      />
       <br />
       <br />
     </>

@@ -1,30 +1,22 @@
 import { useEffect } from 'react';
-import {
-  TableView,
-  TableHeader,
-  TableBody,
-  Column,
-  Row,
-  Cell
-} from '@adobe/react-spectrum';
-import { Link } from '../../../Link';
 import Example from './Example';
 import exampleCode from './Example.jsx?raw';
 import Code from '../../../YourComponents/Code';
 import { SideBySide } from '../../../SideBySide';
 import { Info } from '../../../Info';
 
-export const UseSubState = () => {
+export const ScopedComponent = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   return (
     <>
       <h1>
-        <code>useSubState</code>
+        <code>Scope</code>
       </h1>
       <Info>
-        You can gain access to a sub state via the `useSubState` hook.
+        Sometimes you need to scope specific fields ( group them ). This is
+        easily achieved with the use of Scope.
       </Info>
       <SideBySide
         leftHeader={<h3>Example: </h3>}

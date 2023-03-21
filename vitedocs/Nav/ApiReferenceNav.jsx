@@ -22,6 +22,9 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/useSubState" exact>
         useSubState
       </NavLink>
+      <NavLink href="/api-reference/useScopedState" exact>
+        useScopedState
+      </NavLink>
       <h3>State</h3>
       <NavLink href="/api-reference/formState">FormState</NavLink>
       <NavLink href="/api-reference/fieldState">FieldState</NavLink>
@@ -31,6 +34,8 @@ export const ApiReferenceNav = () => {
       <h3>Components</h3>
       <NavLink href="/api-reference/relevant">Relevant</NavLink>
       <NavLink href="/api-reference/scope">Scope</NavLink>
+      <h3>Path</h3>
+      <NavLink href="/api-reference/path-syntax">Syntax</NavLink>
     </ul>
   );
 };

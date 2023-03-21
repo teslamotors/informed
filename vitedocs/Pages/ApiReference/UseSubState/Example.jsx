@@ -3,9 +3,13 @@ import { useRef } from 'react';
 import { Form, Input, Code } from 'YourComponents';
 
 const ShowSubState = ({ name }) => {
+  /* ---------- This hook gets the scoped state ---------- */
   const subState = useSubState(name);
+
+  /* --------- Use a ref to keep render count :) --------- */
   const renders = useRef(0);
   renders.current += 1;
+
   return (
     <>
       <h3>SubState: {name}</h3>
@@ -17,7 +21,7 @@ const ShowSubState = ({ name }) => {
 
 const Example = () => {
   return (
-    <Form initialValues={{ firstName: 'Hello', lastName: 'World' }}>
+    <Form>
       <h3>Your Info</h3>
       <Input name="name" label="First name:" />
       <Input name="age" label="Age:" type="number" />

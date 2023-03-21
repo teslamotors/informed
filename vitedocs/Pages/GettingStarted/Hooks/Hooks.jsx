@@ -15,6 +15,8 @@ import {
 import Code from '../../../YourComponents/Code';
 import { Link } from '../../../Link';
 import { useEffect } from 'react';
+import { UseSubState } from '../../ApiReference/UseSubState/UseSubState';
+import { UseScopedState } from '../../ApiReference/UseScopedState/UseScopedState';
 
 export default function Intro() {
   useEffect(() => {
@@ -116,6 +118,33 @@ setValue('greeting', 'Hello World');`}</Code>
               <Link href="/api-reference/useFormApi">( Docs )</Link>
             </Cell>
           </Row>
+
+          <Row>
+            <Cell>
+              <code>useSubState</code>
+            </Cell>
+            <Cell>
+              <Code>{`const { value, error } = useSubState("child");`}</Code>
+            </Cell>
+            <Cell>
+              Allows you to get access to a sub set of the form state.
+              <Link href="/api-reference/useSubState">( Docs )</Link>
+            </Cell>
+          </Row>
+
+          <Row>
+            <Cell>
+              <code>useScopedState</code>
+            </Cell>
+            <Cell>
+              <Code>{`const { value, error } = useScopedState();`}</Code>
+            </Cell>
+            <Cell>
+              Allows you to get access to a sub set of the form state within a
+              scope.
+              <Link href="/api-reference/useScopedState">( Docs )</Link>
+            </Cell>
+          </Row>
         </TableBody>
       </TableView>
 
@@ -127,6 +156,10 @@ setValue('greeting', 'Hello World');`}</Code>
       <CarColorControl />
       <hr />
       <CarColorFieldControl />
+      <hr />
+      <UseSubState />
+      <hr />
+      <UseScopedState />
       <br />
       <br />
     </>

@@ -18,7 +18,11 @@ import FormState from '../Pages/ApiReference/FormState/FormState';
 import FieldState from '../Pages/ApiReference/FieldState/FieldState';
 import FormApi from '../Pages/ApiReference/FormApi/FormApi';
 import { Relevance } from '../Pages/ApiReference/Relevance/Relevance';
-import { UseSubState } from '../Pages/ApiReference/UseSubState.jsx/UseSubState';
+import { UseSubState } from '../Pages/ApiReference/UseSubState/UseSubState';
+import { UseScopedState } from '../Pages/ApiReference/UseScopedState/UseScopedState';
+import { ScopedComponent } from '../Pages/ApiReference/ScopeComponent/ScopeComponent';
+import FieldApi from '../Pages/ApiReference/FieldApi/FieldApi';
+import PathSyntax from '../Pages/ApiReference/PathSyntax/PathSyntax';
 
 // Routes ------------------------------------------------------------
 export const Routes = () => {
@@ -32,19 +36,24 @@ export const Routes = () => {
         <Route path="hooks" element={<Hooks />} />
         <Route path="formState" element={<FormState />} />
         <Route path="formApi" element={<FormApi />} />
+        <Route path="fieldState" element={<FieldState />} />
       </Route>
       <Route path="/api-reference">
         <Route path="" element={<Navigate to="/api-reference/useField" />} />
         <Route path="useField" element={<UseField />} />
         <Route path="useFieldState" element={<UseFieldState />} />
-        <Route path="useSubState" element={<UseSubState />} />
         <Route path="useFieldApi" element={<UseFieldApi />} />
         <Route path="useFormState" element={<UseFormState />} />
         <Route path="useFormApi" element={<UseFormApi />} />
+        <Route path="useSubState" element={<UseSubState />} />
+        <Route path="useScopedState" element={<UseScopedState />} />
         <Route path="formState" element={<FormState />} />
         <Route path="formApi" element={<FormApi />} />
         <Route path="fieldState" element={<FieldState />} />
+        <Route path="fieldApi" element={<FieldApi />} />
         <Route path="relevant" element={<Relevance />} />
+        <Route path="scope" element={<ScopedComponent />} />
+        <Route path="path-syntax" element={<PathSyntax />} />
       </Route>
       <Route path="/home" element={<Home />} />
       <Route path="/admin" element={<Admin />} />

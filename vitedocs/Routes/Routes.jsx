@@ -28,6 +28,7 @@ import Clean from '../Pages/ApiReference/Formatting/Clean/Clean';
 import Mask from '../Pages/ApiReference/Formatting/Mask/Mask';
 import Parse from '../Pages/ApiReference/Formatting/Parse/Parse';
 import NumberFormatter from '../Pages/ApiReference/Formatting/NumberFormatter/NumberFormatter';
+import ArrayFieldComponent from '../Pages/ApiReference/Arrays/ArrrayField/ArrayField';
 
 // Routes ------------------------------------------------------------
 export const Routes = () => {
@@ -66,6 +67,7 @@ export const Routes = () => {
         <Route path="formatting-clean" element={<Clean />} />
         <Route path="formatting-mask" element={<Mask />} />
         <Route path="formatting-parse" element={<Parse />} />
+        <Route path="array-field" element={<ArrayFieldComponent />} />
       </Route>
       <Route path="/home" element={<Home />} />
       <Route path="/admin" element={<Admin />} />

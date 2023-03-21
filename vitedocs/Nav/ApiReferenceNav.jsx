@@ -34,6 +34,7 @@ export const ApiReferenceNav = () => {
       <h3>Components</h3>
       <NavLink href="/api-reference/relevant">Relevant</NavLink>
       <NavLink href="/api-reference/scope">Scope</NavLink>
+      <NavLink href="/api-reference/array-field">ArrayField</NavLink>
       <h3>Path</h3>
       <NavLink href="/api-reference/path-syntax">Syntax</NavLink>
       <h3>Formatting</h3>

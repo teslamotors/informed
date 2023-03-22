@@ -73,7 +73,7 @@ export default function InputExamples() {
         <br />
         <strong>Note: </strong>
         this is the exact same example that we showed in the intro, but this
-        time instead of using adobes inputs it uses the ones we define here!
+        time instead of using Adobe's inputs it uses the ones we define here!
       </Info>
       {/* <Code input1={code} /> */}
       {/* <Code input1={code} input2={css} language2="css" minWidth2="200px" /> */}

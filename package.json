@@ -29,7 +29,7 @@
     "postpublish": "git push --tags",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:docs": "build-storybook -c .storybook -s public -o docs",
-    "build:docs": "rm -r docs/ && npm run build:docs:vite && build-storybook -c .storybook -o docs/olddocs",
+    "build:docs": "rm -r docs/ && npm run build:docs:vite && build-storybook -c .storybook -o docs/olddocs && cp vitedocs/404.html docs",
     "prettier": "prettier --write 'src/**/*.{js,md}' 'tests/**/*.{js,md}' 'stories/**/*.{js,md}'",
     "pretty-quick": "pretty-quick",
     "lint:fix": "eslint src/** tests/** stories/** --fix",

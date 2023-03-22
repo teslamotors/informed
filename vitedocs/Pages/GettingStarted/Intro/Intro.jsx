@@ -42,7 +42,7 @@ export default function Intro() {
       </h2> */}
       <Info>
         First lets take a look at whats possible with informed. Below is an
-        example where we wrapped informed around adobes{' '}
+        example where we wrapped informed around Adobe's{' '}
         <a href="https://react-spectrum.adobe.com/react-spectrum/index.html">
           desgin-system
         </a>

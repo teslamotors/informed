@@ -94,7 +94,7 @@ export const isChild = (parent, child) => {
   // "friends[1].foo".startsWith("friends[1].foo.friends[1]")
   // ==> false
 
-  return child.startsWith(`${parent}.`);
+  return child.startsWith(`${parent}.`) || child.startsWith(`${parent}[`);
 };
 
 export const generateOnChange = ({ fieldType, setValue, multiple, ref }) => {

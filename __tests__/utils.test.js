@@ -79,6 +79,11 @@ describe('Utils', () => {
       expect(actual).toEqual(true);
     });
 
+    it('friends is parent of friends[1].foo', () => {
+      const actual = isChild('friends', 'friends[1].foo');
+      expect(actual).toEqual(true);
+    });
+
     it('f is NOT a parent of friends[1].foo', () => {
       const actual = isChild('f', 'friends[1].foo');
       expect(actual).toEqual(false);

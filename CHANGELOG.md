@@ -1,3 +1,17 @@
+## 4.43.2 (March 22nd, 2023)
+
+### Fixed
+
+- issue where child subscriptions would not work
+
+```js
+// This test now passes and it did not before
+it('friends is parent of friends[1].foo', () => {
+  const actual = isChild('friends', 'friends[1].foo');
+  expect(actual).toEqual(true);
+});
+```
+
 ## 4.43.1 (March 22nd, 2023)
 
 ### Fixed

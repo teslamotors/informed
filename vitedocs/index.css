@@ -431,3 +431,20 @@ td {
 .button-group button {
   width: 100%;
 }
+
+.form-table input {
+  max-width: 80px;
+}
+
+.form-table td {
+  max-width: 80px;
+  padding: 5px;
+}
+.form-table th {
+  max-width: 80px;
+  padding: 5px;
+}
+
+.form-table {
+  text-align: center;
+}

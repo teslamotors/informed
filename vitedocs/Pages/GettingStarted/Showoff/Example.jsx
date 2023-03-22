@@ -133,6 +133,41 @@ const Example = () => (
     </ArrayField>
     <br />
 
+    {/* ------------------------- Table Forms -------------------------- */}
+    <table className="form-table">
+      <thead>
+        <tr>
+          <th>Market</th>
+          <th>Supply</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          {/* --------------- Scope using Scope --------------- */}
+          <Scope scope="US">
+            <td>US</td>
+            <td>
+              <Input name="supply" type="number" initialValue={100} />
+            </td>
+            <td>
+              <Input name="price" type="number" initialValue={40_000} />
+            </td>
+          </Scope>
+        </tr>
+        {/* ------------- Scope using path syntax ------------- */}
+        <tr>
+          <td>CA</td>
+          <td>
+            <Input name="CA.supply" type="number" initialValue={50} />
+          </td>
+          <td>
+            <Input name="CA.price" type="number" initialValue={42_000} />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
     {/* ------------------- JSON Schema Rendering -------------------- */}
     <FormFields
       schema={{

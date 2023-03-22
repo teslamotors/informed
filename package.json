@@ -157,8 +157,8 @@
     }
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix",
-    "*.{js,css,md}": "prettier --write"
+    "src/*.js": "eslint --cache --fix",
+    "src/*.{js,css,md}": "prettier --write"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

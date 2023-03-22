@@ -6,7 +6,7 @@ const path = require('path');
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: './newdocs'
+    outDir: './docs'
   },
   resolve: {
     alias: {

@@ -14,6 +14,9 @@ import { SideBySide } from '../../../../SideBySide';
 import { Info } from '../../../../Info';
 
 export default function ArrayFieldItem() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <h1>

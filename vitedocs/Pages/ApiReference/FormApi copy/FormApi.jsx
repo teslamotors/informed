@@ -24,9 +24,12 @@ export default function FormState() {
         <code>Form Api</code>
       </h1>
       <Info>
-        You can gain access to the forms api via `useFormApi` or `formApiRef`.
+        You can gain access to the forms api via <code>useFormApi</code> or{' '}
+        <code>formApiRef</code>
+        <br />
+        <br />
         Below we create some buttons to randomly set the color of our car using
-        `formApi.setValue`
+        <code>formApi.setValue</code>
       </Info>
       <SideBySide
         leftHeader={<h3>Example: </h3>}

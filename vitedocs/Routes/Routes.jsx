@@ -31,6 +31,10 @@ import NumberFormatter from '../Pages/ApiReference/Formatting/NumberFormatter/Nu
 import ArrayFieldComponent from '../Pages/ApiReference/Arrays/ArrrayField/ArrayField';
 import { Formatting } from '../Pages/GettingStarted/Formatting/Formatting';
 import { Validation } from '../Pages/ApiReference/Validation/Validation/Validation';
+import { AsyncValidation } from '../Pages/ApiReference/Validation/AsyncValidation/AsyncValidation';
+import { ValidationControl } from '../Pages/ApiReference/Validation/ValidationControl/Validation';
+import { PairedValidation } from '../Pages/ApiReference/Validation/PairedValidation/PairedValidation';
+import ArrayFieldItem from '../Pages/ApiReference/Arrays/ArrayFieldItem/ArrayFieldItem';
 
 // Routes ------------------------------------------------------------
 export const Routes = () => {
@@ -50,6 +54,7 @@ export const Routes = () => {
         <Route path="array-field" element={<ArrayFieldComponent />} />
         <Route path="relevant" element={<Relevance />} />
         <Route path="formatting" element={<Formatting />} />
+        <Route path="validation" element={<Validation />} />
       </Route>
       <Route path="/api-reference">
         <Route path="" element={<Navigate to="/api-reference/useField" />} />
@@ -74,6 +79,14 @@ export const Routes = () => {
         <Route path="formatting-parse" element={<Parse />} />
         <Route path="array-field" element={<ArrayFieldComponent />} />
         <Route path="validation" element={<Validation />} />
+        <Route path="async-validation" element={<AsyncValidation />} />
+        <Route path="validation-control" element={<ValidationControl />} />
+        <Route path="paired-validation" element={<PairedValidation />} />
+        <Route
+          path="arrays-array-field"
+          element={<ArrayFieldComponent showItem={false} />}
+        />
+        <Route path="arrays-array-field-item" element={<ArrayFieldItem />} />
       </Route>
       <Route path="/home" element={<Home />} />
       <Route path="/admin" element={<Admin />} />

@@ -11,8 +11,11 @@ export default function CarColor() {
         <code>useFormApi</code>
       </h1>
       <Info>
-        You can gain access to the forms api via `useFormApi`. Below we create a
-        button to randomly set the color of our car using `formApi.setValue`
+        You can gain access to the forms api via <code>useFormApi</code>
+        <br />
+        <br />
+        Below we create a button to randomly set the color of our car using{' '}
+        <code>formApi.setValue</code>
       </Info>
       <SideBySide
         leftHeader={<h3>Example: </h3>}

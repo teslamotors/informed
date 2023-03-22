@@ -15,7 +15,8 @@ export const UseSubState = () => {
         <code>useSubState</code>
       </h1>
       <Info>
-        You can gain access to a sub state via the `useSubState` hook.
+        You can gain access to a sub state via the <code>useSubState</code>
+        hook.
       </Info>
       <SideBySide
         leftHeader={<h3>Example: </h3>}

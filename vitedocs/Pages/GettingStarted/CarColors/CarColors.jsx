@@ -11,7 +11,8 @@ export default function CarColor() {
         <code>useFormState</code>
       </h1>
       <Info>
-        You can gain access to anything in the forms state via `useFormState`
+        You can gain access to anything in the forms state via{' '}
+        <code>useFormState</code>
         hook.
       </Info>
       <SideBySide

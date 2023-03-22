@@ -24,8 +24,8 @@ export default function FormState() {
         <code>Form State</code>
       </h1>
       <Info>
-        First lets see an example of a single input. Note the `Debug` component
-        and how we can view everything inside of the form state.
+        Lets see an example of a single input. Note the <code>Debug</code>{' '}
+        component and how we can view everything inside of the form state.
       </Info>
       <SideBySide
         leftHeader={<h3>Example: </h3>}

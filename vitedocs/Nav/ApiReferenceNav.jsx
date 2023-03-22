@@ -46,7 +46,23 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/formatting-mask">Mask</NavLink>
       <NavLink href="/api-reference/formatting-parse">Parse</NavLink>
       <h3>Validation</h3>
-      <NavLink href="/api-reference/validation">Validation</NavLink>
+      <NavLink href="/api-reference/validation" exact>
+        Validation
+      </NavLink>
+      <NavLink href="/api-reference/async-validation">Async Validation</NavLink>
+      <NavLink href="/api-reference/validation-control" exact>
+        Validation Control
+      </NavLink>
+      <NavLink href="/api-reference/paired-validation">
+        Paired Validation
+      </NavLink>
+      <h3>Arrays</h3>
+      <NavLink href="/api-reference/arrays-array-field" exact>
+        ArrayField
+      </NavLink>
+      <NavLink href="/api-reference/arrays-array-field-item" exact>
+        ArrayField.Item
+      </NavLink>
     </ul>
   );
 };

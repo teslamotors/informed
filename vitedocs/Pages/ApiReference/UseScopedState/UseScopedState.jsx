@@ -16,7 +16,7 @@ export const UseScopedState = () => {
       </h1>
       <Info>
         You can gain access to a sub state from within a scope via the
-        `useScopedState` hook.
+        <code>useScopedState</code> hook.
       </Info>
       <SideBySide
         leftHeader={<h3>Example: </h3>}

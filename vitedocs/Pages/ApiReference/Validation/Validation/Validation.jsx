@@ -12,11 +12,13 @@ import exampleCode from './Example.jsx?raw';
 import Code from '../../../../YourComponents/Code';
 import { SideBySide } from '../../../../SideBySide';
 import { Info } from '../../../../Info';
+import { ValidationControl } from '../ValidationControl/Validation';
+import { AsyncValidation } from '../AsyncValidation/AsyncValidation';
 
 export const Validation = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
   return (
     <>
       <h1>
@@ -55,7 +57,9 @@ const validate = value => {
         right={<Code input1={exampleCode} />}
       />
       <hr />
-      <h2>State Attributes</h2>
+      <AsyncValidation />
+      <hr />
+      <ValidationControl />
       <br />
       <br />
     </>

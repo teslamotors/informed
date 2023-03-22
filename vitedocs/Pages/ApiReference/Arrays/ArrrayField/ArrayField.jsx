@@ -6,10 +6,10 @@ import { SideBySide } from '../../../../SideBySide';
 import { Info } from '../../../../Info';
 import ArrayFieldItem from '../ArrayFieldItem/ArrayFieldItem';
 
-export default function ArrayFieldComponent() {
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
+export default function ArrayFieldComponent({ showItem = true }) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <h1>
@@ -19,6 +19,7 @@ export default function ArrayFieldComponent() {
         Sometimes you need highly dynamic forms where the data is represented by
         an array.
         <br />
+        <br />
         <strong>Note:</strong> how you can dynamically add or remove fields.
       </Info>
       <SideBySide
@@ -27,8 +28,12 @@ export default function ArrayFieldComponent() {
         left={<Example />}
         right={<Code input1={exampleCode} />}
       />
-      <hr />
-      <ArrayFieldItem />
+      {showItem ? (
+        <>
+          <hr />
+          <ArrayFieldItem />
+        </>
+      ) : null}
       <br />
       <br />
     </>

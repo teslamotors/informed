@@ -11,9 +11,12 @@ export default function CarColor() {
         <code>useFieldApi</code>
       </h1>
       <Info>
-        You can gain access to a specific fields api via `useFieldApi`. Below we
-        create a button to randomly set the color of our car using
-        `fieldApi.setValue`
+        You can gain access to a specific fields api via{' '}
+        <code>useFieldApi</code>
+        <br />
+        <br />
+        Below we create a button to randomly set the color of our car using
+        <code>fieldApi.setValue</code>
       </Info>
       <SideBySide
         leftHeader={<h3>Example: </h3>}

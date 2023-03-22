@@ -11,7 +11,8 @@ export default function CarColor() {
         <code>useFieldState</code>
       </h1>
       <Info>
-        You can gain access to any fields state via the `useFieldState` hook.
+        You can gain access to any fields state via the{' '}
+        <code>useFieldState</code> hook.
       </Info>
       <SideBySide
         leftHeader={<h3>Example: </h3>}

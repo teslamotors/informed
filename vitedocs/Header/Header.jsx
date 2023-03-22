@@ -33,7 +33,7 @@ export const Header = () => {
         <NavLink href="/getting-started/intro">Getting Started</NavLink>
         <NavLink href="/api-reference/useField">Api Reference</NavLink>
         <li className={`spectrum-SideNav-item`}>
-          <a href="/olddocs" className="spectrum-SideNav-itemLink">
+          <a href="/informed/olddocs" className="spectrum-SideNav-itemLink">
             Old Docs
           </a>
         </li>

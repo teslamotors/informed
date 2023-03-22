@@ -30,8 +30,8 @@ export const Header = () => {
             <ShowMenu />
           </ActionButton>
         ) : null}
-        <NavLink href="getting-started">Getting Started</NavLink>
-        <NavLink href="api-reference">Api Reference</NavLink>
+        <NavLink href="/getting-started/intro">Getting Started</NavLink>
+        <NavLink href="/api-reference/useField">Api Reference</NavLink>
         <li className={`spectrum-SideNav-item`}>
           <a href="/olddocs" className="spectrum-SideNav-itemLink">
             Old Docs

@@ -43,7 +43,6 @@ export const Routes = () => {
     <RouterRoutes>
       <Route path="/" element={<Navigate to="getting-started/intro" />} />
       <Route path="getting-started">
-        <Route path="" element={<Navigate to="getting-started/intro" />} />
         <Route path="intro" element={<Intro />} />
         <Route path="setup" element={<Setup />} />
         <Route path="hooks" element={<Hooks />} />
@@ -58,7 +57,6 @@ export const Routes = () => {
         <Route path="validation" element={<Validation />} />
       </Route>
       <Route path="api-reference">
-        <Route path="" element={<Navigate to="api-reference/useField" />} />
         <Route path="useField" element={<UseField />} />
         <Route path="useFieldState" element={<UseFieldState />} />
         <Route path="useFieldApi" element={<UseFieldApi />} />

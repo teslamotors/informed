@@ -41,9 +41,9 @@ import { ValidationMessages } from '../Pages/ApiReference/Validation/ValidationM
 export const Routes = () => {
   return (
     <RouterRoutes>
-      <Route path="/" element={<Navigate to="/getting-started/intro" />} />
-      <Route path="/getting-started">
-        <Route path="" element={<Navigate to="/getting-started/intro" />} />
+      <Route path="/" element={<Navigate to="getting-started/intro" />} />
+      <Route path="getting-started">
+        <Route path="" element={<Navigate to="getting-started/intro" />} />
         <Route path="intro" element={<Intro />} />
         <Route path="setup" element={<Setup />} />
         <Route path="hooks" element={<Hooks />} />
@@ -57,8 +57,8 @@ export const Routes = () => {
         <Route path="formatting" element={<Formatting />} />
         <Route path="validation" element={<Validation />} />
       </Route>
-      <Route path="/api-reference">
-        <Route path="" element={<Navigate to="/api-reference/useField" />} />
+      <Route path="api-reference">
+        <Route path="" element={<Navigate to="api-reference/useField" />} />
         <Route path="useField" element={<UseField />} />
         <Route path="useFieldState" element={<UseFieldState />} />
         <Route path="useFieldApi" element={<UseFieldApi />} />
@@ -90,9 +90,9 @@ export const Routes = () => {
         <Route path="arrays-array-field-item" element={<ArrayFieldItem />} />
         <Route path="validation-messages" element={<ValidationMessages />} />
       </Route>
-      <Route path="/home" element={<Home />} />
-      <Route path="/admin" element={<Admin />} />
-      <Route path="/unauthorized" element={<NotAuthorized />} />
+      <Route path="home" element={<Home />} />
+      <Route path="admin" element={<Admin />} />
+      <Route path="unauthorized" element={<NotAuthorized />} />
       <Route path="*" element={<NotFound />} />
     </RouterRoutes>
   );

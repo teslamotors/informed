@@ -15,7 +15,7 @@ const App = () => {
   const { colorScheme } = useApp();
 
   return (
-    <Router>
+    <Router basename="/informed">
       <Provider theme={defaultTheme} colorScheme={colorScheme}>
         <div className="site--app">
           <Header />

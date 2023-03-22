@@ -1,3 +1,9 @@
+## 4.43.0 (March 22nd, 2023)
+
+### Added
+
+- useSubState hook
+
 ## 4.42.1 (March 13th, 2023)
 
 ### Added

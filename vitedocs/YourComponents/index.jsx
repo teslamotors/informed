@@ -3,6 +3,8 @@ import Input from './Input';
 import NumberInput from './NumberInput';
 import Checkbox from './Checkbox';
 import Select from './Select';
+import Slider from './Slider';
+import Switch from './Switch';
 import {
   Button,
   ButtonGroup as AdobeButtonGroup,
@@ -24,11 +26,13 @@ const ButtonGroup = ({ children, ...props }) => {
 export {
   Form,
   Input,
+  NumberInput,
   Checkbox,
   Select,
   Option,
+  Slider,
+  Switch,
   Button,
-  NumberInput,
   Code,
   Car,
   ButtonGroup

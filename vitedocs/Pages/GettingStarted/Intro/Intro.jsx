@@ -46,8 +46,9 @@ export default function Intro() {
         <a href="https://react-spectrum.adobe.com/react-spectrum/index.html">
           desgin-system
         </a>
-        .<br />
-        <br />
+        .
+      </Info>
+      <Info type="notice">
         Those components got defined once inside `YourComponents` directory. You
         will see how this was done later inside the{' '}
         <Link href="/getting-started/setup">setup</Link> docs.
@@ -60,12 +61,15 @@ export default function Intro() {
       />
       <Info>
         Whats going on here? Basically iformed manages form state for you, and
-        allows you to easily hook ito its state managemenet with the use of its{' '}
-        <code>useField</code> hook.
+        allows you to easily hook ito its state managemenet with the use of
+        <code>useField</code>
         <br />
         <br />
         Above, we imported inputs that were already wrapped and simply rendered
-        them on the page. This is the way, you should most of the time not even
+        them on the page.
+        <br />
+        <br />
+        <strong>This is the way!</strong> You should most of the time not even
         realize you are using a form library 😁
       </Info>
       <hr />
@@ -79,12 +83,15 @@ export default function Intro() {
       <h1>How do I start!?</h1>
       <Info>
         In order to use informed all you need to do is wrap your own inputs with
-        informed via a `useField` hook. You do this one time and then can use
-        your forms inputs as normal JSX! Lets get{' '}
-        <Link href="/getting-started/setup">SETUP</Link>
+        informed via a `useField` hook.
       </Info>
       {/* <Code>{` const { fieldApi, fieldState } = useField(props);
 <Input name="name" label="Name" required />`}</Code> */}
+
+      <Info type="notice">
+        You do this one time and then can use your form inputs as normal JSX or
+        via schema! Lets go get <Link href="/getting-started/setup">SETUP</Link>
+      </Info>
       <br />
       <br />
     </>

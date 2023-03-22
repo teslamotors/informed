@@ -6,6 +6,8 @@ import simple from './SimpleInput.jsx?raw';
 import Simple from './SimpleInput';
 import Verbose from './VerboseInput';
 import verbose from './VerboseInput.jsx?raw';
+import SchemaSetup from './SchemaSetup';
+import schemaCode from './SchemaSetup.jsx?raw';
 
 import { SideBySide } from '../../../SideBySide';
 import { ContextualHelp, Heading, Flex, Content } from '@adobe/react-spectrum';
@@ -30,9 +32,9 @@ export default function InputExamples() {
   return (
     <>
       <h2>Create Your First Input</h2>
-      <Info>
-        The first thing you need to do is create your own inputs. You do this
-        once and then never have to do it again!
+      <Info>useField allows you to create your very own inputs.</Info>
+      <Info type="notice">
+        You do this once and then never have to do it agian!
       </Info>
       {/* <Code input1={simple} /> */}
       <SideBySide
@@ -83,6 +85,22 @@ export default function InputExamples() {
         rightHeader={<h3>Code:</h3>}
         left={<Example />}
         right={<Code input1={exampleCode} />}
+      />
+      <hr />
+      <h2>Schema Adapter</h2>
+      <Info>
+        Informed comes with a custom schema adapter that maps field types to
+        actual JSX elements.
+        <br />
+        <br />
+        Whenever you create your own inputs, you have to create or add to
+        informds adapter.
+      </Info>
+      <SideBySide
+        leftHeader={<h3>Example:</h3>}
+        rightHeader={<h3>Code:</h3>}
+        left={<SchemaSetup />}
+        right={<Code input1={schemaCode} />}
       />
     </>
   );

@@ -1,5 +1,11 @@
 /* YourStyles.css */
 
+.your-styles input:not([type='checkbox']):not([type='radio']),
+textarea,
+select {
+  width: 100%;
+}
+
 .your-styles input,
 textarea,
 select {
@@ -23,11 +29,17 @@ select {
 }
 
 .your-styles button {
-  display: inline-block;
+  display: block;
   border: 1px solid transparent;
   border-radius: 5px;
   padding: 5px 30px;
-  color: white;
-  background-color: rebeccapurple;
+  /* color: white; */
+  background-color: rgba(0, 0, 0, 0.01);
   margin-top: 1rem;
+  width: 100%;
+  border: 2px solid grey;
+}
+
+.your-styles button:hover {
+  background-color: grey;
 }

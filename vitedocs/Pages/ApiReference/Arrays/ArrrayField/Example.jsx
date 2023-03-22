@@ -42,7 +42,7 @@ const Example = () => (
       }}
     </ArrayField>
     <Button type="submit">submit</Button>
-    <Debug values />
+    <Debug values modified dirty />
   </Form>
 );
 

@@ -16,9 +16,9 @@ import Close from '@spectrum-icons/workflow/Close';
 import Checkmark from '@spectrum-icons/workflow/Checkmark';
 
 export const ValidationControl = () => {
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <h1>

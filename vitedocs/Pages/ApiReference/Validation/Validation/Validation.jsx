@@ -16,9 +16,9 @@ import { ValidationControl } from '../ValidationControl/Validation';
 import { AsyncValidation } from '../AsyncValidation/AsyncValidation';
 
 export const Validation = () => {
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <h1>

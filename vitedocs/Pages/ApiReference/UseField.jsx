@@ -374,9 +374,9 @@ export default function Intro() {
       <h1>
         <code>useField</code>
       </h1>
-      <Info>
-        useField allows you to create your very own inputs. You do this once and
-        then never have to do it agian.
+      <Info>useField allows you to create your very own inputs.</Info>
+      <Info type="notice">
+        You do this once and then never have to do it agian.
       </Info>
       <SideBySide
         leftHeader={<Hint />}

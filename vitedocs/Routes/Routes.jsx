@@ -35,6 +35,7 @@ import { AsyncValidation } from '../Pages/ApiReference/Validation/AsyncValidatio
 import { ValidationControl } from '../Pages/ApiReference/Validation/ValidationControl/Validation';
 import { PairedValidation } from '../Pages/ApiReference/Validation/PairedValidation/PairedValidation';
 import ArrayFieldItem from '../Pages/ApiReference/Arrays/ArrayFieldItem/ArrayFieldItem';
+import { ValidationMessages } from '../Pages/ApiReference/Validation/ValidationMessages/ValidationMessages';
 
 // Routes ------------------------------------------------------------
 export const Routes = () => {
@@ -87,6 +88,7 @@ export const Routes = () => {
           element={<ArrayFieldComponent showItem={false} />}
         />
         <Route path="arrays-array-field-item" element={<ArrayFieldItem />} />
+        <Route path="validation-messages" element={<ValidationMessages />} />
       </Route>
       <Route path="/home" element={<Home />} />
       <Route path="/admin" element={<Admin />} />

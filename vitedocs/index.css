@@ -222,6 +222,20 @@ hr {
 .flex {
   display: flex;
   gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.side-by-side--right {
+  flex: 1;
+}
+
+@media (max-width: 1200px) {
+  .side-by-side--right {
+    max-width: 100%;
+  }
+  .flex {
+    justify-content: center;
+  }
 }
 
 .info-box {

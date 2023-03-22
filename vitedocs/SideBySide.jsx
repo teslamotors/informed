@@ -5,7 +5,7 @@ export const SideBySide = ({ left, right, leftHeader, rightHeader }) => {
         {leftHeader ? leftHeader : null}
         {left}
       </div>
-      <div style={{ width: '100%' }}>
+      <div className="side-by-side--right">
         {rightHeader ? rightHeader : null}
         {right}
       </div>

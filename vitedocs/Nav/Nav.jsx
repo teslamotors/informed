@@ -11,6 +11,7 @@ import { NavLink } from './NavLink';
 import { GettingStartedNav } from './GettingStartedNav';
 import { Car } from 'YourComponents';
 import { ApiReferenceNav } from './ApiReferenceNav';
+import useMedia from '../hooks/useMedia';
 
 export const Nav = () => {
   const { toggleColorScheme, navOpen, closeNav } = useApp();
@@ -18,6 +19,8 @@ export const Nav = () => {
   const navRef = useRef();
 
   useOutsideAlerter(() => closeNav(), navRef);
+
+  const { isDesktopUp } = useMedia();
 
   return (
     <nav
@@ -40,6 +43,19 @@ export const Nav = () => {
           <Contrast />
         </ActionButton>
       </Flex>
+      {!isDesktopUp ? (
+        <>
+          <br />
+          <NavLink href="/getting-started/intro">Getting Started</NavLink>
+          <NavLink href="/api-reference/useField">Api Reference</NavLink>
+          <li className={`spectrum-SideNav-item`}>
+            <a href="/informed/olddocs" className="spectrum-SideNav-itemLink">
+              Old Docs
+            </a>
+          </li>
+          <hr />
+        </>
+      ) : null}
       <Routes>
         <Route path="/getting-started/:path" element={<GettingStartedNav />} />
         <Route path="/api-reference/:path" element={<ApiReferenceNav />} />

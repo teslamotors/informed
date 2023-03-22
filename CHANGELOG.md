@@ -1,3 +1,9 @@
+## 4.43.1 (March 22nd, 2023)
+
+### Fixed
+
+- issue with debug and prism hightlighting
+
 ## 4.43.0 (March 22nd, 2023)
 
 ### Added

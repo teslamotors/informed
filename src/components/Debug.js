@@ -17,7 +17,7 @@ export const Debug = props => {
   useEffect(
     () => {
       // eslint-disable-next-line
-      if (Prism) Prism.highlightAll();
+      if (window?.Prism) Prism.highlightAll();
     },
     [displayState]
   );

@@ -70,6 +70,19 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/schema-intro" exact>
         Intro
       </NavLink>
+      <h3>Multistep</h3>
+      <NavLink href="/api-reference/multistep-intro" exact>
+        Intro
+      </NavLink>
+      <NavLink href="/api-reference/multistep-state" exact>
+        Multistep State
+      </NavLink>
+      <NavLink href="/api-reference/multistep-dynamic" exact>
+        Dynamic Multistep
+      </NavLink>
+
+      <br />
+      <br />
     </ul>
   );
 };

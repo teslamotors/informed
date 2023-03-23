@@ -14,7 +14,8 @@ import {
   Button,
   ButtonGroup as AdobeButtonGroup,
   Item,
-  Checkbox as CheckboxItem
+  Checkbox as CheckboxItem,
+  Radio
 } from '@adobe/react-spectrum';
 import Code from './Code';
 import { Car } from './Car';
@@ -46,6 +47,7 @@ export {
   TextArea,
   CheckboxItem,
   RadioGroup,
+  Radio,
   ArrayField,
   AddButton,
   RemoveButton

@@ -2,7 +2,7 @@ import React from 'react';
 import { useField } from 'informed';
 import { Radio, RadioGroup } from '@adobe/react-spectrum';
 
-const Input = props => {
+const Input = ({ children, ...props }) => {
   const { render, informed, fieldState, fieldApi, userProps, ref } = useField({
     type: 'text',
     ...props
@@ -21,11 +21,11 @@ const Input = props => {
       onChange={v => fieldApi.setValue(v)}>
       {options
         ? options.map(option => (
-            <Radio key={option.value} value={option.value} label={option.label}>
+            <Radio key={option.value} value={option.value}>
               {option.label}
             </Radio>
           ))
-        : null}
+        : children}
     </RadioGroup>
   );
 };

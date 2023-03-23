@@ -1,0 +1,51 @@
+.stepper-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.stepper-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.stepper-item:first-child::before {
+  content: none;
+}
+.stepper-item:last-child::after {
+  content: none;
+}
+
+.stepper-divider {
+  width: 100%;
+  height: 1px;
+  background-color: grey;
+  margin-top: 10px;
+}
+
+.stepper-counter {
+  border-radius: 50%;
+  background-color: grey;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.stepper-counter:hover {
+  cursor: pointer;
+}
+
+.stepper-counter.complete {
+  background-color: rgb(10, 118, 29);
+}
+
+.stepper-counter.active {
+  background-color: rgb(155, 18, 29);
+}

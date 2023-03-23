@@ -37,6 +37,10 @@ import { PairedValidation } from '../Pages/ApiReference/Validation/PairedValidat
 import ArrayFieldItem from '../Pages/ApiReference/Arrays/ArrayFieldItem/ArrayFieldItem';
 import { ValidationMessages } from '../Pages/ApiReference/Validation/ValidationMessages/ValidationMessages';
 import { SchemaIntro } from '../Pages/ApiReference/Schema/SchemaIntro/SchemaIntro';
+import MultistepIntro from '../Pages/ApiReference/Multistep/MultistepIntro/MultistepIntro';
+import MultistepState from '../Pages/ApiReference/Multistep/MultistepState/MultistepState';
+import { Multistep } from '../Pages/GettingStarted/Multistep/Multistep';
+import { DynamicMultistep } from '../Pages/ApiReference/Multistep/DynamicMultistep/DynamicMultistep';
 
 // Routes ------------------------------------------------------------
 export const Routes = () => {
@@ -57,6 +61,7 @@ export const Routes = () => {
         <Route path="formatting" element={<Formatting />} />
         <Route path="validation" element={<Validation />} />
         <Route path="schema" element={<SchemaIntro />} />
+        <Route path="multistep" element={<Multistep />} />
       </Route>
       <Route path="api-reference">
         <Route path="useField" element={<UseField />} />
@@ -91,6 +96,9 @@ export const Routes = () => {
         <Route path="arrays-array-field-item" element={<ArrayFieldItem />} />
         <Route path="validation-messages" element={<ValidationMessages />} />
         <Route path="schema-intro" element={<SchemaIntro />} />
+        <Route path="multistep-intro" element={<MultistepIntro />} />
+        <Route path="multistep-state" element={<MultistepState />} />
+        <Route path="multistep-dynamic" element={<DynamicMultistep />} />
       </Route>
       <Route path="home" element={<Home />} />
       <Route path="admin" element={<Admin />} />

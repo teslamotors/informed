@@ -15,6 +15,7 @@ export const GettingStartedNav = () => {
       <NavLink href="/getting-started/relevant">Relevant</NavLink>
       <NavLink href="/getting-started/formatting">Formatting</NavLink>
       <NavLink href="/getting-started/validation">Validation</NavLink>
+      <NavLink href="/getting-started/schema">Schema Rendering</NavLink>
     </ul>
   );
 };

@@ -56,6 +56,7 @@ export const Routes = () => {
         <Route path="relevant" element={<Relevance />} />
         <Route path="formatting" element={<Formatting />} />
         <Route path="validation" element={<Validation />} />
+        <Route path="schema" element={<SchemaIntro />} />
       </Route>
       <Route path="api-reference">
         <Route path="useField" element={<UseField />} />

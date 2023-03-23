@@ -33,9 +33,21 @@ export const SchemaIntro = () => {
         Informed has a default adapter but more often than not you will create
         your own adapter that maps to your components.
       </Info>
-      <br />
-      <br />
       <Code input1={adapderCode} />
+      <Info>Then when you wrap your form component you pass the adapter.</Info>
+      <Code>{`const Form = ({ children, ...rest }) => {
+  // Note how we pass adapter in here!!
+  const { formController, render, userProps } = useForm({ ...rest, adapter });
+
+  return render(
+    <form noValidate {...userProps} onSubmit={formController.submitForm}>
+      {children}
+    </form>
+  );
+};
+      `}</Code>
+      <br />
+      <br />
     </>
   );
 };

@@ -1,7 +1,7 @@
 export const SideBySide = ({ left, right, leftHeader, rightHeader }) => {
   return (
     <div className="flex">
-      <div style={{ maxWidth: '250px' }}>
+      <div className="side-by-side--left">
         {leftHeader ? leftHeader : null}
         {left}
       </div>

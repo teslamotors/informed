@@ -229,12 +229,20 @@ hr {
   flex: 1;
 }
 
+.side-by-side--left {
+  max-width: 250px;
+}
+
 @media (max-width: 1200px) {
   .side-by-side--right {
     max-width: 100%;
   }
   .flex {
     justify-content: center;
+  }
+  .side-by-side--left {
+    max-width: 100%;
+    min-width: 100%;
   }
 }
 

@@ -8593,7 +8593,7 @@ var validateAjvSchema = function validateAjvSchema(validate, data) {
   return errors;
 };
 var validateRequired = function validateRequired(value, required, getErrorMessage) {
-  if (required && (value == null || value === '')) {
+  if (required && (value == null || value === '' || Array.isArray(value) && value.length == 0)) {
     return typeof required === 'string' ? required : getErrorMessage('required') || 'This field is required';
   }
 };
@@ -24804,4 +24804,4 @@ module.exports = __webpack_require__(/*! /Users/jpuzzo/Documents/Dev/JS/informed
 /***/ })
 
 },[[0,"runtime~main","vendors~main"]]]);
-//# sourceMappingURL=main.6547dcca.iframe.bundle.js.map
+//# sourceMappingURL=main.e7d6996b.iframe.bundle.js.map

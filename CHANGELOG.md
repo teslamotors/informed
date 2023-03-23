@@ -1,3 +1,9 @@
+## 4.43.3 (March 23rd, 2023)
+
+### Fixed
+
+- issue where empty arrays [] passed required check
+
 ## 4.43.2 (March 22nd, 2023)
 
 ### Fixed

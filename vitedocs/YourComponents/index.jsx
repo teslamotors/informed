@@ -5,10 +5,16 @@ import Checkbox from './Checkbox';
 import Select from './Select';
 import Slider from './Slider';
 import Switch from './Switch';
+import TextArea from './TextArea';
+import CheckboxGroup from './CheckboxGroup';
+import RadioGroup from './RadioGroup';
+import ArrayField, { AddButton, RemoveButton } from './ArrayField';
+
 import {
   Button,
   ButtonGroup as AdobeButtonGroup,
-  Item
+  Item,
+  Checkbox as CheckboxItem
 } from '@adobe/react-spectrum';
 import Code from './Code';
 import { Car } from './Car';
@@ -28,6 +34,7 @@ export {
   Input,
   NumberInput,
   Checkbox,
+  CheckboxGroup,
   Select,
   Option,
   Slider,
@@ -35,5 +42,11 @@ export {
   Button,
   Code,
   Car,
-  ButtonGroup
+  ButtonGroup,
+  TextArea,
+  CheckboxItem,
+  RadioGroup,
+  ArrayField,
+  AddButton,
+  RemoveButton
 };

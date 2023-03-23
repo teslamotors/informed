@@ -66,6 +66,10 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/arrays-array-field-item" exact>
         ArrayField.Item
       </NavLink>
+      <h3>Schema</h3>
+      <NavLink href="/api-reference/schema-intro" exact>
+        Intro
+      </NavLink>
     </ul>
   );
 };

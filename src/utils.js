@@ -240,7 +240,12 @@ export const validateAjvSchema = (validate, data) => {
 };
 
 export const validateRequired = (value, required, getErrorMessage) => {
-  if (required && (value == null || value === '')) {
+  if (
+    required &&
+    (value == null ||
+      value === '' ||
+      (Array.isArray(value) && value.length == 0))
+  ) {
     return typeof required === 'string'
       ? required
       : getErrorMessage('required') || 'This field is required';

@@ -34,7 +34,7 @@ export const Header = () => {
           <>
             <NavLink href="/getting-started/intro">Getting Started</NavLink>
             <NavLink href="/api-reference/useField">Api Reference</NavLink>
-            <NavLink href="/examples/table-inline-editing">Examples</NavLink>
+            <NavLink href="/examples/array-field">Examples</NavLink>
             <li className={`spectrum-SideNav-item`}>
               <a href="/informed/olddocs" className="spectrum-SideNav-itemLink">
                 Old Docs

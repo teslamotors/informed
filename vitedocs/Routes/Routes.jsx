@@ -104,7 +104,14 @@ export const Routes = () => {
         <Route path="metadata" element={<Metadata />} />
       </Route>
       <Route path="examples">
+        <Route
+          path="array-field"
+          element={<ArrayFieldComponent showItem={false} />}
+        />
         <Route path="table-inline-editing" element={<TableInlineEditing />} />
+        <Route path="async-validation" element={<AsyncValidation />} />
+        <Route path="formatting-number" element={<NumberFormatter />} />
+        <Route path="paired-validation" element={<PairedValidation />} />
       </Route>
       <Route path="home" element={<Home />} />
       <Route path="admin" element={<Admin />} />

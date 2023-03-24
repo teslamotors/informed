@@ -12,6 +12,7 @@ import { GettingStartedNav } from './GettingStartedNav';
 import { Car } from 'YourComponents';
 import { ApiReferenceNav } from './ApiReferenceNav';
 import useMedia from '../hooks/useMedia';
+import { ExamplesNav } from './ExamplesNav';
 
 export const Nav = () => {
   const { toggleColorScheme, navOpen, closeNav } = useApp();
@@ -59,6 +60,7 @@ export const Nav = () => {
       <Routes>
         <Route path="/getting-started/:path" element={<GettingStartedNav />} />
         <Route path="/api-reference/:path" element={<ApiReferenceNav />} />
+        <Route path="/examples/:path" element={<ExamplesNav />} />
       </Routes>
     </nav>
   );

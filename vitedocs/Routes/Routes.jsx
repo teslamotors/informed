@@ -42,6 +42,7 @@ import MultistepState from '../Pages/ApiReference/Multistep/MultistepState/Multi
 import { Multistep } from '../Pages/GettingStarted/Multistep/Multistep';
 import { DynamicMultistep } from '../Pages/ApiReference/Multistep/DynamicMultistep/DynamicMultistep';
 import { Metadata } from '../Pages/ApiReference/MetaData/Metadata';
+import { TableInlineEditing } from '../Pages/Examples/TableInlineEditing/Mask';
 
 // Routes ------------------------------------------------------------
 export const Routes = () => {
@@ -90,7 +91,6 @@ export const Routes = () => {
         <Route path="async-validation" element={<AsyncValidation />} />
         <Route path="validation-control" element={<ValidationControl />} />
         <Route path="paired-validation" element={<PairedValidation />} />
-
         <Route
           path="arrays-array-field"
           element={<ArrayFieldComponent showItem={false} />}
@@ -102,6 +102,9 @@ export const Routes = () => {
         <Route path="multistep-state" element={<MultistepState />} />
         <Route path="multistep-dynamic" element={<DynamicMultistep />} />
         <Route path="metadata" element={<Metadata />} />
+      </Route>
+      <Route path="examples">
+        <Route path="table-inline-editing" element={<TableInlineEditing />} />
       </Route>
       <Route path="home" element={<Home />} />
       <Route path="admin" element={<Admin />} />

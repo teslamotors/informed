@@ -2,10 +2,10 @@ import React from 'react';
 import { useField } from 'informed';
 import { NumberField } from '@adobe/react-spectrum';
 
-const Input = (props) => {
+const Input = props => {
   const { render, informed, fieldState, fieldApi, userProps, ref } = useField({
     type: 'number',
-    ...props,
+    ...props
   });
   const { required } = userProps;
   const { error, showError } = fieldState;
@@ -18,7 +18,7 @@ const Input = (props) => {
         isRequired={required}
         {...userProps}
         {...informed}
-        onChange={(v) => fieldApi.setValue(v, {})}
+        onChange={v => fieldApi.setValue(v, {})}
       />
     </div>
   );

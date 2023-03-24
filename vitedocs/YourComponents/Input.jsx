@@ -2,9 +2,9 @@ import React from 'react';
 import { useField } from 'informed';
 import { TextField } from '@adobe/react-spectrum';
 
-const Input = props => {
+const Input = ({ type, ...props }) => {
   const { render, informed, fieldState, fieldApi, userProps, ref } = useField({
-    type: 'text',
+    type: type ?? 'text',
     ...props
   });
   const { required, disabled } = userProps;
@@ -18,7 +18,7 @@ const Input = props => {
       isDisabled={disabled}
       {...userProps}
       {...informed}
-      onChange={v => fieldApi.setValue(v)}
+      onChange={v => fieldApi.setValue(v, {})}
     />
   );
 };

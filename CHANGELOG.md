@@ -1,3 +1,9 @@
+## 4.43.4 (March 24th, 2023)
+
+### Fixed
+
+- issue where multistep setCurrent would not clear errors
+
 ## 4.43.3 (March 23rd, 2023)
 
 ### Fixed

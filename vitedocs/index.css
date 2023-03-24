@@ -163,6 +163,10 @@ button:hover {
   cursor: pointer;
 }
 
+button[type='submit'] {
+  margin-top: 1rem !important;
+}
+
 [class*='spectrum-Link'] {
   text-decoration: none !important;
 }

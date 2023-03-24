@@ -163,10 +163,6 @@ button:hover {
   cursor: pointer;
 }
 
-button[type='submit'] {
-  margin-top: 1rem !important;
-}
-
 [class*='spectrum-Link'] {
   text-decoration: none !important;
 }
@@ -456,6 +452,10 @@ td {
 
 .button-group button {
   width: 100%;
+}
+
+.button {
+  margin-top: 1rem;
 }
 
 .form-table input {

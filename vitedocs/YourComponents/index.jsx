@@ -13,7 +13,7 @@ import ComboBox from './ComboBox';
 import ArrayField, { AddButton, RemoveButton } from './ArrayField';
 
 import {
-  Button,
+  Button as AdobeButton,
   ButtonGroup as AdobeButtonGroup,
   Item,
   Checkbox as CheckboxItem,
@@ -29,6 +29,14 @@ const ButtonGroup = ({ children, ...props }) => {
     <AdobeButtonGroup {...props} UNSAFE_className="button-group">
       {children}
     </AdobeButtonGroup>
+  );
+};
+
+const Button = ({ children, ...props }) => {
+  return (
+    <AdobeButton {...props} UNSAFE_className="button">
+      {children}
+    </AdobeButton>
   );
 };
 

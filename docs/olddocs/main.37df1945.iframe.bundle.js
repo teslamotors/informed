@@ -855,7 +855,7 @@ module.exports = exports;
 /*! exports used: version */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"a\":\"4.43.4\"}");
+module.exports = JSON.parse("{\"a\":\"4.44.0\"}");
 
 /***/ }),
 
@@ -24825,4 +24825,4 @@ module.exports = __webpack_require__(/*! /Users/jpuzzo/Documents/Dev/JS/informed
 /***/ })
 
 },[[0,"runtime~main","vendors~main"]]]);
-//# sourceMappingURL=main.e9b4f896.iframe.bundle.js.map
+//# sourceMappingURL=main.37df1945.iframe.bundle.js.map

@@ -80,7 +80,10 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/multistep-dynamic" exact>
         Dynamic Multistep
       </NavLink>
-
+      <h3>MetaData</h3>
+      <NavLink href="/api-reference/metadata" exact>
+        Metadata
+      </NavLink>
       <br />
       <br />
     </ul>

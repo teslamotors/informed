@@ -41,6 +41,7 @@ import MultistepIntro from '../Pages/ApiReference/Multistep/MultistepIntro/Multi
 import MultistepState from '../Pages/ApiReference/Multistep/MultistepState/MultistepState';
 import { Multistep } from '../Pages/GettingStarted/Multistep/Multistep';
 import { DynamicMultistep } from '../Pages/ApiReference/Multistep/DynamicMultistep/DynamicMultistep';
+import { Metadata } from '../Pages/ApiReference/MetaData/Metadata';
 
 // Routes ------------------------------------------------------------
 export const Routes = () => {
@@ -62,6 +63,7 @@ export const Routes = () => {
         <Route path="validation" element={<Validation />} />
         <Route path="schema" element={<SchemaIntro />} />
         <Route path="multistep" element={<Multistep />} />
+        <Route path="metadata" element={<Metadata />} />
       </Route>
       <Route path="api-reference">
         <Route path="useField" element={<UseField />} />
@@ -99,6 +101,7 @@ export const Routes = () => {
         <Route path="multistep-intro" element={<MultistepIntro />} />
         <Route path="multistep-state" element={<MultistepState />} />
         <Route path="multistep-dynamic" element={<DynamicMultistep />} />
+        <Route path="metadata" element={<Metadata />} />
       </Route>
       <Route path="home" element={<Home />} />
       <Route path="admin" element={<Admin />} />

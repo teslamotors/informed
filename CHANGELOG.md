@@ -1,3 +1,9 @@
+## 4.44.0 (March 24th, 2023)
+
+### Fixed
+
+- issue where a faulure on a reject of gather data would not set an error
+
 ## 4.43.4 (March 24th, 2023)
 
 ### Fixed

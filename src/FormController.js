@@ -994,8 +994,27 @@ export class FormController {
     );
     ObjectMap.set(this.state.data, name, res);
 
-    // Clear out validating
+    // Clear out gathering
     this.dataRequests.delete(name);
+
+    // Always update
+    this.emit('field', name);
+    this.emit('field-value', name);
+  }
+
+  gatheredError(name, err) {
+    debug(
+      `Setting ${name}'s error to ${err} with ${
+        this.state.gathering
+      } gatherers left`
+    );
+    ObjectMap.set(this.state.errors, name, err);
+
+    // Clear out gathering
+    this.dataRequests.delete(name);
+
+    // Remember to update valid
+    this.updateValid();
 
     // Always update
     this.emit('field', name);
@@ -1112,7 +1131,7 @@ export class FormController {
             this.dataRequests.get(name).value !== this.getValue(name);
           if (!stale && !invalid) {
             debug('DATA FINISH', uuid);
-            this.gathered(name, err.message);
+            this.gatheredError(name, err.message);
           } else {
             debug(
               `${stale ? 'STALE' : 'INVALID'} THEN`,

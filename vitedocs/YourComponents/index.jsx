@@ -8,6 +8,8 @@ import Switch from './Switch';
 import TextArea from './TextArea';
 import CheckboxGroup from './CheckboxGroup';
 import RadioGroup from './RadioGroup';
+import ComboBox from './ComboBox';
+
 import ArrayField, { AddButton, RemoveButton } from './ArrayField';
 
 import {
@@ -50,5 +52,6 @@ export {
   Radio,
   ArrayField,
   AddButton,
-  RemoveButton
+  RemoveButton,
+  ComboBox
 };

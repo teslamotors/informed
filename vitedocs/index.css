@@ -20,10 +20,23 @@ main {
     margin-top: 48px;
     margin-left: 0;
     margin-right: 0;
-    padding: 40px 80px;
+    padding-left: 80px;
+    padding-right: 120px;
     text-align: center;
   }
 }
+
+@media (max-width: 600px) {
+  main {
+    margin-top: 48px;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 30px;
+    padding-right: 60px;
+    text-align: center;
+  }
+}
+
 .site--app {
   overflow: hidden;
 }

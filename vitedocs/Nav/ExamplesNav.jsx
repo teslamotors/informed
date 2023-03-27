@@ -27,6 +27,7 @@ export const ExamplesNav = () => {
       <NavLink href="/examples/table-inline-editing">
         Table Inline Editing
       </NavLink>
+      <NavLink href="/examples/new-product">New Product</NavLink>
     </ul>
   );
 };

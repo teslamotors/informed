@@ -7,10 +7,8 @@ import { Info } from '../../../Info';
 export default function ElonMusk() {
   return (
     <>
-      <h1>
-        <code>Elon Musk Example</code>
-      </h1>
-      <Info>Lets take a look at a form about Elon!</Info>
+      <h1>Elon Musk</h1>
+      <Info>A simple form about Elon!</Info>
       <SideBySide
         leftHeader={<h3>Example: </h3>}
         rightHeader={<h3>Code:</h3>}

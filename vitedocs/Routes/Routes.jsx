@@ -46,6 +46,7 @@ import { TableInlineEditing } from '../Pages/Examples/TableInlineEditing/Mask';
 import { BaiscRelevance } from '../Pages/ApiReference/Relevance/BasicRelevance';
 import { ScopedRelevance } from '../Pages/ApiReference/Relevance/ScopedRelevance';
 import { ArrayFieldRelevance } from '../Pages/ApiReference/Relevance/ArrayFieldRelevance';
+import ElonMusk from '../Pages/Examples/ElonMusk/ElonMusk';
 
 // Routes ------------------------------------------------------------
 export const Routes = () => {
@@ -125,6 +126,7 @@ export const Routes = () => {
         <Route path="relevant-arrays" element={<ArrayFieldRelevance />} />
         <Route path="multistep-intro" element={<MultistepIntro />} />
         <Route path="multistep-dynamic" element={<DynamicMultistep />} />
+        <Route path="elon-musk" element={<ElonMusk />} />
       </Route>
       <Route path="home" element={<Home />} />
       <Route path="admin" element={<Admin />} />

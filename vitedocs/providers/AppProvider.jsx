@@ -5,10 +5,13 @@ import AppContext from '../context/AppContext';
  * Provide any application specific data
  */
 const AppProvider = ({ children }) => {
+  const searchParams = new URLSearchParams(window.location.search);
+  const commentsDisabled = searchParams.get('comments') === 'false';
+
   const [colorScheme, setColorScheme] = useState('dark');
   const [navOpen, setNavOpen] = useState(false);
   const [lineNumbers, setLineNumbers] = useState(false);
-  const [comments, setComments] = useState(true);
+  const [comments, setComments] = useState(!commentsDisabled);
 
   const toggleColorScheme = () => {
     setColorScheme(prev => {

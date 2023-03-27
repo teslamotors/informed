@@ -23,6 +23,7 @@ export const ExamplesNav = () => {
       <NavLink href="/examples/multistep-intro">Basic Multistep</NavLink>
       <NavLink href="/examples/multistep-dynamic">Dynamic Multistep</NavLink>
       <h3>Cool</h3>
+      <NavLink href="/examples/elon-musk">Elon Musk</NavLink>
       <NavLink href="/examples/table-inline-editing">
         Table Inline Editing
       </NavLink>

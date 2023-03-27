@@ -12,7 +12,8 @@ export default defineConfig({
   resolve: {
     alias: {
       informed: path.resolve(__dirname, './dist/esm'),
-      YourComponents: path.resolve(__dirname, './vitedocs/YourComponents')
+      YourComponents: path.resolve(__dirname, './vitedocs/YourComponents'),
+      Components: path.resolve(__dirname, './vitedocs/YourComponents')
     }
   }
   // esbuild: {

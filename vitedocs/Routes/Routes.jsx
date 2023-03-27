@@ -113,7 +113,11 @@ export const Routes = () => {
         />
         <Route path="table-inline-editing" element={<TableInlineEditing />} />
         <Route path="async-validation" element={<AsyncValidation />} />
+        <Route path="formatting-formatter" element={<Formatter />} />
         <Route path="formatting-number" element={<NumberFormatter />} />
+        <Route path="formatting-clean" element={<Clean />} />
+        <Route path="formatting-mask" element={<Mask />} />
+        <Route path="formatting-parse" element={<Parse />} />
         <Route path="paired-validation" element={<PairedValidation />} />
         <Route path="validation-control" element={<ValidationControl />} />
         <Route path="relevant-component" element={<BaiscRelevance />} />

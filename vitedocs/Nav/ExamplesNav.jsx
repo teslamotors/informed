@@ -9,9 +9,12 @@ export const ExamplesNav = () => {
       <NavLink href="/examples/async-validation">Async Validation</NavLink>
       <NavLink href="/examples/paired-validation">Paired Validation</NavLink>
       <NavLink href="/examples/validation-control">Validation Control</NavLink>
-
       <h3>Formatting</h3>
+      <NavLink href="/examples/formatting-formatter">Formatter</NavLink>
       <NavLink href="/examples/formatting-number">Number Formatter</NavLink>
+      <NavLink href="/examples/formatting-clean">Clean</NavLink>
+      <NavLink href="/examples/formatting-mask">Mask</NavLink>
+      <NavLink href="/examples/formatting-parse">Parse</NavLink>
       <h3>Relevant</h3>
       <NavLink href="/examples/relevant-component">Relevant Component</NavLink>
       <NavLink href="/examples/relevant-scoped">Scoped Relevance</NavLink>

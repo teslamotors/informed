@@ -70,6 +70,7 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/schema-intro" exact>
         Intro
       </NavLink>
+      <NavLink href="/api-reference/relevant-schema">Relevance</NavLink>
       <h3>Multistep</h3>
       <NavLink href="/api-reference/multistep-intro" exact>
         Intro

@@ -48,6 +48,7 @@ import { ScopedRelevance } from '../Pages/ApiReference/Relevance/ScopedRelevance
 import { ArrayFieldRelevance } from '../Pages/ApiReference/Relevance/ArrayFieldRelevance';
 import ElonMusk from '../Pages/Examples/ElonMusk/ElonMusk';
 import { RickRoll } from '../Pages/Examples/ElonMusk/RickRoll';
+import { RelevanceSchema } from '../Pages/ApiReference/Relevance/RelevanceSchema';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -113,6 +114,7 @@ export const Routes = () => {
         <Route path="arrays-array-field-item" element={<ArrayFieldItem />} />
         <Route path="validation-messages" element={<ValidationMessages />} />
         <Route path="schema-intro" element={<SchemaIntro />} />
+        <Route path="relevant-schema" element={<RelevanceSchema />} />
         <Route path="multistep-intro" element={<MultistepIntro />} />
         <Route path="multistep-state" element={<MultistepState />} />
         <Route path="multistep-dynamic" element={<DynamicMultistep />} />
@@ -135,6 +137,7 @@ export const Routes = () => {
         <Route path="relevant-component" element={<BaiscRelevance />} />
         <Route path="relevant-scoped" element={<ScopedRelevance />} />
         <Route path="relevant-arrays" element={<ArrayFieldRelevance />} />
+        <Route path="relevant-schema" element={<RelevanceSchema />} />
         <Route path="multistep-intro" element={<MultistepIntro />} />
         <Route path="multistep-dynamic" element={<DynamicMultistep />} />
         <Route path="elon-musk" element={<ElonMusk />} />

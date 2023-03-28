@@ -19,6 +19,7 @@ export const ExamplesNav = () => {
       <NavLink href="/examples/relevant-component">Relevant Component</NavLink>
       <NavLink href="/examples/relevant-scoped">Scoped Relevance</NavLink>
       <NavLink href="/examples/relevant-arrays">Relevance in Arrays</NavLink>
+      <NavLink href="/examples/relevant-schema">Schema Relevance</NavLink>
       <h3>Multistep</h3>
       <NavLink href="/examples/multistep-intro">Basic Multistep</NavLink>
       <NavLink href="/examples/multistep-dynamic">Dynamic Multistep</NavLink>

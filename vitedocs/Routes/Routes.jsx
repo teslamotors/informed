@@ -49,11 +49,23 @@ import { ArrayFieldRelevance } from '../Pages/ApiReference/Relevance/ArrayFieldR
 import ElonMusk from '../Pages/Examples/ElonMusk/ElonMusk';
 import { RickRoll } from '../Pages/Examples/ElonMusk/RickRoll';
 
+const RootRoute = () => {
+  const searchParams = new URLSearchParams(window.location.search);
+  const to = searchParams.get('to');
+  console.log('TO', to);
+  if (to) {
+    console.log('WTF');
+    return <Navigate to={to} />;
+  } else {
+    return <Navigate to="getting-started/intro" replace />;
+  }
+};
+
 // Routes ------------------------------------------------------------
 export const Routes = () => {
   return (
     <RouterRoutes>
-      <Route path="/" element={<Navigate to="getting-started/intro" />} />
+      <Route path="/" element={<RootRoute />} />
       <Route path="getting-started">
         <Route path="intro" element={<Intro />} />
         <Route path="setup" element={<Setup />} />

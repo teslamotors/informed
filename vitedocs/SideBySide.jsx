@@ -3,10 +3,11 @@ export const SideBySide = ({
   right,
   leftHeader,
   rightHeader,
-  leftStyle
+  leftStyle,
+  style
 }) => {
   return (
-    <div className="flex">
+    <div className="flex" style={style}>
       <div className="side-by-side--left" style={leftStyle}>
         {leftHeader ? leftHeader : null}
         {left}

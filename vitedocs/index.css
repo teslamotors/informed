@@ -487,3 +487,17 @@ td {
 .form-table {
   text-align: center;
 }
+
+.table-styles {
+  white-space: nowrap;
+}
+
+.table-styles td {
+  padding: 5px !important;
+  max-width: 150px;
+}
+
+.table-styles input,
+button {
+  max-width: 150px;
+}

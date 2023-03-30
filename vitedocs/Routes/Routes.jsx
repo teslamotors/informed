@@ -49,6 +49,7 @@ import { ArrayFieldRelevance } from '../Pages/ApiReference/Relevance/ArrayFieldR
 import ElonMusk from '../Pages/Examples/ElonMusk/ElonMusk';
 import { RickRoll } from '../Pages/Examples/ElonMusk/RickRoll';
 import { RelevanceSchema } from '../Pages/ApiReference/Relevance/RelevanceSchema';
+import { HugeForm } from '../Pages/Examples/HugeForm/HugeForm';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -140,6 +141,7 @@ export const Routes = () => {
         <Route path="relevant-schema" element={<RelevanceSchema />} />
         <Route path="multistep-intro" element={<MultistepIntro />} />
         <Route path="multistep-dynamic" element={<DynamicMultistep />} />
+        <Route path="huge-form" element={<HugeForm />} />
         <Route path="elon-musk" element={<ElonMusk />} />
         <Route path="new-product" element={<RickRoll />} />
       </Route>

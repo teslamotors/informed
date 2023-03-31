@@ -7,6 +7,9 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/useField" exact>
         useField
       </NavLink>
+      <NavLink href="/api-reference/useForm" exact>
+        useForm
+      </NavLink>
       <NavLink href="/api-reference/useFieldState" exact>
         useFieldState
       </NavLink>

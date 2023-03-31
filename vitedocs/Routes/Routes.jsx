@@ -50,6 +50,7 @@ import ElonMusk from '../Pages/Examples/ElonMusk/ElonMusk';
 import { RickRoll } from '../Pages/Examples/ElonMusk/RickRoll';
 import { RelevanceSchema } from '../Pages/ApiReference/Relevance/RelevanceSchema';
 import { HugeForm } from '../Pages/Examples/HugeForm/HugeForm';
+import { UseForm } from '../Pages/ApiReference/UseForm/UseForm';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -85,6 +86,7 @@ export const Routes = () => {
       </Route>
       <Route path="api-reference">
         <Route path="useField" element={<UseField />} />
+        <Route path="useForm" element={<UseForm />} />
         <Route path="useFieldState" element={<UseFieldState />} />
         <Route path="useFieldApi" element={<UseFieldApi />} />
         <Route path="useFormState" element={<UseFormState />} />

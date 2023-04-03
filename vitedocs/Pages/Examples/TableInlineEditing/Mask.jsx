@@ -39,6 +39,8 @@ export const TableInlineEditing = () => {
       <SideBySide
         leftHeader={<h3>Example:</h3>}
         rightHeader={<h3>Code:</h3>}
+        leftStyle={{ minWidth: '500px' }}
+        style={{ display: 'block' }}
         left={<Example />}
         right={<Code input1={exampleCode} />}
       />

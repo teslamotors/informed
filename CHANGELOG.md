@@ -1,3 +1,9 @@
+## 4.44.1 (April 4th, 2023)
+
+### Added
+
+- Missing type for validateModified ( field level and form level )
+
 ## 4.44.0 (March 24th, 2023)
 
 ### Fixed

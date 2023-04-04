@@ -214,6 +214,7 @@ export type FieldProps<UserProps> = {
     | 'submit';
   validateWhen?: string[];
   validateOnMount?: boolean;
+  validateModified?: boolean;
   keepState?: boolean;
   keepStateIfRelevant?: boolean;
   maintainCursor?: boolean;

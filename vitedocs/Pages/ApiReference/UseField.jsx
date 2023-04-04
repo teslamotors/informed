@@ -164,6 +164,15 @@ const FieldProps = () => {
         </Row>
         <Row>
           <Cell>
+            <code>validateModified</code>
+          </Cell>
+          <Cell>
+            <Code>{`useField({ validateModified: true })`}</Code>
+          </Cell>
+          <Cell>Will run validation only on modified values.</Cell>
+        </Row>
+        <Row>
+          <Cell>
             <code>validateOnMount</code>
           </Cell>
           <Cell>

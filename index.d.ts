@@ -157,7 +157,8 @@ export type InformedProps<UserProps> = {
   onValueModified?: (formState: FormState) => void;
   onSubmitFailure?: (errors: Record<string, unknown>) => void;
   initialValues?: Record<string, unknown>;
-  validateFields?: Function;
+  validateFields?: (values: Record<string, unknown>) => Record<string, unknown>;
+  validateModified?: boolean;
   showErrorIfError?: boolean;
   showErrorIfDirty?: boolean;
   validateOn?:
@@ -195,6 +196,7 @@ export type FieldProps<UserProps> = {
   initialValue?: unknown;
   defaultValue?: unknown;
   validate?: (value: unknown, values: Record<string, unknown>) => unknown;
+  validateModified?: boolean;
   relevant?: (relevantParams: RelevantParams) => boolean;
   onNativeChange?: (
     fieldState: FieldState,

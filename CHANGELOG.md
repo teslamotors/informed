@@ -1,3 +1,19 @@
+## 4.44.2 ( April 26th, 2023)
+
+### Fixed
+
+- Issue where when you called setTheseValues on a field with array syntax the following would occur on removing modified values
+
+```
+// 0 ---> 1 ---> 2
+// Remove index 0 [ 1, 2, 3 ]
+// ==> [ 2, 3 ]
+//  Remove index 1 [ 2, 3 ]
+// ==> [ 3 ]
+//  Remove index 2 [ 3 ]
+// ==> [ 3 ] << see how 3 never got removed
+```
+
 ## 4.44.1 (April 4th, 2023)
 
 ### Added

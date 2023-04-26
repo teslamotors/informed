@@ -20,7 +20,7 @@ const Example = () => (
       maskOnBlur
     />
     <Button type="submit">submit</Button>
-    <Debug values />
+    <Debug values maskedValues />
   </Form>
 );
 

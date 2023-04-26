@@ -23,7 +23,7 @@ const Example = () => (
       initialValue="HelloWorld"
     />
     <Button type="submit">submit</Button>
-    <Debug values />
+    <Debug values maskedValues />
   </Form>
 );
 

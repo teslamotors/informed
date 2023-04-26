@@ -327,8 +327,10 @@ export class FormController {
       if (meta.getInitialValue && meta.getInitialValue() != val) {
         ObjectMap.set(this.state.modified, name, +val);
       } else {
+        // Note: Important that we set to undefined and NOT call delete
+        // Why? See readme 4.44.2
         debug(`Removing ${name}'s modified`);
-        ObjectMap.delete(this.state.modified, name);
+        ObjectMap.set(this.state.modified, name, undefined);
       }
 
       debug(`Setting ${name}'s maskedValue to`, +maskedVal);
@@ -375,8 +377,10 @@ export class FormController {
         debug(`Setting ${name}'s modified to`, val);
         ObjectMap.set(this.state.modified, name, val);
       } else {
+        // Note: Important that we set to undefined and NOT call delete
+        // Why? See readme 4.44.2
         debug(`Removing ${name}'s modified`);
-        ObjectMap.delete(this.state.modified, name);
+        ObjectMap.set(this.state.modified, name, undefined);
       }
 
       debug(`Setting ${name}'s maskedValue to`, maskedVal);

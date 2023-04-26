@@ -16,7 +16,7 @@ const Example = () => (
       type="number"
     />
     <Button type="submit">submit</Button>
-    <Debug values />
+    <Debug values maskedValues />
   </Form>
 );
 

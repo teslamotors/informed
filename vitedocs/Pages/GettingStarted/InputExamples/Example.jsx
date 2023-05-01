@@ -2,7 +2,7 @@
 import { useForm, useField, Relevant, Debug } from 'informed';
 
 // Styles for your inputs
-import './YourStyles.css';
+import './styles.css';
 
 // Step 1. Build your form component ---------------------
 

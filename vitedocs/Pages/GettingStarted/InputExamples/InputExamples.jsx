@@ -41,7 +41,7 @@ export default function InputExamples() {
         leftHeader={<Hint />}
         rightHeader={<h3>Code:</h3>}
         left={<Simple />}
-        right={<Code input1={simple} />}
+        right={<Code links input1={simple} />}
       />
       <Info>
         Above is the most simplicitc informed input. You simply:
@@ -62,7 +62,7 @@ export default function InputExamples() {
         leftHeader={<Hint />}
         rightHeader={<h3>Code:</h3>}
         left={<Verbose />}
-        right={<Code input1={verbose} />}
+        right={<Code links input1={verbose} />}
       />
       <hr />
       <h2>Create More Inputs</h2>
@@ -84,7 +84,7 @@ export default function InputExamples() {
         leftHeader={<h3>Example:</h3>}
         rightHeader={<h3>Code:</h3>}
         left={<Example />}
-        right={<Code input1={exampleCode} />}
+        right={<Code links input1={exampleCode} />}
       />
       <hr />
       <h2>Schema Adapter</h2>
@@ -100,7 +100,7 @@ export default function InputExamples() {
         leftHeader={<h3>Example:</h3>}
         rightHeader={<h3>Code:</h3>}
         left={<SchemaSetup />}
-        right={<Code input1={schemaCode} />}
+        right={<Code links input1={schemaCode} />}
       />
     </>
   );

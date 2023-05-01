@@ -19,7 +19,7 @@ export default function CarColor() {
         leftHeader={<h3>Example: </h3>}
         rightHeader={<h3>Code:</h3>}
         left={<Example />}
-        right={<Code input1={exampleCode} />}
+        right={<Code links input1={exampleCode} />}
       />
     </>
   );

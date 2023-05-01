@@ -57,7 +57,7 @@ export default function Intro() {
         leftHeader={<Hint />}
         rightHeader={<h3>Code:</h3>}
         left={<FirstExample />}
-        right={<Code input1={firstExampleCode} />}
+        right={<Code links input1={firstExampleCode} />}
       />
       <Info>
         Whats going on here? Basically iformed manages form state for you, and

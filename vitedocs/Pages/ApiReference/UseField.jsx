@@ -391,7 +391,7 @@ export default function Intro() {
         leftHeader={<Hint />}
         rightHeader={<h3>Code:</h3>}
         left={<Simple />}
-        right={<Code input1={simpleCode} />}
+        right={<Code links input1={simpleCode} />}
       />
       <Info>
         Above is the most simplicitc informed input. You simply:
@@ -412,7 +412,7 @@ export default function Intro() {
         leftHeader={<Hint />}
         rightHeader={<h3>Code:</h3>}
         left={<Verbose />}
-        right={<Code input1={verboseCode} />}
+        right={<Code links input1={verboseCode} />}
       />
       <hr />
       <h2>What Does It Give Me?</h2>
@@ -424,7 +424,7 @@ export default function Intro() {
         leftHeader={<Hint />}
         rightHeader={<h3>Code:</h3>}
         left={<ErrorInput />}
-        right={<Code input1={errorInputCode} />}
+        right={<Code links input1={errorInputCode} />}
       />
       <hr />
       <h2 id="useField-parameters">Parameters:</h2>

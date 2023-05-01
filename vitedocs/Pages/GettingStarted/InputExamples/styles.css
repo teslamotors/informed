@@ -1,0 +1,45 @@
+/* YourStyles.css */
+
+.your-styles input:not([type='checkbox']):not([type='radio']),
+textarea,
+select {
+  width: 100%;
+}
+
+.your-styles input,
+textarea,
+select {
+  display: block;
+}
+
+.your-styles input + small {
+  display: block;
+  color: red;
+}
+
+.your-styles small[role='alert'] {
+  color: red;
+  font-weight: bold;
+}
+
+.your-styles label {
+  margin-top: 1rem;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.your-styles button {
+  display: block;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  padding: 5px 30px;
+  /* color: white; */
+  background-color: rgba(0, 0, 0, 0.01);
+  margin-top: 1rem;
+  width: 100%;
+  border: 2px solid grey;
+}
+
+.your-styles button:hover {
+  background-color: grey;
+}

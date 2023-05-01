@@ -1,7 +1,7 @@
 import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
-import { CodeBlock } from '../../utils/CodeBlock';
+// import { CodeBlock } from '../../utils/CodeBlock';
 
 let code = `
 import { Form, Input, Text, Select, Relevant, Checkbox, Debug } from 'informed';
@@ -35,7 +35,8 @@ export default function App() {
 `;
 
 const Playground = () => {
-  return <CodeBlock code={code} />;
+  // return <CodeBlock code={code} />;
+  return null;
 };
 
 export default withDocs(readme, Playground);

@@ -3,7 +3,7 @@ import Code from '../../utils/Code';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 import { Form, Input, Select, Checkbox, Relevant, Debug } from '../../../src';
-import { CodeBlock } from '../../utils/CodeBlock';
+// import { CodeBlock } from '../../utils/CodeBlock';
 
 const code = `
 import { Form, Input, Select, Checkbox, Relevant } from 'informed';
@@ -64,7 +64,7 @@ const GettingStarted = () => (
       </div>
     </Form>
     <br />
-    <CodeBlock code={code} />
+    {/* <CodeBlock code={code} /> */}
   </>
 );
 

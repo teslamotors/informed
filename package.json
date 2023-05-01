@@ -77,7 +77,7 @@
     "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/preset-env": "^7.15.4",
     "@babel/preset-react": "^7.0.0",
-    "@codesandbox/sandpack-react": "^0.1.15",
+    "@codesandbox/sandpack-react": "^2.6.1",
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.10",
     "@rollup/plugin-babel": "^5.3.0",

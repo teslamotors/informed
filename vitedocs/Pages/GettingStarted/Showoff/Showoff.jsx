@@ -30,7 +30,7 @@ export default function Showoff() {
         leftHeader={<Hint />}
         rightHeader={<h3>Code:</h3>}
         left={<Example />}
-        right={<Code input1={exampleCode} />}
+        right={<Code links input1={exampleCode} />}
       />
     </>
   );

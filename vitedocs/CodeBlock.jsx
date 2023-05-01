@@ -1,0 +1,334 @@
+import React from 'react';
+import { Sandpack } from '@codesandbox/sandpack-react';
+
+const style = `
+body {
+  background-color: rgb(13, 16, 17);
+  color: white !important;
+}
+
+form {
+  left: 12.5%;
+  width: 75%;
+  position: absolute;
+}
+
+small { 
+  display: block;
+  margin-bottom: 1rem;
+}
+
+pre {
+  background-color: rgb(29,29,29);
+  padding: 10px;
+}
+
+.car {
+  width: 100%;
+  height: 100px;
+}
+
+.car-color-blue .car {
+  background-color: #2540af;
+}
+
+.car-color-red .car {
+  background-color: #e53046;
+}
+
+.car-color-green .car {
+  background-color: #126014;
+}
+
+.car-color-pink .car {
+  background-color: #E9246F;
+}
+
+input {
+  margin-bottom: 1rem;
+}
+
+input:not([type='checkbox']):not([type='radio']),
+textarea,
+select {
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  display: block;
+  border-radius: 5px;
+  width: 300px;
+  padding: 10px 20px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  background-color: #222222;
+  color: white;
+  width: 100%;
+}
+
+.radio-label {
+  display: block;
+}
+
+textarea {
+  max-width: 100%;
+}
+
+select {
+  /* needed */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* SVG background image */
+  background-size: 0.6em;
+  background-position: calc(100% - 1.3em) center;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Ctitle%3Edown-arrow%3C/title%3E%3Cg fill='%23000000'%3E%3Cpath d='M10.293,3.293,6,7.586,1.707,3.293A1,1,0,0,0,.293,4.707l5,5a1,1,0,0,0,1.414,0l5-5a1,1,0,1,0-1.414-1.414Z' fill='%23FFFFFF'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+  width: 100%;
+}
+
+.select:before {
+  content: '';
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #f00;
+}
+
+.select:after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  top: 3px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #333;
+}
+
+label {
+  margin-bottom: 1rem;
+  display: block;
+}
+
+button {
+  text-align: left;
+  display: inline-block;
+  height: var(--informed-height--pill);
+  border: 1px solid transparent;
+  border-radius: 5px;
+  padding: 5px 40px;
+  color: white;
+  background-color: rebeccapurple;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  width: 100%;
+  text-align: center;
+}
+
+button:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+button[type='submit'] {
+  display: block;
+}
+
+.informed-container {
+  padding: 4rem;
+}
+`;
+
+const components = `
+import {
+  useField,
+  useForm,
+  ArrayField,
+  useArrayFieldApi,
+  useArrayFieldItemApi,
+  FormFields
+} from 'informed';
+
+// Step 1. Build your input components --------------------
+
+export const Input = props => {
+  const { render, informed, userProps, fieldState, ref } = useField({
+    type: 'text',
+    ...props
+  });
+  const { label, id, ...rest } = userProps;
+  const { showError } = fieldState;
+  const style = showError ? { border: 'solid 1px red' } : null;
+  return render(
+    <>
+      <label htmlFor={id}>{label}</label>
+      <input id={id} ref={ref} {...informed} {...rest} style={style} />
+      {showError && <small style={{ color: 'red' }}>{fieldState.error}</small>}
+    </>
+  );
+};
+
+export const Number = props => {
+  const { render, informed, userProps, fieldState, ref } = useField({
+    type: 'number',
+    ...props
+  });
+  const { label, id, ...rest } = userProps;
+  const { showError } = fieldState;
+  const style = showError ? { border: 'solid 1px red' } : null;
+  return render(
+    <>
+      <label htmlFor={id}>{label}</label>
+      <input id={id} ref={ref} {...informed} {...rest} style={style} />
+      {showError && <small style={{ color: 'red' }}>{fieldState.error}</small>}
+    </>
+  );
+};
+
+export const Checkbox = props => {
+  const { render, informed, userProps, ref } = useField({
+    type: 'checkbox',
+    ...props
+  });
+  const { label, id, ...rest } = userProps;
+  return render(
+    <>
+      <label htmlFor={id}>{label}</label>
+      <input id={id} ref={ref} {...informed} {...rest} />
+    </>
+  );
+};
+
+export const Select = props => {
+  const { render, informed, userProps, ref } = useField({
+    type: 'select',
+    ...props
+  });
+  const { label, id, children, ...rest } = userProps;
+  return render(
+    <>
+      <label htmlFor={id}>{label}</label>
+      <select id={id} ref={ref} {...informed} {...rest}>
+        {children}
+      </select>
+    </>
+  );
+};
+
+export const Option = ({ value, children, ...rest }) => {
+  return (
+    <option value={value} {...rest}>
+      {children}
+    </option>
+  );
+};
+
+// Step 2. Define Array Components --------------------
+
+export const AddButton = () => {
+  const { add } = useArrayFieldApi();
+  return (
+    <button onClick={add} type="button" style={{ border: '2px solid green' }}>
+      Add
+    </button>
+  );
+};
+
+export const RemoveButton = () => {
+  const { remove } = useArrayFieldItemApi();
+  return (
+    <button onClick={remove} style={{ border: '2px solid red' }}>
+      Remove
+    </button>
+  );
+};
+
+export const MyArrayField = ({ name, items, ...props }) => {
+  return (
+    <ArrayField name={name} {...props}>
+      <AddButton />
+      <ArrayField.Items>
+        {() => (
+          <>
+            <FormFields schema={items} />
+            <RemoveButton />
+          </>
+        )}
+      </ArrayField.Items>
+    </ArrayField>
+  );
+};
+
+// Step 3. Define your field adapter --------------------
+
+export const Button = ({ children, ...rest }) => {
+  return <button {...rest}>{children}</button>
+}
+
+const adapter = {
+  select: Select,
+  input: Input,
+  number: Number,
+  checkbox: Checkbox,
+  add: AddButton,
+  remove: RemoveButton,
+  array: MyArrayField
+};
+
+// Step 4. Build your form component ---------------------
+
+export const Form = ({ children, ...rest }) => {
+  // Note how we pass adapter in here!!
+  const { formController, render, userProps } = useForm({ ...rest, adapter });
+
+  return render(
+    <form noValidate {...userProps} onSubmit={formController.submitForm}>
+      {children}
+    </form>
+  );
+};
+
+export const Car = () => {
+  return (
+    <div className="car" />
+  )
+}
+`;
+
+export const CodeBlock = ({ code }) => {
+  return (
+    <Sandpack
+      template="react"
+      theme="dark"
+      files={{
+        '/App.js': code,
+        '/YourComponents.js': components,
+        '/style.css': {
+          code: style
+        }
+      }}
+      options={{
+        showLineNumbers: true,
+        showNavigator: true,
+        classes: {
+          'sp-wrapper': 'sp-wrapper',
+          'sp-layout': 'sp-layout'
+        },
+        editorHeight: '100%',
+        editorWidthPercentage: 60
+      }}
+      customSetup={{
+        dependencies: {
+          informed: 'latest'
+        },
+        entry: '/index.js'
+      }}
+    />
+  );
+};

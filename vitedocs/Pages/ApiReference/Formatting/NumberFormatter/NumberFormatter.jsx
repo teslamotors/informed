@@ -33,7 +33,7 @@ export default function NumberFormatter() {
         leftHeader={<h3>Example:</h3>}
         rightHeader={<h3>Code:</h3>}
         left={<Simple />}
-        right={<Code input1={simpleCode} />}
+        right={<Code links input1={simpleCode} />}
       />
       <hr />
       <h2>Changing Locale</h2>
@@ -61,7 +61,7 @@ export default function NumberFormatter() {
         leftHeader={<h3>Example:</h3>}
         rightHeader={<h3>Code:</h3>}
         left={<CustomFormatter />}
-        right={<Code input1={customCode} />}
+        right={<Code links input1={customCode} />}
       />
       <br />
       <br />

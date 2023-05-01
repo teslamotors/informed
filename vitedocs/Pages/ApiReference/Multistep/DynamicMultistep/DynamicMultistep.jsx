@@ -49,7 +49,7 @@ export const DynamicMultistep = () => {
         rightHeader={<h3>Code:</h3>}
         leftStyle={{ minWidth: '500px' }}
         left={<Example />}
-        right={<Code input1={exampleCode} />}
+        right={<Code links input1={exampleCode} />}
       />
       <h2>Css Used for stepper:</h2>
       <Code input1={css} language1="css" />

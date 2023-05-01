@@ -20,7 +20,7 @@ export const ScopedRelevance = () => {
         leftHeader={<h3>Example: </h3>}
         rightHeader={<h3>Code:</h3>}
         left={<ScopeExample />}
-        right={<Code input1={scopedCode} />}
+        right={<Code links input1={scopedCode} />}
       />
     </>
   );

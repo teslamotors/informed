@@ -51,6 +51,7 @@ import { RickRoll } from '../Pages/Examples/ElonMusk/RickRoll';
 import { RelevanceSchema } from '../Pages/ApiReference/Relevance/RelevanceSchema';
 import { HugeForm } from '../Pages/Examples/HugeForm/HugeForm';
 import { UseForm } from '../Pages/ApiReference/UseForm/UseForm';
+import { Playground } from '../Pages/Playground';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -67,6 +68,7 @@ export const Routes = () => {
   return (
     <RouterRoutes>
       <Route path="/" element={<RootRoute />} />
+      <Route path="playground" element={<Playground />} />
       <Route path="getting-started">
         <Route path="intro" element={<Intro />} />
         <Route path="setup" element={<Setup />} />

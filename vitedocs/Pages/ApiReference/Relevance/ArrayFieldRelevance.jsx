@@ -18,7 +18,7 @@ export const ArrayFieldRelevance = () => {
         leftHeader={<h3>Example: </h3>}
         rightHeader={<h3>Code:</h3>}
         left={<ArrayExample />}
-        right={<Code input1={arrayCode} />}
+        right={<Code links input1={arrayCode} />}
       />
     </>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import withDocs from '../../utils/withDocs';
 import readme from './README.md';
 
-import { CodeBlock } from '../../utils/CodeBlock';
+// import { CodeBlock } from '../../utils/CodeBlock';
 
 let code = `
 import { Form, SchemaFields, Debug } from 'informed';
@@ -71,7 +71,8 @@ export default function App() {
 `;
 
 const Playground = () => {
-  return <CodeBlock code={code} />;
+  return null;
+  // return <CodeBlock code={code} />;
 };
 
 export default withDocs(readme, Playground);

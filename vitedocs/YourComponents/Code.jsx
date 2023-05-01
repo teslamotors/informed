@@ -1,4 +1,8 @@
+import { ActionButton } from '@adobe/react-spectrum';
+import Copy from '@spectrum-icons/workflow/Copy';
+import Edit from '@spectrum-icons/workflow/Edit';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 // @ts-ignore
 import useApp from '../hooks/useApp';
 
@@ -15,9 +19,12 @@ function Code({
   language2 = 'jsx',
   minWidth1 = '600px',
   minWidth2 = '600px',
-  children
+  children,
+  links
 }) {
   const { lineNumbers, comments } = useApp();
+
+  const navigate = useNavigate();
 
   useEffect(
     () => {
@@ -45,7 +52,35 @@ function Code({
 
   if (!input2) {
     return (
-      <div>
+      <div style={{ position: 'relative' }}>
+        {links ? (
+          <>
+            <div style={{ position: 'absolute', right: '-32px' }}>
+              <ActionButton
+                onPress={() => {
+                  navigator.clipboard.writeText(input1);
+                }}>
+                <Copy />
+              </ActionButton>
+            </div>
+            <div style={{ position: 'absolute', right: '4px' }}>
+              <ActionButton
+                onPress={() => {
+                  let code = input1.replace(
+                    'YourComponents',
+                    './YourComponents'
+                  );
+                  code = code.replace(/<Option key="/g, '<Option value="');
+                  code = code.replace(/style="outline"/g, '');
+                  code = code.replace(/style="fill"/g, '');
+                  navigate(`/playground?code=${btoa(code)}`);
+                }}>
+                <Edit />
+              </ActionButton>
+            </div>
+          </>
+        ) : null}
+
         <pre className={`language-${language1} ${numberClass}`}>
           <code className={`language-${language1}`}>{input1}</code>
         </pre>

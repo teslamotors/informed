@@ -501,3 +501,11 @@ td {
 button {
   max-width: 150px;
 }
+
+.sp-wrapper {
+  height: 90vh;
+}
+
+.sp-layout {
+  height: 90vh;
+}

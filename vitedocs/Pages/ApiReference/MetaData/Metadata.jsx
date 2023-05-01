@@ -27,7 +27,7 @@ export const Metadata = () => {
         leftHeader={<h3>Example:</h3>}
         rightHeader={<h3>Code:</h3>}
         left={<Example />}
-        right={<Code input1={exampleCode} />}
+        right={<Code links input1={exampleCode} />}
       />
       <hr />
       <h2>A Slower Example</h2>
@@ -39,7 +39,7 @@ export const Metadata = () => {
         rightHeader={<h3>Code:</h3>}
         leftStyle={{ maxWidth: '200px' }}
         left={<SlowExample />}
-        right={<Code input1={slowExampleCode} />}
+        right={<Code links input1={slowExampleCode} />}
       />
       <br />
       <br />

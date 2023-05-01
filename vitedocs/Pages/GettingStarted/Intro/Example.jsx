@@ -1,7 +1,7 @@
 // Example.jsx
 
 // Styles for your inputs
-import './YourStyles.css';
+import './styles.css';
 
 // Default informed inputs
 import { Form, Input, Select, Checkbox, Relevant, Debug } from 'informed';

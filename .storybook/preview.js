@@ -4,8 +4,6 @@ import './assets/normalize.css';
 import './assets/prism.css';
 import './assets/styles.css';
 
-import '@codesandbox/sandpack-react/dist/index.css';
-
 import { addParameters, addDecorator } from '@storybook/react';
 import { addReadme, configureReadme } from 'storybook-readme';
 import { create } from '@storybook/theming/create';

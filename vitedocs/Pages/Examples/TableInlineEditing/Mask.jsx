@@ -42,7 +42,7 @@ export const TableInlineEditing = () => {
         leftStyle={{ minWidth: '500px' }}
         style={{ display: 'block' }}
         left={<Example />}
-        right={<Code input1={exampleCode} />}
+        right={<Code links input1={exampleCode} />}
       />
       <br />
       <br />

@@ -14,6 +14,9 @@ import { Nav } from '../Nav/Nav';
 const App = () => {
   const { colorScheme } = useApp();
 
+  // const location = window.location;
+  // const playground = location.pathname.includes('playground');
+
   return (
     <Router basename="/informed">
       <Provider theme={defaultTheme} colorScheme={colorScheme}>

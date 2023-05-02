@@ -15,6 +15,7 @@ import { Relevant } from './Relevant';
 import { Scope } from './Scope';
 import { useFieldApi } from '../hooks/useFieldApi';
 import { useUpdateEffect } from '../hooks/useUpdateEffect';
+import { ArrayField } from './ArrayField';
 // import { useForceUpdate } from '../hooks/useForceUpdate';
 const logger = Debug('informed:FormField' + '\t');
 

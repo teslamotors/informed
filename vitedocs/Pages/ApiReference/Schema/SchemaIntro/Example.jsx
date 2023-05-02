@@ -56,22 +56,6 @@ const schema = {
         { const: 'my', title: 'Model Y' }
       ]
     },
-    cars: {
-      type: 'array',
-      title: 'Cars',
-      'ui:control': 'checkbox_group',
-      'ui:props': {
-        initialValue: ['jeep', 'tesla']
-      },
-      items: {
-        oneOf: [
-          { const: 'tesla', title: 'Tesla' },
-          { const: 'volvo', title: 'Volvo' },
-          { const: 'audi', title: 'Audi' },
-          { const: 'jeep', title: 'Jeep' }
-        ]
-      }
-    },
     siblings: {
       type: 'array',
       'ui:control': 'array',

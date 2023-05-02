@@ -234,7 +234,7 @@ export const Option = ({ value, children, ...rest }) => {
 export const AddButton = () => {
   const { add } = useArrayFieldApi();
   return (
-    <button onClick={add} type="button" style={{ border: '2px solid green' }}>
+    <button onClick={add} type="button">
       Add
     </button>
   );
@@ -243,7 +243,7 @@ export const AddButton = () => {
 export const RemoveButton = () => {
   const { remove } = useArrayFieldItemApi();
   return (
-    <button onClick={remove} style={{ border: '2px solid red' }}>
+    <button onClick={remove}>
       Remove
     </button>
   );
@@ -272,13 +272,20 @@ export const Button = ({ children, ...rest }) => {
 }
 
 const adapter = {
+  button: Button,
   select: Select,
   input: Input,
+  string: Input,
   number: Number,
   checkbox: Checkbox,
+  boolean: Checkbox,
   add: AddButton,
   remove: RemoveButton,
-  array: MyArrayField
+  array: MyArrayField,
+  withOptions: {
+    string: Select,
+    number: Select,
+  }
 };
 
 // Step 4. Build your form component ---------------------

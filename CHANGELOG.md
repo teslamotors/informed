@@ -1,3 +1,9 @@
+## 4.44.3 ( May 2nd, 2023)
+
+### Fixed
+
+- Issue where if user did not pass an array field to adapter schema would crash ( now defaults to internal array field )
+
 ## 4.44.2 ( April 26th, 2023)
 
 ### Fixed

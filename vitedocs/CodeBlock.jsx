@@ -126,7 +126,6 @@ button {
   background-color: rebeccapurple;
   margin-bottom: 1rem;
   margin-top: 1rem;
-  margin-right: 1rem;
   width: 100%;
   text-align: center;
 }
@@ -269,6 +268,11 @@ export const MyArrayField = ({ name, items, ...props }) => {
 
 export const Button = ({ children, ...rest }) => {
   return <button {...rest}>{children}</button>
+}
+
+export const ButtonGroup = ({ orientation, align, children }) =>{
+  const flexDirection = orientation == 'vertical' ? 'column' : 'row';
+  return <div style={{ display: 'flex', flexDirection, alignItems: align }}>{children}</div>
 }
 
 const adapter = {

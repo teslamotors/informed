@@ -8,6 +8,7 @@ export type FormState = {
   invalid: boolean;
   submitting: boolean;
   validating: number;
+  gathering: number;
   values: Record<string, unknown>;
   maskedValues: Record<string, unknown>;
   errors: Record<string, unknown>;
@@ -16,6 +17,7 @@ export type FormState = {
   dirt: Record<string, unknown>;
   focused: Record<string, unknown>;
   initialValues: Record<string, unknown>;
+  data: Record<string, unknown>;
 };
 
 export type InformedApi = {
@@ -73,6 +75,8 @@ export type FieldState = {
   showError: boolean;
   validating: boolean;
   focused: boolean;
+  data: unknown;
+  gathering: boolean;
 };
 
 export type FieldResetOptions = {
@@ -97,6 +101,7 @@ export type FieldApi = {
   getDirty: () => boolean;
   getPristine: () => boolean;
   getMaskedValue: () => unknown;
+  clearValue: () => void;
 };
 
 export type MultistepApi = {

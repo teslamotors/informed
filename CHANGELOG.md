@@ -1,3 +1,9 @@
+## 4.44.4 ( May 2nd, 2023)
+
+### Added
+
+- Missing types for gatherData
+
 ## 4.44.3 ( May 2nd, 2023)
 
 ### Fixed

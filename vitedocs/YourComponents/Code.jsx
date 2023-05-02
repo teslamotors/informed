@@ -1,4 +1,4 @@
-import { ActionButton } from '@adobe/react-spectrum';
+import { ActionButton, TooltipTrigger, Tooltip } from '@adobe/react-spectrum';
 import Copy from '@spectrum-icons/workflow/Copy';
 import Edit from '@spectrum-icons/workflow/Edit';
 import { useEffect } from 'react';
@@ -56,27 +56,35 @@ function Code({
         {links ? (
           <>
             <div style={{ position: 'absolute', right: '-32px' }}>
-              <ActionButton
-                onPress={() => {
-                  navigator.clipboard.writeText(input1);
-                }}>
-                <Copy />
-              </ActionButton>
+              <TooltipTrigger>
+                <ActionButton
+                  aria-label="Copy Code"
+                  onPress={() => {
+                    navigator.clipboard.writeText(input1);
+                  }}>
+                  <Copy />
+                </ActionButton>
+                <Tooltip>Copy to clipboard</Tooltip>
+              </TooltipTrigger>
             </div>
             <div style={{ position: 'absolute', right: '4px' }}>
-              <ActionButton
-                onPress={() => {
-                  let code = input1.replace(
-                    'YourComponents',
-                    './YourComponents'
-                  );
-                  code = code.replace(/<Option key="/g, '<Option value="');
-                  code = code.replace(/style="outline"/g, '');
-                  code = code.replace(/style="fill"/g, '');
-                  navigate(`/playground?code=${btoa(code)}`);
-                }}>
-                <Edit />
-              </ActionButton>
+              <TooltipTrigger>
+                <ActionButton
+                  aria-label="Playground"
+                  onPress={() => {
+                    let code = input1.replace(
+                      'YourComponents',
+                      './YourComponents'
+                    );
+                    code = code.replace(/<Option key="/g, '<Option value="');
+                    code = code.replace(/style="outline"/g, '');
+                    code = code.replace(/style="fill"/g, '');
+                    navigate(`/playground?code=${btoa(code)}`);
+                  }}>
+                  <Edit />
+                </ActionButton>
+                <Tooltip>Open in playground</Tooltip>
+              </TooltipTrigger>
             </div>
           </>
         ) : null}

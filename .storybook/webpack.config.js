@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = async ({ config, mode }) => {
   // configType has a value of 'DEVELOPMENT' or 'PRODUCTION'
   // You can change the configuration based on that.

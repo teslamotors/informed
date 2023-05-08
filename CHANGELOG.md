@@ -1,3 +1,9 @@
+## 4.44.5 ( May 8th, 2023)
+
+### Added
+
+- `"type": "module"` to the package.json as informed is an ESM first package
+
 ## 4.44.4 ( May 2nd, 2023)
 
 ### Added

@@ -1,3 +1,9 @@
+## 4.44.6 ( May 16th, 2023)
+
+### Fixed
+
+- Issue where adapter code would get loaded when using custom form
+
 ## 4.44.5 ( May 8th, 2023)
 
 ### Added

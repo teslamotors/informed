@@ -1,6 +1,5 @@
 import { ObjectMap } from './ObjectMap';
 import { Debug } from './debug';
-import { FieldMap as defaultFieldMap } from './fieldMap';
 import {
   debounceByName,
   informedFormat,
@@ -71,7 +70,7 @@ export class FormController {
     this.ajvValidate = ajv ? this.ajv.compile(schema) : null;
 
     // Add field map ( defaults to our field map )
-    this.fieldMap = adapter || fieldMap || defaultFieldMap;
+    this.fieldMap = adapter || fieldMap;
 
     // This is the emitter lol
     this.emitter = this;

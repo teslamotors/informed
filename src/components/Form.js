@@ -1,15 +1,17 @@
 import React from 'react';
 import { Debug } from '../debug';
 import { useForm } from '../hooks/useForm';
+import { FieldMap as adapter } from '../fieldMap';
 
 const debug = Debug('informed:Form' + '\t\t');
 
 export const Form = ({ children, ...rest }) => {
   debug('Render FORM');
 
-  const { formApi, formController, formState, render, userProps } = useForm(
-    rest
-  );
+  const { formApi, formController, formState, render, userProps } = useForm({
+    adapter,
+    ...rest
+  });
 
   const getContent = () => {
     const props = {

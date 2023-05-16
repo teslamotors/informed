@@ -5,7 +5,7 @@ import { Relevant, Debug } from 'informed';
 import { Form, Input, Select, Checkbox } from './YourComponents';
 import style from './style.css';
 
-const onSubmit = ({ values }) => window.alert(values);
+const onSubmit = ({ values }) => window.alert(JSON.stringify(values));
 
 export default function App() {
   return (

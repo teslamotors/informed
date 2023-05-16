@@ -3,6 +3,7 @@ import { render, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form } from '../jest/components';
 import { SchemaFields } from '../src';
+import { Form as InformedForm } from '../src';
 
 // prettier-ignore
 describe('Schema', () => {
@@ -345,10 +346,10 @@ describe('Schema', () => {
     };
   
     const { getByLabelText, getByText, queryAllByRole } = render(
-      <Form schema={schema}>
+      <InformedForm schema={schema}>
         <SchemaFields />
         <button type="submit">Submit</button>
-      </Form>
+      </InformedForm>
     );
 
     const name = getByLabelText('First name');
@@ -450,10 +451,10 @@ describe('Schema', () => {
     };
   
     const { getByLabelText, getByText } = render(
-      <Form schema={schema}>
+      <InformedForm schema={schema}>
         <SchemaFields />
         <button type="submit">Submit</button>
-      </Form>
+      </InformedForm>
     );
 
     const name = getByLabelText('First name');
@@ -516,10 +517,10 @@ describe('Schema', () => {
     };
 
     const { queryAllByRole, queryByLabelText } = render(
-      <Form schema={schema} formApiRef={formApiRef} >
+      <InformedForm schema={schema} formApiRef={formApiRef} >
         <SchemaFields />
         <button type="submit">Submit</button>
-      </Form>
+      </InformedForm>
     );
 
     let spouse = queryByLabelText('Spouse name');
@@ -586,10 +587,10 @@ describe('Schema', () => {
     };
 
     const { queryAllByRole, queryByLabelText } = render(
-      <Form schema={schema} formApiRef={formApiRef} >
+      <InformedForm schema={schema} formApiRef={formApiRef} >
         <SchemaFields />
         <button type="submit">Submit</button>
-      </Form>
+      </InformedForm>
     );
 
     let spouse = queryByLabelText('Spouse name');

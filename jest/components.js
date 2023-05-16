@@ -1,18 +1,6 @@
 import React from 'react';
 import { useForm, useField } from '../src';
 
-export const Form = props => {
-  const { formController, render, userProps } = useForm(props);
-
-  return render(
-    <form
-      {...userProps}
-      onReset={formController.reset}
-      onSubmit={formController.submitForm}
-    />
-  );
-};
-
 export const Input = props => {
   const { render, informed, userProps, fieldState, ref } = useField({
     type: 'text',
@@ -91,13 +79,13 @@ export const Select = props => {
         }}>
         {options
           ? options.map(option => (
-            <option
-              key={option.value}
-              value={option.value}
-              disabled={option.disabled}>
-              {option.label}
-            </option>
-          ))
+              <option
+                key={option.value}
+                value={option.value}
+                disabled={option.disabled}>
+                {option.label}
+              </option>
+            ))
           : children}
       </select>
       {showError ? (
@@ -106,5 +94,29 @@ export const Select = props => {
         </small>
       ) : null}
     </>
+  );
+};
+
+export const adapter = {
+  checkbox: Checkbox,
+  boolean: Checkbox,
+  select: Select,
+  input: Input,
+  string: Input,
+  withOptions: {
+    string: Select,
+    number: Select
+  }
+};
+
+export const Form = props => {
+  const { formController, render, userProps } = useForm({ ...props, adapter });
+
+  return render(
+    <form
+      {...userProps}
+      onReset={formController.reset}
+      onSubmit={formController.submitForm}
+    />
   );
 };

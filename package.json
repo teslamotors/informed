@@ -1,6 +1,6 @@
 {
   "name": "informed",
-  "version": "4.44.5",
+  "version": "4.44.6",
   "description": "A lightweight framework and utility for building powerful forms in React applications",
   "type": "module",
   "main": "dist/cjs/index.js",

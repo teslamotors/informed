@@ -209,12 +209,20 @@ export const Select = props => {
     type: 'select',
     ...props
   });
-  const { label, id, children, ...rest } = userProps;
+  const { label, id, children, options, ...rest } = userProps;
   return render(
     <>
       <label htmlFor={id}>{label}</label>
       <select id={id} ref={ref} {...informed} {...rest}>
-        {children}
+        {options ? options.map(option => (
+          <option
+            key={option.value}
+            value={option.value}
+            disabled={option.disabled}>
+            {option.label}
+          </option>
+        ))
+        : children}
       </select>
     </>
   );

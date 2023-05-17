@@ -34,6 +34,8 @@ export const ApiReferenceNav = () => {
       <h3>Api</h3>
       <NavLink href="/api-reference/formApi">FormApi</NavLink>
       <NavLink href="/api-reference/fieldApi">FieldApi</NavLink>
+      <h3>Refs</h3>
+      <NavLink href="/api-reference/formApiRef">formApiRef</NavLink>
       <h3>Components</h3>
       <NavLink href="/api-reference/relevant">Relevant</NavLink>
       <NavLink href="/api-reference/scope">Scope</NavLink>

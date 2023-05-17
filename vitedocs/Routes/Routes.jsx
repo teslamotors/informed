@@ -52,6 +52,7 @@ import { RelevanceSchema } from '../Pages/ApiReference/Relevance/RelevanceSchema
 import { HugeForm } from '../Pages/Examples/HugeForm/HugeForm';
 import { UseForm } from '../Pages/ApiReference/UseForm/UseForm';
 import { Playground } from '../Pages/Playground';
+import FormApiRef from '../Pages/ApiReference/FormApi/FormApiRef';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -116,6 +117,7 @@ export const Routes = () => {
           path="arrays-array-field"
           element={<ArrayFieldComponent showItem={false} />}
         />
+        <Route path="formApiRef" element={<FormApiRef />} />
         <Route path="arrays-array-field-item" element={<ArrayFieldItem />} />
         <Route path="validation-messages" element={<ValidationMessages />} />
         <Route path="schema-intro" element={<SchemaIntro />} />

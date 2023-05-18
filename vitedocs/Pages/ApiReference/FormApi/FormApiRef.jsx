@@ -1,8 +1,8 @@
 import { Info } from '../../../Info';
 import { SideBySide } from '../../../SideBySide';
 import Code from '../../../YourComponents/Code';
-import MoreExamples from './MoreExamples';
-import moreExampleCode from './MoreExamples.jsx?raw';
+import MoreExamples from './ApiRefMoreExamples';
+import moreExampleCode from './ApiRefMoreExamples.jsx?raw';
 
 export default function FormApiRef() {
   return (

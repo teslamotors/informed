@@ -60,7 +60,7 @@ export default function Intro() {
         right={<Code links input1={firstExampleCode} />}
       />
       <Info>
-        Whats going on here? Basically iformed manages form state for you, and
+        Whats going on here? Basically informed manages form state for you, and
         allows you to easily hook ito its state managemenet with the use of
         <code>useField</code>
         <br />

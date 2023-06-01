@@ -35,6 +35,15 @@ const Buttons = () => {
         }>
         Reset To New Values
       </Button>
+      <Button
+        type="button"
+        onClick={() =>
+          formApi.reset({
+            resetValues: false
+          })
+        }>
+        Reset But not Values
+      </Button>
       <Button type="button" onClick={() => formApi.setValue('foo', 'Bar')}>
         Set Hidden Field
       </Button>
@@ -69,7 +78,7 @@ const Example = () => {
       <Input name="phone" label="Phone Number:" formatter="+1 (###) ###-####" />
       <Buttons />
       <Button type="submit">Submit</Button>
-      <Debug values />
+      <Debug values dirt />
     </Form>
   );
 };

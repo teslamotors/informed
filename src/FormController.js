@@ -1148,7 +1148,7 @@ export class FormController {
   }
 
   reset(options = {}) {
-    const { values } = options;
+    const { values, resetValues = true } = options;
 
     this.state = {
       pristine: true,
@@ -1159,10 +1159,10 @@ export class FormController {
       submitting: false,
       validating: 0,
       gathering: 0,
-      values: {},
+      values: resetValues ? {} : this.state.values,
       errors: {},
       touched: {},
-      maskedValues: {},
+      maskedValues: resetValues ? {} : this.state.maskedValues,
       dirt: {},
       focused: {},
       modified: {},
@@ -1171,7 +1171,7 @@ export class FormController {
     };
 
     this.fieldsMap.forEach(fieldMeta => {
-      fieldMeta.current.fieldApi.reset();
+      fieldMeta.current.fieldApi.reset({ resetValue: resetValues });
     });
 
     this.emit('reset');
@@ -1212,6 +1212,7 @@ export class FormController {
     const { formatter, parser, initialize, mask } = meta;
     const {
       value,
+      resetValue = true,
       resetError = true,
       resetTouched = true,
       resetDirt = true,
@@ -1233,30 +1234,32 @@ export class FormController {
       debug(`Resetting ${name}'s maskedValue to ${maskedValue}`);
       ObjectMap.set(this.state.maskedValues, name, maskedValue);
     } else {
-      const initialValue = initializeValue(
-        meta.getInitialValue && meta.getInitialValue(),
-        {
-          formatter,
-          parser,
-          initialize,
-          mask
-        }
-      );
+      if (resetValue) {
+        const initialValue = initializeValue(
+          meta.getInitialValue && meta.getInitialValue(),
+          {
+            formatter,
+            parser,
+            initialize,
+            mask
+          }
+        );
 
-      const initialMask = initializeMask(
-        meta.getInitialValue && meta.getInitialValue(),
-        {
-          formatter,
-          initialize,
-          mask
-        }
-      );
+        const initialMask = initializeMask(
+          meta.getInitialValue && meta.getInitialValue(),
+          {
+            formatter,
+            initialize,
+            mask
+          }
+        );
 
-      debug(`Resetting ${name}'s value to ${initialValue}`);
-      ObjectMap.set(this.state.values, name, initialValue);
+        debug(`Resetting ${name}'s value to ${initialValue}`);
+        ObjectMap.set(this.state.values, name, initialValue);
 
-      debug(`Resetting ${name}'s maskedValue to ${initialMask}`);
-      ObjectMap.set(this.state.maskedValues, name, initialMask);
+        debug(`Resetting ${name}'s maskedValue to ${initialMask}`);
+        ObjectMap.set(this.state.maskedValues, name, initialMask);
+      }
     }
 
     if (resetError) {

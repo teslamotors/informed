@@ -1,3 +1,9 @@
+## 4.46.0 ( June 1st, 2023)
+
+### Added
+
+- ability to pass resetValues to formApi.reset()
+
 ## 4.45.0 ( June 1st, 2023)
 
 ### Added

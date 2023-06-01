@@ -160,7 +160,10 @@ export default function FormState() {
             <Cell>
               <Code>reset()</Code>
             </Cell>
-            <Cell>Function that will reset the form to its initial state.</Cell>
+            <Cell>
+              Function that will reset the form to its initial state. This can
+              optionally take an options object with new initialValues
+            </Cell>
           </Row>
           <Row>
             <Cell>

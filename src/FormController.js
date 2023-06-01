@@ -1147,7 +1147,9 @@ export class FormController {
     }
   }
 
-  reset() {
+  reset(options = {}) {
+    const { values } = options;
+
     this.state = {
       pristine: true,
       dirty: false,
@@ -1165,7 +1167,7 @@ export class FormController {
       focused: {},
       modified: {},
       data: {},
-      initialValues: this.options.current.initialValues || {}
+      initialValues: values ?? this.options.current.initialValues ?? {}
     };
 
     this.fieldsMap.forEach(fieldMeta => {

@@ -26,6 +26,15 @@ const Buttons = () => {
       <Button type="button" onClick={() => formApi.reset()}>
         Reset
       </Button>
+      <Button
+        type="button"
+        onClick={() =>
+          formApi.reset({
+            values: { name: 'Elon', age: 51, phone: '6991234567' }
+          })
+        }>
+        Reset To New Values
+      </Button>
       <Button type="button" onClick={() => formApi.setValue('foo', 'Bar')}>
         Set Hidden Field
       </Button>
@@ -55,8 +64,8 @@ const Example = () => {
   const formApiRef = useRef();
   return (
     <Form formApiRef={formApiRef}>
-      <Input name="name" label="First Name:" initialValue="Joe" required />
-      <Input name="age" label="First Name:" type="number" initialValue={28} />
+      <Input name="name" label="First Name:" defaultValue="Joe" required />
+      <Input name="age" label="First Name:" type="number" defaultValue={28} />
       <Input name="phone" label="Phone Number:" formatter="+1 (###) ###-####" />
       <Buttons />
       <Button type="submit">Submit</Button>

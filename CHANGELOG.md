@@ -1,3 +1,10 @@
+## 4.46.1 ( June 12th, 2023)
+
+### Fixed
+
+- issue with multistep getting null error in react native
+- missing types for formatNumber
+
 ## 4.46.0 ( June 1st, 2023)
 
 ### Added

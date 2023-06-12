@@ -521,6 +521,11 @@ declare namespace utils {
     offset: number;
   };
   function getSchemaPathFromJsonPath(scopedName: string): string;
+  function createIntlNumberFormatter(
+    locale?: string | string[],
+    opts?: Intl.NumberFormatOptions,
+    { formatToParts }?: { formatToParts: (v: number | bigint, locale: string | string[], opts: any) => any[]},
+  ): { formatter: (value: any, ogValue: any) => Intl.NumberFormatPart, parser: (value:any) => number | undefined}
 }
 
 export function SchemaFields(): JSX.Element;

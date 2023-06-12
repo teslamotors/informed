@@ -309,14 +309,16 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
   // Also re evaluate when current changes
   useEffect(
     () => {
-      // Update the state
-      setState(prev => {
-        return {
-          ...prev,
-          nextStep: multistepApi.getNextStep(),
-          previousStep: multistepApi.getPreviousStep()
-        };
-      });
+      if (multistepState.current) {
+        // Update the state
+        setState(prev => {
+          return {
+            ...prev,
+            nextStep: multistepApi.getNextStep(),
+            previousStep: multistepApi.getPreviousStep()
+          };
+        });
+      }
     },
     [multistepState.current]
   );

@@ -11,14 +11,25 @@ const Input = ({ type, ...props }) => {
   const { error, showError } = fieldState;
   return render(
     <TextField
-      ref={ref}
       validationState={!error ? null : 'invalid'}
       errorMessage={showError ? error : undefined}
       isRequired={required}
       isDisabled={disabled}
       {...userProps}
       {...informed}
-      onChange={v => fieldApi.setValue(v, {})}
+      onChange={() => {}}
+      // This is fucking stupid that they took over the native on change!!!
+      onInput={e => {
+        fieldApi.setValue(e.target.value, e);
+      }}
+      onBlur={e => {
+        fieldApi.setTouched(true, e);
+      }}
+      ref={r => {
+        if (!ref.current) {
+          ref.current = !r ? ref.current : r.getInputElement();
+        }
+      }}
     />
   );
 };

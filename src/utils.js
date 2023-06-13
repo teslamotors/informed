@@ -523,15 +523,20 @@ export const informedFormatter = (val, frmtr, old, full) => {
   // "1234"			 ----> +1 123-4
   // "123a"      ----> +1 123
 
+  // ADD LOGS FOR TETING ---------------------------
   // console.log('New', value);
   // console.log('Old', old);
   // console.log('Formatter', formatter);
 
   // Determine prefix length and suffix start
   const prefixLength = formatter.findIndex(v => typeof v != 'string');
-  const suffixStart =
-    formatter.length -
-    [...formatter].reverse().findIndex(v => typeof v != 'string');
+  // If we have a suffix
+  let suffixStart = null;
+  if (typeof formatter[formatter.length - 1] === 'string') {
+    suffixStart =
+      formatter.length -
+      [...formatter].reverse().findIndex(v => typeof v != 'string');
+  }
 
   // Formatted value
   let formatted = [];
@@ -564,6 +569,7 @@ export const informedFormatter = (val, frmtr, old, full) => {
     start = prefixLength;
   }
 
+  // ADD LOGS FOR TETING ---------------------------
   // console.log('start', start, formatted);
   // console.log('PREFIX_LENGTHT', prefixLength);
   // console.log('SUFIX_START', suffixStart);
@@ -593,6 +599,7 @@ export const informedFormatter = (val, frmtr, old, full) => {
         vIndex = vIndex + 1;
       } else {
         // If type is string normal compare otherwise regex compare
+        // console.log('MATCHER', matcher);
         const match =
           typeof matcher === 'string'
             ? matcher === curChar
@@ -628,8 +635,9 @@ export const informedFormatter = (val, frmtr, old, full) => {
         }
       }
     } else {
+      // console.log('WTF i', i, 'suffixStart', suffixStart);
       // If mattcher is a string and we are at suffix keep going
-      if (typeof matcher === 'string' && i >= suffixStart) {
+      if (typeof matcher === 'string' && suffixStart && i >= suffixStart) {
         formatted.push(matcher);
       } else {
         // Otherwise we want to break out
@@ -638,35 +646,67 @@ export const informedFormatter = (val, frmtr, old, full) => {
     }
   }
 
+  // ADD LOGS FOR TETING ---------------------------
   // console.log('FORMATTEDARR', formatted);
   // console.log('VALUE', value, value.length);
   let formattedString = formatted.join('');
   // console.log('FORMATTED', formattedString, formattedString.length);
 
+  // For the following cases the "|" represents the cursor position
+  //
+  // Case1:
+  // oldValue = "+1 12|" ( length 5 )
+  // value = "+1 123|" ( length 6)
+  // formattedString = "+1 123-" ( length 7 )
+  // offset = 1 ( we need to move cursur over by 1 )
+  //
+  // Case2:
+  // oldValue = "1,234|.25" ( length 8 )
+  // value = "1,23|.25" ( length 7 )
+  // formattedString = "123.25" ( length 6 )
+  // offset = 1 ( we need to move cursur over by -1 because a format character got removed )
   let offset = value ? formattedString.length - value.length : 0;
 
+  // ADD LOGS FOR TETING ---------------------------
   // console.log('OFFSET', offset);
 
-  // Special case,
-  // Suffix is '-'
+  // Special case1:
+  // Suffix is '%'
   // user typed backspace
-  // +1 123-123-1234-|
-  // +1 123-123-1234|-
-  //                ^
-  //           suffixStart (15)
-  // New: +1 123-123-1234
-  // Old: +1 123-123-1234-
+  // 20%|
+  // 20|%
+  //   ^
+  //  suffixStart (2)
+  //
+  // New: 20
+  // Old: 20%
   //
   // New length is less than old length
   // And length of new is greater than or equal two suffix start
-  if (
+  const case1 =
+    suffixStart &&
     value &&
     old &&
     value.length < old.length &&
-    value.length >= suffixStart
-  ) {
+    value.length >= suffixStart;
+  // Special case2:
+  // Suffix is '%'
+  // user types 20|
+  // we want cursor to be here
+  // 20|%
+  // Note: we DONT want to do this if we also added a new character
+  // Example: 7000| BND --- user types zero "0" --> 70 000| BND
+  // to solve we can just check to see if the suffix was already there :)
+  const suffix = formatter.slice(suffixStart).join('');
+  // console.log('SUFFIX', suffix);
+  const case2 =
+    suffixStart &&
+    formatted.length > suffixStart &&
+    (!old || !old.includes(suffix));
+  if (case1 || case2) {
     offset = 0;
-    // console.log('OFFSET OVERRIDE', offset);
+    // console.log('OFFSET OVERRIDE', offset, case1 ? 'case1' : 'case2');
+
     // Special case, we want to diable keeping suffix on backspace in react native
     if (
       typeof navigator !== 'undefined' &&
@@ -676,6 +716,9 @@ export const informedFormatter = (val, frmtr, old, full) => {
       formattedString = formattedString.slice(0, suffixStart);
     }
   }
+
+  // ADD LOGS FOR TETING ---------------------------
+  // console.log('OFFSET', offset);
 
   return {
     value: formattedString,
@@ -717,37 +760,37 @@ export const createIntlNumberFormatter = (
       })?.value ?? '-';
   }
 
-  function isRegexEqual(x, y) {
-    return (
-      x instanceof RegExp &&
-      y instanceof RegExp &&
-      x.source === y.source &&
-      x.global === y.global &&
-      x.ignoreCase === y.ignoreCase &&
-      x.multiline === y.multiline
-    );
-  }
+  // function isRegexEqual(x, y) {
+  //   return (
+  //     x instanceof RegExp &&
+  //     y instanceof RegExp &&
+  //     x.source === y.source &&
+  //     x.global === y.global &&
+  //     x.ignoreCase === y.ignoreCase &&
+  //     x.multiline === y.multiline
+  //   );
+  // }
 
-  function findLastIndex(arr, predicate) {
-    let l = arr.length;
-    // eslint-disable-next-line no-plusplus
-    while (l--) {
-      if (predicate(arr[l])) return l;
-    }
-    return -1;
-  }
+  // function findLastIndex(arr, predicate) {
+  //   let l = arr.length;
+  //   // eslint-disable-next-line no-plusplus
+  //   while (l--) {
+  //     if (predicate(arr[l])) return l;
+  //   }
+  //   return -1;
+  // }
 
-  function insert(arr, index, value) {
-    const nextArr = [...arr];
+  // function insert(arr, index, value) {
+  //   const nextArr = [...arr];
 
-    if (Array.isArray(value)) {
-      nextArr.splice(index, 0, ...value);
-    } else {
-      nextArr.splice(index, 0, value);
-    }
+  //   if (Array.isArray(value)) {
+  //     nextArr.splice(index, 0, ...value);
+  //   } else {
+  //     nextArr.splice(index, 0, value);
+  //   }
 
-    return nextArr;
-  }
+  //   return nextArr;
+  // }
 
   function stripNonNumeric(str) {
     return `${str}`.replace(/\D/g, '');
@@ -767,10 +810,16 @@ export const createIntlNumberFormatter = (
         .join('.');
     }
 
-    return `${str}`
-      .split(decimalChar)
-      .map(splitStr => stripNonNumeric(splitStr))
-      .join('.');
+    // Create a regex to replace all but the first occurrence of the decimalChar.
+    // let regex = new RegExp(`(.*?\\${decimalChar}.*?)\\${decimalChar}(.*)`, 'g');
+
+    return (
+      `${str}`
+        // .replace(regex, '$1$2')
+        .split(decimalChar)
+        .map(splitStr => stripNonNumeric(splitStr))
+        .join('.')
+    );
   }
 
   function toFloat(str, decimalChar = '.') {
@@ -811,7 +860,7 @@ export const createIntlNumberFormatter = (
     const numberParts = toParts(number);
 
     // Special case, if number parts does not contain a "decimal" than we want to throw out the decimal from the value
-    const hasDecimal = numberParts.find(part => part.type === 'decimal');
+    // const hasDecimal = numberParts.find(part => part.type === 'decimal');
 
     // number-parts =
     // 0: {type: 'minusSign', value: '-'}
@@ -823,12 +872,18 @@ export const createIntlNumberFormatter = (
     // 6: {type: 'fraction', value: '25'}
     // console.log('number-parts', numberParts);
 
-    if (fraction === '0') {
-      numberParts.push(
-        { type: 'decimal', value: decimalChar },
-        { type: 'fraction', value: fraction }
-      );
-    }
+    // const hasFraction = numberParts.find(p => p.type === 'fraction');
+
+    // In the case user types "1." or "1.0" we need to add the fraction part
+    // This only occurs if we dont have minimumFractionDigits to force the fraction
+    // if (fraction != null && !hasFraction) {
+    //   numberParts.push(
+    //     { type: 'decimal', value: decimalChar },
+    //     { type: 'fraction', value: fraction }
+    //   );
+    // }
+
+    // console.log('number-parts after fraction check', numberParts);
 
     let maskArray = numberParts.reduce((pv, { type, value: partValue }) => {
       // PV [] minusSign -
@@ -843,6 +898,11 @@ export const createIntlNumberFormatter = (
       if (['decimal', 'fraction'].includes(type) && fraction == null) {
         return pv;
       }
+
+      // // Special case where we have no fraction but need to pad
+      // if (['fraction'].includes(type) && fraction == null) {
+      //   return [...pv, ...partValue.split('')];
+      // }
 
       if (['integer', 'fraction'].includes(type)) {
         return [
@@ -866,23 +926,25 @@ export const createIntlNumberFormatter = (
 
     // console.log('PV', maskArray);
 
-    let lastDigitIndex = findLastIndex(maskArray, maskChar => {
-      return isRegexEqual(maskChar, /\d/);
-    });
+    // let lastDigitIndex = findLastIndex(maskArray, maskChar => {
+    //   return isRegexEqual(maskChar, /\d/);
+    // });
 
     // console.log('lastDigitIndex', lastDigitIndex);
 
-    if (
-      maskArray.indexOf(decimalChar) === -1 &&
-      `${value}`.indexOf(decimalChar) !== -1 &&
-      hasDecimal
-    ) {
-      maskArray = insert(maskArray, lastDigitIndex + 1, [decimalChar]);
-      lastDigitIndex += 2; // we want to insert a new number after the decimal
-    }
+    // if (
+    //   maskArray.indexOf(decimalChar) === -1 &&
+    //   `${value}`.indexOf(decimalChar) !== -1 &&
+    //   hasDecimal
+    // ) {
+    //   maskArray = insert(maskArray, lastDigitIndex + 1, [decimalChar]);
+    //   lastDigitIndex += 2; // we want to insert a new number after the decimal
+    // }
 
-    const endOfMask = maskArray.slice(lastDigitIndex + 1).join('');
-    maskArray = [...maskArray.slice(0, lastDigitIndex + 1), endOfMask];
+    // const endOfMask = maskArray.slice(lastDigitIndex + 1).join('');
+    // maskArray = [...maskArray.slice(0, lastDigitIndex + 1), endOfMask];
+
+    // console.log('maskArray', maskArray);
 
     return maskArray;
   }

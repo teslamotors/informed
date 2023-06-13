@@ -44,9 +44,10 @@ const useCursorPosition = ({
 
   useEffect(
     () => {
+      // console.log('inputRef', inputRef.current, 'Cursor', getCursor());
       if (!inputRefs && inputRef.current != null && getCursor()) {
         // inputRef.current.selectionEnd = getCursor() + getCursorOffset();
-        const offset = getCursorOffset() < 0 ? 0 : getCursorOffset();
+        const offset = getCursorOffset(); // getCursorOffset() < 0 ? 0 : getCursorOffset();
         const cursorLoc = getCursor() + offset;
         // console.log('Cursor', getCursor());
         // console.log('Offset', offset);
@@ -70,7 +71,7 @@ const useCursorPosition = ({
         });
       }
     },
-    [value, cursor]
+    [value, cursor, cursorOffset]
   );
 
   return {

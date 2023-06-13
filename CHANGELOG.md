@@ -1,3 +1,10 @@
+## 4.46.2 ( June 13th, 2023)
+
+### Fixed
+
+- issue with number formatter where when user typed "7|" and suffix gets added "7 BND|" cursor ends up in correct place "7| BND" where "|" represents cursor position
+- issue in docs whre the change event on adobe stupidly does not pass the native e event !!
+
 ## 4.46.1 ( June 12th, 2023)
 
 ### Fixed

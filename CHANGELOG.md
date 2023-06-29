@@ -1,3 +1,9 @@
+## 4.46.1 ( June 29th, 2023)
+
+### Added
+
+- missing types to exports in the package.json
+
 ## 4.46.2 ( June 13th, 2023)
 
 ### Fixed

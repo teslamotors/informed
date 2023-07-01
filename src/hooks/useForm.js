@@ -50,7 +50,7 @@ export const useForm = ({
   focusOnInvalid,
   ...userProps
 }) => {
-  // Register this controler by name if we are in global context
+  // Register this controller by name if we are in global context
   const informed = useInformed();
 
   const initialValues = useMemo(

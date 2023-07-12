@@ -1,3 +1,9 @@
+## 4.46.4 ( July 12th, 2023)
+
+### Added
+
+- missing gatherData type to the ts file
+
 ## 4.46.3 ( June 29th, 2023)
 
 ### Added

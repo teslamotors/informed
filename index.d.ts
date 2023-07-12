@@ -210,6 +210,7 @@ export type FieldProps<UserProps> = {
   onChange?: (fieldState: FieldState, event: React.SyntheticEvent) => void;
   onBlur?: (fieldState: FieldState, event: React.SyntheticEvent) => void;
   onFocus?: (fieldState: FieldState, event: React.SyntheticEvent) => void;
+  gatherData?: (value: unknown) => Promise<any>;
   validateOn?:
     | 'change'
     | 'blur'
@@ -524,8 +525,19 @@ declare namespace utils {
   function createIntlNumberFormatter(
     locale?: string | string[],
     opts?: Intl.NumberFormatOptions,
-    { formatToParts }?: { formatToParts: (v: number | bigint, locale: string | string[], opts: any) => any[]},
-  ): { formatter: (value: any, ogValue: any) => Intl.NumberFormatPart, parser: (value:any) => number | undefined}
+    {
+      formatToParts
+    }?: {
+      formatToParts: (
+        v: number | bigint,
+        locale: string | string[],
+        opts: any
+      ) => any[];
+    }
+  ): {
+    formatter: (value: any, ogValue: any) => Intl.NumberFormatPart;
+    parser: (value: any) => number | undefined;
+  };
 }
 
 export function SchemaFields(): JSX.Element;

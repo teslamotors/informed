@@ -1,3 +1,9 @@
+## 4.48.0 ( July 17th, 2023)
+
+### Added
+
+- ability to pass label to debug component
+
 ## 4.47.0 ( July 17th, 2023)
 
 ### Added

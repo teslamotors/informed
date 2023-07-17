@@ -52,7 +52,11 @@ import { RelevanceSchema } from '../Pages/ApiReference/Relevance/RelevanceSchema
 import { HugeForm } from '../Pages/Examples/HugeForm/HugeForm';
 import { UseForm } from '../Pages/ApiReference/UseForm/UseForm';
 import { Playground } from '../Pages/Playground';
+
 import FormApiRef from '../Pages/ApiReference/FormApi/FormApiRef';
+import ChangingOptions from '../Pages/Examples/Dynamic/ChangingOptions/ChangingOptions';
+import DependentFields from '../Pages/Examples/Dynamic/DependentFields/DependentFields';
+import TwoWayDependence from '../Pages/Examples/Dynamic/TwoWayDependence/TwoWayDependence';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -150,6 +154,9 @@ export const Routes = () => {
         <Route path="huge-form" element={<HugeForm />} />
         <Route path="elon-musk" element={<ElonMusk />} />
         <Route path="new-product" element={<RickRoll />} />
+        <Route path="changing-options" element={<ChangingOptions />} />
+        <Route path="dependent-fields" element={<DependentFields />} />
+        <Route path="two-way" element={<TwoWayDependence />} />
       </Route>
       <Route path="home" element={<Home />} />
       <Route path="admin" element={<Admin />} />

@@ -22,11 +22,15 @@ export const DebugField = ({ name, ...props }) => {
     [displayState]
   );
 
+  let content = JSON.stringify(displayState, null, 2);
+
+  if (props.label) {
+    content = `// ${props.label}\n` + content;
+  }
+
   return (
     <pre className="language-js">
-      <code className="language-js">
-        {JSON.stringify(displayState, null, 2)}
-      </code>
+      <code className="language-js">{content}</code>
     </pre>
   );
 };

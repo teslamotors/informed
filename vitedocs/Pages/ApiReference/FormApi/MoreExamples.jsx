@@ -78,7 +78,7 @@ const Example = () => {
       <Input name="phone" label="Phone Number:" formatter="+1 (###) ###-####" />
       <Buttons />
       <Button type="submit">Submit</Button>
-      <Debug values dirt />
+      <Debug values dirt disabled />
     </Form>
   );
 };

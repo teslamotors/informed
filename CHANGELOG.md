@@ -1,3 +1,9 @@
+## 4.47.0 ( July 17th, 2023)
+
+### Added
+
+- disabled to the formState
+
 ## 4.46.4 ( July 12th, 2023)
 
 ### Added

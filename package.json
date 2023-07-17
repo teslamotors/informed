@@ -19,7 +19,7 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "start": "npm run storybook -s public",
+    "start": "vite",
     "build": "rm -rf dist && rollup --config",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -29,6 +29,7 @@
     "version": "npm run build",
     "postversion": "git push",
     "postpublish": "git push --tags",
+    "start:storybook": "npm run storybook -s public",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:docs": "build-storybook -c .storybook -s public -o docs",
     "build:docs": "rm -r docs/ && npm run build:docs:vite && build-storybook -c .storybook -o docs/olddocs && cp vitedocs/404.html docs",

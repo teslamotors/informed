@@ -236,6 +236,16 @@ export default function FormState() {
           </Row>
           <Row>
             <Cell>
+              <code>disabled</code>
+            </Cell>
+            <Cell>
+              <Code>false</Code>
+            </Cell>
+            <Cell>false</Cell>
+            <Cell>If the form is disabled.</Cell>
+          </Row>
+          <Row>
+            <Cell>
               <code>submitted</code>
             </Cell>
             <Cell>

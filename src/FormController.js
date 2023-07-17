@@ -119,7 +119,8 @@ export class FormController {
       focused: {},
       modified: {},
       data: {},
-      initialValues: this.options.current.initialValues || {}
+      initialValues: this.options.current.initialValues || {},
+      disabled: this.options.current.disabled ?? false
     };
 
     // Bind functions that will be called externally
@@ -234,12 +235,14 @@ export class FormController {
 
   disableForm() {
     this.disabled = true;
+    this.state.disabled = true;
     // This will make all fields re render with updated value
     this.emit('field', '_ALL_');
   }
 
   enableForm() {
     this.disabled = undefined;
+    this.state.disabled = false;
     // This will make all fields re render with updated value
     this.emit('field', '_ALL_');
   }
@@ -1167,7 +1170,8 @@ export class FormController {
       focused: {},
       modified: {},
       data: {},
-      initialValues: values ?? this.options.current.initialValues ?? {}
+      initialValues: values ?? this.options.current.initialValues ?? {},
+      disabled: this.disabled ?? this.options.current.disabled ?? false
     };
 
     this.fieldsMap.forEach(fieldMeta => {

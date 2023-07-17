@@ -8,6 +8,7 @@ const getState = state => {
   const defaultState = {
     pristine: true,
     dirty: false,
+    disabled: false,
     submitted: false,
     valid: true,
     invalid: false,

@@ -204,6 +204,17 @@ export const useForm = ({
     [initialValues]
   );
 
+  useUpdateEffect(
+    () => {
+      if (disabled) {
+        formApi.disable();
+      } else {
+        formApi.enable();
+      }
+    },
+    [disabled]
+  );
+
   useEffect(() => {
     logger('Mount');
     formController.lockRemoval(false);

@@ -1,3 +1,9 @@
+## 4.48.1 ( July 20th, 2023)
+
+### Fixed
+
+- Issue in types where we had duplicate validateModified on FieldProps
+
 ## 4.48.0 ( July 17th, 2023)
 
 ### Added

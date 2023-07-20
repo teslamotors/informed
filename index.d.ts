@@ -201,7 +201,6 @@ export type FieldProps<UserProps> = {
   initialValue?: unknown;
   defaultValue?: unknown;
   validate?: (value: unknown, values: Record<string, unknown>) => unknown;
-  validateModified?: boolean;
   relevant?: (relevantParams: RelevantParams) => boolean;
   onNativeChange?: (
     fieldState: FieldState,

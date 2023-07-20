@@ -57,6 +57,7 @@ import FormApiRef from '../Pages/ApiReference/FormApi/FormApiRef';
 import ChangingOptions from '../Pages/Examples/Dynamic/ChangingOptions/ChangingOptions';
 import DependentFields from '../Pages/Examples/Dynamic/DependentFields/DependentFields';
 import TwoWayDependence from '../Pages/Examples/Dynamic/TwoWayDependence/TwoWayDependence';
+import ExcelSheet from '../Pages/Examples/Tables/ExcelSheet/ExcelSheet';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -157,6 +158,7 @@ export const Routes = () => {
         <Route path="changing-options" element={<ChangingOptions />} />
         <Route path="dependent-fields" element={<DependentFields />} />
         <Route path="two-way" element={<TwoWayDependence />} />
+        <Route path="excel-sheet" element={<ExcelSheet />} />
       </Route>
       <Route path="home" element={<Home />} />
       <Route path="admin" element={<Admin />} />

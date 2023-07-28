@@ -69,6 +69,7 @@ export const useField = ({
   disabled: userDisabled,
   gatherOnMount,
   validateOnMount: userValidateOnMount,
+  modifyOnMount,
   validateOn: userValidateOn,
   maskOnBlur,
   validateWhen = [],
@@ -218,7 +219,8 @@ export const useField = ({
     errorMessage,
     allowEmptyString,
     gatherOnMount,
-    fieldRef: ref
+    fieldRef: ref,
+    modifyOnMount
   };
   const metaRef = useRef(meta);
   metaRef.current = meta;

@@ -326,7 +326,11 @@ export class FormController {
       ObjectMap.set(this.state.values, name, +val);
 
       // Special if check for modified
-      if (meta.getInitialValue && meta.getInitialValue() != val) {
+      if (
+        (meta.getInitialValue && meta.getInitialValue() != val) ||
+        // Always set for modifiedOnMount
+        meta.modifyOnMount
+      ) {
         ObjectMap.set(this.state.modified, name, +val);
       } else {
         // Note: Important that we set to undefined and NOT call delete
@@ -375,7 +379,12 @@ export class FormController {
 
       // Special if check for modified
       // We want to set even if field is not on screen ( does not have getter for initial )
-      if (!meta.getInitialValue || meta.getInitialValue() != val) {
+      if (
+        !meta.getInitialValue ||
+        meta.getInitialValue() != val ||
+        // Always set for modifiedOnMount
+        meta.modifyOnMount
+      ) {
         debug(`Setting ${name}'s modified to`, val);
         ObjectMap.set(this.state.modified, name, val);
       } else {
@@ -879,7 +888,14 @@ export class FormController {
       meta.current.initialValue != null &&
       (meta.current.initializeValueIfPristine ? this.state.pristine : true)
     ) {
-      const { formatter, parser, initialize, clean, mask } = meta.current;
+      const {
+        formatter,
+        parser,
+        initialize,
+        clean,
+        mask,
+        modifyOnMount
+      } = meta.current;
 
       // Clean value if we have clean function
       const cleanedValue = clean
@@ -903,6 +919,13 @@ export class FormController {
 
       debug(`Initializing ${name}'s maskedValue to ${initialMask}`);
       ObjectMap.set(this.state.maskedValues, name, initialMask);
+
+      if (modifyOnMount) {
+        debug(
+          `Initializing ${name}'s modified to ${initialValue} because modifyOnMount was passed.`
+        );
+        ObjectMap.set(this.state.modified, name, initialValue);
+      }
     }
 
     // Might need to set initial error

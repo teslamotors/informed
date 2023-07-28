@@ -1,3 +1,9 @@
+## 4.49.0 ( July 28th, 2023)
+
+### Added
+
+- modifyOnMount prop so user can make the field modified onMount
+
 ## 4.48.1 ( July 20th, 2023)
 
 ### Fixed

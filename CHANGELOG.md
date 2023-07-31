@@ -1,3 +1,9 @@
+## 4.49.1 ( July 31st, 2023)
+
+### Fixed
+
+- issue where modifyOnMount would remove the modified on reset
+
 ## 4.49.0 ( July 28th, 2023)
 
 ### Added

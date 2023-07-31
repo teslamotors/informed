@@ -1236,7 +1236,7 @@ export class FormController {
     // Get meta for field
     const meta = this.fieldsMap.get(name)?.current || {};
 
-    const { formatter, parser, initialize, mask } = meta;
+    const { formatter, parser, initialize, mask, modifyOnMount } = meta;
     const {
       value,
       resetValue = true,
@@ -1286,6 +1286,13 @@ export class FormController {
 
         debug(`Resetting ${name}'s maskedValue to ${initialMask}`);
         ObjectMap.set(this.state.maskedValues, name, initialMask);
+
+        if (modifyOnMount && resetModified) {
+          debug(
+            `Resetting ${name}'s modified to ${initialValue} because modifyOnMount was passed.`
+          );
+          ObjectMap.set(this.state.modified, name, initialValue);
+        }
       }
     }
 
@@ -1304,7 +1311,7 @@ export class FormController {
       ObjectMap.delete(this.state.dirt, name);
     }
 
-    if (resetModified) {
+    if (!modifyOnMount && resetModified) {
       debug(`Resetting ${name}'s modified`);
       ObjectMap.delete(this.state.modified, name);
     }

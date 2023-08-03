@@ -878,7 +878,7 @@ export class FormController {
 
   // Third parameter is to prevent any form renders when it first gets initialized
   initialize(name, meta, emit = true) {
-    debug('Initialize', name, this.state);
+    debug('Initialize', name, 'emit:', emit, 'state:', this.state);
     // Initialize value if needed
     // If we already have value i.e "saved"
     // use that ( it was not removed on purpose! )

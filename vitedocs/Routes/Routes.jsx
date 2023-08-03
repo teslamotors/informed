@@ -29,6 +29,7 @@ import Mask from '../Pages/ApiReference/Formatting/Mask/Mask';
 import Parse from '../Pages/ApiReference/Formatting/Parse/Parse';
 import NumberFormatter from '../Pages/ApiReference/Formatting/NumberFormatter/NumberFormatter';
 import ArrayFieldComponent from '../Pages/ApiReference/Arrays/ArrrayField/ArrayField';
+import HugeArrayField from '../Pages/ApiReference/Arrays/HugeArrrayField/ArrayField';
 import { Formatting } from '../Pages/GettingStarted/Formatting/Formatting';
 import { Validation } from '../Pages/ApiReference/Validation/Validation/Validation';
 import { AsyncValidation } from '../Pages/ApiReference/Validation/AsyncValidation/AsyncValidation';
@@ -137,6 +138,7 @@ export const Routes = () => {
           path="array-field"
           element={<ArrayFieldComponent showItem={false} />}
         />
+        <Route path="huge-array-field" element={<HugeArrayField />} />
         <Route path="table-inline-editing" element={<TableInlineEditing />} />
         <Route path="async-validation" element={<AsyncValidation />} />
         <Route path="formatting-formatter" element={<Formatter />} />

@@ -1,3 +1,9 @@
+## 4.49.2 ( Aug 3rd, 2023)
+
+### Fixed
+
+- issue where a field becoming relevant with relevant prop would not properly re render the form state.
+
 ## 4.49.1 ( July 31st, 2023)
 
 ### Fixed

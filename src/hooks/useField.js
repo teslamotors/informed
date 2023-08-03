@@ -227,9 +227,12 @@ export const useField = ({
 
   // Before we hook into field state initialize the field
   useState(() => {
-    const metaInfo = metaRef.current;
-    logger('Initialize', metaInfo.name);
-    formController.initialize(metaInfo.name, metaRef, false);
+    // Only initialize if relevant
+    if (isRelevant) {
+      const metaInfo = metaRef.current;
+      logger('Initialize', metaInfo.name);
+      formController.initialize(metaInfo.name, metaRef, false);
+    }
   });
 
   // Hook onto the field state
@@ -252,8 +255,13 @@ export const useField = ({
   // Register
   useEffect(
     () => {
-      logger('Register', name, metaRef.current);
-      formController.register(name, metaRef);
+      if (isRelevant) {
+        // We already initialized before the render so the input exists in the form state, we need to redo after the render
+        logger('Register', name, metaRef.current);
+        formController.register(name, metaRef);
+        logger('Second Initialize', name);
+        formController.initialize(name, metaRef, false);
+      }
       return () => {
         logger('De-Register', name, metaRef.current);
         formController.deregister(name);
@@ -263,7 +271,8 @@ export const useField = ({
   );
 
   // Cleanup on irrelivant
-  useEffect(
+  // Note: important to use the update effect so we dont call this on first render
+  useUpdateEffect(
     () => {
       // The info may have changed, grab it from the ref
       const metaInfo = metaRef.current;
@@ -279,7 +288,7 @@ export const useField = ({
         logger('RELEVANT register', metaInfo.name);
         formController.register(metaInfo.name, metaRef);
         logger('RELEVANT Initialize', metaInfo.name);
-        formController.initialize(metaInfo.name, metaRef, false);
+        formController.initialize(metaInfo.name, metaRef);
       }
     },
     [isRelevant]

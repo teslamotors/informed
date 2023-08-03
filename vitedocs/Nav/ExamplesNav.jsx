@@ -5,6 +5,7 @@ export const ExamplesNav = () => {
     <ul className="spectrum-SideNav">
       <h3>Arrays</h3>
       <NavLink href="/examples/array-field">Array Field</NavLink>
+      {/* <NavLink href="/examples/huge-array-field">Huge Array Field</NavLink> */}
       <h3>Validation</h3>
       <NavLink href="/examples/async-validation">Async Validation</NavLink>
       <NavLink href="/examples/paired-validation">Paired Validation</NavLink>

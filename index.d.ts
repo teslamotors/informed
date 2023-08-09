@@ -396,6 +396,14 @@ declare namespace ArrayField {
   }): JSX.Element;
 }
 
+declare function Scope({
+  children,
+  scope
+}: {
+  children: JSX.Element | JSX.Element[];
+  scope: string;
+}): JSX.Element;
+
 declare function Multistep({
   children,
   initialStep

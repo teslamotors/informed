@@ -79,6 +79,6 @@ export const useFieldSubscription = (event, fields = [], cb, scoped = true) => {
         formController.emitter.removeListener(event, listener);
       };
     },
-    [...fields]
+    [...check]
   );
 };

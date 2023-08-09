@@ -59,6 +59,7 @@ import ChangingOptions from '../Pages/Examples/Dynamic/ChangingOptions/ChangingO
 import DependentFields from '../Pages/Examples/Dynamic/DependentFields/DependentFields';
 import TwoWayDependence from '../Pages/Examples/Dynamic/TwoWayDependence/TwoWayDependence';
 import ExcelSheet from '../Pages/Examples/Tables/ExcelSheet/ExcelSheet';
+import ArrrayUniqueValidation from '../Pages/Examples/ArrrayUniqueValidation/ArrrayUniqueValidation';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -138,6 +139,7 @@ export const Routes = () => {
           path="array-field"
           element={<ArrayFieldComponent showItem={false} />}
         />
+        <Route path="array-field-unique" element={<ArrrayUniqueValidation />} />
         <Route path="huge-array-field" element={<HugeArrayField />} />
         <Route path="table-inline-editing" element={<TableInlineEditing />} />
         <Route path="async-validation" element={<AsyncValidation />} />

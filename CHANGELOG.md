@@ -1,3 +1,9 @@
+## 4.49.3 ( Aug 8th, 2023)
+
+### Fixed
+
+- issue with validateWhen breaking when user would pass a function instead of an array
+
 ## 4.49.2 ( Aug 3rd, 2023)
 
 ### Fixed

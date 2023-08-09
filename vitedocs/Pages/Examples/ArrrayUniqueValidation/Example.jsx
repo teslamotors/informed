@@ -12,10 +12,10 @@ const initialValue = [
 ];
 
 const validate = (value, values) => {
-  const { friends } = values;
-  const uniqueExceptionsIds = new Set(friends.map(item => item.name));
-  const isAllunique = [...uniqueExceptionsIds].length === friends.length;
-  if (!isAllunique) return 'This field must be unique';
+  const uniqueNamesCount = new Set(values.friends.map(item => item.name)).size;
+  if (uniqueNamesCount !== values.friends.length) {
+    return 'This field must be unique';
+  }
 };
 
 const Example = () => (

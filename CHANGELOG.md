@@ -1,3 +1,9 @@
+## 4.49.4 ( Aug 9th, 2023)
+
+### Added
+
+- missing type for `<Scope/>` component
+
 ## 4.49.3 ( Aug 8th, 2023)
 
 ### Fixed

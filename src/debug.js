@@ -251,20 +251,27 @@ export const Debug = prefix => {
    * treat as a browser.
    */
 
-  if (
-    typeof process === 'undefined' ||
-    process.type === 'renderer' ||
-    process.browser === true ||
-    process.__nwjs
-  ) {
-    return browserLogger(prefix);
-  } else if (
+  // Detect Electron
+  const isElectron =
+    typeof process !== 'undefined' && process.type === 'renderer';
+
+  // Detect React Native
+  const isReactNative =
     typeof window !== 'undefined' &&
     typeof window.navigator !== 'undefined' &&
     window.navigator.product === 'ReactNative' &&
     typeof global !== 'undefined' &&
-    __DEV__ === true
-  ) {
+    __DEV__ === true;
+
+  // Detect Browser
+  const isBrowser =
+    typeof window !== 'undefined' &&
+    typeof window.document !== 'undefined' &&
+    !isElectron;
+
+  if (isBrowser) {
+    return browserLogger(prefix);
+  } else if (isElectron || isReactNative) {
     console.log('informed:debug: Detected React Native Environment');
 
     // https://github.com/debug-js/debug/issues/640#issuecomment-441263230

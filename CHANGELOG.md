@@ -1,3 +1,9 @@
+## 4.49.5 ( Aug 9th, 2023)
+
+### Fixed
+
+- issue with debugger throwing error on install
+
 ## 4.49.4 ( Aug 9th, 2023)
 
 ### Added

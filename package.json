@@ -110,7 +110,7 @@
     "husky": "^4.3.0",
     "istanbul-instrumenter-loader": "^3.0.1",
     "jest": "^27.1.0",
-    "jsdom": "^11.12.0",
+    "jsdom": "^22.1.0",
     "lint-staged": "^10.5.1",
     "patch-package": "^5.1.1",
     "prettier": "1.14.2",

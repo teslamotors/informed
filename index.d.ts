@@ -162,6 +162,8 @@ export type InformedProps<UserProps> = {
   onValueModified?: (formState: FormState) => void;
   onSubmitFailure?: (errors: Record<string, unknown>) => void;
   initialValues?: Record<string, unknown>;
+  keepState?: boolean;
+  keepStateIfRelevant?: boolean;
   validateFields?: (values: Record<string, unknown>) => Record<string, unknown>;
   validateModified?: boolean;
   showErrorIfError?: boolean;
@@ -217,7 +219,7 @@ export type FieldProps<UserProps> = {
     | 'change-submit'
     | 'blur-submit'
     | 'submit';
-  validateWhen?: string[];
+  validateWhen?: string[] | ((scope?: string) => string[]);
   validateOnMount?: boolean;
   modifyOnMount?: boolean;
   validateModified?: boolean;

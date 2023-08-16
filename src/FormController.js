@@ -490,6 +490,8 @@ export class FormController {
     // Get meta for field
     const meta = this.fieldsMap.get(name)?.current;
 
+    if (!meta) return;
+
     if (meta.validate) {
       const val = ObjectMap.get(this.state.values, name);
       debug(`Validating field ${name} via validateField with value ${val}`);

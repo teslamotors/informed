@@ -1,3 +1,10 @@
+## 4.49.5 ( Aug 16, 2023)
+
+### Fixed
+
+- type issue with validateWhen
+- issue where validateWhen would cause error in array fields when arrayField name was passed and remove occured on last element
+
 ## 4.49.4 ( Aug 9th, 2023)
 
 ### Added

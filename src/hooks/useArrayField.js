@@ -143,6 +143,9 @@ export const useArrayField = ({
   const initialValueRef = useRef();
   initialValueRef.current = initialValue;
 
+  const defaultValueRef = useRef();
+  defaultValueRef.current = defaultValue;
+
   const reset = () => {
     // First wipe the existing state
     // Array fields are unique.. because reset will create new keys everything below gets wiped
@@ -153,7 +156,7 @@ export const useArrayField = ({
     const initVals =
       initialValueRef.current ||
       formController.getInitialValue(name) ||
-      defaultValue ||
+      defaultValueRef.current ||
       [];
 
     // Set our initial values back to what the user set at beginning

@@ -1,3 +1,9 @@
+## 4.49.6 ( Aug 18th, 2023)
+
+### Fixed
+
+- issue where array fields would not reset to updated defaultValue
+
 ## 4.49.5 ( Aug 16, 2023)
 
 ### Fixed

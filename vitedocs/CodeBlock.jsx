@@ -236,6 +236,15 @@ export const Option = ({ value, children, ...rest }) => {
   );
 };
 
+export const Hidden = props => {
+  const { informed, render, userProps, ref } = useField({
+    type: 'text',
+    ...props
+  });
+
+  return render(<input {...informed} {...userProps} ref={ref} type="hidden" />);
+};
+
 // Step 2. Define Array Components --------------------
 
 export const AddButton = () => {

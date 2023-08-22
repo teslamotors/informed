@@ -60,6 +60,7 @@ import DependentFields from '../Pages/Examples/Dynamic/DependentFields/Dependent
 import TwoWayDependence from '../Pages/Examples/Dynamic/TwoWayDependence/TwoWayDependence';
 import ExcelSheet from '../Pages/Examples/Tables/ExcelSheet/ExcelSheet';
 import ArrrayUniqueValidation from '../Pages/Examples/ArrrayUniqueValidation/ArrrayUniqueValidation';
+import HiddenExample from '../Pages/Examples/HiddenField/HiddenField';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -163,6 +164,7 @@ export const Routes = () => {
         <Route path="dependent-fields" element={<DependentFields />} />
         <Route path="two-way" element={<TwoWayDependence />} />
         <Route path="excel-sheet" element={<ExcelSheet />} />
+        <Route path="hidden-field" element={<HiddenExample />} />
       </Route>
       <Route path="home" element={<Home />} />
       <Route path="admin" element={<Admin />} />

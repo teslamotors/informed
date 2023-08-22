@@ -9,6 +9,7 @@ import TextArea from './TextArea';
 import CheckboxGroup from './CheckboxGroup';
 import RadioGroup from './RadioGroup';
 import ComboBox from './ComboBox';
+import Hidden from './Hidden';
 
 import ArrayField, { AddButton, RemoveButton } from './ArrayField';
 
@@ -61,5 +62,6 @@ export {
   ArrayField,
   AddButton,
   RemoveButton,
-  ComboBox
+  ComboBox,
+  Hidden
 };

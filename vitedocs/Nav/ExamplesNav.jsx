@@ -36,6 +36,8 @@ export const ExamplesNav = () => {
       <NavLink href="/examples/table-inline-editing">
         Table Inline Editing
       </NavLink>
+      <h3>Hidden</h3>
+      <NavLink href="/examples/hidden-field">Hidden Field</NavLink>
       {/* <h3>Huge Forms</h3> */}
       {/* <NavLink href="/examples/huge-form">Huge Form</NavLink> */}
       <h3>Cool</h3>

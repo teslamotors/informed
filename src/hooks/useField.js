@@ -80,6 +80,7 @@ export const useField = ({
   initializeValueIfPristine,
   relevanceWhen = [],
   relevanceDeps = [],
+  validateDeps = [],
   // eslint-disable-next-line no-unused-vars
   evaluate,
   // eslint-disable-next-line no-unused-vars
@@ -166,10 +167,14 @@ export const useField = ({
   // Create Id for field
   const [fieldId] = useState(() => id || uuidv4());
 
+  // Create reference function for if it changes
+  const validationFuncRef = useRef();
+  validationFuncRef.current = validationFunc;
+
   // Generate validation function
   const validate = useMemo(
     () =>
-      generateValidationFunction(validationFunc, yupSchema, {
+      generateValidationFunction(validationFuncRef, yupSchema, {
         required,
         minimum,
         maximum,
@@ -357,6 +362,11 @@ export const useField = ({
       onValueChange(formController.getFieldState(target));
     }
   });
+
+  useUpdateEffect(() => {
+    logger(`revalidating for ${metaRef.current.name} because of deps change`);
+    formController.validateField(metaRef.current.name);
+  }, validateDeps);
 
   const render = children => (isRelevant ? children : null);
 

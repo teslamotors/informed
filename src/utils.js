@@ -304,7 +304,7 @@ const validatePattern = (value, pattern, getErrorMessage) => {
 };
 
 export const generateValidationFunction = (
-  validationFunc,
+  validationFuncRef,
   yupSchema,
   {
     required,
@@ -354,8 +354,8 @@ export const generateValidationFunction = (
     error = validateYupField(yupSchema, val);
     if (error !== undefined) return error;
   }
-  if (validationFunc) {
-    error = validationFunc(val, values, {
+  if (validationFuncRef.current) {
+    error = validationFuncRef.current(val, values, {
       formState: formController.getFormState(),
       formApi: formController.getFormApi(),
       scope

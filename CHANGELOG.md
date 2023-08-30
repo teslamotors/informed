@@ -1,3 +1,10 @@
+## 4.50.0 ( Aug 30th, 2023)
+
+### Added
+
+- ability to pass validateDeps to an input in order to trigger validation
+- ability to update a validation function on an input
+
 ## 4.49.6 ( Aug 18th, 2023)
 
 ### Fixed

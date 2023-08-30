@@ -61,6 +61,7 @@ import TwoWayDependence from '../Pages/Examples/Dynamic/TwoWayDependence/TwoWayD
 import ExcelSheet from '../Pages/Examples/Tables/ExcelSheet/ExcelSheet';
 import ArrrayUniqueValidation from '../Pages/Examples/ArrrayUniqueValidation/ArrrayUniqueValidation';
 import HiddenExample from '../Pages/Examples/HiddenField/HiddenField';
+import UpdatingValidation from '../Pages/Examples/UpdatingValidation/UpdatingValidation';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -165,6 +166,7 @@ export const Routes = () => {
         <Route path="two-way" element={<TwoWayDependence />} />
         <Route path="excel-sheet" element={<ExcelSheet />} />
         <Route path="hidden-field" element={<HiddenExample />} />
+        <Route path="updating-validation" element={<UpdatingValidation />} />
       </Route>
       <Route path="home" element={<Home />} />
       <Route path="admin" element={<Admin />} />

@@ -11,6 +11,9 @@ export const ExamplesNav = () => {
       <NavLink href="/examples/async-validation">Async Validation</NavLink>
       <NavLink href="/examples/paired-validation">Paired Validation</NavLink>
       <NavLink href="/examples/validation-control">Validation Control</NavLink>
+      <NavLink href="/examples/updating-validation">
+        Updating Validation
+      </NavLink>
       <h3>Dynamic</h3>
       <NavLink href="/examples/changing-options">Chaning Options</NavLink>
       <NavLink href="/examples/dependent-fields">Dependent Fields</NavLink>

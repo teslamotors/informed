@@ -42,6 +42,7 @@ import MultistepIntro from '../Pages/ApiReference/Multistep/MultistepIntro/Multi
 import MultistepState from '../Pages/ApiReference/Multistep/MultistepState/MultistepState';
 import { Multistep } from '../Pages/GettingStarted/Multistep/Multistep';
 import { DynamicMultistep } from '../Pages/ApiReference/Multistep/DynamicMultistep/DynamicMultistep';
+import { MultistepInitialValues } from '../Pages/ApiReference/Multistep/MultistepInitialValues/MultistepInitialValues';
 import { Metadata } from '../Pages/ApiReference/MetaData/Metadata';
 import { TableInlineEditing } from '../Pages/Examples/TableInlineEditing/Mask';
 import { BaiscRelevance } from '../Pages/ApiReference/Relevance/BasicRelevance';
@@ -158,6 +159,10 @@ export const Routes = () => {
         <Route path="relevant-schema" element={<RelevanceSchema />} />
         <Route path="multistep-intro" element={<MultistepIntro />} />
         <Route path="multistep-dynamic" element={<DynamicMultistep />} />
+        <Route
+          path="multistep-initial-values"
+          element={<MultistepInitialValues />}
+        />
         <Route path="huge-form" element={<HugeForm />} />
         <Route path="elon-musk" element={<ElonMusk />} />
         <Route path="new-product" element={<RickRoll />} />

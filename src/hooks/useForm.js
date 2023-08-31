@@ -48,6 +48,7 @@ export const useForm = ({
   keepState,
   keepStateIfRelevant,
   focusOnInvalid,
+  resetOnlyOnscreen,
   ...userProps
 }) => {
   // Register this controler by name if we are in global context
@@ -89,7 +90,8 @@ export const useForm = ({
     keepState,
     keepStateIfRelevant,
     validateModified,
-    focusOnInvalid
+    focusOnInvalid,
+    resetOnlyOnscreen
   };
 
   const optionsRef = useRef();

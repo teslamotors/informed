@@ -77,6 +77,7 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
           ...prev,
           steps,
           goal: prev.goal || initialGoal,
+          initialGoal: prev.goal || initialGoal,
           current: prev.current || startingStep
         };
       });
@@ -199,6 +200,11 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
         // Only proceed if we are valid and we are NOT currently async validating
         if (skip || (getFormState().valid && getFormState().validating === 0)) {
           proceed(nextStep, cb);
+        } else if (!getFormState().valid) {
+          // If we are not valid then clear out the goal
+          setState(prev => {
+            return { ...prev, goal: null };
+          });
         }
       }
     };
@@ -256,7 +262,8 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
     const metGoal = () => {
       // Update the state
       setState(prev => {
-        return { ...prev, goal: null };
+        // We clear out initialGoal also so a reset does not make us try to get there again
+        return { ...prev, goal: null, initialGoal: null };
       });
     };
 
@@ -322,6 +329,25 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
     },
     [multistepState.current]
   );
+
+  // Register for events when reset is called
+  useEffect(() => {
+    const listener = () => {
+      // Update the state
+      setState(prev => {
+        return {
+          ...prev,
+          goal: prev.goal || prev.initialGoal
+        };
+      });
+    };
+
+    emitter.on('reset', listener);
+
+    return () => {
+      emitter.removeListener('reset', listener);
+    };
+  }, []);
 
   // Render funtion that will provide state and api
   const render = children => (

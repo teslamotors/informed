@@ -1176,6 +1176,17 @@ export class FormController {
   }
 
   reset(options = {}) {
+    // There are cases where we dont want to blow away all the form values
+    if (this.options.current.resetOnlyOnscreen) {
+      this.state.initialValues = this.options.current.initialValues ?? {};
+      this.fieldsMap.forEach(fieldMeta => {
+        fieldMeta.current.fieldApi.reset({ resetValue: resetValues });
+      });
+
+      this.emit('reset');
+      return;
+    }
+
     const { values, resetValues = true } = options;
 
     this.state = {

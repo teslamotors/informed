@@ -1,3 +1,17 @@
+## 4.51.0 ( Aug 31st, 2023)
+
+### Added
+
+- ability to pass resetOnlyOnscreen prop to a form in order to prevent eroneous resets on fields in multistep forms when initail values change
+
+### Fixed
+
+- issue where multistep goal would not get cleared when a step along the path to the goal was invalid
+
+### Updated
+
+- useMultistep to attempt to reach goal on formReset
+
 ## 4.50.0 ( Aug 30th, 2023)
 
 ### Added

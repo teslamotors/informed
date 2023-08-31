@@ -33,6 +33,9 @@ export const ExamplesNav = () => {
       <h3>Multistep</h3>
       <NavLink href="/examples/multistep-intro">Basic Multistep</NavLink>
       <NavLink href="/examples/multistep-dynamic">Dynamic Multistep</NavLink>
+      <NavLink href="/examples/multistep-initial-values">
+        Multistep InitialValues
+      </NavLink>
       <h3>Tables</h3>
       <NavLink href="/examples/excel-sheet">Excel Sheet</NavLink>
       <NavLink href="/examples/huge-form">Huge Form</NavLink>

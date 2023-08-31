@@ -63,6 +63,7 @@ import ExcelSheet from '../Pages/Examples/Tables/ExcelSheet/ExcelSheet';
 import ArrrayUniqueValidation from '../Pages/Examples/ArrrayUniqueValidation/ArrrayUniqueValidation';
 import HiddenExample from '../Pages/Examples/HiddenField/HiddenField';
 import UpdatingValidation from '../Pages/Examples/UpdatingValidation/UpdatingValidation';
+import { ConditionalSchemaControl } from '../Pages/ApiReference/Schema/ConditionalSchemaControl/ConditionalSchemaControl';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -132,6 +133,10 @@ export const Routes = () => {
         <Route path="validation-messages" element={<ValidationMessages />} />
         <Route path="schema-intro" element={<SchemaIntro />} />
         <Route path="relevant-schema" element={<RelevanceSchema />} />
+        <Route
+          path="conditional-schema-control"
+          element={<ConditionalSchemaControl />}
+        />
         <Route path="multistep-intro" element={<MultistepIntro />} />
         <Route path="multistep-state" element={<MultistepState />} />
         <Route path="multistep-dynamic" element={<DynamicMultistep />} />

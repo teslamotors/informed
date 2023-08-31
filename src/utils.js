@@ -1177,6 +1177,14 @@ export function checkCondition(condition, propertyValue) {
       //   // eslint-disable-next-line no-use-before-define
       //   return checkProperties(value, values, propertyPath);
       case 'not':
+        if (typeof value === 'object' && value.enum) {
+          if (Array.isArray(value.enum) && !Array.isArray(propertyValue)) {
+            return !value.enum.includes(propertyValue);
+          }
+          if (Array.isArray(value.enum) && Array.isArray(propertyValue)) {
+            return !propertyValue.every(a => value.enum.includes(a));
+          }
+        }
         return propertyValue !== value;
       default:
         // not supported keywords return false

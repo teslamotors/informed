@@ -76,6 +76,9 @@ export const ApiReferenceNav = () => {
         Intro
       </NavLink>
       <NavLink href="/api-reference/relevant-schema">Relevance</NavLink>
+      <NavLink href="/api-reference/conditional-schema-control">
+        Conditional Schema Control
+      </NavLink>
       <h3>Multistep</h3>
       <NavLink href="/api-reference/multistep-intro" exact>
         Intro

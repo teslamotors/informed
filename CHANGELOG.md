@@ -1,3 +1,9 @@
+## 4.51.1 ( Aug 31st, 2023)
+
+### Fixed
+
+- Issue with `{ not: { enum: ['Robin', 'Joe'] } }` not working in schemas. See conditional schema example for working example.
+
 ## 4.51.0 ( Aug 31st, 2023)
 
 ### Added

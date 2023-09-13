@@ -64,6 +64,9 @@ import ArrrayUniqueValidation from '../Pages/Examples/ArrrayUniqueValidation/Arr
 import HiddenExample from '../Pages/Examples/HiddenField/HiddenField';
 import UpdatingValidation from '../Pages/Examples/UpdatingValidation/UpdatingValidation';
 import { ConditionalSchemaControl } from '../Pages/ApiReference/Schema/ConditionalSchemaControl/ConditionalSchemaControl';
+import DebugComponent from '../Pages/ApiReference/Debugging/DebugComponent/DebugComponent';
+import DebugLogs from '../Pages/ApiReference/Debugging/DebugLogs/DebugLogs';
+import ArrayFieldReset from '../Pages/ApiReference/Arrays/ArrrayFieldReset/ArrayFieldReset';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -130,6 +133,7 @@ export const Routes = () => {
         />
         <Route path="formApiRef" element={<FormApiRef />} />
         <Route path="arrays-array-field-item" element={<ArrayFieldItem />} />
+        <Route path="arrays-array-field-reset" element={<ArrayFieldReset />} />
         <Route path="validation-messages" element={<ValidationMessages />} />
         <Route path="schema-intro" element={<SchemaIntro />} />
         <Route path="relevant-schema" element={<RelevanceSchema />} />
@@ -141,6 +145,8 @@ export const Routes = () => {
         <Route path="multistep-state" element={<MultistepState />} />
         <Route path="multistep-dynamic" element={<DynamicMultistep />} />
         <Route path="metadata" element={<Metadata />} />
+        <Route path="debug-component" element={<DebugComponent />} />
+        <Route path="debug-logs" element={<DebugLogs />} />
       </Route>
       <Route path="examples">
         <Route

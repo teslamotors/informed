@@ -71,6 +71,9 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/arrays-array-field-item" exact>
         ArrayField.Item
       </NavLink>
+      <NavLink href="/api-reference/arrays-array-field-reset" exact>
+        ArrayField Reset
+      </NavLink>
       <h3>Schema</h3>
       <NavLink href="/api-reference/schema-intro" exact>
         Intro
@@ -92,6 +95,13 @@ export const ApiReferenceNav = () => {
       <h3>MetaData</h3>
       <NavLink href="/api-reference/metadata" exact>
         Metadata
+      </NavLink>
+      <h3>Debugging</h3>
+      <NavLink href="/api-reference/debug-component" exact>
+        Debug Component
+      </NavLink>
+      <NavLink href="/api-reference/debug-logs" exact>
+        Debug Logs
       </NavLink>
       <br />
       <br />

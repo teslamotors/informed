@@ -385,10 +385,14 @@ export function FormStateAccessor({
 
 declare function ArrayField({
   children,
-  name
+  name,
+  initialValue,
+  arrayFieldApiRef
 }: {
   children: (arrayFieldItemApi: ArrayFieldApi) => JSX.Element;
   name: string;
+  initialValue?: [unknown];
+  arrayFieldApiRef?: React.MutableRefObject<any>;
 }): JSX.Element;
 
 declare namespace ArrayField {

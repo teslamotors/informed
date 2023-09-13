@@ -1,3 +1,9 @@
+## 4.51.2 ( Sep 13th, 2023)
+
+### Added
+
+- missing types for array field
+
 ## 4.51.1 ( Aug 31st, 2023)
 
 ### Fixed

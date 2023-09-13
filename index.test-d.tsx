@@ -339,6 +339,8 @@ export const UseFieldStateTest = () => (
 /* ------------------------- otherShit ------------------------- */
 
 const ComponentUsingOtherShit = () => {
+
+  const arrayFieldApiRef = useRef();
  
   return (
     <>
@@ -355,7 +357,7 @@ const ComponentUsingOtherShit = () => {
         }
       </FormStateAccessor>
       {/* ---------- Array Field ---------- */}
-      <ArrayField name="friends">
+      <ArrayField name="friends" initialValue={[{ name: 'Joe', age: 29}]} arrayFieldApiRef={arrayFieldApiRef}>
           {({ add }) => {
             return (
               <>

@@ -30,9 +30,9 @@ const Example = () => (
     {/* ------------- Formated inputs -------------- */}
     <Input name="worth" label="Worth" formatter={formatter} parser={parser} />
     {/* ------------- Relevance & Scoping ---------- */}
-    <Scope scope="twitter">
-      <Checkbox name="love" label="Do you love Twitter?" />
-      <Relevant when={({ formState }) => formState.values.twitter?.love}>
+    <Scope scope="x">
+      <Checkbox name="love" label="Do you love X?" />
+      <Relevant when={({ formState }) => formState.values.x?.love}>
         <Input name="howMuch" label="How Much?" defaultValue="A LOT!" />
       </Relevant>
     </Scope>

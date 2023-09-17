@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "rm -rf dist && rollup --config",
+    "build": "rm -rf dist && rollup --config && npm run fix:cjs",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -38,7 +38,8 @@
     "lint:fix": "eslint src/** tests/** stories/** --fix",
     "dev": "vite",
     "build:docs:vite": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "fix:cjs": "cp ./cjs-package.json.txt ./dist/cjs/package.json"
   },
   "jest": {
     "verbose": true,

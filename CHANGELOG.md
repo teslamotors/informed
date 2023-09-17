@@ -1,3 +1,9 @@
+## 4.51.3 ( Sep 16th, 2023)
+
+### Fixed
+
+- issue with some cjs projects where there is no type commonjs in the package.json
+
 ## 4.51.2 ( Sep 13th, 2023)
 
 ### Added

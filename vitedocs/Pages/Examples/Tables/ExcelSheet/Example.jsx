@@ -12,15 +12,13 @@ const Example = () => {
   const [rows, setRows] = useState(createLabels(ROW_LABELS));
   const [cols, setCols] = useState(createLabels(COLUMN_LABELS));
 
-  const removeRowAtIndex = useCallback(
-    index => setRows(rows => rows.filter((_, i) => i !== index)),
-    []
-  );
+  const removeRowAtIndex = useCallback(index => {
+    setRows(prevRows => prevRows.filter((_row, i) => i !== index));
+  }, []);
 
-  const removeColAtIndex = useCallback(
-    index => setCols(cols => cols.filter((_, i) => i !== index)),
-    []
-  );
+  const removeColAtIndex = useCallback(index => {
+    setRows(prevCols => prevCols.filter((_col, i) => i !== index));
+  }, []);
 
   return (
     <div>

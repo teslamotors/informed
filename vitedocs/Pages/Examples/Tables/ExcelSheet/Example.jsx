@@ -1,7 +1,7 @@
 import { Debug, FormProvider, Scope, useFieldState } from 'informed';
 import { Input } from 'YourComponents';
+import { useState, useCallback } from 'react';
 
-import { useState } from 'react';
 
 const Example = () => {
   const [rows, setRows] = useState([
@@ -20,13 +20,15 @@ const Example = () => {
     { label: 'D' }
   ]);
 
-  const removeRowAtIndex = index => {
-    setRows(prevRows => prevRows.filter((row, i) => i !== index));
-  };
+  const removeRowAtIndex = useCallback(
+    index => setRows(rows => rows.filter((_, i) => i !== index)),
+    []
+  );
 
-  const removeColAtIndex = index => {
-    setCols(prevCols => prevCols.filter((col, i) => i !== index));
-  };
+  const removeColAtIndex = useCallback(
+    index => setCols(cols => cols.filter((_, i) => i !== index)),
+    []
+  );
 
   return (
     <div>

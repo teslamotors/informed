@@ -2,11 +2,11 @@ import { Debug, FormProvider, Scope, useFieldState } from 'informed';
 import { Input } from 'YourComponents';
 import { useState, useCallback } from 'react';
 
-const NUMBER_OF_ROWS = 6;
+const NUMBER_OF_ROWS = 7;
 const ROW_NUMBERS = Array.from({ length: NUMBER_OF_ROWS }, (_, i) => i + 1);
 const COLUMN_HEADERS = ['A', 'B', 'C', 'D'];
 
-const createEntries = items => items.map(item => ({ item }));
+const createEntries = items => items.map(item => ({ label: item }));
 
 const Example = () => {
   const [rows, setRows] = useState(createEntries(ROW_NUMBERS));

@@ -3,14 +3,14 @@ import { Input } from 'YourComponents';
 import { useState, useCallback } from 'react';
 
 const NUMBER_OF_ROWS = 6;
-const ROW_LABELS = Array.from({ length: NUMBER_OF_ROWS }, (_, i) => i + 1);
-const COLUMN_LABELS = ['A', 'B', 'C', 'D'];
+const ROW_NUMBERS = Array.from({ length: NUMBER_OF_ROWS }, (_, i) => i + 1);
+const COLUMN_HEADERS = ['A', 'B', 'C', 'D'];
 
-const createLabels = labels => labels.map(label => ({ label }));
+const createEntries = items => items.map(item => ({ item }));
 
 const Example = () => {
-  const [rows, setRows] = useState(createLabels(ROW_LABELS));
-  const [cols, setCols] = useState(createLabels(COLUMN_LABELS));
+  const [rows, setRows] = useState(createEntries(ROW_NUMBERS));
+  const [cols, setCols] = useState(createEntries(COLUMN_HEADERS));
 
   const removeRowAtIndex = useCallback(index => {
     setRows(prevRows => prevRows.filter((_row, i) => i !== index));

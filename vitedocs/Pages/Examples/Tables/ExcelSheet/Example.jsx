@@ -2,23 +2,15 @@ import { Debug, FormProvider, Scope, useFieldState } from 'informed';
 import { Input } from 'YourComponents';
 import { useState, useCallback } from 'react';
 
+const NUMBER_OF_ROWS = 6;
+const ROW_LABELS = Array.from({ length: NUMBER_OF_ROWS }, (_, i) => i + 1);
+const COLUMN_LABELS = ['A', 'B', 'C', 'D'];
+
+const createLabels = labels => labels.map(label => ({ label }));
 
 const Example = () => {
-  const [rows, setRows] = useState([
-    { label: '1' },
-    { label: '2' },
-    { label: '3' },
-    { label: '4' },
-    { label: '5' },
-    { label: '6' },
-    { label: '7' }
-  ]);
-  const [cols, setCols] = useState([
-    { label: 'A' },
-    { label: 'B' },
-    { label: 'C' },
-    { label: 'D' }
-  ]);
+  const [rows, setRows] = useState(createLabels(ROW_LABELS));
+  const [cols, setCols] = useState(createLabels(COLUMN_LABELS));
 
   const removeRowAtIndex = useCallback(
     index => setRows(rows => rows.filter((_, i) => i !== index)),

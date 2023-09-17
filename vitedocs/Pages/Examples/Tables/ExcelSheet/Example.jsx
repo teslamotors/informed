@@ -17,7 +17,7 @@ const Example = () => {
   }, []);
 
   const removeColAtIndex = useCallback(index => {
-    setRows(prevCols => prevCols.filter((_col, i) => i !== index));
+    setCols(prevCols => prevCols.filter((_col, i) => i !== index));
   }, []);
 
   return (

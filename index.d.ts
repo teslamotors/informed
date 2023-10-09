@@ -227,6 +227,7 @@ export type FieldProps<UserProps> = {
   keepStateIfRelevant?: boolean;
   maintainCursor?: boolean;
   allowEmptyString?: boolean;
+  emptyValue?: any;
   inputRef?: React.MutableRefObject<any>;
   showErrorIfError?: boolean;
   showErrorIfTouched?: boolean;

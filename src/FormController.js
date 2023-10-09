@@ -292,14 +292,23 @@ export class FormController {
 
     if (value === '') {
       if (meta.allowEmptyString) {
-        debug(`Setting ${name}'s value to '' because allowEmptyString is set`);
-        ObjectMap.set(this.state.values, name, value);
+        let emptyValue = meta?.type === 'number' ? 0 : value;
+
+        // Override emptyValue if explicitly set
+        if (meta.emptyValue) {
+          emptyValue = meta.emptyValue;
+        }
+
+        debug(
+          `Setting ${name}'s value to ${emptyValue} because allowEmptyString is set`
+        );
+        ObjectMap.set(this.state.values, name, emptyValue);
         // Special if check for modified
-        if (meta.getInitialValue && meta.getInitialValue() != value) {
-          ObjectMap.set(this.state.modified, name, value);
+        if (meta.getInitialValue && meta.getInitialValue() != emptyValue) {
+          ObjectMap.set(this.state.modified, name, emptyValue);
         } else {
           debug(`Removing ${name}'s modified`);
-          ObjectMap.delete(this.state.modified, name);
+          ObjectMap.delete(this.state.modified, emptyValue);
         }
         ObjectMap.set(this.state.maskedValues, name, value);
       } else {

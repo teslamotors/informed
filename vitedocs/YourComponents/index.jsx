@@ -10,6 +10,7 @@ import CheckboxGroup from './CheckboxGroup';
 import RadioGroup from './RadioGroup';
 import ComboBox from './ComboBox';
 import Hidden from './Hidden';
+import SimpleInput from './SimpleInput';
 
 import ArrayField, { AddButton, RemoveButton } from './ArrayField';
 
@@ -63,5 +64,6 @@ export {
   AddButton,
   RemoveButton,
   ComboBox,
-  Hidden
+  Hidden,
+  SimpleInput
 };

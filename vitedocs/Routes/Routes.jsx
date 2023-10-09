@@ -67,6 +67,7 @@ import { ConditionalSchemaControl } from '../Pages/ApiReference/Schema/Condition
 import DebugComponent from '../Pages/ApiReference/Debugging/DebugComponent/DebugComponent';
 import DebugLogs from '../Pages/ApiReference/Debugging/DebugLogs/DebugLogs';
 import ArrayFieldReset from '../Pages/ApiReference/Arrays/ArrrayFieldReset/ArrayFieldReset';
+import InsanelyHugeForm from '../Pages/Examples/Tables/InsanelyHugeForm/InsanelyHugeForm';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -175,6 +176,7 @@ export const Routes = () => {
           element={<MultistepInitialValues />}
         />
         <Route path="huge-form" element={<HugeForm />} />
+        <Route path="insanely-huge-form" element={<InsanelyHugeForm />} />
         <Route path="elon-musk" element={<ElonMusk />} />
         <Route path="new-product" element={<RickRoll />} />
         <Route path="changing-options" element={<ChangingOptions />} />

@@ -4,6 +4,7 @@ export const SideBySide = ({
   leftHeader,
   rightHeader,
   leftStyle,
+  rightStyle,
   style
 }) => {
   return (
@@ -12,7 +13,7 @@ export const SideBySide = ({
         {leftHeader ? leftHeader : null}
         {left}
       </div>
-      <div className="side-by-side--right">
+      <div className="side-by-side--right" style={leftStyle}>
         {rightHeader ? rightHeader : null}
         {right}
       </div>

@@ -1,32 +1,24 @@
 import { Debug, FormProvider, Scope, useFieldState } from 'informed';
 import { Input } from 'YourComponents';
+import { useState, useCallback } from 'react';
 
-import { useState } from 'react';
+const NUMBER_OF_ROWS = 7;
+const ROW_NUMBERS = Array.from({ length: NUMBER_OF_ROWS }, (_, i) => i + 1);
+const COLUMN_HEADERS = ['A', 'B', 'C', 'D'];
+
+const createEntries = items => items.map(item => ({ label: item }));
 
 const Example = () => {
-  const [rows, setRows] = useState([
-    { label: '1' },
-    { label: '2' },
-    { label: '3' },
-    { label: '4' },
-    { label: '5' },
-    { label: '6' },
-    { label: '7' }
-  ]);
-  const [cols, setCols] = useState([
-    { label: 'A' },
-    { label: 'B' },
-    { label: 'C' },
-    { label: 'D' }
-  ]);
+  const [rows, setRows] = useState(createEntries(ROW_NUMBERS));
+  const [cols, setCols] = useState(createEntries(COLUMN_HEADERS));
 
-  const removeRowAtIndex = index => {
-    setRows(prevRows => prevRows.filter((row, i) => i !== index));
-  };
+  const removeRowAtIndex = useCallback(index => {
+    setRows(prevRows => prevRows.filter((_row, i) => i !== index));
+  }, []);
 
-  const removeColAtIndex = index => {
-    setCols(prevCols => prevCols.filter((col, i) => i !== index));
-  };
+  const removeColAtIndex = useCallback(index => {
+    setCols(prevCols => prevCols.filter((_col, i) => i !== index));
+  }, []);
 
   return (
     <div>

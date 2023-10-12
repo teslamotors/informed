@@ -66,6 +66,7 @@ export const useField = ({
   maxLength,
   pattern,
   allowEmptyString: userAllowEmptyString,
+  emptyValue,
   disabled: userDisabled,
   gatherOnMount,
   validateOnMount: userValidateOnMount,
@@ -223,6 +224,7 @@ export const useField = ({
     initialize,
     errorMessage,
     allowEmptyString,
+    emptyValue,
     gatherOnMount,
     fieldRef: ref,
     modifyOnMount

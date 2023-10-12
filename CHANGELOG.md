@@ -1,3 +1,9 @@
+## 4.51.4 ( Oct 12th, 2023)
+
+### Added
+
+- ability to default to zero for number inputs when allowEmptyString is passed
+
 ## 4.51.3 ( Sep 16th, 2023)
 
 ### Fixed

@@ -16,8 +16,6 @@ const Example = () => (
       label="Age"
       required="Age Required"
       initialValue={29}
-      emptyValue={4}
-      allowEmptyString
     />
     <Input name="phone" label="Phone" formatter="+1 (###)-###-####" />
     <Select name="car" label="Car" initialValue="ms">

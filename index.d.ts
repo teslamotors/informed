@@ -18,6 +18,7 @@ export type FormState = {
   focused: Record<string, unknown>;
   initialValues: Record<string, unknown>;
   data: Record<string, unknown>;
+  memory: Record<string, unknown>;
 };
 
 export type InformedApi = {
@@ -60,6 +61,7 @@ export type FormApi = {
   disable: () => void;
   enable: () => void;
   fieldExists: (fieldName: string) => boolean;
+  restore: (name: string) => void;
 };
 
 export type FieldState = {
@@ -225,6 +227,7 @@ export type FieldProps<UserProps> = {
   validateModified?: boolean;
   keepState?: boolean;
   keepStateIfRelevant?: boolean;
+  remember?: boolean;
   maintainCursor?: boolean;
   allowEmptyString?: boolean;
   emptyValue?: any;

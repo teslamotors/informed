@@ -170,3 +170,153 @@ const ExampleForm = () => (
   </Form>
 );
 ```
+
+---
+
+## For Contributors
+
+### Design
+
+Informed took the following into consideration when being built:
+
+- **Performance:** `informed` was designed to be able to handle very complex forms at scale
+  - Ability to render a form with thousands of fields on screen
+  - Ability to bulk update thousands of fields at a time
+- **Readability** `informed` was designed to be able to write complex forms with very litle **intuitive** code
+  - Reads naturlly like with pure JSX:
+
+```jsx
+<Form onSubmit={onSubmit}>
+  <Input name="name" label="Name" placeholder="Elon" />
+  <Input name="age" type="number" label="Age" required="Age Required" />
+  <Input name="phone" label="Phone" formatter="+1 (###)-###-####" />
+  <Checkbox name="married" label="Married?" />
+  <Relevant when={({ formState }) => formState.values.married}>
+    <Input name="spouse" label="Spouse" />
+  </Relevant>
+  <Debug />
+</Form>
+```
+
+- **ZERO Dependency:** `informed` was designed to rely on no other library
+
+  - exception of a peer dependency react... for now ;)
+
+- **JSON Schema:** `informed` was designed to support rendering forms based on pure JSON
+  - this is especially useful when form definitions are stored on the backend
+
+---
+
+### Layout
+
+This project cotains three important directories, `src`, `vitedocs`, and `__tests__`
+
+**Note:** some things were left out as they are not super important or are going to be depricated or removed in future.
+
+```bash
+project_root
+│
+├── index.d.ts        # all of informeds types live here
+│
+├── src               # all of informeds source code lives here ( except types index.d.ts )
+│   ├── components        # React Components
+│   ├── hooks             # Hooks
+│   ├── Context.js        # Internal Contexts used in this library
+│   ├── debug.js          # Basically the https://github.com/visionmedia/debug library but shrunk down
+│   ├── fieldMap.js       # Default field adapter, used when working with schema forms
+│   ├── index.js          # all external exports ( everything exposed to users )
+│   ├── ObjectMap.js      # internal data structure for manipulating the form state objects
+│   ├── FormController.js # The brains behind the library, this controls basically everything :)
+│   └── utils.js          # Any utilities used throughout this project
+│
+├── vitedocs          # All the informed docs build via vite ( instead of storybook which was old way )
+│   ├── App.jsx           # basic react app with react-router
+│   ├── Header            # top nav of the docs
+│   ├── hooks             # helper hooks for docs
+│   ├── Nav               # side nav of the docs
+│   ├── Pages             # main level pages of the app
+│   │   ├──ApiReference       # Self explanitory :)
+│   │   ├──Examples           # Examples of all sorts of usecases
+│   │   ├──GettingStarted     # Also Self explanitory :)
+│   │   └──Playground.jsx     # Uses Sandpack to allow users to test any of the examples
+│   │
+│   ├── SideBySide.jsx    # helper component for showing code example and output side by side
+│   ├── index.css         # documentation styles
+│   ├── prism.css         # styles for code blocks
+│   └── ...               # other stuff
+│
+└── __tests__           # extensive unit testing
+    ├── components      # tests for informed components
+    ├── hooks           # tests for informed hooks
+    ├── ObjectMap.test  # tests for the internal data structure
+    ├── Schema.test     # tests for usage of JSON schema rendered forms
+    └── utils.test      # tests for interanal library utilites
+```
+
+---
+
+### Key Components
+
+#### `FormController`
+
+FormController is the brains of informed, it holds the `state` object and is responsible for:
+
+- Managing the form state
+- Tracking all form fields via registration/deregistration
+- Managing events. FormController impliments its own event hanlder ( a few lines of code at bottom of file )
+
+#### `ObjectMap`
+
+ObjectMap is the internal data structre that is responsible for
+
+#### `useField`
+
+useField is the first class citizen of informed, its responsible for registering a field by name to the FormController.
+
+#### Context
+
+Thouh there is not explicitly a component called `Context` here the concept is KEY to understanding informed. Context alows us to register fields in a highly nested structure and allows us to do wild things such as scoping.
+
+---
+
+### Types ( Type Script )
+
+I know, I know the types kinda suck. I personally dont use typescript so I have had to rely on other TS wizard devs to help maintain the types. When trying to type very complex objects such as `FormState` especially parts like `FormState.values` which can literally be an object that conatins anything there are lots of opinions on how to properly type it. Im activly seeking help here.
+
+---
+
+### Documentation
+
+As stated earlier, docs now live in the vitedocs directory. Its called `vitedocs` because I migrated them from storybook to now use a custom singe page react app built with `vite`... pernounced "veet" by the way :)
+
+#### What to expect
+
+Most of the docs contain examples where each example has a directory.
+
+For example, if you look at the `vitedocs/Pages/GettingStarted/CarColors` you will find the `CarColors.jsx` file.
+This file contains the page that gets shown ( whatever info you want to show on that page ) and then the example itself.
+
+Because we use vite, we can take advantage of the fact that vite can import both a react component normally, and also the raw text from that file! Therefore creating examples is as simple as this!
+
+**Note** how we make use of the `SideBySide` component to render our code and example
+
+```js
+import Example from './Example';
+import exampleCode from './Example.jsx?raw';
+
+//... other stuff
+<SideBySide
+  leftHeader={<h3>Example: </h3>}
+  rightHeader={<h3>Code:</h3>}
+  left={<Example />}
+  right={<Code links input1={exampleCode} />}
+/>;
+```
+
+### TODO/Improvements
+
+- re-write the internal implimentation of how schemas are rendered, that code is not my favorite
+- re-write the way multistep forms work. Currently they step through each step when navigating to a step only initializing the values for that step when its rendered
+- allow an evaluate function to be passed into a form field ( i.e useField ). Currently this is not possible because evaluate re computes props to be passed to the component using useField but it would be nice to not have to call the `useConditional` hook.
+- move the rest of the schema docs over to the new docs ( I simply have not had the time to do this )
+- Types ... I know, I know the types kinda suck. I personally dont use typescript so I have had to rely on other TS wizard devs to help maintain the types.

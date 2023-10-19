@@ -23,7 +23,8 @@ const getState = state => {
     data: {},
     touched: {},
     initialValues: {},
-    dirt: {}
+    dirt: {},
+    memory: {}
   };
   return Object.assign({}, defaultState, state);
 };

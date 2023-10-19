@@ -120,7 +120,8 @@ export class FormController {
       modified: {},
       data: {},
       initialValues: this.options.current.initialValues || {},
-      disabled: this.options.current.disabled ?? false
+      disabled: this.options.current.disabled ?? false,
+      memory: {}
     };
 
     // Bind functions that will be called externally
@@ -186,10 +187,16 @@ export class FormController {
     this.setPristine = this.setPristine.bind(this);
     this.disableForm = this.disableForm.bind(this);
     this.enableForm = this.enableForm.bind(this);
+    this.getMemory = this.getMemory.bind(this);
+    this.restore = this.restore.bind(this);
   }
 
   getOptions() {
     return this.options.current;
+  }
+
+  getMemory(name) {
+    return ObjectMap.get(this.state.memory, name);
   }
 
   getValue(name) {
@@ -265,6 +272,10 @@ export class FormController {
         fieldMeta.current.fieldApi.reset();
       }
     });
+  }
+
+  restore(name) {
+    this.setValue(name, this.getMemory(name));
   }
 
   setValueQuietly(name, value) {
@@ -745,7 +756,8 @@ export class FormController {
       focusFirstError: this.focusFirstError,
       setPristine: this.setPristine,
       disable: this.disableForm,
-      enable: this.enableForm
+      enable: this.enableForm,
+      restore: this.restore
     };
   }
 
@@ -792,7 +804,7 @@ export class FormController {
     };
   }
 
-  remove(name, options = {}) {
+  remove(name, options = {}, meta = {}) {
     debug('Remove', name);
 
     if (!this.removalLocked) {
@@ -801,6 +813,16 @@ export class FormController {
         error: keepError = false,
         touched: keepTouched = false
       } = options;
+
+      // If user passed in remember for this field add it to memory
+      if (meta.remember) {
+        const valueToRemember = this.getValue(name);
+        // Only remember if there is something to remember ( that way we dont wipe previous memory )
+        if (valueToRemember) {
+          debug('Remembering', name, valueToRemember);
+          ObjectMap.set(this.state.memory, name, valueToRemember);
+        }
+      }
 
       if (!keepValue) {
         debug('Delete Value', name);
@@ -1216,7 +1238,8 @@ export class FormController {
       modified: {},
       data: {},
       initialValues: values ?? this.options.current.initialValues ?? {},
-      disabled: this.disabled ?? this.options.current.disabled ?? false
+      disabled: this.disabled ?? this.options.current.disabled ?? false,
+      memory: {}
     };
 
     this.fieldsMap.forEach(fieldMeta => {

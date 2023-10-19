@@ -2,7 +2,6 @@ import React from 'react';
 import { Routes as RouterRoutes, Route, Navigate } from 'react-router-dom';
 
 // Components
-import { Admin } from '../Pages/Admin/Admin';
 import { NotFound } from '../Pages/NotFound/NotFound';
 import { NotAuthorized } from '../Pages/NotAuthorized/NotAuthorized';
 import { Home } from '../Pages/Home/Home';
@@ -40,6 +39,7 @@ import { ValidationMessages } from '../Pages/ApiReference/Validation/ValidationM
 import { SchemaIntro } from '../Pages/ApiReference/Schema/SchemaIntro/SchemaIntro';
 import MultistepIntro from '../Pages/ApiReference/Multistep/MultistepIntro/MultistepIntro';
 import MultistepState from '../Pages/ApiReference/Multistep/MultistepState/MultistepState';
+import { KeepState } from '../Pages/ApiReference/KeepState/KeepState';
 import { Multistep } from '../Pages/GettingStarted/Multistep/Multistep';
 import { DynamicMultistep } from '../Pages/ApiReference/Multistep/DynamicMultistep/DynamicMultistep';
 import { MultistepInitialValues } from '../Pages/ApiReference/Multistep/MultistepInitialValues/MultistepInitialValues';
@@ -148,6 +148,7 @@ export const Routes = () => {
         <Route path="metadata" element={<Metadata />} />
         <Route path="debug-component" element={<DebugComponent />} />
         <Route path="debug-logs" element={<DebugLogs />} />
+        <Route path="keep-state" element={<KeepState />} />
       </Route>
       <Route path="examples">
         <Route
@@ -187,7 +188,6 @@ export const Routes = () => {
         <Route path="updating-validation" element={<UpdatingValidation />} />
       </Route>
       <Route path="home" element={<Home />} />
-      <Route path="admin" element={<Admin />} />
       <Route path="unauthorized" element={<NotAuthorized />} />
       <Route path="*" element={<NotFound />} />
     </RouterRoutes>

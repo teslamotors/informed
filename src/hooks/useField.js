@@ -45,6 +45,7 @@ export const useField = ({
   keep,
   keepState: userKeepState,
   keepStateIfRelevant: userKeepStateIfRelevant,
+  remember,
   inputRef,
   inputRefs,
   relevant,
@@ -201,6 +202,7 @@ export const useField = ({
     onNativeChange,
     initialValue,
     keep,
+    remember,
     keepState,
     keepStateIfRelevant,
     initializeValueIfPristine,
@@ -286,7 +288,7 @@ export const useField = ({
 
       if (!isRelevant && !keepState) {
         logger('RELEVANT REMOVING', metaInfo.name);
-        formController.remove(metaInfo.name, metaInfo.keep);
+        formController.remove(metaInfo.name, metaInfo.keep, metaInfo);
         logger('RELEVANT De-Register', metaInfo.name);
         formController.deregister(metaInfo.name);
       }
@@ -330,7 +332,7 @@ export const useField = ({
       }
 
       if (!keepIt) {
-        formController.remove(metaInfo.name, metaInfo.keep);
+        formController.remove(metaInfo.name, metaInfo.keep, metaInfo);
       }
     };
   }, []);

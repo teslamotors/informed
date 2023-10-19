@@ -189,6 +189,21 @@ export default function FormState() {
           </Row>
           <Row>
             <Cell>
+              <code>memory</code>
+            </Cell>
+            <Cell>
+              <Code>{`{ name: 'Joe' }`}</Code>
+            </Cell>
+            <Cell>
+              <code>{`{}`}</code>
+            </Cell>
+            <Cell>
+              A memory that stores most recent values for an input if{' '}
+              <code>remember</code> is passed to a field.
+            </Cell>
+          </Row>
+          <Row>
+            <Cell>
               <code>invalid</code>
             </Cell>
             <Cell>

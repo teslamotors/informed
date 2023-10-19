@@ -1,3 +1,9 @@
+## 4.52.0 ( Oct 19th, 2023)
+
+### Added
+
+- `restore` function to formApi and `memory` to formState see keepState docs for details
+
 ## 4.51.4 ( Oct 12th, 2023)
 
 ### Added

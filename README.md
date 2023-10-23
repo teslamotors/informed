@@ -211,7 +211,7 @@ Informed took the following into consideration when being built:
 
 This project cotains three important directories, `src`, `vitedocs`, and `__tests__`
 
-**Note:** some things were left out as they are not super important or are going to be depricated or removed in future.
+**Note:** some things were left out as they are not super important or are going to be deprecated or removed in future.
 
 ```bash
 project_root

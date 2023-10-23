@@ -81,6 +81,7 @@
     "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/preset-env": "^7.15.4",
     "@babel/preset-react": "^7.0.0",
+    "@babel/traverse": "^7.23.2",
     "@codesandbox/sandpack-react": "^2.6.1",
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.10",

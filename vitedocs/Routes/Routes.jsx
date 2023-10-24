@@ -68,6 +68,8 @@ import DebugComponent from '../Pages/ApiReference/Debugging/DebugComponent/Debug
 import DebugLogs from '../Pages/ApiReference/Debugging/DebugLogs/DebugLogs';
 import ArrayFieldReset from '../Pages/ApiReference/Arrays/ArrrayFieldReset/ArrayFieldReset';
 import InsanelyHugeForm from '../Pages/Examples/Tables/InsanelyHugeForm/InsanelyHugeForm';
+import { Readme } from '../Pages/GettingStarted/Readme/Readme';
+import { Changelog } from '../Pages/GettingStarted/Changelog/Changelog';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -101,6 +103,8 @@ export const Routes = () => {
         <Route path="schema" element={<SchemaIntro />} />
         <Route path="multistep" element={<Multistep />} />
         <Route path="metadata" element={<Metadata />} />
+        <Route path="readme" element={<Readme />} />
+        <Route path="changelog" element={<Changelog />} />
       </Route>
       <Route path="api-reference">
         <Route path="useField" element={<UseField />} />

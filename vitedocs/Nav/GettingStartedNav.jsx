@@ -18,6 +18,8 @@ export const GettingStartedNav = () => {
       <NavLink href="/getting-started/schema">Schema Rendering</NavLink>
       <NavLink href="/getting-started/multistep">Multistep</NavLink>
       <NavLink href="/getting-started/metadata">Meta Data</NavLink>
+      <NavLink href="/getting-started/readme">Readme</NavLink>
+      <NavLink href="/getting-started/changelog">Changelog</NavLink>
     </ul>
   );
 };

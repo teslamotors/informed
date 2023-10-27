@@ -1,3 +1,13 @@
+## 4.53.0 ( Oct 27th, 2023)
+
+### Updated
+
+- formApi.clearValue to actually clear out array fields
+
+### Added
+
+- clear function to arrayFieldApi
+
 ## 4.52.0 ( Oct 19th, 2023)
 
 ### Added

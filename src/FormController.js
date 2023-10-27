@@ -704,6 +704,7 @@ export class FormController {
 
   clearValue(name) {
     this.setValue(name, undefined);
+    this.emit('clear', name);
   }
 
   clearError(name) {

@@ -9,7 +9,13 @@ import { ScopeContext } from '../Context';
 const debug = Debug('informed:useFieldSubscription' + '\t');
 
 /* ----------------------- useFieldSubscription ----------------------- */
-export const useFieldSubscription = (event, fields = [], cb, scoped = true) => {
+export const useFieldSubscription = (
+  event,
+  fields = [],
+  cb,
+  scoped = true,
+  flipped = false
+) => {
   // Create scoper function
   const scope = useScoper();
 
@@ -52,6 +58,7 @@ export const useFieldSubscription = (event, fields = [], cb, scoped = true) => {
   useEffect(
     () => {
       const listener = target => {
+        // console.log('TARGET', target, 'FIELDS', scopedFields);
         // either
         // 1. All fields are supposed to update
         // 2. This is a specific registration "foo" === "foo"
@@ -59,7 +66,16 @@ export const useFieldSubscription = (event, fields = [], cb, scoped = true) => {
         if (
           target === '_ALL_' ||
           scopedFields.includes(target) ||
-          (target && scopedFields.some(field => isChild(field, target)))
+          (target &&
+            scopedFields.some(field => {
+              if (flipped) {
+                // isChild( parent, child )
+                return isChild(target, field);
+              } else {
+                // isChild( parent, child )
+                return isChild(field, target);
+              }
+            }))
         ) {
           debug(
             `subscription ${event} triggered with target ${target} for`,

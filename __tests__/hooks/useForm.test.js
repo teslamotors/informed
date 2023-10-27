@@ -165,8 +165,11 @@ describe('useForm', () => {
 
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
-    input1.focus();
-    input2.focus();
+
+    act(()=>{
+      input1.focus();
+      input2.focus();    
+    });
 
     expect(onChange).toHaveBeenCalledWith(getState({
       touched: {
@@ -193,8 +196,10 @@ describe('useForm', () => {
 
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
-    input1.focus();
-    input2.focus();
+    act(()=>{
+      input1.focus();
+      input2.focus();    
+    });
 
     expect(onValueChange).not.toHaveBeenCalledWith(getState({
       touched: {
@@ -257,8 +262,10 @@ describe('useForm', () => {
 
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
-    input1.focus();
-    input2.focus();
+    act(()=>{
+      input1.focus();
+      input2.focus();    
+    });
 
     expect(onValueModified).not.toHaveBeenCalledWith(getState({
       touched: {
@@ -285,8 +292,10 @@ describe('useForm', () => {
 
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
-    input1.focus();
-    input2.focus();
+    act(()=>{
+      input1.focus();
+      input2.focus();    
+    });
 
     expect(formApiRef.current.getFormState()).toEqual(getState({
       touched: {

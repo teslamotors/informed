@@ -361,11 +361,16 @@ export const useField = ({
     formController.validateField(metaRef.current.name);
   });
 
-  useFieldSubscription('field-value', [name], target => {
-    if (onValueChange) {
-      onValueChange(formController.getFieldState(target));
-    }
-  });
+  useFieldSubscription(
+    'field-value',
+    [name],
+    target => {
+      if (onValueChange) {
+        onValueChange(formController.getFieldState(target));
+      }
+    },
+    false // No scope as we are already scoped
+  );
 
   useUpdateEffect(() => {
     logger(`revalidating for ${metaRef.current.name} because of deps change`);

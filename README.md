@@ -56,6 +56,24 @@ const ExampleForm = () => (
 );
 ```
 
+## Feature List
+
+`informed` was designed to support many important features
+
+- Arrays: ability to render dynamic arrays of fields `[ 'a', 'b' ]` or `[ { name: 'Joe', age: 29 }, { name: 'Hope', age: 24 }]`
+- Relevance: ability to render render fields conditionally depending on the state of other parts of the form
+- JSPAN: ability to easily and intuitively manipulate form state
+- Formatting: ability to perform display formatting, where the format shown to user can differ from the state of the values stored
+- Validation: ability to perform both synchronous and asynchronous validation in a controlled manner
+- Api: ability to manipulate the form state both inside and outside the context of the form
+- State: ability to access field and form data
+- Multistep: ability to create dynamic multistep forms
+- Scope: ability to scope ( group ) fields
+- Schema: ability to render forms based on pure JSON schema
+- Dynaic: ability to hide and show fields ( render and unrender ) and either cleanup or maintain state of unmounted fields
+- Debugging: ability to easily debug users state as well as internals of the library
+- Nesting: ability to have highly nested value strucutre `state.values.friends[1].brother.parents.cars[0].model`
+
 ## Creating Your Own Fields
 
 But what if you dont want the out of the box stuff??
@@ -197,7 +215,33 @@ Informed took the following into consideration when being built:
   - exception of a peer dependency react... for now ;)
 
 - **JSON Schema:** `informed` was designed to support rendering forms based on pure JSON
+
   - this is especially useful when form definitions are stored on the backend
+
+- **Feature List:** `informed` was designed to support many important features
+  - Arrays: ability to render dynamic arrays of fields `[ 'a', 'b' ]` or `[ { name: 'Joe', age: 29 }, { name: 'Hope', age: 24 }]`
+  - Relevance: ability to render render fields conditionally depending on the state of other parts of the form
+  - JSPAN: ability to easily and intuitively manipulate form state
+  - Formatting: ability to perform display formatting, where the format shown to user can differ from the state of the values stored
+  - Validation: ability to perform both synchronous and asynchronous validation in a controlled manner
+  - Api: ability to manipulate the form state both inside and outside the context of the form
+  - State: ability to access field and form data
+  - Multistep: ability to create dynamic multistep forms
+  - Scope: ability to scope ( group ) fields
+  - Schema: ability to render forms based on pure JSON schema
+  - Dynaic: ability to hide and show fields ( render and unrender ) and either cleanup or maintain state of unmounted fields
+  - Debugging: ability to easily debug users state as well as internals of the library
+  - Nesting: ability to have highly nested value strucutre `state.values.friends[1].brother.parents.cars[0].model`
+
+---
+
+### Terminology
+
+- **JSPAN:** ( Java Script Path Access Notation ) much like how you access and write to objects and arrays in javascript you can use the string representation to address a place in an object.
+
+```js
+const path = 'state.values.friends[1].brother.name';
+```
 
 ---
 

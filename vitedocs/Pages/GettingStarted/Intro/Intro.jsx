@@ -77,7 +77,54 @@ export default function Intro() {
       <Info>
         Informed is cabable of A LOT of cool things! The below example shows off
         many of those cababilites in one form.
+        <br />
+        <br />
+        <ul>
+          <li>
+            Arrays: ability to render dynamic arrays of fields{' '}
+            <code>[ 'a', 'b' ]</code> or{' '}
+            <code>
+              {"[ { name: 'Joe', age: 29 }, { name: 'Hope', age: 24 }]"}
+            </code>
+          </li>
+          <li>
+            Relevance: ability to render fields conditionally depending on the
+            state of other parts of the form
+          </li>
+          <li>
+            JSPAN: ability to easily and intuitively manipulate form state
+          </li>
+          <li>
+            Formatting: ability to perform display formatting, where the format
+            shown to user can differ from the state of the values stored
+          </li>
+          <li>
+            Validation: ability to perform both synchronous and asynchronous
+            validation in a controlled manner
+          </li>
+          <li>
+            Api: ability to manipulate the form state both inside and outside
+            the context of the form
+          </li>
+          <li>State: ability to access field and form data</li>
+          <li>Multistep: ability to create dynamic multistep forms</li>
+          <li>Scope: ability to scope ( group ) fields</li>
+          <li>Schema: ability to render forms based on pure JSON schema</li>
+          <li>
+            Dynaic: ability to hide and show fields ( render and unrender ) and
+            either cleanup or maintain state of unmounted fields
+          </li>
+          <li>
+            Debugging: ability to easily debug users state as well as internals
+            of the library
+          </li>
+          <li>
+            Nesting: ability to have highly nested value structure{' '}
+            <code>state.values.friends[1].brother.parents.cars[0].model</code>
+          </li>
+        </ul>
       </Info>
+
       <Showoff />
       <hr />
       <h1>How do I start!?</h1>

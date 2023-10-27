@@ -9,7 +9,7 @@ const debug = Debug('informed:ObjMap' + '\t');
 
 /* -------------------- toPath -------------------- */
 
-const ldtoPath = (path = '') => {
+export const ldtoPath = (path = '') => {
   return String.prototype.replace
     .call(path, /\['(.+?)'\]/g, '.$1')
     .split(/[,[\].]+?/)

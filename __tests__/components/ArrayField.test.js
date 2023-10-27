@@ -3,6 +3,7 @@ import { render, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form, Input, Checkbox } from '../../jest/components';
 import { ArrayField, Relevant } from '../../src';
+import { act } from 'react-dom/test-utils';
 
 const FlatArrayfield = ({
   formApiRef,
@@ -892,6 +893,62 @@ describe('ArrayField', () => {
           }
         ]
       });
+  
+    });
+
+    it('should clear the array value when formApi.clearValue is called', () => {
+  
+      const formApiRef = {};  
+      const initialValues = { 
+        siblings: [
+          {
+            first: 'Hello', 
+            last: 'World'
+          }, {
+            first: 'Foo', 
+            last: 'Bar'
+          }, {
+            first: 'Baz', 
+            last: 'Taz'
+          },
+        ]
+      };  
+      
+      const { queryAllByLabelText } = render(
+        <ObjectArrayfield formApiRef={formApiRef} initialValues={initialValues}/>
+      );
+    
+      let first = queryAllByLabelText('First');
+      let last = queryAllByLabelText('Last');
+      expect(first.length).toBe(3);
+      expect(last.length).toBe(3);
+      expect(formApiRef.current.getFormState().values).toEqual({ 
+        siblings: [
+          {
+            first: 'Hello', 
+            last: 'World'
+          }, 
+          {
+            first: 'Foo', 
+            last: 'Bar'
+          },
+          {
+            first: 'Baz', 
+            last: 'Taz'
+          },
+        ]
+      });
+
+      act(()=>{
+        formApiRef.current.clearValue("siblings");
+      });
+
+      first = queryAllByLabelText('First');
+      last = queryAllByLabelText('Last');
+      expect(first.length).toBe(0);
+      expect(last.length).toBe(0);
+      expect(formApiRef.current.getFormState().values).toEqual({});
+
   
     });
 

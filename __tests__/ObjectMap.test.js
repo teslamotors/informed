@@ -1,5 +1,5 @@
 /* eslint-disable no-sparse-arrays */
-import { ObjectMap } from '../src/ObjectMap';
+import { ObjectMap, ldtoPath } from '../src/ObjectMap';
 
 describe('ObjectMap', () => {
   describe('get', () => {
@@ -44,7 +44,7 @@ describe('ObjectMap', () => {
       };
       const actual = ObjectMap.get(
         object,
-        'foo[\'bar\'].baz[0].taz.bar[10][3].bar[\'0\'].5'
+        "foo['bar'].baz[0].taz.bar[10][3].bar['0'].5"
       );
       expect(actual).toEqual(expected);
     });
@@ -83,7 +83,7 @@ describe('ObjectMap', () => {
       it('should set a nested value and initialize objects along the way with array object syntax', () => {
         const expected = { foo: { bar: { baz: 3 } } };
         const actual = {};
-        ObjectMap.set(actual, 'foo[\'bar\'].baz', 3);
+        ObjectMap.set(actual, "foo['bar'].baz", 3);
         expect(actual).toEqual(expected);
       });
 
@@ -259,6 +259,35 @@ describe('ObjectMap', () => {
         'foo.bar.baz[0].taz.bar[10][3].bar.0.5'
       );
       expect(actual).toEqual(expected);
+    });
+
+    describe('helper functions', () => {
+      it('ldtoPath should create path array from foo.bar', () => {
+        const actual = ldtoPath('foo.bar');
+        expect(actual).toEqual(['foo', 'bar']);
+      });
+
+      it('ldtoPath should create path array from foo.bar[0].baz[1].taz', () => {
+        const actual = ldtoPath('foo.bar[0].baz[1].taz');
+        expect(actual).toEqual(['foo', 'bar', '0', 'baz', '1', 'taz']);
+      });
+
+      it("ldtoPath should create path array from foo['bar'].baz[0].taz.bar[10][3].bar['0'].5", () => {
+        const actual = ldtoPath("foo['bar'].baz[0].taz.bar[10][3].bar['0'].5");
+        expect(actual).toEqual([
+          'foo',
+          'bar',
+          'baz',
+          '0',
+          'taz',
+          'bar',
+          '10',
+          '3',
+          'bar',
+          '0',
+          '5'
+        ]);
+      });
     });
   });
 });

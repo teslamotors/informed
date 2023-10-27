@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { Form } from '../jest/components';
 import { SchemaFields } from '../src';
 import { Form as InformedForm } from '../src';
+import { act } from 'react-dom/test-utils';
 
 // prettier-ignore
 describe('Schema', () => {
@@ -224,9 +225,11 @@ describe('Schema', () => {
 
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
-    input1.focus();
-    input2.focus();
-  
+    act(()=>{
+       input1.focus();
+       input2.focus();
+    });
+
     expect(onBlur).toHaveBeenCalled();
   });
 
@@ -263,8 +266,11 @@ describe('Schema', () => {
 
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
-    input1.focus();
-    input2.focus();
+
+    act(()=>{
+      input1.focus();
+      input2.focus();
+    })
   
     expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'}, expect.anything());
   });

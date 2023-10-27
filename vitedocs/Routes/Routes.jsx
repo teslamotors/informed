@@ -70,6 +70,7 @@ import ArrayFieldReset from '../Pages/ApiReference/Arrays/ArrrayFieldReset/Array
 import InsanelyHugeForm from '../Pages/Examples/Tables/InsanelyHugeForm/InsanelyHugeForm';
 import { Readme } from '../Pages/GettingStarted/Readme/Readme';
 import { Changelog } from '../Pages/GettingStarted/Changelog/Changelog';
+import ArrayFieldClear from '../Pages/ApiReference/Arrays/ArrrayFieldClear/ArrayFieldClear';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -139,6 +140,7 @@ export const Routes = () => {
         <Route path="formApiRef" element={<FormApiRef />} />
         <Route path="arrays-array-field-item" element={<ArrayFieldItem />} />
         <Route path="arrays-array-field-reset" element={<ArrayFieldReset />} />
+        <Route path="arrays-array-field-clear" element={<ArrayFieldClear />} />
         <Route path="validation-messages" element={<ValidationMessages />} />
         <Route path="schema-intro" element={<SchemaIntro />} />
         <Route path="relevant-schema" element={<RelevanceSchema />} />

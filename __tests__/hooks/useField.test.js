@@ -3,6 +3,7 @@ import { render, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form, Input } from '../../jest/components';
 import { utils } from '../../src';
+import { act } from 'react-dom/test-utils';
 
 // prettier-ignore
 describe('useField', () => {
@@ -195,8 +196,11 @@ describe('useField', () => {
 
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
-    input1.focus();
-    input2.focus();
+
+    act(()=>{
+      input1.focus();
+      input2.focus();
+    })
   
     expect(onBlur).toHaveBeenCalledWith({
       value: undefined,
@@ -227,7 +231,10 @@ describe('useField', () => {
     );
 
     const input1 = getByLabelText('input1');
-    input1.focus();
+
+    act(()=>{
+      input1.focus();
+    })
   
     expect(onFocus).toHaveBeenCalledWith({
       value: undefined,
@@ -264,8 +271,10 @@ describe('useField', () => {
 
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
-    input1.focus();
-    input2.focus();
+    act(()=>{
+      input1.focus();
+      input2.focus();
+    })
   
     expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'},  expect.anything());
   });
@@ -289,8 +298,10 @@ describe('useField', () => {
 
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
-    input1.focus();
-    input2.focus();
+    act(()=>{
+      input1.focus();
+      input2.focus();
+    })
 
     expect(formApiRef.current.getFormState().errors).toEqual({ greeting1: '' });
   });
@@ -313,8 +324,10 @@ describe('useField', () => {
 
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
-    input1.focus();
-    input2.focus();
+    act(()=>{
+      input1.focus();
+      input2.focus();
+    })
   
     expect(validate).not.toBeCalledWith('Hello', {greeting1: 'Hello'}, expect.anything());
   });
@@ -336,8 +349,10 @@ describe('useField', () => {
 
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
-    input1.focus();
-    input2.focus();
+    act(()=>{
+      input1.focus();
+      input2.focus();
+    })
   
     expect(validate).not.toBeCalledWith('Hello', {greeting1: 'Hello'}, expect.anything());
   });
@@ -360,8 +375,10 @@ describe('useField', () => {
 
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
-    input1.focus();
-    input2.focus();
+    act(()=>{
+      input1.focus();
+      input2.focus();
+    })
   
     expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'}, expect.anything());
   });
@@ -383,8 +400,10 @@ describe('useField', () => {
 
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
-    input1.focus();
-    input2.focus();
+    act(()=>{
+      input1.focus();
+      input2.focus();
+    })
   
     expect(validate).toBeCalledWith('Hello', {greeting1: 'Hello'}, expect.anything());
   });
@@ -435,8 +454,10 @@ describe('useField', () => {
 
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
-    input1.focus();
-    input2.focus();
+    act(()=>{
+      input1.focus();
+      input2.focus();
+    })
     
 
     await waitFor(() => expect(asyncValidate).toHaveBeenCalledTimes(1));
@@ -465,8 +486,10 @@ describe('useField', () => {
 
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
-    input1.focus();
-    input2.focus();
+    act(()=>{
+      input1.focus();
+      input2.focus();
+    })
     
 
     await waitFor(() => expect(asyncValidate).toHaveBeenCalledTimes(1));
@@ -495,8 +518,10 @@ describe('useField', () => {
 
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
-    input1.focus();
-    input2.focus();
+    act(()=>{
+      input1.focus();
+      input2.focus();
+    })
     
 
     await waitFor(() => expect(asyncValidate).toHaveBeenCalledTimes(0));
@@ -525,8 +550,10 @@ describe('useField', () => {
 
     const input1 = getByLabelText('input1');
     const input2 = getByLabelText('input2');
-    input1.focus();
-    input2.focus();
+    act(()=>{
+      input1.focus();
+      input2.focus();
+    })
     
 
     await waitFor(() => expect(asyncValidate).toHaveBeenCalledTimes(0));
@@ -1143,7 +1170,10 @@ describe('useField', () => {
     const input2 = getByLabelText('input2');
 
     await userEvent.type(input1, 'Hi!');
-    await input2.focus();
+
+    await act(()=>{
+      input2.focus();
+    })
 
     expect(getByText('Field must be at least five characters')).toBeInTheDocument();
   });
@@ -1166,7 +1196,10 @@ describe('useField', () => {
     const input2 = getByLabelText('input2');
 
     await userEvent.type(input1, 'Hi!');
-    input2.focus();
+
+    act(()=>{
+      input2.focus();
+    })
 
     expect(queryByText('Field must be at least five characters')).not.toBeInTheDocument();
   });
@@ -1188,8 +1221,9 @@ describe('useField', () => {
     const input2 = getByLabelText('input2');
 
     await userEvent.type(input1, 'Hi!');
-    input2.focus();
-
+    act(()=>{
+      input2.focus();
+    })
     expect(queryByText('Field must be at least five characters')).not.toBeInTheDocument();
   });
 
@@ -1232,8 +1266,9 @@ describe('useField', () => {
     const input2 = getByLabelText('input2');
 
     await userEvent.type(input1, 'Hi!');
-    input2.focus();
-
+    act(()=>{
+      input2.focus();
+    })
     expect(formApiRef.current.getFormState().errors).toEqual({});
 
     expect(queryByText('Field must be at least five characters')).not.toBeInTheDocument();
@@ -1260,8 +1295,9 @@ describe('useField', () => {
     const input2 = getByLabelText('input2');
 
     await userEvent.type(input1, 'Hi!');
-    input2.focus();
-
+    act(()=>{
+      input2.focus();
+    })
     const submit = getByText('Submit');
 
     fireEvent.click(submit);

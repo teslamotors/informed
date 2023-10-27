@@ -12,6 +12,7 @@ import { ObjectMap } from '../ObjectMap';
 import { useFieldApi } from './useFieldApi';
 import { useScope } from './useScope';
 import { useFormApi } from './useFormApi';
+import { useFieldSubscription } from './useFieldSubscription';
 
 const logger = Debug('informed:useArrayField' + '\t');
 
@@ -167,6 +168,12 @@ export const useArrayField = ({
     setKeys(resetKeys);
   };
 
+  const clear = () => {
+    formController.remove(name);
+    setInitialValues([]);
+    setKeys([]);
+  };
+
   // Create meta object
   const meta = {
     name,
@@ -216,7 +223,8 @@ export const useArrayField = ({
       remove,
       swap,
       addWithInitialValue,
-      reset
+      reset,
+      clear
     };
   }, []);
 
@@ -256,6 +264,17 @@ export const useArrayField = ({
       };
     },
     [name]
+  );
+
+  useFieldSubscription(
+    'clear',
+    [name],
+    target => {
+      logger(`clear event triggered for ${name} because of ${target}`);
+      clear();
+    },
+    false, // No scope ( lol ) because we are already scoped
+    true // Flip order of target comparison
   );
 
   const render = children => (

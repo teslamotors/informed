@@ -305,7 +305,15 @@ FormController is the brains of informed, it holds the `state` object and is res
 
 #### `ObjectMap`
 
-ObjectMap is the internal data structre that is responsible for
+ObjectMap is the internal data structre that is responsible for managing the internal state object. Reads and writes all go through this data structure. Example:
+
+```js
+// State object
+const state = { values: {} };
+
+// Set the states values first friends brothers age to 30
+ObjectMap.set(state.values, 'friends[0].brothers.age', 30);
+```
 
 #### `useField`
 
@@ -314,6 +322,55 @@ useField is the first class citizen of informed, its responsible for registering
 #### Context
 
 Thouh there is not explicitly a component called `Context` here the concept is KEY to understanding informed. Context alows us to register fields in a highly nested structure and allows us to do wild things such as scoping.
+
+---
+
+### Architecture Diagram
+
+Below depicts the core to how this library works. Form controller is the master of all form elements and everyone else just subscribes to events that it triggers. The events can be caused by function calls from elsewhere. In the example below we depict what happens when a user types in an "H" in the name field
+
+##### Code:
+
+```jsx
+<Form>
+  <Input name="name" /> {/* --> useField("name") --> useFieldState("name") */}
+  <Debug /> {/* --> useFormState() */}
+</Form>
+```
+
+##### Diagram: ( when user types the letter "H" )
+
+```
+     +----------------+
+     | FormController | < ──────────────────────────────────────────
+     |   state {}     |                                             │
+     +-------+--------+                                             │
+             │                                                      │
+             │ event("field", "name")                               │
+             v                                                      │
+    +-------------------+                                           │
+    |    Event System   | ────────────────                          │
+    +--------+----+-----+                 │                         │
+             │                            │                         │
+             │ event("field", "name")     │ event("field", "name")  │ setValue("H")
+             │                            │                         │
+             v                            v                         │
+    +-------------------+       +------------------------+          │
+    |   useFormState()  |       |  useFieldState("name") |          │
+    +-------------------+       +------------------------+          │
+             ^                            ^                         │
+             │ uses                       │ uses                    │
+             │                            │                         │
+    +-------------------+       +------------------------+          │
+    |      <Debug />    |       |    useField("name")    | ─────────
+    +-------------------+       +------------------------+
+                                          ^
+                                          │ uses
+                                          │
+                                +------------------------+
+                                | <Input name="name" />  |
+                                +------------------------+
+```
 
 ---
 

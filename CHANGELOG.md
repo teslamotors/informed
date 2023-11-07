@@ -1,3 +1,9 @@
+## 4.53.1 ( Nov 7th, 2023)
+
+### Fixed
+
+- bug where formatting a field that was previously a number moving to string would throw error trying to check .includes
+
 ## 4.53.0 ( Oct 27th, 2023)
 
 ### Updated

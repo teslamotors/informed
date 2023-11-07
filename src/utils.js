@@ -702,7 +702,7 @@ export const informedFormatter = (val, frmtr, old, full) => {
   const case2 =
     suffixStart &&
     formatted.length > suffixStart &&
-    (!old || !old.includes(suffix));
+    (!old || (typeof old === 'string' && !old.includes(suffix)));
   if (case1 || case2) {
     offset = 0;
     // console.log('OFFSET OVERRIDE', offset, case1 ? 'case1' : 'case2');

@@ -13,6 +13,7 @@ import { Car } from 'YourComponents';
 import { ApiReferenceNav } from './ApiReferenceNav';
 import useMedia from '../hooks/useMedia';
 import { ExamplesNav } from './ExamplesNav';
+import { Cybertruck } from '../YourComponents/Cybertruck';
 
 export const Nav = () => {
   const { toggleColorScheme, navOpen, closeNav } = useApp();
@@ -37,13 +38,25 @@ export const Nav = () => {
           src={'/car-on-informed.png'}
           width="200px"
         /> */}
-        <Car />
+        {/* <Car /> */}
+
+        <Cybertruck />
         <ActionButton
           aria-label="Switch Theme"
           onClick={() => toggleColorScheme()}>
           <Contrast />
         </ActionButton>
       </Flex>
+      <h3
+        style={{
+          fontSize: '30px',
+          letterSpacing: '10px',
+          padding: '5px',
+          margin: '0px'
+        }}>
+        Informed
+      </h3>
+
       {!isDesktopUp ? (
         <>
           <br />

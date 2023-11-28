@@ -3,6 +3,7 @@ export const Cybertruck = () => {
     <svg
       viewBox="0 0 1399 503"
       fill="none"
+      style={{ width: '232px' }}
       xmlns="http://www.w3.org/2000/svg"
       className="cybertruck">
       <path

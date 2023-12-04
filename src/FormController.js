@@ -819,7 +819,7 @@ export class FormController {
       if (meta.remember) {
         const valueToRemember = this.getValue(name);
         // Only remember if there is something to remember ( that way we dont wipe previous memory )
-        if (valueToRemember) {
+        if (valueToRemember != undefined) {
           debug('Remembering', name, valueToRemember);
           ObjectMap.set(this.state.memory, name, valueToRemember);
         }

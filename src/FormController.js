@@ -758,7 +758,8 @@ export class FormController {
       setPristine: this.setPristine,
       disable: this.disableForm,
       enable: this.enableForm,
-      restore: this.restore
+      restore: this.restore,
+      getMemory: this.getMemory
     };
   }
 
@@ -774,6 +775,7 @@ export class FormController {
     const pristine = !dirty;
     const validating = !!this.validationRequests.get(name);
     const gathering = !!this.dataRequests.get(name);
+    const memory = this.getMemory(name);
 
     let showError = false;
     if (meta && meta.showErrorIfError) {
@@ -801,7 +803,8 @@ export class FormController {
       showError,
       validating,
       gathering,
-      focused
+      focused,
+      memory
     };
   }
 

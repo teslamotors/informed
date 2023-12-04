@@ -1,3 +1,11 @@
+## 4.54.0 ( Dec 4th, 2023)
+
+### Added
+
+- getMemory to the field api
+- getMemoy to the formApi
+- memory to the fieldState
+
 ## 4.53.2 ( Dec 4th, 2023)
 
 ### Fixed

@@ -62,6 +62,7 @@ export type FormApi = {
   enable: () => void;
   fieldExists: (fieldName: string) => boolean;
   restore: (name: string) => void;
+  getMemory: (name: string) => unknown;
 };
 
 export type FieldState = {
@@ -79,6 +80,7 @@ export type FieldState = {
   focused: boolean;
   data: unknown;
   gathering: boolean;
+  memory: unknown;
 };
 
 export type FieldResetOptions = {
@@ -104,6 +106,7 @@ export type FieldApi = {
   getPristine: () => boolean;
   getMaskedValue: () => unknown;
   clearValue: () => void;
+  getMemory: () => unknown;
 };
 
 export type MultistepApi = {

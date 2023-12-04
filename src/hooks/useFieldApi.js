@@ -22,7 +22,8 @@ const buildFieldApi = (formApi, name) => {
     getMaskedValue: () => formApi.getMaskedValue(name),
     clearValue: () => formApi.clearValue(name),
     setValueQuietly: value => formApi.setValueQuietly(name, value),
-    restore: value => formApi.restore(name, value)
+    restore: value => formApi.restore(name, value),
+    getMemory: () => formApi.getMemory(name)
   };
 };
 

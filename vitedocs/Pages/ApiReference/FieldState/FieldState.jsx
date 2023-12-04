@@ -77,6 +77,17 @@ export default function FieldState() {
           </Row>
           <Row>
             <Cell>
+              <code>memory</code>
+            </Cell>
+            <Cell>
+              <Code>"hello", 3569.25</Code>
+            </Cell>
+            <Cell>
+              If "remember" is passed and you hide field it will remember value
+            </Cell>
+          </Row>
+          <Row>
+            <Cell>
               <code>modified</code>
             </Cell>
             <Cell>

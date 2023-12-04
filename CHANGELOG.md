@@ -1,3 +1,9 @@
+## 4.53.2 ( Dec 4th, 2023)
+
+### Fixed
+
+- issue where `remember` would not remember false and zero values
+
 ## 4.53.1 ( Nov 7th, 2023)
 
 ### Fixed

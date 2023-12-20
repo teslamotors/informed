@@ -1,3 +1,9 @@
+## 4.55.0 ( Dec 20th, 2023)
+
+### Fixed
+
+- issue with multistep state steps from Array<string> to steps: Array<MultistepStep>;
+
 ## 4.54.0 ( Dec 4th, 2023)
 
 ### Added

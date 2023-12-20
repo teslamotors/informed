@@ -20,6 +20,8 @@ import './Stepper.css';
 
 const Info = () => {
   const { next } = useMultistepApi();
+  const state = useMultistepState();
+  console.log('STATE', state);
   return (
     <Multistep.Step step="info">
       <Input name="first" label="First Name" required />

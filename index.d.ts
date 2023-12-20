@@ -118,8 +118,14 @@ export type MultistepApi = {
   getCurrentStep: () => string;
 };
 
+export type MultistepStep = {
+  name: string;
+  index: number;
+  relevant?: (relevantParams: RelevantParams) => boolean;
+};
+
 export type MultistepState = {
-  steps: Array<string>;
+  steps: Array<MultistepStep>;
   goal: string;
   current: string;
   nextStep: string;

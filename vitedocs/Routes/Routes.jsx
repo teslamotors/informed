@@ -71,6 +71,7 @@ import InsanelyHugeForm from '../Pages/Examples/Tables/InsanelyHugeForm/Insanely
 import { Readme } from '../Pages/GettingStarted/Readme/Readme';
 import { Changelog } from '../Pages/GettingStarted/Changelog/Changelog';
 import ArrayFieldClear from '../Pages/ApiReference/Arrays/ArrrayFieldClear/ArrayFieldClear';
+import GlobalFieldState from '../Pages/ApiReference/GlobalForms/FieldState/GlobalFieldState';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -155,6 +156,7 @@ export const Routes = () => {
         <Route path="debug-component" element={<DebugComponent />} />
         <Route path="debug-logs" element={<DebugLogs />} />
         <Route path="keep-state" element={<KeepState />} />
+        <Route path="global-field-state" element={<GlobalFieldState />} />
       </Route>
       <Route path="examples">
         <Route

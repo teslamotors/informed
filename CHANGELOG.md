@@ -1,3 +1,9 @@
+## 4.55.1 ( Jan 2nd, 2024)
+
+### Added
+
+- better logging for pull out
+
 ## 4.55.0 ( Dec 20th, 2023)
 
 ### Fixed

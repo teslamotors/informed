@@ -259,12 +259,12 @@ export class ObjectMap {
     debug('Pulling out:', pathArray, 'index', index);
     // Get the array
     const arr = ldget(object, pathArray);
-    debug('Array Before', arr);
+    debug('Array Before', JSON.stringify(arr));
     // Pull out of array
     if (Array.isArray(arr)) {
       ldpullAt(arr, index);
     }
-    debug('Array After', arr);
+    debug('Array After', JSON.stringify(arr));
     cleanup(object, pathArray);
   }
 

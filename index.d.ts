@@ -171,7 +171,7 @@ export type InformedProps<UserProps> = {
   onInvalid?: (formState: FormState) => void;
   onValueChange?: (formState: FormState) => void;
   onValueModified?: (formState: FormState) => void;
-  onSubmitFailure?: (errors: Record<string, unknown>) => void;
+  onSubmitFailure?: (formState: FormState) => void;
   initialValues?: Record<string, unknown>;
   keepState?: boolean;
   keepStateIfRelevant?: boolean;
@@ -188,6 +188,8 @@ export type InformedProps<UserProps> = {
     | 'submit';
   validateOnMount?: boolean;
   formApiRef?: React.MutableRefObject<any>;
+  focusOnInvalid?: boolean;
+  resetOnlyOnscreen?: boolean;
   dontPreventDefault?: boolean;
   yupSchema?: any;
   allowEmptyStrings?: boolean;

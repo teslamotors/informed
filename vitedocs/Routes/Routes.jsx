@@ -34,6 +34,8 @@ import { Validation } from '../Pages/ApiReference/Validation/Validation/Validati
 import { AsyncValidation } from '../Pages/ApiReference/Validation/AsyncValidation/AsyncValidation';
 import { ValidationControl } from '../Pages/ApiReference/Validation/ValidationControl/Validation';
 import { PairedValidation } from '../Pages/ApiReference/Validation/PairedValidation/PairedValidation';
+import { ScrollValidation } from '../Pages/ApiReference/Validation/ScrollingToErrors/ScrollingToErrors';
+import { FocusValidation } from '../Pages/ApiReference/Validation/FocusingOnErrors/FocusingOnErrors';
 import ArrayFieldItem from '../Pages/ApiReference/Arrays/ArrayFieldItem/ArrayFieldItem';
 import { ValidationMessages } from '../Pages/ApiReference/Validation/ValidationMessages/ValidationMessages';
 import { SchemaIntro } from '../Pages/ApiReference/Schema/SchemaIntro/SchemaIntro';
@@ -134,6 +136,8 @@ export const Routes = () => {
         <Route path="async-validation" element={<AsyncValidation />} />
         <Route path="validation-control" element={<ValidationControl />} />
         <Route path="paired-validation" element={<PairedValidation />} />
+        <Route path="focus-validation" element={<FocusValidation />} />
+        <Route path="scroll-validation" element={<ScrollValidation />} />
         <Route
           path="arrays-array-field"
           element={<ArrayFieldComponent showItem={false} />}

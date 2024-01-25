@@ -198,6 +198,9 @@ export type InformedProps<UserProps> = {
   onlyValidateSchema?: boolean;
   components?: any;
   errorMessage?: Record<string, unknown>;
+  focusOnInvalid?: boolean;
+  resetOnlyOnscreen?: boolean;
+  scrollOnInvalid?: ScrollIntoViewOptions;
 } & Omit<UserProps, 'onSubmit' | 'onReset' | 'onChange' | 'onSubmitFailure'>;
 
 export type RelevantParams = {

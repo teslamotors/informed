@@ -184,6 +184,7 @@ export class FormController {
     this.getModified = this.getModified.bind(this);
     this.updateValid = this.updateValid.bind(this);
     this.focusFirstError = this.focusFirstError.bind(this);
+    this.scrollToFirstError = this.scrollToFirstError.bind(this);
     this.setPristine = this.setPristine.bind(this);
     this.disableForm = this.disableForm.bind(this);
     this.enableForm = this.enableForm.bind(this);
@@ -1042,6 +1043,9 @@ export class FormController {
         if (this.options.current.focusOnInvalid) {
           this.focusFirstError();
         }
+        if (this.options.current.scrollOnInvalid) {
+          this.scrollToFirstError();
+        }
         this.emit('field', name);
         this.emit('failure');
       }
@@ -1280,6 +1284,35 @@ export class FormController {
           if (typeof formFieldRef.current.focus === 'function') {
             debug('Focusing onto', meta.name);
             formFieldRef.current.focus();
+          }
+          return true;
+        }
+        return false;
+      });
+    }
+  }
+
+  scrollToFirstError() {
+    if (this.options.current.scrollOnInvalid) {
+      // Itterate through and call validate on every field
+
+      Array.from(this.fieldsMap.values()).some(fieldMeta => {
+        // Get meta off field
+        const meta = fieldMeta.current;
+
+        // Get ref to input
+        const formFieldRef = meta.fieldRef;
+
+        // Get error for that field
+        const err = this.getError(meta.name);
+
+        // Only focus if we can
+        if (err && formFieldRef) {
+          if (typeof formFieldRef.current.scrollIntoView === 'function') {
+            debug('Scrolling to', meta.name);
+            formFieldRef.current.scrollIntoView(
+              this.options.current.scrollOnInvalid
+            );
           }
           return true;
         }
@@ -1695,6 +1728,9 @@ export class FormController {
       debug('Fail', this.state);
       if (this.options.current.focusOnInvalid) {
         this.focusFirstError();
+      }
+      if (this.options.current.scrollOnInvalid) {
+        this.scrollToFirstError();
       }
       this.emit('failure');
     }

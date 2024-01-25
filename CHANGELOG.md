@@ -1,3 +1,13 @@
+## 4.56.0 ( Jan 24th, 2024)
+
+### Added
+
+- Ability to scroll to an error
+
+### Fixed
+
+- Missing types for focusOnInvalid
+
 ## 4.55.1 ( Jan 2nd, 2024)
 
 ### Added

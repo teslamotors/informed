@@ -64,6 +64,8 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/validation-messages">
         Validation Messages
       </NavLink>
+      <NavLink href="/api-reference/focus-validation">Focus On Error</NavLink>
+      <NavLink href="/api-reference/scroll-validation">Scroll To Error</NavLink>
       <h3>Arrays</h3>
       <NavLink href="/api-reference/arrays-array-field" exact>
         ArrayField

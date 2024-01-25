@@ -48,6 +48,7 @@ export const useForm = ({
   keepState,
   keepStateIfRelevant,
   focusOnInvalid,
+  scrollOnInvalid,
   resetOnlyOnscreen,
   ...userProps
 }) => {
@@ -91,6 +92,7 @@ export const useForm = ({
     keepStateIfRelevant,
     validateModified,
     focusOnInvalid,
+    scrollOnInvalid,
     resetOnlyOnscreen
   };
 

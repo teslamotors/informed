@@ -75,6 +75,18 @@ import { Changelog } from '../Pages/GettingStarted/Changelog/Changelog';
 import ArrayFieldClear from '../Pages/ApiReference/Arrays/ArrrayFieldClear/ArrayFieldClear';
 import GlobalFieldState from '../Pages/ApiReference/GlobalForms/FieldState/GlobalFieldState';
 
+import NestedSchema from '../Pages/Examples/schemas/NestedSchema/NestedSchema';
+import ConditionalOptionSchema from '../Pages/Examples/schemas/ConditionalOptionsSchema/ConditionalOptionsSchema';
+import FormattedSchema from '../Pages/Examples/schemas/FormattedSchema/FormattedSchema';
+
+import NestedArrayFieldSchema from '../Pages/Examples/schemas/NestedArrayFieldSchema/NestedArrayFieldSchema';
+
+import IntroSchema from '../Pages/Examples/schemas/IntroSchema/IntroSchema';
+import ArrayFieldSchema from '../Pages/Examples/schemas/ArrayFieldSchema/ArrayFieldSchema';
+import ConditionalFieldComponent from '../Pages/Examples/schemas/ConditionalSchema/ConditionalSchema';
+import RelevantArrayFieldSchema from '../Pages/Examples/schemas/RelevantArrayFieldSchema/RelevantArrayFieldSchema';
+import CustomSchema from '../Pages/Examples/schemas/CustomSchema/CustomSchema';
+
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
   const to = searchParams.get('to');
@@ -168,6 +180,27 @@ export const Routes = () => {
           element={<ArrayFieldComponent showItem={false} />}
         />
         <Route path="array-field-unique" element={<ArrrayUniqueValidation />} />
+        <Route path="schema-intro" element={<IntroSchema />} />
+        <Route
+          path="schema-conditional"
+          element={<ConditionalFieldComponent />}
+        />
+        <Route path="schema-nested" element={<NestedSchema />} />
+        <Route
+          path="schema-conditional-option"
+          element={<ConditionalOptionSchema />}
+        />
+        <Route path="schema-formatted" element={<FormattedSchema />} />
+        <Route path="schema-array-field" element={<ArrayFieldSchema />} />
+        <Route
+          path="schema-nested-array-field"
+          element={<NestedArrayFieldSchema />}
+        />
+        <Route
+          path="schema-relevant-array-field"
+          element={<RelevantArrayFieldSchema />}
+        />
+        <Route path="schema-custom" element={<CustomSchema />} />
         <Route path="huge-array-field" element={<HugeArrayField />} />
         <Route path="table-inline-editing" element={<TableInlineEditing />} />
         <Route path="async-validation" element={<AsyncValidation />} />

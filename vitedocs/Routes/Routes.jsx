@@ -165,6 +165,22 @@ export const Routes = () => {
           path="conditional-schema-control"
           element={<ConditionalSchemaControl />}
         />
+        <Route path="schema-nested" element={<NestedSchema />} />
+        <Route
+          path="schema-conditional-option"
+          element={<ConditionalOptionSchema />}
+        />
+        <Route path="schema-formatted" element={<FormattedSchema />} />
+        <Route path="schema-array-field" element={<ArrayFieldSchema />} />
+        <Route
+          path="schema-nested-array-field"
+          element={<NestedArrayFieldSchema />}
+        />
+        <Route
+          path="schema-relevant-array-field"
+          element={<RelevantArrayFieldSchema />}
+        />
+        <Route path="schema-custom" element={<CustomSchema />} />
         <Route path="multistep-intro" element={<MultistepIntro />} />
         <Route path="multistep-state" element={<MultistepState />} />
         <Route path="multistep-dynamic" element={<DynamicMultistep />} />

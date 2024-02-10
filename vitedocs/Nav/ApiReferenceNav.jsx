@@ -87,6 +87,21 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/conditional-schema-control">
         Conditional Schema Control
       </NavLink>
+      <NavLink href="/api-reference/schema-nested">Nested Schema</NavLink>
+      <NavLink href="/api-reference/schema-conditional-option">
+        Conditional Option Schema
+      </NavLink>
+      <NavLink href="/api-reference/schema-formatted">Formatted Schema</NavLink>
+      <NavLink href="/api-reference/schema-array-field">
+        Array Field Schema
+      </NavLink>
+      <NavLink href="/api-reference/schema-nested-array-field">
+        Nested Array Field Schema
+      </NavLink>
+      <NavLink href="/api-reference/schema-relevant-array-field">
+        Relevant ArrayField Schema
+      </NavLink>
+      <NavLink href="/api-reference/schema-custom">Custom Schema</NavLink>
       <h3>Multistep</h3>
       <NavLink href="/api-reference/multistep-intro" exact>
         Intro

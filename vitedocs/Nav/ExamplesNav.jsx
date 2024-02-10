@@ -18,7 +18,6 @@ export const ExamplesNav = () => {
       <NavLink href="/examples/changing-options">Chaning Options</NavLink>
       <NavLink href="/examples/dependent-fields">Dependent Fields</NavLink>
       <NavLink href="/examples/two-way">Two Way Dependence</NavLink>
-
       <h3>Formatting</h3>
       <NavLink href="/examples/formatting-formatter">Formatter</NavLink>
       <NavLink href="/examples/formatting-number">Number Formatter</NavLink>
@@ -30,6 +29,23 @@ export const ExamplesNav = () => {
       <NavLink href="/examples/relevant-scoped">Scoped Relevance</NavLink>
       <NavLink href="/examples/relevant-arrays">Relevance in Arrays</NavLink>
       <NavLink href="/examples/relevant-schema">Schema Relevance</NavLink>
+
+      <h3>Schema</h3>
+      <NavLink href="/examples/schema-intro">Intro</NavLink>
+      <NavLink href="/examples/schema-conditional">Conditional Schema</NavLink>
+      <NavLink href="/examples/schema-nested">Nested Schema</NavLink>
+      <NavLink href="/examples/schema-conditional-option">
+        Conditional Option Schema
+      </NavLink>
+      <NavLink href="/examples/schema-formatted">Formatted Schema</NavLink>
+      <NavLink href="/examples/schema-array-field">Array Field Schema</NavLink>
+      <NavLink href="/examples/schema-nested-array-field">
+        Nested Array Field Schema
+      </NavLink>
+      <NavLink href="/examples/schema-relevant-array-field">
+        Relevant ArrayField Schema
+      </NavLink>
+      <NavLink href="/examples/schema-custom">Custom Schema</NavLink>
       <h3>Multistep</h3>
       <NavLink href="/examples/multistep-intro">Basic Multistep</NavLink>
       <NavLink href="/examples/multistep-dynamic">Dynamic Multistep</NavLink>

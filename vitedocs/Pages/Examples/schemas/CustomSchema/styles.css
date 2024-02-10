@@ -1,0 +1,49 @@
+/* YourStyles.css */
+
+.my-design-system form {
+  display: flex;
+  flex-direction: column;
+}
+.my-design-system input:not([type='checkbox']):not([type='radio']),
+textarea,
+select {
+  width: 100%;
+}
+
+.my-design-system input,
+textarea,
+select {
+  display: block;
+}
+
+.my-design-system input + small {
+  display: block;
+  color: red;
+}
+
+.my-design-system small[role='alert'] {
+  color: red;
+  font-weight: bold;
+}
+
+.my-design-system label {
+  margin-top: 1rem;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.my-design-system button {
+  display: block;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  padding: 5px 30px;
+  /* color: white; */
+  background-color: rgba(0, 0, 0, 0.01);
+  margin-top: 1rem;
+  width: 100%;
+  border: 2px solid grey;
+}
+
+.my-design-system button:hover {
+  background-color: grey;
+}

@@ -165,8 +165,5 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
-  },
-  "dependencies": {
-    "informed": "^4.56.0"
   }
 }

@@ -9,7 +9,7 @@ main {
   min-height: 100vh;
   flex-direction: column;
   margin-left: 320px;
-  margin-right: 180px;
+  margin-right: 40px;
   padding: 40px 52px 0;
   display: flex;
   margin-top: 40px;
@@ -508,6 +508,7 @@ button {
 
 .sp-layout {
   height: 90vh;
+  display: flex;
 }
 
 @keyframes rotateWheel {

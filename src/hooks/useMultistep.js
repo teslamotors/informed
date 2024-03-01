@@ -116,7 +116,12 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
         const formState = getFormState();
         if (
           nextStep.relevant
-            ? nextStep.relevant({ formState, formApi, scope })
+            ? nextStep.relevant({
+                formState,
+                formApi,
+                scope,
+                relevanceDeps: nextStep.relDepsRef.current
+              })
             : true
         ) {
           return nextStep.name;
@@ -140,7 +145,12 @@ const useMultistep = ({ initialStep, multistepApiRef }) => {
         const formState = getFormState();
         if (
           previousStep.relevant
-            ? previousStep.relevant({ formState, formApi, scope })
+            ? previousStep.relevant({
+                formState,
+                formApi,
+                scope,
+                relevanceDeps: previousStep.relDepsRef.current
+              })
             : true
         ) {
           return previousStep.name;

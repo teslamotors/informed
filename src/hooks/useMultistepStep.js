@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useMultistepState } from './useMultistepState';
 import { useMultistepApi } from './useMultistepApi';
 import { MultistepStepContext } from '../Context';
@@ -22,10 +22,14 @@ const useMultistepStep = ({
 
   const active = step === current;
 
+  const relDepsRef = useRef();
+  relDepsRef.current = relevanceDeps;
+
   useEffect(() => {
     register(step, {
       name: step,
-      relevant
+      relevant,
+      relDepsRef
     });
   }, []);
 

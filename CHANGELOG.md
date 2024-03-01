@@ -1,3 +1,9 @@
+## 4.56.2 ( March 1st, 2024)
+
+### Fixed
+
+- issue with nested array field addWithInitialValue not working
+
 ## 4.56.1 ( March 1st, 2024)
 
 ### Fixed

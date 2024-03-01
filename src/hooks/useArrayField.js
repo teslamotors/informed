@@ -138,6 +138,7 @@ export const useArrayField = ({
     setKeys([...ks]);
     const newInitialValues = [...getInitialValues()];
     newInitialValues[ks.length - 1] = initialValue;
+    console.log('WTF', newInitialValues);
     setInitialValues(newInitialValues);
   };
 
@@ -253,7 +254,20 @@ export const useArrayField = ({
         },
         getInitialValue: fieldName => {
           // If we are getting initial value and its for this field return that
-          if (RegExp(`${name}\\[[0-9]+\\]`).test(fieldName)) {
+
+          // Case1:
+          // name      = "friends"
+          // fieldName = "friends[0].name"
+          //
+          // Case2:
+          // name      = "friends[0].siblings"
+          // fieldName = "friends[0].siblings[0].name"
+
+          // Use a regex to specifically target the last [0-9]+ and anything that follows
+          let modifiedFieldName = fieldName.replace(/(\[[0-9]+\])[^[\]]*$/, '');
+
+          // Check if they match
+          if (modifiedFieldName === name) {
             const path = fieldName.replace(name, '');
             const v = ObjectMap.get(getInitialValues(), path);
             logger(`Resetting ${path} to ${v}`);

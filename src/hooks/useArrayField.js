@@ -138,7 +138,6 @@ export const useArrayField = ({
     setKeys([...ks]);
     const newInitialValues = [...getInitialValues()];
     newInitialValues[ks.length - 1] = initialValue;
-    console.log('WTF', newInitialValues);
     setInitialValues(newInitialValues);
   };
 

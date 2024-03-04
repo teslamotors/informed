@@ -1,3 +1,9 @@
+## 4.56.3 ( March 4th, 2024)
+
+### Fixed
+
+- a console log I left in the code lol
+
 ## 4.56.2 ( March 1st, 2024)
 
 ### Fixed

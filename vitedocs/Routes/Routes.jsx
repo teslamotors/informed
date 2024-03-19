@@ -86,6 +86,7 @@ import ArrayFieldSchema from '../Pages/Examples/schemas/ArrayFieldSchema/ArrayFi
 import ConditionalFieldComponent from '../Pages/Examples/schemas/ConditionalSchema/ConditionalSchema';
 import RelevantArrayFieldSchema from '../Pages/Examples/schemas/RelevantArrayFieldSchema/RelevantArrayFieldSchema';
 import CustomSchema from '../Pages/Examples/schemas/CustomSchema/CustomSchema';
+import { AsyncOptions } from '../Pages/ApiReference/AsyncOptions/AsyncOptions';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -185,6 +186,7 @@ export const Routes = () => {
         <Route path="multistep-state" element={<MultistepState />} />
         <Route path="multistep-dynamic" element={<DynamicMultistep />} />
         <Route path="metadata" element={<Metadata />} />
+        <Route path="async-options" element={<AsyncOptions />} />
         <Route path="debug-component" element={<DebugComponent />} />
         <Route path="debug-logs" element={<DebugLogs />} />
         <Route path="keep-state" element={<KeepState />} />

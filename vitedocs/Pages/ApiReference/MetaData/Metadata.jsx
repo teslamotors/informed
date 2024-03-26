@@ -16,10 +16,26 @@ export const Metadata = () => {
       <h1>
         <code>Metadata</code>
       </h1>
+      <h2>Sometimes you want to store some metadata next to a field.</h2>
       <Info>
-        Sometimes you want to store some metadata next to a field.
-        <br />
-        <br />
+        It helps to se an example where we slow it down with a fake request.
+      </Info>
+      <Info type="notice">
+        Note: you can optionally pass <code>gatherOnBlur</code> to make it only
+        gather data on blur.
+      </Info>
+      <Info type="notice">
+        Note: you can optionally pass <code>gatherOnMount</code> to make it
+        gather on mount.
+      </Info>
+      <SideBySide
+        leftHeader={<h3>Example:</h3>}
+        rightHeader={<h3>Code:</h3>}
+        left={<SlowExample />}
+        right={<Code links input1={slowExampleCode} />}
+      />
+      <hr />
+      <Info>
         This example shows how you can use informed's gatherData to make api
         calls via google api.
       </Info>
@@ -28,18 +44,6 @@ export const Metadata = () => {
         rightHeader={<h3>Code:</h3>}
         left={<Example />}
         right={<Code links input1={exampleCode} />}
-      />
-      <hr />
-      <h2>A Slower Example</h2>
-      <Info>
-        It helps to se an example where we slow it down with a fake request.
-      </Info>
-      <SideBySide
-        leftHeader={<h3>Example:</h3>}
-        rightHeader={<h3>Code:</h3>}
-        leftStyle={{ maxWidth: '200px' }}
-        left={<SlowExample />}
-        right={<Code links input1={slowExampleCode} />}
       />
       <br />
       <br />

@@ -45,8 +45,8 @@ const Example = () => (
   <Form>
     <AddressSearch />
     <Button type="submit">Submit</Button>
-    <Debug values data gathering />
-    <DebugField name="address" gathering data value error />
+    <Debug values data gathering touched />
+    <DebugField name="address" gathering data value error touched />
   </Form>
 );
 

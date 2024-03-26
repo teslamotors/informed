@@ -61,6 +61,7 @@ export const useField = ({
   mask,
   maintainCursor: userMaintainCursor,
   required,
+  noFalsy,
   minimum,
   maximum,
   minLength,
@@ -70,6 +71,7 @@ export const useField = ({
   emptyValue,
   disabled: userDisabled,
   gatherOnMount,
+  gatherOnBlur,
   validateOnMount: userValidateOnMount,
   modifyOnMount,
   validateOn: userValidateOn,
@@ -178,6 +180,7 @@ export const useField = ({
     () =>
       generateValidationFunction(validationFuncRef, yupSchema, {
         required,
+        noFalsy,
         minimum,
         maximum,
         minLength,
@@ -189,7 +192,7 @@ export const useField = ({
         formController,
         scope
       }),
-    [required, minimum, maximum, minLength, maxLength, pattern]
+    [required, minimum, maximum, minLength, maxLength, pattern, noFalsy]
   );
 
   // Create meta object
@@ -228,6 +231,7 @@ export const useField = ({
     allowEmptyString,
     emptyValue,
     gatherOnMount,
+    gatherOnBlur,
     fieldRef: ref,
     modifyOnMount
   };

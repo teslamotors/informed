@@ -239,7 +239,8 @@ export const validateAjvSchema = (validate, data) => {
   return errors;
 };
 
-export const validateRequired = (value, required, getErrorMessage) => {
+export const validateRequired = (value, required, getErrorMessage, noFalsy) => {
+  // Normal required validation
   if (
     required &&
     (value == null ||
@@ -249,6 +250,13 @@ export const validateRequired = (value, required, getErrorMessage) => {
     return typeof required === 'string'
       ? required
       : getErrorMessage('required') || 'This field is required';
+  }
+
+  // No falsey validation
+  if (noFalsy && !value) {
+    return typeof noFalsy === 'string'
+      ? noFalsy
+      : getErrorMessage('noFalsy') || 'This field is required';
   }
 };
 
@@ -308,6 +316,7 @@ export const generateValidationFunction = (
   yupSchema,
   {
     required,
+    noFalsy,
     minimum,
     maximum,
     minLength,
@@ -326,8 +335,8 @@ export const generateValidationFunction = (
     return;
   }
 
-  if (required) {
-    error = validateRequired(val, required, getErrorMessage);
+  if (required || noFalsy) {
+    error = validateRequired(val, required, getErrorMessage, noFalsy);
     if (error !== undefined) return error;
   }
   if (minimum != null) {

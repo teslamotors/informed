@@ -493,7 +493,7 @@ export class FormController {
       this.emit('field-native', name);
     }
 
-    if (meta.gatherData) {
+    if (meta.gatherData && !meta.gatherOnBlur) {
       // Get error to determine if we even want to validateAsync
       this.debouncedGatherInfo(name);
     }
@@ -646,6 +646,11 @@ export class FormController {
 
     // Remember to update valid
     this.updateValid();
+
+    // Gather data on blur if user passed gatherOnBlur
+    if (meta.gatherData && meta.gatherOnBlur) {
+      this.debouncedGatherInfo(name);
+    }
 
     // Call users onBlur if it exists
     if (meta.onBlur) {

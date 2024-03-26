@@ -1,3 +1,10 @@
+## 4.57.0 ( March 26th, 2024)
+
+### Added
+
+- ability to pass noFalsy to enable required validation even when value is a falsy value ( by default it only works for null/undefined/zero/or empty array ) the value `false` is considered to be a value
+- ability to pass `gatherOnBlur` to only gather data on blur
+
 ## 4.56.3 ( March 4th, 2024)
 
 ### Fixed

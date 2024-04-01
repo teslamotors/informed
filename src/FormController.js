@@ -172,8 +172,14 @@ export class FormController {
     this.validateAsync = this.validateAsync.bind(this);
     this.gatherData = this.gatherData.bind(this);
     this.validated = this.validated.bind(this);
-    this.debouncedValidateAsync = debounceByName(this.validateAsync);
-    this.debouncedGatherInfo = debounceByName(this.gatherData);
+    this.debouncedValidateAsync = debounceByName(
+      this.validateAsync,
+      this.options.current.debounceError
+    );
+    this.debouncedGatherInfo = debounceByName(
+      this.gatherData,
+      this.options.current.debounceGather
+    );
     this.getOptions = this.getOptions.bind(this);
     this.validateField = this.validateField.bind(this);
     this.getErrorMessage = this.getErrorMessage.bind(this);

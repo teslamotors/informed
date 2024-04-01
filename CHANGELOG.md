@@ -1,3 +1,11 @@
+## 4.58.0 ( April 1st, 2024)
+
+### Added
+
+- Ability to pass `debounceGather={1000}` prop to form that will increase the debounce on the gatherData function
+- Ability to pass `debounceError={1000}` prop to form that will increase the debounce on the asyncValidate function
+- Note these ^^^ are at form level not field level ( will look into this at a later date )
+
 ## 4.57.0 ( March 26th, 2024)
 
 ### Added

@@ -330,6 +330,24 @@ useForm({ parameter: value })`}</Code>
             </Cell>
             <Cell>Allows you to set what gets rendered from JSON schema</Cell>
           </Row>
+          <Row>
+            <Cell>
+              <code>debounceGather</code>
+            </Cell>
+            <Cell>
+              <Code>{`useForm({ debounceGather: 1000 })`}</Code>
+            </Cell>
+            <Cell>Will set the debounce time for gathering data</Cell>
+          </Row>
+          <Row>
+            <Cell>
+              <code>debounceError</code>
+            </Cell>
+            <Cell>
+              <Code>{`useForm({ debounceError: 1000 })`}</Code>
+            </Cell>
+            <Cell>Will set the debounce time for async error validation</Cell>
+          </Row>
         </TableBody>
       </TableView>
     </>

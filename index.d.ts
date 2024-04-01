@@ -201,6 +201,7 @@ export type InformedProps<UserProps> = {
   focusOnInvalid?: boolean;
   resetOnlyOnscreen?: boolean;
   scrollOnInvalid?: ScrollIntoViewOptions;
+  debounceGather?: number;
 } & Omit<UserProps, 'onSubmit' | 'onReset' | 'onChange' | 'onSubmitFailure'>;
 
 export type RelevantParams = {

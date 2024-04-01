@@ -202,6 +202,7 @@ export type InformedProps<UserProps> = {
   resetOnlyOnscreen?: boolean;
   scrollOnInvalid?: ScrollIntoViewOptions;
   debounceGather?: number;
+  debounceError?: number;
 } & Omit<UserProps, 'onSubmit' | 'onReset' | 'onChange' | 'onSubmitFailure'>;
 
 export type RelevantParams = {

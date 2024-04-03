@@ -52,6 +52,15 @@ export const ExamplesNav = () => {
       <NavLink href="/examples/multistep-initial-values">
         Multistep InitialValues
       </NavLink>
+      <h3>Gotchas</h3>
+      <NavLink href="/examples/initial-vs-default">Intial Vs Default</NavLink>
+      <NavLink href="/examples/change-initial-values">
+        Change Initial Values
+      </NavLink>
+      <NavLink href="/examples/initialize-if-pristine">
+        Initialize Value If Pristine
+      </NavLink>
+
       <h3>Tables</h3>
       <NavLink href="/examples/excel-sheet">Excel Sheet</NavLink>
       <NavLink href="/examples/huge-form">Huge Form</NavLink>

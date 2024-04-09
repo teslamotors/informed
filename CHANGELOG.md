@@ -1,3 +1,9 @@
+## 4.58.1 ( April 9th, 2024)
+
+### Added
+
+- Missing types for schema, FormState, useArrayFieldApi, and useArrayFieldItemApi.
+
 ## 4.58.0 ( April 1st, 2024)
 
 ### Added

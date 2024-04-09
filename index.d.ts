@@ -3,6 +3,7 @@ import React from 'react';
 export type FormState = {
   pristine: boolean;
   dirty: boolean;
+  disabled: boolean;
   submitted: boolean;
   valid: boolean;
   invalid: boolean;
@@ -138,6 +139,7 @@ export type ArrayFieldApi = {
   reset: () => void;
   swap: (a: number, b: number) => void;
   addWithInitialValue: (value: any) => void;
+  clear: () => void;
 };
 
 export type ArrayFieldItemApi = {
@@ -197,6 +199,7 @@ export type InformedProps<UserProps> = {
   ajvErrors?: any;
   onlyValidateSchema?: boolean;
   components?: any;
+  adapter?: Record<string | number | symbol, React.FC>;
   errorMessage?: Record<string, unknown>;
   focusOnInvalid?: boolean;
   resetOnlyOnscreen?: boolean;
@@ -395,11 +398,24 @@ export function useConditional(params: {
   native: boolean;
 }): unknown;
 
+export function useArrayFieldApi(): ArrayFieldApi;
+
+export function useArrayFieldItemApi(): ArrayFieldItemApi;
+
 export function FormStateAccessor({
   children
 }: {
   children: (formState: FormState) => JSX.Element;
 }): JSX.Element;
+
+declare function FormFields({
+  schema,
+  onlyValidateSchema
+}: {
+  /** Json Schema */
+  schema: any,
+  onlyValidateSchema: boolean
+}): JSX.Element[];
 
 declare function ArrayField({
   children,

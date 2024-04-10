@@ -1,3 +1,9 @@
+## 4.58.2 ( April 10th, 2024)
+
+### Added
+
+- Missing types for ArrayFieldState and useArrayField
+
 ## 4.58.1 ( April 9th, 2024)
 
 ### Added

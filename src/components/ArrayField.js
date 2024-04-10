@@ -238,4 +238,6 @@ ArrayField.Items = ({ children }) => {
   });
 };
 
+ArrayField.Items.displayName = 'ArrayField.Items';
+
 export { ArrayField };

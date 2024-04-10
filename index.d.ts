@@ -133,6 +133,11 @@ export type MultistepState = {
   previousStep: string;
 };
 
+export type ArrayFieldState = {
+  fields: any[];
+  name: string;
+}
+
 export type ArrayFieldApi = {
   add: (amount?: number) => void;
   remove: (index: number) => void;
@@ -398,6 +403,17 @@ export function useConditional(params: {
   native: boolean;
 }): unknown;
 
+export function useArrayField(params: { 
+  name: string;
+  initialValue: any;
+  defaultValue: any;
+  arrayFieldApiRef: React.MutableRefObject<any>;
+}): {
+  render: (children: any) => JSX.Element;
+  arrayFieldState: ArrayFieldState;
+  arrayFieldApi: ArrayFieldApi;
+};
+
 export function useArrayFieldApi(): ArrayFieldApi;
 
 export function useArrayFieldItemApi(): ArrayFieldItemApi;
@@ -423,7 +439,7 @@ declare function ArrayField({
   initialValue,
   arrayFieldApiRef
 }: {
-  children: (arrayFieldItemApi: ArrayFieldApi) => JSX.Element;
+  children: (arrayFieldApi: ArrayFieldApi & ArrayFieldState) => JSX.Element;
   name: string;
   initialValue?: [unknown];
   arrayFieldApiRef?: React.MutableRefObject<any>;

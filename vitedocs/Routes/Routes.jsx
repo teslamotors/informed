@@ -86,6 +86,9 @@ import ArrayFieldSchema from '../Pages/Examples/schemas/ArrayFieldSchema/ArrayFi
 import ConditionalFieldComponent from '../Pages/Examples/schemas/ConditionalSchema/ConditionalSchema';
 import RelevantArrayFieldSchema from '../Pages/Examples/schemas/RelevantArrayFieldSchema/RelevantArrayFieldSchema';
 import CustomSchema from '../Pages/Examples/schemas/CustomSchema/CustomSchema';
+import InitialVsDefault from '../Pages/Examples/Gotchas/InitialVsDefault/InitialVsDefault';
+import ChangeInitialValues from '../Pages/Examples/Gotchas/ChangeInitialValues/ChangeInitialValues';
+import InitializeIfPristine from '../Pages/Examples/Gotchas/InitializeIfPristine/InitializeIfPristine';
 import { AsyncOptions } from '../Pages/ApiReference/AsyncOptions/AsyncOptions';
 
 const RootRoute = () => {
@@ -247,6 +250,13 @@ export const Routes = () => {
         <Route path="dependent-fields" element={<DependentFields />} />
         <Route path="two-way" element={<TwoWayDependence />} />
         <Route path="excel-sheet" element={<ExcelSheet />} />
+        <Route path="initial-vs-default" element={<InitialVsDefault />} />
+        <Route path="change-initial-values" element={<ChangeInitialValues />} />
+        <Route
+          path="initialize-if-pristine"
+          element={<InitializeIfPristine />}
+        />
+
         <Route path="hidden-field" element={<HiddenExample />} />
         <Route path="updating-validation" element={<UpdatingValidation />} />
       </Route>

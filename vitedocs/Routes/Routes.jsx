@@ -89,6 +89,7 @@ import CustomSchema from '../Pages/Examples/schemas/CustomSchema/CustomSchema';
 import InitialVsDefault from '../Pages/Examples/Gotchas/InitialVsDefault/InitialVsDefault';
 import ChangeInitialValues from '../Pages/Examples/Gotchas/ChangeInitialValues/ChangeInitialValues';
 import InitializeIfPristine from '../Pages/Examples/Gotchas/InitializeIfPristine/InitializeIfPristine';
+import { AsyncOptions } from '../Pages/ApiReference/AsyncOptions/AsyncOptions';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -188,6 +189,7 @@ export const Routes = () => {
         <Route path="multistep-state" element={<MultistepState />} />
         <Route path="multistep-dynamic" element={<DynamicMultistep />} />
         <Route path="metadata" element={<Metadata />} />
+        <Route path="async-options" element={<AsyncOptions />} />
         <Route path="debug-component" element={<DebugComponent />} />
         <Route path="debug-logs" element={<DebugLogs />} />
         <Route path="keep-state" element={<KeepState />} />

@@ -23,9 +23,14 @@ export const useRelevance = ({
   const scopeRef = useRef(scope);
   scopeRef.current = scope;
 
+  const depsRef = useRef();
+  depsRef.current = relevanceDeps;
+
   // Relevant state
   const [isRelevant, setIsRelevant, getIsRelevant] = useStateWithGetter(() => {
     if (relevant) {
+      logger(`re-evaluated relevance for ${name} for the first inital load`);
+
       return relevant({
         formState: formController.getFormState(),
         formApi: formController.getFormApi(),
@@ -61,7 +66,7 @@ export const useRelevance = ({
         formState: formController.getFormState(),
         formApi: formController.getFormApi(),
         scope: scopeRef.current,
-        relevanceDeps
+        relevanceDeps: depsRef.current
       });
       // Only update if we changed
       if (getIsRelevant() != rel) {
@@ -88,7 +93,7 @@ export const useRelevance = ({
           formState: formController.getFormState(),
           formApi: formController.getFormApi(),
           scope: scopeRef.current,
-          relevanceDeps
+          relevanceDeps: depsRef.current
         });
         logger(
           `re-evaluated relevance for ${name} because of ${target} and got ${rel}`
@@ -115,13 +120,16 @@ export const useRelevance = ({
   useEffect(
     () => {
       if (relevant) {
+        logger(
+          `re-evaluated relevance for ${name} because name change or relevanceDeps`
+        );
         // When name changes we always check if relevant
         setIsRelevant(
           relevant({
             formState: formController.getFormState(),
             formApi: formController.getFormApi(),
-            scope,
-            relevanceDeps
+            scope: scopeRef.current,
+            relevanceDeps: depsRef.current
           })
         );
       }

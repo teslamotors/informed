@@ -172,8 +172,14 @@ export class FormController {
     this.validateAsync = this.validateAsync.bind(this);
     this.gatherData = this.gatherData.bind(this);
     this.validated = this.validated.bind(this);
-    this.debouncedValidateAsync = debounceByName(this.validateAsync);
-    this.debouncedGatherInfo = debounceByName(this.gatherData);
+    this.debouncedValidateAsync = debounceByName(
+      this.validateAsync,
+      this.options.current.debounceError
+    );
+    this.debouncedGatherInfo = debounceByName(
+      this.gatherData,
+      this.options.current.debounceGather
+    );
     this.getOptions = this.getOptions.bind(this);
     this.validateField = this.validateField.bind(this);
     this.getErrorMessage = this.getErrorMessage.bind(this);
@@ -493,7 +499,7 @@ export class FormController {
       this.emit('field-native', name);
     }
 
-    if (meta.gatherData) {
+    if (meta.gatherData && !meta.gatherOnBlur) {
       // Get error to determine if we even want to validateAsync
       this.debouncedGatherInfo(name);
     }
@@ -646,6 +652,11 @@ export class FormController {
 
     // Remember to update valid
     this.updateValid();
+
+    // Gather data on blur if user passed gatherOnBlur
+    if (meta.gatherData && meta.gatherOnBlur) {
+      this.debouncedGatherInfo(name);
+    }
 
     // Call users onBlur if it exists
     if (meta.onBlur) {

@@ -1,5 +1,14 @@
 import React from 'react';
-import { Sandpack } from '@codesandbox/sandpack-react';
+import { ActionButton, Tooltip, TooltipTrigger } from '@adobe/react-spectrum';
+import Copy from '@spectrum-icons/workflow/Copy';
+
+import {
+  SandpackCodeEditor,
+  SandpackLayout,
+  SandpackPreview,
+  SandpackProvider,
+  useSandpack
+} from '@codesandbox/sandpack-react';
 
 const style = `
 body {
@@ -316,7 +325,11 @@ export const Form = ({ children, ...rest }) => {
   const { formController, render, userProps } = useForm({ ...rest, adapter });
 
   return render(
-    <form noValidate {...userProps} onSubmit={formController.submitForm}>
+    <form 
+      noValidate 
+      {...userProps} 
+      onReset={formController.reset} 
+      onSubmit={formController.submitForm}>
       {children}
     </form>
   );
@@ -329,9 +342,35 @@ export const Car = () => {
 }
 `;
 
+// Custom hook inside a component that's a child of SandpackProvider
+const CodeListenerAndCopyButton = ({ filePath }) => {
+  const { sandpack } = useSandpack();
+
+  const { files, activeFile } = sandpack;
+
+  const currentCode = files[activeFile].code;
+
+  return (
+    <TooltipTrigger>
+      <ActionButton
+        aria-label="Copy Code"
+        onPress={() => {
+          navigator.clipboard.writeText(
+            `https://teslamotors.github.io/informed/playground?code=${btoa(
+              currentCode.replace("import style from './style.css';", '')
+            )}`
+          );
+        }}>
+        <Copy />
+      </ActionButton>
+      <Tooltip>Sharable Url</Tooltip>
+    </TooltipTrigger>
+  );
+};
+
 export const CodeBlock = ({ code }) => {
   return (
-    <Sandpack
+    <SandpackProvider
       template="react"
       theme="dark"
       files={{
@@ -343,20 +382,25 @@ export const CodeBlock = ({ code }) => {
       }}
       options={{
         showLineNumbers: true,
-        showNavigator: true,
-        classes: {
-          'sp-wrapper': 'sp-wrapper',
-          'sp-layout': 'sp-layout'
-        },
-        editorHeight: '100%',
-        editorWidthPercentage: 60
+        showNavigator: true
       }}
       customSetup={{
         dependencies: {
           informed: 'latest'
         },
         entry: '/index.js'
-      }}
-    />
+      }}>
+      <div style={{ display: 'flex' }}>
+        <div style={{ width: '100%' }}>
+          <SandpackLayout className="sp-layout">
+            <SandpackCodeEditor style={{ height: '100%', minWidth: '60%' }} />
+            <SandpackPreview style={{ height: '100%' }} />
+          </SandpackLayout>
+        </div>
+        <div style={{ marginLeft: '10px' }}>
+          <CodeListenerAndCopyButton />
+        </div>
+      </div>
+    </SandpackProvider>
   );
 };

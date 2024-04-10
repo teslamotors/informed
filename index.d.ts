@@ -3,6 +3,7 @@ import React from 'react';
 export type FormState = {
   pristine: boolean;
   dirty: boolean;
+  disabled: boolean;
   submitted: boolean;
   valid: boolean;
   invalid: boolean;
@@ -132,12 +133,18 @@ export type MultistepState = {
   previousStep: string;
 };
 
+export type ArrayFieldState = {
+  fields: any[];
+  name: string;
+}
+
 export type ArrayFieldApi = {
   add: (amount?: number) => void;
   remove: (index: number) => void;
   reset: () => void;
   swap: (a: number, b: number) => void;
   addWithInitialValue: (value: any) => void;
+  clear: () => void;
 };
 
 export type ArrayFieldItemApi = {
@@ -197,10 +204,13 @@ export type InformedProps<UserProps> = {
   ajvErrors?: any;
   onlyValidateSchema?: boolean;
   components?: any;
+  adapter?: Record<string | number | symbol, React.FC>;
   errorMessage?: Record<string, unknown>;
   focusOnInvalid?: boolean;
   resetOnlyOnscreen?: boolean;
   scrollOnInvalid?: ScrollIntoViewOptions;
+  debounceGather?: number;
+  debounceError?: number;
 } & Omit<UserProps, 'onSubmit' | 'onReset' | 'onChange' | 'onSubmitFailure'>;
 
 export type RelevantParams = {
@@ -393,11 +403,35 @@ export function useConditional(params: {
   native: boolean;
 }): unknown;
 
+export function useArrayField(params: { 
+  name: string;
+  initialValue: any;
+  defaultValue: any;
+  arrayFieldApiRef: React.MutableRefObject<any>;
+}): {
+  render: (children: any) => JSX.Element;
+  arrayFieldState: ArrayFieldState;
+  arrayFieldApi: ArrayFieldApi;
+};
+
+export function useArrayFieldApi(): ArrayFieldApi;
+
+export function useArrayFieldItemApi(): ArrayFieldItemApi;
+
 export function FormStateAccessor({
   children
 }: {
   children: (formState: FormState) => JSX.Element;
 }): JSX.Element;
+
+declare function FormFields({
+  schema,
+  onlyValidateSchema
+}: {
+  /** Json Schema */
+  schema: any,
+  onlyValidateSchema: boolean
+}): JSX.Element[];
 
 declare function ArrayField({
   children,
@@ -405,7 +439,7 @@ declare function ArrayField({
   initialValue,
   arrayFieldApiRef
 }: {
-  children: (arrayFieldItemApi: ArrayFieldApi) => JSX.Element;
+  children: (arrayFieldApi: ArrayFieldApi & ArrayFieldState) => JSX.Element;
   name: string;
   initialValue?: [unknown];
   arrayFieldApiRef?: React.MutableRefObject<any>;

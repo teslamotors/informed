@@ -1,3 +1,48 @@
+## 4.58.2 ( April 10th, 2024)
+
+### Added
+
+- Missing types for ArrayFieldState and useArrayField
+
+## 4.58.1 ( April 9th, 2024)
+
+### Added
+
+- Missing types for schema, FormState, useArrayFieldApi, and useArrayFieldItemApi.
+
+## 4.58.0 ( April 1st, 2024)
+
+### Added
+
+- Ability to pass `debounceGather={1000}` prop to form that will increase the debounce on the gatherData function
+- Ability to pass `debounceError={1000}` prop to form that will increase the debounce on the asyncValidate function
+- Note these ^^^ are at form level not field level ( will look into this at a later date )
+
+## 4.57.0 ( March 26th, 2024)
+
+### Added
+
+- ability to pass noFalsy to enable required validation even when value is a falsy value ( by default it only works for null/undefined/zero/or empty array ) the value `false` is considered to be a value
+- ability to pass `gatherOnBlur` to only gather data on blur
+
+## 4.56.3 ( March 4th, 2024)
+
+### Fixed
+
+- a console log I left in the code lol
+
+## 4.56.2 ( March 1st, 2024)
+
+### Fixed
+
+- issue with nested array field addWithInitialValue not working
+
+## 4.56.1 ( March 1st, 2024)
+
+### Fixed
+
+- issue with relevnace deps in multistep
+
 ## 4.56.0 ( Jan 24th, 2024)
 
 ### Added

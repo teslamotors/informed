@@ -50,6 +50,8 @@ export const useForm = ({
   focusOnInvalid,
   scrollOnInvalid,
   resetOnlyOnscreen,
+  debounceGather,
+  debounceError,
   ...userProps
 }) => {
   // Register this controller by name if we are in global context
@@ -93,7 +95,9 @@ export const useForm = ({
     validateModified,
     focusOnInvalid,
     scrollOnInvalid,
-    resetOnlyOnscreen
+    resetOnlyOnscreen,
+    debounceGather,
+    debounceError
   };
 
   const optionsRef = useRef();

@@ -120,6 +120,9 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/metadata" exact>
         Metadata
       </NavLink>
+      <NavLink href="/api-reference/async-options" exact>
+        Async Options
+      </NavLink>
       <h3>Global Forms</h3>
       <NavLink href="/api-reference/global-field-state" exact>
         Field State

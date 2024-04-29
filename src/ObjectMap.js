@@ -45,6 +45,19 @@ const ldSwap = (arr, a, b) => {
   }
 };
 
+/* --------------------- move --------------------- */
+const ldmove = (arr, fromIndex, toIndex) => {
+  if (Array.isArray(arr) && fromIndex < arr.length && toIndex < arr.length) {
+    const item = arr.splice(fromIndex, 1)[0];
+    arr.splice(toIndex, 0, item);
+  } else {
+    // Handle invalid operation more gracefully in real scenarios
+    console.warn(
+      `Attempted to move from ${fromIndex} to ${toIndex} but the operation is not valid.`
+    );
+  }
+};
+
 /* --------------------- has --------------------- */
 
 // foo -->
@@ -285,7 +298,6 @@ export class ObjectMap {
     return newObj;
   }
 
-  // Very important ;)
   static swap(object, path, i, j) {
     // Get the path to the array
     console.log('Swaping out out:', path, i, j);
@@ -296,6 +308,18 @@ export class ObjectMap {
     if (Array.isArray(arr)) {
       ldSwap(arr, i, j);
     }
+  }
+
+  static move(object, path, fromIndex, toIndex) {
+    console.log('Moving:', path, fromIndex, 'to', toIndex);
+    // Get the array at the specified path
+    const arr = ldget(object, path);
+    console.log('Array before move', JSON.stringify(arr));
+
+    // Use ldmove to perform the operation
+    ldmove(arr, fromIndex, toIndex);
+
+    console.log('Array after move', JSON.stringify(arr));
   }
 }
 

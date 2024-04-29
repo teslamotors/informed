@@ -1,3 +1,9 @@
+## 4.58.1 ( April 29th, 2024)
+
+### Removed
+
+- `react-dom` from peer deps as native app will yell at you :)
+
 ## 4.58.2 ( April 10th, 2024)
 
 ### Added

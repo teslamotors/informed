@@ -859,12 +859,20 @@ export const createIntlNumberFormatter = (
     // float = 3000.25
     // console.log('float', float);
 
+    // Special case if only decimal Char
+    let isDecimalChar = false;
+    if (float == '.') {
+      isDecimalChar = true;
+    }
+
     const fraction = `${float}`.split('.')[1];
 
     // fraction = 25
     // console.log('fraction', fraction);
 
-    const number = isNegative ? -Number(float) : Number(float);
+    let number = isNegative ? -Number(float) : Number(float);
+
+    // console.log('number', number);
 
     const numberParts = toParts(number);
 
@@ -952,6 +960,12 @@ export const createIntlNumberFormatter = (
 
     // const endOfMask = maskArray.slice(lastDigitIndex + 1).join('');
     // maskArray = [...maskArray.slice(0, lastDigitIndex + 1), endOfMask];
+
+    if (isDecimalChar) {
+      maskArray = maskArray.map(
+        item => (item == 'NaN' ? `0${decimalChar}` : item)
+      );
+    }
 
     // console.log('maskArray', maskArray);
 

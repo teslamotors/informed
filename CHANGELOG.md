@@ -1,3 +1,9 @@
+## 4.58.4 ( May 1st, 2024)
+
+### Fixed
+
+- Issue where if user typed `.` into a formatted currency field it would result in a NAN
+
 ## 4.58.3 ( April 29th, 2024)
 
 ### Removed

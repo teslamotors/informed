@@ -2,7 +2,7 @@
 
 ### Fixed
 
-- Issue where if user typed `.` into a formatted currency field it would result in a NAN
+- Issue where if user typed `.` into a formatted number field it would result in a NAN
 
 ## 4.58.3 ( April 29th, 2024)
 

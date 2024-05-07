@@ -326,7 +326,8 @@ export const generateValidationFunction = (
     validateModified,
     fieldApi,
     formController,
-    scope
+    scope,
+    name
   }
 ) => (val, values) => {
   let error;
@@ -367,7 +368,8 @@ export const generateValidationFunction = (
     error = validationFuncRef.current(val, values, {
       formState: formController.getFormState(),
       formApi: formController.getFormApi(),
-      scope
+      scope,
+      name
     });
     if (error !== undefined) return error;
   }

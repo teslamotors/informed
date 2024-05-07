@@ -1,3 +1,23 @@
+## 4.59.0 ( May 7th, 2024)
+
+### Added
+
+- Ability to use name inside of validate function at field level
+
+Example:
+
+```js
+<Scope scope="hello">
+  <Input
+    name="world"
+    label="World"
+    validate={(value, values, { scope, name }) => {
+      console.log(`${scope}.${name}`); // ==> hello.world
+    }}
+  />
+</Scope>
+```
+
 ## 4.58.4 ( May 1st, 2024)
 
 ### Fixed

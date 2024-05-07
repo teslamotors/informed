@@ -190,9 +190,10 @@ export const useField = ({
         validateModified,
         fieldApi,
         formController,
-        scope
+        scope,
+        name: n
       }),
-    [required, minimum, maximum, minLength, maxLength, pattern, noFalsy]
+    [required, minimum, maximum, minLength, maxLength, pattern, noFalsy, n]
   );
 
   // Create meta object

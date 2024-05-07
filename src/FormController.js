@@ -1234,8 +1234,11 @@ export class FormController {
   }
 
   reset(options = {}) {
+    debug('Resetting Form');
+
     // There are cases where we dont want to blow away all the form values
     if (this.options.current.resetOnlyOnscreen) {
+      debug('Resetting only onscreen inputs');
       this.state.initialValues = this.options.current.initialValues ?? {};
       this.fieldsMap.forEach(fieldMeta => {
         fieldMeta.current.fieldApi.reset({ resetValue: resetValues });
@@ -1270,6 +1273,7 @@ export class FormController {
     };
 
     this.fieldsMap.forEach(fieldMeta => {
+      debug(`Resetting the field, ${fieldMeta.current.name}`);
       fieldMeta.current.fieldApi.reset({ resetValue: resetValues });
     });
 

@@ -1,3 +1,9 @@
+## 4.59.1 ( May 7th, 2024)
+
+### Added
+
+- Extra debug logging for reset
+
 ## 4.59.0 ( May 7th, 2024)
 
 ### Added

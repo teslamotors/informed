@@ -206,6 +206,9 @@ export const useForm = ({
       // If the form is pristine then reset it when we get new initial values !
       const { pristine } = formApi.getFormState();
       if (pristine) {
+        logger(
+          'Resetting entire form as form is pristine and we got new initial values'
+        );
         formApi.reset();
       }
     },

@@ -59,6 +59,13 @@ const Example = () => {
           }}>
           Update All
         </Button>
+        <Button
+          type="button"
+          onClick={() => {
+            formApiRef.current.reset();
+          }}>
+          Reset
+        </Button>
       </div>
       <FormProvider formApiRef={formApiRef}>
         <div style={{ overflow: 'scroll', width: '70vw', marginTop: '1rem' }}>

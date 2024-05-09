@@ -87,11 +87,21 @@ export const useFieldSubscription = (
       };
 
       formController.emitter.on(event, listener);
+      if (scopedFields.length) {
+        debug(
+          `Adding subscription on event ${event}, subscribing to events from ${scopedFields}`
+        );
+      }
 
       // When name changes we always force an update!
       // forceUpdate();
 
       return () => {
+        if (scopedFields.length) {
+          debug(
+            `Removing subscription on event ${event}, un-subscribing to events from ${scopedFields}`
+          );
+        }
         formController.emitter.removeListener(event, listener);
       };
     },

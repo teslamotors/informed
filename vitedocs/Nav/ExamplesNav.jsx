@@ -6,7 +6,6 @@ export const ExamplesNav = () => {
       <h3>Arrays</h3>
       <NavLink href="/examples/array-field">Array Field</NavLink>
       <NavLink href="/examples/array-field-unique">Unique Validation</NavLink>
-      {/* <NavLink href="/examples/huge-array-field">Huge Array Field</NavLink> */}
       <h3>Validation</h3>
       <NavLink href="/examples/async-validation">Async Validation</NavLink>
       <NavLink href="/examples/paired-validation">Paired Validation</NavLink>
@@ -70,11 +69,17 @@ export const ExamplesNav = () => {
       </NavLink>
       <h3>Hidden</h3>
       <NavLink href="/examples/hidden-field">Hidden Field</NavLink>
-      {/* <h3>Huge Forms</h3> */}
-      {/* <NavLink href="/examples/huge-form">Huge Form</NavLink> */}
+      <h3>Huge Forms</h3>
+      <NavLink href="/examples/huge-form">Huge Form</NavLink>
+      <NavLink href="/examples/huge-array-field">Huge Array Field</NavLink>
       <h3>Cool</h3>
       <NavLink href="/examples/elon-musk">Elon Musk</NavLink>
       <NavLink href="/examples/new-product">New Product</NavLink>
+      <h3>Fixed Bugs</h3>
+      <NavLink href="/examples/after-relevance-bug">After Render Bug</NavLink>
+      <NavLink href="/examples/after-relevance-bug-array">
+        After Render Bug in Array
+      </NavLink>
     </ul>
   );
 };

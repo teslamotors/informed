@@ -37,6 +37,9 @@ export const useArrayField = ({
   // Gook onto the form api
   const formApi = useFormApi();
 
+  // For knowing if we are performing reset
+  const resetRef = useRef(false);
+
   // Map will store all fields by name
   // Key => name
   // Val => fieldMetaRef
@@ -149,23 +152,24 @@ export const useArrayField = ({
 
   const reset = () => {
     // First wipe the existing state
-    // Array fields are unique.. because reset will create new keys everything below gets wiped
-    // So, we can start by simply wiping out the state below here ( same thing we do at form level reset )
-    // ^^ By this I mean in form level reset we first wipe the form state :) so we can do same thing here!
+    // Array fields are unique.. because reset will create new keys every field will get unmounted
+    // So, we can start by simply wiping out the keys below here ( same thing we do at form level reset )
+    // this will result in all fields performing their cleanup rutines
+    logger(`------------ ${name} Array Field Reset Start ------------`);
+    // Performing reset so we set the flag
+    resetRef.current = true;
+    // Remove array field
     formController.remove(name);
-    // When resetting we reset to the users initial value not the one tracked by this hook
+    // Build new initial values
     const initVals =
       initialValueRef.current ||
       formController.getInitialValue(name) ||
       defaultValueRef.current ||
       [];
-
     // Set our initial values back to what the user set at beginning
     setInitialValues(initVals);
-    // Build a new set of keys because everything is new !!!
-    const resetKeys = initVals ? initVals.map(() => uuidv4()) : [];
-    // Finally set that shit !
-    setKeys(resetKeys);
+    // Clear out keys ( we wait until all fields have deregistered before resetting )
+    setKeys([]);
   };
 
   const clear = () => {
@@ -247,9 +251,27 @@ export const useArrayField = ({
           fieldsMap.set(n, m);
           formController.register(n, m);
         },
-        deregister: (n, m) => {
+        deregister: n => {
+          formController.deregister(n);
+          // Remove from our map
           fieldsMap.delete(n);
-          formController.deregister(n, m);
+          // On last deregister we finally complete
+          // console.log(`${name}-WTF1`, fieldsMap.size);
+          // console.log(`${name}-WTF2`, resetRef.current);
+          // NOTE: I originally tried to put the below logic inside of remove
+          // However this cuases issues because deregister is called with the correct name where remove may have old name
+          // Example  [ 0, 1, 2 ] if we remove 1 then 2 moves to 1s place
+          if (!fieldsMap.size && resetRef.current) {
+            // V important we flag that we are done performing reset as all fields have deregistered
+            resetRef.current = false;
+            // For debug logging we show when complete
+            logger(`------------ ${name} Array Field Reset End ------------`);
+            const initVals = getInitialValues();
+            // Build a new set of keys because everything is new !!!
+            const resetKeys = initVals ? initVals.map(() => uuidv4()) : [];
+            // Finally set that shit !
+            setKeys(resetKeys);
+          }
         },
         getInitialValue: fieldName => {
           // If we are getting initial value and its for this field return that
@@ -269,7 +291,7 @@ export const useArrayField = ({
           if (modifiedFieldName === name) {
             const path = fieldName.replace(name, '');
             const v = ObjectMap.get(getInitialValues(), path);
-            logger(`Resetting ${path} to ${v}`);
+            logger(`Getting initial value for ${path} which is ${v}`);
             return v;
           }
           return formController.getInitialValue(fieldName);

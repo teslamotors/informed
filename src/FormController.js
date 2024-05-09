@@ -926,8 +926,8 @@ export class FormController {
   }
 
   deregister(name) {
-    debug('De-Register', name);
     if (this.fieldsMap.get(name)) {
+      debug('De-Register', name);
       this.fieldsMap.delete(name);
       this.emit('field', name);
     }
@@ -1234,7 +1234,9 @@ export class FormController {
   }
 
   reset(options = {}) {
-    debug('Resetting Form');
+    debug(
+      '----------------------------- Resetting Form -----------------------------'
+    );
 
     // There are cases where we dont want to blow away all the form values
     if (this.options.current.resetOnlyOnscreen) {
@@ -1272,10 +1274,41 @@ export class FormController {
       memory: {}
     };
 
+    // Two itterations, one for array fields then a second one for non array fields
+    // Why? an array field reset will blow away any fields under it anyways :) so why waste time calling reset
+
+    // STEP1: Array field reset
     this.fieldsMap.forEach(fieldMeta => {
-      debug(`Resetting the field, ${fieldMeta.current.name}`);
-      fieldMeta.current.fieldApi.reset({ resetValue: resetValues });
+      if (fieldMeta.current.arrayField) {
+        debug(`Resetting the array field, ${fieldMeta.current.name}`);
+        fieldMeta.current.fieldApi.reset({ resetValue: resetValues });
+      }
     });
+
+    // STEP2: Reset all the other fields
+    this.fieldsMap.forEach(fieldMeta => {
+      if (!fieldMeta.current.arrayField) {
+        debug(`Resetting the field, ${fieldMeta.current.name}`);
+        fieldMeta.current.fieldApi.reset({ resetValue: resetValues });
+      }
+    });
+
+    // Need to peform validation at the end where all values have now been reset
+    // This fixed an issue, so now validateOnMount is consistant with first render
+    this.fieldsMap.forEach(fieldMeta => {
+      if (fieldMeta.current.validateOnMount) {
+        debug(
+          `Re-validating the field, ${
+            fieldMeta.current.name
+          } due to a reset and validateOnMount`
+        );
+        fieldMeta.current.fieldApi.validate();
+      }
+    });
+
+    debug(
+      '----------------------------- END Resetting Form -----------------------------'
+    );
 
     this.emit('reset');
   }

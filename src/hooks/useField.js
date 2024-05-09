@@ -361,11 +361,6 @@ export const useField = ({
   //   [userInitialValue, defaultValue]
   // );
 
-  useFieldSubscription('field-value', validateWhen, target => {
-    logger(`revalidating for ${metaRef.current.name} because of ${target}`);
-    formController.validateField(metaRef.current.name);
-  });
-
   useFieldSubscription(
     'field-value',
     [name],
@@ -376,6 +371,11 @@ export const useField = ({
     },
     false // No scope as we are already scoped
   );
+
+  useFieldSubscription('field-value', validateWhen, target => {
+    logger(`revalidating for ${metaRef.current.name} because of ${target}`);
+    formController.validateField(metaRef.current.name);
+  });
 
   useUpdateEffect(() => {
     logger(`revalidating for ${metaRef.current.name} because of deps change`);

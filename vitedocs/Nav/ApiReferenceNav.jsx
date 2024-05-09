@@ -79,6 +79,9 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/arrays-array-field-clear" exact>
         ArrayField Clear
       </NavLink>
+      <NavLink href="/api-reference/arrays-nested-array-field" exact>
+        Nesetd ArrayField
+      </NavLink>
       <h3>Schema</h3>
       <NavLink href="/api-reference/schema-intro" exact>
         Intro

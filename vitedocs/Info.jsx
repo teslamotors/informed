@@ -6,7 +6,9 @@ export const Info = ({ children, type = 'informative' }) => {
     <div className="info-box">
       <Well>
         <Flex gap="size-100">
-          <InfoOutline size="S" color={type} />
+          <span>
+            <InfoOutline size="S" color={type} />
+          </span>
           <div className="info">{children}</div>
         </Flex>
       </Well>

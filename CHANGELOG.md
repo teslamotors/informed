@@ -1,3 +1,9 @@
+## 4.60.0 ( May 9th, 2024)
+
+### Fixed
+
+- A very complex issue that involved validation validating with icorrect form values in unique cases where a field "a" would depend on the value of field "b" and field "b" comes after field "a". This issue is so hard to simply describe here that instead I made two docs pages to talk about them with examples haha see [here](https://teslamotors.github.io/informed/examples/after-relevance-bug)
+
 ## 4.59.1 ( May 7th, 2024)
 
 ### Added

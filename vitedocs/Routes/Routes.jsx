@@ -90,6 +90,9 @@ import InitialVsDefault from '../Pages/Examples/Gotchas/InitialVsDefault/Initial
 import ChangeInitialValues from '../Pages/Examples/Gotchas/ChangeInitialValues/ChangeInitialValues';
 import InitializeIfPristine from '../Pages/Examples/Gotchas/InitializeIfPristine/InitializeIfPristine';
 import { AsyncOptions } from '../Pages/ApiReference/AsyncOptions/AsyncOptions';
+import AfterRenderBug from '../Pages/Examples/AfterRenderBug/AfterRenderBug';
+import AfterRenderBugArray from '../Pages/Examples/AfterRenderBugArray/AfterRenderBugArray';
+import NestedArrayField from '../Pages/ApiReference/Arrays/NestedArrrayField/NestedArrrayField';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -162,6 +165,10 @@ export const Routes = () => {
         <Route path="arrays-array-field-item" element={<ArrayFieldItem />} />
         <Route path="arrays-array-field-reset" element={<ArrayFieldReset />} />
         <Route path="arrays-array-field-clear" element={<ArrayFieldClear />} />
+        <Route
+          path="arrays-nested-array-field"
+          element={<NestedArrayField />}
+        />
         <Route path="validation-messages" element={<ValidationMessages />} />
         <Route path="schema-intro" element={<SchemaIntro />} />
         <Route path="relevant-schema" element={<RelevanceSchema />} />
@@ -259,6 +266,11 @@ export const Routes = () => {
 
         <Route path="hidden-field" element={<HiddenExample />} />
         <Route path="updating-validation" element={<UpdatingValidation />} />
+        <Route path="after-relevance-bug" element={<AfterRenderBug />} />
+        <Route
+          path="after-relevance-bug-array"
+          element={<AfterRenderBugArray />}
+        />
       </Route>
       <Route path="home" element={<Home />} />
       <Route path="unauthorized" element={<NotAuthorized />} />

@@ -136,7 +136,7 @@ export type MultistepState = {
 export type ArrayFieldState = {
   fields: any[];
   name: string;
-}
+};
 
 export type ArrayFieldApi = {
   add: (amount?: number) => void;
@@ -403,7 +403,7 @@ export function useConditional(params: {
   native: boolean;
 }): unknown;
 
-export function useArrayField(params: { 
+export function useArrayField(params: {
   name: string;
   initialValue: any;
   defaultValue: any;
@@ -429,8 +429,8 @@ declare function FormFields({
   onlyValidateSchema
 }: {
   /** Json Schema */
-  schema: any,
-  onlyValidateSchema: boolean
+  schema: any;
+  onlyValidateSchema?: boolean;
 }): JSX.Element[];
 
 declare function ArrayField({

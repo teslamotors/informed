@@ -370,7 +370,10 @@ export function useField<UserProps, FieldValue>(
 ): {
   fieldState: FieldState;
   fieldApi: FieldApi;
-  userProps: UserProps;
+  userProps: Omit<
+    UserProps,
+    'onChange' | 'onBlur' | 'onFocus' | 'value' | 'defaultValue' | 'required'
+  >;
   informed: {
     onChange(event: React.SyntheticEvent): void;
     onBlur(event: React.SyntheticEvent): void;

@@ -1,3 +1,9 @@
+## 4.60.1 ( May 28th, 2024)
+
+### Fixed
+
+- Issue with useField user props not omitting "'onChange' | 'onBlur' | 'onFocus' | 'value' | 'defaultValue' | 'required'"
+
 ## 4.60.0 ( May 9th, 2024)
 
 ### Fixed

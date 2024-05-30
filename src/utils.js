@@ -721,7 +721,10 @@ export const informedFormatter = (val, frmtr, old, full) => {
     // Special case, we want to diable keeping suffix on backspace in react native
     if (
       typeof navigator !== 'undefined' &&
-      navigator.product === 'ReactNative'
+      navigator.product === 'ReactNative' &&
+      value &&
+      old &&
+      value.length < old.length
     ) {
       // I'm in react-native
       formattedString = formattedString.slice(0, suffixStart);

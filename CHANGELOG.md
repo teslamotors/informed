@@ -1,3 +1,9 @@
+## 4.60.2 ( May 30th, 2024)
+
+### Fixed
+
+- Issue where formatting in react native with number formatter would not allow user to type a decimal "2."
+
 ## 4.60.1 ( May 28th, 2024)
 
 ### Fixed

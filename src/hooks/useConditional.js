@@ -3,9 +3,20 @@ import { ScopeContext } from '../Context';
 import { useFormController } from './useFormController';
 import { useFieldSubscription } from './useFieldSubscription';
 import { Debug } from '../debug';
+
 const logger = Debug('informed:useConditional' + '\t');
 
-/* ----------------------- useDepends ----------------------- */
+/**
+ * Custom hook for handling conditional logic based on form state.
+ *
+ * @param {object} options - The options for conditional evaluation.
+ * @param {string} options.name - The name of the conditional field.
+ * @param {function} options.evaluate - The evaluation function for conditional logic.
+ * @param {Array<string|number|symbol>} [options.evaluateWhen=[]] - The fields to watch for triggering re-evaluation.
+ * @param {Array<string>} [options.dependsOn=[]] - The fields that the evaluation depends on.
+ * @param {boolean} [options.native=false] - Whether to use native events for evaluation.
+ * @returns {object} - The props object with conditional properties.
+ */
 export const useConditional = ({
   name,
   evaluate,
@@ -38,18 +49,15 @@ export const useConditional = ({
 
   const check = typeof evaluateWhen === 'function' ? [] : evaluateWhen;
 
-  const fields = useMemo(
-    () => {
-      if (typeof evaluateWhen === 'function') {
-        // Generate fields array with scope
-        // Example: evaluateWhen = scope => [`${scope}.foo`, `${scope}.bar`]
-        return evaluateWhen(scope);
-      }
-      // Example evaluateWhen = ["name", "age"]
-      return evaluateWhen;
-    },
-    [...check, scope]
-  );
+  const fields = useMemo(() => {
+    if (typeof evaluateWhen === 'function') {
+      // Generate fields array with scope
+      // Example: evaluateWhen = scope => [`${scope}.foo`, `${scope}.bar`]
+      return evaluateWhen(scope);
+    }
+    // Example evaluateWhen = ["name", "age"]
+    return evaluateWhen;
+  }, [...check, scope]);
 
   const event = native ? 'field-native' : 'field-value';
 
@@ -73,22 +81,19 @@ export const useConditional = ({
     !(typeof evaluateWhen === 'function')
   );
 
-  useEffect(
-    () => {
-      if (evaluate) {
-        // When name changes we always check if relevant
-        setProps(
-          evaluate({
-            formState: formController.getFormState(),
-            formApi: formController.getFormApi(),
-            scope,
-            dependsOn
-          })
-        );
-      }
-    },
-    [name, ...dependsOn]
-  );
+  useEffect(() => {
+    if (evaluate) {
+      // When name changes we always check if relevant
+      setProps(
+        evaluate({
+          formState: formController.getFormState(),
+          formApi: formController.getFormApi(),
+          scope,
+          dependsOn
+        })
+      );
+    }
+  }, [name, ...dependsOn]);
 
   // Trigger evaluate on a reset of form
   useEffect(() => {

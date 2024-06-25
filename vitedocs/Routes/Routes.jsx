@@ -93,6 +93,7 @@ import { AsyncOptions } from '../Pages/ApiReference/AsyncOptions/AsyncOptions';
 import AfterRenderBug from '../Pages/Examples/AfterRenderBug/AfterRenderBug';
 import AfterRenderBugArray from '../Pages/Examples/AfterRenderBugArray/AfterRenderBugArray';
 import NestedArrayField from '../Pages/ApiReference/Arrays/NestedArrrayField/NestedArrrayField';
+import ChangeInitialValuesArrayField from '../Pages/Examples/Gotchas/ChangeInitialValuesArrayField/ChangeInitialValuesArrayField';
 
 const RootRoute = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -259,6 +260,10 @@ export const Routes = () => {
         <Route path="excel-sheet" element={<ExcelSheet />} />
         <Route path="initial-vs-default" element={<InitialVsDefault />} />
         <Route path="change-initial-values" element={<ChangeInitialValues />} />
+        <Route
+          path="array-change-initial-values"
+          element={<ChangeInitialValuesArrayField />}
+        />
         <Route
           path="initialize-if-pristine"
           element={<InitializeIfPristine />}

@@ -56,6 +56,9 @@ export const ExamplesNav = () => {
       <NavLink href="/examples/change-initial-values">
         Change Initial Values
       </NavLink>
+      <NavLink href="/examples/array-change-initial-values">
+        Change Initial Values Array Field
+      </NavLink>
       <NavLink href="/examples/initialize-if-pristine">
         Initialize Value If Pristine
       </NavLink>

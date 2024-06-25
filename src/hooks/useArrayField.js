@@ -170,6 +170,20 @@ export const useArrayField = ({
     setInitialValues(initVals);
     // Clear out keys ( we wait until all fields have deregistered before resetting )
     setKeys([]);
+
+    // ---vv Special case when there are no fields so we do it right away vv---
+    if (!fieldsMap.size && resetRef.current) {
+      // V important we flag that we are done performing reset as all fields have deregistered
+      resetRef.current = false;
+      // For debug logging we show when complete
+      logger(`------------ ${name} Array Field Reset End ------------`);
+      const initVals = getInitialValues();
+      // Build a new set of keys because everything is new !!!
+      const resetKeys = initVals ? initVals.map(() => uuidv4()) : [];
+      // Finally set that shit !
+      setKeys(resetKeys);
+    }
+    // ---^^ Special case when there are no fields so we do it right away ^^---
   };
 
   const clear = () => {

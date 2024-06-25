@@ -1,3 +1,9 @@
+## 4.60.3 ( June 24th, 2024)
+
+### Fixed
+
+- Issue where resetting array field with no values would never set to new initial values
+
 ## 4.60.2 ( May 30th, 2024)
 
 ### Fixed

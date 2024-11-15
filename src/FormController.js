@@ -383,7 +383,8 @@ export class FormController {
         const res = informedFormat(
           val,
           meta.formatter,
-          this.getMaskedValue(name)
+          this.getMaskedValue(name),
+          meta.dir
         );
         meta.setCursorOffset(res.offset, key);
         maskedVal = res.value;

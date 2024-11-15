@@ -467,7 +467,7 @@ export const informedParse = (val, parser) => {
   return parser(val);
 };
 
-export const informedFormat = (val, frmtr, old) => {
+export const informedFormat = (val, frmtr, old, dir = 'ltr') => {
   // Our formatter is an object! so we must format for each key
   // Example:
   //
@@ -486,7 +486,8 @@ export const informedFormat = (val, frmtr, old) => {
           val[key],
           frmtr[key],
           old ? old[val] : undefined,
-          val
+          val,
+          dir
         );
         formattedVal[key] = value;
         formattedOffset[key] = offset;
@@ -501,10 +502,10 @@ export const informedFormat = (val, frmtr, old) => {
     };
   }
   // Simply pass along if its a flat formatter
-  return informedFormatter(val, frmtr, old, val);
+  return informedFormatter(val, frmtr, old, val, dir);
 };
 
-export const informedFormatter = (val, frmtr, old, full) => {
+export const informedFormatter = (val, frmtr, old, full, dir) => {
   // console.log('Formatting', val);
   debug('Formatting', val);
   debug('Full Value', full);
@@ -699,7 +700,8 @@ export const informedFormatter = (val, frmtr, old, full) => {
     value &&
     old &&
     value.length < old.length &&
-    value.length >= suffixStart;
+    value.length >= suffixStart &&
+    dir != 'rtl';
   // Special case2:
   // Suffix is '%'
   // user types 20|
@@ -714,9 +716,13 @@ export const informedFormatter = (val, frmtr, old, full) => {
     suffixStart &&
     formatted.length > suffixStart &&
     (!old || (typeof old === 'string' && !old.includes(suffix)));
+  // && dir != 'rtl';
   if (case1 || case2) {
     offset = 0;
     // console.log('OFFSET OVERRIDE', offset, case1 ? 'case1' : 'case2');
+
+    // Special case if right to left then we actually want to offset by one
+    if (dir == 'rtl') offset = 1;
 
     // Special case, we want to diable keeping suffix on backspace in react native
     if (

@@ -69,7 +69,7 @@ export const useForm = ({
   );
 
   // If we have a schema allow user to add magic validation to the schema before passing it in!!
-  if (window?.informed?.properties) {
+  if (typeof window !== 'undefined' && window?.informed?.properties) {
     const properties = window?.informed?.properties;
     Object.keys(properties).forEach(key => {
       if (schema.properties[key]) {

@@ -1,3 +1,9 @@
+## 4.60.5 ( Nov 21st, 2024)
+
+### Fixed
+
+- Issue where window value was not checked for in useForm
+
 ## 4.60.4 ( Nov 15th, 2024)
 
 ### Fixed

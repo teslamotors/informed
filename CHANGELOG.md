@@ -1,3 +1,9 @@
+## 4.60.6 ( Dev 12th, 2024)
+
+### Added
+
+- React 19 as supported version
+
 ## 4.60.5 ( Nov 21st, 2024)
 
 ### Fixed

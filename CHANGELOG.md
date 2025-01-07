@@ -1,3 +1,21 @@
+## 4.61.0 ( Dev 12th, 2024)
+
+### Added
+
+- React 19 as supported version
+
+## 4.60.5 ( Nov 21st, 2024)
+
+### Fixed
+
+- Issue where window value was not checked for in useForm
+
+## 4.60.4 ( Nov 15th, 2024)
+
+### Fixed
+
+- Issue where where "rtl" direction on number formatted inptuts would incorectly change cursor position
+
 ## 4.60.3 ( June 24th, 2024)
 
 ### Fixed

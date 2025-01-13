@@ -196,6 +196,7 @@ export class FormController {
     this.enableForm = this.enableForm.bind(this);
     this.getMemory = this.getMemory.bind(this);
     this.restore = this.restore.bind(this);
+    this.fieldExists = this.fieldExists.bind(this);
   }
 
   getOptions() {
@@ -212,6 +213,10 @@ export class FormController {
 
   getMaskedValue(name) {
     return ObjectMap.get(this.state.maskedValues, name);
+  }
+
+  fieldExists(name) {
+    return !!this.fieldsMap.get(name);
   }
 
   setMaskedValue(name, value) {
@@ -772,7 +777,8 @@ export class FormController {
       disable: this.disableForm,
       enable: this.enableForm,
       restore: this.restore,
-      getMemory: this.getMemory
+      getMemory: this.getMemory,
+      fieldExists: this.fieldExists
     };
   }
 

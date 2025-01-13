@@ -1,4 +1,10 @@
-## 4.61.0 ( Dev 12th, 2024)
+## 4.61.1 ( Jan 13th, 2024)
+
+### Fixed
+
+- Issue where fieldExists was not added to formApi
+
+## 4.61.0 ( Dec 12th, 2024)
 
 ### Added
 

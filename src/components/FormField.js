@@ -235,7 +235,7 @@ const FormField = ({ name, schema, ...rest }) => {
   }
 
   // User created custom array field
-  if (Component && componentType === 'array' && items && type === 'array') {
+  if (Component && items && type === 'array') {
     return (
       <Component
         name={name}
@@ -276,7 +276,7 @@ const FormField = ({ name, schema, ...rest }) => {
   }
 
   // Note we DONT pass in scoped name here because useField is already scoped
-  return <Component name={name} {...props} />;
+  return <Component name={name} {...props} items={items} />;
 };
 
 export { FormField };

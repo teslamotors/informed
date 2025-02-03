@@ -300,10 +300,10 @@ export class ObjectMap {
 
   static swap(object, path, i, j) {
     // Get the path to the array
-    console.log('Swaping out out:', path, i, j);
+    debug(`Swaping out out: ${path}, ${i}, ${j}`);
     // Get the array
     const arr = ldget(object, path);
-    console.log('Array', arr);
+    debug('Array', arr);
     // Pull out of array
     if (Array.isArray(arr)) {
       ldSwap(arr, i, j);

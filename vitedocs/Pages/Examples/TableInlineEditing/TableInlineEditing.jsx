@@ -27,12 +27,47 @@ export const TableInlineEditing = () => {
         Issues:
         <ol>
           <li>
-            When you change the margin, it will affect the price, which in turn
-            affects the margin. (Prevent this loop)
-          </li>
-          <li>
             When you change the margin, it should affect the price, which in
             turn affects the demand. (Allow this transitive change)
+            <code>
+              <pre>
+                {`
+MARGIN -- PRICE -- DEMMAND
+`}
+              </pre>
+            </code>
+          </li>
+          <li>
+            When you change the margin, it will affect the price, which in turn
+            affects the margin. (Prevent this loop)
+            <code>
+              <pre>
+                {`
+MARGIN -- PRICE -- DEMMAND
+            |
+            -- MARGIN -- PRICE -- DEMMAND
+                          |
+                          -- MARGIN -- PRICE -- DEMMAND
+`}
+              </pre>
+            </code>
+          </li>
+          <li>
+            When you change the cost it will trigger price to change which will
+            trigger margin and the following will occur
+            <code>
+              <pre>
+                {`
+COST -- PRICE -- DEMMAND
+          |
+          -- MARGIN -- PRICE -- DEMMAND
+                          |
+                          -- MARGIN -- PRICE -- DEMMAND
+                                        |
+                                        -- MARGIN -- PRICE -- DEMMAND
+`}
+              </pre>
+            </code>
           </li>
         </ol>
       </Info>

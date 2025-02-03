@@ -57,14 +57,21 @@ export const useConditional = ({
   useFieldSubscription(
     event,
     fields,
-    target => {
-      logger(`re-evaluating conditional for ${name} because of ${target}`);
+    (target, triggers) => {
+      logger(
+        `re-evaluating ${name} because ${target} changed, triggerd by ${JSON.stringify(
+          triggers,
+          null,
+          2
+        )}`
+      );
       const res = evaluate({
         formState: formController.getFormState(),
         formApi: formController.getFormApi(),
         scope: scopeRef.current,
         dependsOn,
-        target
+        target,
+        triggers
       });
       setProps(res);
     },
@@ -76,7 +83,7 @@ export const useConditional = ({
   useEffect(
     () => {
       if (evaluate) {
-        // When name changes we always check if relevant
+        // When name changes we always re evaluate
         setProps(
           evaluate({
             formState: formController.getFormState(),

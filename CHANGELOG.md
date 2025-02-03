@@ -1,3 +1,9 @@
+## 4.62.0 ( Feb 3rd, 2025)
+
+### Added
+
+- Ability to pass trigger path to setValue when building forms with dependent fields
+
 ## 4.61.1 ( Jan 13th, 2024)
 
 ### Fixed

@@ -297,6 +297,20 @@ export class FormController {
   setValue(name, value, e, key, quiet) {
     debug(`setValue ${name}`, value);
 
+    const hasTrigger = e && typeof e === 'object' && e.triggers;
+
+    // Avoid set loops by determining if this field originated this set
+    if (hasTrigger && e.triggers.includes(name)) {
+      debug(
+        `NOT setting ${name} as it exists in the transitive path ${JSON.stringify(
+          e.triggers,
+          null,
+          2
+        )}`
+      );
+      return;
+    }
+
     // Get meta for field
     const meta = this.fieldsMap.get(name)?.current || {};
 
@@ -501,8 +515,19 @@ export class FormController {
     }
 
     // Emit native event
-    if (e) {
-      this.emit('field-native', name);
+    // Transitive sets are special
+    // Example:
+    // A Triggers B
+    // B Triggers C
+    // C Triggers A
+    //
+    // A ( trigger1 ) ----> B ( trigger2 )----> C ( trigger3 ) ----> A ( trigger ) ----> B LOOP
+    //
+    // To aviod this we need to pass the triggers to the event
+    if (hasTrigger) {
+      this.emit('field-native', name, [...e.triggers, name]);
+    } else if (e) {
+      this.emit('field-native', name, [name]);
     }
 
     if (meta.gatherData && !meta.gatherOnBlur) {

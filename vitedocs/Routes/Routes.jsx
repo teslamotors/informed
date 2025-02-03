@@ -46,7 +46,7 @@ import { Multistep } from '../Pages/GettingStarted/Multistep/Multistep';
 import { DynamicMultistep } from '../Pages/ApiReference/Multistep/DynamicMultistep/DynamicMultistep';
 import { MultistepInitialValues } from '../Pages/ApiReference/Multistep/MultistepInitialValues/MultistepInitialValues';
 import { Metadata } from '../Pages/ApiReference/MetaData/Metadata';
-import { TableInlineEditing } from '../Pages/Examples/TableInlineEditing/Mask';
+import { TableInlineEditing } from '../Pages/Examples/TableInlineEditing/TableInlineEditing';
 import { BaiscRelevance } from '../Pages/ApiReference/Relevance/BasicRelevance';
 import { ScopedRelevance } from '../Pages/ApiReference/Relevance/ScopedRelevance';
 import { ArrayFieldRelevance } from '../Pages/ApiReference/Relevance/ArrayFieldRelevance';

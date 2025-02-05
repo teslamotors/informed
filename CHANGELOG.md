@@ -1,3 +1,9 @@
+## 4.63.0 ( Feb 5th, 2025)
+
+### Added
+
+- Ability to pass evaluateOnMount to evaluate in order to improve performance on large forms
+
 ## 4.62.0 ( Feb 3rd, 2025)
 
 ### Added

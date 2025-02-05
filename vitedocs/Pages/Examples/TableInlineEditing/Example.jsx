@@ -39,8 +39,13 @@ function Cell({
       const result = market ? formula(market) : null;
       // If we got a result update its value
       if (result) {
-        // Triggers is the list of fields that led to triggering this evaluation
-        console.log(`Re Evaluating ${name}`, JSON.stringify(triggers, null, 2));
+        if (triggers) {
+          // Triggers is the list of fields that led to triggering this evaluation
+          console.log(
+            `Re Evaluating ${name} due to ${triggers[triggers.length - 1]}`,
+            JSON.stringify(triggers, null, 2)
+          );
+        }
         setValue(Math.round(result * 100) / 100, { triggers });
       }
     }
@@ -51,7 +56,8 @@ function Cell({
     name,
     evaluate,
     evaluateWhen,
-    native // VERY IMPORTANT ( prevents infinite loops )
+    native, // VERY IMPORTANT ( prevents infinite loops )
+    evaluateOnMount: false // Performance improvement since our initial values already have calculated everything
   });
 
   return (

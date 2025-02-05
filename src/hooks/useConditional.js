@@ -11,7 +11,8 @@ export const useConditional = ({
   evaluate,
   evaluateWhen = [],
   dependsOn = [],
-  native = false
+  native = false,
+  evaluateOnMount = true
 }) => {
   // Grab the form controller
   const formController = useFormController();
@@ -25,7 +26,7 @@ export const useConditional = ({
 
   // Conditional state
   const [props, setProps] = useState(() => {
-    if (evaluate) {
+    if (evaluate && evaluateOnMount) {
       return evaluate({
         formState: formController.getFormState(),
         formApi: formController.getFormApi(),
@@ -82,7 +83,7 @@ export const useConditional = ({
 
   useEffect(
     () => {
-      if (evaluate) {
+      if (evaluate && evaluateOnMount) {
         // When name changes we always re evaluate
         setProps(
           evaluate({
@@ -100,7 +101,7 @@ export const useConditional = ({
   // Trigger evaluate on a reset of form
   useEffect(() => {
     const listener = () => {
-      if (evaluate) {
+      if (evaluate && evaluateOnMount) {
         setProps(
           evaluate({
             formState: formController.getFormState(),

@@ -74,6 +74,7 @@ import { Readme } from '../Pages/GettingStarted/Readme/Readme';
 import { Changelog } from '../Pages/GettingStarted/Changelog/Changelog';
 import ArrayFieldClear from '../Pages/ApiReference/Arrays/ArrrayFieldClear/ArrayFieldClear';
 import GlobalFieldState from '../Pages/ApiReference/GlobalForms/FieldState/GlobalFieldState';
+import GlobalFormState from '../Pages/ApiReference/GlobalForms/FormState/GlobalFormState';
 
 import NestedSchema from '../Pages/Examples/schemas/NestedSchema/NestedSchema';
 import ConditionalOptionSchema from '../Pages/Examples/schemas/ConditionalOptionsSchema/ConditionalOptionsSchema';
@@ -202,6 +203,7 @@ export const Routes = () => {
         <Route path="debug-logs" element={<DebugLogs />} />
         <Route path="keep-state" element={<KeepState />} />
         <Route path="global-field-state" element={<GlobalFieldState />} />
+        <Route path="global-form-state" element={<GlobalFormState />} />
       </Route>
       <Route path="examples">
         <Route

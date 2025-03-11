@@ -185,6 +185,7 @@ export class FormController {
     this.getErrorMessage = this.getErrorMessage.bind(this);
     this.clearValue = this.clearValue.bind(this);
     this.clearError = this.clearError.bind(this);
+    this.clearAllErrors = this.clearAllErrors.bind(this);
     this.getData = this.getData.bind(this);
     this.setData = this.setData.bind(this);
     this.getModified = this.getModified.bind(this);
@@ -754,6 +755,12 @@ export class FormController {
     this.setError(name, undefined);
   }
 
+  clearAllErrors() {
+    this.fieldsMap.forEach(fieldMeta => {
+      this.clearError(fieldMeta.current.name);
+    });
+  }
+
   setPristine(pristine) {
     this.state.pristine = pristine;
     this.state.dirty = !this.state.pristine;
@@ -797,6 +804,7 @@ export class FormController {
       submitForm: this.submitForm,
       clearValue: this.clearValue,
       clearError: this.clearError,
+      clearAllErrors: this.clearAllErrors,
       focusFirstError: this.focusFirstError,
       setPristine: this.setPristine,
       disable: this.disableForm,

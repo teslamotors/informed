@@ -42,6 +42,7 @@ export type FormApi = {
   getError: (name: string) => unknown;
   setError: (name: string, value: unknown) => void;
   clearError: (name: string) => void;
+  clearAllErrors: () => void;
   getFocused: (name: string) => unknown;
   setFocused: (name: string, value: boolean) => void;
   getData: (name: string) => unknown;

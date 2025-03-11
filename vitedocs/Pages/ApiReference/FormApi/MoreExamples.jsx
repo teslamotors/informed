@@ -65,6 +65,16 @@ const Buttons = () => {
         onClick={() => formApi.setValues({ age: 26, phone: '1234567899' })}>
         Set Values
       </Button>
+      <Button
+        type="button"
+        onClick={() => formApi.clearError('age')}>
+        Clear field error ('Age')
+      </Button>
+      <Button
+        type="button"
+        onClick={() => formApi.clearAllErrors()}>
+        Clear all field errors
+      </Button>
     </ButtonGroup>
   );
 };
@@ -74,8 +84,8 @@ const Example = () => {
   return (
     <Form formApiRef={formApiRef}>
       <Input name="name" label="First Name:" defaultValue="Joe" required />
-      <Input name="age" label="First Name:" type="number" defaultValue={28} />
-      <Input name="phone" label="Phone Number:" formatter="+1 (###) ###-####" />
+      <Input name="age" label="Age:" type="number" defaultValue={28} required />
+      <Input name="phone" label="Phone Number:" formatter="+1 (###) ###-####" required />
       <Buttons />
       <Button type="submit">Submit</Button>
       <Debug values dirt disabled />

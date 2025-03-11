@@ -31,6 +31,7 @@ export type FormApi = {
   setValue: (name: string, value: unknown) => void;
   setValueQuietly: (name: string, value: unknown) => void;
   clearValue: (name: string) => void;
+  clearAllValues: () => void;
   setValues: (values: unknown) => void;
   setTheseValues: (values: unknown) => void;
   getInitialValue: (name: string) => unknown;

@@ -67,6 +67,16 @@ const Buttons = () => {
       </Button>
       <Button
         type="button"
+        onClick={() => formApi.clearValue('name')}>
+        Clear field value ('First Name')
+      </Button>
+      <Button
+        type="button"
+        onClick={() => formApi.clearAllValues()}>
+        Clear all field values
+      </Button>
+      <Button
+        type="button"
         onClick={() => formApi.clearError('age')}>
         Clear field error ('Age')
       </Button>

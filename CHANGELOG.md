@@ -1,3 +1,10 @@
+## 4.64.0 ( March 11th, 2025)
+
+### Added
+
+- clearAllValues to formApi
+- clearAllErrors to formApi
+
 ## 4.63.0 ( Feb 5th, 2025)
 
 ### Added

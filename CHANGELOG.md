@@ -1,3 +1,9 @@
+## 4.64.1 ( March 20th, 2025)
+
+### Fixed
+
+- issue where custom required message would not work in schema when passing directly as ui:prop or at field level
+
 ## 4.64.0 ( March 11th, 2025)
 
 ### Added

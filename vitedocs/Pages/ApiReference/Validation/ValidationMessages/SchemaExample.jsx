@@ -6,7 +6,6 @@ const schema = {
   required: ['name', 'brother'],
   errorMessage: {
     _: 'name default error message',
-    required: 'name is required',
     minLength: 'name must be longer',
     maxLength: 'name must be shorter',
     pattern: 'name match the pattern',
@@ -19,7 +18,8 @@ const schema = {
       'ui:control': 'input',
       minLength: 6,
       maxLength: 6,
-      pattern: '^[0-9]{4}[a-zA-Z]{2}$'
+      pattern: '^[0-9]{4}[a-zA-Z]{2}$',
+      required: 'name is required!!'
     },
     brother: {
       type: 'object',

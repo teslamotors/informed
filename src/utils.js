@@ -1067,6 +1067,7 @@ export const computeFieldFromProperty = (propertyName, property, prefix) => {
       maxLength,
       pattern,
       errorMessage,
+      required,
       ...inputProps
     }
   };

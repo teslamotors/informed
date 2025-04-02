@@ -32,17 +32,17 @@ const ldget = (obj, path = '', defaultValue) => {
 
 /* --------------------- swap --------------------- */
 const ldSwap = (arr, a, b) => {
-  if (arr[a] && arr[b]) {
-    const oldA = arr[a];
-    const oldB = arr[b];
-    arr[a] = oldB;
-    arr[b] = oldA;
-  } else {
-    // eslint-disable-next-line no-console
-    console.warn(
-      `Attempted to swap ${a} with ${b} but one of them does not exist :(`
-    );
-  }
+  // if (arr[a] && arr[b]) {
+  const oldA = arr[a];
+  const oldB = arr[b];
+  arr[a] = oldB;
+  arr[b] = oldA;
+  // } else {
+  // eslint-disable-next-line no-console
+  //   console.warn(
+  //     `Attempted to swap ${a} with ${b} but one of them does not exist :(`
+  //   );
+  // }
 };
 
 /* --------------------- move --------------------- */
@@ -303,7 +303,7 @@ export class ObjectMap {
     debug(`Swaping out out: ${path}, ${i}, ${j}`);
     // Get the array
     const arr = ldget(object, path);
-    debug('Array', arr);
+    debug('Array', JSON.stringify(arr));
     // Pull out of array
     if (Array.isArray(arr)) {
       ldSwap(arr, i, j);

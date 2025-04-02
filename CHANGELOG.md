@@ -1,3 +1,9 @@
+## 4.64.2 ( April 2nd, 2025)
+
+### Fixed
+
+- issue where swap would fail when new empty value was added in array field and swap was attempted
+
 ## 4.64.1 ( March 20th, 2025)
 
 ### Fixed

@@ -926,13 +926,21 @@ export class FormController {
 
   swap(name, a, b) {
     debug('Swap', name, a, b);
+    debug('Swap Values');
     ObjectMap.swap(this.state.values, name, a, b);
+    debug('Swap Modified');
     ObjectMap.swap(this.state.modified, name, a, b);
+    debug('Swap MaskedValues');
     ObjectMap.swap(this.state.maskedValues, name, a, b);
+    debug('Swap Touched');
     ObjectMap.swap(this.state.touched, name, a, b);
+    debug('Swap Errors');
     ObjectMap.swap(this.state.errors, name, a, b);
+    debug('Swap Dirt');
     ObjectMap.swap(this.state.dirt, name, a, b);
+    debug('Swap Focused');
     ObjectMap.swap(this.state.focused, name, a, b);
+    debug('Swap Data');
     ObjectMap.swap(this.state.data, name, a, b);
     // DO NOT emit event here we want to delay it on purpose because otherwise relevance will trigger with bad state
     // this.emit("field", name);

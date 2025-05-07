@@ -117,14 +117,14 @@ export const useArrayField = ({
     setKeys(newKeys);
   };
 
-  const add = (amount = 1) => {
+  const add = (amount = 1, prepend = false) => {
     const ks = getKeys();
     // if 'amount' is not defined, run the default behavior to add 1 field
     if (typeof amount !== 'number' || !Number(amount) || amount <= 0) {
-      ks.push(uuidv4());
+      prepend ? ks.unshift(uuidv4()) : ks.push(uuidv4());
     } else {
       for (let i = 0; i < amount; i++) {
-        ks.push(uuidv4());
+        prepend ? ks.unshift(uuidv4()) : ks.push(uuidv4());
       }
     }
     setKeys([...ks]);
@@ -135,12 +135,11 @@ export const useArrayField = ({
     formController.emitter.emit('field-value-set', name);
   };
 
-  const addWithInitialValue = initialValue => {
+  const addWithInitialValue = (initialValue, prepend = false) => {
     const ks = getKeys();
-    ks.push(uuidv4());
+    prepend ? ks.unshift(uuidv4()) : ks.push(uuidv4());
     setKeys([...ks]);
-    const newInitialValues = [...getInitialValues()];
-    newInitialValues[ks.length - 1] = initialValue;
+    const newInitialValues = prepend ? [initialValue, ...getInitialValues()] : [...getInitialValues(), initialValue];
     setInitialValues(newInitialValues);
   };
 

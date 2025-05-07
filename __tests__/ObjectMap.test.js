@@ -197,6 +197,38 @@ describe('ObjectMap', () => {
       });
     });
 
+    describe('insert', () => {
+      it('should insert a value into an array at the specified index', () => {
+        const actual = { foo: { bar: { baz: [1, 3] } } };
+        ObjectMap.insert(actual, 'foo.bar.baz', 1, 2);
+        expect(actual).toEqual({ foo: { bar: { baz: [1, 2, 3] } } });
+      });
+
+      it('should insert a value at the beginning of an array', () => {
+        const actual = { foo: { bar: { baz: [2, 3] } } };
+        ObjectMap.insert(actual, 'foo.bar.baz', 0, 1);
+        expect(actual).toEqual({ foo: { bar: { baz: [1, 2, 3] } } });
+      });
+
+      it('should insert a value at the end of an array', () => {
+        const actual = { foo: { bar: { baz: [1, 2] } } };
+        ObjectMap.insert(actual, 'foo.bar.baz', 2, 3);
+        expect(actual).toEqual({ foo: { bar: { baz: [1, 2, 3] } } });
+      });
+
+      it('should not modify the object if the path does not point to an array', () => {
+        const actual = { foo: { bar: { baz: 42 } } };
+        ObjectMap.insert(actual, 'foo.bar.baz', 0, 1);
+        expect(actual).toEqual({ foo: { bar: { baz: 42 } } });
+      });
+
+      it('should handle inserting into an empty array', () => {
+        const actual = { foo: { bar: { baz: [] } } };
+        ObjectMap.insert(actual, 'foo.bar.baz', 0, 1);
+        expect(actual).toEqual({ foo: { bar: { baz: [1] } } });
+      });
+    });
+
     describe('has', () => {
       it('should return true for values in an object', () => {
         const object = { foo: { bar: { baz: [1, 2, 3] } } };

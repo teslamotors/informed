@@ -82,6 +82,9 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/arrays-array-field-swap" exact>
         ArrayField Swap
       </NavLink>
+      <NavLink href="/api-reference/arrays-array-field-insert" exact>
+        ArrayField Insert
+      </NavLink>
       <NavLink href="/api-reference/arrays-nested-array-field" exact>
         Nesetd ArrayField
       </NavLink>

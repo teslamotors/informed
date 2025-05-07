@@ -155,6 +155,7 @@ export class FormController {
     this.removeListener = this.removeListener.bind(this);
     this.remove = this.remove.bind(this);
     this.swap = this.swap.bind(this);
+    this.insert = this.insert.bind(this);
     this.pullOut = this.pullOut.bind(this);
     this.register = this.register.bind(this);
     this.deregister = this.deregister.bind(this);
@@ -944,6 +945,29 @@ export class FormController {
     ObjectMap.swap(this.state.data, name, a, b);
     // DO NOT emit event here we want to delay it on purpose because otherwise relevance will trigger with bad state
     // this.emit("field", name);
+    this.state.pristine = false;
+    this.state.dirty = !this.state.pristine;
+  }
+
+  insert(name, index, value) {
+    debug('Insert', name, index, value);
+    debug('Insert into Values');
+    ObjectMap.insert(this.state.values, name, index, value);
+    debug('Insert into Modified');
+    ObjectMap.insert(this.state.modified, name, index, undefined);
+    debug('Insert into MaskedValues');
+    ObjectMap.insert(this.state.maskedValues, name, index, value);
+    debug('Insert into Touched');
+    ObjectMap.insert(this.state.touched, name, index, undefined);
+    debug('Insert into Errors');
+    ObjectMap.insert(this.state.errors, name, index, undefined);
+    debug('Insert into Dirt');
+    ObjectMap.insert(this.state.dirt, name, index, undefined);
+    debug('Insert into Focused');
+    ObjectMap.insert(this.state.focused, name, index, undefined);
+    debug('Insert into Data');
+    ObjectMap.insert(this.state.data, name, index, undefined);
+    // Update pristine and dirty state
     this.state.pristine = false;
     this.state.dirty = !this.state.pristine;
   }

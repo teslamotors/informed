@@ -145,6 +145,7 @@ export type ArrayFieldApi = {
   remove: (index: number) => void;
   reset: () => void;
   swap: (a: number, b: number) => void;
+  insert: (index: number, value: any) => void;
   addWithInitialValue: (value: any) => void;
   clear: () => void;
 };
@@ -302,6 +303,7 @@ export type FormController = {
   removeListener: Function;
   remove: (name: string) => void;
   swap: (name: string, a: number, b: number) => void;
+  insert: (name: string, index: number, value: unknown) => void;
   register: (name: string, meta: any) => void;
   deregister: (name: string) => void;
   getInitialValue: (name: string) => unknown;

@@ -71,6 +71,7 @@ import DebugLogs from '../Pages/ApiReference/Debugging/DebugLogs/DebugLogs';
 import ArrayFieldReset from '../Pages/ApiReference/Arrays/ArrrayFieldReset/ArrayFieldReset';
 import InsanelyHugeForm from '../Pages/Examples/Tables/InsanelyHugeForm/InsanelyHugeForm';
 import ArrayFieldSwap from '../Pages/ApiReference/Arrays/ArrrayFieldSwap/ArrayFieldSwap';
+import ArrayFieldInsert from '../Pages/ApiReference/Arrays/ArrrayFieldInsert/ArrayFieldInsert';
 import { Readme } from '../Pages/GettingStarted/Readme/Readme';
 import { Changelog } from '../Pages/GettingStarted/Changelog/Changelog';
 import ArrayFieldClear from '../Pages/ApiReference/Arrays/ArrrayFieldClear/ArrayFieldClear';
@@ -168,6 +169,10 @@ export const Routes = () => {
         <Route path="arrays-array-field-item" element={<ArrayFieldItem />} />
         <Route path="arrays-array-field-reset" element={<ArrayFieldReset />} />
         <Route path="arrays-array-field-swap" element={<ArrayFieldSwap />} />
+        <Route
+          path="arrays-array-field-insert"
+          element={<ArrayFieldInsert />}
+        />
         <Route path="arrays-array-field-clear" element={<ArrayFieldClear />} />
         <Route
           path="arrays-nested-array-field"

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type FormState = {
+export type FormState<T = Record<string, unknown>> = {
   pristine: boolean;
   dirty: boolean;
   disabled: boolean;
@@ -10,17 +10,18 @@ export type FormState = {
   submitting: boolean;
   validating: number;
   gathering: number;
-  values: Record<string, unknown>;
-  maskedValues: Record<string, unknown>;
-  errors: Record<string, unknown>;
-  touched: Record<string, unknown>;
-  modified: Record<string, unknown>;
-  dirt: Record<string, unknown>;
-  focused: Record<string, unknown>;
-  initialValues: Record<string, unknown>;
+  values: T;
+  maskedValues: Record<keyof T, string>;
+  errors: Record<keyof T, string>;
+  touched: Record<keyof T, boolean>;
+  modified: Record<keyof T, boolean>;
+  dirt: Record<keyof T, boolean>;
+  focused: Record<keyof T, boolean>;
+  initialValues: T;
   data: Record<string, unknown>;
-  memory: Record<string, unknown>;
+  memory: T;
 };
+
 
 export type InformedApi = {
   getFormApi: (name: string) => FormApi;

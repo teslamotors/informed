@@ -79,6 +79,12 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/arrays-array-field-clear" exact>
         ArrayField Clear
       </NavLink>
+      <NavLink href="/api-reference/arrays-array-field-swap" exact>
+        ArrayField Swap
+      </NavLink>
+      <NavLink href="/api-reference/arrays-array-field-insert" exact>
+        ArrayField Insert
+      </NavLink>
       <NavLink href="/api-reference/arrays-nested-array-field" exact>
         Nesetd ArrayField
       </NavLink>
@@ -129,6 +135,9 @@ export const ApiReferenceNav = () => {
       <h3>Global Forms</h3>
       <NavLink href="/api-reference/global-field-state" exact>
         Field State
+      </NavLink>
+      <NavLink href="/api-reference/global-form-state" exact>
+        Form State
       </NavLink>
       <h3>Debugging</h3>
       <NavLink href="/api-reference/debug-component" exact>

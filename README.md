@@ -71,8 +71,8 @@ const ExampleForm = () => (
 - Scope: ability to scope ( group ) fields
 - Schema: ability to render forms based on pure JSON schema
 - Dynaic: ability to hide and show fields ( render and unrender ) and either cleanup or maintain state of unmounted fields
-- Debugging: ability to easily debug users state as well as internals of the library
-- Nesting: ability to have highly nested value strucutre `state.values.friends[1].brother.parents.cars[0].model`
+- Debugging: ability to easily debug user's state as well as internals of the library
+- Nesting: ability to have highly nested value structure `state.values.friends[1].brother.parents.cars[0].model`
 
 ## Creating Your Own Fields
 
@@ -194,8 +194,8 @@ Informed took the following into consideration when being built:
 - **Performance:** `informed` was designed to be able to handle very complex forms at scale
   - Ability to render a form with thousands of fields on screen
   - Ability to bulk update thousands of fields at a time
-- **Readability** `informed` was designed to be able to write complex forms with very litle **intuitive** code
-  - Reads naturlly like with pure JSX:
+- **Readability** `informed` was designed to be able to write complex forms with very little **intuitive** code
+  - Reads naturally like with pure JSX:
 
 ```jsx
 <Form onSubmit={onSubmit}>
@@ -230,7 +230,7 @@ Informed took the following into consideration when being built:
   - Scope: ability to scope ( group ) fields
   - Schema: ability to render forms based on pure JSON schema
   - Dynaic: ability to hide and show fields ( render and unrender ) and either cleanup or maintain state of unmounted fields
-  - Debugging: ability to easily debug users state as well as internals of the library
+  - Debugging: ability to easily debug user's state as well as internals of the library
   - Nesting: ability to have highly nested value strucutre `state.values.friends[1].brother.parents.cars[0].model`
 
 ---
@@ -273,9 +273,9 @@ project_root
 │   ├── hooks             # helper hooks for docs
 │   ├── Nav               # side nav of the docs
 │   ├── Pages             # main level pages of the app
-│   │   ├──ApiReference       # Self explanitory :)
+│   │   ├──ApiReference       # Self explanatory :)
 │   │   ├──Examples           # Examples of all sorts of usecases
-│   │   ├──GettingStarted     # Also Self explanitory :)
+│   │   ├──GettingStarted     # Also Self explanatory :)
 │   │   └──Playground.jsx     # Uses Sandpack to allow users to test any of the examples
 │   │
 │   ├── SideBySide.jsx    # helper component for showing code example and output side by side
@@ -288,7 +288,7 @@ project_root
     ├── hooks           # tests for informed hooks
     ├── ObjectMap.test  # tests for the internal data structure
     ├── Schema.test     # tests for usage of JSON schema rendered forms
-    └── utils.test      # tests for interanal library utilites
+    └── utils.test      # tests for internal library utilities
 ```
 
 ---
@@ -301,7 +301,7 @@ FormController is the brains of informed, it holds the `state` object and is res
 
 - Managing the form state
 - Tracking all form fields via registration/deregistration
-- Managing events. FormController impliments its own event hanlder ( a few lines of code at bottom of file )
+- Managing events. FormController implements its own event hand;er ( a few lines of code at bottom of file )
 
 #### `ObjectMap`
 
@@ -317,11 +317,11 @@ ObjectMap.set(state.values, 'friends[0].brothers.age', 30);
 
 #### `useField`
 
-useField is the first class citizen of informed, its responsible for registering a field by name to the FormController.
+useField is the first class citizen of informed, it's responsible for registering a field by name to the FormController.
 
 #### Context
 
-Thouh there is not explicitly a component called `Context` here the concept is KEY to understanding informed. Context alows us to register fields in a highly nested structure and allows us to do wild things such as scoping.
+Though there is not explicitly a component called `Context` here the concept is KEY to understanding informed. Context alows us to register fields in a highly nested structure and allows us to do wild things such as scoping.
 
 ---
 
@@ -376,13 +376,13 @@ Below depicts the core to how this library works. Form controller is the master 
 
 ### Types ( Type Script )
 
-I know, I know the types kinda suck. I personally dont use typescript so I have had to rely on other TS wizard devs to help maintain the types. When trying to type very complex objects such as `FormState` especially parts like `FormState.values` which can literally be an object that conatins anything there are lots of opinions on how to properly type it. Im activly seeking help here.
+I know, I know the types kinda suck. I personally don't use typescript so I have had to rely on other TS wizard devs to help maintain the types. When trying to type very complex objects such as `FormState` especially parts like `FormState.values` which can literally be an object that contains anything there are lots of opinions on how to properly type it. I'm actively seeking help here.
 
 ---
 
 ### Documentation
 
-As stated earlier, docs now live in the vitedocs directory. Its called `vitedocs` because I migrated them from storybook to now use a custom singe page react app built with `vite`... pernounced "veet" by the way :)
+As stated earlier, docs now live in the vitedocs directory. Its called `vitedocs` because I migrated them from storybook to now use a custom singe page react app built with `vite`... pronounced "veet" by the way :)
 
 #### What to expect
 
@@ -410,8 +410,8 @@ import exampleCode from './Example.jsx?raw';
 
 ### TODO/Improvements
 
-- re-write the internal implimentation of how schemas are rendered, that code is not my favorite
+- re-write the internal implementation of how schemas are rendered, that code is not my favorite
 - re-write the way multistep forms work. Currently they step through each step when navigating to a step only initializing the values for that step when its rendered
-- allow an evaluate function to be passed into a form field ( i.e useField ). Currently this is not possible because evaluate re computes props to be passed to the component using useField but it would be nice to not have to call the `useConditional` hook.
+- allow an evaluate function to be passed into a form field ( i.e useField ). Currently this is not possible because evaluate recomputes props to be passed to the component using useField but it would be nice to not have to call the `useConditional` hook.
 - move the rest of the schema docs over to the new docs ( I simply have not had the time to do this )
-- Types ... I know, I know the types kinda suck. I personally dont use typescript so I have had to rely on other TS wizard devs to help maintain the types.
+- Types ... I know, I know the types kinda suck. I personally don't use typescript so I have had to rely on other TS wizard devs to help maintain the types.

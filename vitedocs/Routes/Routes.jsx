@@ -46,7 +46,7 @@ import { Multistep } from '../Pages/GettingStarted/Multistep/Multistep';
 import { DynamicMultistep } from '../Pages/ApiReference/Multistep/DynamicMultistep/DynamicMultistep';
 import { MultistepInitialValues } from '../Pages/ApiReference/Multistep/MultistepInitialValues/MultistepInitialValues';
 import { Metadata } from '../Pages/ApiReference/MetaData/Metadata';
-import { TableInlineEditing } from '../Pages/Examples/TableInlineEditing/Mask';
+import { TableInlineEditing } from '../Pages/Examples/TableInlineEditing/TableInlineEditing';
 import { BaiscRelevance } from '../Pages/ApiReference/Relevance/BasicRelevance';
 import { ScopedRelevance } from '../Pages/ApiReference/Relevance/ScopedRelevance';
 import { ArrayFieldRelevance } from '../Pages/ApiReference/Relevance/ArrayFieldRelevance';
@@ -70,10 +70,13 @@ import DebugComponent from '../Pages/ApiReference/Debugging/DebugComponent/Debug
 import DebugLogs from '../Pages/ApiReference/Debugging/DebugLogs/DebugLogs';
 import ArrayFieldReset from '../Pages/ApiReference/Arrays/ArrrayFieldReset/ArrayFieldReset';
 import InsanelyHugeForm from '../Pages/Examples/Tables/InsanelyHugeForm/InsanelyHugeForm';
+import ArrayFieldSwap from '../Pages/ApiReference/Arrays/ArrrayFieldSwap/ArrayFieldSwap';
+import ArrayFieldInsert from '../Pages/ApiReference/Arrays/ArrrayFieldInsert/ArrayFieldInsert';
 import { Readme } from '../Pages/GettingStarted/Readme/Readme';
 import { Changelog } from '../Pages/GettingStarted/Changelog/Changelog';
 import ArrayFieldClear from '../Pages/ApiReference/Arrays/ArrrayFieldClear/ArrayFieldClear';
 import GlobalFieldState from '../Pages/ApiReference/GlobalForms/FieldState/GlobalFieldState';
+import GlobalFormState from '../Pages/ApiReference/GlobalForms/FormState/GlobalFormState';
 
 import NestedSchema from '../Pages/Examples/schemas/NestedSchema/NestedSchema';
 import ConditionalOptionSchema from '../Pages/Examples/schemas/ConditionalOptionsSchema/ConditionalOptionsSchema';
@@ -165,6 +168,11 @@ export const Routes = () => {
         <Route path="formApiRef" element={<FormApiRef />} />
         <Route path="arrays-array-field-item" element={<ArrayFieldItem />} />
         <Route path="arrays-array-field-reset" element={<ArrayFieldReset />} />
+        <Route path="arrays-array-field-swap" element={<ArrayFieldSwap />} />
+        <Route
+          path="arrays-array-field-insert"
+          element={<ArrayFieldInsert />}
+        />
         <Route path="arrays-array-field-clear" element={<ArrayFieldClear />} />
         <Route
           path="arrays-nested-array-field"
@@ -202,6 +210,7 @@ export const Routes = () => {
         <Route path="debug-logs" element={<DebugLogs />} />
         <Route path="keep-state" element={<KeepState />} />
         <Route path="global-field-state" element={<GlobalFieldState />} />
+        <Route path="global-form-state" element={<GlobalFormState />} />
       </Route>
       <Route path="examples">
         <Route

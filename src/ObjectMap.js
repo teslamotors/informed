@@ -32,17 +32,17 @@ const ldget = (obj, path = '', defaultValue) => {
 
 /* --------------------- swap --------------------- */
 const ldSwap = (arr, a, b) => {
-  if (arr[a] && arr[b]) {
-    const oldA = arr[a];
-    const oldB = arr[b];
-    arr[a] = oldB;
-    arr[b] = oldA;
-  } else {
-    // eslint-disable-next-line no-console
-    console.warn(
-      `Attempted to swap ${a} with ${b} but one of them does not exist :(`
-    );
-  }
+  // if (arr[a] && arr[b]) {
+  const oldA = arr[a];
+  const oldB = arr[b];
+  arr[a] = oldB;
+  arr[b] = oldA;
+  // } else {
+  // eslint-disable-next-line no-console
+  //   console.warn(
+  //     `Attempted to swap ${a} with ${b} but one of them does not exist :(`
+  //   );
+  // }
 };
 
 /* --------------------- move --------------------- */
@@ -54,6 +54,17 @@ const ldmove = (arr, fromIndex, toIndex) => {
     // Handle invalid operation more gracefully in real scenarios
     console.warn(
       `Attempted to move from ${fromIndex} to ${toIndex} but the operation is not valid.`
+    );
+  }
+};
+
+/* --------------------- insert --------------------- */
+const ldInsert = (arr, index, value) => {
+  if (Array.isArray(arr) && index <= arr.length) {
+    arr.splice(index, 0, value);
+  } else {
+    console.warn(
+      `Attempted to insert at index ${index}, but the operation is not valid.`
     );
   }
 };
@@ -300,10 +311,10 @@ export class ObjectMap {
 
   static swap(object, path, i, j) {
     // Get the path to the array
-    console.log('Swaping out out:', path, i, j);
+    debug(`Swaping out out: ${path}, ${i}, ${j}`);
     // Get the array
     const arr = ldget(object, path);
-    console.log('Array', arr);
+    debug('Array', JSON.stringify(arr));
     // Pull out of array
     if (Array.isArray(arr)) {
       ldSwap(arr, i, j);
@@ -311,15 +322,31 @@ export class ObjectMap {
   }
 
   static move(object, path, fromIndex, toIndex) {
-    console.log('Moving:', path, fromIndex, 'to', toIndex);
+    debug(`Moving: ${path}, from index ${fromIndex} to ${toIndex}`);
     // Get the array at the specified path
     const arr = ldget(object, path);
-    console.log('Array before move', JSON.stringify(arr));
+    debug(`Array before move: ${JSON.stringify(arr)}`);
 
     // Use ldmove to perform the operation
     ldmove(arr, fromIndex, toIndex);
 
-    console.log('Array after move', JSON.stringify(arr));
+    debug(`Array after move: ${JSON.stringify(arr)}`);
+  }
+
+  static insert(object, path, index, value) {
+    debug(`Inserting: ${value} at ${path}, index ${index}`);
+    // Get the array at the specified path
+    const arr = ldget(object, path);
+    debug(`Array before insert: ${JSON.stringify(arr)}`);
+
+    // Use ldInsert to perform the operation
+    if (Array.isArray(arr)) {
+      ldInsert(arr, index, value);
+    } else {
+      debug(`Path ${path} does not point to an array.`);
+    }
+
+    debug(`Array after insert: ${JSON.stringify(arr)}`);
   }
 }
 

@@ -1,3 +1,147 @@
+## 4.65.0 ( May 7th, 2025 )
+
+### Added insert to array field api
+
+```jsx
+import { Debug, ArrayField } from 'informed';
+import { useRef } from 'react';
+import { Form, Button, Input } from 'YourComponents';
+
+const initialValue = [
+  {
+    name: 'Matt',
+    age: '28'
+  },
+  {
+    name: 'Hope',
+    age: '23'
+  }
+];
+
+const Example = () => {
+  const arrayFieldApiRef = useRef();
+
+  const reset = () => {
+    arrayFieldApiRef.current.reset();
+  };
+
+  return (
+    <Form>
+      <Button type="button" onClick={reset}>
+        Reset
+      </Button>
+      <ArrayField
+        name="friends"
+        initialValue={initialValue}
+        arrayFieldApiRef={arrayFieldApiRef}>
+        {({ insert, fields }) => {
+          console.log('fields', fields);
+          return (
+            <>
+              <Button
+                onClick={() =>
+                  insert(0, {
+                    name: 'Bill',
+                    age: Math.floor(Math.random() * (65 - 19 + 1)) + 19
+                  })
+                }
+                type="button"
+                variant="accent"
+                style="outline">
+                Insert
+              </Button>
+              <Button
+                onClick={() =>
+                  insert(1, {
+                    name: 'Bob',
+                    age: Math.floor(Math.random() * (65 - 19 + 1)) + 19
+                  })
+                }
+                type="button"
+                variant="accent"
+                style="outline">
+                Between 0 and 1
+              </Button>
+              <ArrayField.Items>
+                {({ remove, name, index }) => (
+                  <>
+                    <h4>{name}</h4>
+                    <Input name="name" label="Name" required />
+                    <Input name="age" label="Age" type="number" />
+                    <Button type="button" onClick={remove} variant="negative">
+                      Remove
+                    </Button>
+                  </>
+                )}
+              </ArrayField.Items>
+            </>
+          );
+        }}
+      </ArrayField>
+      <Button type="submit">submit</Button>
+      <Debug values modified dirty />
+    </Form>
+  );
+};
+
+export default Example;
+```
+
+## 4.64.2 ( April 2nd, 2025)
+
+### Fixed
+
+- issue where swap would fail when new empty value was added in array field and swap was attempted
+
+## 4.64.1 ( March 20th, 2025)
+
+### Fixed
+
+- issue where custom required message would not work in schema when passing directly as ui:prop or at field level
+
+## 4.64.0 ( March 11th, 2025)
+
+### Added
+
+- clearAllValues to formApi
+- clearAllErrors to formApi
+
+## 4.63.0 ( Feb 5th, 2025)
+
+### Added
+
+- Ability to pass evaluateOnMount to evaluate in order to improve performance on large forms
+
+## 4.62.0 ( Feb 3rd, 2025)
+
+### Added
+
+- Ability to pass trigger path to setValue when building forms with dependent fields
+
+## 4.61.1 ( Jan 13th, 2024)
+
+### Fixed
+
+- Issue where fieldExists was not added to formApi
+
+## 4.61.0 ( Dec 12th, 2024)
+
+### Added
+
+- React 19 as supported version
+
+## 4.60.5 ( Nov 21st, 2024)
+
+### Fixed
+
+- Issue where window value was not checked for in useForm
+
+## 4.60.4 ( Nov 15th, 2024)
+
+### Fixed
+
+- Issue where where "rtl" direction on number formatted inptuts would incorectly change cursor position
+
 ## 4.60.3 ( June 24th, 2024)
 
 ### Fixed

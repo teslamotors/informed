@@ -68,6 +68,16 @@ export const useForm = ({
     [userInitialValues]
   );
 
+  // If we have a schema allow user to add magic validation to the schema before passing it in!!
+  if (typeof window !== 'undefined' && window?.informed?.properties) {
+    const properties = window?.informed?.properties;
+    Object.keys(properties).forEach(key => {
+      if (schema.properties[key]) {
+        schema.properties[key]['ui:props'] = properties[key];
+      }
+    });
+  }
+
   const formControllerOptions = {
     initialValues,
     validateFields,

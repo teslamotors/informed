@@ -144,6 +144,27 @@ export const useArrayField = ({
     setInitialValues(newInitialValues);
   };
 
+  const insert = (index, value) => {
+    logger(`Inserting at index ${index} in ${name} with value`, value);
+
+    // Use ObjectMap to insert the value into the form state
+    formController.insert(name, index, value);
+
+    // Always get ref to the latest keys
+    const ks = getKeys();
+
+    // Insert a new key at the specified index
+    const newKeys = [...ks];
+    newKeys.splice(index, 0, uuidv4());
+    setKeys(newKeys);
+
+    // Insert the initial value at the specified index
+    const initVals = getInitialValues();
+    const newInitialValues = [...initVals];
+    newInitialValues.splice(index, 0, value);
+    setInitialValues(newInitialValues);
+  };
+
   const initialValueRef = useRef();
   initialValueRef.current = initialValue;
 
@@ -241,6 +262,7 @@ export const useArrayField = ({
       remove,
       swap,
       addWithInitialValue,
+      insert,
       reset,
       clear
     };

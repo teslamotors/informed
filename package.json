@@ -1,6 +1,6 @@
 {
   "name": "informed",
-  "version": "4.60.3",
+  "version": "4.65.0",
   "description": "A lightweight framework and utility for building powerful forms in React applications",
   "type": "module",
   "main": "dist/cjs/index.js",
@@ -138,10 +138,10 @@
     "yup": "^0.28.1"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
   },
   "optionalDependencies": {
-    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
   },
   "nyc": {
     "instrument": false,

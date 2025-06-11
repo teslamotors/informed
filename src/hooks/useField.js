@@ -28,6 +28,7 @@ const logger = Debug('informed:useField' + '\t');
 /* ----------------------- useField ----------------------- */
 export const useField = ({
   id,
+  dir,
   type,
   name: userName,
   onBlur,
@@ -200,6 +201,7 @@ export const useField = ({
   const meta = {
     name,
     type,
+    dir,
     onBlur,
     onChange,
     onFocus,
@@ -408,6 +410,7 @@ export const useField = ({
     name,
     // ref,
     type,
+    dir,
     multiple,
     autoComplete: autocomplete,
     disabled,

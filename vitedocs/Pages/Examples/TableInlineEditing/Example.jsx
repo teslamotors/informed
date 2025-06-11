@@ -5,17 +5,17 @@ import {
   useFieldApi,
   useConditional
 } from 'informed';
-import { useCallback } from 'react';
-import { Input } from 'YourComponents';
+import { useCallback, useRef } from 'react';
+import { Input, Button } from 'YourComponents';
 
 // prettier-ignore
 const markets = [
-  { supply: 100000, demand: 70000, cost: 32200, price: 46000, market: "United States", margin: 0.3 },
-  { supply: 50000, demand: 60000, cost: 15500, price: 31000, market: "United Kingdom", margin: 0.5 },
-  { supply: 80000, demand: 70000, cost: 29600, price: 37000, market: "Japan", margin: 0.2 },
-  { supply: 70000, demand: 80000, cost: 25200, price: 42000, market: "China", margin: 0.4 },
-  { supply: 60000, demand: 90000, cost: 27300, price: 39000, market: "India", margin: 0.3 },
-  { supply: 90000, demand: 60000,  cost: 28800, price: 48000, market: "Germany", margin: 0.4 }
+  { supply: 100000, demand: 70000, cost: 32200, price: 46000, market: "US", margin: 0.3 },
+  { supply: 50000, demand: 60000, cost: 15500, price: 31000, market: "GB", margin: 0.5 },
+  { supply: 80000, demand: 70000, cost: 29600, price: 37000, market: "JP", margin: 0.2 },
+  { supply: 70000, demand: 80000, cost: 25200, price: 42000, market: "CN", margin: 0.4 },
+  { supply: 60000, demand: 90000, cost: 27300, price: 39000, market: "IN", margin: 0.3 },
+  { supply: 90000, demand: 60000,  cost: 28800, price: 48000, market: "DE", margin: 0.4 }
 ];
 
 function Cell({
@@ -31,23 +31,33 @@ function Cell({
   const { setValue } = useFieldApi(name);
 
   // Define a function to get called with the given formula whenever the specified fields change
-  const evaluate = useCallback(({ formApi, scope, target }) => {
+  const evaluate = useCallback(({ formApi, scope, triggers }) => {
     if (formula) {
-      console.log(`Evaluating ${name} because ${target} changed`);
       // Get this markets data EX: { supply: 90000, demand: 60000,  cost: 28800, price: 48000, market: "Germany", margin: 0.4 }
       const market = formApi.getValue(scope);
       // Pass the entire market definition to the formula
       const result = market ? formula(market) : null;
       // If we got a result update its value
-      if (result) setValue(Math.round(result * 100) / 100);
+      if (result) {
+        if (triggers) {
+          // Triggers is the list of fields that led to triggering this evaluation
+          console.log(
+            `Re Evaluating ${name} due to ${triggers[triggers.length - 1]}`,
+            JSON.stringify(triggers, null, 2)
+          );
+        }
+        setValue(Math.round(result * 100) / 100, { triggers });
+      }
     }
   }, []);
 
   // Special hook that will trigger our evaluate function whenever specified fields change
   useConditional({
+    name,
     evaluate,
     evaluateWhen,
-    native // VERY IMPORTANT ( prevents infinite loops )
+    native, // VERY IMPORTANT ( prevents infinite loops )
+    evaluateOnMount: false // Performance improvement since our initial values already have calculated everything
   });
 
   return (
@@ -56,7 +66,7 @@ function Cell({
         name={name}
         initialValue={data}
         type={type}
-        readOnly={readOnly}
+        isReadOnly={readOnly}
         step={step}
       />
     </td>
@@ -76,7 +86,7 @@ const calculateDemand = ({ price, market, demand }) => {
 
 function MarketsTable({ markets }) {
   return (
-    <table>
+    <table className="table-styles">
       <thead>
         <tr>
           <th>Market</th>
@@ -100,6 +110,7 @@ function MarketsTable({ markets }) {
                 evaluateWhen={['price']}
                 type="number"
                 step="1000"
+                native
               />
               <Cell name="cost" data={market.cost} type="number" step="1000" />
               <Cell
@@ -129,11 +140,24 @@ function MarketsTable({ markets }) {
 }
 
 const Example = () => {
+  const formApiRef = useRef();
+
   return (
     <div>
       <h3>Form Table</h3>
-      <FormProvider>
-        <MarketsTable markets={markets} />
+      <Button
+        type="button"
+        onClick={() => {
+          formApiRef.current.reset();
+        }}>
+        Reset
+      </Button>
+      <br />
+      <br />
+      <FormProvider formApiRef={formApiRef}>
+        <div>
+          <MarketsTable markets={markets} />
+        </div>
         <Debug values />
       </FormProvider>
     </div>

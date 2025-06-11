@@ -57,7 +57,11 @@ export const useFieldSubscription = (
   // Register for events on our field
   useEffect(
     () => {
-      const listener = target => {
+      const listener = (target, triggers) => {
+        // Who triggered this event
+        // Example trigger = "UnitedStates.Price"
+        debug(`target: ${target}, triggers: ${triggers}`);
+
         // console.log('TARGET', target, 'FIELDS', scopedFields);
         // either
         // 1. All fields are supposed to update
@@ -78,11 +82,11 @@ export const useFieldSubscription = (
             }))
         ) {
           debug(
-            `subscription ${event} triggered with target ${target} for`,
+            `subscription ${event} triggered with target ${target} from trigger ${triggers} for`,
             scopedFields
           );
           // forceUpdate();
-          cb(target);
+          cb(target, triggers);
         }
       };
 

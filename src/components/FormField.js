@@ -155,7 +155,10 @@ const FormField = ({ name, schema, ...rest }) => {
         newCondProps?.required ||
         newHookProps?.required
       ) {
-        rest.required = true;
+        rest.required =
+          schemaProps?.required ||
+          newCondProps?.required ||
+          newHookProps?.required;
       }
 
       const newProps = {

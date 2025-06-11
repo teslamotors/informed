@@ -155,6 +155,7 @@ export class FormController {
     this.removeListener = this.removeListener.bind(this);
     this.remove = this.remove.bind(this);
     this.swap = this.swap.bind(this);
+    this.insert = this.insert.bind(this);
     this.pullOut = this.pullOut.bind(this);
     this.register = this.register.bind(this);
     this.deregister = this.deregister.bind(this);
@@ -184,7 +185,9 @@ export class FormController {
     this.validateField = this.validateField.bind(this);
     this.getErrorMessage = this.getErrorMessage.bind(this);
     this.clearValue = this.clearValue.bind(this);
+    this.clearAllValues = this.clearAllValues.bind(this);
     this.clearError = this.clearError.bind(this);
+    this.clearAllErrors = this.clearAllErrors.bind(this);
     this.getData = this.getData.bind(this);
     this.setData = this.setData.bind(this);
     this.getModified = this.getModified.bind(this);
@@ -196,6 +199,7 @@ export class FormController {
     this.enableForm = this.enableForm.bind(this);
     this.getMemory = this.getMemory.bind(this);
     this.restore = this.restore.bind(this);
+    this.fieldExists = this.fieldExists.bind(this);
   }
 
   getOptions() {
@@ -212,6 +216,10 @@ export class FormController {
 
   getMaskedValue(name) {
     return ObjectMap.get(this.state.maskedValues, name);
+  }
+
+  fieldExists(name) {
+    return !!this.fieldsMap.get(name);
   }
 
   setMaskedValue(name, value) {
@@ -291,6 +299,20 @@ export class FormController {
 
   setValue(name, value, e, key, quiet) {
     debug(`setValue ${name}`, value);
+
+    const hasTrigger = e && typeof e === 'object' && e.triggers;
+
+    // Avoid set loops by determining if this field originated this set
+    if (hasTrigger && e.triggers.includes(name)) {
+      debug(
+        `NOT setting ${name} as it exists in the transitive path ${JSON.stringify(
+          e.triggers,
+          null,
+          2
+        )}`
+      );
+      return;
+    }
 
     // Get meta for field
     const meta = this.fieldsMap.get(name)?.current || {};
@@ -383,7 +405,8 @@ export class FormController {
         const res = informedFormat(
           val,
           meta.formatter,
-          this.getMaskedValue(name)
+          this.getMaskedValue(name),
+          meta.dir
         );
         meta.setCursorOffset(res.offset, key);
         maskedVal = res.value;
@@ -495,8 +518,19 @@ export class FormController {
     }
 
     // Emit native event
-    if (e) {
-      this.emit('field-native', name);
+    // Transitive sets are special
+    // Example:
+    // A Triggers B
+    // B Triggers C
+    // C Triggers A
+    //
+    // A ( trigger1 ) ----> B ( trigger2 )----> C ( trigger3 ) ----> A ( trigger ) ----> B LOOP
+    //
+    // To aviod this we need to pass the triggers to the event
+    if (hasTrigger) {
+      this.emit('field-native', name, [...e.triggers, name]);
+    } else if (e) {
+      this.emit('field-native', name, [name]);
     }
 
     if (meta.gatherData && !meta.gatherOnBlur) {
@@ -719,8 +753,20 @@ export class FormController {
     this.emit('clear', name);
   }
 
+  clearAllValues() {
+    this.fieldsMap.forEach(fieldMeta => {
+      this.clearValue(fieldMeta.current.name);
+    });
+  }
+
   clearError(name) {
     this.setError(name, undefined);
+  }
+
+  clearAllErrors() {
+    this.fieldsMap.forEach(fieldMeta => {
+      this.clearError(fieldMeta.current.name);
+    });
   }
 
   setPristine(pristine) {
@@ -765,13 +811,16 @@ export class FormController {
       resetPath: this.resetPath,
       submitForm: this.submitForm,
       clearValue: this.clearValue,
+      clearAllValues: this.clearAllValues,
       clearError: this.clearError,
+      clearAllErrors: this.clearAllErrors,
       focusFirstError: this.focusFirstError,
       setPristine: this.setPristine,
       disable: this.disableForm,
       enable: this.enableForm,
       restore: this.restore,
-      getMemory: this.getMemory
+      getMemory: this.getMemory,
+      fieldExists: this.fieldExists
     };
   }
 
@@ -878,16 +927,47 @@ export class FormController {
 
   swap(name, a, b) {
     debug('Swap', name, a, b);
+    debug('Swap Values');
     ObjectMap.swap(this.state.values, name, a, b);
+    debug('Swap Modified');
     ObjectMap.swap(this.state.modified, name, a, b);
+    debug('Swap MaskedValues');
     ObjectMap.swap(this.state.maskedValues, name, a, b);
+    debug('Swap Touched');
     ObjectMap.swap(this.state.touched, name, a, b);
+    debug('Swap Errors');
     ObjectMap.swap(this.state.errors, name, a, b);
+    debug('Swap Dirt');
     ObjectMap.swap(this.state.dirt, name, a, b);
+    debug('Swap Focused');
     ObjectMap.swap(this.state.focused, name, a, b);
+    debug('Swap Data');
     ObjectMap.swap(this.state.data, name, a, b);
     // DO NOT emit event here we want to delay it on purpose because otherwise relevance will trigger with bad state
     // this.emit("field", name);
+    this.state.pristine = false;
+    this.state.dirty = !this.state.pristine;
+  }
+
+  insert(name, index, value) {
+    debug('Insert', name, index, value);
+    debug('Insert into Values');
+    ObjectMap.insert(this.state.values, name, index, value);
+    debug('Insert into Modified');
+    ObjectMap.insert(this.state.modified, name, index, undefined);
+    debug('Insert into MaskedValues');
+    ObjectMap.insert(this.state.maskedValues, name, index, value);
+    debug('Insert into Touched');
+    ObjectMap.insert(this.state.touched, name, index, undefined);
+    debug('Insert into Errors');
+    ObjectMap.insert(this.state.errors, name, index, undefined);
+    debug('Insert into Dirt');
+    ObjectMap.insert(this.state.dirt, name, index, undefined);
+    debug('Insert into Focused');
+    ObjectMap.insert(this.state.focused, name, index, undefined);
+    debug('Insert into Data');
+    ObjectMap.insert(this.state.data, name, index, undefined);
+    // Update pristine and dirty state
     this.state.pristine = false;
     this.state.dirty = !this.state.pristine;
   }

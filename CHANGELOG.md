@@ -1,3 +1,9 @@
+## 4.66.0 ( July 1st, 2025 )
+
+### Added
+
+- previousValue to fieldState when its passed to onChange and onNativeChange handlers
+
 ## 4.65.0 ( May 7th, 2025 )
 
 ### Added insert to array field api

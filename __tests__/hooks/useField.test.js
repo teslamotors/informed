@@ -167,6 +167,40 @@ describe('useField', () => {
     expect(onChange).toHaveBeenCalledWith({
       value: 'Hi!',
       maskedValue: 'Hi!',
+      previousValue: 'Hi',
+      error: undefined,
+      modified: true,
+      touched: false,
+      pristine: false,
+      dirty: true,
+      valid: true, 
+      invalid: false,
+      showError: false,
+      validating: false,
+      focused: true,
+      gathering: false,
+      data: undefined
+    }, expect.anything());
+
+  });
+
+   it('should call onNativeChange that was passed', async () => {
+
+    const onNativeChange = jest.fn();
+
+    const { getByLabelText } = render(
+      <Form>
+        <Input name="greeting" label="input1" onNativeChange={onNativeChange} />
+      </Form>
+    );
+
+    const input = getByLabelText('input1');
+    await userEvent.type(input, 'Hi!');
+  
+    expect(onNativeChange).toHaveBeenCalledWith({
+      value: 'Hi!',
+      maskedValue: 'Hi!',
+      previousValue: 'Hi',
       error: undefined,
       modified: true,
       touched: false,

@@ -330,6 +330,9 @@ export class FormController {
       }
     }
 
+    // Before we update the value lets save the previous one in a variable
+    const previousValue = this.getValue(name);
+
     if (value === '') {
       if (meta.allowEmptyString) {
         let emptyValue = meta?.type === 'number' ? 0 : value;
@@ -424,6 +427,7 @@ export class FormController {
         val = val != null ? informedParse(val, meta.parser) : val;
       }
 
+      // vvvvvvvvvvvvv VALUE UPDATE OCCURS HERE vvvvvvvvvvvv
       debug(`Setting ${name}'s value to`, val);
       ObjectMap.set(this.state.values, name, val);
 
@@ -508,12 +512,16 @@ export class FormController {
     // Call users onChange if it exists
     if (meta.onChange) {
       const fieldState = this.getFieldState(name);
+      // Add the previous value to the field state object
+      fieldState.previousValue = previousValue;
       meta.onChange(fieldState, e);
     }
 
     // Call users onNativeChange if we had native event and func
     if (e && meta.onNativeChange) {
       const fieldState = this.getFieldState(name);
+      // Add the previous value to the field state object
+      fieldState.previousValue = previousValue;
       meta.onNativeChange(fieldState, e);
     }
 

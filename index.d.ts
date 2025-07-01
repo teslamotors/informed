@@ -71,6 +71,7 @@ export type FormApi = {
 export type FieldState = {
   value: unknown;
   maskedValue: unknown;
+  previousValue?: unknown;
   error: unknown;
   modified: boolean;
   touched: boolean;

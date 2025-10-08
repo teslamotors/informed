@@ -5,6 +5,7 @@ import ShowMenu from '@spectrum-icons/workflow/ShowMenu';
 import useMedia from '../hooks/useMedia';
 import useApp from '../hooks/useApp';
 import { NavLink } from '../Nav/NavLink';
+import SearchComponent from './SearchComponent';
 
 export const Header = () => {
   // header contents modal open state when resize
@@ -51,7 +52,7 @@ export const Header = () => {
             position: 'absolute',
             display: 'flex',
             alignItems: 'center',
-            gap: '5px'
+            gap: '20px'
           }}>
           {/* <strong>Show Line Numbers</strong>
           <Switch
@@ -61,12 +62,15 @@ export const Header = () => {
               setLineNumbers(prev => !prev);
             }}
           /> */}
-          <span>Show Comments</span>
-          <Switch
-            aria-label="show-comments"
-            isSelected={comments}
-            onChange={toggleComments}
-          />
+          <SearchComponent />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <span>Show Comments</span>
+            <Switch
+              aria-label="show-comments"
+              isSelected={comments}
+              onChange={toggleComments}
+            />
+          </div>
         </div>
       </Flex>
     </header>

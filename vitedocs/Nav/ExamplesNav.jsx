@@ -15,6 +15,7 @@ export const ExamplesNav = () => {
       </NavLink>
       <h3>Dynamic</h3>
       <NavLink href="/examples/changing-options">Chaning Options</NavLink>
+      <NavLink href="/examples/async-options">Async Options</NavLink>
       <NavLink href="/examples/dependent-fields">Dependent Fields</NavLink>
       <NavLink href="/examples/two-way">Two Way Dependence</NavLink>
       <h3>Formatting</h3>
@@ -23,12 +24,20 @@ export const ExamplesNav = () => {
       <NavLink href="/examples/formatting-clean">Clean</NavLink>
       <NavLink href="/examples/formatting-mask">Mask</NavLink>
       <NavLink href="/examples/formatting-parse">Parse</NavLink>
+      <NavLink href="/examples/formatting-formatter-functions">Formatter Functions</NavLink>
       <h3>Relevant</h3>
       <NavLink href="/examples/relevant-component">Relevant Component</NavLink>
       <NavLink href="/examples/relevant-scoped">Scoped Relevance</NavLink>
       <NavLink href="/examples/relevant-arrays">Relevance in Arrays</NavLink>
       <NavLink href="/examples/relevant-schema">Schema Relevance</NavLink>
-
+      <NavLink href="/examples/relevance-optimization">Relevance Optimization</NavLink>
+      <h3>Custom Inputs</h3>
+      <NavLink href="/examples/creating-custom-inputs">Creating Custom Inputs</NavLink>
+      <NavLink href="/examples/creating-object-inputs">Creating Object Inputs</NavLink>
+      <NavLink href="/examples/creating-formatted-object-inputs">Creating Formatted Object Inputs</NavLink>
+      <h3>Form</h3>
+      <NavLink href="/examples/form-provider">FormProvider</NavLink>
+      <NavLink href="/examples/form-modified">Modified</NavLink>
       <h3>Schema</h3>
       <NavLink href="/examples/schema-intro">Intro</NavLink>
       <NavLink href="/examples/schema-conditional">Conditional Schema</NavLink>
@@ -45,14 +54,18 @@ export const ExamplesNav = () => {
         Relevant ArrayField Schema
       </NavLink>
       <NavLink href="/examples/schema-custom">Custom Schema</NavLink>
+      <NavLink href="/examples/schema-components">Schema Components</NavLink>
+      <NavLink href="/examples/schema-sub">Sub Schema</NavLink>
       <h3>Multistep</h3>
       <NavLink href="/examples/multistep-intro">Basic Multistep</NavLink>
       <NavLink href="/examples/multistep-dynamic">Dynamic Multistep</NavLink>
+      <NavLink href="/examples/multistep-actions">Multistep Actions</NavLink>
       <NavLink href="/examples/multistep-initial-values">
         Multistep InitialValues
       </NavLink>
       <h3>Gotchas</h3>
       <NavLink href="/examples/initial-vs-default">Intial Vs Default</NavLink>
+      <NavLink href="/examples/scope-gotcha">Scope Gotcha</NavLink>
       <NavLink href="/examples/change-initial-values">
         Change Initial Values
       </NavLink>

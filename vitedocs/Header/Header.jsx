@@ -36,11 +36,11 @@ export const Header = () => {
             <NavLink href="/api-reference/useField">Api Reference</NavLink>
             <NavLink href="/examples/array-field">Examples</NavLink>
             <NavLink href="/playground">Playground</NavLink>
-            <li className={`spectrum-SideNav-item`}>
+            {/* <li className={`spectrum-SideNav-item`}>
               <a href="/informed/olddocs" className="spectrum-SideNav-itemLink">
                 Old Docs
               </a>
-            </li>
+            </li> */}
           </>
         ) : null}
         {/* <NavLink href="/unauthorized">Unauthorized</NavLink>

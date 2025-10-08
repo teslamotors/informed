@@ -40,6 +40,7 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/relevant">Relevant</NavLink>
       <NavLink href="/api-reference/scope">Scope</NavLink>
       <NavLink href="/api-reference/array-field">ArrayField</NavLink>
+      <NavLink href="/api-reference/form-provider">FormProvider</NavLink>
       <h3>Path</h3>
       <NavLink href="/api-reference/path-syntax">Syntax</NavLink>
       <h3>Formatting</h3>
@@ -50,6 +51,7 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/formatting-clean">Clean</NavLink>
       <NavLink href="/api-reference/formatting-mask">Mask</NavLink>
       <NavLink href="/api-reference/formatting-parse">Parse</NavLink>
+      <NavLink href="/api-reference/formatting-formatter-functions">Formatter Functions</NavLink>
       <h3>Validation</h3>
       <NavLink href="/api-reference/validation" exact>
         Validation
@@ -111,6 +113,14 @@ export const ApiReferenceNav = () => {
         Relevant ArrayField Schema
       </NavLink>
       <NavLink href="/api-reference/schema-custom">Custom Schema</NavLink>
+      <NavLink href="/api-reference/schema-components">Schema Components</NavLink>
+      <NavLink href="/api-reference/schema-sub">Sub Schema</NavLink>
+      <h3>Relevance</h3>
+      <NavLink href="/api-reference/relevant-component">Relevant Component</NavLink>
+      <NavLink href="/api-reference/relevant-scoped">Scoped Relevance</NavLink>
+      <NavLink href="/api-reference/relevant-arrays">Relevance in Arrays</NavLink>
+      <NavLink href="/api-reference/relevant-schema">Schema Relevance</NavLink>
+      <NavLink href="/api-reference/relevance-optimization">Relevance Optimization</NavLink>
       <h3>Multistep</h3>
       <NavLink href="/api-reference/multistep-intro" exact>
         Intro
@@ -124,6 +134,9 @@ export const ApiReferenceNav = () => {
       <h3>Keeping State</h3>
       <NavLink href="/api-reference/keep-state" exact>
         keepState
+      </NavLink>
+      <NavLink href="/api-reference/keep-state-if-relevant" exact>
+        Keep State If Relevant
       </NavLink>
       <h3>MetaData</h3>
       <NavLink href="/api-reference/metadata" exact>

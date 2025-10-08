@@ -26,6 +26,7 @@ import Formatter from '../Pages/ApiReference/Formatting/Formatter/Formatter';
 import Clean from '../Pages/ApiReference/Formatting/Clean/Clean';
 import Mask from '../Pages/ApiReference/Formatting/Mask/Mask';
 import Parse from '../Pages/ApiReference/Formatting/Parse/Parse';
+import FormatterFunctions from '../Pages/ApiReference/Formatting/FormatterFunctions/FormatterFunctions';
 import NumberFormatter from '../Pages/ApiReference/Formatting/NumberFormatter/NumberFormatter';
 import ArrayFieldComponent from '../Pages/ApiReference/Arrays/ArrrayField/ArrayField';
 import HugeArrayField from '../Pages/ApiReference/Arrays/HugeArrrayField/ArrayField';
@@ -42,6 +43,15 @@ import { SchemaIntro } from '../Pages/ApiReference/Schema/SchemaIntro/SchemaIntr
 import MultistepIntro from '../Pages/ApiReference/Multistep/MultistepIntro/MultistepIntro';
 import MultistepState from '../Pages/ApiReference/Multistep/MultistepState/MultistepState';
 import { KeepState } from '../Pages/ApiReference/KeepState/KeepState';
+import KeepStateIfRelevant from '../Pages/ApiReference/KeepState/KeepStateIfRelevant/KeepStateIfRelevant';
+import RelevanceOptimization from '../Pages/Examples/relevance/RelevanceOptimization/RelevanceOptimization';
+import CreatingCustomInputs from '../Pages/Examples/custom-inputs/CreatingCustomInputs/CreatingCustomInputs';
+import CreatingObjectInputs from '../Pages/Examples/custom-inputs/CreatingObjectInputs/CreatingObjectInputs';
+import CreatingFormattedObjectInputs from '../Pages/Examples/custom-inputs/CreatingFormattedObjectInputs/CreatingFormattedObjectInputs';
+import MultistepActions from '../Pages/Examples/multistep/MultistepActions/MultistepActions';
+import FormProvider from '../Pages/Examples/form/FormProvider/FormProvider';
+import Modified from '../Pages/Examples/form/Modified/Modified';
+import ScopeGotcha from '../Pages/Examples/gotchas/ScopeGotcha/ScopeGotcha';
 import { Multistep } from '../Pages/GettingStarted/Multistep/Multistep';
 import { DynamicMultistep } from '../Pages/ApiReference/Multistep/DynamicMultistep/DynamicMultistep';
 import { MultistepInitialValues } from '../Pages/ApiReference/Multistep/MultistepInitialValues/MultistepInitialValues';
@@ -89,6 +99,8 @@ import ArrayFieldSchema from '../Pages/Examples/schemas/ArrayFieldSchema/ArrayFi
 import ConditionalFieldComponent from '../Pages/Examples/schemas/ConditionalSchema/ConditionalSchema';
 import RelevantArrayFieldSchema from '../Pages/Examples/schemas/RelevantArrayFieldSchema/RelevantArrayFieldSchema';
 import CustomSchema from '../Pages/Examples/schemas/CustomSchema/CustomSchema';
+import SchemaComponents from '../Pages/Examples/schemas/SchemaComponents/SchemaComponents';
+import SubSchema from '../Pages/Examples/schemas/SubSchema/SubSchema';
 import InitialVsDefault from '../Pages/Examples/Gotchas/InitialVsDefault/InitialVsDefault';
 import ChangeInitialValues from '../Pages/Examples/Gotchas/ChangeInitialValues/ChangeInitialValues';
 import InitializeIfPristine from '../Pages/Examples/Gotchas/InitializeIfPristine/InitializeIfPristine';
@@ -154,6 +166,7 @@ export const Routes = () => {
         <Route path="formatting-clean" element={<Clean />} />
         <Route path="formatting-mask" element={<Mask />} />
         <Route path="formatting-parse" element={<Parse />} />
+        <Route path="formatting-formatter-functions" element={<FormatterFunctions />} />
         <Route path="array-field" element={<ArrayFieldComponent />} />
         <Route path="validation" element={<Validation />} />
         <Route path="async-validation" element={<AsyncValidation />} />
@@ -181,6 +194,12 @@ export const Routes = () => {
         <Route path="validation-messages" element={<ValidationMessages />} />
         <Route path="schema-intro" element={<SchemaIntro />} />
         <Route path="relevant-schema" element={<RelevanceSchema />} />
+        <Route path="relevance-optimization" element={<RelevanceOptimization />} />
+        <Route path="creating-custom-inputs" element={<CreatingCustomInputs />} />
+        <Route path="creating-object-inputs" element={<CreatingObjectInputs />} />
+        <Route path="creating-formatted-object-inputs" element={<CreatingFormattedObjectInputs />} />
+        <Route path="form-provider" element={<FormProvider />} />
+        <Route path="form-modified" element={<Modified />} />
         <Route
           path="conditional-schema-control"
           element={<ConditionalSchemaControl />}
@@ -201,16 +220,30 @@ export const Routes = () => {
           element={<RelevantArrayFieldSchema />}
         />
         <Route path="schema-custom" element={<CustomSchema />} />
+        <Route path="schema-components" element={<SchemaComponents />} />
+        <Route path="schema-sub" element={<SubSchema />} />
         <Route path="multistep-intro" element={<MultistepIntro />} />
         <Route path="multistep-state" element={<MultistepState />} />
         <Route path="multistep-dynamic" element={<DynamicMultistep />} />
+        <Route path="multistep-actions" element={<MultistepActions />} />
         <Route path="metadata" element={<Metadata />} />
         <Route path="async-options" element={<AsyncOptions />} />
         <Route path="debug-component" element={<DebugComponent />} />
         <Route path="debug-logs" element={<DebugLogs />} />
         <Route path="keep-state" element={<KeepState />} />
+        <Route path="keep-state-if-relevant" element={<KeepStateIfRelevant />} />
         <Route path="global-field-state" element={<GlobalFieldState />} />
         <Route path="global-form-state" element={<GlobalFormState />} />
+        <Route path="relevant-component" element={<BaiscRelevance />} />
+        <Route path="relevant-scoped" element={<ScopedRelevance />} />
+        <Route path="relevant-arrays" element={<ArrayFieldRelevance />} />
+        <Route path="relevant-schema" element={<RelevanceSchema />} />
+        <Route path="relevance-optimization" element={<RelevanceOptimization />} />
+        <Route path="form-provider" element={<FormProvider />} />
+        <Route path="form-modified" element={<Modified />} />
+        <Route path="creating-custom-inputs" element={<CreatingCustomInputs />} />
+        <Route path="creating-object-inputs" element={<CreatingObjectInputs />} />
+        <Route path="creating-formatted-object-inputs" element={<CreatingFormattedObjectInputs />} />
       </Route>
       <Route path="examples">
         <Route
@@ -239,6 +272,8 @@ export const Routes = () => {
           element={<RelevantArrayFieldSchema />}
         />
         <Route path="schema-custom" element={<CustomSchema />} />
+        <Route path="schema-components" element={<SchemaComponents />} />
+        <Route path="schema-sub" element={<SubSchema />} />
         <Route path="huge-array-field" element={<HugeArrayField />} />
         <Route path="table-inline-editing" element={<TableInlineEditing />} />
         <Route path="async-validation" element={<AsyncValidation />} />
@@ -247,14 +282,22 @@ export const Routes = () => {
         <Route path="formatting-clean" element={<Clean />} />
         <Route path="formatting-mask" element={<Mask />} />
         <Route path="formatting-parse" element={<Parse />} />
+        <Route path="formatting-formatter-functions" element={<FormatterFunctions />} />
         <Route path="paired-validation" element={<PairedValidation />} />
         <Route path="validation-control" element={<ValidationControl />} />
         <Route path="relevant-component" element={<BaiscRelevance />} />
         <Route path="relevant-scoped" element={<ScopedRelevance />} />
         <Route path="relevant-arrays" element={<ArrayFieldRelevance />} />
         <Route path="relevant-schema" element={<RelevanceSchema />} />
+        <Route path="relevance-optimization" element={<RelevanceOptimization />} />
+        <Route path="creating-custom-inputs" element={<CreatingCustomInputs />} />
+        <Route path="creating-object-inputs" element={<CreatingObjectInputs />} />
+        <Route path="creating-formatted-object-inputs" element={<CreatingFormattedObjectInputs />} />
+        <Route path="form-provider" element={<FormProvider />} />
+        <Route path="form-modified" element={<Modified />} />
         <Route path="multistep-intro" element={<MultistepIntro />} />
         <Route path="multistep-dynamic" element={<DynamicMultistep />} />
+        <Route path="multistep-actions" element={<MultistepActions />} />
         <Route
           path="multistep-initial-values"
           element={<MultistepInitialValues />}
@@ -264,10 +307,12 @@ export const Routes = () => {
         <Route path="elon-musk" element={<ElonMusk />} />
         <Route path="new-product" element={<RickRoll />} />
         <Route path="changing-options" element={<ChangingOptions />} />
+        <Route path="async-options" element={<AsyncOptions />} />
         <Route path="dependent-fields" element={<DependentFields />} />
         <Route path="two-way" element={<TwoWayDependence />} />
         <Route path="excel-sheet" element={<ExcelSheet />} />
         <Route path="initial-vs-default" element={<InitialVsDefault />} />
+        <Route path="scope-gotcha" element={<ScopeGotcha />} />
         <Route path="change-initial-values" element={<ChangeInitialValues />} />
         <Route
           path="array-change-initial-values"

@@ -44,8 +44,13 @@ const schema = {
 
 const PurpleBorder = ({ children }) => {
   return (
-    <div style={{ border: '3px solid purple', padding: '1rem' }}>
-      <SchemaFields>{children}</SchemaFields>
+    <div
+      style={{
+        border: '3px solid purple',
+        marginBottom: '1rem',
+        padding: '1rem'
+      }}>
+      {children}
     </div>
   );
 };

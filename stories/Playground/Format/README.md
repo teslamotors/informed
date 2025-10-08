@@ -1,3 +1,0 @@
-# Playground - Format
-
-<!-- STORY -->

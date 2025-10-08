@@ -1,3 +1,13 @@
+## 4.66.1 ( January 7th, 2025 )
+
+### Security
+
+- **CRITICAL**: Fixed prototype pollution vulnerability in ObjectMap.set() function
+  - Added validation to prevent dangerous property names (`__proto__`, `constructor`, `prototype`)
+  - Prevents attackers from polluting Object.prototype through malicious form field names
+  - Throws descriptive error when dangerous properties are detected
+  - Addresses CVE-level security vulnerability reported in Tesla's Informed library
+
 ## 4.66.0 ( July 1st, 2025 )
 
 ### Added

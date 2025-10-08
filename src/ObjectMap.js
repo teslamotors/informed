@@ -109,6 +109,13 @@ const ldset = (obj, path = '', val) => {
     .filter(Boolean)
     .reduce((res, key, i, arr) => {
       //console.log('RES', res, 'Key', key, 'I', i, 'Arr', arr, 'OBJ', obj);
+
+      // SECURITY FIX: Prevent prototype pollution by blocking dangerous property names
+      const DANGEROUS_KEYS = ['__proto__', 'constructor', 'prototype'];
+      if (DANGEROUS_KEYS.includes(key)) {
+        throw new Error(`Dangerous property access blocked: ${key}`);
+      }
+
       // At the leaf set the value
       if (i === arr.length - 1) {
         res[key] = val;

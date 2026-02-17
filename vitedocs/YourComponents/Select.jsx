@@ -20,6 +20,7 @@ const Input = ({ children, ...props }) => {
       {...userProps}
       {...informed}
       selectedKey={fieldState.value}
+      onChange={()=>{}}
       onSelectionChange={v => fieldApi.setValue(v, {})}>
       {options
         ? options.map(op => {

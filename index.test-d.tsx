@@ -17,7 +17,13 @@ import {
   FormProvider,
 } from '.';
 
-import {expectType} from 'tsd';
+import { expectError, expectType } from 'tsd';
+
+expectError(
+  <ArrayField name="friendsInvalid" initialValue={{ name: 'Nope' }}>
+    {() => <></>}
+  </ArrayField>
+);
 
 
 type FormProps = React.FormHTMLAttributes<HTMLFormElement>;
@@ -357,7 +363,13 @@ const ComponentUsingOtherShit = () => {
         }
       </FormStateAccessor>
       {/* ---------- Array Field ---------- */}
-      <ArrayField name="friends" initialValue={[{ name: 'Joe', age: 29}]} arrayFieldApiRef={arrayFieldApiRef}>
+      <ArrayField
+        name="friends"
+        initialValue={[
+          { name: 'Joe', age: 29 },
+          { name: 'Sue', age: 31 }
+        ]}
+        arrayFieldApiRef={arrayFieldApiRef}>
           {({ add }) => {
             return (
               <>
@@ -384,6 +396,10 @@ const ComponentUsingOtherShit = () => {
             );
           }}
         </ArrayField>
+      <ArrayField name="friendsSingle" initialValue={[{ name: 'Solo', age: 45 }]}>
+        {() => <></>}
+      </ArrayField>
+      <ArrayField name="friendsNoInitial">{() => <></>}</ArrayField>
     </>
   );
 };

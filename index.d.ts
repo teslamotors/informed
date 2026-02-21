@@ -449,7 +449,7 @@ declare function ArrayField({
 }: {
   children: (arrayFieldApi: ArrayFieldApi & ArrayFieldState) => JSX.Element;
   name: string;
-  initialValue?: [unknown];
+  initialValue?: unknown[];
   arrayFieldApiRef?: React.MutableRefObject<any>;
 }): JSX.Element;
 

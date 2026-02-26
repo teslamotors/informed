@@ -66,6 +66,25 @@ import { RelevanceSchema } from '../Pages/ApiReference/Relevance/RelevanceSchema
 import { HugeForm } from '../Pages/Examples/HugeForm/HugeForm';
 import { UseForm } from '../Pages/ApiReference/UseForm/UseForm';
 import { Playground } from '../Pages/Playground';
+import { AdobeFormInput } from '../Pages/GettingStarted/Inputs/AdobeForm/Form';
+import { TextInput as AdobeTextInput } from '../Pages/GettingStarted/Inputs/AdobeTextInput/TextInput';
+import { Select as AdobeSelect } from '../Pages/GettingStarted/Inputs/AdobeSelect/Select';
+import { NumberInput as AdobeNumberInput } from '../Pages/GettingStarted/Inputs/AdobeNumberInput/NumberInput';
+import { TextAreaInput as AdobeTextAreaInput } from '../Pages/GettingStarted/Inputs/AdobeTextArea/TextArea';
+import { CheckboxInput as AdobeCheckboxInput } from '../Pages/GettingStarted/Inputs/AdobeCheckbox/Checkbox';
+import { CheckboxGroupInput as AdobeCheckboxGroupInput } from '../Pages/GettingStarted/Inputs/AdobeCheckboxGroup/CheckboxGroup';
+import { RadioGroupInput as AdobeRadioGroupInput } from '../Pages/GettingStarted/Inputs/AdobeRadioGroup/RadioGroup';
+import { SliderInput as AdobeSliderInput } from '../Pages/GettingStarted/Inputs/AdobeSlider/Slider';
+import { SwitchInput as AdobeSwitchInput } from '../Pages/GettingStarted/Inputs/AdobeSwitch/Switch';
+import { ComboBoxInput as AdobeComboBoxInput } from '../Pages/GettingStarted/Inputs/AdobeComboBox/ComboBox';
+import { FormInput } from '../Pages/GettingStarted/Inputs/Form/Form';
+import { TextInput } from '../Pages/GettingStarted/Inputs/TextInput/TextInput';
+import { Select } from '../Pages/GettingStarted/Inputs/Select/Select';
+import { NumberInput } from '../Pages/GettingStarted/Inputs/NumberInput/NumberInput';
+import { TextAreaInput } from '../Pages/GettingStarted/Inputs/TextArea/TextArea';
+import { CheckboxInput } from '../Pages/GettingStarted/Inputs/Checkbox/Checkbox';
+import { RadioInput } from '../Pages/GettingStarted/Inputs/Radio/Radio';
+import { SliderInput } from '../Pages/GettingStarted/Inputs/Slider/Slider';
 
 import FormApiRef from '../Pages/ApiReference/FormApi/FormApiRef';
 import ChangingOptions from '../Pages/Examples/Dynamic/ChangingOptions/ChangingOptions';
@@ -144,6 +163,25 @@ export const Routes = () => {
         <Route path="metadata" element={<Metadata />} />
         <Route path="readme" element={<Readme />} />
         <Route path="changelog" element={<Changelog />} />
+        <Route path="adobe-form" element={<AdobeFormInput />} />
+        <Route path="adobe-text-input" element={<AdobeTextInput />} />
+        <Route path="adobe-number-input" element={<AdobeNumberInput />} />
+        <Route path="adobe-text-area" element={<AdobeTextAreaInput />} />
+        <Route path="adobe-select" element={<AdobeSelect />} />
+        <Route path="adobe-checkbox" element={<AdobeCheckboxInput />} />
+        <Route path="adobe-checkbox-group" element={<AdobeCheckboxGroupInput />} />
+        <Route path="adobe-radio-group" element={<AdobeRadioGroupInput />} />
+        <Route path="adobe-slider" element={<AdobeSliderInput />} />
+        <Route path="adobe-switch" element={<AdobeSwitchInput />} />
+        <Route path="adobe-combo-box" element={<AdobeComboBoxInput />} />
+        <Route path="form" element={<FormInput />} />
+        <Route path="text-input" element={<TextInput />} />
+        <Route path="number-input" element={<NumberInput />} />
+        <Route path="text-area" element={<TextAreaInput />} />
+        <Route path="select" element={<Select />} />
+        <Route path="checkbox" element={<CheckboxInput />} />
+        <Route path="radio" element={<RadioInput />} />
+        <Route path="slider" element={<SliderInput />} />
       </Route>
       <Route path="api-reference">
         <Route path="useField" element={<UseField />} />
@@ -166,7 +204,10 @@ export const Routes = () => {
         <Route path="formatting-clean" element={<Clean />} />
         <Route path="formatting-mask" element={<Mask />} />
         <Route path="formatting-parse" element={<Parse />} />
-        <Route path="formatting-formatter-functions" element={<FormatterFunctions />} />
+        <Route
+          path="formatting-formatter-functions"
+          element={<FormatterFunctions />}
+        />
         <Route path="array-field" element={<ArrayFieldComponent />} />
         <Route path="validation" element={<Validation />} />
         <Route path="async-validation" element={<AsyncValidation />} />
@@ -194,10 +235,22 @@ export const Routes = () => {
         <Route path="validation-messages" element={<ValidationMessages />} />
         <Route path="schema-intro" element={<SchemaIntro />} />
         <Route path="relevant-schema" element={<RelevanceSchema />} />
-        <Route path="relevance-optimization" element={<RelevanceOptimization />} />
-        <Route path="creating-custom-inputs" element={<CreatingCustomInputs />} />
-        <Route path="creating-object-inputs" element={<CreatingObjectInputs />} />
-        <Route path="creating-formatted-object-inputs" element={<CreatingFormattedObjectInputs />} />
+        <Route
+          path="relevance-optimization"
+          element={<RelevanceOptimization />}
+        />
+        <Route
+          path="creating-custom-inputs"
+          element={<CreatingCustomInputs />}
+        />
+        <Route
+          path="creating-object-inputs"
+          element={<CreatingObjectInputs />}
+        />
+        <Route
+          path="creating-formatted-object-inputs"
+          element={<CreatingFormattedObjectInputs />}
+        />
         <Route path="form-provider" element={<FormProvider />} />
         <Route path="form-modified" element={<Modified />} />
         <Route
@@ -231,19 +284,34 @@ export const Routes = () => {
         <Route path="debug-component" element={<DebugComponent />} />
         <Route path="debug-logs" element={<DebugLogs />} />
         <Route path="keep-state" element={<KeepState />} />
-        <Route path="keep-state-if-relevant" element={<KeepStateIfRelevant />} />
+        <Route
+          path="keep-state-if-relevant"
+          element={<KeepStateIfRelevant />}
+        />
         <Route path="global-field-state" element={<GlobalFieldState />} />
         <Route path="global-form-state" element={<GlobalFormState />} />
         <Route path="relevant-component" element={<BaiscRelevance />} />
         <Route path="relevant-scoped" element={<ScopedRelevance />} />
         <Route path="relevant-arrays" element={<ArrayFieldRelevance />} />
         <Route path="relevant-schema" element={<RelevanceSchema />} />
-        <Route path="relevance-optimization" element={<RelevanceOptimization />} />
+        <Route
+          path="relevance-optimization"
+          element={<RelevanceOptimization />}
+        />
         <Route path="form-provider" element={<FormProvider />} />
         <Route path="form-modified" element={<Modified />} />
-        <Route path="creating-custom-inputs" element={<CreatingCustomInputs />} />
-        <Route path="creating-object-inputs" element={<CreatingObjectInputs />} />
-        <Route path="creating-formatted-object-inputs" element={<CreatingFormattedObjectInputs />} />
+        <Route
+          path="creating-custom-inputs"
+          element={<CreatingCustomInputs />}
+        />
+        <Route
+          path="creating-object-inputs"
+          element={<CreatingObjectInputs />}
+        />
+        <Route
+          path="creating-formatted-object-inputs"
+          element={<CreatingFormattedObjectInputs />}
+        />
       </Route>
       <Route path="examples">
         <Route
@@ -282,17 +350,32 @@ export const Routes = () => {
         <Route path="formatting-clean" element={<Clean />} />
         <Route path="formatting-mask" element={<Mask />} />
         <Route path="formatting-parse" element={<Parse />} />
-        <Route path="formatting-formatter-functions" element={<FormatterFunctions />} />
+        <Route
+          path="formatting-formatter-functions"
+          element={<FormatterFunctions />}
+        />
         <Route path="paired-validation" element={<PairedValidation />} />
         <Route path="validation-control" element={<ValidationControl />} />
         <Route path="relevant-component" element={<BaiscRelevance />} />
         <Route path="relevant-scoped" element={<ScopedRelevance />} />
         <Route path="relevant-arrays" element={<ArrayFieldRelevance />} />
         <Route path="relevant-schema" element={<RelevanceSchema />} />
-        <Route path="relevance-optimization" element={<RelevanceOptimization />} />
-        <Route path="creating-custom-inputs" element={<CreatingCustomInputs />} />
-        <Route path="creating-object-inputs" element={<CreatingObjectInputs />} />
-        <Route path="creating-formatted-object-inputs" element={<CreatingFormattedObjectInputs />} />
+        <Route
+          path="relevance-optimization"
+          element={<RelevanceOptimization />}
+        />
+        <Route
+          path="creating-custom-inputs"
+          element={<CreatingCustomInputs />}
+        />
+        <Route
+          path="creating-object-inputs"
+          element={<CreatingObjectInputs />}
+        />
+        <Route
+          path="creating-formatted-object-inputs"
+          element={<CreatingFormattedObjectInputs />}
+        />
         <Route path="form-provider" element={<FormProvider />} />
         <Route path="form-modified" element={<Modified />} />
         <Route path="multistep-intro" element={<MultistepIntro />} />

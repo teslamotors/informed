@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, act } from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form, Input, Select } from '../../jest/components';
-import { act } from 'react-dom/test-utils';
 
 const getState = state => {
   const defaultState = {

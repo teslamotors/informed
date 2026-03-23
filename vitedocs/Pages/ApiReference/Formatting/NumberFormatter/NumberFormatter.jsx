@@ -8,6 +8,8 @@ import Simple from './Simple';
 import simpleCode from './Simple.jsx?raw';
 import CustomFormatter from './CustomFormatter';
 import customCode from './CustomFormatter.jsx?raw';
+import Complex from './Complex';
+import complexCode from './Complex.jsx?raw';
 
 export default function NumberFormatter() {
   useEffect(() => {
@@ -62,6 +64,18 @@ export default function NumberFormatter() {
         rightHeader={<h3>Code:</h3>}
         left={<CustomFormatter />}
         right={<Code links input1={customCode} />}
+      />
+      <hr />
+      <h2>Complex Formatting</h2>
+      <Info>
+        This shows how this formatter works for even complex locales with
+        different decimal and grouping decimal characters.
+      </Info>
+      <SideBySide
+        leftHeader={<h3>Example:</h3>}
+        rightHeader={<h3>Code:</h3>}
+        left={<Complex />}
+        right={<Code links input1={complexCode} />}
       />
       <br />
       <br />

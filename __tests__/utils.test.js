@@ -394,6 +394,92 @@ describe('Utils', () => {
       expect(value).toEqual('$3_000.25');
     });
 
+    it('createIntlNumberMask should format a "nl-BE" decimal input', () => {
+
+      const { formatter } = createIntlNumberFormatter('nl-BE', {
+        style: 'decimal',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+      });
+
+      const { value } = informedFormat('3.000,25', formatter);
+      expect(value).toEqual('3.000,25');
+    });
+
+    it('createIntlNumberMask should keep only first decimal character if user typed two for "nl-BE" decimal input', () => {
+
+      const { formatter } = createIntlNumberFormatter('nl-BE', {
+        style: 'decimal',
+        minimumFractionDigits: 1, // REALLY IMPORTATNT TO HAVE 1 here or this will fail
+        maximumFractionDigits: 2
+      });
+
+      const { value } = informedFormat('1234,,', formatter);
+      expect(value).toEqual('1.234,');
+    });
+
+
+    it('createIntlNumberMask should keep only first decimal for "nl-BE" decimal input', () => {
+
+      const { formatter } = createIntlNumberFormatter('nl-BE', {
+        style: 'decimal',
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 2
+      });
+
+      const { value } = informedFormat('1234,5,6', formatter);
+      expect(value).toEqual('1.234,56');
+    });
+
+    it('createIntlNumberMask should keep only first decimal for negative "nl-BE" decimal input', () => {
+
+      const { formatter } = createIntlNumberFormatter('nl-BE', {
+        style: 'decimal',
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 2
+      });
+
+      const { value } = informedFormat('-1234,5,6', formatter);
+      expect(value).toEqual('-1.234,56');
+    });
+
+    it('createIntlNumberMask should keep only first decimal for "de-DE" decimal input', () => {
+
+      const { formatter } = createIntlNumberFormatter('de-DE', {
+        style: 'decimal',
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 2
+      });
+
+      const { value } = informedFormat('9876,5,4', formatter);
+      expect(value).toEqual('9.876,54');
+    });
+
+    it('createIntlNumberMask should keep both characters for "ar-EG" decimal input with Arabic decimal separator and group seperator', () => {
+
+      const { formatter } = createIntlNumberFormatter('ar-EG', {
+        style: 'decimal',
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 2
+      });
+
+      // const { value } = informedFormat('1234٫5٫6', formatter);
+      const { value } = informedFormat('3٬000٫25', formatter);
+      expect(value).toEqual('3٬000٫25');
+    });
+
+    // it('createIntlNumberMask should keep both characters for "ar-EG" decimal input with Arabic decimal separator and group seperator when using ","', () => {
+
+    //   const { formatter } = createIntlNumberFormatter('ar-EG', {
+    //     style: 'decimal',
+    //     minimumFractionDigits: 1,
+    //     maximumFractionDigits: 2
+    //   });
+
+    //   // const { value } = informedFormat('1234٫5٫6', formatter);
+    //   const { value } = informedFormat('3٬000,25', formatter);
+    //   expect(value).toEqual('3٬000,25');
+    // });
     
   });
 });

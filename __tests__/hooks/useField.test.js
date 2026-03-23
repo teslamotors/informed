@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, act } from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form, Input } from '../../jest/components';
 import { utils } from '../../src';
-import { act } from 'react-dom/test-utils';
 
 // prettier-ignore
 describe('useField', () => {

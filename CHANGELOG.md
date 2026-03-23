@@ -1,3 +1,9 @@
+## 4.66.2 ( March 23rd, 2025 )
+
+### Fixed
+
+- Issue with number formatters where fat fingering two decimal chars `25..` would crash react native and throw errors on web.
+
 ## 4.66.1 ( January 7th, 2025 )
 
 ### Security

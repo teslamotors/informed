@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { act } from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { act } from 'react-dom/test-utils';
 import { Form, Input } from '../../jest/components';
 import { useFormApi } from '../../src';
 

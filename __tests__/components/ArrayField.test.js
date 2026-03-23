@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { act } from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form, Input, Checkbox } from '../../jest/components';
 import { ArrayField, Relevant } from '../../src';
-import { act } from 'react-dom/test-utils';
 
 const FlatArrayfield = ({
   formApiRef,

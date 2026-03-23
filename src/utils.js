@@ -813,7 +813,17 @@ export const createIntlNumberFormatter = (
   // }
 
   function stripNonNumeric(str) {
+    // console.log('BEFORE', str);
+    // console.log('AFTER:', `${str}`.replace(/\D/g, ''));
     return `${str}`.replace(/\D/g, '');
+  }
+
+  // Keep only the first decimal separator and remove any extra separators after it.
+  // Example: keepOnlyFirstDecimal('1..,', '.') => '1'
+  // Example: keepOnlyFirstDecimal('1,,', ',') => '1'
+  function keepOnlyFirstDecimal(str, decimalChar) {
+    const [first, ...rest] = `${str}`.split(decimalChar);
+    return rest.length ? `${first}${decimalChar}${rest.join('')}` : first;
   }
 
   function toNumberString(str, decimalChar = '.') {
@@ -830,16 +840,13 @@ export const createIntlNumberFormatter = (
         .join('.');
     }
 
-    // Create a regex to replace all but the first occurrence of the decimalChar.
-    // let regex = new RegExp(`(.*?\\${decimalChar}.*?)\\${decimalChar}(.*)`, 'g');
+    // Replace all but the first occurrence of the decimalChar.
+    const fixedDecimalStr = keepOnlyFirstDecimal(str, decimalChar);
 
-    return (
-      `${str}`
-        // .replace(regex, '$1$2')
-        .split(decimalChar)
-        .map(splitStr => stripNonNumeric(splitStr))
-        .join('.')
-    );
+    return `${fixedDecimalStr}`
+      .split(decimalChar)
+      .map(splitStr => stripNonNumeric(splitStr))
+      .join('.');
   }
 
   function toFloat(str, decimalChar = '.') {

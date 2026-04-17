@@ -120,6 +120,7 @@ import RelevantArrayFieldSchema from '../Pages/Examples/schemas/RelevantArrayFie
 import CustomSchema from '../Pages/Examples/schemas/CustomSchema/CustomSchema';
 import SchemaComponents from '../Pages/Examples/schemas/SchemaComponents/SchemaComponents';
 import SubSchema from '../Pages/Examples/schemas/SubSchema/SubSchema';
+import EvaluateWhenReevaluate from '../Pages/Examples/schemas/EvaluateWhenReevaluate/EvaluateWhenReevaluate';
 import InitialVsDefault from '../Pages/Examples/Gotchas/InitialVsDefault/InitialVsDefault';
 import ChangeInitialValues from '../Pages/Examples/Gotchas/ChangeInitialValues/ChangeInitialValues';
 import InitializeIfPristine from '../Pages/Examples/Gotchas/InitializeIfPristine/InitializeIfPristine';
@@ -257,6 +258,10 @@ export const Routes = () => {
           path="conditional-schema-control"
           element={<ConditionalSchemaControl />}
         />
+        <Route
+          path="schema-evaluate-when"
+          element={<EvaluateWhenReevaluate />}
+        />
         <Route path="schema-nested" element={<NestedSchema />} />
         <Route
           path="schema-conditional-option"
@@ -323,6 +328,10 @@ export const Routes = () => {
         <Route
           path="schema-conditional"
           element={<ConditionalFieldComponent />}
+        />
+        <Route
+          path="schema-evaluate-when"
+          element={<EvaluateWhenReevaluate />}
         />
         <Route path="schema-nested" element={<NestedSchema />} />
         <Route

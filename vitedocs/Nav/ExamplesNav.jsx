@@ -41,6 +41,7 @@ export const ExamplesNav = () => {
       <h3>Schema</h3>
       <NavLink href="/examples/schema-intro">Intro</NavLink>
       <NavLink href="/examples/schema-conditional">Conditional Schema</NavLink>
+      <NavLink href="/examples/schema-evaluate-when">Evaluate When</NavLink>
       <NavLink href="/examples/schema-nested">Nested Schema</NavLink>
       <NavLink href="/examples/schema-conditional-option">
         Conditional Option Schema

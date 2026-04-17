@@ -8,7 +8,7 @@ const Input = ({ children, ...props }) => {
     ...props
   });
 
-  const { required, options } = userProps;
+  const { required, options, disabled } = userProps;
   const { error, showError } = fieldState;
 
   return render(
@@ -17,10 +17,11 @@ const Input = ({ children, ...props }) => {
       validationState={!error ? null : 'invalid'}
       errorMessage={showError ? error : undefined}
       isRequired={required}
+      isDisabled={disabled}
       {...userProps}
       {...informed}
       selectedKey={fieldState.value}
-      onChange={()=>{}}
+      onChange={() => {}}
       onSelectionChange={v => fieldApi.setValue(v, {})}>
       {options
         ? options.map(op => {

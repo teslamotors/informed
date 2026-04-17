@@ -98,6 +98,9 @@ export const ApiReferenceNav = () => {
       <NavLink href="/api-reference/conditional-schema-control">
         Conditional Schema Control
       </NavLink>
+      <NavLink href="/api-reference/schema-evaluate-when" exact>
+        Evaluate When
+      </NavLink>
       <NavLink href="/api-reference/schema-nested">Nested Schema</NavLink>
       <NavLink href="/api-reference/schema-conditional-option">
         Conditional Option Schema

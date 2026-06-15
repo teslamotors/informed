@@ -5,6 +5,7 @@ import { useFieldState } from './useFieldState';
 import { useFormController } from './useFormController';
 import { useCursorPosition } from './useCursorPosition';
 import {
+  ArrayFieldItemStateContext,
   MultistepStepContext,
   RelevanceContext,
   ScopeContext
@@ -153,6 +154,9 @@ export const useField = ({
 
   // For multistep
   const inMultistep = useContext(MultistepStepContext);
+
+  // For array field detection -- fields inside ArrayField have index-managed values
+  const inArrayField = useContext(ArrayFieldItemStateContext);
 
   // For relevance
   const isRelevant = useRelevance({
@@ -351,17 +355,24 @@ export const useField = ({
     [...formatterDependencies]
   );
 
-  // Note im not adding this yet as I need to figure out how to solve issue with array fields when you remove 1 [0, 1, 2] and 2 becomes 1
-  // useUpdateEffect(
-  //   () => {
-  //     // If the form is pristine then reset it when we get new initial values !
-  //     const pristine = fieldApi.getPristine();
-  //     if (pristine) {
-  //       fieldApi.reset();
-  //     }
-  //   },
-  //   [userInitialValue, defaultValue]
-  // );
+  // Reset field when defaultValue/initialValue changes and form is still pristine.
+  // Previously disabled because remove() spliced arrays, shifting indices.
+  // Now safe because remove() uses ObjectMap.unset() which preserves indices.
+  // Skip for fields inside ArrayField -- their values are managed by the
+  // ArrayField's own index-shifting logic, not by defaultValue props.
+  useUpdateEffect(
+    () => {
+      if (inArrayField) {
+        return;
+      }
+
+      const pristine = fieldApi.getPristine();
+      if (pristine) {
+        fieldApi.reset();
+      }
+    },
+    [userInitialValue, defaultValue, inArrayField]
+  );
 
   useFieldSubscription(
     'field-value',

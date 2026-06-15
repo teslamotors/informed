@@ -899,26 +899,26 @@ export class FormController {
 
       if (!keepValue) {
         debug('Delete Value', name);
-        ObjectMap.delete(this.state.values, name);
+        ObjectMap.unset(this.state.values, name);
         debug('Delete Modified', name);
-        ObjectMap.delete(this.state.modified, name);
+        ObjectMap.unset(this.state.modified, name);
         debug('Delete Masked', name);
-        ObjectMap.delete(this.state.maskedValues, name);
+        ObjectMap.unset(this.state.maskedValues, name);
       }
       if (!keepTouched) {
         debug('Delete Touched', name);
-        ObjectMap.delete(this.state.touched, name);
+        ObjectMap.unset(this.state.touched, name);
       }
       if (!keepError) {
         debug('Delete Errors', name);
-        ObjectMap.delete(this.state.errors, name);
+        ObjectMap.unset(this.state.errors, name);
       }
       debug('Delete Dirt', name);
-      ObjectMap.delete(this.state.dirt, name);
+      ObjectMap.unset(this.state.dirt, name);
       debug('Delete Focused', name);
-      ObjectMap.delete(this.state.focused, name);
+      ObjectMap.unset(this.state.focused, name);
       debug('Delete Info', name);
-      ObjectMap.delete(this.state.data, name);
+      ObjectMap.unset(this.state.data, name);
 
       // Remember to update valid
       this.updateValid();

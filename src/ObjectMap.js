@@ -262,6 +262,18 @@ export class ObjectMap {
     }
   }
 
+  // Like delete but never splices arrays -- just unsets the key.
+  // Used by FormController.remove() so that sibling field indices stay stable.
+  static unset(object, path) {
+    debug('UNSET', path);
+    ldunset(object, path);
+
+    let pathArray = ldtoPath(path);
+    pathArray = pathArray.slice(0, pathArray.length - 1);
+    cleanup(object, pathArray);
+    debug('UNSET DONE', path);
+  }
+
   static delete(object, path) {
     debug('DELETE', path);
 

@@ -1,9 +1,15 @@
-const path = require('path');
+const { join } = require('path');
 const nodeExternals = require('webpack-node-externals');
-//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
-  entry: path.join(__dirname, '../../src/index.js'),
+  entry: join(__dirname, '../../src/index.js'),
+  output: {
+    filename: 'index.js',
+    globalObject: 'this',
+    library: 'informed',
+    libraryTarget: 'umd',
+    umdNamedDefine: true
+  },
   target: 'web',
   mode: 'production',
   devtool: 'source-map',
@@ -25,18 +31,7 @@ module.exports = {
       }
     ]
   },
-  // plugins: [
-  //   new BundleAnalyzerPlugin()
-  // ],
-  output: {
-    filename: 'index.js',
-    globalObject: 'this',
-    library: 'informed',
-    libraryTarget: 'umd',
-    umdNamedDefine: true
-  },
   optimization: {
-    //usedExports: true
     namedModules: true
   }
 };

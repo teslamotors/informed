@@ -2,7 +2,7 @@
 
 [![Docs](https://badgen.net/badge/V4/Docs/purple)](https://teslamotors.github.io/informed)
 [![npmversion](https://img.shields.io/npm/v/informed.svg)](https://www.npmjs.com/package/informed)
-[![github](https://badgen.net/badge/gihub/main/green?icon=github)](https://github.com/teslamotors/informed)
+[![github](https://badgen.net/badge/github/main/green?icon=github)](https://github.com/teslamotors/informed)
 [![Docs](https://badgen.net/badge/V3/Docs/red)](https://61af80ffc6bc460007bf9ec7--joepuzzo-informed.netlify.app/)
 
 ## Introduction
@@ -61,7 +61,7 @@ const ExampleForm = () => (
 `informed` was designed to support many important features
 
 - Arrays: ability to render dynamic arrays of fields `[ 'a', 'b' ]` or `[ { name: 'Joe', age: 29 }, { name: 'Hope', age: 24 }]`
-- Relevance: ability to render render fields conditionally depending on the state of other parts of the form
+- Relevance: ability to render fields conditionally depending on the state of other parts of the form
 - JSPAN: ability to easily and intuitively manipulate form state
 - Formatting: ability to perform display formatting, where the format shown to user can differ from the state of the values stored
 - Validation: ability to perform both synchronous and asynchronous validation in a controlled manner
@@ -70,7 +70,7 @@ const ExampleForm = () => (
 - Multistep: ability to create dynamic multistep forms
 - Scope: ability to scope ( group ) fields
 - Schema: ability to render forms based on pure JSON schema
-- Dynaic: ability to hide and show fields ( render and unrender ) and either cleanup or maintain state of unmounted fields
+- Dynamic: ability to hide and show fields ( render and unrender ) and either cleanup or maintain state of unmounted fields
 - Debugging: ability to easily debug user's state as well as internals of the library
 - Nesting: ability to have highly nested value structure `state.values.friends[1].brother.parents.cars[0].model`
 
@@ -81,7 +81,7 @@ But what if you dont want the out of the box stuff??
 No problem, see example below!
 
 ```jsx
-import { useForm, useField, Relevant, FormState } from 'informed';
+import { useForm, useField, Relevant, Debug } from 'informed';
 
 // Step 1. Build your form component ---------------------
 
@@ -220,7 +220,7 @@ Informed took the following into consideration when being built:
 
 - **Feature List:** `informed` was designed to support many important features
   - Arrays: ability to render dynamic arrays of fields `[ 'a', 'b' ]` or `[ { name: 'Joe', age: 29 }, { name: 'Hope', age: 24 }]`
-  - Relevance: ability to render render fields conditionally depending on the state of other parts of the form
+  - Relevance: ability to render fields conditionally depending on the state of other parts of the form
   - JSPAN: ability to easily and intuitively manipulate form state
   - Formatting: ability to perform display formatting, where the format shown to user can differ from the state of the values stored
   - Validation: ability to perform both synchronous and asynchronous validation in a controlled manner
@@ -229,9 +229,9 @@ Informed took the following into consideration when being built:
   - Multistep: ability to create dynamic multistep forms
   - Scope: ability to scope ( group ) fields
   - Schema: ability to render forms based on pure JSON schema
-  - Dynaic: ability to hide and show fields ( render and unrender ) and either cleanup or maintain state of unmounted fields
+  - Dynamic: ability to hide and show fields ( render and unrender ) and either cleanup or maintain state of unmounted fields
   - Debugging: ability to easily debug user's state as well as internals of the library
-  - Nesting: ability to have highly nested value strucutre `state.values.friends[1].brother.parents.cars[0].model`
+  - Nesting: ability to have highly nested value structure `state.values.friends[1].brother.parents.cars[0].model`
 
 ---
 
@@ -247,7 +247,7 @@ const path = 'state.values.friends[1].brother.name';
 
 ### Layout
 
-This project cotains three important directories, `src`, `vitedocs`, and `__tests__`
+This project contains three important directories, `src`, `vitedocs`, and `__tests__`
 
 **Note:** some things were left out as they are not super important or are going to be deprecated or removed in future.
 
@@ -301,11 +301,11 @@ FormController is the brains of informed, it holds the `state` object and is res
 
 - Managing the form state
 - Tracking all form fields via registration/deregistration
-- Managing events. FormController implements its own event hand;er ( a few lines of code at bottom of file )
+- Managing events. FormController implements its own event handler ( a few lines of code at bottom of file )
 
 #### `ObjectMap`
 
-ObjectMap is the internal data structre that is responsible for managing the internal state object. Reads and writes all go through this data structure. Example:
+ObjectMap is the internal data structure that is responsible for managing the internal state object. Reads and writes all go through this data structure. Example:
 
 ```js
 // State object
@@ -321,7 +321,7 @@ useField is the first class citizen of informed, it's responsible for registerin
 
 #### Context
 
-Though there is not explicitly a component called `Context` here the concept is KEY to understanding informed. Context alows us to register fields in a highly nested structure and allows us to do wild things such as scoping.
+Though there is not explicitly a component called `Context` here the concept is KEY to understanding informed. Context allows us to register fields in a highly nested structure and allows us to do wild things such as scoping.
 
 ---
 
@@ -382,7 +382,7 @@ I know, I know the types kinda suck. I personally don't use typescript so I have
 
 ### Documentation
 
-As stated earlier, docs now live in the vitedocs directory. Its called `vitedocs` because I migrated them from storybook to now use a custom singe page react app built with `vite`... pronounced "veet" by the way :)
+As stated earlier, docs now live in the vitedocs directory. Its called `vitedocs` because I migrated them from storybook to now use a custom single page react app built with `vite`... pronounced "veet" by the way :)
 
 #### What to expect
 

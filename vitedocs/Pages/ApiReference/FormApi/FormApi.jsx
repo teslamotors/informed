@@ -167,24 +167,6 @@ export default function FormState() {
           </Row>
           <Row>
             <Cell>
-              <code>setValues</code>
-            </Cell>
-            <Cell>
-              <Code>{`setValues({ greeting: 'hello'})`}</Code>
-            </Cell>
-            <Cell>Function that will set the fields values.</Cell>
-          </Row>
-          <Row>
-            <Cell>
-              <code>setFormError</code>
-            </Cell>
-            <Cell>
-              <Code>setFormError('There was an error!')</Code>
-            </Cell>
-            <Cell>Function that will set the forms error manually.</Cell>
-          </Row>
-          <Row>
-            <Cell>
               <code>validate</code>
             </Cell>
             <Cell>

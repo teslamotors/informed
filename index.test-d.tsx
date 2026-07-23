@@ -357,7 +357,8 @@ const ComponentUsingOtherShit = () => {
         }
       </FormStateAccessor>
       {/* ---------- Array Field ---------- */}
-      <ArrayField name="friends" initialValue={[{ name: 'Joe', age: 29}]} arrayFieldApiRef={arrayFieldApiRef}>
+      {/* initialValue accepts arrays with more than one item https://github.com/teslamotors/informed/issues/485 */}
+      <ArrayField name="friends" initialValue={[{ name: 'Joe', age: 29}, { name: 'Jane', age: 28 }]} arrayFieldApiRef={arrayFieldApiRef}>
           {({ add }) => {
             return (
               <>

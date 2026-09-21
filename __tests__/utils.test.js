@@ -3,6 +3,7 @@ import {
   getParentPath,
   getSchemaPathFromJsonPath,
   isChild,
+  isDeepEqual,
   createIntlNumberFormatter
 } from '../src/utils';
 
@@ -509,5 +510,74 @@ describe('Utils', () => {
     //   expect(value).toEqual('3٬000,25');
     // });
     
+  });
+
+  describe('isDeepEqual', () => {
+    it('should treat identical references as equal', () => {
+      const obj = { a: 1 };
+      expect(isDeepEqual(obj, obj)).toBe(true);
+    });
+
+    it('should compare primitives', () => {
+      expect(isDeepEqual(1, 1)).toBe(true);
+      expect(isDeepEqual('a', 'a')).toBe(true);
+      expect(isDeepEqual(1, '1')).toBe(false);
+      expect(isDeepEqual(null, null)).toBe(true);
+      expect(isDeepEqual(undefined, undefined)).toBe(true);
+      expect(isDeepEqual(null, undefined)).toBe(false);
+      expect(isDeepEqual(NaN, NaN)).toBe(true);
+      expect(isDeepEqual(0, -0)).toBe(false);
+    });
+
+    it('should compare structurally equal objects built separately', () => {
+      expect(isDeepEqual({ a: 1, b: 'two' }, { a: 1, b: 'two' })).toBe(true);
+      expect(isDeepEqual({ a: 1 }, { a: 2 })).toBe(false);
+      expect(isDeepEqual({ a: 1 }, { a: 1, b: 2 })).toBe(false);
+      expect(isDeepEqual({ a: 1, b: 2 }, { a: 1 })).toBe(false);
+    });
+
+    it('should not care about key order', () => {
+      expect(isDeepEqual({ a: 1, b: 2 }, { b: 2, a: 1 })).toBe(true);
+    });
+
+    it('should compare nested structures', () => {
+      const a = { user: { name: 'Joe', friends: [{ name: 'Elon' }] } };
+      const b = { user: { name: 'Joe', friends: [{ name: 'Elon' }] } };
+      const c = { user: { name: 'Joe', friends: [{ name: 'Bill' }] } };
+      expect(isDeepEqual(a, b)).toBe(true);
+      expect(isDeepEqual(a, c)).toBe(false);
+    });
+
+    it('should compare arrays including length and order', () => {
+      expect(isDeepEqual([1, 2, 3], [1, 2, 3])).toBe(true);
+      expect(isDeepEqual([1, 2, 3], [3, 2, 1])).toBe(false);
+      expect(isDeepEqual([1, 2], [1, 2, 3])).toBe(false);
+      expect(isDeepEqual([], [])).toBe(true);
+    });
+
+    it('should not consider an array equal to an object', () => {
+      expect(isDeepEqual([], {})).toBe(false);
+      expect(isDeepEqual({ 0: 'a' }, ['a'])).toBe(false);
+    });
+
+    it('should compare dates by time', () => {
+      expect(isDeepEqual(new Date(0), new Date(0))).toBe(true);
+      expect(isDeepEqual(new Date(0), new Date(1))).toBe(false);
+      expect(isDeepEqual(new Date(0), {})).toBe(false);
+      expect(isDeepEqual({}, new Date(0))).toBe(false);
+    });
+
+    it('should fall back to identity for functions', () => {
+      const fn = () => {};
+      expect(isDeepEqual({ fn }, { fn })).toBe(true);
+      expect(isDeepEqual({ fn: () => {} }, { fn: () => {} })).toBe(false);
+    });
+
+    it('should not be fooled by inherited properties', () => {
+      const parent = { a: 1 };
+      const child = Object.create(parent);
+      expect(isDeepEqual(child, {})).toBe(true);
+      expect(isDeepEqual({ a: 1 }, child)).toBe(false);
+    });
   });
 });

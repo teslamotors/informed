@@ -1018,4 +1018,66 @@ describe('useForm', () => {
 
   });
 
+
+  it('should NOT reset the form when the parent re renders with an equal initialValues object', async () => {
+    const formApiRef = {};
+    const onReset = jest.fn();
+
+    // An inline object literal is the ordinary React idiom, and it produces a
+    // brand new object on every render.
+    const Parent = () => {
+      const [, setTick] = useState(0);
+      return (
+        <>
+          <button type="button" onClick={() => setTick(t => t + 1)}>Rerender</button>
+          <Form formApiRef={formApiRef} onReset={onReset} initialValues={{ name: 'Joe', age: 25 }}>
+            <Input name="name" label="First Name" />
+            <Input type="number" name="age" label="Age" />
+          </Form>
+        </>
+      );
+    };
+
+    const { getByText } = render(<Parent />);
+
+    expect(onReset).not.toHaveBeenCalled();
+
+    fireEvent.click(getByText('Rerender'));
+    fireEvent.click(getByText('Rerender'));
+
+    expect(onReset).not.toHaveBeenCalled();
+    expect(formApiRef.current.getFormState().values).toEqual({ name: 'Joe', age: 25 });
+  });
+
+  it('should still reset the form when initialValues actually change', async () => {
+    const formApiRef = {};
+    const onReset = jest.fn();
+
+    const Parent = () => {
+      const [profile, setProfile] = useState({ name: 'Joe', age: 25 });
+      return (
+        <>
+          <button type="button" onClick={() => setProfile({ name: 'Elon', age: 48 })}>
+            Next Profile
+          </button>
+          <Form formApiRef={formApiRef} onReset={onReset} initialValues={profile}>
+            <Input name="name" label="First Name" />
+            <Input type="number" name="age" label="Age" />
+          </Form>
+        </>
+      );
+    };
+
+    const { getByText } = render(<Parent />);
+
+    expect(formApiRef.current.getFormState().values).toEqual({ name: 'Joe', age: 25 });
+
+    act(() => {
+      fireEvent.click(getByText('Next Profile'));
+    });
+
+    expect(onReset).toHaveBeenCalledTimes(1);
+    expect(formApiRef.current.getFormState().values).toEqual({ name: 'Elon', age: 48 });
+  });
+
 });

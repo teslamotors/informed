@@ -1,8 +1,8 @@
-import React, { act } from 'react';
+import React, { useState, act } from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Form, Input, Checkbox } from '../../jest/components';
-import { ArrayField, Relevant } from '../../src';
+import { ArrayField, Relevant, useArrayFieldItemState } from '../../src';
 
 const FlatArrayfield = ({
   formApiRef,
@@ -1546,5 +1546,124 @@ describe('ArrayField', () => {
   });
 
   
+
+
+  describe('Item key stability', () => {
+    // The key is what React reconciles items by, so when it changes every item
+    // unmounts and remounts, losing focus and any component state.
+    const KeyProbe = () => {
+      const { key } = useArrayFieldItemState();
+      return <span data-testid="item-key">{String(key)}</span>;
+    };
+
+    const keysOf = getAllByTestId =>
+      getAllByTestId('item-key').map(node => node.textContent);
+
+    it('should keep item keys stable when the parent re renders with an inline initialValues object', () => {
+      // An inline object literal is the ordinary React idiom and produces a
+      // brand new object every render. That must not churn the item keys.
+      const Parent = () => {
+        const [, setTick] = useState(0);
+        return (
+          <>
+            <button type="button" onClick={() => setTick(t => t + 1)}>Rerender</button>
+            <Form initialValues={{ siblings: ['a', 'b', 'c'] }}>
+              <ArrayField name="siblings">
+                {() => (
+                  <ArrayField.Items>
+                    {({ name }) => (
+                      <>
+                        <KeyProbe />
+                        <Input label={`sibling-${name}`} name={name} />
+                      </>
+                    )}
+                  </ArrayField.Items>
+                )}
+              </ArrayField>
+            </Form>
+          </>
+        );
+      };
+
+      const { getAllByTestId, getByText } = render(<Parent />);
+
+      const before = keysOf(getAllByTestId);
+      expect(before).toHaveLength(3);
+
+      fireEvent.click(getByText('Rerender'));
+      expect(keysOf(getAllByTestId)).toEqual(before);
+
+      fireEvent.click(getByText('Rerender'));
+      expect(keysOf(getAllByTestId)).toEqual(before);
+    });
+
+    it('should not lose focus when the parent re renders', async () => {
+      const Parent = () => {
+        const [, setTick] = useState(0);
+        return (
+          <>
+            <button type="button" onClick={() => setTick(t => t + 1)}>Rerender</button>
+            <Form initialValues={{ siblings: ['a', 'b'] }}>
+              <ArrayField name="siblings">
+                {() => (
+                  <ArrayField.Items>
+                    {({ name }) => <Input label={`sibling-${name}`} name={name} />}
+                  </ArrayField.Items>
+                )}
+              </ArrayField>
+            </Form>
+          </>
+        );
+      };
+
+      const { getByText, getByLabelText } = render(<Parent />);
+
+      const input = getByLabelText('sibling-siblings[0]');
+      input.focus();
+      expect(document.activeElement).toBe(input);
+
+      fireEvent.click(getByText('Rerender'));
+
+      // A remount would have replaced the node and dropped focus.
+      expect(document.activeElement).toBe(getByLabelText('sibling-siblings[0]'));
+    });
+
+    it('should still give fresh keys when initialValues actually change', () => {
+      const Parent = () => {
+        const [values, setValues] = useState({ siblings: ['a', 'b', 'c'] });
+        return (
+          <>
+            <button type="button" onClick={() => setValues({ siblings: ['x', 'y', 'z'] })}>
+              New Values
+            </button>
+            <Form initialValues={values}>
+              <ArrayField name="siblings">
+                {() => (
+                  <ArrayField.Items>
+                    {({ name }) => (
+                      <>
+                        <KeyProbe />
+                        <Input label={`sibling-${name}`} name={name} />
+                      </>
+                    )}
+                  </ArrayField.Items>
+                )}
+              </ArrayField>
+            </Form>
+          </>
+        );
+      };
+
+      const { getAllByTestId, getByText } = render(<Parent />);
+      const before = keysOf(getAllByTestId);
+
+      act(() => {
+        fireEvent.click(getByText('New Values'));
+      });
+
+      // Genuinely new initial values still rebuild the items.
+      expect(keysOf(getAllByTestId)).not.toEqual(before);
+    });
+  });
 
 });

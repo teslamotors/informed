@@ -7,6 +7,7 @@ import {
 } from '../Context';
 import { useUpdateEffect } from './useUpdateEffect';
 import { useInformed } from './useInformed';
+import { isDeepEqual } from '../utils';
 // import { SchemaFields } from '../components/SchemaFields';
 import { Debug } from '../debug';
 const logger = Debug('informed:useForm' + '\t');
@@ -211,8 +212,19 @@ export const useForm = ({
     return formController.getFormApi();
   }, []);
 
+  // The initial values we last acted on. Compared structurally, because a new
+  // object identity is not the same thing as new initial values: passing an
+  // inline object literal (`initialValues={{ name: 'Joe' }}`) is the ordinary
+  // React idiom, and it produces a fresh object on every single render.
+  const appliedInitialValues = useRef(initialValues);
+
   useUpdateEffect(
     () => {
+      if (isDeepEqual(appliedInitialValues.current, initialValues)) {
+        logger('Ignoring initial values that were rebuilt but did not change');
+        return;
+      }
+      appliedInitialValues.current = initialValues;
       // If the form is pristine then reset it when we get new initial values !
       const { pristine } = formApi.getFormState();
       if (pristine) {

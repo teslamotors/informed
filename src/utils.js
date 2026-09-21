@@ -11,6 +11,56 @@ export const uuidv4 = () => {
   });
 };
 
+/**
+ * Structural equality for the plain data that flows through informed
+ * (values, initial values, errors): primitives, arrays, plain objects and
+ * dates.
+ *
+ * Used to tell an genuinely new object apart from the same object rebuilt by
+ * a re render, which React's identity comparison cannot do.
+ *
+ * Functions and class instances other than `Date` fall back to identity, which
+ * errs on the side of reporting "not equal".
+ *
+ * Note: assumes acyclic data, as the rest of this library does.
+ *
+ * @param {*} a
+ * @param {*} b
+ * @returns {boolean} whether the two are structurally equal
+ */
+export const isDeepEqual = (a, b) => {
+  // Handles primitives, identical references, and NaN.
+  if (Object.is(a, b)) {
+    return true;
+  }
+  if (
+    typeof a !== 'object' ||
+    typeof b !== 'object' ||
+    a === null ||
+    b === null
+  ) {
+    return false;
+  }
+  if (a instanceof Date || b instanceof Date) {
+    return (
+      a instanceof Date && b instanceof Date && a.getTime() === b.getTime()
+    );
+  }
+  if (Array.isArray(a) !== Array.isArray(b)) {
+    return false;
+  }
+  const aKeys = Object.keys(a);
+  const bKeys = Object.keys(b);
+  if (aKeys.length !== bKeys.length) {
+    return false;
+  }
+  return aKeys.every(
+    key =>
+      Object.prototype.hasOwnProperty.call(b, key) &&
+      isDeepEqual(a[key], b[key])
+  );
+};
+
 export const getParentPath = name => {
   // Example friends >>>> friends
   // Example father.name >>>> father

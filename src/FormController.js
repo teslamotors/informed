@@ -1326,19 +1326,38 @@ export class FormController {
       '----------------------------- Resetting Form -----------------------------'
     );
 
+    const { values, resetValues = true } = options;
+
     // There are cases where we dont want to blow away all the form values
     if (this.options.current.resetOnlyOnscreen) {
       debug('Resetting only onscreen inputs');
-      this.state.initialValues = this.options.current.initialValues ?? {};
+      this.state.initialValues =
+        values ?? this.options.current.initialValues ?? {};
       this.fieldsMap.forEach(fieldMeta => {
         fieldMeta.current.fieldApi.reset({ resetValue: resetValues });
       });
 
+      // Need to peform validation at the end where all values have now been reset
+      // Otherwise a validateOnMount validation that looks at another field would
+      // run against a form that is only half way through its reset
+      this.fieldsMap.forEach(fieldMeta => {
+        if (fieldMeta.current.validateOnMount) {
+          debug(
+            `Re-validating the field, ${
+              fieldMeta.current.name
+            } due to a reset and validateOnMount`
+          );
+          fieldMeta.current.fieldApi.validate();
+        }
+      });
+
+      debug(
+        '----------------------------- END Resetting Form -----------------------------'
+      );
+
       this.emit('reset');
       return;
     }
-
-    const { values, resetValues = true } = options;
 
     this.state = {
       pristine: true,

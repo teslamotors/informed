@@ -140,6 +140,8 @@ export class FormController {
     this.setFocused = this.setFocused.bind(this);
     this.getError = this.getError.bind(this);
     this.setError = this.setError.bind(this);
+    this.setErrors = this.setErrors.bind(this);
+    this.setTheseErrors = this.setTheseErrors.bind(this);
     this.reset = this.reset.bind(this);
     this.validate = this.validate.bind(this);
     this.asyncValidate = this.asyncValidate.bind(this);
@@ -731,6 +733,63 @@ export class FormController {
     this.emit('field', name);
   }
 
+  /**
+   * Sets the error of every field in the form at once.
+   *
+   * The errors object is shaped like the form, so nested and array fields are
+   * addressed the same way they are in `setValues`:
+   *
+   *     formApi.setErrors({ email: 'already exists', friends: [{ name: 'required' }] });
+   *
+   * A field with no entry in `errors` has its error cleared, mirroring
+   * `setValues`. Use `setTheseErrors` to leave the other fields alone.
+   *
+   * Only fields that are currently registered are updated.
+   *
+   * @param {Object} errors Error object shaped like the form.
+   */
+  setErrors(errors) {
+    debug('Setting errors', errors);
+    this.fieldsMap.forEach(fieldMeta => {
+      const { name } = fieldMeta.current;
+      ObjectMap.set(this.state.errors, name, ObjectMap.get(errors, name));
+    });
+    // One pass for the whole form, instead of a re-render per field.
+    this.updateValid();
+    this.emit('field', '_ALL_');
+  }
+
+  /**
+   * Sets the errors that are present in the errors object, leaving the error
+   * of every other field untouched.
+   *
+   * This is the error equivalent of `setTheseValues`, and is what you usually
+   * want for server side validation, where the response only mentions the
+   * fields that failed:
+   *
+   *     formApi.setTheseErrors(await res.json());
+   *
+   * Because an absent error is how a field says it is valid, this cannot be
+   * used to clear an error. Use `setErrors` or `clearError` for that.
+   *
+   * Only fields that are currently registered are updated.
+   *
+   * @param {Object} errors Error object shaped like the form.
+   */
+  setTheseErrors(errors) {
+    debug('Setting these errors', errors);
+    this.fieldsMap.forEach(fieldMeta => {
+      const { name } = fieldMeta.current;
+      const error = ObjectMap.get(errors, name);
+      // Only set if it is there
+      if (error != null) {
+        ObjectMap.set(this.state.errors, name, error);
+      }
+    });
+    this.updateValid();
+    this.emit('field', '_ALL_');
+  }
+
   getInitialValue(name) {
     return ObjectMap.get(this.state.initialValues, name);
   }
@@ -797,6 +856,8 @@ export class FormController {
       setTouched: this.setTouched,
       getError: this.getError,
       setError: this.setError,
+      setErrors: this.setErrors,
+      setTheseErrors: this.setTheseErrors,
       getFocused: this.getFocused,
       setFocused: this.setFocused,
       getData: this.getData,

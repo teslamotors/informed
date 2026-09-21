@@ -67,6 +67,21 @@ const Buttons = () => {
       </Button>
       <Button
         type="button"
+        onClick={() =>
+          formApi.setErrors({
+            name: 'That name is taken',
+            age: 'Must be over 21'
+          })
+        }>
+        Set Errors
+      </Button>
+      <Button
+        type="button"
+        onClick={() => formApi.setTheseErrors({ phone: 'Invalid number' })}>
+        Set These Errors
+      </Button>
+      <Button
+        type="button"
         onClick={() => formApi.clearValue('name')}>
         Clear field value ('First Name')
       </Button>

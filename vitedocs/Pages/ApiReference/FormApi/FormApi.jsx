@@ -217,6 +217,33 @@ export default function FormState() {
           </Row>
           <Row>
             <Cell>
+              <code>setErrors</code>
+            </Cell>
+            <Cell>
+              <Code>setErrors(errors)</Code>
+            </Cell>
+            <Cell>
+              Function that will set all form errors (clearing errors for fields
+              you don't include).
+            </Cell>
+          </Row>
+          <Row>
+            <Cell>
+              <code>setTheseErrors</code>
+            </Cell>
+            <Cell>
+              <Code>setTheseErrors(errors)</Code>
+            </Cell>
+            <Cell>
+              Function that will set some form errors, leaving the rest
+              untouched. Useful for server side validation, where the response
+              only mentions the fields that failed. Note that it cannot clear an
+              error; use <code>setErrors</code> or <code>clearError</code> for
+              that.
+            </Cell>
+          </Row>
+          <Row>
+            <Cell>
               <code>fieldExists</code>
             </Cell>
             <Cell>
